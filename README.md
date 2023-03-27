@@ -1,4 +1,6 @@
-> **You do not have permission to push your changes directly to this branch!** For help, check out the [Student Manual]().
+> **You do not have permission to push your changes directly to this branch!** 
+> Create an alternate branch and open a pull request.
+> For help, check out the [Student Manual]().
 
 # TC3005B.502
 
