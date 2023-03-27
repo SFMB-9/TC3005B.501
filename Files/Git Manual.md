@@ -33,7 +33,7 @@ Review the conflicting Pull Request in detail and ask yourself, per each merge c
 - **Incoming**: refers to changes you made in the branch which you want to incorporate into another branch.
 - **Current**: refers to the state of the documents/variables/values in the original branch that you want to merge into.
 
-If you have questions check the documentation, there are also resources on sites like YouTube that can help you understand Git version control. But personally, one of the best resources available is the free game “Oh My Git!”. You can also check out this handy [Cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/).
+If you have questions check the documentation, there are also resources on sites like YouTube that can help you understand Git version control. But personally, one of the best resources available is the free game [Oh My Git!](https://ohmygit.org/). Furthermore, you may also check out this handy [Cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/).
 
 ← [Manuals](https://github.com/SFMBa01029956/TC3005B.502/tree/manuals)
 
