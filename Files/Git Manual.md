@@ -1,4 +1,5 @@
 # Git Manual
+> Created 27-3-2023
 
 > If you've never touched git/github or just need a brief reinforcement of what you know, a great way to start is with the open-source game [Oh My Git!](https://ohmygit.org/).
 
