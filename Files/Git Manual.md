@@ -18,7 +18,7 @@ You'll be required to assign two or more collaborators to review and approve you
 
 Once the merge is done, delete the branch where you deployed your changes and repeat the process.
 
-# How should a commit be made?
+## How should a commit be made?
 
 Make a commit per component change.
 The name of the commit should briefly and concisely summarize the changes made. But if you need to describe in more detail what you have done, occupy the commit description section.
@@ -27,7 +27,7 @@ The commit is to be set along with any others you might have made for review in 
 
 In the situation of a merge conflict, notify your cell leader or a Project Manager.
 
-# Assesing Merge Conflicts
+## Assesing Merge Conflicts
 
 Review the conflict in detail and ask yourself for each change if you want to leave the version of:
 <Incoming> refers to the changes made in the branch that you want to incorporate into another branch.
