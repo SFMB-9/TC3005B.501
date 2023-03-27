@@ -22,7 +22,7 @@
 | 11 | A01751941  | [Luis Javier Karam Galland](mailto:a01751941@tec.mx)         | [Luisjakg](https://github.com/Luisjakg)             | Luisjakg#1367      | 5555073248   | luisjakg@gmail.com                      |
 | 12 | A01751912  | [Mateo Herrera Lavalle](mailto:a01751912@tec.mx)             | [MateoHerrera0](https://github.com/MateoHerrera0)   | Mat#0246           | 5628486354   | P14t0n@proton.me                        |
 | 13 | A01029956  | [Salvador Federico Milanés Braniff](mailto:a01029956@tec.mx) | [SFMBa01029956](https://github.com/SFMBa01029956)   | Salva4456#0437     | 5539048968   | salvadormilanesbraniff@gmail.com        |
-| 14 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852     | 5587918611   | sebastian.gonzalez.villacorta@gmial.com |
+| 14 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852     | 5587918611   | sebastian.gonzalez.villacorta@gmail.com |
 
 ## Working Cells
 
