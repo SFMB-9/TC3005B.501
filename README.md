@@ -1,9 +1,11 @@
 > **This branch is Read-only!**
 
-> Refer to these Manuals for development in [TC3005B.501](https://github.com/SFMBa01029956/TC3005B.501).
+
 
 # Manuals
 > Created 27-3-2023
+
+Refer to these Manuals for development in [TC3005B.501](https://github.com/SFMBa01029956/TC3005B.501).
 
 ## Contents
 ### 1. [Student Manual](https://github.com/SFMBa01029956/TC3005B.502/blob/manuals/Files/Student%20Manual.md)
