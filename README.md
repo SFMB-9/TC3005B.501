@@ -1,6 +1,6 @@
 > **You do not have permission to push your changes directly to this branch!** 
 > 
-> Create an alternate branch and open a pull request. For help, check out the [Student Manual](https://github.com/SFMBa01029956/TC3005B.502/blob/manuals/Files/Student%20Manual.md).
+> Create an alternate branch and issue a Pull Request. For help, check out the [Student Manual](https://github.com/SFMBa01029956/TC3005B.502/blob/manuals/Files/Student%20Manual.md).
 
 # TC3005B.502
 
