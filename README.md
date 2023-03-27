@@ -3,6 +3,7 @@
 > Create an alternate branch and issue a Pull Request. For help, check out the [Student Manual](https://github.com/SFMBa01029956/TC3005B.502/blob/manuals/Files/Student%20Manual.md).
 
 # TC3005B.502
+> Created 26-3-2023
 
 ## Collaborators
 
@@ -28,5 +29,3 @@
 ### Working Cell 3
 ### Working Cell 4
 ### Working Cell 5
-
-> Created 27-3-2023
