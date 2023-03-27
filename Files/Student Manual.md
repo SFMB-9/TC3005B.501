@@ -1,4 +1,5 @@
 # Student Manual
+> Created 27-3-2023
 
 This Repository contains the vehicle purchase solution for NDS.
 Development will follow the standards described in the [Git Manual](https://github.com/SFMBa01029956/TC3005B.502/blob/manuals/Files/Git%20Manual.md).
