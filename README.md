@@ -36,6 +36,7 @@
 
 ## Arquitectura
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
+2. Equipo 4 - No paso las revisiones de los profesores.
 
 ## Working Cells
 
