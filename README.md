@@ -28,12 +28,15 @@
 
 ## SRS Documents
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
+2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/SRS.md
 
 ## Plan de Pruebas
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
+2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/Testing.md
 
 ## Arquitectura
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
+2. Equipo 4 - No paso las revisiones de los profesores.
 
 ## Working Cells
 
