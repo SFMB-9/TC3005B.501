@@ -27,17 +27,21 @@
 | 16 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852        | 5587918611   | sebastian.gonzalez.villacorta@gmail.com |
 
 ## SRS Documents
+1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/SRS.md
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
 2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/SRS.md
 
 ## Historias de Usuario
+1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/UserStories.md
 1. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing 
 
 ## Plan de Pruebas
+1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/TestingPlan.md
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
 2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/Testing.md
 
 ## Arquitectura
+1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/Diagrams/ArchitectureDiagram.png
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
 2. Equipo 4 - No paso las revisiones de los profesores.
 
