@@ -27,6 +27,9 @@
 ## SRS Documents
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
 
+## Plan de Pruebas
+1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
+
 ## Working Cells
 
 ### Working Cell 1
