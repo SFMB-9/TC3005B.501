@@ -32,6 +32,9 @@
 ## Plan de Pruebas
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
 
+## Arquitectura
+1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
+
 ## Working Cells
 
 ### Working Cell 1
