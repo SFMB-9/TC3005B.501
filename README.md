@@ -30,6 +30,9 @@
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
 2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/SRS.md
 
+## Historias de Usuario
+1. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing 
+
 ## Plan de Pruebas
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
 2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/Testing.md
