@@ -28,18 +28,22 @@
 
 ## SRS Documents
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
-2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/SRS.md
+2. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/SRS.md
+3. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/SRS.md
 
 ## Historias de Usuario
-1. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing 
+1. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing
+2. Equipo 3 - https://docs.google.com/spreadsheets/d/1TAsQq-68xdLPJSP0UamQNiOi60z_PnGhWD6IMvNAeEc/edit?usp=sharing
 
 ## Plan de Pruebas
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
-2. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/Testing.md
+2. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/Documento%20de%20Pruebas.md
+3. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/Testing.md
 
 ## Arquitectura
 1. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
-2. Equipo 4 - No paso las revisiones de los profesores.
+2. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/tree/main/wiki/Docs/Arquitectura
+3. Equipo 4 - No paso las revisiones de los profesores.
 
 ## Working Cells
 
