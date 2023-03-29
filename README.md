@@ -38,6 +38,7 @@
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/UserStories.md
 2. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing
 3. Equipo 3 - https://docs.google.com/spreadsheets/d/1TAsQq-68xdLPJSP0UamQNiOi60z_PnGhWD6IMvNAeEc/edit?usp=sharing
+4. Equipo 4 - https://docs.google.com/spreadsheets/d/1oAylI5ALrz0J27PIv3bp3eEQOPkbJy9K1oqh3j8xet0/edit#gid=1934962646
 
 ## Plan de Pruebas
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/TestingPlan.md
