@@ -5,9 +5,9 @@
 # TC3005B.501
 > Created 26-3-2023
 
-## Collaborators
+## Colaboradores
 
-| #  | Student ID | Student Name                                                 | Github Username                                     | Discord Username      | Phone Number | Personal Email                          |
+| #  | Matrícula | Nombre                                                 | Github Username                                     | Discord Username      | Número de teléfono | Correo Personal                          |
 | -- | ---------- | ------------------------------------------------------------ | --------------------------------------------------- | --------------------- | ------------ | --------------------------------------- |
 | 1  | A01352283  | [A B](mailto:a01352283@tec.mx)                               | [A01352283](https://github.com/A01352283)           | deRedBlob#9829        | 4622372250   | andres.brisenoc@gmail.com               |
 | 2  | A01654063  | [Alexa Serrano Negrete](mailto:a01654063@tec.mx)             | [alexaserr](https://github.com/alexaserr)           | _alexaserr#1653       | 5534613157   | alexasnegrete@icloud.com                |
@@ -29,34 +29,40 @@
 | 18 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852        | 5587918611   | sebastian.gonzalez.villacorta@gmail.com |
 | 19 | A01025459  | [Tonatiuh Reyes Huerta](mailto:a01025459@tec.mx)             | [Trh7101](https://github.com/Trh7101)               | Tona#5143             | 5536533155   | tonatiuhreyes8602@gmail.com             |
 
-## SRS Documents
+## Documento SRS
+> ** ! Sección temporal** Se va a definir un sólo documento SRS.
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/SRS.md
 2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
 3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/SRS.md
 4. Equipo 4 - https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS_Equipo_4.md
 
 ## Historias de Usuario
+> ** ! Sección temporal** Se va a definir un sólo documento de Historias de Usuario.
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/UserStories.md
 2. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing
 3. Equipo 3 - https://docs.google.com/spreadsheets/d/1TAsQq-68xdLPJSP0UamQNiOi60z_PnGhWD6IMvNAeEc/edit?usp=sharing
 4. Equipo 4 - https://docs.google.com/spreadsheets/d/1oAylI5ALrz0J27PIv3bp3eEQOPkbJy9K1oqh3j8xet0/edit#gid=1934962646
 
 ## Plan de Pruebas
+> ** ! Sección temporal** Se va a definir un sólo documento de Plan de Pruebas.
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/TestingPlan.md
 2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
 3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/Documento%20de%20Pruebas.md
 4. Equipo 4 - https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Testing.md
 
 ## Arquitectura
+> ** ! Sección temporal** Se va a definir un sólo diagrama de Arquitectura.
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/Diagrams/ArchitectureDiagram.png
 2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
 3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/tree/main/wiki/Docs/Arquitectura
 4. Equipo 4 - No paso las revisiones de los profesores.
 
-## Working Cells
+## Células de desarrollo
 
-### Working Cell 1
-### Working Cell 2
-### Working Cell 3
-### Working Cell 4
-### Working Cell 5
+### Célula 1
+### Célula 2
+### Célula 3
+### Célula 4
+### Célula 5
+
+[Manuales →](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
