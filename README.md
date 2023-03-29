@@ -31,6 +31,8 @@
 
 ## Documento SRS
 > ** ! Sección temporal** Se va a definir un sólo documento SRS.
+[SRS "final" →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS.md)
+
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/SRS.md
 2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
 3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/SRS.md
