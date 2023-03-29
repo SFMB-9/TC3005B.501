@@ -43,7 +43,7 @@
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/TestingPlan.md
 2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
 3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/Documento%20de%20Pruebas.md
-4. Equipo 4 - https://github.com/alfredoPark-48/IATech/blob/main/Testing.md
+4. Equipo 4 - https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Testing.md
 
 ## Arquitectura
 1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/Diagrams/ArchitectureDiagram.png
