@@ -24,9 +24,7 @@ Conversion notes:
 * This document has images: check for >>>>>  gd2md-html alert:  inline image link in generated source and store images to your server. NOTE: Images in exported zip file from Google Docs may not appear in  the same order as they do in your doc. Please check the images!
 
 ----->
->** Temporary file!
 
-> SRS Equipo 4 - (Hosting Repo was private)
 
 <p style="text-align: right">
 <strong>	</strong></p>
@@ -158,7 +156,7 @@ This is a completely new product, so the entire ecosystem will be created from s
     5. 
 User Classes and Characteristics
 
-![alt_text](images/UserClassesandCharacteristics.png "User_Classes_and_Characteristics")
+![alt_text](images/UserClassesandCharacteristics.png "image_tooltip")
 
 
 
@@ -525,31 +523,31 @@ System Features
 The following section presents the use case diagrams, which logically describe the operation of the system and the interactions between the user and the application. Below are the use case diagrams that describe in a general way the system in two levels of depth.
 
 
-![alt_text](images/CaseUseL0.png "Case_Uses_Level0")
+![alt_text](images/CaseUseL0.png "image_tooltip")
 
 
 Case use of the system - Level 0
 
 
-![alt_text](images/CaseUseL1.png "Case_Uses_Level1")
+![alt_text](images/CaseUseL1.png "image_tooltip")
 
 
 Use case of the system - Level 1 Selling Platform
 
 
-![alt_text](images/CaseUseL1Man.png "Case_Uses_Level1_Manager")
+![alt_text](images/CaseUseL1Man.png "image_tooltip")
 
 
 Use case of the system - Level 1 Management platform
 
 
-![alt_text](images/CaseUseL1Acc.png "Case_Uses_Level1_Account_Settings")
+![alt_text](images/CaseUseL1Acc.png "image_tooltip")
 
 
 Use case of the system - Level 1 Account Processing
 
 
-![alt_text](images/CaseUseL1Sec.png "Case_Uses_Level1_Security")
+![alt_text](images/CaseUseL1Sec.png "image_tooltip")
 
 
 Use case of the system - Level 1 Security
@@ -560,37 +558,37 @@ Use case of the system - Level 1 Security
 Below are the activity diagrams for each of the actions that can be performed by the user within the platform. In this way, the main objective is to concretely capture the operation of the processes that constitute the application, thus having greater control and organization at the time of evaluating or contemplating a rethinking in its line of operation
 
 
-![alt_text](images/ADacc.png "Activity_Diagram_Account")
+![alt_text](images/ADacc.png "image_tooltip")
 
 
 Create account
 
 
-![alt_text](images/ADlog.png "Activity_Diagram_login")
+![alt_text](images/ADlog.png "image_tooltip")
 
 
 Login
 
 
-![alt_text](images/ADHome.png "Activity_Diagram_homepage")
+![alt_text](images/ADHome.png "image_tooltip")
 
 
 Home page
 
 
-![alt_text](images/ADbuy.png "Activity_Diagram_buy_car")
+![alt_text](images/ADbuy.png "image_tooltip")
 
 
 Buy car page
 
 
-![alt_text](images/ADappo.png "Activity_Diagram_drive_appointment")
+![alt_text](images/ADappo.png "image_tooltip")
 
 
 Schedule driving appointment page
 
 
-![alt_text](images/ADchatbot.png "Activity_Diagram_chatbot")
+![alt_text](images/ADchatbot.png "image_tooltip")
 
 
 Chatbot page
@@ -647,7 +645,7 @@ Agency statistics page
 ## Architecture diagram
 
 
-![alt_text](images/ArchDiagram.png "image_tooltip")
+![alt_text](images/SW_Architecture.png "image_tooltip")
 
 
 Software Architecture
@@ -725,8 +723,7 @@ Stimulus/Response Sequences
 
 
 
-        3. 
-Functional Requirements
+# Functional Requirements
 This feature corresponds to the 12 functional requirement mentioned above.
 
 
@@ -744,28 +741,24 @@ This feature corresponds to the 12 functional requirement mentioned above.
 
 
 
-4. 
-Data Requirements
+# Data Requirements
 
 
-    10. 
-Logical Data Model
+## Logical Data Model
 
 ![alt_text](images/software_planning.png "image_tooltip")
 
 
 
 
-    11. 
-Reports
+## Reports
 The platform will provide reports for different types of users. For the Super Admin, a personalized dashboard where they can modify the time parameters and specific pages they want to analyze will be shown. These parameters may include HTTP Error Percentage, and both Logged and Thrown Exceptions. They are especially useful for the maintenance of the web application, as well as for the user perception consideration. The Super Admin may also see an Apdex Score per process for all users, and the Agency Managers may as well see this score, but only for the selling process and the invested time of potential buyers on their specific brand. 
 
 For the Agencies, they will also be able to view a personalized dashboard with personalized data sets, including the interpretation of their most common buyers’ profile and preferences, as well as information regarding the performance of the Salesmen and Managers, including specified details on average response time to customers, information approval, and a customer’s preference comparative, analyzing budget vs liking’s. 
 
 
 
-    12. 
-Data Acquisition, Integrity, Retention, and Disposal
+## Data Acquisition, Integrity, Retention, and Disposal
 The table below specifies the logical process for each user and their inputs or outputs.
 
 
@@ -867,12 +860,10 @@ The table below specifies the logical process for each user and their inputs or 
 
 
 
-5. 
-External Interface Requirements
+# External Interface Requirements
 
 
-    13. 
-User Interfaces
+## User Interfaces
 The user interface will have various aspects to help provide the best user experience, starting with a monochromatic, achromatic, and neutral color scheme. The platform will also use a legible font size and typeface to attract and hold users attention, using KoHo typeface and a size larger than 12 point. This program will also use buttons, icons and other interactive elements, therefore, a minimalist iconography standard must be kept next with reactive elements. 
 
 For UX, the web app will display a browser with access to the main portals through a hyperlinked navigation bar at all portals, as well as showing accessibility text in all filters and relevant information by using help-text and alt-text in buttons and images. Next are some early prototypes examples:
@@ -891,8 +882,7 @@ For UX, the web app will display a browser with access to the main portals throu
 
 
 
-    14. 
-Software Interfaces
+### Software Interfaces
 For the application, the decision was made to use React.js as the front-end, as its simple syntax allows other developers to easily integrate into the project and work alongside the pre-existing development team. It allows for reusable components to keep the code clean and DRY. React is infamous for creating rich UI, supporting other front-end libraries such as Bootstrap or Material UI, as well as having a very strong community support. Regarding the choice of front-end libraries there are many options, the two most popular being Bootstrap 4 or Material UI, however it was concluded that the complete design will be originally created by the front-end developers.
 
 For the back-end, Node.js will be used due to its easy integration with React applications, as well as for its efficiency and flexibility for building fast and scalable applications. Node.js is very good for building serverless and microservice-based applications due to its flexibility.
@@ -901,24 +891,21 @@ Two databases will be used, a relational and a non-relational. The first being M
 
 
 
-    15. 
-Hardware Interfaces
+### Hardware Interfaces
 Regarding hardware, the only hardware any user requires is a computer or a mobile device (smartphone or tablet) with the ability to connect to the internet.
 
 
 
-    16. 
-Communications Interfaces
+### Communications Interfaces
 Important notifications to customers will be via email, when an order is created, when a driving appointment is made, when any part of the purchase is completed and at the end of the purchase process. Communication with the chatbot will be encrypted and limited to once the chat is closed, the conversation will be deleted. Other means of communication will already be the choice of the customer and the sellers, via email or telephone.
 
 
 
-6. 
-Quality Attributes
+## Quality Attributes
 
 
-    17. 
-Usability
+ 
+### Usability
 The platform is designed to support and embrace lots of information. However, when selling something, simplicity is key. In such a way, the web-app foresees making a simple platform with high interactivity. This would be ensured by making it easy to decipher and explore. The easiest way of making this is through a proper taxonomy, hence making it a simple structure.
 
 As well, the webpage is meant to have a high efficiency, as buyers should be able to visualize the cars they are interested in either after completing the “personality test”, or after searching the models they would like to own. A different way to provide an efficient experience for the users would be for the customer to be able to navigate from one place to another in less than three steps. Continuously, adding a Breadcrumb Navigation where buyers could go back to the different options they have seen, and jump a step back if they missed a step would help the final client to find it easier to use the app.
@@ -927,8 +914,7 @@ Some platform pages, such as the Login, Registry, Tests, Chatbot, and Settings w
 
 
 
-    18. 
-Performance
+### Performance
 The designed platform would include for the Super Admin an administrative view in which an Apdex Score of each process would be shown. The evaluation of the satisfactory performance would equate to an average or above average time in each process. Regarding the buyers, it would be evaluating the time they took to complete the test, as well as how long it took to choose a vehicle. For the agencies’ managers and sellers, the main evaluation would be surrounding assignment and distribution of tasks.
 
 The whole system works on the AWS Cloud to make it more accessible for the development team to focus on product development. Continuously, by maintaining the architecture serverless, the managed services (DB and APIs) would operate at cloud level. 
@@ -937,8 +923,7 @@ As one-dimensional qualities, some important features would be the measurement o
 
 
 
-    19. 
-Security
+### Security
 The platform’s security would include user authentication on the login through the validation of credentials (password and username). This data will be kept on the MySQL DB as protected information. For validation purposes, when an account is recently registered, access authorization will be required via email. An asymmetric PKI environment could be configured for the optimization of the security processes. This environment would use cryptographic keys for the exchange of information between buyers and sellers.
 
 This environment would be supported by the IETF standardized SSL protocol, which protects the communication channel through the multistep transactions (constant exchange of information). Application level security would be needed to complement the previous protocol. This would work through XML Encryption, which defines the way in which data is encrypted and decrypted, but specifically through XML Signature, providing security to the private document exchange and signature.
@@ -980,7 +965,7 @@ Safety
    </td>
    <td>It is not possible (for technical reasons) to meet a functional requirement in a timely manner
    </td>
-   <td>Assigning more workforce to complete the requirement, otherwise extend the deadline
+   <td>Reassign more work force from non functional requirements implementation to complete the requirement. Otherwise extend the deadline.
    </td>
    <td>Alexa
    </td>
@@ -990,7 +975,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>3
+   <td>2
    </td>
    <td>Unexpected change in dependencies y licenses
    </td>
@@ -998,7 +983,7 @@ Safety
    </td>
    <td>Any unforeseen modification in the software licenses of the project's dependencies modifies their use or requires replacement
    </td>
-   <td>To know other dependencies that we could use to perform the same actions
+   <td>Seek for oher dependencies that could be used. While on it use reassign the workers to other parts to not completely stop the development.
    </td>
    <td>Alexa
    </td>
@@ -1008,7 +993,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>2
+   <td>3
    </td>
    <td>Scope deviation
    </td>
@@ -1084,7 +1069,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>10
+   <td>7
    </td>
    <td>Off schedule
    </td>
@@ -1102,7 +1087,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>7
+   <td>8
    </td>
    <td>Team member sickness or leaving
    </td>
@@ -1110,7 +1095,7 @@ Safety
    </td>
    <td>One team member leaves the project or cannot work for personal reasons
    </td>
-   <td>Assign more work load to other team members and increase their payment
+   <td>Assign more work load to other team members and increase their payment. Seek for more team members or external help.
    </td>
    <td>Andrea
    </td>
@@ -1120,7 +1105,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>8
+   <td>9
    </td>
    <td>Training in new technologies
    </td>
@@ -1138,7 +1123,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>9
+   <td>10
    </td>
    <td>Data theft
    </td>
@@ -1160,7 +1145,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>13
+   <td>11
    </td>
    <td>Bug infestation
    </td>
@@ -1168,7 +1153,7 @@ Safety
    </td>
    <td>More bugs than expected 
    </td>
-   <td>Assign more to correction, stop development of non-functional requirements, extend delivery date
+   <td>Stop the development of non functional requirements. Send that work force to correction of bugs.
    </td>
    <td>Tonatiuh and Alfredo
    </td>
@@ -1178,7 +1163,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>16
+   <td>12
    </td>
    <td>Test cases failure
    </td>
@@ -1196,7 +1181,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>17
+   <td>13
    </td>
    <td>Version management error
    </td>
@@ -1214,7 +1199,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>11
+   <td>14
    </td>
    <td>Bad coding practices
    </td>
@@ -1232,7 +1217,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>14
+   <td>15
    </td>
    <td>A cyber-attack may occur
    </td>
@@ -1254,7 +1239,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>18
+   <td>16
    </td>
    <td>Non-functioning APIs
    </td>
@@ -1272,7 +1257,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>19
+   <td>17
    </td>
    <td>DB bad management
    </td>
@@ -1290,7 +1275,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>20
+   <td>18
    </td>
    <td>Insufficient server capacity
    </td>
@@ -1312,7 +1297,7 @@ Safety
    </td>
   </tr>
   <tr>
-   <td>12
+   <td>19
    </td>
    <td>Loss of information
    </td>
@@ -1373,5 +1358,3 @@ PKI.- Private Key Infrastructure
 IETF.- Internet Engineering Task Force
 
 SSL.- Secure Socket Layer
-
-← [Home](https://github.com/SFMBa01029956/TC3005B.501)
