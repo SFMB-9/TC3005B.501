@@ -100,7 +100,9 @@
     9.5. [Administración de Riesgos](#5-administración-de-riesgos) 
 # 1. Introducción
 > Pendiente a validar por todo el grupo
+  
 > By team 1
+  
 <p align="justify"> El objetivo de este documento es recopilar, analizar y brindar una visión profunda de la aplicación web para NDS Cognitive Labs, definiendo el problema y la solución en detalle. El documento también concentra las capacidades requeridas por todos los stakeholders y sus necesidades definiendo las características del producto.
 
 <p align="justify"> Nuestra misión para este proyecto es hacer el proceso de compra de un auto más fácil y conveniente para el usuario digitalizando dicho proceso. Esto planeamos lograrlo creando una plataforma confiable, transparente y de fácil acceso en la que los clientes puedan tomar decisiones informadas basadas en información confiable y recomendaciones profesionales. Nuestro compromiso con nuestros clientes es ofrecerles una gama variada de autos a través de agencias y grupos automotrices previamente verificadas en nuestra plataforma. El problema que nuestra propuesta busca solucionar lo inconventiente que se ha vuelto el proceso de adquisición de un vehículo, tanto para las agencias que no tienen acceso a un equipo de TI como para los compradores que pueden tardar meses en el proceso.
@@ -117,10 +119,14 @@
     <li> La protección de datos de usuarios
 </ol>
 ## 1.2. Enfoque y Alcances
+  
 > Pendiente a validar por todo el grupo
-> By teams 1,2
+>
 > Comparar con team 4
-El enfoque de este proecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el pais donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
+  
+> By teams 1,2
+  
+El enfoque de este proyecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el pais donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 1. Elegir un vehículo desde un amplio catálogo, 
 2. Encuentre planes de financiamiento que se adapten a sus necesidades,  
 4. Solicitar una prueba de manejo si así lo desea, 
@@ -164,7 +170,9 @@ Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como
 6. _Implemente análisis predictivos:_ al terminar el proyecto, con el lanzamiento de la aplicación (si existen recursos disponibles), se pretende mejorar el uso de análisis predictivo con el objetivo de estudiar los datos de los clientes y ofrecer sugerencias de automóviles individuales, lo que lleva a un aumento en la satisfacción del cliente.
 ## 1.4. Convenciones de Documento
 > Pendiente a validar por todo el grupo
+  
 > By team 1
+  
 | Concepto   | Descripción       |  
 | :---------:|:-------------     | 
 | SQL        | Structured Query Language, lenguaje de programación para almacenar y procesar información en una base de datos relacional|                           
@@ -174,19 +182,27 @@ Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como
 | Stack Tecnológico | Ecosistema tecnológico, conjunto de lineamientos, servicios y softwares que componen un aplicación |
 ## 1.5. Referencias
 > Pendiente a validar por todo el grupo
+  
 > By team 1
+  
 "IEEE Guide for Software Requirements Specifications," in IEEE Std 830-1984 , vol., no., pp.1-26, 10 Feb. 1984, doi: 10.1109/IEEESTD.1984.119205. https://ieeexplore.ieee.org/document/278253
 # 2. Descripción General
 ## 2.1. Perspectiva del Producto
+  
 > Pendiente a validar por todo el grupo
+  
 > By team 1,2
+  
 La aplicación busca ser un servicio e-commerce donde un usuario comprador tenga la oportunidad de comprar un vehículo de forma intuitiva, amigable, segura y digital. NDS Cognitive Labs es una consultora internacional especializada en el diseño y desarrollo de soluciones de software de tiempo real que van desde Inteligencia Artificial a Nube. 
 
 La idea del servicio pretende trabajar con tecnologías emergentes para facilitar el proceso de adquisión de un vehículo de agencia.
 
 > ! Adjuntar imagen del diagrama hecho por el equipo 1 - 33 VLANs Studio
+  
 ## 2.2. Clases de Usuario y Características
+  
 > Validado !
+  
 1. _Usuario Comprdador_ <br>
 
 2. _Usuario Vendedor_
@@ -197,12 +213,18 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 5. _Usuario Super-Administrador_
 ## 2.3. Ambiente de Desarrollo
+  
 > Pendiente a definir por todo el grupo
+>
 > Comparar teams 2,3; team 3 usa google a diferencia del resto que ocupa AWS.
+  
 (Tech Stack)
+
 ## 2.4. Restricciones de Implementación y Diseño
 > Pendiente a validar por todo el grupo
+  
 > By teams 1,2
+  
 El dueño de proyecto no ha establecido restricciones explicitas con respecto a las herramientas para el desarrollo, pues el proyecto pretende funcionar unicamente como prueba de concepto. Por lo tanto, las unicas restricciones son en relacion a los recursos disponibles.
 
 Este proyecto no tendra financiamiento externo. La posibilidad de implementacion de la arquitectura propuesta puede ajustarse a opciones mas viables economicamente, pero no se limita a alternativas open-source.
@@ -213,15 +235,22 @@ En términos del diseño:
 1. Solamente se aceptarán grupos automotrices y agencias como participantes en el sistema, y no individuos.
 2. El sistema tendrá uso de nube (cloud) SaaS.
 3. (Nombre del equipo desarrollador) no proveerá mantenimiento ni soporte al sistema.
+  
 ## 2.5. Suposiciones y Dependencias
+  
 > Pendiente a definir por todo el grupo
+  
 ## 2.6. Casos de Uso
-> Pendiente a definir por todo el grupo
+  
+> Pendiente a validar por todo el grupo
+  
 > By team 1
+  
 > ! Traducir
-
+>
+> ! No será mejor tenerlo en su propio .md ? - Salva
+  
 **2.6.1 General**
-
 | Name of Use Case: | Sign-up |
 | --- | --- |
 | Created By: | Equipo 1 |
@@ -686,12 +715,15 @@ En términos del diseño:
 
 ## 3.1. Requerimientos Funcionales
 > Pendiente a definir por todo el grupo
+>
 > Revisar teams 1,2
+  
 ## 3.2. Requerimientos No Funcionales
 > Pendiente a definir por todo el grupo
 
 ## 3.3. Diagramas de Casos de Uso
 > Pendiente a definir por todo el grupo
+  
 # 4. Requerimientos de Datos
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
 ### Primera Versión
@@ -702,7 +734,9 @@ En términos del diseño:
 
 ## 4.3. Reportes
 > Pendiente a validar por todo el grupo
+  
 > By teams 1,2
+  
 Se busca que la plataforma sea capaz de producir diferentes estádisticas y dependiendo el rol del usuario y sus permisos se le muestran diferentes datos y aspectos de la plataforma. Algunas de las estadísticas que se pretenden mostrar en la aplicación son:
 
 1. Ventas de cada vendedor, agencia y grupo automotriz, pruebas de manejo por agencia.
@@ -717,13 +751,16 @@ Por otra parte, la app generará los siguientes logs:
 
 ## 4.4. Adquisición de Datos, Integridad, Retención y Eliminación
 > Pendiente a definir por todo el grupo
+  
 # 5. Requerimientos de Interfaz Externas
 > Pendiente a definir por todo el grupo
+  
 <p>
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
 > Pendiente a definir por todo el grupo
+>
 > Comparar teams 1(5.1) con diagramas de proceso de team 1.
 
 > Revisar concepto de diagrama de secuencia
@@ -751,19 +788,24 @@ Por otra parte, la app generará los siguientes logs:
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
 > Pendiente a definir por todo el grupo
+>
 > Comparar e incorporar teams 1,2,3
+  
 ### Componentes
-> Pendiente a definir por todo el grupo
-> (Descripcion de la arquitectura)
+> Pendiente a definir por todo el grupo (Descripcion de la arquitectura).
 
 ## 5.3. Interfaces de Hardware
 ### No aplica
 
 ## 5.4. Interfaces de Comunicación
 > Pendiente a definir por todo el grupo
+  
 # 6. Atributos de Calidad
 ## 6.1. Usabilidad
 > Pendiente a validar por todo el grupo
+  
+> By team 2
+  
 * <b>Interfaz Fácil de Usar:</b> La plataforma debe tener una interfaz clara e intuitiva que facilite a los usuarios la navegación y la búsqueda de la información que necesitan.
   
 * <b>Interfaz Responsiva:</b> Cada una de las interfaces y diseño de la plataforma deberá ser responsive, es decir, accesible y funcional en distintos dispositivos y tamaños de pantalla (computadora, tablet, teléfono). 
@@ -774,6 +816,9 @@ Por otra parte, la app generará los siguientes logs:
 
 ## 6.2. Rendimiento
 > Pendiente a validar por todo el grupo
+  
+> By team 2
+  
 * Tiempo de carga de la Página:</b> La plataforma debe cargarse rápidamente, idealmente en unos segundos o menos, para garantizar una experiencia de usuario positiva y ágil.
 
 * <b>Capacidad de Respuesta:</b> La plataforma debe responder rápidamente a las interacciones del usuario, como clics, toques y deslizamientos, proporcionando una experiencia de usuario fluida e intuitiva.
@@ -786,6 +831,9 @@ Por otra parte, la app generará los siguientes logs:
 
 ## 6.3. Seguridad
 > Pendiente a validar por todo el grupo
+  
+> By team 2
+  
 * <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su interceptación y manipulación.
   
 * <b>Autenticación:</b> La página web debe utilizar mecanismos de autenticación fuertes como JWT tokens o Cookies para verificar la identidad de los usuarios y evitar escalamiento de privilegios.
@@ -800,6 +848,9 @@ Por otra parte, la app generará los siguientes logs:
 
 ## 6.4. Protección
 > Pendiente a validar por todo el grupo
+  
+> By team 2
+  
 * <b>Backup y Recuperación:</b> La plataforma debe contar con un plan de backup y recuperación para garantizar que los datos puedan restaurarse en caso de pérdida de datos o fallo del sistema.
   
 * <b>Redundancia:</b> La plataforma debe contar con sistemas redundantes para garantizar que la página web siga disponible incluso en caso de fallo de hardware o software.
@@ -809,11 +860,14 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Hosting:</b> La plataforma debe estar alojada en servidores seguros y fiables, idealmente utilizando un proveedor de alojamiento de confianza como AWS que aplique las medidas de seguridad adecuadas.
 # 7. Internacionalización y Localización de Requerimientos
 > Pendiente a validar por todo el grupo
+  
 Debido a las diferencias legales que se presentan de acuerdo a la región política y geográfica, los requerimientos para la internacionalización y localización de la aplicación dependerán del proveedor, los stakeholders y las legislaciones particulares de cada país. El alcance de la aplicación en ese momento es exclusivo de México.
 # 8. Otros Requerimientos
 ### No aplica
+  
 # 9. Apéndices
 > Agregar ligas a los apéndices
+  
 ## 1. [WBS →]()
 
 ## 2. [Gantt →]()
