@@ -12,10 +12,13 @@
 | 26/02/2023 | 0.1     | Creación del Doc SRS |
 
 <h2 align="center"> Autores
-<!-- <h3 align="center"> Andreína Sanánez -->
+<h3 align="center"> Andreína Sanánez
+<h3 align="center"> Andrew Dunkerley
+<h3 align="center"> Do Hyun Nam
+<h3 align="center"> Emiliano Cabrera
 <h3 align="center"> Karla Mondragón
-<!-- <h3 align="center"> Mateo Herrera 
-<h3 align="center"> Regina Rodríguez -->
+<h3 align="center"> Mateo Herrera 
+<h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
   
 <h1 align="center"> Software Requirements Specification
