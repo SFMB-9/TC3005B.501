@@ -142,13 +142,29 @@ Estos documentos tendrán la función de facilitar el desarrollo de la aplicaci�
 
 ## 2.8 Lista de Objetivos
 
-| No. | Tipo de Prueba | Ejemplo | Dependencia |
-|---|---|---|---|
-|1| Prueba unitaria | Conexión a la base de datos | Bases de datos finalizadas |
-|2|Prueba unitaria | Prueba de autenticación de usuario |Módulo de autenticación finalizado|
-|3|Prueba unitaria|Prueba de registro de usuario|Módulo de registro finalizado|
-|4|Prueba de integración|Prueba de Registro/ autenticación. El usuario es capaz de crear una cuenta y auntenticar esa cuenta|Terminadas las pruebas 1,2,3|
-|5||||
+| **No.** | **Tipo de prueba** | **Ejemplo de prueba** | **Dependencias** |
+| --- | --- | --- | --- |
+| 1 | Prueba unitaria | Conexión de base de datos | Bases de datos finalizadas |
+| 2 | Prueba unitaria | Prueba de autenticación de usuario | Módulo de autenticación finalizado |
+| 3 | Prueba unitaria | Prueba de registro de usuario | Módulo de registro finalizado |
+| 4 | Prueba de integración | Prueba de registro/autenticación de usuario: El usuario es capaz de crear una cuenta y de autenticar esa cuenta | Pruebas unitarias finalizadas: 1, 2, 3 |
+| 5 | Prueba unitaria | Prueba de envío de solicitudes | Módulo de solicitudes finalizado |
+| 6 | Prueba unitaria | Prueba de validación de solicitudes | Módulo de aceptación de solicitudes finalizado |
+| 7 | Prueba de integración | Prueba de manejo de solicitudes: El usuario es capaz de autenticar y enviar una solicitud. El administrador es capaz de autenticar y aceptar/denegar la solicitud | Pruebas unitarias finalizadas: 5, 6 |
+| 8 | Prueba unitaria | Prueba de asignación de Gerentes/Vendedores | Módulo de asignación de Gerentes/Vendedores finalizado |
+| 9 | Prueba de integración | Prueba de integración de Gerentes/Vendedores: Los privilegios de estas cuentas se ven reflejados en la base de datos | Pruebas unitarias finalizadas: 1, 8 |
+| 10 | Prueba unitaria | Prueba de creación de cuentas | Módulo de creación de cuentas finalizado |
+| 11 | Prueba de integración | Prueba de integración de creación de cuentas: La cuenta creada se ve reflejada en la base de datos | Pruebas unitarias finalizadas: 1, 10 |
+| 12 | Prueba unitaria | Prueba de búsqueda de coches | Finalizado: Página inicial y módulos de búsqueda de página |
+| 13 | Prueba de integración | Prueba de integración de búsqueda de coches: Muestar coches filtrados | Pruebas unitarias finalizadas: 1, 12 |
+| 14 | Prueba unitaria | Prueba de compra de coches/prueba de manejo | Módulo de tarjeta de coche finalizado |
+| 15 | Prueba de integración | Prueba de compra de coche/prueba de manejo: Se puede reservar una prueba de manejo y comprar un coche | Pruebas unitarias finalizadas: 1, 12, 14 |
+| 16 | Prueba unitaria | Prueba de subida de modelo | Módulo de subda de modelos finalizado |
+| 17 | Prueba de integración | Prueba unitaria de subida de modelo: Se puede subir un coche y se vera reflejado en la base de datos y en la búsqueda de coches | Pruebas unitarias finalizadas: 1, 12, 14, 16 |
+|| Prueba unitaria | Prueba unitaria de validación de documentos: Se pueden subir documentos y se recibe un booleano que indique su validez | Módulo de validación de documentos finalizado |
+| 18 | Prueba de validación | Hay pocos cambios o nulos. La interfaz está de acuerdo a los estándares del cliente. | Diseño de la interfaz finalizado |
+| 19 | Prueba de validación | Hay pocos cambios o nulos. El programa está completo y funciona de acuerdo a los estándares del cliente. | Programa finalizado |
+| 20 | Prueba de recorrido | Recorrido de todos los usuarios se puede completar | Bases de datos finalizadas, API finalizada, arquitectura de nube finalizada, conexiones finalizadas, implementación de front-end finalizada, implementación de back-end finalizada |
 
 ## 2.9 Estimado de Esfuerzo
 
@@ -158,9 +174,17 @@ Estos documentos tendrán la función de facilitar el desarrollo de la aplicaci�
 ## 3.1 Plan de Ejecución de Pruebas
 
 ## 3.2 Factores de Riesgo y Mitigación de Pruebas
-|Riesgo|Probabilidad|Impacto|Plan de Mitigación|
-|---|---|---|---|
-|s|s|s|s|
+| **Riesgo** | **Probabilidad** | **Impacto** | **Plan de mitigación** |
+| --- | --- | --- | --- |
+| Commits de GitHub poco claros | Media | Bajo | Crear lineamiento de commits, los cuales incluirán instrucciones para presentar cambios, frecuecia y descripciones claras.|
+| Falta de información en reportes de pruebas | Media | Medio | Crear plantillas claras y concisas para reportar los resultados de cada tipo de prueba y checar los resultados de manera inmediata tras completar la prueba, para que si alguna información se encuentra faltante, se puede corregir al momento. |
+| Not indicar finalización de tareas en la tabla de SCRUM | Media | Bajo | Hacer un recordatorio diario, sea hecho por el PM o con ayuda de un recordatiorio ligado a la tera en la tabla. |
+| Inyección de SQL en los campos de campos de entrada | Baja | Alto | Investigar métodos efectivos para la prevención de inyecciones SQL e implementarlos, o usar librerías para prevenirlos. |
+| Clientes teniendo privilegios de administrador | Baja | Alto | Separar la infraestructura de clientes y administradores, al igual que encriptar la información de acceso de los administradores. |
+| El programa no es capaz de manejar el tráfico | Baja | Alto | Revisar repetidamente el plan de arquitectura y revisar la configuración de la implementación para asegurar que todo se encuentre bien conectado e implementado. |
+| Información no es ingresada de manera correcta a la base de datos | Baja | Medio | Durante la etapa de pruebas informales, asegurarse que las queries están estructuradas de manera correcta en la API para que no se envíen queries incorrectas durante el resto de las fases de prueba. |
+| Las bases de datos se llenan de manera demasiado rápida | Media | Medio | Limitar número de queries y tamaño de documentos para que no haya documentos demasiado pesados o spam de queries.|
+| La infromación no se muestar correctamente en el browser del tester | Media | Medio | Asegurar que el prgrama sea funcional en, como mínimo, 2/3 de los browsers más usados del mercado (por ejemplo, Firefox, Chrome y Opera) |
 
 ## 3.3 Plan de Comunicación y Roles de Equipo
 
