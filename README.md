@@ -19,15 +19,16 @@
 | 8  | A01781631  | [Diego Corrales Pinedo](mailto:a01781631@tec.mx)             | [Diego-CP](https://github.com/Diego-CP)             | Diego C#8309          | 5536778043   | pinedo.dc@gmail.com                     |
 | 9  | A01025276  | [Do Hyun Nam](mailto:a01025276@tec.mx)                       | [catlikeflyer](https://github.com/catlikeflyer)     | CatLikeFlyer#4383     | 5516505092   | dhnam@aol.com                           |
 | 10 | A01025453  | [Emiliano Cabrera Ruiz](mailto:a01025453@tec.mx)             | [Cabrera-git](https://github.com/Cabrera-git)       | GlowingMan#3054       | 5534223131   | cabreraruiz.emi@gmail.com               |
-| 11 | A01029422  | [Gerardo Gutiérrez Paniagua](mailto:a01029422@tec.mx)        | [G3RZZZ](https://github.com/G3RZZZ)                 | G3RZZZ#0133           | 5531138636   | gerardogtzp6@gmail.com                  |
-| 12 | A01732251  | [Iwalani Amador Piaga](mailto:a01732251@tec.mx)              | [ivalani](https://github.com/ivalani)               | Iwa#5072              | 5561289036   | iwalaniamador@gmail.com                 |
-| 13 | A01025108  | [Karla Valeria Mondragón Rosas](mailto:a01025108@tec.mx)     | [karla-mond](https://github.com/karla-mond)         | karla#8194            | 5534623044   | karla.mondragon.rosas@gmail.com         |
-| 14 | A01751941  | [Luis Javier Karam Galland](mailto:a01751941@tec.mx)         | [Luisjakg](https://github.com/Luisjakg)             | Luisjakg#1367         | 5555073248   | luisjakg@gmail.com                      |
-| 15 | A01751912  | [Mateo Herrera Lavalle](mailto:a01751912@tec.mx)             | [MateoHerrera0](https://github.com/MateoHerrera0)   | Mat#0246              | 5628486354   | P14t0n@proton.me                        |
-| 16 | A01284329  | [Regina Rodríguez Sánchez](mailto:a01284329@tec.mx)          | [reginardzss](https://github.com/reginardzss)       | reginardzs#5292       | 8180177096   | regina.rodriguezsan@gmail.com           |
-| 17 | A01029956  | [Salvador Federico Milanés Braniff](mailto:a01029956@tec.mx) | [SFMBa01029956](https://github.com/SFMBa01029956)   | Salva4456#0437        | 5539048968   | salvadormilanesbraniff@gmail.com        |
-| 18 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852        | 5587918611   | sebastian.gonzalez.villacorta@gmail.com |
-| 19 | A01025459  | [Tonatiuh Reyes Huerta](mailto:a01025459@tec.mx)             | [Trh7101](https://github.com/Trh7101)               | Tona#5143             | 5536533155   | tonatiuhreyes8602@gmail.com             |
+| 11 | A01633010  | [Francisco Daniel Salcedo Catalán](mailto:a01633010@tec.mx)  | [f-salcedo-c](https://github.com/f-salcedo-c)       | miss-juicy#0238       | 3335549545   | francisco.salcedo@mailbox.org           |
+| 12 | A01029422  | [Gerardo Gutiérrez Paniagua](mailto:a01029422@tec.mx)        | [G3RZZZ](https://github.com/G3RZZZ)                 | G3RZZZ#0133           | 5531138636   | gerardogtzp6@gmail.com                  |
+| 13 | A01732251  | [Iwalani Amador Piaga](mailto:a01732251@tec.mx)              | [ivalani](https://github.com/ivalani)               | Iwa#5072              | 5561289036   | iwalaniamador@gmail.com                 |
+| 14 | A01025108  | [Karla Valeria Mondragón Rosas](mailto:a01025108@tec.mx)     | [karla-mond](https://github.com/karla-mond)         | karla#8194            | 5534623044   | karla.mondragon.rosas@gmail.com         |
+| 15 | A01751941  | [Luis Javier Karam Galland](mailto:a01751941@tec.mx)         | [Luisjakg](https://github.com/Luisjakg)             | Luisjakg#1367         | 5555073248   | luisjakg@gmail.com                      |
+| 16 | A01751912  | [Mateo Herrera Lavalle](mailto:a01751912@tec.mx)             | [MateoHerrera0](https://github.com/MateoHerrera0)   | Mat#0246              | 5628486354   | P14t0n@proton.me                        |
+| 17 | A01284329  | [Regina Rodríguez Sánchez](mailto:a01284329@tec.mx)          | [reginardzss](https://github.com/reginardzss)       | reginardzs#5292       | 8180177096   | regina.rodriguezsan@gmail.com           |
+| 18 | A01029956  | [Salvador Federico Milanés Braniff](mailto:a01029956@tec.mx) | [SFMBa01029956](https://github.com/SFMBa01029956)   | Salva4456#0437        | 5539048968   | salvadormilanesbraniff@gmail.com        |
+| 19 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852        | 5587918611   | sebastian.gonzalez.villacorta@gmail.com |
+| 20 | A01025459  | [Tonatiuh Reyes Huerta](mailto:a01025459@tec.mx)             | [Trh7101](https://github.com/Trh7101)               | Tona#5143             | 5536533155   | tonatiuhreyes8602@gmail.com             |
 
 ## Documento SRS
 > ** ! Sección temporal** Se va a definir un sólo documento SRS.
