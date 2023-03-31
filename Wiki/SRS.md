@@ -883,7 +883,6 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 > Pendiente a definir por todo el grupo
 
 ## 4.3. Reportes
-> Pendiente a validar por todo el grupo
   
 Se busca que la plataforma sea capaz de producir diferentes estádisticas y dependiendo el rol del usuario y sus permisos se le muestran diferentes datos y aspectos de la plataforma. Algunas de las estadísticas que se pretenden mostrar en la aplicación son:
 
@@ -902,8 +901,6 @@ Por otra parte, la app generará los siguientes logs:
   
 # 5. Requerimientos de Interfaz Externas
 > Pendiente a definir por todo el grupo
-  
-<p>
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
