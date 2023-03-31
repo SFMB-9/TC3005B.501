@@ -866,14 +866,28 @@ En términos del diseño:
 >
 > Revisar teams 1,2
 ### Todos los Usuarios
-| ID Req Funcional | Requirimiento                         |
+| ID Req Funcional | Requerimiento                         |
 |      :----:      |    :----:                             |
 |REQ_FUN_01        |Edición de perfil de usuario propio    |
 |REQ_FUN_02        |Login                                  |
 |REQ_FUN_03        |Log out                                |
 |REQ_FUN_04        |Vista de catálogo                      |
 
-  
+### Comprador
+|ID Req Funcional |Requerimiento                                       |
+|     :----:      |   :----:                                           |
+|REQ_FUN_05       |Registro de usuario a la plataforma                 |
+|REQ_FUN_06       |Eliminación de perfil de usuario propio             |
+|REQ_FUN_07       |Solicitud de prueba de manejo                       |
+|REQ_FUN_08       |Revisión de estatus de solicitud de prueba de manejo|
+|REQ_FUN_09       |Apertura de chat con vendedor                       |
+|REQ_FUN_10       |Solicitud de compra                                 |
+|REQ_FUN_11       |Confirmación de inicio de compra                    |
+|REQ_FUN_12       |Visualización de detalles de compra                 |
+|REQ_FUN_13       |Selección de plan de financiamiento                 |
+|REQ_FUN_14       |Selección de método de pago                         |
+|REQ_FUN_15       |Realización de pago en línea                        |
+
 ## 3.2. Requerimientos No Funcionales
 > Pendiente a definir por todo el grupo
 
