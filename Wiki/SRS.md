@@ -888,6 +888,17 @@ En términos del diseño:
 |REQ_FUN_14       |Selección de método de pago                         |
 |REQ_FUN_15       |Realización de pago en línea                        |
 
+### Vendedor
+|ID Req Funcional |Requerimiento                                   |
+|   :----:        |     :----:                                     |
+|REQ_FUN_16       |Aprobación/Negación de prueba de manejo         |
+|REQ_FUN_17       |Asignación de disponibilidad de prueba de manejo|
+|REQ_FUN_18       |Autorización de proceso de compra               |
+|REQ_FUN_19       |Reasignación de orden de compra                 |
+
+
+
+
 ## 3.2. Requerimientos No Funcionales
 > Pendiente a definir por todo el grupo
 
