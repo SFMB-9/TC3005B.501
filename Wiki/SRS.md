@@ -121,7 +121,7 @@
 </ol>
 
 ## 1.2. Enfoque y Alcances
-  
+
 El enfoque de este proyecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el pais donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 1. Elegir un vehículo desde un amplio catálogo, 
 2. Encuentre planes de financiamiento que se adapten a sus necesidades,  
@@ -159,6 +159,10 @@ Pero, priorizando la entrega de un MVP funcional, de calidad y que cubra las nec
 Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como **(nombre de nuestro grupo)** son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
 
 ## 1.3. Objetivos SMART
+Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como (nombre de nuestro grupo) son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
+## 1.3. Objetivos SMART
+> Pendiente a validar por todo el grupo
+> By team 1
 1. _Mejorar la experiencia del usuario:_ al terminar el proyecto, con el lanzamiento de la aplicación, buscamos reducir aproximadamente un 30% el tiempo que le toma a un usuario comparar y adquirir un automóvil.
 2. _Mejorar el servicio al cliente:_ dentro del desarrollo del proyecto (75%), se busca implementar un chatbot que pueda ofrecer ayuda a los clientes para así reducir hasta en un 50% los tiempos de respuesta. Esto mejorará el servicio al cliente en la plataforma.
 3. _Aumentar las opciones de pago:_ al terminar el proyecto, con el lanzamiento de la aplicación, se busca incluir una pasarela de pago que acepte diversas formas de pago para ampliar la cantidad de alternativas para los clientes en la plataforma.
@@ -167,9 +171,6 @@ Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como
 6. _Implemente análisis predictivos:_ al terminar el proyecto, con el lanzamiento de la aplicación (si existen recursos disponibles), se pretende mejorar el uso de análisis predictivo con el objetivo de estudiar los datos de los clientes y ofrecer sugerencias de automóviles individuales, lo que lleva a un aumento en la satisfacción del cliente.
 
 ## 1.4. Convenciones de Documento
-> Pendiente a validar por todo el grupo
-  
-> By team 1
 | Término | Definición |
 |---------|------------|
 | SRS | Documento de Especificación de Requerimientos de Software en el que se describen las funcionalidades necesarias para un proyecto de desarrollo de software |
@@ -189,7 +190,6 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 > ! Adjuntar imagen del diagrama hecho por el equipo 1 - 33 VLANs Studio
   
 ## 2.2. Clases de Usuario y Características
-  
 1. _Usuario Comprador_:
 - Usuario que usa la plataforma con el propósito de adquirir un vehículo.
 - No tiene ningún permiso de tipo administrador como todos los demás usuarios.
@@ -365,7 +365,6 @@ https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ff
 <p align="center">
   <img src="../assets/diagrams/TechStack/TechStack.png" width="600" title="hover text">
 </p>
-
 
 ## 2.4. Restricciones de Implementación y Diseño
   
