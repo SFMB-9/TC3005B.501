@@ -216,12 +216,156 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 5. _Usuario Super-Administrador_
 ## 2.3. Ambiente de Desarrollo
+ 
+<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. Como se observa a continuación, dese el IDE de desarrollo de software hasta los navegadores utilizados para acceder al sitio, cada herramienta se ha seleccionado cuidadosamente en función de sus características y compatibilidad con el sistema global. Posteriormente, se describen las ventajas particulares de cada una de estas tecnologías que justifican su elección para la implementación de la solución. De manera general, se examinan las ventajas de utilizar MySQL Community Edition para el almacenamiento de cuentas y MongoDB para el almacenamiento de catálogos e información de compra. Además, se exploran las ventajas de utilizar NodeJS para la capa de aplicación, Express para el desarrollo backend, React y NextJS para el desarrollo front-end y Bootstrap para las bibliotecas de estilo en cascada. Entre otros, se propone el uso de AWS para los servicios en la nube y Stripe para la integración de la funcionalidad de pago. 
   
-> Pendiente a definir por todo el grupo
->
-> Comparar teams 2,3; team 3 usa google a diferencia del resto que ocupa AWS.
+### 1. Database
   
-(Tech Stack)
+<i>MySQL Community Edition (Almacenamiento de Cuentas):</i><br>
+* Gratuito - GPL Licence.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatible con diversos OS - compatible con Windows.
+* Cuenta con capas de seguridad.
+* Estructura relacional - bueno para almacenar relaciones como aquellas en los diferentes tipos de cuentas definidas para la plataforma.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+<i>MongoDB (Almacenamiento de catálogo e información de la compra):</i><br>
+* Gratuito.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatible con diversos OS - compatible con Windows.
+* Fácil instalación e implementación.
+* Altamente flexible y escalable.
+* Tolera grandes volúmenes de datos.
+* Estructura no relacional - bueno para manejar muchas read-write operations como lo son búsquedas, filtrado e información referente a la compra del auto.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 2. Dev. Environments
+  
+* <i>NodeJS (Application Layer):</i><br>
+* Gratuito - Open Source.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatibilidad cross-platform - gran compatibilidad con React.
+* Facilita el desarrollo del backend en JavaScript.
+* Particularmente rápido y escalable al estar construido sobre Chrome V8 Engine.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 3. Frameworks
+  
+<i>Express:</i><br>
+* Gratuito - Open Source.
+* Framework derivado de NodeJS y por ende compatible.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Provee un conjunto de herramientas que facilitan la creación del backend/API con NodeJS.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 4. Front-end Development Libraries
+  
+<i>React (JavaScript):</i><br>
+* Gratuito - Open Source
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Permite programación por componentes haciendo fácil reutilización y mantenimiento de código para la implementación de la funcionalidad y renderizado del front-end.
+* Utiliza virtual DOM lo cual aumenta su rendimiento al permitir que cierta información se maneje y esté disponible “client-side”.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+<i>Figma:</i><br>	
+* Gratuito 
+* Intuitivo y fácil de usar.
+* Permite la creación de diseños (mockups) directamente traspasables para la implementación.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Permite la colaboración simultánea en línea.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+<i>MaterialUI:</i><br>
+* Gratuito y Open Source.
+* Provee componentes de UI pre-diseñados.
+* Compatible y utilizado sobre React.
+* Flexible para la customización de los componentes.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
+
+<i>NextJS:</i><br>
+* Gratuito y Open Source.
+* Framework de React para el desarrollo de aplicaciones web.
+* Permite “server-side rendering” que agiliza el cargado de la página.
+* Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 5. Cascading Style Libraries
+  
+<i>Bootstrap:</i><br>
+* Gratuito.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Opera en base a un “Grid System” con elementos pre-desarrollados que ahorran tiempo y esfuerzo al momento de realizar el estilo.
+* A comparación de otras opciones que dan más libertad, con Bootstrap es sumamente rápido el desarrollo del UI.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 6. Cloud Service
+  
+<i>AWS - Academy Trial:</i><br>
+* Se cuenta con 100 USD de crédito por cada integrante (2,000 USD).
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Altamente escalable y confiable.
+* Ofrece un amplio rango de herramientas y servicios.
+* Proporciona un alto nivel de seguridad necesaria para la documentación legal y otra información confidencial manejada en la compra de un auto.
+  
+### 7. Payment Gateway Integration
+  
+<i>Stripe:</i><br>
+* Comisión de 2.9% + 30 centavos por cada transacción.
+* API fácil y rápida de utilizar/integrar con otra plataforma.
+* Soporta una amplia variedad de monedas y métodos de pago.
+* Proporciona un sistema seguro de pago.
+* Cuenta con servicio al cliente 24/7 ya sea vía teléfono, email o live chat.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 8. Machine Learning
+  
+<i>Tensorflow:</i><br>
+* Gratuito y Open Source.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Permite implementar diversos tipos de modelos de ML.
+* Permite escalar fácilmente los modelos de ML para procesar una mayor cantidad de datos.
+* Eficiente para correr las intensivas operaciones computacionales requeridas.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
+  
+### 9. Security
+  
+<i>OAuth:</i><br>
+* Gratuito - Open Standard.
+* Provee un método seguro para implementar la autorización sin necesidad de credenciales.
+* Permite la implementación de la autorización mediante diversos servicios (Google, Facebook, Twitter).
+* Provee privacidad al darle al usuario cierto control sobre la información a la que ciertas empresas pueden acceder.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
+  
+### 10. Document Validation
+  
+<i>INE API:</i><br>
+* Número limitado de peticiones gratuitas.
+* Permite la verificación de INEs 
+* Cuenta con una buena documentación, materiales de consulta y soporte.
+  
+### Verificamex:</i><br>
+* Ofrece Demo gratuita
+* Permite validación de INEs mediante AI
+* Cuenta con una buena documentación, materiales de consulta y soporte.
+
+### Version Control
+  
+<i>GitHub:</i><br>
+* Gratuito.
+* Todos los programadores han utilizado y conocen extensamente la herramienta.
+* Permite repositorios ilimitados - lo cual da versatilidad a la organización que se tome para la realización del proyecto.
+* Permite administrar de forma sencilla y organizada controlar la colaboración, actualizaciones y cambios que se realicen al proyecto por parte de todos los miembros del equipo.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
+
+  
+A continuación se encuentra la visualización gráfica del Tech Stack de la solución. <br>
+<b>Link al diagrama:</b>
+https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FyLADWuGigqfuYnZxik1LG7%2FTech-Stack-Diagram-Final%3Fnode-id%3D0%253A1%26t%3DHp719fauwD8rWIgr-1
+<p align="center">
+  <img src="../assets/diagrams/TechStack/TechStack.png" width="600" title="hover text">
+</p>
+
+
 
 ## 2.4. Restricciones de Implementación y Diseño
 > Pendiente a validar por todo el grupo
