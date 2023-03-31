@@ -20,6 +20,7 @@
 <h3 align="center"> Mateo Herrera 
 <h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
+<h3 align= "center"> Andrea Serrano Diego
   
 <h1 align="center"> Software Requirements Specification
 
@@ -864,6 +865,14 @@ En términos del diseño:
 > Pendiente a definir por todo el grupo
 >
 > Revisar teams 1,2
+### Todos los Usuarios
+| ID Req Funcional | Requirimiento                         |
+|      :----:      |    :----:                             |
+|REQ_FUN_01        |Edición de perfil de usuario propio    |
+|REQ_FUN_02        |Login                                  |
+|REQ_FUN_03        |Log out                                |
+|REQ_FUN_04        |Vista de catálogo                      |
+
   
 ## 3.2. Requerimientos No Funcionales
 > Pendiente a definir por todo el grupo
