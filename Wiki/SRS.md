@@ -381,7 +381,7 @@ En términos del diseño:
 3. Los desarrolladores no proveeran mantenimiento ni soporte al sistema.
   
 ## 2.5. Suposiciones y Dependencias
-The assumptions made for the development of this project are:
+Las premisas realizadas para el desarrollo de este proyecto son:
 
 1. El proyecto seguirá una metodología ágil durante toda la fase de implementación.
 2. Nuestro P.O. estará disponible para evaluar el progreso durante las Sesiones de demostración semanales o las Pruebas de aceptación del usuario.
