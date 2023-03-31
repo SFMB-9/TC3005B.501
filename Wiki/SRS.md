@@ -101,16 +101,14 @@
     9.4. [Historias de Usuario](#4-historias-de-usuario)
 
     9.5. [Administración de Riesgos](#5-administración-de-riesgos) 
+
 # 1. Introducción
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
 <p align="justify"> El objetivo de este documento es recopilar, analizar y brindar una visión profunda de la aplicación web para NDS Cognitive Labs, definiendo el problema y la solución en detalle. El documento también concentra las capacidades requeridas por todos los stakeholders y sus necesidades definiendo las características del producto.
 
 <p align="justify"> Nuestra misión para este proyecto es hacer el proceso de compra de un auto más fácil y conveniente para el usuario digitalizando dicho proceso. Esto planeamos lograrlo creando una plataforma confiable, transparente y de fácil acceso en la que los clientes puedan tomar decisiones informadas basadas en información confiable y recomendaciones profesionales. Nuestro compromiso con nuestros clientes es ofrecerles una gama variada de autos a través de agencias y grupos automotrices previamente verificadas en nuestra plataforma. El problema que nuestra propuesta busca solucionar lo inconventiente que se ha vuelto el proceso de adquisición de un vehículo, tanto para las agencias que no tienen acceso a un equipo de TI como para los compradores que pueden tardar meses en el proceso.
 
 <p align="justify"> Con respecto a nuestra visión, buscamos transformar radicalmente el sector de ventas de autos. Con este proyecto queremos que la experiencia tradicional de la compra de autos cambie, se adapte a las nuevas tecnologías y no estrese a los usuarios. Estamos comprometidos a crear una comunidad confiable de vendedores y compradores donde las transacciones puedan ser en línea, quitando los problemas e inconvenientes asociados a la compra tradicional de autos. 
+
 ## 1.1. Propósito
 <p align="justify"> El propósito del documento es recopilar y analizar todas las ideas que han surgido para definir el sistema y sus requisitos con respecto a los usuarios que harán uso de la aplicación. 
 
@@ -121,14 +119,9 @@
     <li> Un proceso de compra amigable y conveniente
     <li> La protección de datos de usuarios
 </ol>
+
 ## 1.2. Enfoque y Alcances
-  
-> Pendiente a validar por todo el grupo
->
-> Comparar con team 4
-  
-> By teams 1,2
-  
+
 El enfoque de este proyecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el pais donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 1. Elegir un vehículo desde un amplio catálogo, 
 2. Encuentre planes de financiamiento que se adapten a sus necesidades,  
@@ -157,10 +150,15 @@ La aplicacion pretende:
 
 Lo que nos distingue de la competencia es nuestra intención de:
 - Crear un simulador comparativo de autos, 
+- Un formulario para entender las necesidades del usuario, 
+- Agendar citas mediante un calendario, 
 - Dar recomendaciones personalizadas con Machine Learning y 
 - La implementación de un "Wishlist" (Bookmark de autos preferidos). <br>
 Pero, priorizando la entrega de un MVP funcional, de calidad y que cubra las necesidades del cliente, NDS. 
 
+Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como **(nombre de nuestro grupo)** son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
+
+## 1.3. Objetivos SMART
 Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como (nombre de nuestro grupo) son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
 ## 1.3. Objetivos SMART
 > Pendiente a validar por todo el grupo
@@ -171,30 +169,19 @@ Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como
 4. _Aumentar el posicionamiento en los motores de búsqueda:_ al terminar el proyecto, con el lanzamiento de la aplicación, se pretende utilizar mejores prácticas de optimización de motores de búsqueda para aumentar el ranking de la plataforma.
 5. _Mejorar la seguridad de la plataforma:_ para evitar violaciones de datos y proteger la privacidad del consumidor, se agregara autenticación y la verificación de autorización y se incluirá el cifrado de datos dentro del desarrollo del proyecto (80%). 
 6. _Implemente análisis predictivos:_ al terminar el proyecto, con el lanzamiento de la aplicación (si existen recursos disponibles), se pretende mejorar el uso de análisis predictivo con el objetivo de estudiar los datos de los clientes y ofrecer sugerencias de automóviles individuales, lo que lleva a un aumento en la satisfacción del cliente.
+
 ## 1.4. Convenciones de Documento
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
-| Concepto   | Descripción       |  
-| :---------:|:-------------     | 
-| SQL        | Structured Query Language, lenguaje de programación para almacenar y procesar información en una base de datos relacional|                           
-| API        | Application Programming Interface, conjunto de definiciones y protocolos que se usa para diseñar e integrar el software de las aplicaciones|      
-| BD o DB    | Base de Datos o Database|   
-| AWS        | Amazon Web Services, colección de servicios de computación en la nube pública que en conjunto forman una plataforma de computación en la nube, ofrecidas a través de Internet por Amazon.com|  
-| Stack Tecnológico | Ecosistema tecnológico, conjunto de lineamientos, servicios y softwares que componen un aplicación |
+| Término | Definición |
+|---------|------------|
+| SRS | Documento de Especificación de Requerimientos de Software en el que se describen las funcionalidades necesarias para un proyecto de desarrollo de software |
+| Project Manager | Se entiende como la persona responsable de dar seguimiento y gestionar las actividades al desarrollar un proyecto |
+| Product Owner | Se entiende como la persona que representa las necesidades del cliente de cara al equipo de desarrollo |
+
 ## 1.5. Referencias
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
 "IEEE Guide for Software Requirements Specifications," in IEEE Std 830-1984 , vol., no., pp.1-26, 10 Feb. 1984, doi: 10.1109/IEEESTD.1984.119205. https://ieeexplore.ieee.org/document/278253
+
 # 2. Descripción General
 ## 2.1. Perspectiva del Producto
-  
-> Pendiente a validar por todo el grupo
-  
-> By team 1,2
   
 La aplicación busca ser un servicio e-commerce donde un usuario comprador tenga la oportunidad de comprar un vehículo de forma intuitiva, amigable, segura y digital. NDS Cognitive Labs es una consultora internacional especializada en el diseño y desarrollo de soluciones de software de tiempo real que van desde Inteligencia Artificial a Nube. 
 
@@ -203,18 +190,33 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 > ! Adjuntar imagen del diagrama hecho por el equipo 1 - 33 VLANs Studio
   
 ## 2.2. Clases de Usuario y Características
-  
-> Validado !
-  
-1. _Usuario Comprdador_ <br>
+1. _Usuario Comprador_:
+- Usuario que usa la plataforma con el propósito de adquirir un vehículo.
+- No tiene ningún permiso de tipo administrador como todos los demás usuarios.
+- Tiene una cuenta, perfil y la posibilidad de realizar una transacción monetaria.
 
-2. _Usuario Vendedor_
+2. _Usuario Vendedor_:
+- Primer usuario de tipo administrador, tiene el menor número de privilegios; solamente se le permite acceder a su información y a la de sus clientes.
+- Tiene una cuenta y un perfil.
+- Sus permisos y accesos son asignados por un usuario gerente o agencia.
 
-3. _Usuario Gerente_
+3. _Usuario Gerente_:
+- Usuario administrador, que pertenece a una agencia y sus permisos están gestionados por el grupo automotriz.
+- Se le permite acceder a la información de sus vendedores y los clientes de su sucursal correspondiente.
+- Se le permite acceder a la información de sus vendedores, vehículos y los clientes de la agencia.
+- Tiene una cuenta y un perfil.
 
-4. _Usuario Grupo Automotriz_
+4. _Usuario Grupo Automotriz_:
+- Usuario administrador, sus permisos y acceso es gestionado por el usuario super-administrador.
+- Se le permite acceder a la información de todas las agencias bajo su supervisión, sus catálogos y vehículos, gerentes y vendedores.
+- Gestiona que sucursales serán parte de la plataforma en conjunto con el usuario super-administrador.
+- Tiene una cuenta y un perfil.
 
-5. _Usuario Super-Administrador_
+5. _Usuario Super-Administrador_:
+- Usuario con mayor número de privilegios, su acceso y permisos son gestionados por NDS y los desarrolladores. Es el responsable de gestionar a los usuarios grupo automotriz.
+- Puede acceder a la información de los grupos, agencias, ventas, catálogos y vehículos, al igual que a la información del comportamiento de la plataforma.
+- Tiene una cuenta y un perfil.
+
 ## 2.3. Ambiente de Desarrollo
  
 <p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. Como se observa a continuación, dese el IDE de desarrollo de software hasta los navegadores utilizados para acceder al sitio, cada herramienta se ha seleccionado cuidadosamente en función de sus características y compatibilidad con el sistema global. Posteriormente, se describen las ventajas particulares de cada una de estas tecnologías que justifican su elección para la implementación de la solución. De manera general, se examinan las ventajas de utilizar MySQL Community Edition para el almacenamiento de cuentas y MongoDB para el almacenamiento de catálogos e información de compra. Además, se exploran las ventajas de utilizar NodeJS para la capa de aplicación, Express para el desarrollo backend, React y NextJS para el desarrollo front-end y Bootstrap para las bibliotecas de estilo en cascada. Entre otros, se propone el uso de AWS para los servicios en la nube y Stripe para la integración de la funcionalidad de pago. 
@@ -356,7 +358,6 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Permite repositorios ilimitados - lo cual da versatilidad a la organización que se tome para la realización del proyecto.
 * Permite administrar de forma sencilla y organizada controlar la colaboración, actualizaciones y cambios que se realicen al proyecto por parte de todos los miembros del equipo.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
-
   
 A continuación se encuentra la visualización gráfica del Tech Stack de la solución. <br>
 <b>Link al diagrama:</b>
@@ -365,12 +366,7 @@ https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ff
   <img src="../assets/diagrams/TechStack/TechStack.png" width="600" title="hover text">
 </p>
 
-
-
 ## 2.4. Restricciones de Implementación y Diseño
-> Pendiente a validar por todo el grupo
-  
-> By teams 1,2
   
 El dueño de proyecto no ha establecido restricciones explicitas con respecto a las herramientas para el desarrollo, pues el proyecto pretende funcionar unicamente como prueba de concepto. Por lo tanto, las unicas restricciones son en relacion a los recursos disponibles.
 
@@ -381,11 +377,16 @@ Es importante recalcar que el equipo de desarrollo esta formado por estudiantes 
 En términos del diseño:
 1. Solamente se aceptarán grupos automotrices y agencias como participantes en el sistema, y no individuos.
 2. El sistema tendrá uso de nube (cloud) SaaS.
-3. (Nombre del equipo desarrollador) no proveerá mantenimiento ni soporte al sistema.
+3. Los desarrolladores no proveeran mantenimiento ni soporte al sistema.
   
 ## 2.5. Suposiciones y Dependencias
-  
-> Pendiente a definir por todo el grupo
+Las premisas realizadas para el desarrollo de este proyecto son:
+
+1. El proyecto seguirá una metodología ágil durante toda la fase de implementación.
+2. Nuestro P.O. estará disponible para evaluar el progreso durante las Sesiones de demostración semanales o las Pruebas de aceptación del usuario.
+3. Ni NDS ni el Tec de Monterrey proporcionarán financiamiento alguno para el desarrollo.
+5. El usuario utilizará la plataforma en un dispositivo digital como: una computadora, una tablet, un dispositivo movil.
+6. Se utilizará un Tech Stack mayormente open-source; que no representa un gasto. Si se incluyen componentes o herramientas con costo, se dejan a manera de propuesta tentativa para el Project Owner, estipulando una cotizacion estimada clara.
   
 ## 2.6. Casos de Uso
   
@@ -857,6 +858,7 @@ En términos del diseño:
 | **Alternative Flows:** | - |
 | **Exceptions:** | 2. In step 2 of the normal flow, in case there are no ongoing sales the seller will not see anything. |
 | **Requirements:** | The following requirements must be met before execution of the use case1. The seller must have a stable internet connection. |
+
 # 3. Características del Sistema
 <p align="justify"> En este apartado se definen las características y aspectos específicos que se requieren del sistema. En específico, se detalla cada uno de los requerimientos funcionales y no funcionales recopilados a lo largo de las diferentes sesiones para el levantamiento de requerimientos que se tuvieron con el cliente. De la misma manera, muestran los diagramas de casos de uso, cuyo propósito es presentar de una manera gráfica y visual el comportamiento esperado de cierta parte del sistema en relación con sus diferentes actores.
 
@@ -880,9 +882,6 @@ En términos del diseño:
 > Pendiente a definir por todo el grupo
 
 ## 4.3. Reportes
-> Pendiente a validar por todo el grupo
-  
-> By teams 1,2
   
 Se busca que la plataforma sea capaz de producir diferentes estádisticas y dependiendo el rol del usuario y sus permisos se le muestran diferentes datos y aspectos de la plataforma. Algunas de las estadísticas que se pretenden mostrar en la aplicación son:
 
@@ -901,8 +900,6 @@ Por otra parte, la app generará los siguientes logs:
   
 # 5. Requerimientos de Interfaz Externas
 > Pendiente a definir por todo el grupo
-  
-<p>
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
