@@ -866,44 +866,43 @@ En términos del diseño:
 >
 > Revisar teams 1,2
 ### Todos los Usuarios
-| ID Req Funcional | Requerimiento                         |
-|      :----:      |    :----:                             |
-|REQ_FUN_01        |Edición de perfil de usuario propio    |
-|REQ_FUN_02        |Login                                  |
-|REQ_FUN_03        |Log out                                |
-|REQ_FUN_04        |Vista de catálogo                      |
-
-### Comprador
-|ID Req Funcional |Requerimiento                                       |
-|     :----:      |   :----:                                           |
-|REQ_FUN_05       |Registro de usuario a la plataforma                 |
-|REQ_FUN_06       |Eliminación de perfil de usuario propio             |
-|REQ_FUN_07       |Solicitud de prueba de manejo                       |
-|REQ_FUN_08       |Revisión de estatus de solicitud de prueba de manejo|
-|REQ_FUN_09       |Apertura de chat con vendedor                       |
-|REQ_FUN_10       |Solicitud de compra                                 |
-|REQ_FUN_11       |Confirmación de inicio de compra                    |
-|REQ_FUN_12       |Visualización de detalles de compra                 |
-|REQ_FUN_13       |Selección de plan de financiamiento                 |
-|REQ_FUN_14       |Selección de método de pago                         |
-|REQ_FUN_15       |Realización de pago en línea                        |
-
-### Vendedor
-|ID Req Funcional |Requerimiento                                   |
-|   :----:        |     :----:                                     |
-|REQ_FUN_16       |Aprobación/Negación de prueba de manejo         |
-|REQ_FUN_17       |Asignación de disponibilidad de prueba de manejo|
-|REQ_FUN_18       |Autorización de proceso de compra               |
-|REQ_FUN_19       |Reasignación de orden de compra                 |
-
-### Gerente
-|ID Req Funcional |Requerimiento                                      |
-|    :----:       |           :----:                                  |
-|REQ_FUN_20       |Registro de automóviles                            |
-|REQ_FUN_21       |Edición/Borrado de automóviles                     |
-|REQ_FUN_22       |Registro de planes de financiamiento/seguros       |
-|REQ_FUN_23       |Edición/Borrado de planes de financiamiento/seguros|
-|REQ_FUN_24       |Aprobación de reasignación de orden de compra      |
+| ID Req Funcional| Requerimiento                                      |Usuarios|
+|      :----:     |    :----:                                          | :----:  |
+|REQ_FUN_01       |Registro de usuario a la plataforma                 |
+|REQ_FUN_02       |Solicitud de registro de usuario                    |
+|REQ_FUN_03       |Edición de perfil de usuario propio                 |
+|REQ_FUN_04       |Eliminación de perfil de usuario propio             |
+|REQ_FUN_05       |Eliminación de perfil de usuario ajeno              |
+|REQ_FUN_06       |Login                                               |
+|REQ_FUN_07       |Log out                                             |
+|REQ_FUN_08       |Registro de documentos                              |
+|REQ_FUN_09       |Visualización de documentos propios                 |
+|REQ_FUN_10       |Visualización de retroalimentación de documentos propios|
+|REQ_FUN_11       |Visualización de estatus de aceptación de documentos propios|
+|REQ_FUN_12       |Edición/Borrado de documentos propios               |
+|REQ_FUN_13       |Visualización de documentos ajenos                  |
+|REQ_FUN_14       |Aprobación/Negación de documentos ajenos            |
+|REQ_FUN_15       |Vista de catálogo                                   |
+|REQ_FUN_16       |Registro de automóviles                             |
+|REQ_FUN_17       |Edición/Borrado de automóviles                      |
+|REQ_FUN_18       |Registro de planes de financiamiento/seguros        |
+|REQ_FUN_19       |Edición/Borrado de planes de financiamiento/seguros |
+|REQ_FUN_20       |Búsqueda por filtros                                |
+|REQ_FUN_21       |Búsqueda por lenguaje natural                       |
+|REQ_FUN_22       |Solicitud de prueba de manejo                       |
+|REQ_FUN_23       |Revisión de estatus de solicitud de prueba de manejo|
+|REQ_FUN_24       |Aprobación/Negación de prueba de manejo             |
+|REQ_FUN_25       |Asignación de disponibilidad de prueba de manejo    |
+|REQ_FUN_26       |Apertura de chat con vendedor                       |
+|REQ_FUN_27       |Solicitud de compra                                 |
+|REQ_FUN_28       |Confirmación de inicio de compra                    |
+|REQ_FUN_29       |Visualización de detalles de compra                 |
+|REQ_FUN_30       |Selección de plan de financiamiento                 |   
+|REQ_FUN_31       |Selección de método de pago                         |
+|REQ_FUN_32       |Autorización del proceso de compra                  |
+|REQ_FUN_33       |Reasignación de orden de compra                     |
+|REQ_FUN_34       |Aprobación de reasignación de orden de compra       |
+|REQ_FUN_35       |Realización de pago en línea                        |
 
 
 ## 3.2. Requerimientos No Funcionales
