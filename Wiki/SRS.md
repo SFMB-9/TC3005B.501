@@ -103,6 +103,8 @@
 
     9.5. [Administración de Riesgos](#5-administración-de-riesgos) 
 
+    9.6. [Glosario](#6-glossary)
+
 # 1. Introducción
 <p align="justify"> El objetivo de este documento es recopilar, analizar y brindar una visión profunda de la aplicación web para NDS Cognitive Labs, definiendo el problema y la solución en detalle. El documento también concentra las capacidades requeridas por todos los stakeholders y sus necesidades definiendo las características del producto.
 
@@ -184,7 +186,9 @@ La aplicación busca ser un servicio e-commerce donde un usuario comprador tenga
 
 La idea del servicio pretende trabajar con tecnologías emergentes para facilitar el proceso de adquisión de un vehículo de agencia.
 
-> ! Adjuntar imagen del diagrama hecho por el equipo 1 - 33 VLANs Studio
+<p align="center">
+  <img src="../assets/diagrams/TechStack/PerspectiveDiagram.png" width="600" title="hover text">
+</p>
   
 ## 2.2. Clases de Usuario y Características
 1. _Usuario Comprador_:
@@ -938,10 +942,10 @@ La seguridad de los datos será manejada con productos del proveedor de nube que
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
-> Pendiente a definir por todo el grupo
->
-> Comparar e incorporar teams 1,2,3
-  
+<p align="center">
+  <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
+</p>
+
 ### Componentes
 > Pendiente a definir por todo el grupo (Descripcion de la arquitectura).
 
@@ -949,7 +953,20 @@ La seguridad de los datos será manejada con productos del proveedor de nube que
 ### No aplica
 
 ## 5.4. Interfaces de Comunicación
-> Pendiente a definir por todo el grupo
+1. E-mail:
+
+Se integrará un servicio de respuesta automática por correo, utilizando una herramienta como MailChimp. Este servicio permitirá a los usuarios recibir notificaciones de los cambios en el estado de su solicitud, así como de los cambios en la información de la misma.
+
+2. Entrega y Reconocimiento de Documentos:
+
+Se desarrollarán interfaces donde el usuario pueda arrastrar o elegir documentos desde su sistema de archivos, asegurando que el formato sea el adecuado. El sistema deberá ser capaz de reconocer el tipo de documento y verificar la identidad por medio de un servicio de validacion de identidad facial. El sistema tambien deberá validar los carnets de identidad y licencias a pàrtir del texto que contengan.
+3. Sistema de Chat:
+
+Se integrará una herramienta externa para instanciar chat en tiempo real entre los usuarios y los administradores de la aplicación para dar seguimiento a las solicitudes.
+
+4. Plataforma de Pago:
+
+Se integrará una plataforma de pago para que los usuarios puedan pagar por los servicios de la aplicación a partir de un servicio, se sugiere Stripe para esta implementación dado su sistema de comision por transacción; contra alternativas como OpenPay.
   
 # 6. Atributos de Calidad
 ## 6.1. Usabilidad
