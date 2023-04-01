@@ -20,6 +20,7 @@
 <h3 align="center"> Mateo Herrera 
 <h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
+<h3 align="center"> Ana Paula Katsuda
   
 <h1 align="center"> Software Requirements Specification
 
