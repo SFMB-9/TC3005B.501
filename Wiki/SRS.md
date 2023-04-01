@@ -896,7 +896,14 @@ En términos del diseño:
 |REQ_FUN_18       |Autorización de proceso de compra               |
 |REQ_FUN_19       |Reasignación de orden de compra                 |
 
-
+### Gerente
+|ID Req Funcional |Requerimiento                                      |
+|    :----:       |           :----:                                  |
+|REQ_FUN_20       |Registro de automóviles                            |
+|REQ_FUN_21       |Edición/Borrado de automóviles                     |
+|REQ_FUN_22       |Registro de planes de financiamiento/seguros       |
+|REQ_FUN_23       |Edición/Borrado de planes de financiamiento/seguros|
+|REQ_FUN_24       |Aprobación de reasignación de orden de compra      |
 
 
 ## 3.2. Requerimientos No Funcionales
