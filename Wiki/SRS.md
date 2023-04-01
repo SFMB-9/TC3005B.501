@@ -160,10 +160,6 @@ Pero, priorizando la entrega de un MVP funcional, de calidad y que cubra las nec
 Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como **(nombre de nuestro grupo)** son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
 
 ## 1.3. Objetivos SMART
-Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como (nombre de nuestro grupo) son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
-## 1.3. Objetivos SMART
-> Pendiente a validar por todo el grupo
-> By team 1
 1. _Mejorar la experiencia del usuario:_ al terminar el proyecto, con el lanzamiento de la aplicación, buscamos reducir aproximadamente un 30% el tiempo que le toma a un usuario comparar y adquirir un automóvil.
 2. _Mejorar el servicio al cliente:_ dentro del desarrollo del proyecto (75%), se busca implementar un chatbot que pueda ofrecer ayuda a los clientes para así reducir hasta en un 50% los tiempos de respuesta. Esto mejorará el servicio al cliente en la plataforma.
 3. _Aumentar las opciones de pago:_ al terminar el proyecto, con el lanzamiento de la aplicación, se busca incluir una pasarela de pago que acepte diversas formas de pago para ampliar la cantidad de alternativas para los clientes en la plataforma.
@@ -897,7 +893,17 @@ Por otra parte, la app generará los siguientes logs:
 - Log de Ventas: Se utilizará como comprobante al iniciarse, completarse o cambiar de etapa la venta de un vehículo. Se incluye el timestamp, el comprador, el vendedor y el estado de la venta.
 
 ## 4.4. Adquisición de Datos, Integridad, Retención y Eliminación
-> Pendiente a definir por todo el grupo
+La información que será recopilada dentro de la plataforma podrá o no contener datos sensibles protegidos por los derechos ARCO dentro de Mexico. Esta información podría o no contener documentos, imágenes e información confidencial que sea requerida para el proceso de compra/venta de automóviles, registro de usuarios y cualquier otro pedazo de información que sea requerido para el correcto funcionamiento de los procesos de el servicio.
+
+Es por esto por lo que es importante recalcar que la información capturada dentro de la plataforma estará cifrada . De igual manera, el acceso a esta información estará restringido a los usuarios propietarios de la misma. Igualmente en relación a la modificación y eliminación de la información guardada, estos cambios se verán reflejados excepto en casos donde un registro de documentación referente a los procesos legales de la compra y venta de los automóviles ofrecidos sea requerido.
+
+**Integridad de los Datos**
+
+Una de estas medidas es una base de datos de repaldo que se actualice cada cierto tiempo, esto con el fin de que en caso de que se presente algún problema con la base de datos principal, se pueda recuperar la información de la base de datos de respaldo.
+
+**Seguridad de los Datos**
+
+La seguridad de los datos será manejada con productos del proveedor de nube que se elija para el desarrollo del programa. Se utilizarán herramientas de seguridad como el cifrado de datos, autenticación de usuarios, etc. De igual manera se pondrán restricciones de leido/borrado de datos para los usuarios que no tengan permiso para realizar dichas acciones. 
   
 # 5. Requerimientos de Interfaz Externas
 > Pendiente a definir por todo el grupo
@@ -947,24 +953,18 @@ Por otra parte, la app generará los siguientes logs:
   
 # 6. Atributos de Calidad
 ## 6.1. Usabilidad
-> Pendiente a validar por todo el grupo
-  
-> By team 2
   
 * <b>Interfaz Fácil de Usar:</b> La plataforma debe tener una interfaz clara e intuitiva que facilite a los usuarios la navegación y la búsqueda de la información que necesitan.
   
-* <b>Interfaz Responsiva:</b> Cada una de las interfaces y diseño de la plataforma deberá ser responsive, es decir, accesible y funcional en distintos dispositivos y tamaños de pantalla (computadora, tablet, teléfono). 
+* <b>Interfaz Responsiva:</b> Cada una de las interfaces y diseño de la plataforma deberá ser responsiva, es decir, accesible y funcional en distintos dispositivos y tamaños de pantalla (computadora, tablet, teléfono). 
   
 * <b>Velocidad de Respuesta:</b> La plataforma debe cargarse rápidamente y responder a las acciones del usuario en el momento oportuno.
 
 * <b>Información Clara sobre el Producto:</b> La plataforma debe ofrecer información transparente y detallada sobre cada coche, incluyendo especificaciones, precios y disponibilidad.
 
 ## 6.2. Rendimiento
-> Pendiente a validar por todo el grupo
   
-> By team 2
-  
-* Tiempo de carga de la Página:</b> La plataforma debe cargarse rápidamente, idealmente en unos segundos o menos, para garantizar una experiencia de usuario positiva y ágil.
+* <b>Tiempo de Carga de la Página:</b> La plataforma debe cargarse rápidamente, idealmente en unos segundos o menos, para garantizar una experiencia de usuario positiva y ágil.
 
 * <b>Capacidad de Respuesta:</b> La plataforma debe responder rápidamente a las interacciones del usuario, como clics, toques y deslizamientos, proporcionando una experiencia de usuario fluida e intuitiva.
   
@@ -975,10 +975,7 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Fiabilidad:</b> La plataforma debe ser fiable y estable, con el mínimo tiempo de inactividad o errores que puedan interrumpir la experiencia del usuario y las transacciones.
 
 ## 6.3. Seguridad
-> Pendiente a validar por todo el grupo
-  
-> By team 2
-  
+
 * <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su interceptación y manipulación.
   
 * <b>Autenticación:</b> La página web debe utilizar mecanismos de autenticación fuertes como JWT tokens o Cookies para verificar la identidad de los usuarios y evitar escalamiento de privilegios.
@@ -992,10 +989,7 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Seguridad en Código:</b> La plataforma debe seguir prácticas de seguridad en código y comprobarse periódicamente para detectar vulnerabilidades como Cross-site scripting (XSS) y SQL injection. Correspondientemente, deben tomarse las medidas adecuadas para solucionar cualquier vulnerabilidad detectada.
 
 ## 6.4. Protección
-> Pendiente a validar por todo el grupo
-  
-> By team 2
-  
+
 * <b>Backup y Recuperación:</b> La plataforma debe contar con un plan de backup y recuperación para garantizar que los datos puedan restaurarse en caso de pérdida de datos o fallo del sistema.
   
 * <b>Redundancia:</b> La plataforma debe contar con sistemas redundantes para garantizar que la página web siga disponible incluso en caso de fallo de hardware o software.
@@ -1003,15 +997,20 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Protección de datos:</b> La plataforma debe aplicar medidas adecuadas de privacidad de datos para proteger los datos de los usuarios y garantizar el cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de Particulares.
   
 * <b>Hosting:</b> La plataforma debe estar alojada en servidores seguros y fiables, idealmente utilizando un proveedor de alojamiento de confianza como AWS que aplique las medidas de seguridad adecuadas.
+
 # 7. Internacionalización y Localización de Requerimientos
-> Pendiente a validar por todo el grupo
   
 Debido a las diferencias legales que se presentan de acuerdo a la región política y geográfica, los requerimientos para la internacionalización y localización de la aplicación dependerán del proveedor, los stakeholders y las legislaciones particulares de cada país. El alcance de la aplicación en ese momento es exclusivo de México.
+
 # 8. Otros Requerimientos
 ### No aplica
   
 # 9. Apéndices
 > Agregar ligas a los apéndices
+
+← [Inicio](https://github.com/SFMBa01029956/TC3005B.501)
+
+← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
   
 ## 1. [WBS →]()
 
@@ -1023,6 +1022,54 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 
 ## 5. [Administración de Riesgos →]()
 
-← [Inicio](https://github.com/SFMBa01029956/TC3005B.501)
+## 6. Glossary
 
-← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
+API: An Application Programming Interface is a set of protocols, routines, and tools for building software and applications.
+
+AWS: Amazon Web Services is a cloud computing platform offering a range of services, including storage, computing power, and database management.
+
+Backend: The part of a software system that performs processing tasks and interacts with databases, servers, and other backend systems.
+
+Cache: A temporary storage area used to speed up data access and reduce network traffic.
+
+CloudFront: A content delivery network (CDN) service provided by AWS to distribute content to users worldwide.
+
+Content Delivery Network: A distributed network of servers used to deliver web content and media to users around the world.
+
+DDoS: A Distributed Denial of Service is a cyber-attack that disrupts the normal functioning of a network by overwhelming it with traffic.
+
+Debian: A popular open-source operating system used for servers and workstations.
+
+DNS: The Domain Name System is a hierarchical system for naming resources on the internet.
+
+DynamoDB: A NoSQL database service provided by AWS.
+
+EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
+
+Firewall: A security system designed to prevent unauthorized access to a network.
+
+Frontend: The part of a software system that interacts with users and displays information.
+
+Gateway: A system that connects two different networks or systems to enable communication between them.
+
+HTTP: The Hypertext Transfer Protocol is a protocol used for transferring data over the internet.
+
+IEEE: The Institute of Electrical and Electronics Engineers is a professional organization for engineers in various fields, including computer science and electronics.
+
+Natural Language Processing: A branch of artificial intelligence concerned with enabling machines to understand and process human language.
+
+Platform: The Software as a service platform that will be made for this project.
+
+User: A user of any user class.
+
+Relational Database: A type of database that stores and organizes data into tables with predefined relationships.
+
+S3 Bucket: Amazon Simple Storage Service is a cloud storage service provided by AWS.
+
+SQL: Structured Query Language is a standard language used for managing relational databases.
+
+Subnet: A subdivision of a network used to isolate devices and control traffic flow.
+
+Ubuntu: A popular open-source operating system based on Debian.
+
+Virtual Private Cloud: A virtual network environment that enables a user to launch resources in a logically isolated section of the cloud.
