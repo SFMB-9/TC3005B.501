@@ -904,6 +904,11 @@ En términos del diseño:
 |REQ_FUN_34       |Aprobación de reasignación de orden de compra       |G        |
 |REQ_FUN_35       |Realización de pago en línea                        |C        |
 
+Comprador - C
+Vendedor - V
+Gerente - G
+Grupo Automotriz - GA
+Super Admin - SA
 
 ## 3.2. Requerimientos No Funcionales
 > Pendiente a definir por todo el grupo
