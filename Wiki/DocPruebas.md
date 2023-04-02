@@ -145,89 +145,101 @@ El flujo de las pruebas se puede observar a continuación:
 12. El equipo de pruebas manejará todo el esfuerzo de ejecución de prueba de forma coordinada con el PM.
 13. El recorrido y manual de usuario se realizará en los últimos sprints.
 
-## 2.3 Alcance
+## 2.3. Objetos de las Pruebas
 
-## 2.4 Niveles de Prueba
+## 2.4 Alcance
 
-## 2.5 Criterios de Entrada y Salida
+## 2.5 Niveles de Prueba
+A continuación se muestran el nivel de las pruebas que se realizarán durante el desarrollo del proyecto, además de detallar algunas de los métodos que se utilizaran al igual que los responsables de dichas pruebas.
 
-### 2.5.1 Dinámicas
+### Pruebas Informales (Prueba Funcional)
+El propósito de este tipo de pruebas es verificar rápidamente el funcionamiento de los componentes del software. Las pruebas de este estilo no tienen ningún tipo de entrega.
 
-|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
-| :- | :- | :- | :- |
+- _Alcance:_ Todas las secciones desarrolladas serán probadas mediante pruebas unitarias informales.
+- _Responsables:_ Los desarrolladores de software.
+- _Metodología:_ Los desarrolladores responsables del componentes se encargaran de realizar pruebas de Input-Output para comprobar su correcto funcionamiento.
+- _Cada cuando:_ En cuanto se finalice, o se modifique algún componente.
 
+### Prueba de Caja Negra (Prueba Funcional)
+El propósito de las pruebas unitarias es probar cada uno de los componentes y funcionalidades que comprenden la aplicación que se desarrollará.
 
-De Caja Blanca
+- _Alcance:_ Todas las secciones desarrolladas serán probadas mediante pruebas de caja negra.
+- _Responsables:_ Los desarrolladores de software y los testers.
+- _Metodología:_ Los desarrolladores probarán componentes de la aplicación sin tener conocimiento del código detrás de los mismos componentes, reportando errores en caso de encontrarlos. Específicamente, el tipo de pruebas de caja negra que se realizarán serán pruebas de tipo de casos de uso. Dentro de estas pruebas se realizarán tres baterías negativas y tres baterías positivas que se deberán cumplir cuando se realicen este tipo de pruebas.
+- _Cada cuándo:_ Al finalizar cada componente.
 
+### Prueba de Caja Blanca (Prueba Funcional)
+El propósito de este tipo de pruebas es encontrar la causa de algún tipo de falla que se haya encontrado en otro tipo de pruebas. En específico, las pruebas de caja blanca que se realizan son pruebas de cobertura, es decir, se probarán los tres caminos más utilizados por los usuarios. Más aún, se considerará que los caminos seleccionados son apropiados si estos cubren un mínimo de 80% de los caminos posibles. Este 80% debe regresar resultados de prueba positivos para así justificar que el componente funciona de manera correcta.
 
-|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
-| :- | :- | :- | :- |
+- _Alcance:_ Cualquier componente de software que presente alguna falla dentro de algún otro tipo de prueba.
+- _Responsables:_ Los desarrolladores de software y los testers.
+- _Metodología:_ Los desarrolladores que se encargaron de crear los componentes en donde se encontraron los errores serán los encargados de realizar pruebas de caja blanca con el objetivo de encontrar que pedazo de código es el que está causando dicho error.
+- _Cada cuándo:_ Al finalizar cada sprint.
 
+### Prueba de Integración (Prueba Funcional)
+El propósito de las pruebas de integración es comprobar el correcto funcionamiento de la aplicación cuando todos los componentes son utilizados en conjunto. Para efectos de este proyecto, debido a las restricciones de tiempo, este tipo de pruebas sólo serán realizadas en los componentes críticos de la aplicación.
 
-Integración
+- _Alcance:_ Componentes críticos para el funcionamiento de la aplicación
+- _Responsables:_ Los responsables de cada célula de trabajo.
+- _Metodología:_ Los desarrolladores responsables de cada célula, al terminar más de un componente relacionado, empezaran a realizar pruebas e integración. De la misma manera, al terminar el proyecto, se realizarán nuevas pruebas de este estilo.
+- _Cada cuándo:_ Al terminarse pedazos de software relacionados y al acabar todos los componentes de la aplicación.
 
+### Prueba de Aceptación (Prueba Funcional)
+El propósito de este tipo de pruebas es validar con el equipo de desarrollo y NDS si el sistema está a la par con sus expectativas y cumple las funcionalidades que fueron discutidas en el documento SRS.
 
-|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
-| :- | :- | :- | :- |
+- _Alcance:_ Todos los aspectos del pedazo de software serán probados pruebas de validación. Esto con el objetivo de revisar si aspectos de diseño y funcionalidad de la aplicación están a la par de las expectativas de NDS.
+- _Responsables:_ Rubén Raya (NDS), los desarrolladores, los testers y el SCRUM master..
+- _Metodología:_ Los desarrolladores se reunirán con Rubén Raya y bajo su supervisión se encargará de validar los aspectos importantes de la aplicación desarrollada.
+- _Cada cuándo:_ En cuanto se cumplan las pruebas de integración.
 
+### Prueba de Recorrido Estático (Validación)
+El propósito de este tipo de pruebas es asegurar que el servicio, en términos de funcionalidad y desempeño, actúe de manera satisfactoria.
 
-Aceptación
+- _Alcance:_ Dado que se trata de una prueba de sistema, el software será probado en completud.
+- _Responsables:_ Desarrolladores no pertenecientes al proyecto, los testers, el SCRUM master y Rubén Raya (NDS). Un recorrido se considera aceptado una vez que sea aprobado por el equipo de desarrolladores y Rubén Raya. Los responsables del proceso de validación son los desarrolladores no pertenecientes al proyecto, Esteban Castillo y Ruben Raya.
+- _Metodología:_ Crear escenarios de acuerdo a las situaciones más usuales de los usuarios.
+- _Cada cuándo:_ Al final del proyecto.
 
+## 2.6 Criterios de Aceptación
+### Pruebas Informales
+Cada desarrollador tiene como responsabilidad realizar una prueba informal a cada componente que finalice. Ya que esta prueba no sigue una metodología específica, el desarrollador sabrá que el componente pasó la prueba si realiza de manera correcta su funcionalidad y trabaja de manera adecuada con otros componentes.
 
+###Pruebas Unitarias
+- Funcionalidad de Login: Esta funcionalidad nunca debe fallar. Todas las pruebas deben proporcionar el usuario y la página de inicio correctos, o bien enviar un mensaje de error indicando que el usuario no existe. Esto para cada tipo de usuario que permite la plataforma.
 
-|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
-| :- | :- | :- | :- |
+- Funcionalidad de Registro: Todas las pruebas deben de crear las credenciales ingresadas de forma correcta en la base de datos o bien enviar un mensaje de error indicando la razón por la cual las credenciales no son permitidas. Igualmente, el registro debe agregar la cuenta con los privilegios y permisos correspondientes a cada tipo de usuario.
 
+- Funcionalidad CRUD del Catálogo: Todas las pruebas deben permitir la subida, lectura, modificación y eliminación de elementos del catálogo de autos. Esto debe de permitirse acorde a los permisos respectivos a cada tipo de cuenta, respetando los privilegios que conlleva cada una de ellas. Se debe de desplegar el mensaje de error correspondiente, si la información/datos por el usuario no es permitida/correcta.
 
-**Criterio de Salida**
+- Funcionalidad de Búsqueda del Catálogo: Todas las pruebas deben permitir la búsqueda de los autos dentro del catálogo con uso de lenguaje natural. Para todos los tipos de administradores que tienen acceso al catálogo pueden hacer una búsqueda de los autos que pertenecen a su respectivo grupo automotriz o a su respectiva agencia, para los clientes pueden hacer una búsqueda de todos los autos de todas las agencia. Los resultados mostrados deben ser relacionados a las palabras ingresadas en la barra de búsqueda, si no hay autos relacionados con las palabras ingresadas en la búsqueda, no se mostrarán resultados ya que no hay autos que coincidan.
 
-|*Criterio de Salida*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
-| :- | :- | :- | :- |
+- Funcionalidad de Filtrado del Catálogo: Todas las pruebas deben permitir el filtrado de los autos dentro del catálogo con los filtros previamente determinados. Para todos los tipos de administradores que tienen acceso al catálogo pueden hacer un filtrado de la búsqueda de los autos que pertenecen a su respectivo grupo automotriz o a su respectiva agencia, para los clientes pueden hacer un filtrado de la búsqueda de todos los autos de todas las agencia. Los resultados mostrados deben ser según los filtros relacionados, si no hay autos que cumplan con las restricciones de los filtros, no se mostrarán resultados ya que no hay autos que coincidan.
 
+- Funcionalidad de Búsqueda de Usuarios: Todas las pruebas deben permitir la búsqueda de otros usuarios con uso de lenguaje natural. Para todos los tipos de administradores que tienen acceso a la búsqueda de otros usuarios pueden hacer una búsqueda de los usuarios que pertenecen a su respectivo grupo automotriz o a su respectiva agencia. Los resultados mostrados deben ser relacionados a las palabras ingresadas en la barra de búsqueda, si no hay usuarios relacionados con las palabras ingresadas en la búsqueda, no se mostrarán resultados ya que no hay usuarios que coincidan.
 
+- Funcionalidad de Filtrado de usuarios: Todas las pruebas deben permitir el filtrado de los usuarios con los filtros previamente determinados. Para todos los tipos de administradores que tienen acceso a la búsqueda de otros usuarios pueden hacer un filtrado de la búsqueda de los autos que pertenecen a su respectivo grupo automotriz o a su respectiva agencia. Los resultados mostrados deben ser según los filtros relacionados, si no hay usuarios que cumplan con las restricciones de los filtros, no se mostrarán resultados ya que no hay usuarios que coincidan.
 
-### 2.6.2 No funcionales
+- Funcionalidad de Pago: Todas las pruebas deben permitir que el usuario pueda realizar el pago de un auto mediante cada uno de los diferentes métodos de pago que ofrece la plataforma. Se deben de desplegar mensajes ya sea de éxito en la transacción o falla en la misma, indicando al usuario si hay una razón de su lado por la cual no fue posible efectuar el pago.
 
-**NO se realizarán pruebas de tipo no funcional.**
+- Funcionalidad de Chat: Todas las pruebas deben permitir que el usuario pueda seleccionar a otro usuario y comunicarse con este efectivamente mediante mensajes. Los mensajes enviados deben de ser visibles y mostrarse en la cuenta receptora, con la capacidad de mostrar un mensaje de error indicando al usuario la razón por la cual no se pudo enviar el mismo.
 
-### 2.6.3 Estáticas
+- Funcionalidad de Favoritos (Wishlist): Todas las pruebas deben permitir que el usuario pueda marcar como “favorito” a todos los autos que desea, así como visualizarlos correctamente en la sección de “wishlist”. Asimismo, el usuario siempre debe de ser capaz de eliminar a cualquier auto de dicha lista, donde los cambios deberán reflejarse correctamente.
 
-Las pruebas estáticas que se llevarán a cabo son las siguientes.
+- Funcionalidad Analítica: Todas las pruebas deben permitir que cada tipo de usuario pueda visualizar correctamente las estadísticas e información adecuada para los permisos que le corresponden a dicha cuenta. Esta funcionalidad siempre deberá estar activa, y de haber un error en el lado del servidor, se deberá indicar con un mensaje respectivamente.
 
-**Documento SRS**
+### Pruebas de Integración
 
-*Prioridad: Alta*
+- Manejo de Solicitudes: Todas las pruebas deberán permitir que el usuario en cuestión (Super-Admin y Vendedor) pueda modificar el estado/etapa de cualquier solicitud a su cargo. Asimismo, debe ser posible comentar acerca del estado de una solicitud así informando al aplicante las acciones que debe realizar, o razones que justifican el estado de su solicitud. Finalmente, el usuario que maneja las solicitudes debe de poder negar o aceptar cualquier solicitud. Todo lo descrito anteriormente, debe siempre verse reflejado en la cuenta del usuario aplicante.
 
+- Compra de un Auto: Todas las pruebas deberán permitir que el cliente tenga la capacidad de comprar un auto exitosamente, y que este pase por las dos posibilidades principales en el proceso de compra, siendo la aceptación o negación de la solicitud. Para ello, el cliente debe ser capaz de seleccionar un auto junto con sus especificaciones, aplicar para la compra del mismo, subir la información y documentos necesarios, darle seguimiento a su solicitud, esperar la aceptación/negación de la misma, efectuar la compra por uno de los métodos de pago disponible, continuar la comunicación con el vendedor el tiempo que sea necesario para finalmente recibir su adquisición.
 
-**Documento de Especificación de Pruebas**
+- Agendado de la prueba de manejo: Todas las pruebas deberán permitir que el cliente tenga la capacidad de agendar una prueba de manejo exitosamente, y que este pase por las dos posibilidades principales en el proceso de agendado, siendo la aceptación o negación de la solicitud. Para ello, el cliente debe ser capaz de seleccionar un auto, solicitar una prueba de manejo para el mismo, subir la información y documentación necesaria, darle seguimiento a la solicitud, y de ser aceptada seleccionar una fecha, lugar y hora disponible en el horario del vendedor. Asimismo, la comunicación entre el cliente y el vendedor debe de ser posible en todo momento como parte del seguimiento de la prueba de manejo.
 
-*Prioridad: Alta*
+### Pruebas de Validación/Aceptación
+Los clientes y representantes de los mismos están satisfechos con la funcionalidad revisada así como la experiencia del usuario (UI/UX) de la plataforma.
 
-
-**Manuales de Usuario (para todos los usuarios)**
-
-*Prioridad: Media*
-
-Se generarán manuales de usuario que describan los diferentes flujos y caminos que puede tomar un usuario en la plataforma. Estos flujos serán los flujos más relevantes como la compra de un coche, la dada de alta de un auto, etc. Es de vital importancia generar un manual de usuario por tipo de usuario (Final, Venedor, Gerente, Grupo Automotriz, Administrador de la Plataforma) y hacer estos manuales lo más gráficos y simples posible.
-
-Para realizar estos manuales utilizaremos una herramienta llamada Tango, que se usa para generar guías paso a paso de alguna funcionalidad de la plataforma.
-
-
-**Mockup de la interfaz gráfica**
-
-*Prioridad: Alta*
-
-Otra de las pruebas estáticas que realizaremos será la de un Mockup de la Interfaz de Usuario. Este mockup será un predecesor de la Interfaz Gráfica en donde se plantea el diseño de la plataforma y se incluyen los posibles recorridos que puede seguir el usuario.
-
-Este documento será útil para obtener retroalimentación del usuario en cuestiones de experiencia de usuario y de apariencia física de la plataforma. Esta información nos ayudará a refinar la aplicación para ajustarla lo más posible a la comodidad del usuario.
-
-**Documentación de las APIs**  
-
-*Prioridad: Media*
-
-Se generará documentación de todas las APIs que expongan los diferentes servicios que sean necesarios para el funcionamiento de la aplicación. Se realizarán usando la herramienta de OpenAPI para la definición de contratos.
-
-Estos documentos tendrán la función de facilitar el desarrollo de la aplicación con la definición de los valores de entrada y salida esperados para el correcto funcionamiento de los servicios. De igual manera servirán para definir en primera instancia los diferentes endpoints.
+### Pruebas Estáticas de Recorrido
+Es posible completar el flujo básico de la plataforma para cada uno de los tipos de usuario, desde el registro, login hasta cada una de sus acciones principales. 
 
 ## 2.7 Entregables
 
