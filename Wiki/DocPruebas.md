@@ -3,6 +3,7 @@
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
 | 26/02/2023 | 0.1     | Creación del Doc SRS |
+| 02/04/2023 | 1     | Plan de Pruebas by Pulse Technologies |
 
 # Índice
 
