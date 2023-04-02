@@ -112,7 +112,7 @@ El flujo de las pruebas se puede observar a continuación:
   <img src="../assets/diagrams/flujo_de_pruebas.png" width="600" title="hover text">
 </p>
 
-## 2.1 Objetivos de pruebas
+## 2.1.  Objetivos de pruebas
  El objetivo de las pruebas que se realizarán durante el transcurso del proyecto es la validación de las funcionalidades fundamentales de la aplicación, al igual que comprobar la correcta implementación de los requerimientos establecidos en el documento SRS. En consideración de este objetivo, las pruebas a realizarse comprenderán:
 
 - Pruebas que aseguren la correcta autorización de usuarios, al igual que la asignación de los premios asociados.
@@ -123,9 +123,9 @@ El flujo de las pruebas se puede observar a continuación:
 - Pruebas asociadas a la creación de usuarios con diferentes permisos.
 - Pruebas asociadas al funcionamiento de un software estable y listo para producción.
 
-## 2.2 Suposiciones sobre las Pruebas
+## 2.2. Suposiciones sobre las Pruebas
 
-###Suposiciones Clave
+### Suposiciones Clave
 1. Se dará prioridad a las pruebas funcionales debido a limitantes de tiempo y presupuesto. 
 2. Todas las pruebas se harán en el mismo ambiente.
 3. Todas las pruebas se harán inicialmente con pruebas Informales y posteriormente en Caja Negra.
@@ -623,3 +623,10 @@ Nombre de la Función/Componente: <br>
 | x  | Ejemplo | Ejemplo | Ejemplo | Ejemplo | Ejemplo | Ejemplo | Sí/No |
 
 # 6. Conclusiones
+El presente documento demuestra la planeación de pruebas para el aplicativo propuesto. Este documento detalla la implementación de todas las pruebas a ejecutar sobre el aplicativo: desde su concepción, ejecución, y documentación.
+
+Las pruebas detalladas tienen pensado ejecutarse durante el desarrollo del aplicativo propuesto: para poder identificar, documentar, exhibir y corregir errores que surjan en el ambiente de desarrollo - así como para identificar riesgos en el diseño o implementación y poder emplear una solución.
+
+Estas pruebas serán ejecutadas por un equipo definido de pruebas - que trabaja de la mano con el equipo de desarrollo - esta comunicación entre equipos asegura un flujo de pruebas correcto y eficiente.
+
+Asimismo, el plan de pruebas puede ayudar al equipo a evaluar y mejorar el rendimiento general del proyecto. Mediante el seguimiento del progreso y la identificación de áreas de mejora, el equipo puede perfeccionar el plan del proyecto, optimizar los recursos y mejorar la eficiencia general del proyecto. En términos generales, la aplicación de un plan de pruebas exhaustivo es esencial para el éxito de cualquier proyecto. Con pruebas continuas, directrices claras y el compromiso de los miembros del equipo, el proyecto puede entregarse a tiempo, dentro del presupuesto y con la calidad esperada. La implementación exitosa de este documento será de gran beneficio para el equipo de desarrollo, el cliente y últimamente para el usuario: asegurando así la sustentabilidad y operatividad del aplicativo - que se espera, sea un gran producto. 
