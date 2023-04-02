@@ -73,25 +73,85 @@ c) Dependencias que impacten los esfuerzos y tiempos
 | 12 | Prueba de sistema | El usuario de agencia puede iniciar sesio, entrar a la vista de agencia, y asignar vendedores asociados | Base de datos completa, Conexiones API completas, Frontend de grupo automotriz completo |
 
 # 2. Estrategia de Pruebas
-## 2.1 Dinámicas
+**Etapa 1 – Comprensión de los Requerimientos, Especificaciones del Proyecto y Pruebas Estáticas:** 
 
-## 2.2 Objetivos de pruebas
+Antes de crear una estrategia de pruebas, primero se comprenden y establecen de manera detallada los requerimientos del proyecto. Para ello se tiene una serie de interacciones semanales con el cliente NDS en el cual se documentan de forma clara las características de la solución que cumplen con sus necesidades y objetivos. Al finalizar esta etapa se espera que haya pocos o nulos cambios, ya que el resto del proyecto se desarrollará en base a lo establecido en esta etapa, por lo cuál queda fuera de las etapas de iteración.
 
+**Etapa 2 - Pruebas Informales:**
 
+En un principio, se comenzará realizando pruebas informales durante el desarrollo del software. Esto incluiría pruebas realizadas individualmente por cada uno de los desarrolladores sin supervisión, teniendo un enfoque en comprobar la funcionalidad de componentes creados. En esta etapa comienza el proceso iterativo de las pruebas y va dentro de las pruebas dinámicas.
 
-## 2.3 Suposiciones sobre las Pruebas
+**Etapa 3 – Realización de Pruebas Unitarias:**
 
-## 2.4 Alcance
+Esta etapa también va dentro de las pruebas dinámicas y se pretende comenzar realizando las pruebas unitarias para cada componente de software de la plataforma. Esto concentrándose en pruebas de caja negra (black box tests) tomando especial atención en la entrada y salida esperadas en su correcto funcionamiento. Simultáneamente a esto, se acordará de manera iterativa con NDS las pruebas de historias de usuario van de acuerdo a sus criterios de aceptación. Esto ayudará a garantizar que la página web satisfaga correctamente las necesidades de NDS y de sus clientes.
 
+**Etapa 4 - Pruebas de Caja Blanca de cobertura (White Box Testing):**
 
+En esta etapa, que también va dentro de las dinámicas, se realizan las pruebas de caja blanca a los componentes definidos en este documento, especialmente dando prioridad a aquellos componentes que generaron errores en las Pruebas de Caja Negra. De esta manera, se podrá analizar el código de dichos componentes, así permitiendo arreglar errores persistentes en pruebas anteriores o eliminar redundancias. Para hacer más eficaz nuestro proceso de pruebas de caja blanca, usaremos la técnica de cobertura en donde se probaran los caminos más utilizados para hacer uso de cada función de cada tipo de usuario.
 
-## 2.5 Niveles de Prueba
+**Etapa 5 - Pruebas de Integración:**
 
+En esta etapa, que es la última dentro de las etapas dinámicas, después de que todas las pruebas unitarias hayan pasado con éxito se pasan a las pruebas de integración donde de manera ascendente se van uniendo los diferentes componentes para validar su correcto funcionamiento en conjunto. Las pruebas de integración se llevarán a cabo mediante pruebas de caja negra de casos de uso aleatorias, las cuales serán elegidas y supervisadas por el Project Manager responsable del equipo de desarrollo.
 
+**Etapa 6 – Pruebas de Validación/Aceptación:**
 
-## 2.6 Criterios de Entrada y Salida
+En esta etapa, se requiere que haya pocos o ningún cambio, ya qué, después de que las pruebas de integración hayan sido exitosas se realizan las pruebas de validación en las que se revisará con el cliente NDS que los criterios de validación definidos en etapas anteriores se cumplen hasta el momento del proceso de pruebas.
 
-### 2.6.1 Dinámicas
+**Etapa 7 – Pruebas de Estática de Recorridos:**
+
+Una vez que se haya tenido la aprobación de NDS se realizará la prueba del funcionamiento del sistema como un todo, verificando el comportamiento y correcto funcionamiento de toda la plataforma en el nivel más alto posible.
+
+**Etapa 8 - Manual de Usuario:**
+
+En esta etapa final, una vez que se haya completado las etapas anteriores y son pocos o nulos los cambios se crea el manual de usuario en el que se le proveerá información e instrucciones al usuario de cómo usar el software desarrollado. En el manual de usuario se incluirán los caminos previamente establecidos en las pruebas de caja blanca de cobertura. El manual toma en cuenta la versión más actualizada y funcional de la aplicación.
+
+Es relevante mencionar, que en esta estrategia se mantiene un flujo iterativo, donde de ser necesario se actualizará el documento de pruebas o se podrá regresar a etapas de pruebas anteriores para así solucionar cualquier fallo o error en cualquier nivel de la plataforma. 
+
+El flujo de las pruebas se puede observar a continuación:
+<p align="center">
+  <img src="../assets/diagrams/flujo_de_pruebas.png" width="600" title="hover text">
+</p>
+
+## 2.1 Objetivos de pruebas
+ El objetivo de las pruebas que se realizarán durante el transcurso del proyecto es la validación de las funcionalidades fundamentales de la aplicación, al igual que comprobar la correcta implementación de los requerimientos establecidos en el documento SRS. En consideración de este objetivo, las pruebas a realizarse comprenderán:
+
+- Pruebas que aseguren la correcta autorización de usuarios, al igual que la asignación de los premios asociados.
+- Pruebas que comprueben el correcto funcionamiento en la búsqueda y filtrado del catálogo de autos.
+- Pruebas que comprueben el correcto funcionamiento del guardado de automóviles en la base de datos.
+- Pruebas que garanticen el funcionamiento de la recopilación, análisis, y generación de estadística relacionada con usuarios agentes de la aplicación.
+- Pruebas relacionadas al servicio de chat implementado en la aplicación. Pruebas con el objetivo de comprobar el correcto funcionamiento del proceso de compra de un automóvil.
+- Pruebas asociadas a la creación de usuarios con diferentes permisos.
+- Pruebas asociadas al funcionamiento de un software estable y listo para producción.
+
+## 2.2 Suposiciones sobre las Pruebas
+
+###Suposiciones Clave
+1. Se dará prioridad a las pruebas funcionales debido a limitantes de tiempo y presupuesto. 
+2. Todas las pruebas se harán en el mismo ambiente.
+3. Todas las pruebas se harán inicialmente con pruebas Informales y posteriormente en Caja Negra.
+
+### Suposiciones Generales
+1. Las pruebas funcionales serán las más relevantes del plan de pruebas.
+2. Realizar las mismas pruebas conlleva a los mismos resultados.
+3. Las pruebas con variedad en el rol de acceso no son equivalentes, y debe definirse una prueba por cada rol.
+4. Si el ambiente de pruebas deja de estar disponible; el equipo de pruebas creará uno lo más similar lo antes posible.
+5. Todas las funciones han sido probadas meticulosamente.
+6. Las pruebas de caja blanca y pruebas paso a paso solo se ejecutarán si los resultados son distintos a lo esperado.
+7. El equipo de pruebas documentará sus resultados de acuerdo a lo evaluado.
+8. El equipo de pruebas asume que todas las entradas o inputs requeridos durante el diseño y la ejecución de las pruebas estarán apoyados por el desarrollador/analista respectivamente.
+9. Todos los documentos personales del usuario serán guardados con el mismo formato y nomenclatura.
+10. El PM verificará los resultados de todas las pruebas efectuadas.
+11. El PM aprueba todos los casos de prueba propuestos previo a la ejecución de los mismos
+12. El equipo de pruebas manejará todo el esfuerzo de ejecución de prueba de forma coordinada con el PM.
+13. El recorrido y manual de usuario se realizará en los últimos sprints.
+
+## 2.3 Alcance
+
+## 2.4 Niveles de Prueba
+
+## 2.5 Criterios de Entrada y Salida
+
+### 2.5.1 Dinámicas
 
 |*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
 | :- | :- | :- | :- |
@@ -139,11 +199,9 @@ Las pruebas estáticas que se llevarán a cabo son las siguientes.
 *Prioridad: Alta*
 
 
-
 **Documento de Especificación de Pruebas**
 
 *Prioridad: Alta*
-
 
 
 **Manuales de Usuario (para todos los usuarios)**
@@ -153,7 +211,6 @@ Las pruebas estáticas que se llevarán a cabo son las siguientes.
 Se generarán manuales de usuario que describan los diferentes flujos y caminos que puede tomar un usuario en la plataforma. Estos flujos serán los flujos más relevantes como la compra de un coche, la dada de alta de un auto, etc. Es de vital importancia generar un manual de usuario por tipo de usuario (Final, Venedor, Gerente, Grupo Automotriz, Administrador de la Plataforma) y hacer estos manuales lo más gráficos y simples posible.
 
 Para realizar estos manuales utilizaremos una herramienta llamada Tango, que se usa para generar guías paso a paso de alguna funcionalidad de la plataforma.
-
 
 
 **Mockup de la interfaz gráfica**
@@ -176,15 +233,16 @@ Estos documentos tendrán la función de facilitar el desarrollo de la aplicaci�
 
 | No. | Nombre del Entregable | Autor | Sprint Esperado | Supervisor  |
 |---|---|---|---|---|
-| 1 |Plan de pruebas   | Equipo de prubas  | 1  | P.M. |
-| 2 |Casos de pruebas unitarias |Equipo de pruebas   |3   |P.M.   |
-| 3 |Caos de pruebas de integración   |Equipo de pruebas   |3   |P.M.   |
-| 4 |Revisión Técnica   |Equipo de pruebas   |Cada sprint después del tercero   |P.M/Equipo de pruebas   |
-| 5 |Reporte de estatus semanal   |Equipo de pruebas   |Cada sprint después del tercero   |P.M./Equipo de pruebas   |
-| 6 |Logs de resultados de pruebas   |Equipo de pruebas   |Cada sprint después del tercero   |P.M./Equipo de pruebas   |
-| 7 | Reporte de finalización de pruebas | Equipo de pruebas | 9 | P.M. |
+| 1 |Plan de pruebas   | Equipo de prubas  | 1  | P.M. y Líder de QA |
+| 2 |Casos de pruebas unitarias |Equipo de pruebas   |3   |P.M. y Líder de QA  |
+| 3 |Caos de pruebas de integración   |Equipo de pruebas   |3   |P.M. y Líder de QA  |
+| 4 |Revisión Técnica   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
+| 5 |Reporte de estatus semanal   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
+| 6 |Logs de resultados de pruebas   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
+| 7 | Reporte de finalización de pruebas | Equipo de pruebas | 9 | P.M. y Líder de QA |
 
-## 2.8 Lista de Objetivos
+## 2.8 Lista de Hitos
+Lista tentativa, sujeta a cambios.
 
 | **No.** | **Tipo de prueba** | **Ejemplo de prueba** | **Dependencias** |
 | --- | --- | --- | --- |
