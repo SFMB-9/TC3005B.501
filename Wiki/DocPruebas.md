@@ -14,7 +14,7 @@
 
 4. [**Ambiente de pruebas**](#4-ambiente-de-pruebas)
 
-5. [**Plantilla de Pruebas**](#5-plantilla-de-pruebas)
+5. [**Plantillas de Pruebas**](#5-plantilla-de-pruebas)
 
 6. [**Conclusiones**](#6-conclusiones)
 
