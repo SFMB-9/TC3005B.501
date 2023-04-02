@@ -252,6 +252,7 @@ Es posible completar el flujo básico de la plataforma para cada uno de los tipo
 | 5 |Reporte de estatus semanal   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
 | 6 |Logs de resultados de pruebas   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
 | 7 | Reporte de finalización de pruebas | Equipo de pruebas | 9 | P.M. y Líder de QA |
+<br>
 
 ## 2.8 Lista de Hitos
 Lista tentativa, sujeta a cambios.
