@@ -146,6 +146,114 @@ El flujo de las pruebas se puede observar a continuación:
 13. El recorrido y manual de usuario se realizará en los últimos sprints.
 
 ## 2.3. Objetos de las Pruebas
+<i>Flujo del Cliente:</i><br>
+* Probar la funcionalidad de Login.
+* Probar la funcionalidad de búsqueda de catálogo.
+* Probar la funcionalidad de filtrado de catálogo.
+* Probar la funcionalidad del agendado  de la prueba de manejo.
+* Probar la funcionalidad de la subida de documentos para la solicitud de prueba de manejo.
+* Probar la funcionalidad de la subida de documentos para la compra de un auto.
+* Probar la funcionalidad de la transacción del pago para la prueba de manejo.
+* Probar la funcionalidad de la transacción de la compra de auto.
+* Probar la funcionalidad del seguimiento de acciones del usuario (prueba de manejo o compras).
+* Probar la funcionalidad del sistema de Chat.
+* Probar la funcionalidad del sistema de favoritos (wishlist).
+* Probar la funcionalidad de la edición de datos en el perfil.
+
+<i>Flujo del Super Administrador:</i><br>
+* Probar la funcionalidad de Login.
+* Probar la funcionalidad de búsqueda de usuarios.
+* Probar las funcionalidad de filtrado de usuarios.
+* Probar la funcionalidad de la modificación de datos de un grupo automotriz.
+* Probar la funcionalidad de la búsqueda de solicitudes.
+* Probar la funcionalidad del filtrado de solicitudes.
+* Probar funcionalidad de la aprobación/negación de una solicitud.
+* Probar la funcionalidad del registro de un grupo automotriz.
+* Probar la funcionalidad del dashboard estadístico. 
+
+<i>Flujo del Grupo Automotriz:</i><br>
+
+<i>Etapa 1:</i><br>
+* Probar funcionalidad del Login.
+* Probar funcionalidad para realizar una aplicación.
+* Probar funcionalidad del panel de seguimiento a una aplicación.
+* Probar funcionalidad de la modificación de los datos del perfil.
+* Probar funcionalidad de la eliminación de una cuenta.
+
+<i>Etapa 2:</i><br>
+* Probar funcionalidad de Login.
+* Probar funcionalidad del registro de una agencia.
+* Probar funcionalidad de la búsqueda de usuarios.
+* Probar funcionalidad del filtrado de usuarios.
+* Probar funcionalidad para la modificación de datos de una agencia.
+* Probar funcionalidad del registro de un gerente.
+* Probar funcionalidad para la modificación de datos de un gerente.
+* Probar funcionalidad del dashboard estadístico.
+
+<i>Flujo del Gerente:</i><br>
+* Probar funcionalidad de Login.
+* Probar funcionalidad de la búsqueda de usuarios.
+* Probar funcionalidad del filtrado de usuarios.
+* Probar funcionalidad del registro de un vendedor.
+* Probar funcionalidad para la modificación de datos de un vendedor.
+* Probar funcionalidad para la actualización/modificación del catálogo de autos.
+* Probar funcionalidad del dashboard estadístico.
+
+<i>Flujo del Vendedor:</i><br>
+* Probar funcionalidad del Login.
+* Probar la funcionalidad de búsqueda de catálogo.
+* Probar la funcionalidad de filtrado de catálogo.
+* Probar la funcionalidad de la búsqueda de solicitudes.
+* Probar la funcionalidad del filtrado de solicitudes.
+* Probar funcionalidad del manejo de una solicitud.
+* Probar funcionalidad del sistema de chat.
+* Probar funcionalidad del dashboard estadístico.
+
+En la siguientes tablas se resumen los requerimientos y componentes que serán probados a través de diferentes pruebas:
+
+**Caja Negra**
+|Clave|Objeto|Usuario|Descripción|Prioridad|
+| :- | :- | :- | :- | :- |
+|P\_CN\_001|Filtros del catálogo de autos|Usuario Final|Se evalúa el resultado del uso de filtros tradicionales sobre el catálogo|Alta|
+|P\_CN\_002|Solicitud de prueba de manejo|Usuario Final|Se evalúa la capacidad de completar el formulario de solicitud de prueba de manejo.|Alta|
+|P\_CN\_003|Cita para ir con el agente|Usuario Final|Se evalúa la funcionalidad de poder calendarizar una cita con un Agente Vendedor de una agencia.|Baja|
+|P\_CN\_004|Administración de documentos de usuario|Usuario Final|Se evalúa la funcionalidad de poder ver y borrar documentos subidos por el usuario.|Alta|
+|P\_CN\_005|Contacto con agente|Usuario Final|Se evalúa la funcionalidad del sistema de chat entre el usuario y el agente vendedor.|Alta|
+|P\_CN\_006|Redirección a la vista de login|Usuario Final|Se evalúa la funcionalidad de redireccionar al usuario a iniciar sesión al solicitar una prueba de manejo o compra de auto.|Alta|
+|P\_CN\_007|Administración de registros de automóviles nuevos por csv/individual|Usuario Vendedor|Se evalúa la funcionalidad de poder registrar y eliminar autos subidos por el usuario vendedor sea por archivo csv o de manera individual|Alta|
+|P\_CN\_008|Administracion de usuarios vendedores|Usuario Gerente|Se evalúa la funcionalidad de poder asignar y eliminar usuarios vendedores de una agencia |Alta|
+|P\_CN\_009|Administración de agencias asociadas a grupo automotriz|Usuario Grupo Automotriz|Se evalúa la funcionalidad de poder asignar y eliminar agencias asociadas de un grupo automotriz|Media|
+|P\_CN\_010|Administración de usuarios gerentes y grupos automotrices|Usuario Administrador|Se evalúa la funcionalidad de poder aceptar y rechazar solicitudes de usuarios gerentes/grupos automotrices|Alta|
+
+**Integración**
+
+|Clave|Objeto|Usuario|Descripción|Prioridad|
+| :- | :- | :- | :- | :- |
+|P\_I\_001|Login|Todos|Se validará la funcionalidad del Login para todos los usuarios|Alta|
+|P\_I\_002|Registro|Gerente, Vendedor, Grupo Automotriz, Final|Se validará la funcionalidad de Registro para usuarios|Alta|
+|P\_I\_003|Registro de automóviles|Usuario vendedor|Se validará que el funcionamiento del registro de nuevos automóviles sea correcto|Alta|
+|P\_I\_004|Modificacion de automoviles existentes|Usuario Vendedor|Se validará la funcionalidad de modificar automóviles para vendedores|Alta|
+|P\_I\_005|Administracion de usuarios vendedores|Usuario Gerente|Se validará que los usuarios de gerente puedan asignar/eliminar vendedores|Alta|
+|P\_I\_006|Administración de gerentes/grupos automotrices |Usuario Administrador|Se validará que el usuario administrador puede asignar/eliminar usuarios de gerentes/grupos automotrices|Alta|
+|P\_I\_007|Compra de automóviles|Usuario Final|Se validará que el proceso de compra de un automóvil para el usuario final pueda ser realizado de manera correcta |Alta|
+|P\_I\_008|Aprobación/rechazo de compras|Usuario vendedor|Se validará que el usuario vendedor sea capaz de aprobar/rechazar solicitudes de compra|Alta|
+|P\_I\_009|Comunicación entre vendedor y usuario final|Final, Vendedor|Se validará que el usuario final y vendedor se puedan comunicar de manera exitosa mediante el chat dentro de la aplicación|Alta|
+|P\_I\_010|Solicitud de Prueba de Manejo|Usuario Final|Se validará que el usuario final pueda en el proceso de iniciar sesión o en su defecto crear una, al igual que seguir los pasos de solicitud y formulario con éxito.|Alta|
+|P\_I\_011|Aprobación/rechazo de prueba de manejo|Usuario Vendedor|Se validará que el usuario vendedor sea capaz de aprobar/rechazar solicitudes de prueba de manejo|Alta|
+
+
+**Validación/Aceptación**
+
+|Clave|Objeto|Usuario|Descripción|Prioridad|
+| :- | :- | :- | :- | :- |
+|P\_V\_001|Landing Page - Busqueda - Listado - Login|Usuario Final|Recorrido desde cuando el usuario entra a la plataforma y se le pide que inicie sesión solamente a la hora de que quiere continuar con la compra de un auto|Media|
+|P\_V\_002|Landing Page - Login - Busqueda - Listado - Inicio de Proceso de Compra|Usuario Final|Recorrido desde cuando el usuario entra a la plataforma, inicia sesión en la página de login, busca el coche que quiere comprar e inicia el proceso de compra|Alta|
+|P\_V\_003|Landing Page - Busqueda - Comparar autos|Usuario Final|Recorrido cuando el usuario utiliza la plataforma para la comparación de autos sin iniciar sesión|Media|
+|P\_V\_004|Landing Page - Login - Búsqueda - Inicio de Venta - Comunicación con Agente - Subida de Documentos - Pago de contado - Finalización de Compra |Usuario Final|Recorrido completo desde que el usuario inicia sesión hasta que finaliza su proceso de compra. Este proceso será una simulación ya que la comunicación con el vendedor puede durar varios días.|Alta|
+|P\_V\_005|Login - Página Principal - Lista de órdenes de compra - Chat con el cliente |Usuario Vendedor|Recorrido como vendedor de iniciar sesión, seleccionar una órden de compra y mandar un mensaje a un cliente|Alta|
+|P\_V\_006|Login - Página Principal - Página de Listado - Agregar un Coche|Usuario Gerente|Recorrido de cómo un gerente de una agencia agrega autos al catálogo|Alta|
+|P\_V\_007|Login - Página Principal - Solicitar creación de usuario gerente|Usuario Grupo Automotriz|Recorrido que seguiría un usuario de grupo automotriz para solicitar la creación de un nuevo gerente de una agencia|Alta|
+|P\_V\_008|Login - Página Principal - Aceptar la solicitud de dada de alta de un grupo automotriz|Usuario Administrador de la Plataforma|Recorrido como usuario administrador de la plataforma que se seguirá para aceptar la solicitud de dada de alta de un grupo automotriz|Alta|
 
 ## 2.4 Alcance
 <b>Flujo del Cliente:</b><br>
@@ -260,7 +368,6 @@ El flujo de las pruebas se puede observar a continuación:
 * Las estadísticas son válidas y representativas de los datos dentro del sistema
 * Las opciones y parámetros presentes dentro de la vista permiten ver estadísticas particulares de acuerdo a la selección de las mismas.
 
-	
 <b>Flujo del Grupo Automotriz:</b><br>
 
 <b>Etapa 1:</b><br>
