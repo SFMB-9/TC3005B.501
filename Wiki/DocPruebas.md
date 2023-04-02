@@ -403,7 +403,7 @@ El flujo de las pruebas se puede observar a continuación:
 * Acceso al dashboard con una cuenta de nivel valido muestra las estadísticas y métricas de la plataforma
 * Las estadísticas son válidas y representativas de los datos dentro del sistema* Las opciones y parámetros presentes dentro de la vista permiten ver estadísticas particulares de acuerdo a la selección de las mismas.
 
-## 2.5 Niveles de Prueba
+## 2.5 Niveles de Prueba y Criterios de Entrada y Salida
 A continuación se muestran el nivel de las pruebas que se realizarán durante el desarrollo del proyecto, además de detallar algunas de los métodos que se utilizaran al igual que los responsables de dichas pruebas.
 
 ### Pruebas Informales (Prueba Funcional)
@@ -422,6 +422,13 @@ El propósito de las pruebas unitarias es probar cada uno de los componentes y f
 - _Metodología:_ Los desarrolladores probarán componentes de la aplicación sin tener conocimiento del código detrás de los mismos componentes, reportando errores en caso de encontrarlos. Específicamente, el tipo de pruebas de caja negra que se realizarán serán pruebas de tipo de casos de uso. Dentro de estas pruebas se realizarán tres baterías negativas y tres baterías positivas que se deberán cumplir cuando se realicen este tipo de pruebas.
 - _Cada cuándo:_ Al finalizar cada componente.
 
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- El equipo de cómputo es completamente funcional, y configuración.||||
+|<p></p><p>- Los paquetes requeridos están instalados y disponibles en el equipo de computo.</p>||||
+|- La librería de pruebas está disponible y funcional en el equipo de cómputo.||||
+|- El ambiente de pruebas está configurado y funcional en el equipo de cómputo.|||<p></p><p></p>|
+
 ### Prueba de Caja Blanca (Prueba Funcional)
 El propósito de este tipo de pruebas es encontrar la causa de algún tipo de falla que se haya encontrado en otro tipo de pruebas. En específico, las pruebas de caja blanca que se realizan son pruebas de cobertura, es decir, se probarán los tres caminos más utilizados por los usuarios. Más aún, se considerará que los caminos seleccionados son apropiados si estos cubren un mínimo de 80% de los caminos posibles. Este 80% debe regresar resultados de prueba positivos para así justificar que el componente funciona de manera correcta.
 
@@ -429,6 +436,16 @@ El propósito de este tipo de pruebas es encontrar la causa de algún tipo de fa
 - _Responsables:_ Los desarrolladores de software y los testers.
 - _Metodología:_ Los desarrolladores que se encargaron de crear los componentes en donde se encontraron los errores serán los encargados de realizar pruebas de caja blanca con el objetivo de encontrar que pedazo de código es el que está causando dicho error.
 - _Cada cuándo:_ Al finalizar cada sprint.
+
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- El equipo de cómputo es completamente funcional, y configuración.||||
+|<p></p><p>- Los paquetes requeridos están instalados y disponibles en el equipo de computo.</p>||||
+|- La librería de pruebas está disponible y funcional en el equipo de cómputo.||||
+|- El ambiente de pruebas está configurado y funcional en el equipo de cómputo.||||
+|- Se tiene acceso completo a todo el código fuente de la aplicación||||
+|- Se tiene acceso a la documentación o código fuente de los paquetes requeridos.||||
+|- Se tiene acceso a los esquemas de bases de datos de la aplicación.||||
 
 ### Prueba de Integración (Prueba Funcional)
 El propósito de las pruebas de integración es comprobar el correcto funcionamiento de la aplicación cuando todos los componentes son utilizados en conjunto. Para efectos de este proyecto, debido a las restricciones de tiempo, este tipo de pruebas sólo serán realizadas en los componentes críticos de la aplicación.
@@ -438,6 +455,14 @@ El propósito de las pruebas de integración es comprobar el correcto funcionami
 - _Metodología:_ Los desarrolladores responsables de cada célula, al terminar más de un componente relacionado, empezaran a realizar pruebas e integración. De la misma manera, al terminar el proyecto, se realizarán nuevas pruebas de este estilo.
 - _Cada cuándo:_ Al terminarse pedazos de software relacionados y al acabar todos los componentes de la aplicación.
 
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- Las máquinas virtuales (GCP Compute Engine) están disponibles y corriendo.||||
+|- Los paquetes requeridos están instalados y disponibles en las máquinas virtuales.||||
+|- Las bases de datos están instanciadas, y con el esquema.  ||||
+|- La librería de pruebas está disponible en el equipo de computo.||||
+|- El ambiente de pruebas está configurado y corriendo.||||
+
 ### Prueba de Aceptación (Prueba Funcional)
 El propósito de este tipo de pruebas es validar con el equipo de desarrollo y NDS si el sistema está a la par con sus expectativas y cumple las funcionalidades que fueron discutidas en el documento SRS.
 
@@ -445,6 +470,14 @@ El propósito de este tipo de pruebas es validar con el equipo de desarrollo y N
 - _Responsables:_ Rubén Raya (NDS), los desarrolladores, los testers y el SCRUM master..
 - _Metodología:_ Los desarrolladores se reunirán con Rubén Raya y bajo su supervisión se encargará de validar los aspectos importantes de la aplicación desarrollada.
 - _Cada cuándo:_ En cuanto se cumplan las pruebas de integración.
+
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- Las máquinas virtuales (GCP Compute Engine) están disponibles y corriendo.||||
+|- Los paquetes requeridos están instalados y disponibles en las máquinas virtuales.||||
+|- Las bases de datos están instaladas, y con el esquema.  ||||
+|- La librería de pruebas está disponible en el equipo de computo.||||
+|- El ambiente de pruebas está configurado y corriendo.||||
 
 ### Prueba de Recorrido Estático (Validación)
 El propósito de este tipo de pruebas es asegurar que el servicio, en términos de funcionalidad y desempeño, actúe de manera satisfactoria.
@@ -454,11 +487,24 @@ El propósito de este tipo de pruebas es asegurar que el servicio, en términos 
 - _Metodología:_ Crear escenarios de acuerdo a las situaciones más usuales de los usuarios.
 - _Cada cuándo:_ Al final del proyecto.
 
+### Criterios de Salida
+
+Unitarias, Integración, Aceptación
+
+|*Criterio de Salida*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- Se probaron el 100% de las pruebas establecidas.||||
+|- No existen problemas de nivel severo o crítico.||||
+|- Los problemas de nivel severo o crítico se documentan, así como su solución o delegación.||||
+|- El 100% de los componentes tiene un mínimo de 90% de índice de aprobación.||||
+|- Todas las pruebas arrojan un resultado legible, que después es documentado como su resultado.||||
+|- El equipo de cómputo, así como los componentes involucrados, sigue funcional después de la ejecución de las pruebas.||||
+
 ## 2.6 Criterios de Aceptación
 ### Pruebas Informales
 Cada desarrollador tiene como responsabilidad realizar una prueba informal a cada componente que finalice. Ya que esta prueba no sigue una metodología específica, el desarrollador sabrá que el componente pasó la prueba si realiza de manera correcta su funcionalidad y trabaja de manera adecuada con otros componentes.
 
-###Pruebas Unitarias
+### Pruebas Unitarias
 - Funcionalidad de Login: Esta funcionalidad nunca debe fallar. Todas las pruebas deben proporcionar el usuario y la página de inicio correctos, o bien enviar un mensaje de error indicando que el usuario no existe. Esto para cada tipo de usuario que permite la plataforma.
 
 - Funcionalidad de Registro: Todas las pruebas deben de crear las credenciales ingresadas de forma correcta en la base de datos o bien enviar un mensaje de error indicando la razón por la cual las credenciales no son permitidas. Igualmente, el registro debe agregar la cuenta con los privilegios y permisos correspondientes a cada tipo de usuario.
