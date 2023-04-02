@@ -1,30 +1,76 @@
-# Documento de Pruebas
+# Plan de Pruebas
 
-
-
+| Date       | Version | Description  |  
+|------------|:-------:| :----------- |
+| 26/02/2023 | 0.1     | Creación del Doc SRS |
 
 # Índice
 
-[**Índice**](#índice)
+1. [**Introducción**](#1-introducción)
 
-[**Introducción**](#1-introducción)
+2. [**Estrategia de Pruebas**](#2-estrategia-de-pruebas)
 
-[**Estrategia de Pruebas**](#2-estrategia-de-pruebas)
+3. [**Manejo de Pruebas**](#3-manejo-de-pruebas)
 
-[**Manejo de Pruebas**](#3-manejo-de-pruebas)
+4. [**Ambiente de pruebas**](#4-ambiente-de-pruebas)
 
-[**Ambiente de pruebas**](#4-ambiente-de-pruebas)
+5. [**Plantilla de Pruebas**](#5-plantilla-de-pruebas)
 
-[**Plantilla de Pruebas**](#5-plantilla-de-pruebas)
-
-[**Conclusiones**](#6-conclusiones)
+6. [**Conclusiones**](#6-conclusiones)
 
 # 1. Introducción
 ## 1.1 Objetivo
+El objetivo del presente documento, es proveer una propuesta respecto a las pruebas de software necesarias para el desarrollo y la funcionalidad correcta de la aplicación web de adquisición de autos. Estas contribuirán en la creación de un producto con un control de calidad alto por lo que serán detalladas y argumentadas en este escrito.
+
+En cuanto al plan de pruebas que se realizará, este incluirá la especificación de elementos de software que serán probados, el nivel y la secuencia en la que serán probados, los criterios de salida y la manera en la que se aplicará la estrategia en el ambiente de pruebas. Junto con lo anterior, se considerarán los siguientes puntos:
+- Lo que está dentro y fuera del alcance
+- Supuestos
+- Roles y responsabilidades del equipo QA
+- Herramientas
+- Entregables
+- Gestión de Defectos
+- Riesgos
+- Calendario
+
+Es relevante recalcar que el presente documento será organizado de manera que se especifiquen claramente las dos vertientes principales de pruebas: dinámicas y estáticas.
 
 ## 1.2 Descripción del Proyecto
+El proyecto que será desarrollado por Pulse Technologies, se trata de una solución para grupos automotrices y compradores de autos en donde se permitirá digitalizar una parte del proceso de compra, evitando visitas excesivas a las agencias. Dicha solución está planteada como una aplicación web que permitirá a los usuarios interactuar con el agente, explorar distintas opciones de autos, obtener cotizaciones estimadas automáticamente, comparar autos, subir y editar sus documentos, solicitar pruebas de manejo y mantener un seguimiento adecuado (con la misma calidad de atención que en una agencia tradicional) de sus compras.
+
+La aplicación beneficiará a los clientes de las agencias ya que les ahorrará tiempo, les proporcionará opciones de distintas marcas y agencias (con distintos planes de financiamiento) en una misma plataforma, y les permitirá tener una visión más clara de lo que quieren. Asimismo, beneficiará a las agencias y grupos automotrices, dándoles un espacio en el que tendrán visibilidad, la posibilidad de agilizar ciertos procesos (como lo es el de la entrega de documentos del cliente) para poder atender a más clientes y la posibilidad de obtener ciertas estadísticas que les podrán ayudar a analizar sus ventas.
 
 ## 1.3 Audiencia
+En cuanto a la audiencia, es necesario separar claramente a las entidades involucradas para las pruebas dinámicas y para las pruebas estáticas. 
+
+### Dinámicas
+Puesto a que las pruebas dinámicas requieren de la ejecución del código, su audiencia principal son los desarrolladores (quienes generan en código, lo modifican y verifican que funcione dicho código). De igual manera, aquellos encargados de diseñar las pruebas estarán involucrados en las pruebas dinámicas ya que tendrán que planearlas. 
+
+### Estáticas
+En cuanto a las pruebas estáticas - que se basan en la revisión de productos de trabajo sin código -, estas involucrarán a los encargados de diseñar las pruebas (ya que mediante la revisión del trabajo podrán planear mejores pruebas), al Product Owner (quien tiene la visión de la perspectiva del cliente por lo que puede evaluar si se cumplen las necesidades del mismo), el Project Manager (quien supervisará que se lleve a cabo el proyecto correctamente y se entreguen las pruebas adecuadas), y cualquier otro participante del producto que quiera revisar los documentos y asegurar la calidad del mismo. 
+
+### Dependencias
+Esta lista de hitos es tentativa y puede cambiar debido a las siguientes razones:
+
+a) Problemas en el ambiente de desarrollo
+
+b) Cambios en el alcance
+
+c) Dependencias que impacten los esfuerzos y tiempos
+
+| Nu. | Tipo de Prueba | Ejemplo de Prueba (SUT) | Dependencias (DOC) |
+|--|-----------|--------------------|------------------|
+| 1 | Pruebas Unitarias | Conexion a BD  | Base de datos completa & API |
+| 2 | Pruebas Unitarias | Login de usuario | Base de datos completa & API |
+| 3 | Pruebas Unitarias | Registro de usuario | Base de datos completa & API |
+| 4 | Pruebas de integracion | Chat entre usuarios | Los usuarios se pueden comunicar de manera exitosa |
+| 5 | Pruebas de integracion | Compra de usuario | El usuario puede realizar compras de manera exitosa |
+| 6 | Pruebas de validacion | La interfaz de usuario es agradable y facil de usar |  Diseño de interface completo|
+| 7 | Pruebas de validacion | El sistema esta completo y el cliente esta satisfecho con su funcionamiento | El sistema esta completo|
+| 8| Prueba de sistema | El usuario final puede iniciar sesion, navegar la pagina, realizar compras y comunicarse con vendedores por medio de chat | Base de datos completa, Conexiones API completas, Frontend de usuario final completo|
+| 9 | Prueba de sistema | EL usuario administrador puede iniciar sesion, entrar a la vista de administrador, y administrar los usuarios de la pagina | Base de datos completa, Conexiones API completas Frontend de usuario administrador completo | 
+| 10 | Prueba de sistema | El usuario vendedor puede iniciar sesion, entrar a la vista de vendedor, y administrar sus productos | Base de datos completa, Conexiones API completas, Frontend de usuario vendedor completo |
+| 11 | Prueba de sistema | El usuario de grupo automotriz puede iniciar sesion, entrar a la vista de grupo automotriz, y asignar agencias asociadas | Base de datos completa, Conexiones API completas, Frontend de grupo automotriz completo |
+| 12 | Prueba de sistema | El usuario de agencia puede iniciar sesio, entrar a la vista de agencia, y asignar vendedores asociados | Base de datos completa, Conexiones API completas, Frontend de grupo automotriz completo |
 
 # 2. Estrategia de Pruebas
 ## 2.1 Dinámicas
@@ -128,8 +174,6 @@ Estos documentos tendrán la función de facilitar el desarrollo de la aplicaci�
 
 ## 2.7 Entregables
 
-
-
 | No. | Nombre del Entregable | Autor | Sprint Esperado | Supervisor  |
 |---|---|---|---|---|
 | 1 |Plan de pruebas   | Equipo de prubas  | 1  | P.M. |
@@ -202,4 +246,3 @@ La aplicación en sí se alojará en una instancia VPC, que contendrá máquinas
 # 5. Plantilla de pruebas
 
 # 6. Conclusiones
-
