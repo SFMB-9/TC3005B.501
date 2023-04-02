@@ -211,7 +211,135 @@ Estos documentos tendrán la función de facilitar el desarrollo de la aplicaci�
 | 20 | Prueba de recorrido | Recorrido de todos los usuarios se puede completar | Bases de datos finalizadas, API finalizada, arquitectura de nube finalizada, conexiones finalizadas, implementación de front-end finalizada, implementación de back-end finalizada |
 
 ## 2.9 Estimado de Esfuerzo
+Estimación basada en un equipo de 5 personas. Sujeta a cambios. 
 
+### Pruebas Estáticas
+<table>
+  <thead>
+    <tr>
+      <th>
+        Tipo de Prueba
+      </th>
+      <th>
+        Horas
+      </th>
+      <th>
+        D&iacute;as
+      </th>
+      <th>
+        Porcentaje del Proyecto
+      </th>
+    </tr>
+  </thead>
+    <tr>
+      <td>
+        SRS
+      </td>
+      <td>
+        56 
+      </td>
+      <td>
+        7
+      </td>
+      <td>
+        7.72%
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Plan de Pruebas
+      </td>
+      <td>
+        56
+      </td>
+      <td>
+        7 
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Recorrido Est&aacute;tico
+      </td>
+      <td>
+        24
+      </td>
+      <td>
+        3
+      </td>
+    </tr>
+  </table>
+
+### Pruebas Funcionales
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Tipo de Prueba
+      </th>
+      <th>
+        Horas
+      </th>
+      <th>
+        D&iacute;as
+      </th>
+      <th>
+        Porcentaje del Proyecto
+      </th>
+    </tr>
+  </thead>
+    <tr>
+      <td>
+        Pruebas Informales
+      </td>
+      <td>
+        N/A
+      </td>
+      <td>
+        N/A
+      </td>
+      <td>
+        10.61%
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Pruebas de Integraci&oacute;n
+      </td>
+      <td>
+        28
+      </td>
+      <td>
+        3.5
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Pruebas de Caja Negra
+      </td>
+      <td>
+        56
+      </td>
+      <td>
+        7
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Pruebas de Caja Blanca
+        *porcentaje variable dependiendo de qu&eacute; componentes lo necesiten</span>
+        </p>
+      </td>
+      <td>
+        98
+      </td>
+      <td>
+        12.25
+      </td>
+    </tr>
+  </table>
+
+La estimación de esfuerzos anterior representa un 18.33% del total del proyecto.
 
 # 3. Manejo de Pruebas
 En esta sección, se describirá en más detalle el proceso de pruebas, incluidos los riesgos que pueden aparecer, su probabilidad de ocurrir, su impacto en el proyecto y las acciones que podemos tomar para mitigarlos. Además, se describirá con más detalle los roles y expectativas, para que cada miembro del equipo sepa qué hacer en cada fase del proyecto, para minimizar la probabilidad de cometer errores por falta de comunicación.
