@@ -3,6 +3,7 @@
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
 | 26/02/2023 | 0.1     | Creación del Doc SRS |
+| 02/04/2023 | 1     | Plan de Pruebas by Pulse Technologies |
 
 # Índice
 
@@ -14,7 +15,7 @@
 
 4. [**Ambiente de pruebas**](#4-ambiente-de-pruebas)
 
-5. [**Plantilla de Pruebas**](#5-plantilla-de-pruebas)
+5. [**Plantillas de Pruebas**](#5-plantilla-de-pruebas)
 
 6. [**Conclusiones**](#6-conclusiones)
 
@@ -146,10 +147,371 @@ El flujo de las pruebas se puede observar a continuación:
 13. El recorrido y manual de usuario se realizará en los últimos sprints.
 
 ## 2.3. Objetos de las Pruebas
+<i>Flujo del Cliente:</i><br>
+* Probar la funcionalidad de Login.
+* Probar la funcionalidad de búsqueda de catálogo.
+* Probar la funcionalidad de filtrado de catálogo.
+* Probar la funcionalidad del agendado  de la prueba de manejo.
+* Probar la funcionalidad de la subida de documentos para la solicitud de prueba de manejo.
+* Probar la funcionalidad de la subida de documentos para la compra de un auto.
+* Probar la funcionalidad de la transacción del pago para la prueba de manejo.
+* Probar la funcionalidad de la transacción de la compra de auto.
+* Probar la funcionalidad del seguimiento de acciones del usuario (prueba de manejo o compras).
+* Probar la funcionalidad del sistema de Chat.
+* Probar la funcionalidad del sistema de favoritos (wishlist).
+* Probar la funcionalidad de la edición de datos en el perfil.
+
+<i>Flujo del Super Administrador:</i><br>
+* Probar la funcionalidad de Login.
+* Probar la funcionalidad de búsqueda de usuarios.
+* Probar las funcionalidad de filtrado de usuarios.
+* Probar la funcionalidad de la modificación de datos de un grupo automotriz.
+* Probar la funcionalidad de la búsqueda de solicitudes.
+* Probar la funcionalidad del filtrado de solicitudes.
+* Probar funcionalidad de la aprobación/negación de una solicitud.
+* Probar la funcionalidad del registro de un grupo automotriz.
+* Probar la funcionalidad del dashboard estadístico. 
+
+<i>Flujo del Grupo Automotriz:</i><br>
+
+<i>Etapa 1:</i><br>
+* Probar funcionalidad del Login.
+* Probar funcionalidad para realizar una aplicación.
+* Probar funcionalidad del panel de seguimiento a una aplicación.
+* Probar funcionalidad de la modificación de los datos del perfil.
+* Probar funcionalidad de la eliminación de una cuenta.
+
+<i>Etapa 2:</i><br>
+* Probar funcionalidad de Login.
+* Probar funcionalidad del registro de una agencia.
+* Probar funcionalidad de la búsqueda de usuarios.
+* Probar funcionalidad del filtrado de usuarios.
+* Probar funcionalidad para la modificación de datos de una agencia.
+* Probar funcionalidad del registro de un gerente.
+* Probar funcionalidad para la modificación de datos de un gerente.
+* Probar funcionalidad del dashboard estadístico.
+
+<i>Flujo del Gerente:</i><br>
+* Probar funcionalidad de Login.
+* Probar funcionalidad de la búsqueda de usuarios.
+* Probar funcionalidad del filtrado de usuarios.
+* Probar funcionalidad del registro de un vendedor.
+* Probar funcionalidad para la modificación de datos de un vendedor.
+* Probar funcionalidad para la actualización/modificación del catálogo de autos.
+* Probar funcionalidad del dashboard estadístico.
+
+<i>Flujo del Vendedor:</i><br>
+* Probar funcionalidad del Login.
+* Probar la funcionalidad de búsqueda de catálogo.
+* Probar la funcionalidad de filtrado de catálogo.
+* Probar la funcionalidad de la búsqueda de solicitudes.
+* Probar la funcionalidad del filtrado de solicitudes.
+* Probar funcionalidad del manejo de una solicitud.
+* Probar funcionalidad del sistema de chat.
+* Probar funcionalidad del dashboard estadístico.
+
+En la siguientes tablas se resumen los requerimientos y componentes que serán probados a través de diferentes pruebas:
+
+**Caja Negra**
+|Clave|Objeto|Usuario|Descripción|Prioridad|
+| :- | :- | :- | :- | :- |
+|P\_CN\_001|Filtros del catálogo de autos|Usuario Final|Se evalúa el resultado del uso de filtros tradicionales sobre el catálogo|Alta|
+|P\_CN\_002|Solicitud de prueba de manejo|Usuario Final|Se evalúa la capacidad de completar el formulario de solicitud de prueba de manejo.|Alta|
+|P\_CN\_003|Cita para ir con el agente|Usuario Final|Se evalúa la funcionalidad de poder calendarizar una cita con un Agente Vendedor de una agencia.|Baja|
+|P\_CN\_004|Administración de documentos de usuario|Usuario Final|Se evalúa la funcionalidad de poder ver y borrar documentos subidos por el usuario.|Alta|
+|P\_CN\_005|Contacto con agente|Usuario Final|Se evalúa la funcionalidad del sistema de chat entre el usuario y el agente vendedor.|Alta|
+|P\_CN\_006|Redirección a la vista de login|Usuario Final|Se evalúa la funcionalidad de redireccionar al usuario a iniciar sesión al solicitar una prueba de manejo o compra de auto.|Alta|
+|P\_CN\_007|Administración de registros de automóviles nuevos por csv/individual|Usuario Vendedor|Se evalúa la funcionalidad de poder registrar y eliminar autos subidos por el usuario vendedor sea por archivo csv o de manera individual|Alta|
+|P\_CN\_008|Administracion de usuarios vendedores|Usuario Gerente|Se evalúa la funcionalidad de poder asignar y eliminar usuarios vendedores de una agencia |Alta|
+|P\_CN\_009|Administración de agencias asociadas a grupo automotriz|Usuario Grupo Automotriz|Se evalúa la funcionalidad de poder asignar y eliminar agencias asociadas de un grupo automotriz|Media|
+|P\_CN\_010|Administración de usuarios gerentes y grupos automotrices|Usuario Administrador|Se evalúa la funcionalidad de poder aceptar y rechazar solicitudes de usuarios gerentes/grupos automotrices|Alta|
+
+**Integración**
+
+|Clave|Objeto|Usuario|Descripción|Prioridad|
+| :- | :- | :- | :- | :- |
+|P\_I\_001|Login|Todos|Se validará la funcionalidad del Login para todos los usuarios|Alta|
+|P\_I\_002|Registro|Gerente, Vendedor, Grupo Automotriz, Final|Se validará la funcionalidad de Registro para usuarios|Alta|
+|P\_I\_003|Registro de automóviles|Usuario vendedor|Se validará que el funcionamiento del registro de nuevos automóviles sea correcto|Alta|
+|P\_I\_004|Modificacion de automoviles existentes|Usuario Vendedor|Se validará la funcionalidad de modificar automóviles para vendedores|Alta|
+|P\_I\_005|Administracion de usuarios vendedores|Usuario Gerente|Se validará que los usuarios de gerente puedan asignar/eliminar vendedores|Alta|
+|P\_I\_006|Administración de gerentes/grupos automotrices |Usuario Administrador|Se validará que el usuario administrador puede asignar/eliminar usuarios de gerentes/grupos automotrices|Alta|
+|P\_I\_007|Compra de automóviles|Usuario Final|Se validará que el proceso de compra de un automóvil para el usuario final pueda ser realizado de manera correcta |Alta|
+|P\_I\_008|Aprobación/rechazo de compras|Usuario vendedor|Se validará que el usuario vendedor sea capaz de aprobar/rechazar solicitudes de compra|Alta|
+|P\_I\_009|Comunicación entre vendedor y usuario final|Final, Vendedor|Se validará que el usuario final y vendedor se puedan comunicar de manera exitosa mediante el chat dentro de la aplicación|Alta|
+|P\_I\_010|Solicitud de Prueba de Manejo|Usuario Final|Se validará que el usuario final pueda en el proceso de iniciar sesión o en su defecto crear una, al igual que seguir los pasos de solicitud y formulario con éxito.|Alta|
+|P\_I\_011|Aprobación/rechazo de prueba de manejo|Usuario Vendedor|Se validará que el usuario vendedor sea capaz de aprobar/rechazar solicitudes de prueba de manejo|Alta|
+
+
+**Validación/Aceptación**
+
+|Clave|Objeto|Usuario|Descripción|Prioridad|
+| :- | :- | :- | :- | :- |
+|P\_V\_001|Landing Page - Busqueda - Listado - Login|Usuario Final|Recorrido desde cuando el usuario entra a la plataforma y se le pide que inicie sesión solamente a la hora de que quiere continuar con la compra de un auto|Media|
+|P\_V\_002|Landing Page - Login - Busqueda - Listado - Inicio de Proceso de Compra|Usuario Final|Recorrido desde cuando el usuario entra a la plataforma, inicia sesión en la página de login, busca el coche que quiere comprar e inicia el proceso de compra|Alta|
+|P\_V\_003|Landing Page - Busqueda - Comparar autos|Usuario Final|Recorrido cuando el usuario utiliza la plataforma para la comparación de autos sin iniciar sesión|Media|
+|P\_V\_004|Landing Page - Login - Búsqueda - Inicio de Venta - Comunicación con Agente - Subida de Documentos - Pago de contado - Finalización de Compra |Usuario Final|Recorrido completo desde que el usuario inicia sesión hasta que finaliza su proceso de compra. Este proceso será una simulación ya que la comunicación con el vendedor puede durar varios días.|Alta|
+|P\_V\_005|Login - Página Principal - Lista de órdenes de compra - Chat con el cliente |Usuario Vendedor|Recorrido como vendedor de iniciar sesión, seleccionar una órden de compra y mandar un mensaje a un cliente|Alta|
+|P\_V\_006|Login - Página Principal - Página de Listado - Agregar un Coche|Usuario Gerente|Recorrido de cómo un gerente de una agencia agrega autos al catálogo|Alta|
+|P\_V\_007|Login - Página Principal - Solicitar creación de usuario gerente|Usuario Grupo Automotriz|Recorrido que seguiría un usuario de grupo automotriz para solicitar la creación de un nuevo gerente de una agencia|Alta|
+|P\_V\_008|Login - Página Principal - Aceptar la solicitud de dada de alta de un grupo automotriz|Usuario Administrador de la Plataforma|Recorrido como usuario administrador de la plataforma que se seguirá para aceptar la solicitud de dada de alta de un grupo automotriz|Alta|
 
 ## 2.4 Alcance
+<b>Flujo del Cliente:</b><br>
+<i>1. Probar la funcionalidad de Login.</i><br>
+* Acceso válido con Credenciales correctas de super-administrador.
+* Acceso no autorizado con correo invalido/cuenta inexistente.
+* Acceso no autorizado con contraseña incorrecta.
 
-## 2.5 Niveles de Prueba
+<i> 2. Probar la funcionalidad de búsqueda de catálogo.</i><br>
+* Se hace una búsqueda de un auto dentro del catálogo
+* El sistema muestra los resultados de los autos segun la búsqueda
+
+<i>3. Probar la funcionalidad de filtrado de catálogo.</i><br>
+* Dentro de la búsqueda de un auto del catálogo se muestran los filtros disponibles para la búsqueda
+* Se seleccionan los filtros deseados
+* El sistema muestra los resultados de los autos según los filtros aplicados
+
+<i>4. Probar la funcionalidad del agendado de la prueba de manejo.</i><br>
+* El usuario cliente selecciona el auto de su preferencia para solicitar una prueba de manejo
+* Para poder solicitar la prueba es necesario que llene un formulario y suba los documentos necesarios
+* Una vez completado lo anterior su solicitud se confirma y automáticamente se le asigna un usuario vendedor que le dará seguimiento a su solicitud
+* El usuario vendedor se pone en contacto con el cliente a través del chat de la plataforma, en caso de que tenga dudas, además puede ver el estatus de su solicitud en un apartado donde se listaran las solicitudes del cliente
+* El vendedor revisa los documentos de la solicitud, si están correctos se aprueban, de lo contrario el vendedor le tiene que notificar al cliente para que pueda volver a subir sus documentos correctamente
+* Una vez que los documentos son aprobados por el vendedor, en caso de que el auto seleccionado se requiera pagar una cuota para la prueba de manejo, se hace la transacción necesaria 
+* Una vez completada la transacción el cliente agenda su prueba de manejo
+
+<i>5. Probar la funcionalidad de la subida de documentos para la solicitud de prueba de manejo.</i><br>
+* El usuario cliente selecciona el auto de su preferencia para solicitar una prueba de manejo
+* El cliente llena el formulario con los datos necesarios y sube los documentos que se le piden
+* El vendedor revisa los documentos de la solicitud, si están correctos se aprueban, de lo contrario el vendedor le tiene que notificar al cliente para que pueda volver a subir sus documentos correctamente
+
+<i>6. Probar la funcionalidad de la subida de documentos para la compra de un auto.</i><br>
+* El usuario cliente selecciona un vehículo y solicita comprarlo
+* Para poder solicitar la comprar es necesario que llene un formulario y suba los documentos necesarios
+* Después de subirlos se le asignará un vendedor quien revisará sus documentos y le dará seguimiento a su compra
+* Una vez que complete esto el cliente puede ver el estatus de su solicitud en un apartado donde se listaran sus solicitudes
+* El vendedor al revisar los documentos si están correctos los aprueba y puede continuar con el proceso de compra, de lo contrario le tiene que notificar al usuario para que los vuelva a subir
+
+<i>7. Probar la funcionalidad de la transacción del pago para la prueba de manejo.</i><br>
+* Una vez que los documentos de la prueba de manejo fueron aprobados, si el vehículo necesita una cuota para realizar la prueba se le notifica al cliente
+* El cliente revisa el seguimiento de su solicitud y hace el pago
+* Una vez que termina el pago el sistema le confirma de recibido el pago y se actualiza el seguimiento
+
+<i>8. Probar la funcionalidad de la transacción de la compra de auto</i><br>
+* Una vez que los documentos de la compra fueron aprobados, se le notifica al cliente para pueda realizar el pago del vehículo
+* El cliente revisa el seguimiento de su solicitud y hace el pago
+* Una vez que termina el pago el sistema le confirma de recibido el pago y se actualiza el seguimiento
+
+<i>9. Probar la funcionalidad del seguimiento de acciones del usuario (prueba de manejo o compras).</i><br>
+* Una vez que el cliente sube los documentos necesarios ya sea para la prueba de manejo o para la compra de un auto puede realizar el seguimiento de su solicitud
+* En el apartado indicado de seguimiento, puede ver en qué fase va su solicitud
+* Mientras el vendedor asignado a su solicitud la revisa y mientras va avanzando el proceso el vendedor va actualizando la etapa en la que se encuentra el cliente
+
+<i>10. Probar la funcionalidad del sistema de Chat.</i><br>
+* Entrada a la vista de chats y contactos con acceso de cliente
+* El cliente revisa si tiene algún mensaje
+* Selecciona una conversación iniciada
+* El vendedor y el cliente pueden tener un medio de contacto directo
+
+<i>11. Probar la funcionalidad del sistema de favoritos (wishlist).</i><br>
+* Se muestra el catálogo de autos
+* Si al cliente le interesa algún auto lo marca como favorito
+* En el apartado indicado el cliente puede revisar su lista de favoritos con los autos que marcó previamente 
+
+<i>12. Probar la funcionalidad de la edición de datos en el perfil.</i><br>
+* El cliente puede acceder a los ajustes de su cuenta en el apartado indicado
+* Dentro de los ajustes puede seleccionar la opción de modificar sus datos
+* Al entrar a la opción modifica los datos necesarios y al final selecciona el botón de guardar cambios
+* Los datos se actualizan tanto en la vista del cliente, como en la base de datos
+
+<b>Flujo del Super Administrador:</b><br>
+<i>1. Probar la funcionalidad de Login.</i><br>
+* Acceso válido con Credenciales correctas de super-administrador
+* Acceso no autorizado con correo invalido/cuenta inexistente
+* Acceso no autorizado con contraseña incorrecta
+
+<i>2. Probar la funcionalidad de búsqueda de usuarios.</i><br>
+* Se hace una búsqueda de un usuario dentro del catálogo
+* El sistema muestra los resultados de los usuarios según la búsqueda
+
+<i>3. Probar las funcionalidad de filtrado de usuarios.</i><br>
+* Dentro de la búsqueda de usuarios se muestran los filtros disponibles para la búsqueda
+* Se seleccionan los filtros deseados
+* El sistema muestra los resultados de lo usuarios según los filtros aplicados
+
+<i>4. Probar la funcionalidad de la modificación de datos de un grupo automotriz.</i><br>
+* Se accede a la página de la cuenta del grupo automotriz con acceso de super-administrador
+* Se efectúa un cambio de la información del grupo automotriz desde la página de la cuenta.
+* Se guardan los cambios de la cuenta del grupo automotriz.
+
+<i>5. Probar la funcionalidad de la búsqueda de solicitudes.</i><br>
+* Se hace una búsqueda de una solicitud dentro del catálogo
+* El sistema muestra los resultados de las solicitudes y sus estados
+
+<i>6. Probar la funcionalidad del filtrado de solicitudes.</i><br>
+* Dentro de la búsqueda de solicitudes se muestran los filtros disponibles para la búsqueda
+* Se seleccionan los filtros deseados
+* El sistema muestra los resultados de las solicitudes según los filtros aplicados (aprobada/pendiente/denegada)
+
+<i>7. Probar funcionalidad de la aprobación/negación de una solicitud.</i><br>
+* Se elige una solicitud pendiente con acceso de super-administrador
+* Se efectúa la aprobación de una solicitud en espera
+* Se efectúa la negación de una solicitud en espera
+
+<i>8. Probar la funcionalidad del registro de un grupo automotriz.</i><br>
+* Se accede al landing-page de creación de grupo automotriz.
+* Creación exitosa de un grupo automotriz
+* Acceso exitoso a la cuenta del grupo automotriz
+
+<i>9. Probar la funcionalidad del dashboard estadístico.</i><br>
+* Acceso al dashboard con una cuenta de nivel valido muestra las estadísticas y métricas de la plataforma
+* Las estadísticas son válidas y representativas de los datos dentro del sistema
+* Las opciones y parámetros presentes dentro de la vista permiten ver estadísticas particulares de acuerdo a la selección de las mismas.
+
+<b>Flujo del Grupo Automotriz:</b><br>
+
+<b>Etapa 1:</b><br>
+<i>Probar funcionalidad del Login.</i>
+* Acceso válido con Credenciales correctas de super-administrador
+* Acceso no autorizado con correo invalido/cuenta inexistente
+* Acceso no autorizado con contraseña incorrecta
+
+<i>Probar funcionalidad para realizar una aplicación.</i>
+* Publicación válida de documentos.
+* Publicación válida de datos.
+* Subida de la creación de la aplicación en la plataforma.
+
+<i>Probar funcionalidad del panel de seguimiento a una aplicación</i>
+* Es posible eliminar los archivos subidos.
+* Es posible volver a subir archivos después de haber eliminado los mismos.
+* Es posible modificar la información subida.
+* los cambios realizados a la aplicación se guardan correctamente.
+
+<i>Probar funcionalidad de la modificación de los datos del perfil.</i>
+* Es posible eliminar y reescribir cada rubro en la información del perfil.
+* Los cambios se guardan correctamente.
+
+<i>Probar funcionalidad de la eliminación de una cuenta.</i>
+* El sistema muestra una opción para borrar la cuenta.
+* El sistema verifica que el usuario desea eliminar su cuenta.
+
+<b>Etapa 2:</b><br>
+<i>Probar funcionalidad de Login.</i>
+* Acceso válido con Credenciales correctas de super-administrador
+* Acceso no autorizado con correo invalido/cuenta inexistente
+* Acceso no autorizado con contraseña incorrecta
+
+<i>Probar funcionalidad del registro de una agencia.</i>
+* Se accede al landing-page de creación de una agencia
+* Creación exitosa de una agencia
+* Acceso exitoso a la cuenta de la agencia
+
+<i>Probar funcionalidad de la búsqueda de usuarios.</i>
+* Se hace una búsqueda de un usuario dentro del buscador.
+* El sistema muestra los resultados de los usuarios encontrados según la búsqueda.
+
+<i>Probar funcionalidad del filtrado de usuarios.</i>
+* Dentro de la búsqueda se muestran los filtros disponibles para la búsqueda.
+* Se seleccionan los filtros deseados.
+* El sistema muestra los resultados de los usuarios según los filtros aplicados.
+
+<i>Probar funcionalidad para la modificación de datos de una agencia.</i>
+* Se accede a la página de la cuenta de la agencia.
+* Se efectúa un cambio de la información de la agencia desde la página de la cuenta.
+* Se guardan los cambios de la cuenta de la agencia.
+
+<i>Probar funcionalidad del dashboard estadístico.</i>
+* Acceso al dashboard con una cuenta de nivel valido muestra las estadísticas y métricas de la plataforma
+* Las estadísticas son válidas y representativas de los datos dentro del sistema.
+* Las opciones y parámetros presentes dentro de la vista permiten ver estadísticas particulares de acuerdo a la selección de las mismas.
+
+<i>Probar funcionalidad del registro de un gerente.</i>
+* Se accede al landing-page de creación de un gerente.
+* Creación exitosa de un gerente
+* Acceso exitoso a la cuenta del gerente.
+
+<i>Probar funcionalidad para la modificación de datos de un gerente.</i>
+* Se accede a la página de la cuenta del gerente.
+* Se efectúa un cambio de la información del gerente desde la página de la cuenta.
+* Se guardan los cambios de la cuenta del gerente.
+
+<b>Flujo del Gerente:</b><br>
+<i>Probar funcionalidad de Login.</i>
+* Acceso válido con Credenciales correctas de super-administrador.
+* Acceso no autorizado con correo invalido/cuenta inexistente.
+* Acceso no autorizado con contraseña incorrecta.
+<i>Probar funcionalidad de la búsqueda de usuarios.</i>
+* Se hace una búsqueda de un usuario dentro del buscador.
+* El sistema muestra los resultados de los usuarios encontrados según la búsqueda.
+
+<i>Probar funcionalidad del filtrado de usuarios.</i>
+* Dentro de la búsqueda se muestran los filtros disponibles para la búsqueda.
+* Se seleccionan los filtros deseados.
+* El sistema muestra los resultados de los usuarios según los filtros aplicados.
+
+<i>Probar funcionalidad del registro de un vendedor.</i>
+* Se accede al landing-page de creación de un vendedor.
+* Creación exitosa de un vendedor.
+* Acceso exitoso a la cuenta del vendedor.
+
+<i>Probar funcionalidad para la modificación de datos de un vendedor.</i>
+* Se accede a la página de la cuenta del vendedor.
+* Se efectúa un cambio de la información del vendedor desde la página de la cuenta.
+* Se guardan los cambios de la cuenta del vendedor.
+
+<i>Probar funcionalidad para la actualización/modificación del catálogo de autos.</i>
+* Se presenta la opción de agregar un auto.
+* Se suben correctamente las imágenes.
+* Se suben correctamente los datos ingresados.
+* Se presenta la opción de editar un auto.
+* Se reemplazan correctamente las imágenes previamente subidas por las nuevas.
+* Es posible cambiar cada rubro de la información de un auto.
+* Se guarda correctamente la publicación del auto o la modificación según sea el caso.
+
+<i>Probar funcionalidad del dashboard estadístico.</i>
+* Acceso al dashboard con una cuenta de nivel valido muestra las estadísticas y métricas de la plataforma
+* Las estadísticas son válidas y representativas de los datos dentro del sistema.
+* Las opciones y parámetros presentes dentro de la vista permiten ver estadísticas particulares de acuerdo a la selección de las mismas.
+	
+<b>Flujo del Vendedor:</b><br>
+<i>1. Probar funcionalidad del Login.</i><br>
+* Acceso válido con Credenciales correctas de vendedor
+* Acceso no autorizado con correo invalido/cuenta inexistente
+* Acceso no autorizado con contraseña incorrecta
+
+<i>2. Probar la funcionalidad de búsqueda de catálogo.</i><br>
+* Se hace una búsqueda de un auto dentro del catálogo
+* El sistema muestra los resultados de los autos segun la búsqueda
+* Probar la funcionalidad de filtrado de catálogo.
+* Dentro de la búsqueda de un auto del catálogo se muestran los filtros disponibles para la búsqueda
+* Se seleccionan los filtros deseados
+* El sistema muestra los resultados de los autos según los filtros aplicados
+
+<i>3. Probar la funcionalidad de la búsqueda de solicitudes.</i><br>
+* Se hace una búsqueda de una solicitud dentro del catálogo
+* El sistema muestra los resultados de las solicitudes y sus estados
+
+<i>4. Probar la funcionalidad del filtrado de solicitudes.</i><br>
+* Dentro de la búsqueda de solicitudes se muestran los filtros disponibles para la búsqueda
+* Se seleccionan los filtros deseados
+* El sistema muestra los resultados de las solicitudes según los filtros aplicados (aprobada/pendiente/denegada)
+
+<i>5. Probar funcionalidad del manejo de una solicitud.</i><br>
+* Se elige una solicitud
+* Dentro de la vista de solicitud se modifica la etapa de proceso.
+
+<i>6. Probar funcionalidad del sistema de chat.</i><br>
+* Entrada a la vista de chats y contactos con acceso de vendedor
+* Selección de una conversación iniciada
+* Creación de una conversación desde vista de contacto
+* Enviar mensaje al cliente
+
+<i>7. Probar funcionalidad del dashboard estadístico.</i><br>
+* Acceso al dashboard con una cuenta de nivel valido muestra las estadísticas y métricas de la plataforma
+* Las estadísticas son válidas y representativas de los datos dentro del sistema* Las opciones y parámetros presentes dentro de la vista permiten ver estadísticas particulares de acuerdo a la selección de las mismas.
+
+## 2.5 Niveles de Prueba y Criterios de Entrada y Salida
 A continuación se muestran el nivel de las pruebas que se realizarán durante el desarrollo del proyecto, además de detallar algunas de los métodos que se utilizaran al igual que los responsables de dichas pruebas.
 
 ### Pruebas Informales (Prueba Funcional)
@@ -168,6 +530,13 @@ El propósito de las pruebas unitarias es probar cada uno de los componentes y f
 - _Metodología:_ Los desarrolladores probarán componentes de la aplicación sin tener conocimiento del código detrás de los mismos componentes, reportando errores en caso de encontrarlos. Específicamente, el tipo de pruebas de caja negra que se realizarán serán pruebas de tipo de casos de uso. Dentro de estas pruebas se realizarán tres baterías negativas y tres baterías positivas que se deberán cumplir cuando se realicen este tipo de pruebas.
 - _Cada cuándo:_ Al finalizar cada componente.
 
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- El equipo de cómputo es completamente funcional, y configuración.||||
+|<p></p><p>- Los paquetes requeridos están instalados y disponibles en el equipo de computo.</p>||||
+|- La librería de pruebas está disponible y funcional en el equipo de cómputo.||||
+|- El ambiente de pruebas está configurado y funcional en el equipo de cómputo.|||<p></p><p></p>|
+
 ### Prueba de Caja Blanca (Prueba Funcional)
 El propósito de este tipo de pruebas es encontrar la causa de algún tipo de falla que se haya encontrado en otro tipo de pruebas. En específico, las pruebas de caja blanca que se realizan son pruebas de cobertura, es decir, se probarán los tres caminos más utilizados por los usuarios. Más aún, se considerará que los caminos seleccionados son apropiados si estos cubren un mínimo de 80% de los caminos posibles. Este 80% debe regresar resultados de prueba positivos para así justificar que el componente funciona de manera correcta.
 
@@ -175,6 +544,16 @@ El propósito de este tipo de pruebas es encontrar la causa de algún tipo de fa
 - _Responsables:_ Los desarrolladores de software y los testers.
 - _Metodología:_ Los desarrolladores que se encargaron de crear los componentes en donde se encontraron los errores serán los encargados de realizar pruebas de caja blanca con el objetivo de encontrar que pedazo de código es el que está causando dicho error.
 - _Cada cuándo:_ Al finalizar cada sprint.
+
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- El equipo de cómputo es completamente funcional, y configuración.||||
+|<p></p><p>- Los paquetes requeridos están instalados y disponibles en el equipo de computo.</p>||||
+|- La librería de pruebas está disponible y funcional en el equipo de cómputo.||||
+|- El ambiente de pruebas está configurado y funcional en el equipo de cómputo.||||
+|- Se tiene acceso completo a todo el código fuente de la aplicación||||
+|- Se tiene acceso a la documentación o código fuente de los paquetes requeridos.||||
+|- Se tiene acceso a los esquemas de bases de datos de la aplicación.||||
 
 ### Prueba de Integración (Prueba Funcional)
 El propósito de las pruebas de integración es comprobar el correcto funcionamiento de la aplicación cuando todos los componentes son utilizados en conjunto. Para efectos de este proyecto, debido a las restricciones de tiempo, este tipo de pruebas sólo serán realizadas en los componentes críticos de la aplicación.
@@ -184,6 +563,14 @@ El propósito de las pruebas de integración es comprobar el correcto funcionami
 - _Metodología:_ Los desarrolladores responsables de cada célula, al terminar más de un componente relacionado, empezaran a realizar pruebas e integración. De la misma manera, al terminar el proyecto, se realizarán nuevas pruebas de este estilo.
 - _Cada cuándo:_ Al terminarse pedazos de software relacionados y al acabar todos los componentes de la aplicación.
 
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- Las máquinas virtuales (GCP Compute Engine) están disponibles y corriendo.||||
+|- Los paquetes requeridos están instalados y disponibles en las máquinas virtuales.||||
+|- Las bases de datos están instanciadas, y con el esquema.  ||||
+|- La librería de pruebas está disponible en el equipo de computo.||||
+|- El ambiente de pruebas está configurado y corriendo.||||
+
 ### Prueba de Aceptación (Prueba Funcional)
 El propósito de este tipo de pruebas es validar con el equipo de desarrollo y NDS si el sistema está a la par con sus expectativas y cumple las funcionalidades que fueron discutidas en el documento SRS.
 
@@ -191,6 +578,14 @@ El propósito de este tipo de pruebas es validar con el equipo de desarrollo y N
 - _Responsables:_ Rubén Raya (NDS), los desarrolladores, los testers y el SCRUM master..
 - _Metodología:_ Los desarrolladores se reunirán con Rubén Raya y bajo su supervisión se encargará de validar los aspectos importantes de la aplicación desarrollada.
 - _Cada cuándo:_ En cuanto se cumplan las pruebas de integración.
+
+|*Criterio de Entrada*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- Las máquinas virtuales (GCP Compute Engine) están disponibles y corriendo.||||
+|- Los paquetes requeridos están instalados y disponibles en las máquinas virtuales.||||
+|- Las bases de datos están instaladas, y con el esquema.  ||||
+|- La librería de pruebas está disponible en el equipo de computo.||||
+|- El ambiente de pruebas está configurado y corriendo.||||
 
 ### Prueba de Recorrido Estático (Validación)
 El propósito de este tipo de pruebas es asegurar que el servicio, en términos de funcionalidad y desempeño, actúe de manera satisfactoria.
@@ -200,11 +595,24 @@ El propósito de este tipo de pruebas es asegurar que el servicio, en términos 
 - _Metodología:_ Crear escenarios de acuerdo a las situaciones más usuales de los usuarios.
 - _Cada cuándo:_ Al final del proyecto.
 
+### Criterios de Salida
+
+Unitarias, Integración, Aceptación
+
+|*Criterio de Salida*|*Equipo de Prueba*|*Equipo Técnico*|*Notas*|
+| :- | :- | :- | :- |
+|- Se probaron el 100% de las pruebas establecidas.||||
+|- No existen problemas de nivel severo o crítico.||||
+|- Los problemas de nivel severo o crítico se documentan, así como su solución o delegación.||||
+|- El 100% de los componentes tiene un mínimo de 90% de índice de aprobación.||||
+|- Todas las pruebas arrojan un resultado legible, que después es documentado como su resultado.||||
+|- El equipo de cómputo, así como los componentes involucrados, sigue funcional después de la ejecución de las pruebas.||||
+
 ## 2.6 Criterios de Aceptación
 ### Pruebas Informales
 Cada desarrollador tiene como responsabilidad realizar una prueba informal a cada componente que finalice. Ya que esta prueba no sigue una metodología específica, el desarrollador sabrá que el componente pasó la prueba si realiza de manera correcta su funcionalidad y trabaja de manera adecuada con otros componentes.
 
-###Pruebas Unitarias
+### Pruebas Unitarias
 - Funcionalidad de Login: Esta funcionalidad nunca debe fallar. Todas las pruebas deben proporcionar el usuario y la página de inicio correctos, o bien enviar un mensaje de error indicando que el usuario no existe. Esto para cada tipo de usuario que permite la plataforma.
 
 - Funcionalidad de Registro: Todas las pruebas deben de crear las credenciales ingresadas de forma correcta en la base de datos o bien enviar un mensaje de error indicando la razón por la cual las credenciales no son permitidas. Igualmente, el registro debe agregar la cuenta con los privilegios y permisos correspondientes a cada tipo de usuario.
@@ -550,7 +958,7 @@ Junto con el líder de pruebas y el project manager, suma al contenido del plan 
 ## Líder de Base de Datos 
 Junto con el líder de pruebas y el project manager, suma al contenido del plan de pruebas considerando las actividades programadas para el desarrollo de la base de datos, el avance de la misma y se asegura de la ejecución de las pruebas de sus componentes y que la integración con los otros equipos sea probada y documentada. Se le asignan pruebas, es parte y delega dichas pruebas y se asegura que las funcionalidades críticas de su desarrollo sean consideradas como parte del plan de pruebas. Tiene un seguimiento de las pruebas informales que sus desarrolladores han ejecutado. 
 
-## Líder de Arquitectura
+## Arquitecto de Software
 Junto con el líder de pruebas y el project manager, suma al contenido del plan de pruebas considerando las actividades programadas para el desarrollo y la arquitectura de software. 
 Se asegura de la ejecución de las pruebas de sus componentes y que la integración con los otros equipos sea probada y documentada. Se le asignan pruebas, es parte y delega dichas pruebas y se asegura que las funcionalidades críticas de su desarrollo sean consideradas como parte del plan de pruebas. Tiene un seguimiento de las pruebas informales que los desarrolladores han ejecutado.
 
@@ -558,6 +966,15 @@ Se asegura de la ejecución de las pruebas de sus componentes y que la integraci
 Junto con sus respectivos líderes ejecutan las diferentes pruebas establecidas en el plan y se aseguran de que estas sean ejecutadas en el mismo ambiente siguiendo la metodología. Proveen y dan seguimiento a la retroalimentación y documentan el proceso y los resultados, así garantizando un proceso de QA transparente. Informan a los líderes si existe algún problema o si algún componente necesita ser corregido, se encargan de hacer las pruebas en tiempo y forma (de acuerdo al cronograma), llevan un seguimiento de sus pruebas informales y corrigen sus funcionalidades. Cada integrante del desarrollo tiene la responsabilidad de realizar sus pruebas asignadas de caja negra y junto con el SCRUM Master y el Project Manager realizar las pruebas de caja blanca. 
 
 ### 3.3.2 Estrategia de Comunicación
+Aquí, se describirá la forma en que el equipo se comunicará entre sí y con el propietario del proyecto según las diferentes tareas o las que surjan.
+
+| **Concept** | **Target** | **Objectives** | **Schedule** | **Format** | **Owner** |
+| --- | --- | --- | --- | --- | --- |
+| Daily Touchpoint | Equipo del Proyecto | Revisar las actividades realizadas el día anterior y establecer metas para el día. | Diario | Junta | Project manager y Líderes de área |
+| Revisión de Hitos | Stakeholders | Proporcionar entregables, obtener retroalimentación y discutir próximos pasos. | En hito | Junta | Project manager |
+| Weekly touchpoint | Project owner/equipo | Proporcionar actualizaciones del progreso realizado en la semana. | Semanal | Junta | Project manager y Líderes de área |
+| Preguntas y problemas | Project owner/equipo | Discutir problemas y preguntas que pueden surgir sobre el desarrollo. | Espontánea | Mensaje/Discord | Desarrolladores |
+| Tareas terminadas | Equipo de proyecto | Informar y revisar las tareas realizadas por área. | Al terminar una tarea | Trello/ Discord | Project manager |
 
 ## 3.4 Gantt
 
@@ -613,15 +1030,6 @@ Nombre de la Función/Componente: <br>
 |----|:-------:| :---------- | :----------------- | :--------------- | :------------ | :------------ | :---------: |
 | x  | Ejemplo | Ejemplo     | Ejemplo            | Ejemplo          | Ejemplo       | Ejemplo       | Sí/No   |  
 <br>
-
-**Integración**
-
-Nombre del Tester: <br>
-Nombre de la Función/Componente: <br>
-
-| ID | Descripción | Fecha | Módulos | Input(s) | Resultado Esperado | Resultado Actual | Pasa o No Pasa |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| x  | Ejemplo | Ejemplo | Ejemplo | Ejemplo | Ejemplo | Ejemplo | Sí/No |
 
 # 6. Conclusiones
 El presente documento demuestra la planeación de pruebas para el aplicativo propuesto. Este documento detalla la implementación de todas las pruebas a ejecutar sobre el aplicativo: desde su concepción, ejecución, y documentación.
