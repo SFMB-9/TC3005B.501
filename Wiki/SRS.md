@@ -1041,52 +1041,52 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 
 ## 6. Glossary
 
-API: An Application Programming Interface is a set of protocols, routines, and tools for building software and applications.
+API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
-AWS: Amazon Web Services is a cloud computing platform offering a range of services, including storage, computing power, and database management.
+AWS: Amazon Web Services es un servicio en la nube el cual ofrece un rango de servicios como: almacenamiento, manejo de bases de datos, poder de computo, etc.
 
-Backend: The part of a software system that performs processing tasks and interacts with databases, servers, and other backend systems.
+Backend: Es la parte de un sistema de software que procesa tareas e interactua con APIs, servidores, bases de datos, entre otros.
 
-Cache: A temporary storage area used to speed up data access and reduce network traffic.
+Cache: Almacenamiento temporal de ciertos recursos para reducir tiempos de carga y tráfico de red.
 
-CloudFront: A content delivery network (CDN) service provided by AWS to distribute content to users worldwide.
+CloudFront: "Red de distribuición de contenido" (CDN) un servicio proveido por AWS para distribuir contenido a los usuarios en la red mundial.
 
-Content Delivery Network: A distributed network of servers used to deliver web content and media to users around the world.
+Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contendo web alrededor del mundo
 
-DDoS: A Distributed Denial of Service is a cyber-attack that disrupts the normal functioning of a network by overwhelming it with traffic.
+DDoS: Una "denegación de servicios distribuida" es un ataque cibernético que interrumpe el funcionamiento normal de una red al abrumarla con tráfico.
 
-Debian: A popular open-source operating system used for servers and workstations.
+Debian: Un sistema operativo de código abierto usado por sevidores.
 
-DNS: The Domain Name System is a hierarchical system for naming resources on the internet.
+DNS: El "Sistema de nombres de dominio" es un sistema para guardar los nombres de las direcciones del internet.
 
-DynamoDB: A NoSQL database service provided by AWS.
+DynamoDB: Base de datos no relacional proveida por AWS.
 
 EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
 
-Firewall: A security system designed to prevent unauthorized access to a network.
+Firewall: Un sistema de seguridad diseñado pra prevenir acceso no autorizado a la red.
+  
+Frontend: Es la parte de un sistema de software que interactúa con los usuarios y muestra información.
 
-Frontend: The part of a software system that interacts with users and displays information.
+Gateway: Es un sistema que conecta diferentes sistemas o redes para permitir la comunicación entre ellos.
 
-Gateway: A system that connects two different networks or systems to enable communication between them.
+HTTP: El "Protocolo de transferencia de hipertexto" es utilizado para transferir datos a través de Internet.
 
-HTTP: The Hypertext Transfer Protocol is a protocol used for transferring data over the internet.
+IEEE: El "Instituto de Ingenieros Eléctricos y Electrónicos" es una organización profesional internacional con sede en Nueva York para ingenieros en varios campos, como: ciencias de la computación y la electrónica.
 
-IEEE: The Institute of Electrical and Electronics Engineers is a professional organization for engineers in various fields, including computer science and electronics.
+Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se ocupa de permitir que las máquinas entiendan el lenguaje humano.
 
-Natural Language Processing: A branch of artificial intelligence concerned with enabling machines to understand and process human language.
+Plataforma: Software como una plataforma de servicio que se realizará para este proyecto.
 
-Platform: The Software as a service platform that will be made for this project.
+Usuario: Un usuario de cualquier clase de usuario, es quien usa la herramienta de software.
 
-User: A user of any user class.
+Base de datos relacional: Un tipo de base de datos que almacena y organiza datos en tablas con relaciones predefinidas.
 
-Relational Database: A type of database that stores and organizes data into tables with predefined relationships.
+S3 Bucket: "Amazon Simple Storage Service" es un servicio de almacenamiento en la nube proporcionado por AWS.
 
-S3 Bucket: Amazon Simple Storage Service is a cloud storage service provided by AWS.
+SQL: "Lenguaje de consulta estructurado" es un lenguaje estándar utilizado para administrar bases de datos relacionales.
 
-SQL: Structured Query Language is a standard language used for managing relational databases.
+Subnet: Una subdivisión de una red para controlar el tráfico y aislar dispositivos.
 
-Subnet: A subdivision of a network used to isolate devices and control traffic flow.
+Ubuntu: Un sistema operativo de código abierto basado en Debian.
 
-Ubuntu: A popular open-source operating system based on Debian.
-
-Virtual Private Cloud: A virtual network environment that enables a user to launch resources in a logically isolated section of the cloud.
+Nube privada virtual: Entorno de red virtual que permite a un usuario lanzar recursos en una sección lógicamente aislada de la nube.
