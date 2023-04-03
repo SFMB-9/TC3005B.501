@@ -1,4 +1,13 @@
-# Plan de Pruebas
+<p align="center">
+    <img src="../assets/Logos/PulseLogoTransparente.png" width="300" title="hover text">
+</p>
+<hr/>
+
+<p align="center">
+    <img src="../assets/Logos/SwivelLogoTransparente.png" width="300" title="hover text">
+</p>
+
+<h2 align="center"> Plan de Pruebas
 
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |

@@ -1,15 +1,17 @@
 <p align="center">
-<!--   <img src="../assets/Logos/humanIT.005.png" width="300" title="hover text"> -->
+    <img src="../assets/Logos/PulseLogoTransparente.png" width="300" title="hover text">
 </p>
 <hr/>
 
-<h2 align="center"> Digitalización del Proceso de Adquisición de un Vehículo 
+<p align="center">
+    <img src="../assets/Logos/SwivelLogoTransparente.png" width="300" title="hover text">
+</p>
 
 <h2 align="center"> Software Requirements Specification
 
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
-| 26/02/2023 | 0.1     | Creación del Doc SRS |
+| 02/04/2023 | 1     | Integración SRS |
 
 <h2 align="center"> Autores
 <h3 align="center"> Andreína Sanánez
@@ -17,15 +19,23 @@
 <h3 align="center"> Do Hyun Nam
 <h3 align="center"> Emiliano Cabrera
 <h3 align="center"> Karla Mondragón
-<h3 align= "center"> Andrea Serrano Diego
+<h3 align="center"> Andrea Serrano Diego
 <h3 align="center"> Mateo Herrera 
 <h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
+<h3 align="center"> Sebastian González
+<h3 align="center"> Francisco Salcedo
 <h3 align="center"> Ana Paula Katsuda
+<h3 align="center"> Luis Javier Karam
+<h3 align="center"> Tonatiuh Reyes 
+<h3 align="center"> Iwalani Amador
+<h3 align="center"> Gerardo Gutierrez
+<h3 align="center"> Diego Corrales
+<h3 align="center"> Alfredo Jeong Hyun Park
+<h3 align="center"> Andrés Briseño
+<h3 align="center"> Alexa Serrano 
 
-<h1 align="center"> Software Requirements Specification
-
-# índice
+# Índice
 1. [Introducción](#1-introducción)
         
     1.1. [Propósito](#11-propósito)
@@ -940,11 +950,11 @@ Super Admin - SA
   
 # 4. Requerimientos de Datos
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
-### Primera Versión
-> Adjuntar imagen del diagrama entidad-relación
 
-![Diagrama entidad-relacion](https://github.com/SFMBa01029956/TC3005B.501/assets/diagrams/Base_de_Datos_ER.png)
-<!-- ![Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png) -->
+[Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png)
+<p align="center">
+    <img src="../assets/diagrams/Base_de_Datos_ER.png" width="300" title="hover text">
+</p>
 
 ## 4.2. Diccionario de Datos
 > Pendiente a definir por todo el grupo
