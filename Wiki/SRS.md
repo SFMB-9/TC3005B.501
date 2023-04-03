@@ -17,7 +17,7 @@
 <h3 align="center"> Do Hyun Nam
 <h3 align="center"> Emiliano Cabrera
 <h3 align="center"> Karla Mondragón
- <h3 align= "center"> Andrea Serrano Diego
+<h3 align= "center"> Andrea Serrano Diego
 <h3 align="center"> Mateo Herrera 
 <h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
@@ -941,6 +941,9 @@ Super Admin - SA
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
 ### Primera Versión
 > Adjuntar imagen del diagrama entidad-relación
+
+![Diagrama entidad-relacion](https://github.com/SFMBa01029956/TC3005B.501/assets/diagrams/Base_de_Datos_ER.png)
+<!-- ![Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png) -->
 
 ## 4.2. Diccionario de Datos
 > Pendiente a definir por todo el grupo
