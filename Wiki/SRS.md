@@ -35,10 +35,7 @@
 <h3 align="center"> Andrés Briseño
 <h3 align="center"> Alexa Serrano 
 
-
-<h1 align="center"> Software Requirements Specification
-
-# índice
+# Índice
 1. [Introducción](#1-introducción)
         
     1.1. [Propósito](#11-propósito)
@@ -952,11 +949,11 @@ Super Admin - SA
   
 # 4. Requerimientos de Datos
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
-### Primera Versión
-> Adjuntar imagen del diagrama entidad-relación
 
-![Diagrama entidad-relacion](https://github.com/SFMBa01029956/TC3005B.501/assets/diagrams/Base_de_Datos_ER.png)
-<!-- ![Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png) -->
+[Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png)
+<p align="center">
+    <img src="../assets/diagrams/Base_de_Datos_ER.png" width="300" title="hover text">
+</p>
 
 ## 4.2. Diccionario de Datos
 > Pendiente a definir por todo el grupo
