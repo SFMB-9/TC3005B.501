@@ -114,7 +114,7 @@
 
     9.5. [Administración de Riesgos](#5-administración-de-riesgos) 
 
-    9.6. [Glosario](#6-glossary)
+    9.6. [Glosario](#6-glosario)
 
 # 1. Introducción
 <p align="justify"> El objetivo de este documento es recopilar, analizar y brindar una visión profunda de la aplicación web para NDS Cognitive Labs, definiendo el problema y la solución en detalle. El documento también concentra las capacidades requeridas por todos los stakeholders y sus necesidades definiendo las características del producto.
@@ -679,9 +679,9 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 
 ## 5. [Administración de Riesgos →]()
 
+## 6. Glosario
+=======
 ## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
-
-## 6. Glossary
 
 API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
