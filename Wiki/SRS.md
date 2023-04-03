@@ -413,10 +413,10 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 **2.6.1 General**
 | Nombre del Caso de Uso: | Registro |
 | --- | --- |
-| Creado por: |  |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 09/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
 | **Descripción:** | Un usuario decide crear una cuenta en la plataforma. |
 | **Actores:** | Usuario, plataforma, DBMS |
 | **Pre-condiciones:** | 1. El usuario tiene acceso a una computadora.2. El usuario tiene acceso a los documentos legales necesarios.3. El sistema tiene una conexión existente a una base de datos. |
@@ -426,48 +426,48 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 | **Excepciones:** | 7. En el paso 7 del flujo normal, si el usuario rechaza los términos y condiciones, su cuenta no se crea y se le redirige a la página de inicio general. |
 | **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El usuario debe disponer de una conexión estable a internet. 2. El usuario debe introducir una dirección de correo electrónico válida. 3. El usuario debe introducir un número de teléfono válido. 4. El usuario debe introducir una fecha de nacimiento que corresponda con la de un adulto mayor de edad. |
 
-| Name of Use Case: | Login |
+| Nombre del Caso de Uso: | Inicio de sesión |
 | --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A user decides to enter the AutoMart platform with a preexisting registered account. |
-| **Actors:** | User , AutoMart platform |
-| **Preconditions:** | 1. The user has access to a computer.2. The user has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The user can use their account successfully. |
-| **Flow:** | 1. The user enters the site and is greeted by the home page.2. The user clicks the "Login" button.3. The user is prompted to choose between Google sign-in or enter an email, and chooses to enter an email.4. The user enters the corresponding email and password.5. The user clicks the "Enter" button and the DBMS makes a query to verify that the email and password pair exist within the database.6. The DBMS makes a query to the AgencyMembers table to verify if the account has additional permissions.7. A successful response is returned and the user is redirected to their personal homepage. |
-| **Alternative Flows:** | 3. In step 3 of the normal flow, the user can choose to make use of a Google account login.1. The user is prompted to sign in via Google.2. The user enters their corresponding Google account and signs in.3. The DBMS makes a query to verify the existence of the email-password pair within the database.4. A successful response is returned and the user is redirected to their personal homepage. |
-| **Exceptions:** | 4. In step 4 of the normal flow, as well as in step 2 of the first alternate flow, in case the user enters the wrong sign in details, the user is never redirected to their homepage and is instead prompted to try again. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The user must have a stable internet connection.2. The user must input a valid email address and corresponding password. |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 09/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
+| **Descripción:** | Un usuario decide entrar en la plataforma con una cuenta registrada pre-existente. |
+| **Actores:** | Usuario , plataforma |
+| **Pre-condiciones:** | 1. El usuario tiene acceso a una computadora. 2. El usuario ya se ha registrado en la plataforma, ya sea a través de Google o con una cuenta nativa. |
+| **Post-condiciones:** | 1. El usuario puede utilizar su cuenta correctamente. |
+| **Flujo:** | 1. El usuario entra en el sitio y es recibido por la página de inicio. 2. El usuario pulsa el botón "Iniciar sesión". 3. Se pide al usuario que elija entre iniciar sesión en Google o introducir un correo electrónico y elige introducir un correo electrónico. 4. El usuario introduce el correo electrónico y la contraseña correspondientes. 5. El usuario pulsa el botón "Introducir" y el SGBD realiza una consulta para verificar que la pareja de correo electrónico y contraseña existe en la base de datos. 6. El SGBD realiza una consulta a la tabla correspondiente. 7. Se devuelve una respuesta correcta y el usuario es redirigido a su página de inicio personal. |
+| **Flujos Alternativos:** | 3. En el paso 3 del flujo normal, el usuario puede optar por hacer uso de inicio de sesión con una cuenta de Google. 1. Se pide al usuario que inicie sesión a través de Google. 2. El usuario introduce su cuenta de Google correspondiente e inicia sesión.3. El SGBD realiza una consulta para verificar la existencia del par email-contraseña dentro de la base de datos. 4. Se devuelve una respuesta correcta y el usuario es redirigido a su página de inicio personal. |
+| **Excepciones:** | 4. En el paso 4 del flujo normal, así como en el paso 2 del primer flujo alternativo, en caso de que el usuario introduzca datos de acceso erróneos, no se le redirige a su página de inicio, sino que se le pide que lo intente de nuevo. |
+| **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El usuario debe disponer de una conexión estable a internet. 2. El usuario debe introducir una dirección de correo electrónico válida y la contraseña correspondente. |
 
-**2.6.2 Client**
+**2.6.2 Cliente**
 
-| Name of Use Case: | Buying a car as a client |
+| Nombre del Caso de Uso: | Comprar un vehículo como cliente |
 | --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client purchases a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, Seller, Manager |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account.3. The client has entered their required legal documents onto their account. |
-| **Postconditions:** | 1. The client is in the process of buying a car. |
-| **Flow:** | 1. The client enters their home page, where they can see several vehicles and can scroll to see more.2. The client enters a specific car's page.3. The client can see the vehicle's details.4. The client is able to choose between Agencies.5. The client is able to elect details such as transmission, color, and more, according to their chosen Agency's inventory availability6. The client can elect between doing a driving test or to buy the vehicle, they choose to buy the vehicle.7. The client is prompted to enter their payment method and details, it can be between credit/debit card or bank transfer. The client chooses a credit card.8. The Agency's Manager is notified of the purchase request, after which a Seller is assigned to the transaction and their details are presented to the client.9. The client is prompted with a message that indicates that the transaction is now underway. |
-| **Alternative Flows:** | 6. In step 6 of the normal flow, the client can choose to request a driving test.1. The client is prompted to choose a date and time for the test.2. A message is sent to the corresponding Agency's Manager.3. A message is presented to the client indicating that their request has been made, and to await further confirmation.7. In step 7 of the normal flow the client can choose between several payment options, in case of a bank transfer.1. The client is prompted that the transaction has been started and to please provide proof of the transfer before anything else can be done.2. The transaction is marked as pending in the client's history so that they can upload proof and the Manager is notified of the transfer.3. After such proof has been uploaded, the Agency's Manager is notified of the proof upload, and after validation a Seller is assigned to the transaction and their details are presented to the client.4. The client is prompted with a message that indicates that the transaction is now underway. |
-| **Exceptions:** | 5. In step 5 of the normal flow in case the client doesn't have the adequate documents or they are incomplete, the client is not allowed to choose either option, and is instead prompted to complete their documents. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection.2. The client's funds must be verified before any confirmation is made or sale acknowledged. |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 05/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
+| **Descripción:** | Un cliente compra un coche a través de la plataforma. |
+| **Actores:** | Cliente, plataforma, vendedor, gerente |
+| **Pre-condiciones:** | 1. El cliente tiene acceso a una computadora. 2. El cliente ya se ha registrado en la plataforma, ya sea a través de Google o con un cuenta nativa. 3. El cliente ha introducido los documentos legales necesarios en su cuenta. |
+| **Post-condiciones:** | 1. El cliente está en proceso de compra de un coche. |
+| **Flujo:** | 1. El cliente entra en su página de inicio, donde puede ver varios vehículos y desplazarse para ver más. 2. El cliente entra en la página de un coche concreto. 3. El cliente puede ver los datos del vehículo. 4. El cliente puede elegir entre distintas agencias. 5. El cliente puede elegir detalles como la transmisión, el color, etc; En función de la disponibilidad de existencias de la agencia elegida. 6. El cliente puede elegir entre hacer una prueba de conducción o comprar el vehículo, elige comprar el vehículo. 7. Se pide al cliente que introduzca su método de pago y sus datos, puede ser entre tarjeta de crédito/debito o transferencia bancaria. El cliente elige tarjeta de crédito. 8. Se notifica la solicitud de compra al gerente de la agencia, y a continuación se asigna un vendedor a la operación y se presentan sus datos al cliente. 9. El cliente recibe un mensaje que indica que la transacción está en curso. |
+| **Flujos Alternativos:** | 6. En el paso 6 del flujo normal, el cliente puede optar por solicitar una prueba de conducción. 1. Se pide al cliente que elija una fecha y hora para la prueba. 2. Se envía un mensaje al gerente de la agencia correspondente. 3. Se presenta un mensaje al cliente indicándole que su solicitud ha sido rechazada y que espere una nueva confirmación. 7. En el paso 7 del flujo normal, el cliente puede elegir entre varias opciones de pago, en caso de transferencia bancaria. 1. Se informa al cliente de que se ha iniciado la transacción y que debe presentar una prueba de la transferencia antes de que se pueda hacer nada más. 2. La operación se marca como pendiente en el historial del cliente para que pueda subir justificantes y se notifica la transferencia al gerente. 3. Una vez cargada la prueba, se notifica al gerente de la agencia y, tras la validación, se asigna un vendedor a la transacción y se presentan sus datos al cliente. 4. El cliente recibe un mensaje que indica que la transacción está en curso. |
+| **Excepciones:** | 5. En el paso 5 del flujo normal, en caso de que el cliente no disponga de los documentos adecuados o estos estén incompletos, no se le permite elegir ninguna de las dos opciones y, en su lugar, se le pide que complete sus documentos. |
+| **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El cliente debe disponer de una conexión estable a internet. 2. Los fondos del cliente deben verificarse antes de realizar cualquier confirmación o reconocimiento de venta. |
 
 | Name of Use Case: | Searching for a car as a client |
 | --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client looks for a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, DBMS, NLP Algorithm |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The client is presented with car options according to their specifications. |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 05/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
+| **Descripción:** | Un cliente busca coche a través de la plataforma. |
+| **Actores:** | Cliente, plataforma, SGBD, Algoritmo PNL |
+| **Pre-condiciones:** | 1. El cliente tiene acceso a una computadora. 2. El cliente ya se ha registrado en la plataforma, ya sea a través de Google o con una cuenta nativa. |
+| **Post-condiciones:** | 1. The client is presented with car options according to their specifications. |
 | **Flow:** | 1. The client is at their homepage.2. The client can click on the search bar and enter specific terms to look up.3. The client enters the search.4. The NLP algorithm segments the search terms into possible terms that match the database's columns.5. The DBMS makes a query with the extracted terms and returns the results.6. The frontend makes elements to display the information to the client.7. The client is presented with vehicle options that fit their description. |
 | **Alternative Flows:** | 2. In step 2 of the normal flow, the client can choose to utilize filters.1. The client can select from a variety of dropdown options, checkboxes and sliders to adjust the brand, model, transmission, color, and more.2. The client enters the search.3. The DBMS makes a query with the extracted terms and returns the results.4. The frontend makes elements to display the information to the client.5. The client is presented with vehicle options that fit the elected filters. |
 | **Exceptions:** | 2. In step 2 of the normal flow in case the NLP algorithm finds no usable terms, no query is made and the client is prompted with no results available. |
@@ -488,7 +488,7 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 | **Exceptions:** | 3. In step 3 of the normal flow in case the client has no ongoing transactions they cannot communicate with a Seller. |
 | **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection.2. The client has an ongoing transaction with confirmed payment. |
 
-| Name of Use Case: | Uploading legal documents as a client |
+| Nombre del Caso de Uso: | Uploading legal documents as a client |
 | --- | --- |
 | Created By: | Equipo 1 |
 | Last Updated By: | E. Cabrera |
