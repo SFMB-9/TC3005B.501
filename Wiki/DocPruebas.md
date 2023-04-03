@@ -12,7 +12,7 @@
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
 | 26/02/2023 | 0.1     | Creación del Doc SRS |
-| 02/04/2023 | 1     | Plan de Pruebas by Pulse Technologies |
+| 02/04/2023 | 1     | Plan de Pruebas by Pulse Studios |
 
 # Índice
 
@@ -660,7 +660,7 @@ Cada desarrollador tiene como responsabilidad realizar una prueba informal a cad
 Es posible completar el flujo básico de la plataforma para cada uno de los tipos de usuario, desde el registro, login hasta cada una de sus acciones principales. 
 
 ### Pruebas de Estrés
-- La plataforma es capaz de manejar un número de usuarios simultáneos igual o mayor al calculado previamente sin que se vea afectado el funcionamiento y la velocidad
+La plataforma es capaz de manejar un número de usuarios simultáneos igual o mayor al calculado previamente sin que se vea afectado el funcionamiento y la velocidad
 
 ## 2.7 Entregables
 
