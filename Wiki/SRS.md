@@ -19,11 +19,22 @@
 <h3 align="center"> Do Hyun Nam
 <h3 align="center"> Emiliano Cabrera
 <h3 align="center"> Karla Mondragón
-<h3 align= "center"> Andrea Serrano Diego
+<h3 align="center"> Andrea Serrano Diego
 <h3 align="center"> Mateo Herrera 
 <h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
+<h3 align="center"> Sebastian González
+<h3 align="center"> Francisco Salcedo
 <h3 align="center"> Ana Paula Katsuda
+<h3 align="center"> Luis Javier Karam
+<h3 align="center"> Tonatiuh Reyes 
+<h3 align="center"> Iwalani Amador
+<h3 align="center"> Gerardo Gutierrez
+<h3 align="center"> Diego Corrales
+<h3 align="center"> Alfredo Jeong Hyun Park
+<h3 align="center"> Andrés Briseño
+<h3 align="center"> Alexa Serrano 
+
 
 <h1 align="center"> Software Requirements Specification
 
