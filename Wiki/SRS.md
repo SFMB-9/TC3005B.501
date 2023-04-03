@@ -976,7 +976,7 @@ Una de estas medidas es una base de datos de repaldo que se actualice cada ciert
 La seguridad de los datos será manejada con productos del proveedor de nube que se elija para el desarrollo del programa. Se utilizarán herramientas de seguridad como el cifrado de datos, autenticación de usuarios, etc. De igual manera se pondrán restricciones de leido/borrado de datos para los usuarios que no tengan permiso para realizar dichas acciones. 
   
 # 5. Requerimientos de Interfaz Externas
-> Pendiente a definir por todo el grupo
+En esta sección se presentan las diferentes interfaces que componen a la plataforma propuesta para la solución. De manera específica, se comienza por detallar las interfaces de usuario que hacen referencia al flujo en el que interactúan cada uno de los diferentes tipos de usuario dentro de la aplicación; posteriormente se describen las interfaces de software que hace referencia a la relación e interacción entre los diferentes componentes de software que conforman a la arquitectura de la aplicación; finalmente se listan las interfaces de comunicación que a un nivel más alto de abstracción incluye a los diferentes puntos de comunicación que se ofrecen dentro de la plataforma. 
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
