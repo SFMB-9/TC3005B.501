@@ -663,25 +663,22 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 ### No aplica
   
 # 9. Apéndices
-> Agregar ligas a los apéndices
 
 ← [Inicio](https://github.com/SFMBa01029956/TC3005B.501)
 
 ← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
   
-## 1. [WBS →]()
+## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=-163%2C180%2C2035%2C860%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
 
-## 2. [Gantt →]()
+## 2. [Gantt →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Gantt.xlsx)
 
-## 3. [Budget & Effort Analysis →]()
+## 3. [Historias de Usuario →]()
 
-## 4. [Historias de Usuario →]()
+## 4. [Administración de Riesgos →]()
 
-## 5. [Administración de Riesgos →]()
+## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
 ## 6. Glosario
-=======
-## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
 API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
