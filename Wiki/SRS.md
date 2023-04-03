@@ -404,7 +404,7 @@ Las premisas realizadas para el desarrollo de este proyecto son:
   
 > Pendiente a traducir y ligar
 
-← [Casos de Uso](https://github.com/SFMBa01029956/TC3005B.501/Wiki/Casos_de_Uso.md)
+← [Casos de Uso](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
 
 # 3. Características del Sistema
