@@ -113,7 +113,7 @@ Una vez que se haya tenido la aprobación de NDS se realizará la prueba del fun
 
 **Etapa 8 - Manual de Usuario:**
 
-En esta etapa final, una vez que se haya completado las etapas anteriores y son pocos o nulos los cambios se crea el manual de usuario en el que se le proveerá información e instrucciones al usuario de cómo usar el software desarrollado. En el manual de usuario se incluirán los caminos previamente establecidos en las pruebas de caja blanca de cobertura. El manual toma en cuenta la versión más actualizada y funcional de la aplicación.
+En esta etapa, una vez que se haya completado las etapas anteriores y son pocos o nulos los cambios, se crea el manual de usuario en el que se le proveerá información e instrucciones al usuario de cómo usar el software desarrollado. En el manual de usuario se incluirán los caminos previamente establecidos en las pruebas de caja blanca de cobertura. El manual toma en cuenta la versión más actualizada y funcional de la aplicación.
 
 Es relevante mencionar, que en esta estrategia se mantiene un flujo iterativo, donde de ser necesario se actualizará el documento de pruebas o se podrá regresar a etapas de pruebas anteriores para así solucionar cualquier fallo o error en cualquier nivel de la plataforma. 
 
@@ -121,6 +121,10 @@ El flujo de las pruebas se puede observar a continuación:
 <p align="center">
   <img src="../assets/diagrams/flujo_de_pruebas.png" width="600" title="hover text">
 </p>
+
+**Etapa 9 - Pruebas de estrés**
+
+
 
 ## 2.1.  Objetivos de pruebas
  El objetivo de las pruebas que se realizarán durante el transcurso del proyecto es la validación de las funcionalidades fundamentales de la aplicación, al igual que comprobar la correcta implementación de los requerimientos establecidos en el documento SRS. En consideración de este objetivo, las pruebas a realizarse comprenderán:
@@ -219,6 +223,15 @@ El flujo de las pruebas se puede observar a continuación:
 * Probar funcionalidad del sistema de chat.
 * Probar funcionalidad del dashboard estadístico.
 
+<i>Evaluación de estrés:</i><br>
+* Probar la funcionalidad de Login con una cantidad grande de usuarios simultáneamente.
+* Probar la funcionalidad de búsqueda de catálogo con una cantidad grande de usuarios simultáneamente.
+* Probar la funcionalidad de filtrado de catálogo con una cantidad grande de usuarios simultáneamente.
+* Probar la funcionalidad de la búsqueda de solicitudes con una cantidad grande de usuarios simultáneamente.
+* Probar la funcionalidad del filtrado de solicitudes con una cantidad grande de usuarios simultáneamente.
+* Probar funcionalidad del manejo de una solicitud con una cantidad grande de usuarios simultáneamente.
+
+
 En la siguientes tablas se resumen los requerimientos y componentes que serán probados a través de diferentes pruebas:
 
 **Caja Negra**
@@ -264,6 +277,7 @@ En la siguientes tablas se resumen los requerimientos y componentes que serán p
 |P\_V\_006|Login - Página Principal - Página de Listado - Agregar un Coche|Usuario Gerente|Recorrido de cómo un gerente de una agencia agrega autos al catálogo|Alta|
 |P\_V\_007|Login - Página Principal - Solicitar creación de usuario gerente|Usuario Grupo Automotriz|Recorrido que seguiría un usuario de grupo automotriz para solicitar la creación de un nuevo gerente de una agencia|Alta|
 |P\_V\_008|Login - Página Principal - Aceptar la solicitud de dada de alta de un grupo automotriz|Usuario Administrador de la Plataforma|Recorrido como usuario administrador de la plataforma que se seguirá para aceptar la solicitud de dada de alta de un grupo automotriz|Alta|
+
 
 ## 2.4 Alcance
 <b>Flujo del Cliente:</b><br>
@@ -604,6 +618,15 @@ El propósito de este tipo de pruebas es asegurar que el servicio, en términos 
 - _Metodología:_ Crear escenarios de acuerdo a las situaciones más usuales de los usuarios.
 - _Cada cuándo:_ Al final del proyecto.
 
+### Prueba de Estrés (Validación)
+El propósito de este tipo de pruebas es asegurar que el servicio, en términos de funcionalidad y desempeño, actúe de manera satisfactoria en terminos de capacidad y velocidad de servicio.
+
+- _Alcance:_ Dado que se trata de una prueba de sistema, el software será probado en completud.
+- _Responsables:_ Desarrolladores no pertenecientes al proyecto, testers. Un recorrido se considera aceptado una vez que sea aprobado por el equipo de desarrolladores y Rubén Raya. Los responsables del proceso de validación son los desarrolladores no pertenecientes al proyecto, Esteban Castillo y Ruben Raya.
+- _Metodología:_ Crear escenarios de casos de uso que involucren un alto número de usuarios y solicitudes.
+- _Cada cuándo:_ Al final del proyecto.
+
+
 ### Criterios de Salida
 
 Unitarias, Integración, Aceptación
@@ -653,7 +676,8 @@ Cada desarrollador tiene como responsabilidad realizar una prueba informal a cad
 - Agendado de la prueba de manejo: Todas las pruebas deberán permitir que el cliente tenga la capacidad de agendar una prueba de manejo exitosamente, y que este pase por las dos posibilidades principales en el proceso de agendado, siendo la aceptación o negación de la solicitud. Para ello, el cliente debe ser capaz de seleccionar un auto, solicitar una prueba de manejo para el mismo, subir la información y documentación necesaria, darle seguimiento a la solicitud, y de ser aceptada seleccionar una fecha, lugar y hora disponible en el horario del vendedor. Asimismo, la comunicación entre el cliente y el vendedor debe de ser posible en todo momento como parte del seguimiento de la prueba de manejo.
 
 ### Pruebas de Validación/Aceptación
-Los clientes y representantes de los mismos están satisfechos con la funcionalidad revisada así como la experiencia del usuario (UI/UX) de la plataforma.
+- Programa funcional: Los clientes y representantes de los mismos están satisfechos con la funcionalidad revisada así como la experiencia del usuario (UI/UX) de la plataforma.
+- Programa adaptado a escenarios de estrés: La plataforma es capaz de manejar un número de usuarios simultáneos que no afecte su rendimiento.
 
 ### Pruebas Estáticas de Recorrido
 Es posible completar el flujo básico de la plataforma para cada uno de los tipos de usuario, desde el registro, login hasta cada una de sus acciones principales. 
@@ -697,6 +721,7 @@ Lista tentativa, sujeta a cambios.
 | 18 | Prueba de validación | Hay pocos cambios o nulos. La interfaz está de acuerdo a los estándares del cliente. | Diseño de la interfaz finalizado |
 | 19 | Prueba de validación | Hay pocos cambios o nulos. El programa está completo y funciona de acuerdo a los estándares del cliente. | Programa finalizado |
 | 20 | Prueba de recorrido | Recorrido de todos los usuarios se puede completar | Bases de datos finalizadas, API finalizada, arquitectura de nube finalizada, conexiones finalizadas, implementación de front-end finalizada, implementación de back-end finalizada |
+| 21 | Prueba de validación | Hay pocos cambios o nulos. El programa está completo y funciona con demandas elevadas en la cantidad de usuarios. | Programa adaptado a escenarios de estrés |
 
 ## 2.9 Estimado de Esfuerzo
 Estimación basada en un equipo de 5 personas. Sujeta a cambios. 
@@ -827,7 +852,42 @@ Estimación basada en un equipo de 5 personas. Sujeta a cambios.
     </tr>
   </table>
 
-La estimación de esfuerzos anterior representa un 18.33% del total del proyecto.
+  La estimación de esfuerzos anterior representa un 18.33% del total del proyecto.
+
+  ### Pruebas de estrés
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Tipo de Prueba
+        </th>
+        <th>
+          Horas
+        </th>
+        <th>
+          D&iacute;as
+        </th>
+        <th>
+          Porcentaje del Proyecto
+        </th>
+      </tr>
+    </thead>
+      <tr>
+        <td>
+          Pruebas de estr&eacute;s
+        </td>
+        <td>
+          TBD 
+        </td>
+        <td>
+          TBD
+        </td>
+        <td>
+          TBD
+        </td>
+      </tr>
+    </table>
 
 # 3. Manejo de Pruebas
 En esta sección, se describirá en más detalle el proceso de pruebas, incluidos los riesgos que pueden aparecer, su probabilidad de ocurrir, su impacto en el proyecto y las acciones que podemos tomar para mitigarlos. Además, se describirá con más detalle los roles y expectativas, para que cada miembro del equipo sepa qué hacer en cada fase del proyecto, para minimizar la probabilidad de cometer errores por falta de comunicación.
@@ -861,6 +921,7 @@ Finalmente, para unir las cosas, también se incluye el diagrama de Gantt, que s
 8. Este proceso se repite hasta que todos los casos de prueba se ejecuten por completo y tengan un estado en el que ya sea que pasen o fallen.
     - Durante el ciclo siguiente, se probarán las pruebas falladas corregidas y los resultados se actualizarán en el documento durante el ciclo hasta que todas las pruebas pasen. El proceso continúa hasta que se llegue a un estándar comercial, promoviendo fiabilidad, fácil acceso y alta estabilidad.
 
+9. Como validacion final, se hará una suerte de métrica por medio de pruebas de estrés, para verificar la estabilidad del sistema y su capacidad de respuesta ante un gran número de usuarios.
 
 ## 3.2 Factores de Riesgo y Mitigación de Pruebas
 | **Riesgo** | **Probabilidad** | **Impacto** | **Plan de mitigación** |
@@ -953,7 +1014,7 @@ Es importante aclarar que dentro del proyecto presente, todos los involucrados e
 La siguiente lista define en términos generales las expectativas relacionadas a los roles que están involucrados con el manejo, planeación o ejecución de la prueba para el proyecto.
 
 ## Project Manager 
-Revisa el contenido del plan de pruebas, la estrategia de las pueblas, los estimados, criterios de validación con los equipos de trabajo, líderes y los stakeholders. Recopila la retroalimentación e informa a los demás. Tiene la responsabilidad de darle acompañamiento a las pruebas de caja blanca.
+Revisa el contenido del plan de pruebas, la estrategia de las pruebas, los estimados, criterios de validación con los equipos de trabajo, líderes y los stakeholders. Recopila la retroalimentación e informa a los demás. Tiene la responsabilidad de darle acompañamiento a las pruebas de caja blanca.
 
 ## Líder de QA 
 Junto con el project manager, crea y revisa el contenido del plan de pruebas, la estrategia de las pueblas, los estimados y criterios de validación coordinando la ejecución con las actividades programadas en el cronograma del proyecto. Recibe retroalimentación de los equipos de trabajo, líderes y los stakeholders, se asegura que las pruebas se ejecuten en tiempo y forma y documenta el proceso y los resultados.
