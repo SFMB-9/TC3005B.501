@@ -495,7 +495,18 @@ Super Admin - SA
 </p>
 
 ## 4.2. Diccionario de Datos
-> Pendiente a definir por todo el grupo
+Para esta versión del diagrama ER, se realizó una división de actores, consistiendo de:
+
+- Automóviles y sus detalles como especificaciones e imágenes (morado)
+- Usuarios y credenciales de las cuentas relevantes a las agencias y grupos automotrices (azul)
+- Procesos de la página (amarillo)
+- Información de los documentos relevantes a la compra de los autos (verde)
+- Campos de recolección de datos (azul claro)
+- Detalles del usuario final, osea el comprador (rojo)
+
+Esto se hizo para tener más clara la división entre diferentes componentes del sistema, así como para facilitar el proceso de identificar las conexiones entre ellas.
+
+Además, por medio de la normalización se hicieron tablas intermediarias, como se puede apreciar en los actores amarillos por ejemplo, con el objetivo de facilitar los cruces para la base de datos.
 
 ## 4.3. Reportes
   
@@ -665,25 +676,22 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 ### No aplica
   
 # 9. Apéndices
-> Agregar ligas a los apéndices
 
 ← [Inicio](https://github.com/SFMBa01029956/TC3005B.501)
 
 ← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
   
-## 1. [WBS →]()
+## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=-163%2C180%2C2035%2C860%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
 
-## 2. [Gantt →]()
+## 2. [Gantt →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Gantt.xlsx)
 
-## 3. [Budget & Effort Analysis →]()
+## 3. [Historias de Usuario →]()
 
-## 4. [Historias de Usuario →]()
+## 4. [Administración de Riesgos →]()
 
-## 5. [Administración de Riesgos →]()
+## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
 ## 6. Glosario
-=======
-## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
 API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
