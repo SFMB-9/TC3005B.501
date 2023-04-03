@@ -433,20 +433,20 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 
 **2.6.2 Cliente**
 
-| Name of Use Case: | Buying a car as a client |
+| Nombre del Caso de Uso: | Buying a car as a client |
 | --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client purchases a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, Seller, Manager |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account.3. The client has entered their required legal documents onto their account. |
-| **Postconditions:** | 1. The client is in the process of buying a car. |
-| **Flow:** | 1. The client enters their home page, where they can see several vehicles and can scroll to see more.2. The client enters a specific car's page.3. The client can see the vehicle's details.4. The client is able to choose between Agencies.5. The client is able to elect details such as transmission, color, and more, according to their chosen Agency's inventory availability6. The client can elect between doing a driving test or to buy the vehicle, they choose to buy the vehicle.7. The client is prompted to enter their payment method and details, it can be between credit/debit card or bank transfer. The client chooses a credit card.8. The Agency's Manager is notified of the purchase request, after which a Seller is assigned to the transaction and their details are presented to the client.9. The client is prompted with a message that indicates that the transaction is now underway. |
-| **Alternative Flows:** | 6. In step 6 of the normal flow, the client can choose to request a driving test.1. The client is prompted to choose a date and time for the test.2. A message is sent to the corresponding Agency's Manager.3. A message is presented to the client indicating that their request has been made, and to await further confirmation.7. In step 7 of the normal flow the client can choose between several payment options, in case of a bank transfer.1. The client is prompted that the transaction has been started and to please provide proof of the transfer before anything else can be done.2. The transaction is marked as pending in the client's history so that they can upload proof and the Manager is notified of the transfer.3. After such proof has been uploaded, the Agency's Manager is notified of the proof upload, and after validation a Seller is assigned to the transaction and their details are presented to the client.4. The client is prompted with a message that indicates that the transaction is now underway. |
-| **Exceptions:** | 5. In step 5 of the normal flow in case the client doesn't have the adequate documents or they are incomplete, the client is not allowed to choose either option, and is instead prompted to complete their documents. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection.2. The client's funds must be verified before any confirmation is made or sale acknowledged. |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 05/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
+| **Descripción:** | Un cliente compra un coche a través de la plataforma. |
+| **Actores:** | Cliente, plataforma, vendedor, gerente |
+| **Pre-condiciones:** | 1. El cliente tiene acceso a una computadora. 2. El cliente ya se ha registrado en la plataforma, ya sea a través de Google o con un cuenta nativa. 3. El cliente ha introducido los documentos legales necesarios en su cuenta. |
+| **Post-condiciones:** | 1. El cliente está en proceso de compra de un coche. |
+| **Flujo:** | 1. El cliente entra en su página de inicio, donde puede ver varios vehículos y desplazarse para ver más. 2. El cliente entra en la página de un coche concreto. 3. El cliente puede ver los datos del vehículo. 4. El cliente puede elegir entre distintas agencias. 5. El cliente puede elegir detalles como la transmisión, el color, etc; En función de la disponibilidad de existencias de la agencia elegida. 6. El cliente puede elegir entre hacer una prueba de conducción o comprar el vehículo, elige comprar el vehículo. 7. Se pide al cliente que introduzca su método de pago y sus datos, puede ser entre tarjeta de crédito/debito o transferencia bancaria. El cliente elige tarjeta de crédito. 8. Se notifica la solicitud de compra al gerente de la agencia, y a continuación se asigna un vendedor a la operación y se presentan sus datos al cliente. 9. El cliente recibe un mensaje que indica que la transacción está en curso. |
+| **Flujos Alternativos:** | 6. En el paso 6 del flujo normal, el cliente puede optar por solicitar una prueba de conducción. 1. Se pide al cliente que elija una fecha y hora para la prueba. 2. Se envía un mensaje al gerente de la agencia correspondente. 3. Se presenta un mensaje al cliente indicándole que su solicitud ha sido rechazada y que espere una nueva confirmación. 7. En el paso 7 del flujo normal, el cliente puede elegir entre varias opciones de pago, en caso de transferencia bancaria. 1. Se informa al cliente de que se ha iniciado la transacción y que debe presentar una prueba de la transferencia antes de que se pueda hacer nada más. 2. La operación se marca como pendiente en el historial del cliente para que pueda subir justificantes y se notifica la transferencia al gerente. 3. Una vez cargada la prueba, se notifica al gerente de la agencia y, tras la validación, se asigna un vendedor a la transacción y se presentan sus datos al cliente. 4. El cliente recibe un mensaje que indica que la transacción está en curso. |
+| **Excepciones:** | 5. En el paso 5 del flujo normal, en caso de que el cliente no disponga de los documentos adecuados o estos estén incompletos, no se le permite elegir ninguna de las dos opciones y, en su lugar, se le pide que complete sus documentos. |
+| **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El cliente debe disponer de una conexión estable a internet. 2. Los fondos del cliente deben verificarse antes de realizar cualquier confirmación o reconocimiento de venta. |
 
 | Name of Use Case: | Searching for a car as a client |
 | --- | --- |
