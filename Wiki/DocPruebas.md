@@ -58,30 +58,6 @@ Puesto a que las pruebas dinámicas requieren de la ejecución del código, su a
 ### Estáticas
 En cuanto a las pruebas estáticas - que se basan en la revisión de productos de trabajo sin código -, estas involucrarán a los encargados de diseñar las pruebas (ya que mediante la revisión del trabajo podrán planear mejores pruebas), al Product Owner (quien tiene la visión de la perspectiva del cliente por lo que puede evaluar si se cumplen las necesidades del mismo), el Project Manager (quien supervisará que se lleve a cabo el proyecto correctamente y se entreguen las pruebas adecuadas), y cualquier otro participante del producto que quiera revisar los documentos y asegurar la calidad del mismo. 
 
-### Dependencias
-Esta lista de hitos es tentativa y puede cambiar debido a las siguientes razones:
-
-a) Problemas en el ambiente de desarrollo
-
-b) Cambios en el alcance
-
-c) Dependencias que impacten los esfuerzos y tiempos
-
-| Nu. | Tipo de Prueba | Ejemplo de Prueba (SUT) | Dependencias (DOC) |
-|--|-----------|--------------------|------------------|
-| 1 | Pruebas Unitarias | Conexion a BD  | Base de datos completa & API |
-| 2 | Pruebas Unitarias | Login de usuario | Base de datos completa & API |
-| 3 | Pruebas Unitarias | Registro de usuario | Base de datos completa & API |
-| 4 | Pruebas de integracion | Chat entre usuarios | Los usuarios se pueden comunicar de manera exitosa |
-| 5 | Pruebas de integracion | Compra de usuario | El usuario puede realizar compras de manera exitosa |
-| 6 | Pruebas de validacion | La interfaz de usuario es agradable y facil de usar |  Diseño de interface completo|
-| 7 | Pruebas de validacion | El sistema esta completo y el cliente esta satisfecho con su funcionamiento | El sistema esta completo|
-| 8| Prueba de sistema | El usuario final puede iniciar sesion, navegar la pagina, realizar compras y comunicarse con vendedores por medio de chat | Base de datos completa, Conexiones API completas, Frontend de usuario final completo|
-| 9 | Prueba de sistema | EL usuario administrador puede iniciar sesion, entrar a la vista de administrador, y administrar los usuarios de la pagina | Base de datos completa, Conexiones API completas Frontend de usuario administrador completo | 
-| 10 | Prueba de sistema | El usuario vendedor puede iniciar sesion, entrar a la vista de vendedor, y administrar sus productos | Base de datos completa, Conexiones API completas, Frontend de usuario vendedor completo |
-| 11 | Prueba de sistema | El usuario de grupo automotriz puede iniciar sesion, entrar a la vista de grupo automotriz, y asignar agencias asociadas | Base de datos completa, Conexiones API completas, Frontend de grupo automotriz completo |
-| 12 | Prueba de sistema | El usuario de agencia puede iniciar sesio, entrar a la vista de agencia, y asignar vendedores asociados | Base de datos completa, Conexiones API completas, Frontend de grupo automotriz completo |
-
 # 2. Estrategia de Pruebas
 **Etapa 1 – Comprensión de los Requerimientos, Especificaciones del Proyecto y Pruebas Estáticas:** 
 
@@ -619,7 +595,7 @@ El propósito de este tipo de pruebas es asegurar que el servicio, en términos 
 - _Metodología:_ Crear escenarios de acuerdo a las situaciones más usuales de los usuarios.
 - _Cada cuándo:_ Al final del proyecto.
 
-### Prueba de Estrés (Validación)
+### Prueba de Estrés (No Funcional)
 El propósito de este tipo de pruebas es asegurar que el servicio, en términos de funcionalidad y desempeño, actúe de manera satisfactoria en terminos de capacidad y velocidad de servicio.
 
 - _Alcance:_ Dado que se trata de una prueba de sistema, el software será probado en completud.
@@ -683,16 +659,19 @@ Cada desarrollador tiene como responsabilidad realizar una prueba informal a cad
 ### Pruebas Estáticas de Recorrido
 Es posible completar el flujo básico de la plataforma para cada uno de los tipos de usuario, desde el registro, login hasta cada una de sus acciones principales. 
 
+### Pruebas de Estrés
+- La plataforma es capaz de manejar un número de usuarios simultáneos igual o mayor al calculado previamente sin que se vea afectado el funcionamiento y la velocidad
+
 ## 2.7 Entregables
 
 | No. | Nombre del Entregable | Autor | Sprint Esperado | Supervisor  |
 |---|---|---|---|---|
 | 1 |Plan de pruebas   | Equipo de prubas  | 1  | P.M. y Líder de QA |
-| 2 |Casos de pruebas unitarias |Equipo de pruebas   |3   |P.M. y Líder de QA  |
-| 3 |Caos de pruebas de integración   |Equipo de pruebas   |3   |P.M. y Líder de QA  |
-| 4 |Revisión Técnica   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
-| 5 |Reporte de estatus semanal   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
-| 6 |Logs de resultados de pruebas   |Equipo de pruebas   |Cada sprint después del tercero   |Líder de QA/Equipo de pruebas   |
+| 2 |Casos de pruebas unitarias |Equipo de pruebas   |4   |P.M. y Líder de QA  |
+| 3 |Caos de pruebas de integración   |Equipo de pruebas   |4   |P.M. y Líder de QA  |
+| 4 |Revisión Técnica   |Equipo de pruebas   |Cada sprint después del cuarto   |Líder de QA/Equipo de pruebas   |
+| 5 |Reporte de estatus semanal   |Equipo de pruebas   |Cada sprint después del cuarto   |Líder de QA/Equipo de pruebas   |
+| 6 |Logs de resultados de pruebas   |Equipo de pruebas   |Cada sprint después del cuarto   |Líder de QA/Equipo de pruebas   |
 | 7 | Reporte de finalización de pruebas | Equipo de pruebas | 9 | P.M. y Líder de QA |
 <br>
 
@@ -718,11 +697,11 @@ Lista tentativa, sujeta a cambios.
 | 15 | Prueba de integración | Prueba de compra de coche/prueba de manejo: Se puede reservar una prueba de manejo y comprar un coche | Pruebas unitarias finalizadas: 1, 12, 14 |
 | 16 | Prueba unitaria | Prueba de subida de modelo | Módulo de subda de modelos finalizado |
 | 17 | Prueba de integración | Prueba unitaria de subida de modelo: Se puede subir un coche y se vera reflejado en la base de datos y en la búsqueda de coches | Pruebas unitarias finalizadas: 1, 12, 14, 16 |
-|| Prueba unitaria | Prueba unitaria de validación de documentos: Se pueden subir documentos y se recibe un booleano que indique su validez | Módulo de validación de documentos finalizado |
-| 18 | Prueba de validación | Hay pocos cambios o nulos. La interfaz está de acuerdo a los estándares del cliente. | Diseño de la interfaz finalizado |
-| 19 | Prueba de validación | Hay pocos cambios o nulos. El programa está completo y funciona de acuerdo a los estándares del cliente. | Programa finalizado |
-| 20 | Prueba de recorrido | Recorrido de todos los usuarios se puede completar | Bases de datos finalizadas, API finalizada, arquitectura de nube finalizada, conexiones finalizadas, implementación de front-end finalizada, implementación de back-end finalizada |
-| 21 | Prueba de validación | Hay pocos cambios o nulos. El programa está completo y funciona con demandas elevadas en la cantidad de usuarios. | Programa adaptado a escenarios de estrés |
+| 18 | Prueba unitaria | Prueba unitaria de validación de documentos: Se pueden subir documentos y se recibe un booleano que indique su validez | Módulo de validación de documentos finalizado |
+| 19 | Prueba de validación | Hay pocos cambios o nulos. La interfaz está de acuerdo a los estándares del cliente. | Diseño de la interfaz finalizado |
+| 20 | Prueba de validación | Hay pocos cambios o nulos. El programa está completo y funciona de acuerdo a los estándares del cliente. | Programa finalizado |
+| 21 | Prueba de recorrido | Recorrido de todos los usuarios se puede completar | Bases de datos finalizadas, API finalizada, arquitectura de nube finalizada, conexiones finalizadas, implementación de front-end finalizada, implementación de back-end finalizada |
+| 22 | Prueba de estrés | Los cambios en el desempeño de la aplicación son nulos o levemente perceptibles. El programa está completo y funciona con demandas elevadas en la cantidad de usuarios. | Programa adaptado a escenarios de estrés |
 
 ## 2.9 Estimado de Esfuerzo
 Estimación basada en un equipo de 5 personas. Sujeta a cambios. 
