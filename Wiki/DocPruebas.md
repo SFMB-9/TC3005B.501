@@ -123,7 +123,8 @@ El flujo de las pruebas se puede observar a continuación:
 </p>
 
 **Etapa 9 - Pruebas de estrés**
-
+Como etapa final, se realizarán pruebas de estrés para comprobar el correcto funcionamiento de la aplicación en situaciones de alta carga de usuarios. Para esto se utilizará una herramienta como JMeter, la cual permite simular un gran número de usuarios simultáneos, y comprobar el correcto funcionamiento de la aplicación en dichas situaciones.
+Estas pruebas serviran como "benchmark" para medir el rendimiento de la aplicación, y su capacidad de soporte.
 
 
 ## 2.1.  Objetivos de pruebas
