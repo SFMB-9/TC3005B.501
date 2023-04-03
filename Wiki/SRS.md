@@ -104,15 +104,15 @@
 
 9. [Apéndices](#9-apéndices)
 
-    9.1. [WBS](#1-wbs)
+    9.1. [Organigrama](#1-organigrama)
 
     9.2. [Gantt](#2-gantt)
 
-    9.3. [Budget and Effort Analysis](#3-budget-and-effort-analysis)
+    9.3. [Historias de Usuario](#3-historias-de-usuario)
 
-    9.4. [Historias de Usuario](#4-historias-de-usuario)
-
-    9.5. [Administración de Riesgos](#5-administración-de-riesgos) 
+    9.4. [Administración de Riesgos](#4-administración-de-riesgos) 
+    
+    9.5. [Casos de Uso](#5-casos-de-uso)
 
     9.6. [Glosario](#6-glosario)
 
