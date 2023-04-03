@@ -866,43 +866,44 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 
 ## 3.1. Requerimientos Funcionales
 ### Todos los Usuarios
-| ID Req Funcional| Requerimiento                                      |Usuarios |
-|      :----:     |    :----:                                          | :----:  |
-|REQ_FUN_01       |Registro de usuario a la plataforma                 |C        |
-|REQ_FUN_02       |Solicitud de registro de usuario                    |GA/G     |
-|REQ_FUN_03       |Edición de perfil de usuario propio                 |Todos    |
-|REQ_FUN_04       |Eliminación de perfil de usuario propio             |C        |
-|REQ_FUN_05       |Eliminación de perfil de usuario ajeno              |G/GA/SA  |
-|REQ_FUN_06       |Login                                               |Todos    |
-|REQ_FUN_07       |Log out                                             |Todos    |
-|REQ_FUN_08       |Registro de documentos                              |C/GA     |
-|REQ_FUN_09       |Visualización de documentos propios                 |C/GA     |
-|REQ_FUN_10       |Visualización de retroalimentación de documentos propios|C/GA |
-|REQ_FUN_11       |Visualización de estatus de aceptación de documentos propios|C/GA|
-|REQ_FUN_12       |Edición/Borrado de documentos propios               |C/GA     |
-|REQ_FUN_13       |Visualización de documentos ajenos                  |SA/V/G   |
-|REQ_FUN_14       |Aprobación/Negación de documentos ajenos            |SA/V/G   |
-|REQ_FUN_15       |Vista de catálogo                                   |Todos    |
-|REQ_FUN_16       |Registro de automóviles                             |G        |
-|REQ_FUN_17       |Edición/Borrado de automóviles                      |G        |
-|REQ_FUN_18       |Registro de planes de financiamiento/seguros        |G        |
-|REQ_FUN_19       |Edición/Borrado de planes de financiamiento/seguros |G        |
-|REQ_FUN_20       |Búsqueda por filtros                                |C/V/G/GA |
-|REQ_FUN_21       |Búsqueda por lenguaje natural                       |C/V/G/GA |
-|REQ_FUN_22       |Solicitud de prueba de manejo                       |C        |
-|REQ_FUN_23       |Revisión de estatus de solicitud de prueba de manejo|C        |
-|REQ_FUN_24       |Aprobación/Negación de prueba de manejo             |V        |
-|REQ_FUN_25       |Asignación de disponibilidad de prueba de manejo    |V        |
-|REQ_FUN_26       |Apertura de chat con vendedor                       |C        |
-|REQ_FUN_27       |Solicitud de compra                                 |C        |
-|REQ_FUN_28       |Confirmación de inicio de compra                    |C        |
-|REQ_FUN_29       |Visualización de detalles de compra                 |C        |
-|REQ_FUN_30       |Selección de plan de financiamiento                 |C        |
-|REQ_FUN_31       |Selección de método de pago                         |C        |
-|REQ_FUN_32       |Autorización del proceso de compra                  |V        |
-|REQ_FUN_33       |Reasignación de orden de compra                     |V        |
-|REQ_FUN_34       |Aprobación de reasignación de orden de compra       |G        |
-|REQ_FUN_35       |Realización de pago en línea                        |C        |
+| ID Req Funcional |                        Requerimiento                         | Usuarios  | Prioridad    |
+| :--------------: | :----------------------------------------------------------: | :-------: | --- |
+|    REQ_FUN_01    |             Registro de usuario a la plataforma              |     C     |  M  |
+|    REQ_FUN_02    |               Solicitud de registro de usuario               |   GA/G    |  M  |
+|    REQ_FUN_03    |             Edición de perfil de usuario propio              |   Todos   |  S  |
+|    REQ_FUN_04    |           Eliminación de perfil de usuario propio            |     C     |  S  |
+|    REQ_FUN_05    |            Eliminación de perfil de usuario ajeno            |  G/GA/SA  |  S  |
+|    REQ_FUN_06    |                            Login                             |   Todos   |  M  |
+|    REQ_FUN_07    |                           Log out                            |   Todos   |  M  |
+|    REQ_FUN_08    |                    Registro de documentos                    |   C/GA    |  M  |
+|    REQ_FUN_09    |             Visualización de documentos propios              |   C/GA    |  M  |
+|    REQ_FUN_10    |   Visualización de retroalimentación de documentos propios   |   C/GA    |  M  |
+|    REQ_FUN_11    | Visualización de estatus de aceptación de documentos propios |   C/GA    |  M  |
+|    REQ_FUN_12    |            Edición/Borrado de documentos propios             |   C/GA    |  M  |
+|    REQ_FUN_13    |              Visualización de documentos ajenos              |  SA/V/G   |  M  |
+|    REQ_FUN_14    |           Aprobación/Negación de documentos ajenos           |  SA/V/G   |  M  |
+|    REQ_FUN_15    |                      Vista de catálogo                       |   Todos   |  M  |
+|    REQ_FUN_16    |                   Registro de automóviles                    |     G     |  M  |
+|    REQ_FUN_17    |                Edición/Borrado de automóviles                |     G     |  M  |
+|    REQ_FUN_18    |         Registro de planes de financiamiento/seguros         |     G     |  S  |
+|    REQ_FUN_19    |     Edición/Borrado de planes de financiamiento/seguros      |     G     |  S  |
+|    REQ_FUN_20    |                     Búsqueda por filtros                     | C/V/G/GA  |  S  |
+|    REQ_FUN_21    |                Búsqueda por lenguaje natural                 | C/V/G/GA  |  C  |
+|    REQ_FUN_22    |                Solicitud de prueba de manejo                 |     C     |  M  |
+|    REQ_FUN_23    |     Revisión de estatus de solicitud de prueba de manejo     |     C     |  S  |
+|    REQ_FUN_24    |           Aprobación/Negación de prueba de manejo            |     V     |  M  |
+|    REQ_FUN_25    |       Asignación de disponibilidad de prueba de manejo       |     V     |  M  |
+|    REQ_FUN_26    |                Apertura de chat con vendedor                 |     C     |  M  |
+|    REQ_FUN_27    |                     Solicitud de compra                      |     C     |  M  |
+|    REQ_FUN_28    |               Confirmación de inicio de compra               |     C     |  M  |
+|    REQ_FUN_29    |             Visualización de detalles de compra              |     C     |  S  |
+|    REQ_FUN_30    |             Selección de plan de financiamiento              |     C     |  M  |
+|    REQ_FUN_31    |                 Selección de método de pago                  |     C     |  M  |
+|    REQ_FUN_32    |              Autorización del proceso de compra              |     V     |  M  |
+|    REQ_FUN_33    |               Reasignación de orden de compra                |     V     |  M  |
+|    REQ_FUN_34    |        Aprobación de reasignación de orden de compra         |     G     |  M  |
+|    REQ_FUN_35    |                 Realización de pago en línea                 |     C     |  M  |
+|    REQ_FUN_36    |                    Dashboard Estadístico                     | V/G/GA/SA |  S  |
 
 Comprador - C
 Vendedor - V
@@ -911,28 +912,28 @@ Grupo Automotriz - GA
 Super Admin - SA
 
 ## 3.2. Requerimientos No Funcionales
-|ID Req No Funcional|Requerimiento|
-|:----:             |:----:       |
-|REQ_NO_FUN_01      |Diseño intuitivo|
-|REQ_NO_FUN_02      |Diseño de UX armonioso|
-|REQ_NO_FUN_03      |Screen-size adaptable para tablet y celular|
-|REQ_NO_FUN_04      |Texto de ayuda y texto alternativo en botones e imágenes|
-|REQ_NO_FUN_05      |Bóton de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano|
-|REQ_NO_FUN_06      |Se utilizarán cookies para guardar las búsquedas recientes|
-|REQ_NO_FUN_07      |Funcionalidad de comparativa de autos|
-|REQ_NO_FUN_08      |Funcionalidad de lista de deseos|
-|REQ_NO_FUN_09      |Procesamiento de documentos con OCR|
-|REQ_NO_FUN_10      |Proceso de venta transparente|
-|REQ_NO_FUN_11      |Compra a cualquier agencia disponible|
-|REQ_NO_FUN_12      |Visualización predenterminada del catálogo|
-|REQ_NO_FUN_13      |Método de autorización para cada ususario|
-|REQ_NO_FUN_14      |Habilidad de actualizar la información de la cuenta|
-|REQ_NO_FUN_15      |Transparencia de datos|
-|REQ_NO_FUN_16      |Esquema de datos estandarizado|
-|REQ_NO_FUN_17      |Asegurar que la información de ventas y usuarios sea guardada por lo menos cinco años antes de ser descartada|
-|REQ_NO_FUN_18      |Protección de información|
-|REQ_NO_FUN_19      |Tutoriales y sección de FAQ|
-|REQ_NO_FUN_20      |Política de privacidad|
+| ID Req No Funcional |                                                 Requerimiento                                                 | Prioridad|
+| :-----------------: | :-----------------------------------------------------------------------------------------------------------: | --- |
+|    REQ_NO_FUN_01    |                                               Diseño intuitivo                                                |  M  |
+|    REQ_NO_FUN_02    |                                            Diseño de UX armonioso                                             |  S  |
+|    REQ_NO_FUN_03    |                                  Screen-size adaptable para tablet y celular                                  |  S  |
+|    REQ_NO_FUN_04    |                           Texto de ayuda y texto alternativo en botones e imágenes                            |  C  |
+|    REQ_NO_FUN_05    |     Bóton de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano      |  S  |
+|    REQ_NO_FUN_06    |                          Se utilizarán cookies para guardar las búsquedas recientes                           |  M  |
+|    REQ_NO_FUN_07    |                                     Funcionalidad de comparativa de autos                                     |  C  |
+|    REQ_NO_FUN_08    |                                       Funcionalidad de lista de deseos                                        |  C  |
+|    REQ_NO_FUN_09    |                                      Procesamiento de documentos con OCR                                      |  C  |
+|    REQ_NO_FUN_10    |                                         Proceso de venta transparente                                         |  S  |
+|    REQ_NO_FUN_11    |                                     Compra a cualquier agencia disponible                                     |  M  |
+|    REQ_NO_FUN_12    |                                  Visualización predenterminada del catálogo                                   |  S  |
+|    REQ_NO_FUN_13    |                                   Método de autorización para cada ususario                                   |  M  |
+|    REQ_NO_FUN_14    |                              Habilidad de actualizar la información de la cuenta                              |  M  |
+|    REQ_NO_FUN_15    |                                            Transparencia de datos                                             |  M  |
+|    REQ_NO_FUN_16    |                                        Esquema de datos estandarizado                                         |  S  |
+|    REQ_NO_FUN_17    | Asegurar que la información de ventas y usuarios sea guardada por lo menos cinco años antes de ser descartada |  M  |
+|    REQ_NO_FUN_18    |                                           Protección de información                                           |  M  |
+|    REQ_NO_FUN_19    |                                          Tutoriales y sección de FAQ                                          |  C  |
+|    REQ_NO_FUN_20    |                                            Política de privacidad                                             |  M  |
 
 ## 3.3. Diagramas de Casos de Uso
 > Pendiente a definir por todo el grupo
