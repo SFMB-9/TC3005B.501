@@ -1005,12 +1005,33 @@ La seguridad de los datos será manejada con productos del proveedor de nube que
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
+ 
+<p align="justify"> En esta sección se presenta el diagrama de arquitectura correspondiente a la solución para la plataforma digital de venta de automóviles descrita en este documento. 
+ 
+<p align="justify">En términos generales el diagrama comienza con el “User” representando el cliente que mediante el browser realiza un petición para ingresar al sistema. Para efectuar dicha acción se tiene al DNS (Domain Name System) que traduce el dominio de la URL en la dirección IP correspondiente. Siguiente en la arquitectura se tiene un CDN (Content Delivery Network), con el objetivo de tener disponible aquella información estática de la aplicación de una manera rápida, el cual se conecta con un API Gateway responsable de mapear y dirigir hacia los “endpoints” solicitados. El anterior a su vez se conecta con un Load Balancer el cual se encarga de distribuir la carga uniformemente entre las diferentes instancias de la aplicación así maximizando la capacidad de respuesta de la misma. 
+ 
+<p align="justify">Por otra parte, para desplegar el front-end de la aplicación se tiene a una máquina virtual designada en un “Auto Scaling Group” para llevar de forma automática la necesidad de crecimiento o escalamiento de la plataforma. Asimismo, a dicha máquina virtual se le adjunta un Storage Bucket para manejar de una manera más eficiente contenido multimedia como imágenes o videos que se requieren de fácil acceso.
+ 
+<p align="justify">En cuanto al back-end de la plataforma, esta se divide en dos secciones principales cada una englobada en su “Auto Scaling Group”. Una siendo la de “Serverless Functions” y otra la de los contenedores, donde la primera de ellas hace referencia a aquellas funcionalidades individuales y sencillas de la aplicación, mientras la segunda se refiere a aquellas funcionalidades como el método de pago cuya complejidad requiere de su segmentación a través de contenedores. Igualmente, en estas secciones se considera la conexión a APIs de terceros, así como servidores externos para la implementación de ML dentro de la aplicación web.
+ 
+<p align="justify">Finalmente, se tiene tanto una base de datos relacional como una no relacional contenidas en un mismo “Auto Scaling Group” conectada de manera correspondiente a su componente del back-end. A su vez, a la base de datos no relacional se le dipone de un “Storage Bucket” para el almacenamiento de información como archivos que se requieren de un rápido acceso. 
+
 <p align="center">
   <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
 </p>
 
 ### Componentes
-> Pendiente a definir por todo el grupo (Descripcion de la arquitectura).
+* **DNS:** Traduce nombres de dominio a direcciones IP.
+* **CDN:** distribuye el contenido entre varios servidores para mejorar la velocidad de entrega.
+* **API Gateway:** Proporciona un único punto de entrada para múltiples servicios backend o API.
+* **Load Balancer:** Distribuye el tráfico de red entrante entre varios servidores.
+* **Serverless Function:** Ejecuta código en un entorno de nube sin aprovisionamiento ni gestión de servidores.
+* **Storage Bucket:** Contenedor para almacenar objetos en un entorno de nube.
+* **Relational Database:** Almacena datos en tablas estructuradas con relaciones predefinidas.
+* **No Relational Database:** Almacena datos en formato no estructurado o semiestructurado para una mayor flexibilidad y escalabilidad.
+* **Virtual Machine:** Emulación por software de un ordenador físico que se ejecuta en un entorno de nube.
+* **Auto Scaling Group:** Colección de servidores que escala automáticamente hacia arriba o hacia abajo en función del tráfico entrante u otras métricas.
+
 
 ## 5.3. Interfaces de Hardware
 ### No aplica
