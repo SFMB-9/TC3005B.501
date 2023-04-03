@@ -1048,6 +1048,7 @@ Aquí, se describirá la forma en que el equipo se comunicará entre sí y con e
 | Tareas terminadas | Equipo de proyecto | Informar y revisar las tareas realizadas por área. | Al terminar una tarea | Trello/ Discord | Project manager |
 
 ## 3.4 Gantt
+https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Gantt.xlsx
 
 # 4. Ambiente de pruebas
 El hardware utilizado para las pruebas tendrá un mínimo de 4 núcleos, Intel i5-1155G7 a 4,5 GHz y 8 GB de RAM. Este hardware correra tendrá un sistema operativo mínimo de Windows 10.0.19045. Todo el hardware utilizado por los equipos de prueba y desarrollo cumplirá con estos requisitos mínimos.
