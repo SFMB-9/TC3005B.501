@@ -1,15 +1,17 @@
 <p align="center">
-<!--   <img src="../assets/Logos/humanIT.005.png" width="300" title="hover text"> -->
+    <img src="../assets/Logos/PulseLogoTransparente.png" width="300" title="hover text">
 </p>
 <hr/>
 
-<h2 align="center"> Digitalización del Proceso de Adquisición de un Vehículo 
+<p align="center">
+    <img src="../assets/Logos/SwivelLogoTransparente.png" width="300" title="hover text">
+</p>
 
 <h2 align="center"> Software Requirements Specification
 
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
-| 26/02/2023 | 0.1     | Creación del Doc SRS |
+| 02/04/2023 | 1     | Integración SRS |
 
 <h2 align="center"> Autores
 <h3 align="center"> Andreína Sanánez
@@ -17,13 +19,23 @@
 <h3 align="center"> Do Hyun Nam
 <h3 align="center"> Emiliano Cabrera
 <h3 align="center"> Karla Mondragón
+<h3 align="center"> Andrea Serrano Diego
 <h3 align="center"> Mateo Herrera 
 <h3 align="center"> Regina Rodríguez
 <h3 align="center"> Salvador Milanés
-  
-<h1 align="center"> Software Requirements Specification
+<h3 align="center"> Sebastian González
+<h3 align="center"> Francisco Salcedo
+<h3 align="center"> Ana Paula Katsuda
+<h3 align="center"> Luis Javier Karam
+<h3 align="center"> Tonatiuh Reyes 
+<h3 align="center"> Iwalani Amador
+<h3 align="center"> Gerardo Gutierrez
+<h3 align="center"> Diego Corrales
+<h3 align="center"> Alfredo Jeong Hyun Park
+<h3 align="center"> Andrés Briseño
+<h3 align="center"> Alexa Serrano 
 
-# índice
+# Índice
 1. [Introducción](#1-introducción)
         
     1.1. [Propósito](#11-propósito)
@@ -101,16 +113,16 @@
     9.4. [Historias de Usuario](#4-historias-de-usuario)
 
     9.5. [Administración de Riesgos](#5-administración-de-riesgos) 
+
+    9.6. [Glosario](#6-glossary)
+
 # 1. Introducción
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
 <p align="justify"> El objetivo de este documento es recopilar, analizar y brindar una visión profunda de la aplicación web para NDS Cognitive Labs, definiendo el problema y la solución en detalle. El documento también concentra las capacidades requeridas por todos los stakeholders y sus necesidades definiendo las características del producto.
 
 <p align="justify"> Nuestra misión para este proyecto es hacer el proceso de compra de un auto más fácil y conveniente para el usuario digitalizando dicho proceso. Esto planeamos lograrlo creando una plataforma confiable, transparente y de fácil acceso en la que los clientes puedan tomar decisiones informadas basadas en información confiable y recomendaciones profesionales. Nuestro compromiso con nuestros clientes es ofrecerles una gama variada de autos a través de agencias y grupos automotrices previamente verificadas en nuestra plataforma. El problema que nuestra propuesta busca solucionar lo inconventiente que se ha vuelto el proceso de adquisición de un vehículo, tanto para las agencias que no tienen acceso a un equipo de TI como para los compradores que pueden tardar meses en el proceso.
 
 <p align="justify"> Con respecto a nuestra visión, buscamos transformar radicalmente el sector de ventas de autos. Con este proyecto queremos que la experiencia tradicional de la compra de autos cambie, se adapte a las nuevas tecnologías y no estrese a los usuarios. Estamos comprometidos a crear una comunidad confiable de vendedores y compradores donde las transacciones puedan ser en línea, quitando los problemas e inconvenientes asociados a la compra tradicional de autos. 
+
 ## 1.1. Propósito
 <p align="justify"> El propósito del documento es recopilar y analizar todas las ideas que han surgido para definir el sistema y sus requisitos con respecto a los usuarios que harán uso de la aplicación. 
 
@@ -121,14 +133,9 @@
     <li> Un proceso de compra amigable y conveniente
     <li> La protección de datos de usuarios
 </ol>
+
 ## 1.2. Enfoque y Alcances
-  
-> Pendiente a validar por todo el grupo
->
-> Comparar con team 4
-  
-> By teams 1,2
-  
+
 El enfoque de este proyecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el pais donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 1. Elegir un vehículo desde un amplio catálogo, 
 2. Encuentre planes de financiamiento que se adapten a sus necesidades,  
@@ -157,76 +164,221 @@ La aplicacion pretende:
 
 Lo que nos distingue de la competencia es nuestra intención de:
 - Crear un simulador comparativo de autos, 
+- Un formulario para entender las necesidades del usuario, 
+- Agendar citas mediante un calendario, 
 - Dar recomendaciones personalizadas con Machine Learning y 
 - La implementación de un "Wishlist" (Bookmark de autos preferidos). <br>
 Pero, priorizando la entrega de un MVP funcional, de calidad y que cubra las necesidades del cliente, NDS. 
 
-Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como (nombre de nuestro grupo) son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
+Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como **(nombre de nuestro grupo)** son el mantenimiento de la aplicación, el servicio y hospedaje para el almacenamiento en Cloud y la solución de quejas acerca de la manufactura o el estado de los automóviles; así como el servicio de respaldo (backup) y la red de distribución de contenido (CDN).
+
 ## 1.3. Objetivos SMART
-> Pendiente a validar por todo el grupo
-> By team 1
 1. _Mejorar la experiencia del usuario:_ al terminar el proyecto, con el lanzamiento de la aplicación, buscamos reducir aproximadamente un 30% el tiempo que le toma a un usuario comparar y adquirir un automóvil.
 2. _Mejorar el servicio al cliente:_ dentro del desarrollo del proyecto (75%), se busca implementar un chatbot que pueda ofrecer ayuda a los clientes para así reducir hasta en un 50% los tiempos de respuesta. Esto mejorará el servicio al cliente en la plataforma.
 3. _Aumentar las opciones de pago:_ al terminar el proyecto, con el lanzamiento de la aplicación, se busca incluir una pasarela de pago que acepte diversas formas de pago para ampliar la cantidad de alternativas para los clientes en la plataforma.
 4. _Aumentar el posicionamiento en los motores de búsqueda:_ al terminar el proyecto, con el lanzamiento de la aplicación, se pretende utilizar mejores prácticas de optimización de motores de búsqueda para aumentar el ranking de la plataforma.
 5. _Mejorar la seguridad de la plataforma:_ para evitar violaciones de datos y proteger la privacidad del consumidor, se agregara autenticación y la verificación de autorización y se incluirá el cifrado de datos dentro del desarrollo del proyecto (80%). 
 6. _Implemente análisis predictivos:_ al terminar el proyecto, con el lanzamiento de la aplicación (si existen recursos disponibles), se pretende mejorar el uso de análisis predictivo con el objetivo de estudiar los datos de los clientes y ofrecer sugerencias de automóviles individuales, lo que lleva a un aumento en la satisfacción del cliente.
+
 ## 1.4. Convenciones de Documento
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
-| Concepto   | Descripción       |  
-| :---------:|:-------------     | 
-| SQL        | Structured Query Language, lenguaje de programación para almacenar y procesar información en una base de datos relacional|                           
-| API        | Application Programming Interface, conjunto de definiciones y protocolos que se usa para diseñar e integrar el software de las aplicaciones|      
-| BD o DB    | Base de Datos o Database|   
-| AWS        | Amazon Web Services, colección de servicios de computación en la nube pública que en conjunto forman una plataforma de computación en la nube, ofrecidas a través de Internet por Amazon.com|  
-| Stack Tecnológico | Ecosistema tecnológico, conjunto de lineamientos, servicios y softwares que componen un aplicación |
+| Término | Definición |
+|---------|------------|
+| SRS | Documento de Especificación de Requerimientos de Software en el que se describen las funcionalidades necesarias para un proyecto de desarrollo de software |
+| Project Manager | Se entiende como la persona responsable de dar seguimiento y gestionar las actividades al desarrollar un proyecto |
+| Product Owner | Se entiende como la persona que representa las necesidades del cliente de cara al equipo de desarrollo |
+
 ## 1.5. Referencias
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
 "IEEE Guide for Software Requirements Specifications," in IEEE Std 830-1984 , vol., no., pp.1-26, 10 Feb. 1984, doi: 10.1109/IEEESTD.1984.119205. https://ieeexplore.ieee.org/document/278253
+
 # 2. Descripción General
 ## 2.1. Perspectiva del Producto
-  
-> Pendiente a validar por todo el grupo
-  
-> By team 1,2
   
 La aplicación busca ser un servicio e-commerce donde un usuario comprador tenga la oportunidad de comprar un vehículo de forma intuitiva, amigable, segura y digital. NDS Cognitive Labs es una consultora internacional especializada en el diseño y desarrollo de soluciones de software de tiempo real que van desde Inteligencia Artificial a Nube. 
 
 La idea del servicio pretende trabajar con tecnologías emergentes para facilitar el proceso de adquisión de un vehículo de agencia.
 
-> ! Adjuntar imagen del diagrama hecho por el equipo 1 - 33 VLANs Studio
+<p align="center">
+  <img src="../assets/diagrams/TechStack/PerspectiveDiagram.png" width="600" title="hover text">
+</p>
   
 ## 2.2. Clases de Usuario y Características
-  
-> Validado !
-  
-1. _Usuario Comprdador_ <br>
+1. _Usuario Comprador_:
+- Usuario que usa la plataforma con el propósito de adquirir un vehículo.
+- No tiene ningún permiso de tipo administrador como todos los demás usuarios.
+- Tiene una cuenta, perfil y la posibilidad de realizar una transacción monetaria.
 
-2. _Usuario Vendedor_
+2. _Usuario Vendedor_:
+- Primer usuario de tipo administrador, tiene el menor número de privilegios; solamente se le permite acceder a su información y a la de sus clientes.
+- Tiene una cuenta y un perfil.
+- Sus permisos y accesos son asignados por un usuario gerente o agencia.
 
-3. _Usuario Gerente_
+3. _Usuario Gerente_:
+- Usuario administrador, que pertenece a una agencia y sus permisos están gestionados por el grupo automotriz.
+- Se le permite acceder a la información de sus vendedores y los clientes de su sucursal correspondiente.
+- Se le permite acceder a la información de sus vendedores, vehículos y los clientes de la agencia.
+- Tiene una cuenta y un perfil.
 
-4. _Usuario Grupo Automotriz_
+4. _Usuario Grupo Automotriz_:
+- Usuario administrador, sus permisos y acceso es gestionado por el usuario super-administrador.
+- Se le permite acceder a la información de todas las agencias bajo su supervisión, sus catálogos y vehículos, gerentes y vendedores.
+- Gestiona que sucursales serán parte de la plataforma en conjunto con el usuario super-administrador.
+- Tiene una cuenta y un perfil.
 
-5. _Usuario Super-Administrador_
+5. _Usuario Super-Administrador_:
+- Usuario con mayor número de privilegios, su acceso y permisos son gestionados por NDS y los desarrolladores. Es el responsable de gestionar a los usuarios grupo automotriz.
+- Puede acceder a la información de los grupos, agencias, ventas, catálogos y vehículos, al igual que a la información del comportamiento de la plataforma.
+- Tiene una cuenta y un perfil.
+
 ## 2.3. Ambiente de Desarrollo
+ 
+<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. Como se observa a continuación, dese el IDE de desarrollo de software hasta los navegadores utilizados para acceder al sitio, cada herramienta se ha seleccionado cuidadosamente en función de sus características y compatibilidad con el sistema global. Posteriormente, se describen las ventajas particulares de cada una de estas tecnologías que justifican su elección para la implementación de la solución. De manera general, se examinan las ventajas de utilizar MySQL Community Edition para el almacenamiento de cuentas y MongoDB para el almacenamiento de catálogos e información de compra. Además, se exploran las ventajas de utilizar NodeJS para la capa de aplicación, Express para el desarrollo backend, React y NextJS para el desarrollo front-end y Bootstrap para las bibliotecas de estilo en cascada. Entre otros, se propone el uso de AWS para los servicios en la nube y Stripe para la integración de la funcionalidad de pago. 
   
-> Pendiente a definir por todo el grupo
->
-> Comparar teams 2,3; team 3 usa google a diferencia del resto que ocupa AWS.
+### 1. Database
   
-(Tech Stack)
+<i>MySQL Community Edition (Almacenamiento de Cuentas):</i><br>
+* Gratuito - GPL Licence.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatible con diversos OS - compatible con Windows.
+* Cuenta con capas de seguridad.
+* Estructura relacional - bueno para almacenar relaciones como aquellas en los diferentes tipos de cuentas definidas para la plataforma.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+<i>MongoDB (Almacenamiento de catálogo e información de la compra):</i><br>
+* Gratuito.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatible con diversos OS - compatible con Windows.
+* Fácil instalación e implementación.
+* Altamente flexible y escalable.
+* Tolera grandes volúmenes de datos.
+* Estructura no relacional - bueno para manejar muchas read-write operations como lo son búsquedas, filtrado e información referente a la compra del auto.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 2. Dev. Environments
+  
+* <i>NodeJS (Application Layer):</i><br>
+* Gratuito - Open Source.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatibilidad cross-platform - gran compatibilidad con React.
+* Facilita el desarrollo del backend en JavaScript.
+* Particularmente rápido y escalable al estar construido sobre Chrome V8 Engine.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 3. Frameworks
+  
+<i>Express:</i><br>
+* Gratuito - Open Source.
+* Framework derivado de NodeJS y por ende compatible.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Provee un conjunto de herramientas que facilitan la creación del backend/API con NodeJS.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 4. Front-end Development Libraries
+  
+<i>React (JavaScript):</i><br>
+* Gratuito - Open Source
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Permite programación por componentes haciendo fácil reutilización y mantenimiento de código para la implementación de la funcionalidad y renderizado del front-end.
+* Utiliza virtual DOM lo cual aumenta su rendimiento al permitir que cierta información se maneje y esté disponible “client-side”.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+<i>Figma:</i><br>	
+* Gratuito 
+* Intuitivo y fácil de usar.
+* Permite la creación de diseños (mockups) directamente traspasables para la implementación.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Permite la colaboración simultánea en línea.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+<i>MaterialUI:</i><br>
+* Gratuito y Open Source.
+* Provee componentes de UI pre-diseñados.
+* Compatible y utilizado sobre React.
+* Flexible para la customización de los componentes.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
+
+<i>NextJS:</i><br>
+* Gratuito y Open Source.
+* Framework de React para el desarrollo de aplicaciones web.
+* Permite “server-side rendering” que agiliza el cargado de la página.
+* Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 5. Cascading Style Libraries
+  
+<i>Bootstrap:</i><br>
+* Gratuito.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Opera en base a un “Grid System” con elementos pre-desarrollados que ahorran tiempo y esfuerzo al momento de realizar el estilo.
+* A comparación de otras opciones que dan más libertad, con Bootstrap es sumamente rápido el desarrollo del UI.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 6. Cloud Service
+  
+<i>AWS - Academy Trial:</i><br>
+* Se cuenta con 100 USD de crédito por cada integrante (2,000 USD).
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Altamente escalable y confiable.
+* Ofrece un amplio rango de herramientas y servicios.
+* Proporciona un alto nivel de seguridad necesaria para la documentación legal y otra información confidencial manejada en la compra de un auto.
+  
+### 7. Payment Gateway Integration
+  
+<i>Stripe:</i><br>
+* Comisión de 2.9% + 30 centavos por cada transacción.
+* API fácil y rápida de utilizar/integrar con otra plataforma.
+* Soporta una amplia variedad de monedas y métodos de pago.
+* Proporciona un sistema seguro de pago.
+* Cuenta con servicio al cliente 24/7 ya sea vía teléfono, email o live chat.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+  
+### 8. Machine Learning
+  
+<i>Tensorflow:</i><br>
+* Gratuito y Open Source.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Permite implementar diversos tipos de modelos de ML.
+* Permite escalar fácilmente los modelos de ML para procesar una mayor cantidad de datos.
+* Eficiente para correr las intensivas operaciones computacionales requeridas.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
+  
+### 9. Security
+  
+<i>OAuth:</i><br>
+* Gratuito - Open Standard.
+* Provee un método seguro para implementar la autorización sin necesidad de credenciales.
+* Permite la implementación de la autorización mediante diversos servicios (Google, Facebook, Twitter).
+* Provee privacidad al darle al usuario cierto control sobre la información a la que ciertas empresas pueden acceder.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
+  
+### 10. Document Validation
+  
+<i>INE API:</i><br>
+* Número limitado de peticiones gratuitas.
+* Permite la verificación de INEs 
+* Cuenta con una buena documentación, materiales de consulta y soporte.
+  
+### Verificamex:</i><br>
+* Ofrece Demo gratuita
+* Permite validación de INEs mediante AI
+* Cuenta con una buena documentación, materiales de consulta y soporte.
+
+### Version Control
+  
+<i>GitHub:</i><br>
+* Gratuito.
+* Todos los programadores han utilizado y conocen extensamente la herramienta.
+* Permite repositorios ilimitados - lo cual da versatilidad a la organización que se tome para la realización del proyecto.
+* Permite administrar de forma sencilla y organizada controlar la colaboración, actualizaciones y cambios que se realicen al proyecto por parte de todos los miembros del equipo.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
+  
+A continuación se encuentra la visualización gráfica del Tech Stack de la solución. <br>
+<b>Link al diagrama:</b>
+https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FyLADWuGigqfuYnZxik1LG7%2FTech-Stack-Diagram-Final%3Fnode-id%3D0%253A1%26t%3DHp719fauwD8rWIgr-1
+<p align="center">
+  <img src="../assets/diagrams/TechStack/TechStack.png" width="600" title="hover text">
+</p>
 
 ## 2.4. Restricciones de Implementación y Diseño
-> Pendiente a validar por todo el grupo
-  
-> By teams 1,2
   
 El dueño de proyecto no ha establecido restricciones explicitas con respecto a las herramientas para el desarrollo, pues el proyecto pretende funcionar unicamente como prueba de concepto. Por lo tanto, las unicas restricciones son en relacion a los recursos disponibles.
 
@@ -237,44 +389,113 @@ Es importante recalcar que el equipo de desarrollo esta formado por estudiantes 
 En términos del diseño:
 1. Solamente se aceptarán grupos automotrices y agencias como participantes en el sistema, y no individuos.
 2. El sistema tendrá uso de nube (cloud) SaaS.
-3. (Nombre del equipo desarrollador) no proveerá mantenimiento ni soporte al sistema.
+3. Los desarrolladores no proveeran mantenimiento ni soporte al sistema.
   
 ## 2.5. Suposiciones y Dependencias
-  
-> Pendiente a definir por todo el grupo
+Las premisas realizadas para el desarrollo de este proyecto son:
+
+1. El proyecto seguirá una metodología ágil durante toda la fase de implementación.
+2. Nuestro P.O. estará disponible para evaluar el progreso durante las Sesiones de demostración semanales o las Pruebas de aceptación del usuario.
+3. Ni NDS ni el Tec de Monterrey proporcionarán financiamiento alguno para el desarrollo.
+5. El usuario utilizará la plataforma en un dispositivo digital como: una computadora, una tablet, un dispositivo movil.
+6. Se utilizará un Tech Stack mayormente open-source; que no representa un gasto. Si se incluyen componentes o herramientas con costo, se dejan a manera de propuesta tentativa para el Project Owner, estipulando una cotizacion estimada clara.
   
 ## 2.6. Casos de Uso
   
 > Pendiente a traducir y ligar
 
-← [Casos de Uso](https://github.com/SFMBa01029956/TC3005B.501)
+← [Casos de Uso](https://github.com/SFMBa01029956/TC3005B.501/Wiki/Casos_de_Uso.md)
+
 
 # 3. Características del Sistema
 <p align="justify"> En este apartado se definen las características y aspectos específicos que se requieren del sistema. En específico, se detalla cada uno de los requerimientos funcionales y no funcionales recopilados a lo largo de las diferentes sesiones para el levantamiento de requerimientos que se tuvieron con el cliente. De la misma manera, muestran los diagramas de casos de uso, cuyo propósito es presentar de una manera gráfica y visual el comportamiento esperado de cierta parte del sistema en relación con sus diferentes actores.
 
 ## 3.1. Requerimientos Funcionales
-> Pendiente a definir por todo el grupo
->
-> Revisar teams 1,2
-  
+### Todos los Usuarios
+| ID Req Funcional |                        Requerimiento                         | Usuarios  | Prioridad    |
+| :--------------: | :----------------------------------------------------------: | :-------: | --- |
+|    REQ_FUN_01    |             Registro de usuario a la plataforma              |     C     |  M  |
+|    REQ_FUN_02    |               Solicitud de registro de usuario               |   GA/G    |  M  |
+|    REQ_FUN_03    |             Edición de perfil de usuario propio              |   Todos   |  S  |
+|    REQ_FUN_04    |           Eliminación de perfil de usuario propio            |     C     |  S  |
+|    REQ_FUN_05    |            Eliminación de perfil de usuario ajeno            |  G/GA/SA  |  S  |
+|    REQ_FUN_06    |                            Login                             |   Todos   |  M  |
+|    REQ_FUN_07    |                           Log out                            |   Todos   |  M  |
+|    REQ_FUN_08    |                    Registro de documentos                    |   C/GA    |  M  |
+|    REQ_FUN_09    |             Visualización de documentos propios              |   C/GA    |  M  |
+|    REQ_FUN_10    |   Visualización de retroalimentación de documentos propios   |   C/GA    |  M  |
+|    REQ_FUN_11    | Visualización de estatus de aceptación de documentos propios |   C/GA    |  M  |
+|    REQ_FUN_12    |            Edición/Borrado de documentos propios             |   C/GA    |  M  |
+|    REQ_FUN_13    |              Visualización de documentos ajenos              |  SA/V/G   |  M  |
+|    REQ_FUN_14    |           Aprobación/Negación de documentos ajenos           |  SA/V/G   |  M  |
+|    REQ_FUN_15    |                      Vista de catálogo                       |   Todos   |  M  |
+|    REQ_FUN_16    |                   Registro de automóviles                    |     G     |  M  |
+|    REQ_FUN_17    |                Edición/Borrado de automóviles                |     G     |  M  |
+|    REQ_FUN_18    |         Registro de planes de financiamiento/seguros         |     G     |  S  |
+|    REQ_FUN_19    |     Edición/Borrado de planes de financiamiento/seguros      |     G     |  S  |
+|    REQ_FUN_20    |                     Búsqueda por filtros                     | C/V/G/GA  |  S  |
+|    REQ_FUN_21    |                Búsqueda por lenguaje natural                 | C/V/G/GA  |  C  |
+|    REQ_FUN_22    |                Solicitud de prueba de manejo                 |     C     |  M  |
+|    REQ_FUN_23    |     Revisión de estatus de solicitud de prueba de manejo     |     C     |  S  |
+|    REQ_FUN_24    |           Aprobación/Negación de prueba de manejo            |     V     |  M  |
+|    REQ_FUN_25    |       Asignación de disponibilidad de prueba de manejo       |     V     |  M  |
+|    REQ_FUN_26    |                Apertura de chat con vendedor                 |     C     |  M  |
+|    REQ_FUN_27    |                     Solicitud de compra                      |     C     |  M  |
+|    REQ_FUN_28    |               Confirmación de inicio de compra               |     C     |  M  |
+|    REQ_FUN_29    |             Visualización de detalles de compra              |     C     |  S  |
+|    REQ_FUN_30    |             Selección de plan de financiamiento              |     C     |  M  |
+|    REQ_FUN_31    |                 Selección de método de pago                  |     C     |  M  |
+|    REQ_FUN_32    |              Autorización del proceso de compra              |     V     |  M  |
+|    REQ_FUN_33    |               Reasignación de orden de compra                |     V     |  M  |
+|    REQ_FUN_34    |        Aprobación de reasignación de orden de compra         |     G     |  M  |
+|    REQ_FUN_35    |                 Realización de pago en línea                 |     C     |  M  |
+|    REQ_FUN_36    |                    Dashboard Estadístico                     | V/G/GA/SA |  S  |
+
+Comprador - C
+Vendedor - V
+Gerente - G
+Grupo Automotriz - GA
+Super Admin - SA
+
 ## 3.2. Requerimientos No Funcionales
-> Pendiente a definir por todo el grupo
+| ID Req No Funcional |                                                 Requerimiento                                                 | Prioridad|
+| :-----------------: | :-----------------------------------------------------------------------------------------------------------: | --- |
+|    REQ_NO_FUN_01    |                                               Diseño intuitivo                                                |  M  |
+|    REQ_NO_FUN_02    |                                            Diseño de UX armonioso                                             |  S  |
+|    REQ_NO_FUN_03    |                                  Screen-size adaptable para tablet y celular                                  |  S  |
+|    REQ_NO_FUN_04    |                           Texto de ayuda y texto alternativo en botones e imágenes                            |  C  |
+|    REQ_NO_FUN_05    |     Bóton de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano      |  S  |
+|    REQ_NO_FUN_06    |                          Se utilizarán cookies para guardar las búsquedas recientes                           |  M  |
+|    REQ_NO_FUN_07    |                                     Funcionalidad de comparativa de autos                                     |  C  |
+|    REQ_NO_FUN_08    |                                       Funcionalidad de lista de deseos                                        |  C  |
+|    REQ_NO_FUN_09    |                                      Procesamiento de documentos con OCR                                      |  C  |
+|    REQ_NO_FUN_10    |                                         Proceso de venta transparente                                         |  S  |
+|    REQ_NO_FUN_11    |                                     Compra a cualquier agencia disponible                                     |  M  |
+|    REQ_NO_FUN_12    |                                  Visualización predenterminada del catálogo                                   |  S  |
+|    REQ_NO_FUN_13    |                                   Método de autorización para cada ususario                                   |  M  |
+|    REQ_NO_FUN_14    |                              Habilidad de actualizar la información de la cuenta                              |  M  |
+|    REQ_NO_FUN_15    |                                            Transparencia de datos                                             |  M  |
+|    REQ_NO_FUN_16    |                                        Esquema de datos estandarizado                                         |  S  |
+|    REQ_NO_FUN_17    | Asegurar que la información de ventas y usuarios sea guardada por lo menos cinco años antes de ser descartada |  M  |
+|    REQ_NO_FUN_18    |                                           Protección de información                                           |  M  |
+|    REQ_NO_FUN_19    |                                          Tutoriales y sección de FAQ                                          |  C  |
+|    REQ_NO_FUN_20    |                                            Política de privacidad                                             |  M  |
 
 ## 3.3. Diagramas de Casos de Uso
 > Pendiente a definir por todo el grupo
   
 # 4. Requerimientos de Datos
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
-### Primera Versión
-> Adjuntar imagen del diagrama entidad-relación
+
+[Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png)
+<p align="center">
+    <img src="../assets/diagrams/Base_de_Datos_ER.png" width="300" title="hover text">
+</p>
 
 ## 4.2. Diccionario de Datos
 > Pendiente a definir por todo el grupo
 
 ## 4.3. Reportes
-> Pendiente a validar por todo el grupo
-  
-> By teams 1,2
   
 Se busca que la plataforma sea capaz de producir diferentes estádisticas y dependiendo el rol del usuario y sus permisos se le muestran diferentes datos y aspectos de la plataforma. Algunas de las estadísticas que se pretenden mostrar en la aplicación son:
 
@@ -289,12 +510,20 @@ Por otra parte, la app generará los siguientes logs:
 - Log de Ventas: Se utilizará como comprobante al iniciarse, completarse o cambiar de etapa la venta de un vehículo. Se incluye el timestamp, el comprador, el vendedor y el estado de la venta.
 
 ## 4.4. Adquisición de Datos, Integridad, Retención y Eliminación
-> Pendiente a definir por todo el grupo
+La información que será recopilada dentro de la plataforma podrá o no contener datos sensibles protegidos por los derechos ARCO dentro de Mexico. Esta información podría o no contener documentos, imágenes e información confidencial que sea requerida para el proceso de compra/venta de automóviles, registro de usuarios y cualquier otro pedazo de información que sea requerido para el correcto funcionamiento de los procesos de el servicio.
+
+Es por esto por lo que es importante recalcar que la información capturada dentro de la plataforma estará cifrada . De igual manera, el acceso a esta información estará restringido a los usuarios propietarios de la misma. Igualmente en relación a la modificación y eliminación de la información guardada, estos cambios se verán reflejados excepto en casos donde un registro de documentación referente a los procesos legales de la compra y venta de los automóviles ofrecidos sea requerido.
+
+**Integridad de los Datos**
+
+Una de estas medidas es una base de datos de repaldo que se actualice cada cierto tiempo, esto con el fin de que en caso de que se presente algún problema con la base de datos principal, se pueda recuperar la información de la base de datos de respaldo.
+
+**Seguridad de los Datos**
+
+La seguridad de los datos será manejada con productos del proveedor de nube que se elija para el desarrollo del programa. Se utilizarán herramientas de seguridad como el cifrado de datos, autenticación de usuarios, etc. De igual manera se pondrán restricciones de leido/borrado de datos para los usuarios que no tengan permiso para realizar dichas acciones. 
   
 # 5. Requerimientos de Interfaz Externas
-> Pendiente a definir por todo el grupo
-  
-<p>
+En esta sección se presentan las diferentes interfaces que componen a la plataforma propuesta para la solución. De manera específica, se comienza por detallar las interfaces de usuario que hacen referencia al flujo en el que interactúan cada uno de los diferentes tipos de usuario dentro de la aplicación; posteriormente se describen las interfaces de software que hace referencia a la relación e interacción entre los diferentes componentes de software que conforman a la arquitectura de la aplicación; finalmente se listan las interfaces de comunicación que a un nivel más alto de abstracción incluye a los diferentes puntos de comunicación que se ofrecen dentro de la plataforma. 
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
@@ -326,39 +555,67 @@ Por otra parte, la app generará los siguientes logs:
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
-> Pendiente a definir por todo el grupo
->
-> Comparar e incorporar teams 1,2,3
-  
+ 
+<p align="justify"> En esta sección se presenta el diagrama de arquitectura correspondiente a la solución para la plataforma digital de venta de automóviles descrita en este documento. 
+ 
+<p align="justify">En términos generales el diagrama comienza con el “User” representando el cliente que mediante el browser realiza un petición para ingresar al sistema. Para efectuar dicha acción se tiene al DNS (Domain Name System) que traduce el dominio de la URL en la dirección IP correspondiente. Siguiente en la arquitectura se tiene un CDN (Content Delivery Network), con el objetivo de tener disponible aquella información estática de la aplicación de una manera rápida, el cual se conecta con un API Gateway responsable de mapear y dirigir hacia los “endpoints” solicitados. El anterior a su vez se conecta con un Load Balancer el cual se encarga de distribuir la carga uniformemente entre las diferentes instancias de la aplicación así maximizando la capacidad de respuesta de la misma. 
+ 
+<p align="justify">Por otra parte, para desplegar el front-end de la aplicación se tiene a una máquina virtual designada en un “Auto Scaling Group” para llevar de forma automática la necesidad de crecimiento o escalamiento de la plataforma. Asimismo, a dicha máquina virtual se le adjunta un Storage Bucket para manejar de una manera más eficiente contenido multimedia como imágenes o videos que se requieren de fácil acceso.
+ 
+<p align="justify">En cuanto al back-end de la plataforma, esta se divide en dos secciones principales cada una englobada en su “Auto Scaling Group”. Una siendo la de “Serverless Functions” y otra la de los contenedores, donde la primera de ellas hace referencia a aquellas funcionalidades individuales y sencillas de la aplicación, mientras la segunda se refiere a aquellas funcionalidades como el método de pago cuya complejidad requiere de su segmentación a través de contenedores. Igualmente, en estas secciones se considera la conexión a APIs de terceros, así como servidores externos para la implementación de ML dentro de la aplicación web.
+ 
+<p align="justify">Finalmente, se tiene tanto una base de datos relacional como una no relacional contenidas en un mismo “Auto Scaling Group” conectada de manera correspondiente a su componente del back-end. A su vez, a la base de datos no relacional se le dipone de un “Storage Bucket” para el almacenamiento de información como archivos que se requieren de un rápido acceso. 
+
+<p align="center">
+  <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
+</p>
+
 ### Componentes
-> Pendiente a definir por todo el grupo (Descripcion de la arquitectura).
+* **DNS:** Traduce nombres de dominio a direcciones IP.
+* **CDN:** distribuye el contenido entre varios servidores para mejorar la velocidad de entrega.
+* **API Gateway:** Proporciona un único punto de entrada para múltiples servicios backend o API.
+* **Load Balancer:** Distribuye el tráfico de red entrante entre varios servidores.
+* **Serverless Function:** Ejecuta código en un entorno de nube sin aprovisionamiento ni gestión de servidores.
+* **Storage Bucket:** Contenedor para almacenar objetos en un entorno de nube.
+* **Relational Database:** Almacena datos en tablas estructuradas con relaciones predefinidas.
+* **No Relational Database:** Almacena datos en formato no estructurado o semiestructurado para una mayor flexibilidad y escalabilidad.
+* **Virtual Machine:** Emulación por software de un ordenador físico que se ejecuta en un entorno de nube.
+* **Auto Scaling Group:** Colección de servidores que escala automáticamente hacia arriba o hacia abajo en función del tráfico entrante u otras métricas.
+
 
 ## 5.3. Interfaces de Hardware
 ### No aplica
 
 ## 5.4. Interfaces de Comunicación
-> Pendiente a definir por todo el grupo
+1. E-mail:
+
+Se integrará un servicio de respuesta automática por correo, utilizando una herramienta como MailChimp. Este servicio permitirá a los usuarios recibir notificaciones de los cambios en el estado de su solicitud, así como de los cambios en la información de la misma.
+
+2. Entrega y Reconocimiento de Documentos:
+
+Se desarrollarán interfaces donde el usuario pueda arrastrar o elegir documentos desde su sistema de archivos, asegurando que el formato sea el adecuado. El sistema deberá ser capaz de reconocer el tipo de documento y verificar la identidad por medio de un servicio de validacion de identidad facial. El sistema tambien deberá validar los carnets de identidad y licencias a pàrtir del texto que contengan.
+3. Sistema de Chat:
+
+Se integrará una herramienta externa para instanciar chat en tiempo real entre los usuarios y los administradores de la aplicación para dar seguimiento a las solicitudes.
+
+4. Plataforma de Pago:
+
+Se integrará una plataforma de pago para que los usuarios puedan pagar por los servicios de la aplicación a partir de un servicio, se sugiere Stripe para esta implementación dado su sistema de comision por transacción; contra alternativas como OpenPay.
   
 # 6. Atributos de Calidad
 ## 6.1. Usabilidad
-> Pendiente a validar por todo el grupo
-  
-> By team 2
   
 * <b>Interfaz Fácil de Usar:</b> La plataforma debe tener una interfaz clara e intuitiva que facilite a los usuarios la navegación y la búsqueda de la información que necesitan.
   
-* <b>Interfaz Responsiva:</b> Cada una de las interfaces y diseño de la plataforma deberá ser responsive, es decir, accesible y funcional en distintos dispositivos y tamaños de pantalla (computadora, tablet, teléfono). 
+* <b>Interfaz Responsiva:</b> Cada una de las interfaces y diseño de la plataforma deberá ser responsiva, es decir, accesible y funcional en distintos dispositivos y tamaños de pantalla (computadora, tablet, teléfono). 
   
 * <b>Velocidad de Respuesta:</b> La plataforma debe cargarse rápidamente y responder a las acciones del usuario en el momento oportuno.
 
 * <b>Información Clara sobre el Producto:</b> La plataforma debe ofrecer información transparente y detallada sobre cada coche, incluyendo especificaciones, precios y disponibilidad.
 
 ## 6.2. Rendimiento
-> Pendiente a validar por todo el grupo
   
-> By team 2
-  
-* Tiempo de carga de la Página:</b> La plataforma debe cargarse rápidamente, idealmente en unos segundos o menos, para garantizar una experiencia de usuario positiva y ágil.
+* <b>Tiempo de Carga de la Página:</b> La plataforma debe cargarse rápidamente, idealmente en unos segundos o menos, para garantizar una experiencia de usuario positiva y ágil.
 
 * <b>Capacidad de Respuesta:</b> La plataforma debe responder rápidamente a las interacciones del usuario, como clics, toques y deslizamientos, proporcionando una experiencia de usuario fluida e intuitiva.
   
@@ -369,10 +626,7 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Fiabilidad:</b> La plataforma debe ser fiable y estable, con el mínimo tiempo de inactividad o errores que puedan interrumpir la experiencia del usuario y las transacciones.
 
 ## 6.3. Seguridad
-> Pendiente a validar por todo el grupo
-  
-> By team 2
-  
+
 * <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su interceptación y manipulación.
   
 * <b>Autenticación:</b> La página web debe utilizar mecanismos de autenticación fuertes como JWT tokens o Cookies para verificar la identidad de los usuarios y evitar escalamiento de privilegios.
@@ -386,10 +640,7 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Seguridad en Código:</b> La plataforma debe seguir prácticas de seguridad en código y comprobarse periódicamente para detectar vulnerabilidades como Cross-site scripting (XSS) y SQL injection. Correspondientemente, deben tomarse las medidas adecuadas para solucionar cualquier vulnerabilidad detectada.
 
 ## 6.4. Protección
-> Pendiente a validar por todo el grupo
-  
-> By team 2
-  
+
 * <b>Backup y Recuperación:</b> La plataforma debe contar con un plan de backup y recuperación para garantizar que los datos puedan restaurarse en caso de pérdida de datos o fallo del sistema.
   
 * <b>Redundancia:</b> La plataforma debe contar con sistemas redundantes para garantizar que la página web siga disponible incluso en caso de fallo de hardware o software.
@@ -397,15 +648,20 @@ Por otra parte, la app generará los siguientes logs:
 * <b>Protección de datos:</b> La plataforma debe aplicar medidas adecuadas de privacidad de datos para proteger los datos de los usuarios y garantizar el cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de Particulares.
   
 * <b>Hosting:</b> La plataforma debe estar alojada en servidores seguros y fiables, idealmente utilizando un proveedor de alojamiento de confianza como AWS que aplique las medidas de seguridad adecuadas.
+
 # 7. Internacionalización y Localización de Requerimientos
-> Pendiente a validar por todo el grupo
   
 Debido a las diferencias legales que se presentan de acuerdo a la región política y geográfica, los requerimientos para la internacionalización y localización de la aplicación dependerán del proveedor, los stakeholders y las legislaciones particulares de cada país. El alcance de la aplicación en ese momento es exclusivo de México.
+
 # 8. Otros Requerimientos
 ### No aplica
   
 # 9. Apéndices
 > Agregar ligas a los apéndices
+
+← [Inicio](https://github.com/SFMBa01029956/TC3005B.501)
+
+← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
   
 ## 1. [WBS →]()
 
@@ -417,6 +673,54 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 
 ## 5. [Administración de Riesgos →]()
 
-← [Inicio](https://github.com/SFMBa01029956/TC3005B.501)
+## 6. Glossary
 
-← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
+API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
+
+AWS: Amazon Web Services es un servicio en la nube el cual ofrece un rango de servicios como: almacenamiento, manejo de bases de datos, poder de computo, etc.
+
+Backend: Es la parte de un sistema de software que procesa tareas e interactua con APIs, servidores, bases de datos, entre otros.
+
+Cache: Almacenamiento temporal de ciertos recursos para reducir tiempos de carga y tráfico de red.
+
+CloudFront: "Red de distribuición de contenido" (CDN) un servicio proveido por AWS para distribuir contenido a los usuarios en la red mundial.
+
+Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contendo web alrededor del mundo
+
+DDoS: Una "denegación de servicios distribuida" es un ataque cibernético que interrumpe el funcionamiento normal de una red al abrumarla con tráfico.
+
+Debian: Un sistema operativo de código abierto usado por sevidores.
+
+DNS: El "Sistema de nombres de dominio" es un sistema para guardar los nombres de las direcciones del internet.
+
+DynamoDB: Base de datos no relacional proveida por AWS.
+
+EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
+
+Firewall: Un sistema de seguridad diseñado pra prevenir acceso no autorizado a la red.
+  
+Frontend: Es la parte de un sistema de software que interactúa con los usuarios y muestra información.
+
+Gateway: Es un sistema que conecta diferentes sistemas o redes para permitir la comunicación entre ellos.
+
+HTTP: El "Protocolo de transferencia de hipertexto" es utilizado para transferir datos a través de Internet.
+
+IEEE: El "Instituto de Ingenieros Eléctricos y Electrónicos" es una organización profesional internacional con sede en Nueva York para ingenieros en varios campos, como: ciencias de la computación y la electrónica.
+
+Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se ocupa de permitir que las máquinas entiendan el lenguaje humano.
+
+Plataforma: Software como una plataforma de servicio que se realizará para este proyecto.
+
+Usuario: Un usuario de cualquier clase de usuario, es quien usa la herramienta de software.
+
+Base de datos relacional: Un tipo de base de datos que almacena y organiza datos en tablas con relaciones predefinidas.
+
+S3 Bucket: "Amazon Simple Storage Service" es un servicio de almacenamiento en la nube proporcionado por AWS.
+
+SQL: "Lenguaje de consulta estructurado" es un lenguaje estándar utilizado para administrar bases de datos relacionales.
+
+Subnet: Una subdivisión de una red para controlar el tráfico y aislar dispositivos.
+
+Ubuntu: Un sistema operativo de código abierto basado en Debian.
+
+Nube privada virtual: Entorno de red virtual que permite a un usuario lanzar recursos en una sección lógicamente aislada de la nube.
