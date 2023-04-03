@@ -493,7 +493,18 @@ Super Admin - SA
 </p>
 
 ## 4.2. Diccionario de Datos
-> Pendiente a definir por todo el grupo
+Para esta versión del diagrama ER, se realizó una división de actores, consistiendo de:
+
+- Automóviles y sus detalles como especificaciones e imágenes (morado)
+- Usuarios y credenciales de las cuentas relevantes a las agencias y grupos automotrices (azul)
+- Procesos de la página (amarillo)
+- Información de los documentos relevantes a la compra de los autos (verde)
+- Campos de recolección de datos (azul claro)
+- Detalles del usuario final, osea el comprador (rojo)
+
+Esto se hizo para tener más clara la división entre diferentes componentes del sistema, así como para facilitar el proceso de identificar las conexiones entre ellas.
+
+Además, por medio de la normalización se hicieron tablas intermediarias, como se puede apreciar en los actores amarillos por ejemplo, con el objetivo de facilitar los cruces para la base de datos.
 
 ## 4.3. Reportes
   
