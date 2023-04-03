@@ -66,7 +66,7 @@
 
     3.2. [Requerimientos No Funcionales](#32-requerimientos-no-funcionales)
 
-    3.3. [Diagrama de Casos de Uso](#33-diagramas-de-casos-de-uso)
+    <!-- 3.3. [Diagrama de Casos de Uso](#33-diagramas-de-casos-de-uso) -->
 
 4. [Requerimientos de Datos](#4-requerimientos-de-datos) 
 
@@ -401,518 +401,53 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 6. Se utilizará un Tech Stack mayormente open-source; que no representa un gasto. Si se incluyen componentes o herramientas con costo, se dejan a manera de propuesta tentativa para el Project Owner, estipulando una cotizacion estimada clara.
   
 ## 2.6. Casos de Uso
-  
-> Pendiente a validar por todo el grupo
-  
-> By team 1
-  
-> ! Traducir
->
-> ! No será mejor tenerlo en su propio .md ? - Salva
-  
-**2.6.1 General**
-| Name of Use Case: | Sign-up |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A user decides to create an account on the AutoMart platform. |
-| **Actors:** | User, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The user has access to a computer.2. The user has access to required legal documents.3. The system has an existent connection to a database |
-| **Postconditions:** | 1. The user has an account on the AutoMart platform.2. The user can use their account successfully. |
-| **Flow:** | 1. The user enters the site and is greeted by the home page.2. The user clicks the "Sign-up" button.4. The user is prompted to choose between Google sign-in or to create an account, and chooses to create an account.5. The user enters an email and the corresponding information required to create an account, such as full name, date of birth, phone number, and a strong password.6. The user is prompted to enter the required legal documents that can verify their identity.7. The user clicks the "Accept" button and is prompted to accept the terms and conditions.8. The user clicks the "Accept conditions" button.9. The frontend sends the information and files to the DBMS for it to be inserted into the database.10. The DBMS creates a query to make a new entry in the Customer table.11. The DBMS returns a successful response to the frontend.12. The user is redirected to their personal homepage. |
-| **Alternative Flows:** | 4. In step 4 of the normal flow, the user can choose to make use of a Google account sign-in.1. The user is prompted to sign in via Google.2. The user enters their corresponding Google account and signs in.3. The user enters the corresponding information required to create an account, such as full name, date of birth, phone number, and a strong password.4. The user is prompted to enter the required legal documents that can verify their identity.5. The user clicks the "Accept" button and is prompted to accept the terms and conditions.6. The user clicks the "Accept conditions" button.7. The frontend sends the information and files to the DBMS for it to be inserted into the database.8. The DBMS creates a query to make a new entry in the Customer table.9. The DBMS returns a successful response to the frontend.10. The user is redirected to their personal homepage.6. In step 6 of the normal flow, as well as in step 4 of the previous alternate flow, the user can choose to skip adding documents at that moment.1. The user clicks the "Accept" button and is prompted to accept the terms and conditions.2. The user clicks the "Accept conditions" button.3. The frontend sends the information and files to the DBMS for it to be inserted into the database.4. The DBMS creates a query to make a new entry in the Customer table.5. The DBMS returns a successful response to the frontend.6. The user is redirected to their personal homepage.8. In step 8 of the normal flow, as well as steps 5 of the first alternate flow and step 2 of the second alternate flow, the user can turn down the terms and conditions.1. The corresponding prompt is closed and the user is redirected to the homepage. |
-| **Exceptions:** | 8. In step 8 of the normal flow, in case the user turns down the terms and conditions their account is not created and are redirected to the general homepage. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The user must have a stable internet connection.2. The user must input a valid email address.3. The user must input a valid phone number.4. The user must input a date of birth that corresponds with that of an adult of legal age. |
 
-| Name of Use Case: | Login |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A user decides to enter the AutoMart platform with a preexisting registered account. |
-| **Actors:** | User , AutoMart platform |
-| **Preconditions:** | 1. The user has access to a computer.2. The user has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The user can use their account successfully. |
-| **Flow:** | 1. The user enters the site and is greeted by the home page.2. The user clicks the "Login" button.3. The user is prompted to choose between Google sign-in or enter an email, and chooses to enter an email.4. The user enters the corresponding email and password.5. The user clicks the "Enter" button and the DBMS makes a query to verify that the email and password pair exist within the database.6. The DBMS makes a query to the AgencyMembers table to verify if the account has additional permissions.7. A successful response is returned and the user is redirected to their personal homepage. |
-| **Alternative Flows:** | 3. In step 3 of the normal flow, the user can choose to make use of a Google account login.1. The user is prompted to sign in via Google.2. The user enters their corresponding Google account and signs in.3. The DBMS makes a query to verify the existence of the email-password pair within the database.4. A successful response is returned and the user is redirected to their personal homepage. |
-| **Exceptions:** | 4. In step 4 of the normal flow, as well as in step 2 of the first alternate flow, in case the user enters the wrong sign in details, the user is never redirected to their homepage and is instead prompted to try again. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The user must have a stable internet connection.2. The user must input a valid email address and corresponding password. |
+← [Casos de Uso](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
-**2.6.2 Client**
-
-| Name of Use Case: | Buying a car as a client |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client purchases a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, Seller, Manager |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account.3. The client has entered their required legal documents onto their account. |
-| **Postconditions:** | 1. The client is in the process of buying a car. |
-| **Flow:** | 1. The client enters their home page, where they can see several vehicles and can scroll to see more.2. The client enters a specific car's page.3. The client can see the vehicle's details.4. The client is able to choose between Agencies.5. The client is able to elect details such as transmission, color, and more, according to their chosen Agency's inventory availability6. The client can elect between doing a driving test or to buy the vehicle, they choose to buy the vehicle.7. The client is prompted to enter their payment method and details, it can be between credit/debit card or bank transfer. The client chooses a credit card.8. The Agency's Manager is notified of the purchase request, after which a Seller is assigned to the transaction and their details are presented to the client.9. The client is prompted with a message that indicates that the transaction is now underway. |
-| **Alternative Flows:** | 6. In step 6 of the normal flow, the client can choose to request a driving test.1. The client is prompted to choose a date and time for the test.2. A message is sent to the corresponding Agency's Manager.3. A message is presented to the client indicating that their request has been made, and to await further confirmation.7. In step 7 of the normal flow the client can choose between several payment options, in case of a bank transfer.1. The client is prompted that the transaction has been started and to please provide proof of the transfer before anything else can be done.2. The transaction is marked as pending in the client's history so that they can upload proof and the Manager is notified of the transfer.3. After such proof has been uploaded, the Agency's Manager is notified of the proof upload, and after validation a Seller is assigned to the transaction and their details are presented to the client.4. The client is prompted with a message that indicates that the transaction is now underway. |
-| **Exceptions:** | 5. In step 5 of the normal flow in case the client doesn't have the adequate documents or they are incomplete, the client is not allowed to choose either option, and is instead prompted to complete their documents. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection.2. The client's funds must be verified before any confirmation is made or sale acknowledged. |
-
-| Name of Use Case: | Searching for a car as a client |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client looks for a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, DBMS, NLP Algorithm |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The client is presented with car options according to their specifications. |
-| **Flow:** | 1. The client is at their homepage.2. The client can click on the search bar and enter specific terms to look up.3. The client enters the search.4. The NLP algorithm segments the search terms into possible terms that match the database's columns.5. The DBMS makes a query with the extracted terms and returns the results.6. The frontend makes elements to display the information to the client.7. The client is presented with vehicle options that fit their description. |
-| **Alternative Flows:** | 2. In step 2 of the normal flow, the client can choose to utilize filters.1. The client can select from a variety of dropdown options, checkboxes and sliders to adjust the brand, model, transmission, color, and more.2. The client enters the search.3. The DBMS makes a query with the extracted terms and returns the results.4. The frontend makes elements to display the information to the client.5. The client is presented with vehicle options that fit the elected filters. |
-| **Exceptions:** | 2. In step 2 of the normal flow in case the NLP algorithm finds no usable terms, no query is made and the client is prompted with no results available. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection. |
-
-| Name of Use Case: | Messaging a Seller as a client |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 06/03/2023 |
-| **Description:** | A client wishes to contact a transaction's Seller via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, Seller |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account.3. The client is currently undergoing a transaction. |
-| **Postconditions:** | 1. The client can communicate with their corresponding Seller. |
-| **Flow:** | 1. The client is at their personal homepage.2. The client clicks on their account icon and goes to their "Transactions".3. The client enters a specific transaction.4. The client clicks on the "Contact Seller" button.5. A chat window is prompted to the user and they can communicate with the corresponding Seller.6. The corresponding Seller is pinged that they have a message. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 3. In step 3 of the normal flow in case the client has no ongoing transactions they cannot communicate with a Seller. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection.2. The client has an ongoing transaction with confirmed payment. |
-
-| Name of Use Case: | Uploading legal documents as a client |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client looks for a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The client has their legal identity linked to their AutoMart account. |
-| **Flow:** | 1. The client is at their personal homepage.2. The client clicks on their account icon and goes to their "Settings".3. The client goes to the "Details" section.4. The client selects the corresponding document and selects the "Upload" button.6. The client is prompted to upload a file.7. The file is validated by the system.8. The DBMS makes a query to insert the files into the database.9. A prompt is presented to the client that indicates that their file was uploaded successfully. |
-| **Alternative Flows:** | 7. In step 7 of the normal flow, in case the document cannot be validated the client is prompted to try again. |
-| **Exceptions:** | 1. In step 1 of the normal flow in case the client has no account, they cannot access their "Settings". |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection. |
-
-**2.6.3 Superadmin**
-
-| Name of Use Case: | Handling Auto Group creation requests as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 06/03/2023 |
-| **Description:** | A superadmin verifies that an Auto Group can be created. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator |
-| **Preconditions:** | 1. The superadmin has access to a computer. |
-| **Postconditions:** | 1. The superadmin verifies and creates an Auto Group or the request is denied. |
-| **Flow:** | 1. The superadmin is notified of a new Auto Group creation request.2. The superadmin logs in and enters the "Request" section.3. The superadmin can see all documents attached to the Auto Group.4. The superadmin accepts the request and a new Auto Group is created.5. The Administrator that put in the request is notified of the creation and is assigned to the Auto Group. |
-| **Alternative Flows:** | 4. In step 4 of the normal flow, in case the documents cannot be validated or the superadmin denies the request.1. The corresponding Administrator is notified of the denial. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | Removing Administrators from an Auto Groups as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin removes an Auto Group's Administrator. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. An Auto Group with an Administrator exists. |
-| **Postconditions:** | 1. The superadmin removes the Administrator from the Auto Group. |
-| **Flow:** | 1. The superadmin enters the "Auto Groups" section.2. The superadmin enters the corresponding Auto Group.3. The superadmin clicks the "Remove" button under the Auto Group's Administrator's information.4. The DBMS sends a query to remove the Administrator from the AutomotiveGroup table. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 3. In step 3 of the normal flow, in case there is no Administrator there is no "Remove" button. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | Adding Administrators to an Auto Groups as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin removes an Auto Group's Administrator. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. An Auto Group without an Administrator exists. |
-| **Postconditions:** | 1. The superadmin adds an Administrator to the Auto Group. |
-| **Flow:** | 1. The superadmin enters the "Auto Groups" section.2. The superadmin enters the corresponding Auto Group.3. The superadmin clicks the "Add Administrator" button under the Auto Group's information.4. The superadmin can enter an account code and click the "Accept" button5. The DBMS creates a query to insert the Administrator into the AutomotiveGroup table.6. The account is given Administrator permissions and is added to the Auto Group in question. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | Viewing account details as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin can view any account's details and documents. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator, Manager, Seller, Client, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. There are accounts within AutoMart's system. |
-| **Postconditions:** | 1. The superadmin can view any account's details. |
-| **Flow:** | 1. The superadmin can choose between several sections regarding all types of accounts (Clients, Auto Groups, Administrators, Managers, Sellers).2. The superadmin can select between any existing account in the section they chose.3. The superadmin can search for a specific account via a search bar.4. The superadmin selects the account they are interested in.5. The DBMS makes a query to obtain all details on the account and their files.6. The superadmin can view information as well as access their uploaded documents. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 4. In step 4 of the normal flow, in case there are no uploaded files the superadmin cannot view a file. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | Creating accounts as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin can create any type of account. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator, Manager, Seller, Client, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer. |
-| **Postconditions:** | 1. The superadmin creates an account. |
-| **Flow:** | 1. The superadmin can choose between several sections regarding all types of accounts (Clients, Auto Groups, Administrators, Managers, Sellers).2. The superadmin clicks the "Create account" button.3. They are prompted to enter the same details as in the sign-up process.4. The DBMS creates a query to insert the corresponding information into the tables. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 3. In step 3 of the normal flow, in case they do not add all necessary bits of information they system does not create the account. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | Deleting accounts as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin can delete any type of account. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator, Manager, Seller, Client, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. There are accounts within AutoMart's system. |
-| **Postconditions:** | 1. The superadmin deletes an account. |
-| **Flow:** | 1. The superadmin can choose between several sections regarding all types of accounts (Clients, Auto Groups, Administrators, Managers, Sellers).2. The superadmin enters a particular account.3. The superadmin clicks the "Delete" button.4. The DBMS makes a query to eliminate the corresponding information from the tables. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | Assign Administrator accounts as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin gives Administrator privileges. |
-| **Actors:** | Superadmin, AutoMart platform, Administrator, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer. |
-| **Postconditions:** | 1. The superadmin gives Administrator permissions to an account. |
-| **Flow:** | 1. The superadmin enters the "Administrators" section.3. The superadmin clicks the "Add Administrator" button.4. The superadmin can enter an account code and click the "Accept" button5. The DBMS makes a query to update the Administrator table.6. The account is given Administrator permissions. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | View Auto Groups' statistics as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 10/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin views statistics for any Auto Groups. |
-| **Actors:** | Superadmin, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. There are Auto Groups within the system |
-| **Postconditions:** | 1. The superadmin can view the statistics of any Auto Group. |
-| **Flow:** | 1. The superadmin enters the "Auto Groups" section.2. The superadmin enters the corresponding Auto Group.3. The superadmin clicks the "Stats" button under the Auto Group's information.4. The DBMS makes a query to obtain all information regarding an Auto Group.5. The superadmin is presented with the Auto Group's statistics and can choose to download them as a file via a "Download" button. |
-| **Alternative Flows:** | 5. In step 5 of the normal flow, the superadmin can choose to download a file.1. The backend converts the information into a \*.pdf file.2. The file is downloaded into their computer.3. They are prompted that the file has been downloaded. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | View Agencies' statistics as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 10/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin views statistics for Agencies. |
-| **Actors:** | Superadmin, AutoMart platform |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. There are Agencies within the system |
-| **Postconditions:** | 1. The superadmin can view the statistics of any Agency. |
-| **Flow:** | 1. The superadmin enters the "Auto Groups" section.2. The superadmin enters the corresponding Auto Group.3. The superadmin is presented with the Auto Group's Agencies and enters one.4. The superadmin clicks the "Stats" button under the Agency's information.5. The DBMS makes a query to obtain all information regarding an Agency.6. The superadmin is presented with the Agency's statistics and can choose to download them as a file via a "Download" button. |
-| **Alternative Flows:** | 6. In step 6 of the normal flow, the superadmin can choose to download a file.1. The backend converts the information into a \*.pdf file.2. The file is downloaded into their computer.3. They are prompted that the file has been downloaded. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-| Name of Use Case: | View Clients' statistics as a superadmin |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 10/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A superadmin views statistics for Clients. |
-| **Actors:** | Superadmin, AutoMart platform |
-| **Preconditions:** | 1. The superadmin has access to a computer.2. There are users within the system |
-| **Postconditions:** | 1. The superadmin can view the statistics of any Client. |
-| **Flow:** | 1. The superadmin enters the "Clients" section.2. The superadmin clicks the "Details" button.3. The superadmin clicks the "Stats" button under the Client's information.4. The DBMS makes a query to obtain all information regarding a Client.5. The superadmin is presented with the Client's statistics and can choose to download them as a file via a "Download" button. |
-| **Alternative Flows:** | 5. In step 5 of the normal flow, the superadmin can choose to download a file.1. The backend converts the information into a \*.pdf file.2. The file is downloaded into their computer.3. They are prompted that the file has been downloaded. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
-
-**2.6.4 Administrators**
-
-| Name of Use Case: | Assign Manager accounts as an administrator |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | An admin can assign Manager accounts to Agencies. |
-| **Actors:** | Administrator, AutoMart platform, Manager, DBMS |
-| **Preconditions:** | 1. The admin has access to a computer.2. There are accounts within AutoMart's system. |
-| **Postconditions:** | 1. The admin assigns a Manager to an Agency. |
-| **Flow:** | 1. The admin can choose between several Agencies.2. The admin clicks the corresponding Agency.3. They click the "Add Manager" button.4. The admin can enter an account code and click the "Accept" button.5. The DBMS makes a query to insert the corresponding data into the Manager table.5. The account is given Manager permissions and is assigned to the Agency. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The admin must have a stable internet connection. |
-
-| Name of Use Case: | Petition to create an Auto Group as an administrator |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 06/03/2023 |
-| **Description:** | An admin can petition Superadmins to create Auto Groups. |
-| **Actors:** | Administrator, AutoMart platform, Superadmin |
-| **Preconditions:** | 1. The admin has access to a computer.2. The admin has an account on the platform. |
-| **Postconditions:** | 1. The Superadmin creates a new Auto Group. |
-| **Flow:** | 1. The admin is at their homepage and they click the "Make Request" button.2. The admin is prompted to enter the required information and upload the required legal documents.3. The admin clicks the "Make Request" button.4. The Superadmin is notified of a new request.5. The admin is shown a message that indicates that the request has been put in. |
-| **Alternative Flows:** | 2. In step 2 of the normal flow in case the admin does not add all required documents, they are not allowed to make the request and instead are prompted to add them. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The admin must have a stable internet connection. |
-
-| Name of Use Case: | Remove Manager accounts as an administrator |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | An admin can remove Manager accounts from Agencies. |
-| **Actors:** | Administrator, AutoMart platform, Manager, DBMS |
-| **Preconditions:** | 1. The admin has access to a computer.2. There is at least one Manager assigned to an Agency. |
-| **Postconditions:** | 1. The admin removes a Manager from an Agency. |
-| **Flow:** | 1. The admin can choose between several Agencies.2. The admin clicks the corresponding Agency.3. They click the "Remove" button under the Manager's details.4. The DBMS makes a query to remove the corresponding information from the Agency table. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 4. In step 4 of the normal flow, in case there are no assigned Managers, there is no button available. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The admin must have a stable internet connection. |
-
-| Name of Use Case: | Create Agencies as an administrator |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | An admin can create Agencies. |
-| **Actors:** | Administrator, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The admin has access to a computer.2. The admin has successfully created an Auto Group. |
-| **Postconditions:** | 1. The admin creates an Agency within their Auto Group. |
-| **Flow:** | 1. The admin clicks the "Create Agency" button on their homepage.2. The admin is prompted to add all relevant details on the Agency as well as the required legal documents.3. The admin clicks the "Create" button.4. The DBMS makes a query to add the corresponding information to the Agency table.5. The admin is prompted with a message that indicates that the Agency is created. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 3. In step 3 of the normal flow, in case the admin does not add all documents or details, they are not allowed to create the Agency and are instead prompted to complete the information. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The admin must have a stable internet connection. |
-
-| Name of Use Case: | View Auto Group's statistics as an administrator |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 10/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | An admin views statistics for their Auto Group. |
-| **Actors:** | Administrator, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The manager has access to a computer.2. They are assigned to an Auto Group. |
-| **Postconditions:** | 1. The admin can view the statistics of their Auto Group. |
-| **Flow:** | 1. The admin enters their Auto Group.2. The admin clicks the "Stats" button under the Auto Group's information.4. The DBMS makes a query to obtain all information regarding an Auto Group.5. The admin is presented with the Auto Group's statistics and can choose to download them as a file via a "Download" button. |
-| **Alternative Flows:** | 4. In step 4 of the normal flow, the admin can choose to download a file.1. The backend converts the information into a \*.pdf file.2. The file is downloaded into their computer.3. They are prompted that the file has been downloaded. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The admin must have a stable internet connection. |
-
-| Name of Use Case: | View Agencies' statistics as an administrator |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 10/03/2023 |
-| Last Revision Date: | 10/03/2023 |
-| **Description:** | An admin can view statistics for their Agencies. |
-| **Actors:** | Administrator, AutoMart platform |
-| **Preconditions:** | 1. The admin has access to a computer.2. They are assigned to an Auto Group.3. There are Agencies within the Auto Group. |
-| **Postconditions:** | 1. The admin can view the statistics of any Agency. |
-| **Flow:** | 1. The admin enters their Auto Group.2. The admin enters an Agency.3. The admin clicks the "Stats" button under the Agency's information.4. The DBMS makes a query to obtain all information regarding an Agency.5. The admin is presented with the Agency's statistics and can choose to download them as a file via a "Download" button. |
-| **Alternative Flows:** | 4. In step 4 of the normal flow, the admin can choose to download a file.1. The backend converts the information into a \*.pdf file.2. The file is downloaded into their computer.3. They are prompted that the file has been downloaded. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The admin must have a stable internet connection. |
-
-**2.6.5 Managers**
-
-| Name of Use Case: | View an Agency's inventory as a manager |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A manager can see their Agency's inventory. |
-| **Actors:** | Manager, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The manager has access to a computer.2. The manager is assigned to an Agency. |
-| **Postconditions:** | 1. The manager can view their Agency's inventory. |
-| **Flow:** | 1. The manager clicks the "View Inventory" button on their homepage.2. The DBMS makes a query to see all cars within an Agency.3. The manager is presented with their Agency's inventory. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 3. In step 3 of the normal flow, in case there is no inventory nothing will be shown. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The manager must have a stable internet connection. |
-
-| Name of Use Case: | Add to the Agency's inventory as a manager |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A manager can add to their Agency's inventory. |
-| **Actors:** | Manager, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The manager has access to a computer.2. The manager is assigned to an Agency. |
-| **Postconditions:** | 1. The manager can view their Agency's inventory. |
-| **Flow:** | 1. The manager clicks the "Add Inventory" button on their homepage.2. The manager is prompted to select a model, its details and specifications.3. The manager clicks the "Add" button.4. The DBMS makes a query to insert a new car in the Car table with the corresponding Agency key. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 2. In step 2 of the normal flow, in case all required fields are not added the element cannot be added. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The manager must have a stable internet connection. |
-
-| Name of Use Case: | Remove from the Agency's inventory as a manager |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A manager can remove an element from their Agency's inventory. |
-| **Actors:** | Manager, AutoMart platform, DBMS |
-| **Preconditions:** | 1. The manager has access to a computer.2. The manager is assigned to an Agency. |
-| **Postconditions:** | 1. The manager can view their Agency's inventory. |
-| **Flow:** | 1. The manager clicks the "View Inventory" button on their homepage.2. The manager is presented with their Agency's inventory.3. The manager clicks the "Remove" button under a specific element.4. The DBMS makes a query to remove a specific element from the Car table. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 2. In step 2 of the normal flow, in case there is no inventory nothing will be shown. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The manager must have a stable internet connection. |
-
-| Name of Use Case: | Assign Sellers to an Agency as a manager |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 09/03/2023 |
-| **Description:** | A manager can assign a Seller to their Agency. |
-| **Actors:** | Manager, AutoMart platform, Seller |
-| **Preconditions:** | 1. The manager has access to a computer.2. The manager is assigned to an Agency. |
-| **Postconditions:** | 1. The manager assigns Sellers to their Agency. |
-| **Flow:** | 1. The manager is notified of a new Seller request.2. The manager clicks the "Add Seller" button on their homepage.3. The manager can enter an account code and click the "Accept" button.4. The account is given Seller permissions and is assigned to the Agency in question. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The manager must have a stable internet connection. |
-
-| Name of Use Case: | Remove Sellers from an Agency as a manager |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 06/03/2023 |
-| **Description:** | A manager can remove a Seller from their Agency. |
-| **Actors:** | Manager, AutoMart platform, Seller |
-| **Preconditions:** | 1. The manager has access to a computer.2. The manager is assigned to an Agency.33. The manager's Agency has at least one Seller. |
-| **Postconditions:** | 1. The manager removes Sellers from their Agency. |
-| **Flow:** | 1. The manager clicks the "View Staff" button on their homepage.2. The manager can view all current Sellers.3. The manager clicks the "Remove" button on one of the Sellers.4. The Seller is removed from the Agency in question. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 2. In step 2 of the normal flow, in case there are no Sellers. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The manager must have a stable internet connection. |
-
-| Name of Use Case: | View Agencies' statistics as a manager |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 10/03/2023 |
-| Last Revision Date: | 10/03/2023 |
-| **Description:** | A manager can view statistics for their Agencies. |
-| **Actors:** | Administrator, AutoMart platform |
-| **Preconditions:** | 1. The manager has access to a computer.2. They are assigned to an Agency. |
-| **Postconditions:** | 1. The manager can view the statistics of any Agency. |
-| **Flow:** | 1. The manager enters their Agency.3. The manager clicks the "Stats" button under the Agency's information.4. The manager is presented with the Agency's statistics and can choose to download them as a file via a "Download" button. |
-| **Alternative Flows:** | 4. In step 4 of the normal flow, the superadmin can choose to download a file.1. The file is downloaded into their computer.2. They are prompted that the file has been downloaded. |
-| **Exceptions:** | - |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The manager must have a stable internet connection. |
-
-**2.6.6 Sellers**
-
-| Name of Use Case: | View ongoing sales as a seller |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 06/03/2023 |
-| **Description:** | A seller can view all of their ongoing sales. |
-| **Actors:** | Seller, AutoMart platform |
-| **Preconditions:** | 1. The seller has access to a computer.2. The seller is assigned to an Agency.3. The seller has an ongoing sale. |
-| **Postconditions:** | 1. The seller can see their ongoing sales. |
-| **Flow:** | 1. The seller clicks the "View sales" button on their homepage.2. The seller can view all ongoing sales and can click a "View details" button under each of them.3. The seller can see the details of the chosen sale. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 2. In step 2 of the normal flow, in case there are no ongoing sales the seller will not see anything. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The seller must have a stable internet connection. |
-
-| Name of Use Case: | Message a client as a seller |
-| --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 06/03/2023 |
-| Last Revision Date: | 06/03/2023 |
-| **Description:** | A seller can view all of their ongoing sales. |
-| **Actors:** | Seller, AutoMart platform |
-| **Preconditions:** | 1. The seller has access to a computer.2. The seller is assigned to an Agency.3. The seller has an ongoing sale. |
-| **Postconditions:** | 1. The seller can message a client of an ongoing sale. |
-| **Flow:** | 1. The seller clicks the "View sales" button on their homepage.2. The seller can view all ongoing sales and can click a "View details" button under each of them.3. The seller can see the details of the chosen sale and can click a "Message client" button.4. The seller is prompted with a chat window. |
-| **Alternative Flows:** | - |
-| **Exceptions:** | 2. In step 2 of the normal flow, in case there are no ongoing sales the seller will not see anything. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The seller must have a stable internet connection. |
 
 # 3. Características del Sistema
 <p align="justify"> En este apartado se definen las características y aspectos específicos que se requieren del sistema. En específico, se detalla cada uno de los requerimientos funcionales y no funcionales recopilados a lo largo de las diferentes sesiones para el levantamiento de requerimientos que se tuvieron con el cliente. De la misma manera, muestran los diagramas de casos de uso, cuyo propósito es presentar de una manera gráfica y visual el comportamiento esperado de cierta parte del sistema en relación con sus diferentes actores.
 
 ## 3.1. Requerimientos Funcionales
 ### Todos los Usuarios
-| ID Req Funcional| Requerimiento                                      |Usuarios |
-|      :----:     |    :----:                                          | :----:  |
-|REQ_FUN_01       |Registro de usuario a la plataforma                 |C        |
-|REQ_FUN_02       |Solicitud de registro de usuario                    |GA/G     |
-|REQ_FUN_03       |Edición de perfil de usuario propio                 |Todos    |
-|REQ_FUN_04       |Eliminación de perfil de usuario propio             |C        |
-|REQ_FUN_05       |Eliminación de perfil de usuario ajeno              |G/GA/SA  |
-|REQ_FUN_06       |Login                                               |Todos    |
-|REQ_FUN_07       |Log out                                             |Todos    |
-|REQ_FUN_08       |Registro de documentos                              |C/GA     |
-|REQ_FUN_09       |Visualización de documentos propios                 |C/GA     |
-|REQ_FUN_10       |Visualización de retroalimentación de documentos propios|C/GA |
-|REQ_FUN_11       |Visualización de estatus de aceptación de documentos propios|C/GA|
-|REQ_FUN_12       |Edición/Borrado de documentos propios               |C/GA     |
-|REQ_FUN_13       |Visualización de documentos ajenos                  |SA/V/G   |
-|REQ_FUN_14       |Aprobación/Negación de documentos ajenos            |SA/V/G   |
-|REQ_FUN_15       |Vista de catálogo                                   |Todos    |
-|REQ_FUN_16       |Registro de automóviles                             |G        |
-|REQ_FUN_17       |Edición/Borrado de automóviles                      |G        |
-|REQ_FUN_18       |Registro de planes de financiamiento/seguros        |G        |
-|REQ_FUN_19       |Edición/Borrado de planes de financiamiento/seguros |G        |
-|REQ_FUN_20       |Búsqueda por filtros                                |C/V/G/GA |
-|REQ_FUN_21       |Búsqueda por lenguaje natural                       |C/V/G/GA |
-|REQ_FUN_22       |Solicitud de prueba de manejo                       |C        |
-|REQ_FUN_23       |Revisión de estatus de solicitud de prueba de manejo|C        |
-|REQ_FUN_24       |Aprobación/Negación de prueba de manejo             |V        |
-|REQ_FUN_25       |Asignación de disponibilidad de prueba de manejo    |V        |
-|REQ_FUN_26       |Apertura de chat con vendedor                       |C        |
-|REQ_FUN_27       |Solicitud de compra                                 |C        |
-|REQ_FUN_28       |Confirmación de inicio de compra                    |C        |
-|REQ_FUN_29       |Visualización de detalles de compra                 |C        |
-|REQ_FUN_30       |Selección de plan de financiamiento                 |C        |
-|REQ_FUN_31       |Selección de método de pago                         |C        |
-|REQ_FUN_32       |Autorización del proceso de compra                  |V        |
-|REQ_FUN_33       |Reasignación de orden de compra                     |V        |
-|REQ_FUN_34       |Aprobación de reasignación de orden de compra       |G        |
-|REQ_FUN_35       |Realización de pago en línea                        |C        |
+| ID Req Funcional |                        Requerimiento                         | Usuarios  | Prioridad    |
+| :--------------: | :----------------------------------------------------------: | :-------: | --- |
+|    REQ_FUN_01    |             Registro de usuario a la plataforma              |     C     |  M  |
+|    REQ_FUN_02    |               Solicitud de registro de usuario               |   GA/G    |  M  |
+|    REQ_FUN_03    |             Edición de perfil de usuario propio              |   Todos   |  S  |
+|    REQ_FUN_04    |           Eliminación de perfil de usuario propio            |     C     |  S  |
+|    REQ_FUN_05    |            Eliminación de perfil de usuario ajeno            |  G/GA/SA  |  S  |
+|    REQ_FUN_06    |                            Login                             |   Todos   |  M  |
+|    REQ_FUN_07    |                           Log out                            |   Todos   |  M  |
+|    REQ_FUN_08    |                    Registro de documentos                    |   C/GA    |  M  |
+|    REQ_FUN_09    |             Visualización de documentos propios              |   C/GA    |  M  |
+|    REQ_FUN_10    |   Visualización de retroalimentación de documentos propios   |   C/GA    |  M  |
+|    REQ_FUN_11    | Visualización de estatus de aceptación de documentos propios |   C/GA    |  M  |
+|    REQ_FUN_12    |            Edición/Borrado de documentos propios             |   C/GA    |  M  |
+|    REQ_FUN_13    |              Visualización de documentos ajenos              |  SA/V/G   |  M  |
+|    REQ_FUN_14    |           Aprobación/Negación de documentos ajenos           |  SA/V/G   |  M  |
+|    REQ_FUN_15    |                      Vista de catálogo                       |   Todos   |  M  |
+|    REQ_FUN_16    |                   Registro de automóviles                    |     G     |  M  |
+|    REQ_FUN_17    |                Edición/Borrado de automóviles                |     G     |  M  |
+|    REQ_FUN_18    |         Registro de planes de financiamiento/seguros         |     G     |  S  |
+|    REQ_FUN_19    |     Edición/Borrado de planes de financiamiento/seguros      |     G     |  S  |
+|    REQ_FUN_20    |                     Búsqueda por filtros                     | C/V/G/GA  |  S  |
+|    REQ_FUN_21    |                Búsqueda por lenguaje natural                 | C/V/G/GA  |  C  |
+|    REQ_FUN_22    |                Solicitud de prueba de manejo                 |     C     |  M  |
+|    REQ_FUN_23    |     Revisión de estatus de solicitud de prueba de manejo     |     C     |  S  |
+|    REQ_FUN_24    |           Aprobación/Negación de prueba de manejo            |     V     |  M  |
+|    REQ_FUN_25    |       Asignación de disponibilidad de prueba de manejo       |     V     |  M  |
+|    REQ_FUN_26    |                Apertura de chat con vendedor                 |     C     |  M  |
+|    REQ_FUN_27    |                     Solicitud de compra                      |     C     |  M  |
+|    REQ_FUN_28    |               Confirmación de inicio de compra               |     C     |  M  |
+|    REQ_FUN_29    |             Visualización de detalles de compra              |     C     |  S  |
+|    REQ_FUN_30    |             Selección de plan de financiamiento              |     C     |  M  |
+|    REQ_FUN_31    |                 Selección de método de pago                  |     C     |  M  |
+|    REQ_FUN_32    |              Autorización del proceso de compra              |     V     |  M  |
+|    REQ_FUN_33    |               Reasignación de orden de compra                |     V     |  M  |
+|    REQ_FUN_34    |        Aprobación de reasignación de orden de compra         |     G     |  M  |
+|    REQ_FUN_35    |                 Realización de pago en línea                 |     C     |  M  |
+|    REQ_FUN_36    |                    Dashboard Estadístico                     | V/G/GA/SA |  S  |
 
 Comprador - C
 Vendedor - V
@@ -921,31 +456,33 @@ Grupo Automotriz - GA
 Super Admin - SA
 
 ## 3.2. Requerimientos No Funcionales
-|ID Req No Funcional|Requerimiento|
-|:----:             |:----:       |
-|REQ_NO_FUN_01      |Diseño intuitivo|
-|REQ_NO_FUN_02      |Diseño de UX armonioso|
-|REQ_NO_FUN_03      |Screen-size adaptable para tablet y celular|
-|REQ_NO_FUN_04      |Texto de ayuda y texto alternativo en botones e imágenes|
-|REQ_NO_FUN_05      |Bóton de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano|
-|REQ_NO_FUN_06      |Se utilizarán cookies para guardar las búsquedas recientes|
-|REQ_NO_FUN_07      |Funcionalidad de comparativa de autos|
-|REQ_NO_FUN_08      |Funcionalidad de lista de deseos|
-|REQ_NO_FUN_09      |Procesamiento de documentos con OCR|
-|REQ_NO_FUN_10      |Proceso de venta transparente|
-|REQ_NO_FUN_11      |Compra a cualquier agencia disponible|
-|REQ_NO_FUN_12      |Visualización predenterminada del catálogo|
-|REQ_NO_FUN_13      |Método de autorización para cada ususario|
-|REQ_NO_FUN_14      |Habilidad de actualizar la información de la cuenta|
-|REQ_NO_FUN_15      |Transparencia de datos|
-|REQ_NO_FUN_16      |Esquema de datos estandarizado|
-|REQ_NO_FUN_17      |Asegurar que la información de ventas y usuarios sea guardada por lo menos cinco años antes de ser descartada|
-|REQ_NO_FUN_18      |Protección de información|
-|REQ_NO_FUN_19      |Tutoriales y sección de FAQ|
-|REQ_NO_FUN_20      |Política de privacidad|
+| ID Req No Funcional |                                                 Requerimiento                                                 | Prioridad|
+| :-----------------: | :-----------------------------------------------------------------------------------------------------------: | --- |
+|    REQ_NO_FUN_01    |                                               Diseño intuitivo                                                |  M  |
+|    REQ_NO_FUN_02    |                                            Diseño de UX armonioso                                             |  S  |
+|    REQ_NO_FUN_03    |                                  Screen-size adaptable para tablet y celular                                  |  S  |
+|    REQ_NO_FUN_04    |                           Texto de ayuda y texto alternativo en botones e imágenes                            |  C  |
+|    REQ_NO_FUN_05    |     Bóton de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano      |  S  |
+|    REQ_NO_FUN_06    |                          Se utilizarán cookies para guardar las búsquedas recientes                           |  M  |
+|    REQ_NO_FUN_07    |                                     Funcionalidad de comparativa de autos                                     |  C  |
+|    REQ_NO_FUN_08    |                                       Funcionalidad de lista de deseos                                        |  C  |
+|    REQ_NO_FUN_09    |                                      Procesamiento de documentos con OCR                                      |  C  |
+|    REQ_NO_FUN_10    |                                         Proceso de venta transparente                                         |  S  |
+|    REQ_NO_FUN_11    |                                     Compra a cualquier agencia disponible                                     |  M  |
+|    REQ_NO_FUN_12    |                                  Visualización predenterminada del catálogo                                   |  S  |
+|    REQ_NO_FUN_13    |                                   Método de autorización para cada ususario                                   |  M  |
+|    REQ_NO_FUN_14    |                              Habilidad de actualizar la información de la cuenta                              |  M  |
+|    REQ_NO_FUN_15    |                                            Transparencia de datos                                             |  M  |
+|    REQ_NO_FUN_16    |                                        Esquema de datos estandarizado                                         |  S  |
+|    REQ_NO_FUN_17    | Asegurar que la información de ventas y usuarios sea guardada por lo menos cinco años antes de ser descartada |  M  |
+|    REQ_NO_FUN_18    |                                           Protección de información                                           |  M  |
+|    REQ_NO_FUN_19    |                                          Tutoriales y sección de FAQ                                          |  C  |
+|    REQ_NO_FUN_20    |                                            Política de privacidad                                             |  M  |
 
+<!-- 
 ## 3.3. Diagramas de Casos de Uso
 > Pendiente a definir por todo el grupo
+-->
   
 # 4. Requerimientos de Datos
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
@@ -990,31 +527,37 @@ En esta sección se presentan las diferentes interfaces que componen a la plataf
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
-> Pendiente a definir por todo el grupo
->
-> Comparar teams 1(5.1) con diagramas de proceso de team 1.
+En esta sección se incluyen los diagramas de actividad para cada usuario. En este caso, se especifica de manera general el flujo que tendrá cada usuario (diagramas) y, posteriormente, se presenta un wireframe en donde se ven las pantallas por las que pasará cada usuario durante su navegación en el sitio. Es relevante mencionar que dicho wireframe está principalmente enfocado en el acomodo de los elementos. 
 
-> Revisar concepto de diagrama de secuencia
+A continuación, se encuentran los flujos establecidos a nivel usuario. 
 
 ### Flujo del Comprador:
-> Adjuntar imagen del flujo del Comprador
+![Imagen flujo comprador](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadUsuarioComprador.png)
+
+Es posible visualizar en el flujo las secciones principales por las que pasa el comprados, estas siendo la página inicial, el registro/ingreso a la cuenta, gestión de perfil propio, el catálogo de autos y los filtros del mismo, la compra de autos o la prueba de manejo, la comunicación con el vendedor, y la gestión de documentos propios. 
 
 ### Flujo del Vendedor:
-> Adjuntar imagen del flujo del Vendedor
+![Imagen flujo vendedor](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividad_UsuarioVendedor.png)
+
+Para el flujo de vendedor, es posible visualizar procesos tales como la gestión del perfil própio, búsqeda de catálogo de la agencia, revisión tanto de solicitud de compra como de solicitud de pruebas de manejo, la revisión de documentos, contacto con el cliente, cambios de estatus de las solicitudes y retroalimentación. 
 
 ### Flujo del Gerente:
-> Adjuntar imagen del flujo del Gerente
+![Imagen de flujo del gerente](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividad_UsuarioGerente.png)
+
+En el diagrama de flujo del gerente, es posible visualizar el ingreso a la plataforma, la gestión del perfil propio, la visualización del catálogo de la agencia, la revisión de solicitudes, la gestión de planes de financiamiento o seguros y la gestión de autos.
 
 ### Flujo del Grupo Automotriz:
-> Adjuntar imagen del flujo del Grupo Automotriz
+![Imagen del flujo del Grupo Automotriz](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadGA.png)
+
+Para el flujo del grupo automotriz, se muestran los procesos generales de la gestión de gerentes, el registro de agencia o grupo automotriz, la vista de estadísticas, y la gestión del perfil propio. 
 
 ### Flujo del Super-Administrador:
-> Adjuntar imagen del flujo del Super-Administrador
+![Imagen flujo super admnistrador](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadUsuarioAdministrador.png)
+
+El diagrama del flujo para el usuario administrador incluye páginas tales como la vista principal, el borrado/edición de cuentas, acceso a las estádisticas, gestión del perfil propio, revisión y retroalimentación de solicitudes de agencia y grupo automotriz. 
 
 ### Wireframe
-> Insertar liga al wireframe
-
-> Insertar imagen del wireframe
+En cuanto al wireframe, este provee una vista gráfica de las pantallas que se mostrarán a cada usuario. De esta manera, será posible tener una guía para el diseño y la interfaz gráfica del sitio a desarrollar. Con lo anterior en mente, será posible revisar dicho wireframe en el [siguiente link](https://www.figma.com/file/CI5ObOAwXAoy8NorgVRuWY/Mock?node-id=1%3A130&t=zjYOwqyUShV2fRoX-1)
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
@@ -1137,53 +680,55 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 ## 5. [Administración de Riesgos →]()
 
 ## 6. Glosario
+=======
+## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
-API: An Application Programming Interface is a set of protocols, routines, and tools for building software and applications.
+API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
-AWS: Amazon Web Services is a cloud computing platform offering a range of services, including storage, computing power, and database management.
+AWS: Amazon Web Services es un servicio en la nube el cual ofrece un rango de servicios como: almacenamiento, manejo de bases de datos, poder de computo, etc.
 
-Backend: The part of a software system that performs processing tasks and interacts with databases, servers, and other backend systems.
+Backend: Es la parte de un sistema de software que procesa tareas e interactua con APIs, servidores, bases de datos, entre otros.
 
-Cache: A temporary storage area used to speed up data access and reduce network traffic.
+Cache: Almacenamiento temporal de ciertos recursos para reducir tiempos de carga y tráfico de red.
 
-CloudFront: A content delivery network (CDN) service provided by AWS to distribute content to users worldwide.
+CloudFront: "Red de distribuición de contenido" (CDN) un servicio proveido por AWS para distribuir contenido a los usuarios en la red mundial.
 
-Content Delivery Network: A distributed network of servers used to deliver web content and media to users around the world.
+Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contendo web alrededor del mundo
 
-DDoS: A Distributed Denial of Service is a cyber-attack that disrupts the normal functioning of a network by overwhelming it with traffic.
+DDoS: Una "denegación de servicios distribuida" es un ataque cibernético que interrumpe el funcionamiento normal de una red al abrumarla con tráfico.
 
-Debian: A popular open-source operating system used for servers and workstations.
+Debian: Un sistema operativo de código abierto usado por sevidores.
 
-DNS: The Domain Name System is a hierarchical system for naming resources on the internet.
+DNS: El "Sistema de nombres de dominio" es un sistema para guardar los nombres de las direcciones del internet.
 
-DynamoDB: A NoSQL database service provided by AWS.
+DynamoDB: Base de datos no relacional proveida por AWS.
 
 EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
 
-Firewall: A security system designed to prevent unauthorized access to a network.
+Firewall: Un sistema de seguridad diseñado pra prevenir acceso no autorizado a la red.
+  
+Frontend: Es la parte de un sistema de software que interactúa con los usuarios y muestra información.
 
-Frontend: The part of a software system that interacts with users and displays information.
+Gateway: Es un sistema que conecta diferentes sistemas o redes para permitir la comunicación entre ellos.
 
-Gateway: A system that connects two different networks or systems to enable communication between them.
+HTTP: El "Protocolo de transferencia de hipertexto" es utilizado para transferir datos a través de Internet.
 
-HTTP: The Hypertext Transfer Protocol is a protocol used for transferring data over the internet.
+IEEE: El "Instituto de Ingenieros Eléctricos y Electrónicos" es una organización profesional internacional con sede en Nueva York para ingenieros en varios campos, como: ciencias de la computación y la electrónica.
 
-IEEE: The Institute of Electrical and Electronics Engineers is a professional organization for engineers in various fields, including computer science and electronics.
+Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se ocupa de permitir que las máquinas entiendan el lenguaje humano.
 
-Natural Language Processing: A branch of artificial intelligence concerned with enabling machines to understand and process human language.
+Plataforma: Software como una plataforma de servicio que se realizará para este proyecto.
 
-Platform: The Software as a service platform that will be made for this project.
+Usuario: Un usuario de cualquier clase de usuario, es quien usa la herramienta de software.
 
-User: A user of any user class.
+Base de datos relacional: Un tipo de base de datos que almacena y organiza datos en tablas con relaciones predefinidas.
 
-Relational Database: A type of database that stores and organizes data into tables with predefined relationships.
+S3 Bucket: "Amazon Simple Storage Service" es un servicio de almacenamiento en la nube proporcionado por AWS.
 
-S3 Bucket: Amazon Simple Storage Service is a cloud storage service provided by AWS.
+SQL: "Lenguaje de consulta estructurado" es un lenguaje estándar utilizado para administrar bases de datos relacionales.
 
-SQL: Structured Query Language is a standard language used for managing relational databases.
+Subnet: Una subdivisión de una red para controlar el tráfico y aislar dispositivos.
 
-Subnet: A subdivision of a network used to isolate devices and control traffic flow.
+Ubuntu: Un sistema operativo de código abierto basado en Debian.
 
-Ubuntu: A popular open-source operating system based on Debian.
-
-Virtual Private Cloud: A virtual network environment that enables a user to launch resources in a logically isolated section of the cloud.
+Nube privada virtual: Entorno de red virtual que permite a un usuario lanzar recursos en una sección lógicamente aislada de la nube.
