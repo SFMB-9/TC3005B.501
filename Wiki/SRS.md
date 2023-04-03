@@ -1,9 +1,11 @@
 <p align="center">
-<!--   <img src="../assets/Logos/humanIT.005.png" width="300" title="hover text"> -->
+    <img src="../assets/Logos/PulseLogoTransparente.png" width="300" title="hover text">
 </p>
 <hr/>
 
-<h2 align="center"> Digitalización del Proceso de Adquisición de un Vehículo 
+<p align="center">
+    <img src="../assets/Logos/SwivelLogoTransparente.png" width="300" title="hover text">
+</p>
 
 <h2 align="center"> Software Requirements Specification
 
