@@ -991,31 +991,37 @@ En esta sección se presentan las diferentes interfaces que componen a la plataf
 
 ## 5.1. Interfaces de Usuario
 ### Diagrama de Procesos
-> Pendiente a definir por todo el grupo
->
-> Comparar teams 1(5.1) con diagramas de proceso de team 1.
+En esta sección se incluyen los diagramas de actividad para cada usuario. En este caso, se especifica de manera general el flujo que tendrá cada usuario (diagramas) y, posteriormente, se presenta un wireframe en donde se ven las pantallas por las que pasará cada usuario durante su navegación en el sitio. Es relevante mencionar que dicho wireframe está principalmente enfocado en el acomodo de los elementos. 
 
-> Revisar concepto de diagrama de secuencia
+A continuación, se encuentran los flujos establecidos a nivel usuario. 
 
 ### Flujo del Comprador:
-> Adjuntar imagen del flujo del Comprador
+![Imagen flujo comprador](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadUsuarioComprador.png)
+
+Es posible visualizar en el flujo las secciones principales por las que pasa el comprados, estas siendo la página inicial, el registro/ingreso a la cuenta, gestión de perfil propio, el catálogo de autos y los filtros del mismo, la compra de autos o la prueba de manejo, la comunicación con el vendedor, y la gestión de documentos propios. 
 
 ### Flujo del Vendedor:
-> Adjuntar imagen del flujo del Vendedor
+![Imagen flujo vendedor](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividad_UsuarioVendedor.png)
+
+Para el flujo de vendedor, es posible visualizar procesos tales como la gestión del perfil própio, búsqeda de catálogo de la agencia, revisión tanto de solicitud de compra como de solicitud de pruebas de manejo, la revisión de documentos, contacto con el cliente, cambios de estatus de las solicitudes y retroalimentación. 
 
 ### Flujo del Gerente:
-> Adjuntar imagen del flujo del Gerente
+![Imagen de flujo del gerente](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividad_UsuarioGerente.png)
+
+En el diagrama de flujo del gerente, es posible visualizar el ingreso a la plataforma, la gestión del perfil propio, la visualización del catálogo de la agencia, la revisión de solicitudes, la gestión de planes de financiamiento o seguros y la gestión de autos.
 
 ### Flujo del Grupo Automotriz:
-> Adjuntar imagen del flujo del Grupo Automotriz
+![Imagen del flujo del Grupo Automotriz](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadGA.png)
+
+Para el flujo del grupo automotriz, se muestran los procesos generales de la gestión de gerentes, el registro de agencia o grupo automotriz, la vista de estadísticas, y la gestión del perfil propio. 
 
 ### Flujo del Super-Administrador:
-> Adjuntar imagen del flujo del Super-Administrador
+![Imagen flujo super admnistrador](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadUsuarioAdministrador.png)
+
+El diagrama del flujo para el usuario administrador incluye páginas tales como la vista principal, el borrado/edición de cuentas, acceso a las estádisticas, gestión del perfil propio, revisión y retroalimentación de solicitudes de agencia y grupo automotriz. 
 
 ### Wireframe
-> Insertar liga al wireframe
-
-> Insertar imagen del wireframe
+En cuanto al wireframe, este provee una vista gráfica de las pantallas que se mostrarán a cada usuario. De esta manera, será posible tener una guía para el diseño y la interfaz gráfica del sitio a desarrollar. Con lo anterior en mente, será posible revisar dicho wireframe en el [siguiente link](https://www.figma.com/file/CI5ObOAwXAoy8NorgVRuWY/Mock?node-id=1%3A130&t=zjYOwqyUShV2fRoX-1)
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
