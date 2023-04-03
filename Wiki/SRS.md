@@ -11,7 +11,7 @@
 
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
-| 26/02/2023 | 0.1     | Creación del Doc SRS |
+| 02/04/2023 | 1     | Integración SRS |
 
 <h2 align="center"> Autores
 <h3 align="center"> Andreína Sanánez
