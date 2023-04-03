@@ -433,7 +433,7 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 
 **2.6.2 Cliente**
 
-| Nombre del Caso de Uso: | Buying a car as a client |
+| Nombre del Caso de Uso: | Comprar un vehículo como cliente |
 | --- | --- |
 | Creado por: | Equipo |
 | Última actualización por: | E. Cabrera |
@@ -450,14 +450,14 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 
 | Name of Use Case: | Searching for a car as a client |
 | --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 05/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A client looks for a car via the AutoMart platform. |
-| **Actors:** | Client, AutoMart platform, DBMS, NLP Algorithm |
-| **Preconditions:** | 1. The client has access to a computer.2. The client has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The client is presented with car options according to their specifications. |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 05/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
+| **Descripción:** | Un cliente busca coche a través de la plataforma. |
+| **Actores:** | Cliente, plataforma, SGBD, Algoritmo PNL |
+| **Pre-condiciones:** | 1. El cliente tiene acceso a una computadora. 2. El cliente ya se ha registrado en la plataforma, ya sea a través de Google o con una cuenta nativa. |
+| **Post-condiciones:** | 1. The client is presented with car options according to their specifications. |
 | **Flow:** | 1. The client is at their homepage.2. The client can click on the search bar and enter specific terms to look up.3. The client enters the search.4. The NLP algorithm segments the search terms into possible terms that match the database's columns.5. The DBMS makes a query with the extracted terms and returns the results.6. The frontend makes elements to display the information to the client.7. The client is presented with vehicle options that fit their description. |
 | **Alternative Flows:** | 2. In step 2 of the normal flow, the client can choose to utilize filters.1. The client can select from a variety of dropdown options, checkboxes and sliders to adjust the brand, model, transmission, color, and more.2. The client enters the search.3. The DBMS makes a query with the extracted terms and returns the results.4. The frontend makes elements to display the information to the client.5. The client is presented with vehicle options that fit the elected filters. |
 | **Exceptions:** | 2. In step 2 of the normal flow in case the NLP algorithm finds no usable terms, no query is made and the client is prompted with no results available. |
@@ -478,7 +478,7 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 | **Exceptions:** | 3. In step 3 of the normal flow in case the client has no ongoing transactions they cannot communicate with a Seller. |
 | **Requirements:** | The following requirements must be met before execution of the use case1. The client must have a stable internet connection.2. The client has an ongoing transaction with confirmed payment. |
 
-| Name of Use Case: | Uploading legal documents as a client |
+| Nombre del Caso de Uso: | Uploading legal documents as a client |
 | --- | --- |
 | Created By: | Equipo 1 |
 | Last Updated By: | E. Cabrera |
