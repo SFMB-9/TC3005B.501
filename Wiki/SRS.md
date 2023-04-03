@@ -66,7 +66,7 @@
 
     3.2. [Requerimientos No Funcionales](#32-requerimientos-no-funcionales)
 
-    3.3. [Diagrama de Casos de Uso](#33-diagramas-de-casos-de-uso)
+    <!-- 3.3. [Diagrama de Casos de Uso](#33-diagramas-de-casos-de-uso) -->
 
 4. [Requerimientos de Datos](#4-requerimientos-de-datos) 
 
@@ -401,8 +401,6 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 6. Se utilizará un Tech Stack mayormente open-source; que no representa un gasto. Si se incluyen componentes o herramientas con costo, se dejan a manera de propuesta tentativa para el Project Owner, estipulando una cotizacion estimada clara.
   
 ## 2.6. Casos de Uso
-  
-> Pendiente a traducir y ligar
 
 ← [Casos de Uso](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
@@ -481,8 +479,10 @@ Super Admin - SA
 |    REQ_NO_FUN_19    |                                          Tutoriales y sección de FAQ                                          |  C  |
 |    REQ_NO_FUN_20    |                                            Política de privacidad                                             |  M  |
 
+<!-- 
 ## 3.3. Diagramas de Casos de Uso
 > Pendiente a definir por todo el grupo
+-->
   
 # 4. Requerimientos de Datos
 ## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
@@ -678,6 +678,8 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 ## 4. [Historias de Usuario →]()
 
 ## 5. [Administración de Riesgos →]()
+
+## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
 ## 6. Glossary
 
