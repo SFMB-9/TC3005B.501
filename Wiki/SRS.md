@@ -403,10 +403,10 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 **2.6.1 General**
 | Nombre del Caso de Uso: | Registro |
 | --- | --- |
-| Creado por: |  |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 09/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
 | **Descripción:** | Un usuario decide crear una cuenta en la plataforma. |
 | **Actores:** | Usuario, plataforma, DBMS |
 | **Pre-condiciones:** | 1. El usuario tiene acceso a una computadora.2. El usuario tiene acceso a los documentos legales necesarios.3. El sistema tiene una conexión existente a una base de datos. |
@@ -416,22 +416,22 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 | **Excepciones:** | 7. En el paso 7 del flujo normal, si el usuario rechaza los términos y condiciones, su cuenta no se crea y se le redirige a la página de inicio general. |
 | **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El usuario debe disponer de una conexión estable a internet. 2. El usuario debe introducir una dirección de correo electrónico válida. 3. El usuario debe introducir un número de teléfono válido. 4. El usuario debe introducir una fecha de nacimiento que corresponda con la de un adulto mayor de edad. |
 
-| Name of Use Case: | Login |
+| Nombre del Caso de Uso: | Inicio de sesión |
 | --- | --- |
-| Created By: | Equipo 1 |
-| Last Updated By: | E. Cabrera |
-| Date Created: | 09/03/2023 |
-| Last Revision Date: | 14/03/2023 |
-| **Description:** | A user decides to enter the AutoMart platform with a preexisting registered account. |
-| **Actors:** | User , AutoMart platform |
-| **Preconditions:** | 1. The user has access to a computer.2. The user has signed up already onto the AutoMart platform, whether it be via Google or with a native account. |
-| **Postconditions:** | 1. The user can use their account successfully. |
-| **Flow:** | 1. The user enters the site and is greeted by the home page.2. The user clicks the "Login" button.3. The user is prompted to choose between Google sign-in or enter an email, and chooses to enter an email.4. The user enters the corresponding email and password.5. The user clicks the "Enter" button and the DBMS makes a query to verify that the email and password pair exist within the database.6. The DBMS makes a query to the AgencyMembers table to verify if the account has additional permissions.7. A successful response is returned and the user is redirected to their personal homepage. |
-| **Alternative Flows:** | 3. In step 3 of the normal flow, the user can choose to make use of a Google account login.1. The user is prompted to sign in via Google.2. The user enters their corresponding Google account and signs in.3. The DBMS makes a query to verify the existence of the email-password pair within the database.4. A successful response is returned and the user is redirected to their personal homepage. |
-| **Exceptions:** | 4. In step 4 of the normal flow, as well as in step 2 of the first alternate flow, in case the user enters the wrong sign in details, the user is never redirected to their homepage and is instead prompted to try again. |
-| **Requirements:** | The following requirements must be met before execution of the use case1. The user must have a stable internet connection.2. The user must input a valid email address and corresponding password. |
+| Creado por: | Equipo |
+| Última actualización por: | E. Cabrera |
+| Fecha de creación: | 09/03/2023 |
+| Fecha de la última revisión: | 14/03/2023 |
+| **Descripción:** | Un usuario decide entrar en la plataforma con una cuenta registrada pre-existente. |
+| **Actores:** | Usuario , plataforma |
+| **Pre-condiciones:** | 1. El usuario tiene acceso a una computadora. 2. El usuario ya se ha registrado en la plataforma, ya sea a través de Google o con una cuenta nativa. |
+| **Post-condiciones:** | 1. El usuario puede utilizar su cuenta correctamente. |
+| **Flujo:** | 1. El usuario entra en el sitio y es recibido por la página de inicio. 2. El usuario pulsa el botón "Iniciar sesión". 3. Se pide al usuario que elija entre iniciar sesión en Google o introducir un correo electrónico y elige introducir un correo electrónico. 4. El usuario introduce el correo electrónico y la contraseña correspondientes. 5. El usuario pulsa el botón "Introducir" y el SGBD realiza una consulta para verificar que la pareja de correo electrónico y contraseña existe en la base de datos. 6. El SGBD realiza una consulta a la tabla correspondiente. 7. Se devuelve una respuesta correcta y el usuario es redirigido a su página de inicio personal. |
+| **Flujos Alternativos:** | 3. En el paso 3 del flujo normal, el usuario puede optar por hacer uso de inicio de sesión con una cuenta de Google. 1. Se pide al usuario que inicie sesión a través de Google. 2. El usuario introduce su cuenta de Google correspondiente e inicia sesión.3. El SGBD realiza una consulta para verificar la existencia del par email-contraseña dentro de la base de datos. 4. Se devuelve una respuesta correcta y el usuario es redirigido a su página de inicio personal. |
+| **Excepciones:** | 4. En el paso 4 del flujo normal, así como en el paso 2 del primer flujo alternativo, en caso de que el usuario introduzca datos de acceso erróneos, no se le redirige a su página de inicio, sino que se le pide que lo intente de nuevo. |
+| **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El usuario debe disponer de una conexión estable a internet. 2. El usuario debe introducir una dirección de correo electrónico válida y la contraseña correspondente. |
 
-**2.6.2 Client**
+**2.6.2 Cliente**
 
 | Name of Use Case: | Buying a car as a client |
 | --- | --- |
