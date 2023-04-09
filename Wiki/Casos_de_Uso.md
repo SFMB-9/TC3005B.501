@@ -22,6 +22,10 @@
 | **Exepciones:** | 8. In step 8 of the normal flow, in case the user turns down the terms and conditions their account is not created and are redirected to the general homepage. |
 | **Requerimientos:** | The following requirements must be met before execution of the use case1. The user must have a stable internet connection.2. The user must input a valid email address.3. The user must input a valid phone number.4. The user must input a date of birth that corresponds with that of an adult of legal age. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/Creacion_De_cuenta.png" width="600" title="hover text">
+</p>
+
 | Nombre del Caso de Uso: | Inicio de Sesión |
 | --- | --- |
 | Creado Por: | Equipo 1 |
@@ -37,6 +41,9 @@
 | **Excepciones:** | 4. En el paso 4 del flujo normal, así como en el paso 2 del primer flujo alternativo, en caso de que el usuario ingrese los detalles de inicio de sesión incorrectos, el usuario nunca es redirigido a su página de inicio y, en su lugar, se le solicita que lo intente de nuevo. |
 | **Requisitos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso: 1. El usuario debe tener una conexión a internet estable. 2. El usuario debe ingresar una dirección de correo electrónico válida y la contraseña correspondiente. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/inicio-de-sesion.png" width="600" title="hover text">
+</p>
 
 **2.6.2 Usuario Comprador**
 
@@ -55,6 +62,10 @@
 | **Exceptions:** | En el paso 5 del flujo normal en caso de que el cliente no tenga los documentos adecuados o estén incompletos, no se le permite elegir ninguna opción y se le pide que complete sus documentos en su lugar. |
 | **Requirements:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso: 1. El cliente debe tener una conexión a internet estable. 2. Los fondos del cliente deben ser verificados antes de cualquier confirmación o reconocimiento de venta. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/compra-coche-cliente.png" width="600" title="hover text">
+</p>
+
 | Nombre de Caso de Uso: | Búsqueda de un auto por un cliente |
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -69,6 +80,10 @@
 | **Alternative Flows:** | 2. En el paso 2 del flujo normal, el cliente puede optar por utilizar filtros. 1. El cliente puede seleccionar entre una variedad de opciones de selección, casillas de verificación y deslizadores para ajustar la marca, modelo, transmisión, color y más. 2. El cliente ingresa la búsqueda. 3. El DBMS realiza una consulta con los términos extraídos y devuelve los resultados. 4. El frontend crea elementos para mostrar la información al cliente. 5. El cliente recibe opciones de vehículos que se ajustan a los filtros seleccionados. |
 | **Exceptions:** | 2. En el paso 2 del flujo normal, en caso de que el algoritmo NLP no encuentre términos utilizables, no se realiza ninguna consulta y se le indica al cliente que no hay resultados disponibles. |
 | **Requirements:** | 	Se deben cumplir los siguientes requerimientos antes de la ejecución del caso de uso. 1. El cliente debe tener una conexión a internet estable. |
+
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/busqueda.png" width="600" title="hover text">
+</p>
 
 | Nombre de Caso de Uso: | Enviar mensajes a un vendedor como cliente |
 | --- | --- |
@@ -85,6 +100,10 @@
 | **Excepciones:** | 3. En el paso 3 del flujo normal, en caso de que el cliente no tenga transacciones en curso, no puede comunicarse con un vendedor. |
 | **Requisitos:** | 	Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso.1. El cliente debe tener una conexión a internet estable.2. El cliente tiene una transacción en curso. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/comunicacion.png" width="600" title="hover text">
+</p>
+
 | Nombre del Caso de Uso: | 	Subir documentos legales como cliente |
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -99,6 +118,10 @@
 | **Flujos Alternativos:** | 7. En el paso 7 del flujo normal, en caso de que el documento no se pueda validar, se le pide al cliente que vuelva a intentarlo. |
 | **Exceptions:** | 	1. En el paso 1 del flujo normal, en caso de que el cliente no tenga una cuenta, no puede acceder a su sección de "Configuración". |
 | **Requirements:** | 	Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso: 1. El cliente debe tener una conexión a internet estable. |
+
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/documentoscliente.png" width="600" title="hover text">
+</p>
 
 **2.6.3 Super Admin**
 
@@ -192,6 +215,10 @@
 | **Excepciones:** | - |
 | **Requisitos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso.1. El superadmin debe tener una conexión a Internet estable. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/cuenta-superadmin.png" width="600" title="hover text">
+</p>
+
 <!-- Pendiente-->
 | Nombre del Caso de Uso: | Ver estadísitcas de la plataforma como superadmin |
 | --- | --- |
@@ -207,6 +234,10 @@
 | **Alternative Flows:** | 5. In step 5 of the normal flow, the superadmin can choose to download a file.1. The backend converts the information into a \*.pdf file.2. The file is downloaded into their computer.3. They are prompted that the file has been downloaded. |
 | **Exceptions:** | - |
 | **Requirements:** | The following requirements must be met before execution of the use case1. The superadmin must have a stable internet connection. |
+
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/estadisticas.png" width="600" title="hover text">
+</p>
 
 **2.6.4 Administrators**
 
@@ -255,6 +286,10 @@
 | **Excepciones:** | 	4. En el paso 4 del flujo normal, en caso de que no haya Managers asignados, no habrá ningún botón disponible. |
 | **Requisitos:** | Los siguientes requisitos deben ser cumplidos antes de la ejecución del caso de uso1. El administrador debe tener una conexión a internet estable. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/cuenta-superadmin.png" width="600" title="hover text">
+</p>
+
 | Nombre del Caso de Uso:  | Crear Agencias como administrador |
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -285,6 +320,7 @@
 | **Excepciones:** | - |
 | **Requerimientos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso1. El administrador debe tener una conexión a Internet estable. |
 
+
 | Nombre del Caso de Uso:  | Ver estadísticas de las Agencias como administrador |
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -299,6 +335,10 @@
 | **Flujos Alternativos:** | 4. En el paso 4 del flujo normal, el administrador puede elegir descargar un archivo.1. El backend convierte la información en un archivo *.pdf.2. El archivo se descarga en su computadora.3. Se les avisa que el archivo ha sido descargado. |
 | **Excepciones:** | - |
 | **Requisitos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso1. El administrador debe tener una conexión a Internet estable. |
+
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/estadisticas.png" width="600" title="hover text">
+</p>
 
 **2.6.5 Gerentes**
 
@@ -347,6 +387,10 @@
 | **Excepciones:** | 2. En el paso 2 del flujo normal, en caso de que no haya inventario, no se mostrará nada. |
 | **Requisitos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso. 1. El gerente debe tener una conexión a Internet estable. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/inventario.png" width="600" title="hover text">
+</p>
+
 | Nombre del Caso de Uso:  | Asignar vendedor a una agencia como gerente |
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -377,6 +421,10 @@
 | **Excepciones**: | 2. En el paso 2 del flujo normal, en caso de que no haya vendedores. |
 | **Requerimientos**: | Los siguientes requisitos deben ser cumplidos antes de la ejecución del caso de uso1. El gerente debe tener una conexión a internet estable. 
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/gerente.png" width="600" title="hover text">
+</p>
+
 | Nombre del Caso de Uso:  | Ver estadísticas de una agencia como gerente|
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -391,6 +439,10 @@
 | **Flujos Alternativos:** | 4. En el paso 4 del flujo normal, el superadministrador puede optar por descargar un archivo.1. El archivo se descarga en su computadora.2. Se le indica que el archivo ha sido descargado. |
 | **Excepciones:** | - |
 | **Requisitos:** | Los siguientes requisitos deben cumplirse antes de la ejecución del caso de uso:1. El gerente debe tener una conexión a Internet estable. |
+
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/estadisticas.png" width="600" title="hover text">
+</p>
 
 **2.6.6 Vendedores**
 
@@ -409,6 +461,10 @@
 | **Excepciones:** | 2. En el paso 2 del flujo normal, en caso de que no haya ventas en curso, el vendedor no verá nada. |
 | **Requisitos:** | Se deben cumplir los siguientes requisitos antes de la ejecución del caso de uso: 1. El vendedor debe tener una conexión a internet estable. |
 
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/orden-de-compra.png" width="600" title="hover text">
+</p>
+
 | Nombre del Caso de Uso:  | Mensajear un comprador como vendedor |
 | --- | --- |
 | Creado por: | Equipo 1 |
@@ -423,3 +479,7 @@
 | **Flujos alternativos:** | - |
 | **Excepciones:** | 2. En el paso 2 del flujo normal, en caso de que no haya ventas en curso, el vendedor no verá nada. |
 | **Requerimientos:** | Los siguientes requerimientos deben cumplirse antes de la ejecución del caso de uso. 1. El vendedor debe tener una conexión a internet estable. |
+
+<p align="center">
+  <img src="../assets/diagrams/DiagramasCasosDeUso/comunicacion.png" width="600" title="hover text">
+</p>
