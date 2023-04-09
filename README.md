@@ -3,9 +3,12 @@
 > Create an alternate branch and issue a Pull Request. For help, check out the [Student Manual](https://github.com/SFMBa01029956/TC3005B.502/blob/manuals/Files/Student%20Manual.md).
 
 # TC3005B.501
-> Created 26-3-2023
+<p align="center">
+    <img src="./assets/Logos/PulseLogoTransparente.png" width="300" title="hover text">
+</p>
+<hr/>
 
-## Colaboradores
+## Autores
 
 | #  | Matrícula | Nombre                                                 | Github Username                                     | Discord Username      | Número de teléfono | Correo Personal                          |
 | -- | ---------- | ------------------------------------------------------------ | --------------------------------------------------- | --------------------- | ------------ | --------------------------------------- |
@@ -30,42 +33,29 @@
 | 19 | A01029746  | [Sebastián González Villacorta](mailto:a01029746@tec.mx)     | [sebasgonvitec](https://github.com/sebasgonvitec)   | cerillo22#5852        | 5587918611   | sebastian.gonzalez.villacorta@gmail.com |
 | 20 | A01025459  | [Tonatiuh Reyes Huerta](mailto:a01025459@tec.mx)             | [Trh7101](https://github.com/Trh7101)               | Tona#5143             | 5536533155   | tonatiuhreyes8602@gmail.com             |
 
-## Documento SRS
-> ** ! Sección temporal** Se va a definir un sólo documento SRS.
-[SRS "final" →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS.md)
+## Organigrama y Entregables
+<p align="center">
+  <img src="./assets/diagrams/organigrama&entregables.png" title="hover text">
+</p>
 
-1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/SRS.md
-2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/SRS.md
-3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/SRS.md
-4. Equipo 4 - https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS_Equipo_4.md
+| Rol | Persona | Usuario Github |
+| --- | ------- | -------------- |
+| Project Manager | [Karla Valeria Mondragón Rosas](mailto:a01025108@tec.mx) | [karla-mond](https://github.com/karla-mond) | 
+| Arquitecto de Software | [Sebastián González Villacorta](mailto:a01029746@tec.mx) |[sebasgonvitec](https://github.com/sebasgonvitec) |
+| QA Head | [Mateo Herrera Lavalle](mailto:a01751912@tec.mx) | [MateoHerrera0](https://github.com/MateoHerrera0) | 
+| Líder Back-End | --- | --- |
+| Líder Front-End | [Ana Paula Katsuda](mailto:a01025303@tec.mx) | [a01025303](https://github.com/a01025303) | 
+| Líder Base de Datos | --- | --- |
 
-## Historias de Usuario
-> ** ! Sección temporal** Se va a definir un sólo documento de Historias de Usuario.
-1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/UserStories.md
-2. Equipo 2 - https://docs.google.com/spreadsheets/d/1EYvVz0-JcxxsOcZ_wUyO2PZxr6e95XLCueoAE5EHiiE/edit?usp=sharing
-3. Equipo 3 - https://docs.google.com/spreadsheets/d/1TAsQq-68xdLPJSP0UamQNiOi60z_PnGhWD6IMvNAeEc/edit?usp=sharing
-4. Equipo 4 - https://docs.google.com/spreadsheets/d/1oAylI5ALrz0J27PIv3bp3eEQOPkbJy9K1oqh3j8xet0/edit#gid=1934962646
+## [Documento SRS →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS.md)
 
-## Plan de Pruebas
-> ** ! Sección temporal** Se va a definir un sólo documento de Plan de Pruebas.
-1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/TestingPlan.md
-2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/blob/main/src/wiki/PlanPruebas.md
-3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/blob/main/wiki/Docs/Documento%20de%20Pruebas.md
-4. Equipo 4 - https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Testing.md
+## [Historias de Usuario →](https://docs.google.com/spreadsheets/d/1ekLYBNdBiyeopLcMUxqWD0kK3bIm1L-_8aUfY92UEo0/edit?usp=sharing)
+
+## [Plan de Pruebas →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/DocPruebas.md)
 
 ## Arquitectura
-> ** ! Sección temporal** Se va a definir un sólo diagrama de Arquitectura.
-1. Equipo 1 - https://github.com/Diego-CP/NDSDocumentacion/blob/main/Diagrams/ArchitectureDiagram.png
-2. Equipo 2 - https://github.com/MateoHerrera0/HUMANIT/tree/main/src/assets/Diagrams/Architectures
-3. Equipo 3 - https://github.com/sebasgonvitec/qchau-software/tree/main/wiki/Docs/Arquitectura
-4. Equipo 4 - No paso las revisiones de los profesores.
+<p align="center">
+  <img src="./assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
+</p>
 
-## Células de desarrollo
-
-### Célula 1
-### Célula 2
-### Célula 3
-### Célula 4
-### Célula 5
-
-[Manuales →](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
+## [Manuales →](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
