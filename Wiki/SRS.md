@@ -670,7 +670,7 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
   
 ## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=-163%2C180%2C2035%2C860%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
 
-## 2. [Gantt →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Gantt.xlsx)
+## 2. [Gantt →](https://docs.google.com/spreadsheets/d/1gQOCrEyqyHThUOxP-niAMtOYwplinlct/edit?usp=sharing&ouid=103048302256739869165&rtpof=true&sd=true)
 
 ## 3. [Historias de Usuario →]()
 
