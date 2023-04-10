@@ -43,9 +43,9 @@
 | Project Manager | [Karla Valeria Mondragón Rosas](mailto:a01025108@tec.mx) | [karla-mond](https://github.com/karla-mond) | 
 | Arquitecto de Software | [Sebastián González Villacorta](mailto:a01029746@tec.mx) |[sebasgonvitec](https://github.com/sebasgonvitec) |
 | QA Head | [Mateo Herrera Lavalle](mailto:a01751912@tec.mx) | [MateoHerrera0](https://github.com/MateoHerrera0) | 
-| Líder Back-End | --- | --- |
+| Líder Back-End | [Andreína Isabel Sanánez Rico](mailto:a01024927@tec.mx) | [asananez2000](https://github.com/asananez2000) |
 | Líder Front-End | [Ana Paula Katsuda](mailto:a01025303@tec.mx) | [a01025303](https://github.com/a01025303) | 
-| Líder Base de Datos | --- | --- |
+| Líder Base de Datos | [Gerardo Gutiérrez Paniagua](mailto:a01029422@tec.mx) | [G3RZZZ](https://github.com/G3RZZZ) |
 
 ## [Documento SRS →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS.md)
 
