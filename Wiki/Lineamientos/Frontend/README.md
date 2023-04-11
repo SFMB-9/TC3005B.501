@@ -45,6 +45,7 @@ En cuanto a los estándares de código, se continuará utilizando github para el
 - _Identación_: Para cualquier lenguaje utilizado, se deberá mantener la identación correspondiente en caso de que existan agrupaciones o código base. 
 - _Comentarios_: 
 
+    - Comentarios en ESPAÑOL.
     - Poner la descripción de lo que hace cada "Script" al inicio del código. Incluir nombres de autores. 
     - Iniciar los comentarios con mayúsculas y terminarlos con punto. 
     - Utilizar notación de bloque (/**/ en javascript) si el comentario lleva más de una línea y notación de línea (// en javascript) si solamente es de una línea. 
