@@ -209,41 +209,8 @@ Estas pruebas serviran como "benchmark" para medir el rendimiento de la aplicaci
 * Probar funcionalidad del manejo de una solicitud con una cantidad grande de usuarios simultáneamente.
 
 
-En la siguientes tablas se resumen los requerimientos y componentes que serán probados a través de diferentes pruebas:
-
-**Caja Negra**
-|Clave|Objeto|Usuario|Descripción|Prioridad|
-| :- | :- | :- | :- | :- |
-|P\_CN\_001|Filtros del catálogo de autos|Usuario Final|Se evalúa el resultado del uso de filtros tradicionales sobre el catálogo|Alta|
-|P\_CN\_002|Solicitud de prueba de manejo|Usuario Final|Se evalúa la capacidad de completar el formulario de solicitud de prueba de manejo.|Alta|
-|P\_CN\_003|Cita para ir con el agente|Usuario Final|Se evalúa la funcionalidad de poder calendarizar una cita con un Agente Vendedor de una agencia.|Baja|
-|P\_CN\_004|Administración de documentos de usuario|Usuario Final|Se evalúa la funcionalidad de poder ver y borrar documentos subidos por el usuario.|Alta|
-|P\_CN\_005|Contacto con agente|Usuario Final|Se evalúa la funcionalidad del sistema de chat entre el usuario y el agente vendedor.|Alta|
-|P\_CN\_006|Redirección a la vista de login|Usuario Final|Se evalúa la funcionalidad de redireccionar al usuario a iniciar sesión al solicitar una prueba de manejo o compra de auto.|Alta|
-|P\_CN\_007|Administración de registros de automóviles nuevos por csv/individual|Usuario Vendedor|Se evalúa la funcionalidad de poder registrar y eliminar autos subidos por el usuario vendedor sea por archivo csv o de manera individual|Alta|
-|P\_CN\_008|Administracion de usuarios vendedores|Usuario Gerente|Se evalúa la funcionalidad de poder asignar y eliminar usuarios vendedores de una agencia |Alta|
-|P\_CN\_009|Administración de agencias asociadas a grupo automotriz|Usuario Grupo Automotriz|Se evalúa la funcionalidad de poder asignar y eliminar agencias asociadas de un grupo automotriz|Media|
-|P\_CN\_010|Administración de usuarios gerentes y grupos automotrices|Usuario Administrador|Se evalúa la funcionalidad de poder aceptar y rechazar solicitudes de usuarios gerentes/grupos automotrices|Alta|
-
-**Integración**
-
-|Clave|Objeto|Usuario|Descripción|Prioridad|
-| :- | :- | :- | :- | :- |
-|P\_I\_001|Login|Todos|Se validará la funcionalidad del Login para todos los usuarios|Alta|
-|P\_I\_002|Registro|Gerente, Vendedor, Grupo Automotriz, Final|Se validará la funcionalidad de Registro para usuarios|Alta|
-|P\_I\_003|Registro de automóviles|Usuario vendedor|Se validará que el funcionamiento del registro de nuevos automóviles sea correcto|Alta|
-|P\_I\_004|Modificacion de automoviles existentes|Usuario Vendedor|Se validará la funcionalidad de modificar automóviles para vendedores|Alta|
-|P\_I\_005|Administracion de usuarios vendedores|Usuario Gerente|Se validará que los usuarios de gerente puedan asignar/eliminar vendedores|Alta|
-|P\_I\_006|Administración de gerentes/grupos automotrices |Usuario Administrador|Se validará que el usuario administrador puede asignar/eliminar usuarios de gerentes/grupos automotrices|Alta|
-|P\_I\_007|Compra de automóviles|Usuario Final|Se validará que el proceso de compra de un automóvil para el usuario final pueda ser realizado de manera correcta |Alta|
-|P\_I\_008|Aprobación/rechazo de compras|Usuario vendedor|Se validará que el usuario vendedor sea capaz de aprobar/rechazar solicitudes de compra|Alta|
-|P\_I\_009|Comunicación entre vendedor y usuario final|Final, Vendedor|Se validará que el usuario final y vendedor se puedan comunicar de manera exitosa mediante el chat dentro de la aplicación|Alta|
-|P\_I\_010|Solicitud de Prueba de Manejo|Usuario Final|Se validará que el usuario final pueda en el proceso de iniciar sesión o en su defecto crear una, al igual que seguir los pasos de solicitud y formulario con éxito.|Alta|
-|P\_I\_011|Aprobación/rechazo de prueba de manejo|Usuario Vendedor|Se validará que el usuario vendedor sea capaz de aprobar/rechazar solicitudes de prueba de manejo|Alta|
-
-
-**Validación/Aceptación**
-
+En la siguientes tablas se resumen los requerimientos y componentes que serán probados a través de diferentes recorridos:
+	
 |Clave|Objeto|Usuario|Descripción|Prioridad|
 | :- | :- | :- | :- | :- |
 |P\_V\_001|Landing Page - Busqueda - Listado - Login|Usuario Final|Recorrido desde cuando el usuario entra a la plataforma y se le pide que inicie sesión solamente a la hora de que quiere continuar con la compra de un auto|Media|
