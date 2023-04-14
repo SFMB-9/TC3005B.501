@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 //import PopupSubirDocs from "./popup-subir-docs";
 //import PortalPopup from "./portal-popup";
 import styles from '@/styles/info-documentos.module.css';
+import SideMenu from "@/components/side_menu_buyer";
 
 const InfoDocumentos = () => {
   const [isPopupSubirDocsOpen, setPopupSubirDocsOpen] = useState(false);
@@ -17,6 +18,15 @@ const InfoDocumentos = () => {
 
   return (
     <>
+      <div className={styles.misDocumentos}>
+        <img className={styles.vectorIcon} alt="" src="/vector.svg" />
+        <img className={styles.vectorIcon1} alt="" src="/vector.svg" />
+        <img className={styles.vectorIcon2} alt="" src="/vector1.svg" />
+        <div className={styles.misDocumentosChild} />
+        <div className={styles.nombreApellidos}>{`Nombre - Apellidos `}</div>
+        <b className={styles.bienvenidx}>Bienvenidx</b>
+      </div>
+      <SideMenu />
       <div className={styles.infoDocumentos}>
         <div className={styles.documento1}>
           <div className={styles.pendiente}>Pendiente</div>
