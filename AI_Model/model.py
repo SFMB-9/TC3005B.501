@@ -5,8 +5,6 @@ from tensorflow import keras
 #from rMatrix import rMatrix
 from sklearn.model_selection import train_test_split
 
-
-#num_users, num_movies,x_train,x_val,y_train,y_val = dataP("ml-latest-small/ratings.csv")
 header = ['userId', 'carId', 'rating', 'timestamp']
 df = pd.read_csv("u.data",sep='\t',names=header)
 df = df.drop('timestamp', axis=1)
@@ -36,5 +34,5 @@ out = tf.keras.layers.Dense(1)(fc2)
 model = tf.keras.Model([user_input, car_input], out)
 model.compile('adam', 'mean_squared_error')
 
-history = model.fit([train.userId, train.carId], train.rating, epochs=10, verbose=1)
+history = model.fit([train.userId, train.carId], train.rating, epochs=50, verbose=1)
 model.save("mod.h5")
