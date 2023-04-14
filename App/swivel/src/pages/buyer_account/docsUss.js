@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
 //import { Button, Icon } from "@mui/material";
 //import PopupSubirDocs from "./popup-subir-docs";
-//import PortalPopup from "./portal-popup";
-import styles from '@/styles/info-documentos.module.css';
-import SideMenu from "@/components/side_menu_buyer";
+//import PortalPopup from "./docsUpdate";
+import styles from '@/styles/buyerStyles/info-documentos.module.css';
+import SideMenu from "@/components/buyer/side_menu_buyer";
 
 const InfoDocumentos = () => {
   const [isPopupSubirDocsOpen, setPopupSubirDocsOpen] = useState(false);

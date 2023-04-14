@@ -1,4 +1,4 @@
-import styles from "@/styles/side_menu.module.css";
+import styles from "@/styles/buyerStyles/side_menu.module.css";
 
 const SideMenu = () => {
   return (
