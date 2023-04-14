@@ -5,7 +5,7 @@ import NewAutomotiveGroupSidebar from '@/components/new_automotive_group_sidebar
 export default function Docs () {
   return (
     <>
-      <div className='row' id='body-row'>
+      <div className='row' id='body-row' style={{display: 'flex'}}>
         {/* Sidebar */}
         <ProSidebarProvider>
           <NewAutomotiveGroupSidebar/>

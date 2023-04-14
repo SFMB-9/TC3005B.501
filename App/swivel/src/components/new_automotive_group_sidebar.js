@@ -5,14 +5,18 @@ import {
     Menu,
     MenuItem
 } from 'react-pro-sidebar';
-import { FaAngleDoubleRight } from 'react-icons/fa'
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa'
 import styles from '@/styles/sidebar.module.css'
 
-const NewAutomotiveGroupSidebar = ({collapsed, handleCollapsedChange}) => {
+const NewAutomotiveGroupSidebar = ({collapsed, toggled, handleToggleSidebar, handleCollapsedChange}) => {
 
 return (
     <Sidebar
-        collapsed={collapsed}>
+        collapsed={collapsed}
+        toggled={toggled}
+        onToggle={handleToggleSidebar}
+        style={{height: '100vh'}}
+    >
         <div className='sidebar_header'>
             <Menu iconShape='circle'>
                 {collapsed ? (
@@ -21,7 +25,7 @@ return (
                         onClick={handleCollapsedChange}/>
                 ) : (
                     <MenuItem
-                        suffix={<span className='badge red'>3</span>}
+                        suffix={<FaAngleDoubleLeft/>}
                         onClick={handleCollapsedChange}
                     >
                     <div>
@@ -33,7 +37,6 @@ return (
         </div>
         <div>
             <Menu>
-                <MenuItem icon={<img src='/sidebar_swivel_logo.svg'/>}/>
                 <MenuItem icon={<img src='/sidebar_profile_icon_2.svg'/>}>
                     <b className={styles.name}>Grupo A.</b>
                     <div className={styles.name}>grupo.a@demo.com</div>

@@ -17,7 +17,7 @@ export default function Settings () {
   return (
     <>
       {/* Bootstrap row */}
-      <div className={`app ${toggled ? 'toggled' : ''}`}>
+      <div className={`app ${toggled ? 'toggled' : ''}`} style={{display: 'flex'}}>
         {/* Sidebar */}
         <ProSidebarProvider>
           <NewAutomotiveGroupSidebar
