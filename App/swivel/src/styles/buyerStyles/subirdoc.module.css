@@ -1,0 +1,91 @@
+.vectorIcon,
+.vectorIcon1,
+.vectorIcon2 {
+  position: absolute;
+  top: 563px;
+  left: 647px;
+  width: 687px;
+  height: 644px;
+}
+.vectorIcon1,
+.vectorIcon2 {
+  top: 79px;
+  left: 1195px;
+}
+.vectorIcon2 {
+  top: 0;
+  left: 0;
+  width: 625px;
+  height: 674px;
+}
+.misDocumentosChild {
+  position: absolute;
+  top: 209px;
+  left: 258px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 1034px;
+  height: 713px;
+}
+.bienvenidx,
+.nombreApellidos {
+  position: absolute;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+}
+.nombreApellidos {
+  top: 101px;
+  left: 1063px;
+  font-weight: 500;
+}
+.bienvenidx {
+  top: 95px;
+  left: 763px;
+  font-size: 48px;
+  font-family: Raleway;
+}
+.misDocumentos {
+  position: absolute;
+  top: 1px;
+  left: 78px;
+  width: 1882px;
+  height: 1207px;
+}
+.shapeWithText {
+  position: relative;
+  border-radius: 6px;
+  background-color: #c4c4c4;
+  width: 1440px;
+  height: 72px;
+}
+.shapeWithText1,
+.shapeWithText2 {
+  position: relative;
+  background-color: #f8f8f8;
+}
+.shapeWithText1 {
+  border-radius: 10.47px;
+  width: 1307.87px;
+  height: 26.18px;
+}
+.shapeWithText2 {
+  width: 16px;
+  height: 17.45px;
+}
+.browser {
+  position: relative;
+  width: 1440px;
+  height: 72px;
+  display: none;
+}
+.subirDocumento {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 1024px;
+  text-align: right;
+  font-size: 28px;
+  color: #111439;
+  font-family: Lato;
+}

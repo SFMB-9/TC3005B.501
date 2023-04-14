@@ -144,14 +144,14 @@
   .sideMenu {
     position: absolute;
     width: 18.47%;
-    top: calc(50% - 440px);
-    right: 81.53%;
+    top: calc(35% - 440px);
+    right:auto;
     left: 0;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.31);
     box-sizing: border-box;
     height: 952px;
-    overflow: hidden;
+    overflow: auto;
     padding: 24px 24px 32px;
     justify-content: space-between;
     text-align: left;

@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
-//import { Button, Icon } from "@mui/material";
+import { Button, Icon } from "@mui/material";
+// Para usar mui material: npm install @mui/icons-material 
 //import PopupSubirDocs from "./popup-subir-docs";
 //import PortalPopup from "./docsUpdate";
 import styles from '@/styles/buyerStyles/info-documentos.module.css';
-import SideMenu from "@/components/buyer/side_menu_buyer";
 
 const InfoDocumentos = () => {
   const [isPopupSubirDocsOpen, setPopupSubirDocsOpen] = useState(false);
@@ -16,19 +16,28 @@ const InfoDocumentos = () => {
     setPopupSubirDocsOpen(false);
   }, []);
 
+  
   return (
     <>
-      <div className={styles.misDocumentos}>
-        <img className={styles.vectorIcon} alt="" src="/vector.svg" />
-        <img className={styles.vectorIcon1} alt="" src="/vector.svg" />
-        <img className={styles.vectorIcon2} alt="" src="/vector1.svg" />
-        <div className={styles.misDocumentosChild} />
-        <div className={styles.nombreApellidos}>{`Nombre - Apellidos `}</div>
-        <b className={styles.bienvenidx}>Bienvenidx</b>
-      </div>
-      <SideMenu />
       <div className={styles.infoDocumentos}>
+      
         <div className={styles.documento1}>
+          <Button
+            className={styles.borrarCuenta}
+            sx={{ width: 127 }}
+            variant="contained"
+            color="primary"
+          >
+            Editar
+          </Button>
+          <Button
+            className={styles.borrarEditar}
+            sx={{ width: 127 }}
+            variant="contained"
+            color="primary"
+          >
+            Borrar
+          </Button>
           <div className={styles.pendiente}>Pendiente</div>
           <div className={styles.ine}>INE</div>
           <img
@@ -38,8 +47,32 @@ const InfoDocumentos = () => {
           />
           <div className={styles.documento1Child} />
         </div>
+        <Button
+          className={styles.subir}
+          sx={{ width: 173 }}
+          variant="contained"
+          color="primary"
+          onClick={openPopupSubirDocs}
+        >
+          Subir nuevo
+        </Button>
         <div className={styles.documento2}>
-          
+          <Button
+            className={styles.borrarCuenta}
+            sx={{ width: 127 }}
+            variant="contained"
+            color="primary"
+          >
+            Editar
+          </Button>
+          <Button
+            className={styles.borrarEditar}
+            sx={{ width: 127 }}
+            variant="contained"
+            color="primary"
+          >
+            Borrar
+          </Button>
           <label className={styles.pendiente}>Rechazado</label>
           <div className={styles.comprobanteDeDomicilio}>
             Comprobante de domicilio
@@ -52,8 +85,23 @@ const InfoDocumentos = () => {
           <div className={styles.documento1Child} />
         </div>
         <div className={styles.documento21}>
-          
-          
+          <Button
+            className={styles.borrarCuenta}
+            sx={{ width: 127 }}
+            variant="contained"
+            color="primary"
+          >
+            Editar
+          </Button>
+          <Button
+            className={styles.borrarEditar}
+            sx={{ width: 127 }}
+            variant="contained"
+            name="Borrar"
+            color="primary"
+          >
+            Borrar
+          </Button>
           <div className={styles.pendiente}>Aceptado</div>
           <label className={styles.comprobanteDeDomicilio}>
             Licencia de conducir
@@ -66,7 +114,7 @@ const InfoDocumentos = () => {
           <div className={styles.documento1Child} />
         </div>
         <b className={styles.misDocumentos}>Mis Documentos</b>
-      </div> 
+      </div>
       {isPopupSubirDocsOpen && (
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"

@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+
+
 .borrarCuenta {
     position: absolute;
     top: 28px;
@@ -94,4 +100,5 @@
     font-size: 24px;
     color: rgba(17, 20, 57, 0.46);
     font-family: Lato;
+    background-color: aliceblue;
   }
