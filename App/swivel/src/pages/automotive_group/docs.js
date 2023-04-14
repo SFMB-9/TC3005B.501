@@ -1,10 +1,10 @@
-import { AutomotiveGroupSidebar } from '@/components/automotive_group_sidebar'
-import Link from 'next/link'
+import NewAutomotiveGroupSidebar from "@/components/new_automotive_group_sidebar";
+
 
 export default function Docs () {
     return (
         <>
-          <AutomotiveGroupSidebar/>
+          <NewAutomotiveGroupSidebar/>
         </>
     )
 }
