@@ -3,8 +3,8 @@ import { Button, Icon } from "@mui/material";
 import SideMenu from "@/components/buyer/side_menu_buyer";
 import styles from '@/styles/buyerStyles/buyer.module.css';
 
-//import PopupSubirDocs from "../components/popup-subir-docs";
-//import PortalPopup from "../components/portal-popup";
+import PopupSubirDocs from "../buyer_account/docsUpdate";
+import PortalPopup from "@/components/buyer/portal_popup";
 
 const SubirDocumento = () => {
   const [isPopupSubirDocsOpen, setPopupSubirDocsOpen] = useState(false);
