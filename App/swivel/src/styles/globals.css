@@ -1,14 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-lato: Lato;
+  --font-raleway: Raleway;
+  /* font sizes */
+  --font-size-17xl: 36px;
+  --font-size-45xl: 64px;
+  --font-size-xl: 20px;
+  --font-size-21xl: 40px;
+  --font-size-38xl-2: 57.2px;
+  --font-size-5xl: 24px;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-
+  
+  --white: #ffffff;
+  --contraste: rgba(32, 35, 79, 1);
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
     #16abff33 0deg,
@@ -38,6 +51,14 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+ 
+   /* Paddings */
+   --padding-12xs: 1px;
+   --padding-3xs: 10px;
+ 
+   /* border radiuses */
+   --br-3xs: 10px;
+   --br-12xs: 1px;
 }
 
 @media (prefers-color-scheme: dark) {
