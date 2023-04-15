@@ -1,11 +1,12 @@
 import { useState, useCallback } from "react";
 import { Button, Icon } from "@mui/material";
-// Para usar mui material: npm install @mui/icons-material 
-//import PopupSubirDocs from "./popup-subir-docs";
-//import PortalPopup from "./docsUpdate";
-import styles from '@/styles/buyerStyles/info-documentos.module.css';
+import SideMenu from "@/components/buyer/side_menu_buyer";
+import styles from '@/styles/buyerStyles/buyer.module.css';
 
-const InfoDocumentos = () => {
+//import PopupSubirDocs from "../components/popup-subir-docs";
+//import PortalPopup from "../components/portal-popup";
+
+const SubirDocumento = () => {
   const [isPopupSubirDocsOpen, setPopupSubirDocsOpen] = useState(false);
 
   const openPopupSubirDocs = useCallback(() => {
@@ -16,116 +17,136 @@ const InfoDocumentos = () => {
     setPopupSubirDocsOpen(false);
   }, []);
 
-  
   return (
     <>
-      <div className={styles.infoDocumentos}>
-      
-        <div className={styles.documento1}>
-          <Button
-            className={styles.borrarCuenta}
-            sx={{ width: 127 }}
-            variant="contained"
-            color="primary"
-          >
-            Editar
-          </Button>
-          <Button
-            className={styles.borrarEditar}
-            sx={{ width: 127 }}
-            variant="contained"
-            color="primary"
-          >
-            Borrar
-          </Button>
-          <div className={styles.pendiente}>Pendiente</div>
-          <div className={styles.ine}>INE</div>
-          <img
-            className={styles.bifileEarmarkPdfIcon}
-            alt=""
-            src="/bifileearmarkpdf.svg"
-          />
-          <div className={styles.documento1Child} />
-        </div>
-        <Button
-          className={styles.subir}
-          sx={{ width: 173 }}
-          variant="contained"
-          color="primary"
-          onClick={openPopupSubirDocs}
-        >
-          Subir nuevo
-        </Button>
-        <div className={styles.documento2}>
-          <Button
-            className={styles.borrarCuenta}
-            sx={{ width: 127 }}
-            variant="contained"
-            color="primary"
-          >
-            Editar
-          </Button>
-          <Button
-            className={styles.borrarEditar}
-            sx={{ width: 127 }}
-            variant="contained"
-            color="primary"
-          >
-            Borrar
-          </Button>
-          <label className={styles.pendiente}>Rechazado</label>
-          <div className={styles.comprobanteDeDomicilio}>
-            Comprobante de domicilio
+      <div className={styles.subirDocumento}>
+        <img className={styles.fondoIcon} alt="" src="/buyer/fondo.svg" />
+        <section className={styles.misDocumentos}>
+          <div className={styles.mostrardocumentos}>
+            <div className={styles.mostrardocumentosChild} />
+            <Button
+              className={styles.subirbutton}
+              sx={{ width: 180.17002868652344 }}
+              variant="contained"
+              color="primary"
+              onClick={openPopupSubirDocs}
+            >
+              Subir nuevo
+            </Button>
+            <div className={styles.infoDocumentos}>
+              <div className={styles.documento3}>
+                <Button
+                  className={styles.editarbutton}
+                  sx={{ width: 132.2635498046875 }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Editar
+                </Button>
+                <Button
+                  className={styles.borrarbutton}
+                  sx={{ width: 132.2635498046875 }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Borrar
+                </Button>
+                <label className={styles.estatus} id="status">
+                  Rechazado
+                </label>
+                <div
+                  className={styles.comprobanteDeDomicilio}
+                  id="typeDocument"
+                >
+                  Comprobante de domicilio
+                </div>
+                <img
+                  className={styles.bifileEarmarkPdfIcon}
+                  alt=""
+                  src="/buyer/bifileearmarkpdf.svg"
+                />
+                <div className={styles.documento3Child} />
+              </div>
+              <div className={styles.documento2}>
+                <Button
+                  className={styles.editarbutton}
+                  sx={{ width: 132.2635498046875 }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Editar
+                </Button>
+                <Button
+                  className={styles.borrarbutton}
+                  sx={{ width: 132.2635498046875 }}
+                  variant="contained"
+                  name="Borrar"
+                  color="primary"
+                >
+                  Borrar
+                </Button>
+                <label className={styles.estatus1} htmlFor="status">
+                  Aceptado
+                </label>
+                <label className={styles.licenciaDeConducir} id="typeDocument">
+                  Licencia de conducir
+                </label>
+                <img
+                  className={styles.bifileEarmarkPdfIcon}
+                  alt=""
+                  src="/buyer/bifileearmarkpdf.svg"
+                />
+                <div className={styles.documento3Child} />
+              </div>
+              <div className={styles.documento1}>
+                <Button
+                  className={styles.editarbutton}
+                  sx={{ width: 132.2635498046875 }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Editar
+                </Button>
+                <Button
+                  className={styles.borrarbutton}
+                  sx={{ width: 132.2635498046875 }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Borrar
+                </Button>
+                <label className={styles.estatus2} htmlFor="status">
+                  Pendiente
+                </label>
+                <div className={styles.ine} id="typeDocument">
+                  INE
+                </div>
+                <img
+                  className={styles.bifileEarmarkPdfIcon}
+                  alt=""
+                  src="/buyer/bifileearmarkpdf.svg"
+                />
+                <div className={styles.documento3Child} />
+              </div>
+            </div>
+            <b className={styles.misDocumentos1}>Mis Documentos</b>
           </div>
-          <img
-            className={styles.bifileEarmarkPdfIcon}
-            alt=""
-            src="/bifileearmarkpdf.svg"
-          />
-          <div className={styles.documento1Child} />
-        </div>
-        <div className={styles.documento21}>
-          <Button
-            className={styles.borrarCuenta}
-            sx={{ width: 127 }}
-            variant="contained"
-            color="primary"
-          >
-            Editar
-          </Button>
-          <Button
-            className={styles.borrarEditar}
-            sx={{ width: 127 }}
-            variant="contained"
-            name="Borrar"
-            color="primary"
-          >
-            Borrar
-          </Button>
-          <div className={styles.pendiente}>Aceptado</div>
-          <label className={styles.comprobanteDeDomicilio}>
-            Licencia de conducir
-          </label>
-          <img
-            className={styles.bifileEarmarkPdfIcon}
-            alt=""
-            src="/bifileearmarkpdf.svg"
-          />
-          <div className={styles.documento1Child} />
-        </div>
-        <b className={styles.misDocumentos}>Mis Documentos</b>
+        </section>
+        <SideMenu />
+        <div className={styles.nombreApellidos}>{`Nombre - Apellidos `}</div>
+        <b className={styles.bienvenidx}>Bienvenidx</b>
       </div>
       {isPopupSubirDocsOpen && (
         <PortalPopup
-          overlayColor="rgba(113, 113, 113, 0.3)"
+          overlayColor="rgba(113, 113, 113, 0.4)"
           placement="Centered"
           onOutsideClick={closePopupSubirDocs}
         >
           <PopupSubirDocs onClose={closePopupSubirDocs} />
-        </PortalPopup> //Se accede al seleccionar la opcion de subir un nuevo documento 
+        </PortalPopup>
       )}
     </>
   );
 };
 
-export default InfoDocumentos;
+export default SubirDocumento;
