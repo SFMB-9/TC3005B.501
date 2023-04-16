@@ -1,3 +1,11 @@
+/*
+  Autor: Mateo Herrera
+  Fecha: 2023-04-15
+
+  Este script representa el componente Process, el cual es utilizado para mostrar
+  el proceso de compra de la pagina.
+*/
+
 import React from 'react'
 import Step from '@/components/Step'
 import Image from 'next/image'
@@ -6,6 +14,7 @@ import Link from 'next/link'
 import Button from '@mui/material/Button'
 
 
+// Funcion que retorna el componente Process
 const Process = () => {
   return (
     <section>

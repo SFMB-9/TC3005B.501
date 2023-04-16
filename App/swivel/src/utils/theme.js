@@ -1,3 +1,10 @@
+/*
+  Autor: Mateo Herrera
+  Fecha: 2023-04-15
+  
+  Archivo de configuración de temas de la aplicación.
+*/
+
 import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({

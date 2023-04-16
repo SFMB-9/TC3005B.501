@@ -1,9 +1,19 @@
+/*
+  Autores: Mateo Herrera
+  Fecha: 2023-04-15
+
+  Este script reresenta el componente Card, el cual es utilizado para mostrar
+  información de manera resumida en una tarjeta.
+*/
+
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
+// Fucncion que recibe una imagen, un titulo e informacion para mostrar en la 
+// tarjeta
 export default function MediaCard(props) {
   return (
     <Card sx={{ borderRadius: 4}} style={{backgroundColor: "#F6F6F6"}} className='mt-4'>

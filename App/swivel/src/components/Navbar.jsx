@@ -1,3 +1,11 @@
+/*
+  Autor: Mateo Herrera
+  Fecha: 2023-04-15
+
+  Este script representa el componente Navbar, el cual es utilizado para mostrar
+  la barra de navegacion de la pagina.
+*/
+
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,6 +20,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 
+// Constantes que contienen los nombres de las paginas y sus respectivos links
 const pages = [
   {name: 'Catalogo', link: '/catalogo'},
   {name: 'TODO', link: '/TODO'}, 
@@ -22,6 +31,7 @@ const settings = [
   {name: 'Inicia Sesion', link: '/Iniciar Sesion'},
 ];
 
+// Funcion que retorna el componente Navbar
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -89,9 +99,13 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <Link key={page.name} href={page.link} style={{ textDecoration: 'none' }}>
-                
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography color='black' fontFamily='Raleway' fontSize={13}>{page.name}</Typography>
+                    <Typography
+                     color='black' 
+                     fontFamily='Raleway' 
+                     fontSize={13}>
+                      {page.name}
+                    </Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -110,7 +124,6 @@ function ResponsiveAppBar() {
               src="/sidebar_swivel_logo.svg"
             />
           </Link>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             sx={{
               mr: 2,
@@ -121,7 +134,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly'}}>
             {pages.map((page) => (
-              <Link href={page.link} style={{ textDecoration: 'none' }}>
+              <Link href={page.link} style={{ textDecoration: 'none' }} key={page.name}>
                   <Typography
                    color='black' 
                    fontFamily='Raleway'
@@ -154,9 +167,15 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <Link href={setting.link} style={{ textDecoration: 'none' }}>
+                <Link href={setting.link} style={{ textDecoration: 'none' }} key={setting.name}>
                   <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" fontFamily='Raleway' fontSize={13} color='black'>{setting.name}</Typography>
+                    <Typography 
+                      textAlign="center" 
+                      fontFamily='Raleway' 
+                      fontSize={13} 
+                      color='black'>
+                        {setting.name}
+                    </Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -165,14 +184,13 @@ function ResponsiveAppBar() {
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {settings.map((setting, index) => (
-              <Link href={setting.link} style={{ textDecoration: 'none' }}>
+              <Link href={setting.link} style={{ textDecoration: 'none' }} key={setting.name}>
                 <Button
                   variant='contained'
                   disableElevation
                   color= {index === 0 ? 'secondary' : 'alternate'}
                   className= 'mx-2 rounded-pill'
                   size='medium'
-                  key={setting.name}
                   onClick={handleCloseUserMenu}
                   sx={{ my: 2, display: 'block' }}
                 >
