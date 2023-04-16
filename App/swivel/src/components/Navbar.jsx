@@ -84,7 +84,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="primary"
+              color="black"
             >
               <MenuIcon />
             </IconButton>
@@ -110,7 +110,7 @@ function ResponsiveAppBar() {
                 <Link href={page.link} style={{ textDecoration: 'none' }}>
                 
                   <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center" color='primary'>{page.name}</Typography>
+                    <Typography color='black' fontFamily='Raleway' fontSize={13}>{page.name}</Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -138,17 +138,16 @@ function ResponsiveAppBar() {
             }}
           >
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-around'}}>
             {pages.map((page) => (
               <Link href={page.link} style={{ textDecoration: 'none' }}>
-                <Button
-                  key={page.name}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, display: 'block' }}
-                  color='primary'
-                >
-                  <Typography color='primary' fontFamily='raleway'>{page.name}</Typography>
-                </Button>
+                  <Typography
+                   color='black' 
+                   fontFamily='Raleway'
+                   fontSize={13}
+                  >
+                    {page.name}
+                  </Typography>
               </Link>
             ))}
           </Box>
@@ -178,7 +177,7 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <Link href={setting.link} style={{ textDecoration: 'none' }}>
                   <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting.name}</Typography>
+                    <Typography textAlign="center" fontFamily='Raleway' fontSize={13}>{setting.name}</Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -186,18 +185,25 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {settings.map((setting) => (
+            {settings.map((setting, index) => (
               <Link href={setting.link} style={{ textDecoration: 'none' }}>
                 <Button
                   variant='contained'
                   disableElevation
-                  color='secondary'
-                  className='mx-2'
+                  color= {index === 0 ? 'secondary' : 'primary'}
+                  className='mx-2 rounded'
+                  size='medium'
                   key={setting.name}
                   onClick={handleCloseUserMenu}
                   sx={{ my: 2, display: 'block' }}
                 >
-                  {setting.name}
+                   <Typography
+                    color='black' 
+                    fontFamily='Raleway'
+                    fontSize={13}
+                  >
+                    {setting.name}
+                  </Typography>
                 </Button>
               </Link>
             ))}
