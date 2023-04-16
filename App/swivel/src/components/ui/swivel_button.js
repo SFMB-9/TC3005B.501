@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-const ButtonMango = ({
+const SwivelButton = ({
   children,
   href,
   hoverColor,
@@ -43,4 +43,4 @@ const ButtonMango = ({
   );
 };
 
-export default ButtonMango;
+export default SwivelButton;
