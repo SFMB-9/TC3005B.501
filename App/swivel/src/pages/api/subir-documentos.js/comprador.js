@@ -1,3 +1,5 @@
+// H_016: Endpoint de subir documento como Usuario Comprador
+
 import { getSession } from "next-auth/client";
 import multer from "multer"; // Import package
 import { v4 as uuidv4 } from "uuid"; // Import package
@@ -46,7 +48,7 @@ export default async function handler(req, res) {
 
         const result = await db
           .collection("documentos-" + thisUserType)
-          .insertOne({ title, description, filePath });
+          .insertOne({ title, description, filePath, userId: session.user.id });
 
         if (!result) {
           return res.status(500).json({ message: "Failed to upload document" });
