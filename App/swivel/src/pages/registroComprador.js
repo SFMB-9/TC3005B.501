@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import FormRegistro from '@/components/formRegistro';
-import styles from "@/styles/formRegistro.module.css";
+import styles from "@/styles/registroComprador.module.css";
 
 export default function registroComprador () {
     return (
-      <div className={styles.login}>
+      <div className={styles.registro}>
         <div className={styles.card}>
-          <div className={styles.cardlogin}>
+          <div className={styles.cardRegistro}>
             <FormRegistro/>
           </div>
           <div className={styles.cardwelcome}>
@@ -19,7 +19,7 @@ export default function registroComprador () {
                 />
                 <div className={styles.welcometext}>
                   <b className={styles.bienvenidx}>Bienvenidx</b>
-                <div className={styles.iniciaSesinY}>
+                <div className={styles.crearCuenta}>
                   Compra el auto de tus sueños a un Click
                 </div>
               </div>
