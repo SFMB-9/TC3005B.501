@@ -8,7 +8,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
@@ -58,24 +57,6 @@ function ResponsiveAppBar() {
               src="/sidebar_swivel_logo.svg"
             />
           </Link>
-          {/* <AdbIcon sx={{ sdisplay: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -84,7 +65,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="black"
+              sx={{ p: 0, color: 'black' }}
             >
               <MenuIcon />
             </IconButton>
@@ -107,9 +88,9 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <Link href={page.link} style={{ textDecoration: 'none' }}>
+                <Link key={page.name} href={page.link} style={{ textDecoration: 'none' }}>
                 
-                  <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <MenuItem onClick={handleCloseNavMenu}>
                     <Typography color='black' fontFamily='Raleway' fontSize={13}>{page.name}</Typography>
                   </MenuItem>
                 </Link>
@@ -138,7 +119,7 @@ function ResponsiveAppBar() {
             }}
           >
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-around'}}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly'}}>
             {pages.map((page) => (
               <Link href={page.link} style={{ textDecoration: 'none' }}>
                   <Typography
@@ -153,11 +134,9 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ display: { md: 'none' } }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <MoreVertIcon fontSize='inherit' />
-              </IconButton>
-            </Tooltip>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'black' }}>
+              <MoreVertIcon/>
+            </IconButton>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -177,7 +156,7 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <Link href={setting.link} style={{ textDecoration: 'none' }}>
                   <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" fontFamily='Raleway' fontSize={13}>{setting.name}</Typography>
+                    <Typography textAlign="center" fontFamily='Raleway' fontSize={13} color='black'>{setting.name}</Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -190,14 +169,14 @@ function ResponsiveAppBar() {
                 <Button
                   variant='contained'
                   disableElevation
-                  color= {index === 0 ? 'secondary' : 'primary'}
-                  className='mx-2 rounded'
+                  color= {index === 0 ? 'secondary' : 'alternate'}
+                  className= 'mx-2 rounded-pill'
                   size='medium'
                   key={setting.name}
                   onClick={handleCloseUserMenu}
                   sx={{ my: 2, display: 'block' }}
                 >
-                   <Typography
+                  <Typography
                     color='black' 
                     fontFamily='Raleway'
                     fontSize={13}
