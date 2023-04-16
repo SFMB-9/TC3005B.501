@@ -9,9 +9,28 @@ import Testimonials from '@/components/Testimonials'
 import Process from '@/components/Process'
 import Footer from '@/components/Footer'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showHeader, setShowHeader] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.pageYOffset;
+      setScrollPosition(position);
+      setShowHeader(position < window.innerHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const carPosition = Math.min(scrollPosition * -1.2, 400);
+  const opacity = Math.max(1 - (carPosition / 400), 0);
+
   return (
     <>
       <Navbar /> 

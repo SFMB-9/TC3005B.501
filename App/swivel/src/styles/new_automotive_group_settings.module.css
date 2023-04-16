@@ -1,0 +1,97 @@
+.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.lg .sm {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+}
+
+.lg {
+    font-size: large;
+    padding-bottom: 15px;
+}
+
+.tag {
+    color: #8b8b8b;
+}
+
+.sm {
+    color: #8b8b8b;
+    padding-top: 5px;
+    font-size: 90%;
+}
+
+.pencil {
+    width: 38px;
+    padding-left: 20px;
+    padding-top: 5px;
+    align-self: flex-end;
+}
+
+#address {
+    padding-top: 30px;
+}
+
+#buttons_wrapper {
+    display: flex;
+    flex-direction: row;
+    padding-top: 30px;
+    justify-content: space-around;
+}
+
+/* Responsive Collapse Behavior */
+@media (max-width: 576px) {
+    .field {
+        flex-direction: column;
+    }
+
+    .sm {
+        display: none;
+    }
+
+    .lg .sm {
+        display: none;
+    }
+
+    .lg {
+        padding-bottom: 5px;
+    }
+
+    .pencil {
+        align-self: flex-start;
+        padding-top: 10px;
+    }
+
+    .collapse-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .collapse-btn i {
+        font-size: 20px;
+        color: #8b8b8b;
+    }
+
+    .collapse-btn.active i {
+        transform: rotate(180deg);
+    }
+
+    .collapse-content {
+        display: none;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    .collapse-content.show {
+        display: block;
+        max-height: 100vh;
+    }
+}
