@@ -21,3 +21,5 @@ export default function App({ Component, pageProps }) {
     </>
   ) 
 }
+
+export default MyApp;
