@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import '@/styles/hero.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
 import { useEffect } from 'react'
