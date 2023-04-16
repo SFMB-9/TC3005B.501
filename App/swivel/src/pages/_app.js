@@ -1,13 +1,25 @@
 import '@/styles/globals.css'
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '@/components/ui/theme';
+import '@/styles/hero.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import Head from "next/head";
+import { useEffect } from 'react'
+import { theme } from '../utils/theme'
+import { ThemeProvider } from '@mui/material'
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
+  useEffect(() => {
+    import('bootstrap/dist/js/bootstrap')
+  }, [])
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
+  ) 
 }
 
 export default MyApp;
