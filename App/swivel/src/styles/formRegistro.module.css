@@ -1,4 +1,4 @@
-.iniciarSesin,
+.crearCuenta,
 .swVel {
   position: relative;
 }
@@ -10,7 +10,7 @@
   -webkit-text-stroke: 1.5px #fff;
 }
 
-.iniciarSesin {
+.crearCuenta {
   align-self: stretch;
   font-family: var(--font-raleway);
   font-size: var(--font-size-21xl);
@@ -18,6 +18,7 @@
   text-align: center;
   padding: 20px 0px 10px;
 }
+
 .campoForm {
     border: 0;
     background-color: transparent;
@@ -29,7 +30,7 @@
     padding: 2px, 0, 1px ;
   }
   
-  .botningreso {
+  .botnregistro {
     align-self: stretch;
     background-color: var(--contraste);
     border-color: var(--contraste);
@@ -74,25 +75,10 @@
   justify-content: space-between;
 }
 
-.regstrateAqu {
-    text-decoration: underline;
-    color: #000;
-  }
-  
-  .noTienesCuentaContainer {
-    align-self: stretch;
-    position: relative;
-    font-size: var(--font-size-xl);
-    font-weight: 300;
-    font-family: var(--font-lato);
-    color: black;
-    text-align: center;
-  }
-  
-  .forms {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
-  }
+.forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}

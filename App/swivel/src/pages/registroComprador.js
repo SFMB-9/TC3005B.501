@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import LoginForm from '@/components/formRegistro';
-import styles from "./formRegistro.module.css";
+import FormRegistro from '@/components/formRegistro';
+import styles from "@/styles/formRegistro.module.css";
 
-export default function LoginBuyer () {
+export default function registroComprador () {
     return (
       <div className={styles.login}>
         <div className={styles.card}>
           <div className={styles.cardlogin}>
-            <LoginForm />
+            <FormRegistro/>
           </div>
           <div className={styles.cardwelcome}>
             <div className={styles.cardwelcomebackground}>
@@ -20,7 +20,7 @@ export default function LoginBuyer () {
                 <div className={styles.welcometext}>
                   <b className={styles.bienvenidx}>Bienvenidx</b>
                 <div className={styles.iniciaSesinY}>
-                  Inicia sesión y encuentra el auto de tus sueños en un click.
+                  Compra el auto de tus sueños a un Click
                 </div>
               </div>
             </div>
