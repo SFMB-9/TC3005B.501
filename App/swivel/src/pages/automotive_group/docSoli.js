@@ -8,6 +8,20 @@ import NAGHeader from '@/components/new_automotive_group_header'
 
 
 const DocumentosGASolicitante = () => {
+
+    const handleCollapsedChange = () => {
+        setCollapsed(!collapsed)
+      }
+    
+      const handleToggleSidebar = (value) => {
+        setToggled(value)
+      }
+    
+      const handleSidebarCollapse = () => {
+        setCollapsed(!collapsed)
+        setToggled(false)
+      }
+    
   return (
     <div className={styles.documentosGaSolicitante}>
       <img className={styles.blobsHeaderIcon} alt="" src="/grupo_auto/blobsheader.svg" />
@@ -110,6 +124,7 @@ const DocumentosGASolicitante = () => {
         <div className={styles.ayuda} />
         <div className={styles.documentos} />
         <div className={styles.ajustesDelPerfil} />
+
         <div className={styles.top}>
           <div className={styles.swivel}>
             <div className={styles.swVelParent}>
