@@ -47,7 +47,7 @@ const Process = () => {
             <div className='col-lg col-md-6 mt-3'>
               <Step
                 number='1'
-                img='/step_1.svg'
+                img='/process_step_1.svg'
                 text='Busca tu 
                 auto ideal'
               />
@@ -56,7 +56,7 @@ const Process = () => {
             <div className='col-lg col-md-6 mt-3'>
               <Step
                 number='2'
-                img='/step_2.svg'
+                img='/process_step_2.svg'
                 text='Solicita una 
                 prueba de manejo'
               />
@@ -65,7 +65,7 @@ const Process = () => {
             <div className='col-lg col-md-6 mt-3'>
               <Step
                 number='3'
-                img='/step_3.svg'
+                img='/process_step_3.svg'
                 text='Encuentra el mejor 
                 plan de pagos para tí'
               />
@@ -74,7 +74,7 @@ const Process = () => {
             <div className='col-lg col-md-6 mt-3'>
               <Step
                 number='4'
-                img='/step_4.svg'
+                img='/process_step_4.svg'
                 text='Recibe el auto 
                 de tus sueños'
               />
