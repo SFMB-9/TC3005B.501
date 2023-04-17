@@ -1,5 +1,5 @@
 import React from 'react'
-import Step from '@/components/step'
+import Step from '@/components/ui/step'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
 import Link from 'next/link'
