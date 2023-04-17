@@ -40,3 +40,31 @@ a {
   background-color: #c4c4c4;
   border-radius: 8px;
 }
+
+
+:root {
+  /* Info tipografía. */
+  --font-lato: Lato;
+  --font-raleway: Raleway;
+
+  /* Tamaños de tipografía. */
+  --font-size-17xl: 36px;
+  --font-size-45xl: 64px;
+  --font-size-xl: 20px;
+  --font-size-21xl: 40px;
+  --font-size-38xl-2: 57.2px;
+  --font-size-5xl: 24px;
+
+  /* Colores principales. */
+  --white: #ffffff;
+  --contraste: rgba(32, 35, 79, 1);
+  
+  /* Paddings */
+  --padding-12xs: 1px;
+  --padding-3xs: 10px;
+
+  /* Radios de bordes */
+  --br-3xs: 10px;
+  --br-12xs: 1px;
+
+}
