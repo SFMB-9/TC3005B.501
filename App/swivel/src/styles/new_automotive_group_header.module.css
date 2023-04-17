@@ -1,8 +1,9 @@
 /* NAG Header Styles */
 .header {
-    /* background-image: url('/new_automotive_group_header.svg'); */
-    width: 100vw;
-    background-color: #f0751d;
+    background-image: url('/new_automotive_group_header.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: #f0751d; */
     display: flex;
 }
 

@@ -1,7 +1,7 @@
 /* NAG FORM STYLES */
 .container * {
     margin: 0;
-    padding: 0;
+    padding-right: 10px;
 }
 
 .field {
@@ -30,7 +30,7 @@
 }
 
 .pencil {
-    width: 38px;
+    width: 48px;
     padding-left: 20px;
     padding-top: 5px;
     align-self: flex-end;
