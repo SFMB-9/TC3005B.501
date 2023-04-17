@@ -84,7 +84,7 @@ const Hero = () => {
               className='blob_hero'
               height={700}
               alt="blob hero section"
-              src="/blob_hero_section.svg"
+              src="/hero_section_blob.svg"
             />
           </div>
         </div>

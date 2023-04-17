@@ -8,7 +8,7 @@
 
 import React from 'react'
 import { Typography } from '@mui/material'
-import Card from './Card'
+import Card from './ui/card'
 
 // Funcion que retorna el componente Testimonials
 const Testimonials = () => {

@@ -7,7 +7,7 @@
 */
 
 import React from 'react'
-import Step from '@/components/Step'
+import Step from '@/components/ui/step'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
 import Link from 'next/link'
@@ -82,7 +82,7 @@ const Process = () => {
           </div>
           
           <div className='d-flex justify-content-center mt-5'>
-            <Link href='/compra' style={{ textDecoration: 'none' }}>
+            <Link href='/catalog' style={{ textDecoration: 'none' }}>
               <Button
                 variant='contained'
                 disableElevation

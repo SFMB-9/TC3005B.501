@@ -1,7 +1,11 @@
+/* NAG FORM STYLES */
+.container * {
+    margin: 0;
+    padding: 0;
+}
+
 .field {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .lg .sm {
@@ -94,4 +98,8 @@
         display: block;
         max-height: 100vh;
     }
+}
+
+.container {
+    padding: 20px;
 }

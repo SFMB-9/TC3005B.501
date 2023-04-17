@@ -1,3 +1,4 @@
+// New Automotive Group Header Component
 import styles from '@/styles/new_automotive_group_header.module.css'
 
 const NewAutomotiveGroupHeader = () => {

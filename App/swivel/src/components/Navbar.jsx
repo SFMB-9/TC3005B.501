@@ -9,27 +9,27 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Link from 'next/link';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 // Constantes que contienen los nombres de las paginas y sus respectivos links
 const pages = [
-  {name: 'Catalogo', link: '/catalogo'},
+  {name: 'Catálogo', link: '/catalog'},
   {name: 'TODO', link: '/TODO'}, 
-  {name: 'Auto-Quiz', link: '/Auto-Quiz'},  
+  {name: 'Auto-Quiz™', link: '/quiz'},  
 ];
 const settings = [
-  {name: 'Registrate', link: '/Registrate'},
-  {name: 'Inicia Sesion', link: '/Iniciar Sesion'},
+  {name: 'Registrate', link: '/auth/signup'},
+  {name: 'Inicia Sesion', link: '/auth/login'},
 ];
 
 // Funcion que retorna el componente Navbar
@@ -78,7 +78,7 @@ function ResponsiveAppBar() {
                 height: '30px',
               }}
               alt="Logo."
-              src="/sidebar_swivel_logo.svg"
+              src="/appbar_swivel_logo.svg"
             />
           </Link>
 
@@ -135,7 +135,7 @@ function ResponsiveAppBar() {
                 flexGrow: 1,
               }}
               alt="Logo."
-              src="/sidebar_swivel_logo.svg"
+              src="/appbar_swivel_logo.svg"
             />
           </Link>
           <Typography
