@@ -1,25 +1,25 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Link from 'next/link';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 const pages = [
-  {name: 'Catalogo', link: '/catalogo'},
+  {name: 'Catálogo', link: '/catalog'},
   {name: 'TODO', link: '/TODO'}, 
-  {name: 'Auto-Quiz', link: '/Auto-Quiz'},  
+  {name: 'Auto-Quiz™', link: '/quiz'},  
 ];
 const settings = [
-  {name: 'Registrate', link: '/Registrate'},
-  {name: 'Inicia Sesion', link: '/Iniciar Sesion'},
+  {name: 'Registrate', link: '/auth/signup'},
+  {name: 'Inicia Sesion', link: '/auth/login'},
 ];
 
 function ResponsiveAppBar() {
@@ -54,7 +54,7 @@ function ResponsiveAppBar() {
                 height: '30px',
               }}
               alt="Logo."
-              src="/sidebar_swivel_logo.svg"
+              src="/appbar_swivel_logo.svg"
             />
           </Link>
 
@@ -89,7 +89,6 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <Link key={page.name} href={page.link} style={{ textDecoration: 'none' }}>
-                
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography color='black' fontFamily='Raleway' fontSize={13}>{page.name}</Typography>
                   </MenuItem>
@@ -107,10 +106,9 @@ function ResponsiveAppBar() {
                 flexGrow: 1,
               }}
               alt="Logo."
-              src="/sidebar_swivel_logo.svg"
+              src="/appbar_swivel_logo.svg"
             />
           </Link>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             sx={{
               mr: 2,
