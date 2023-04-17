@@ -1,0 +1,474 @@
+.blobsHeaderIcon,
+.block {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 1602px;
+  height: 529.52px;
+}
+.block {
+  height: 32.62%;
+  width: 81.46%;
+  top: 20.21%;
+  right: 0.07%;
+  bottom: 47.17%;
+  left: 18.47%;
+  background-color: var(--white);
+}
+.groupIcon {
+  position: absolute;
+  height: 11.76%;
+  width: 4.81%;
+  top: 0;
+  right: 94.33%;
+  bottom: 88.24%;
+  left: 0.86%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.documento,
+.rechazado {
+  position: absolute;
+  top: 8.24px;
+  font-weight: 500;
+  display: inline-block;
+  height: 30.2px;
+}
+.documento {
+  left: 76.87px;
+  text-align: left;
+  width: 185.3px;
+}
+.rechazado {
+  left: 499.63px;
+  color: #f52626;
+  width: 150.99px;
+}
+.aprobado,
+.aprobado1 {
+  position: absolute;
+  top: 80.98px;
+  left: 499.63px;
+}
+.aprobado1 {
+  top: 157.85px;
+}
+.pendiente,
+.pendiente1,
+.pendiente2 {
+  position: absolute;
+  top: 236.09px;
+  left: 499.63px;
+  font-weight: 500;
+  display: inline-block;
+  width: 141.38px;
+  height: 30.2px;
+}
+.pendiente1,
+.pendiente2 {
+  top: 312.96px;
+}
+.pendiente2 {
+  top: 392.57px;
+}
+.bifileEarmarkPdfIcon {
+  position: absolute;
+  top: 71.38px;
+  left: 0;
+  width: 61.77px;
+  height: 48.04px;
+  overflow: hidden;
+}
+.documento1 {
+  position: absolute;
+  top: 80.98px;
+  left: 76.87px;
+  font-weight: 500;
+  text-align: left;
+  display: inline-block;
+  width: 284.13px;
+  height: 30.2px;
+}
+.bifileEarmarkPdfIcon1 {
+  position: absolute;
+  top: 148.24px;
+  left: 0;
+  width: 61.77px;
+  height: 48.04px;
+  overflow: hidden;
+}
+.documento2 {
+  position: absolute;
+  top: 157.85px;
+  left: 76.87px;
+  font-weight: 500;
+  text-align: left;
+  display: inline-block;
+  width: 369.23px;
+  height: 30.2px;
+}
+.bifileEarmarkPdfIcon2 {
+  position: absolute;
+  top: 226.48px;
+  left: 0;
+  width: 61.77px;
+  height: 48.04px;
+  overflow: hidden;
+}
+.documento3 {
+  position: absolute;
+  top: 236.09px;
+  left: 76.87px;
+  font-weight: 500;
+  text-align: left;
+  display: inline-block;
+  width: 166.09px;
+  height: 30.2px;
+}
+.groupIcon1 {
+  position: absolute;
+  height: 11.76%;
+  width: 4.81%;
+  top: 88.22%;
+  right: 94.33%;
+  bottom: 0.02%;
+  left: 0.86%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.documento4 {
+  position: absolute;
+  top: 392.57px;
+  left: 76.87px;
+  font-weight: 500;
+  text-align: left;
+  display: inline-block;
+  width: 166.09px;
+  height: 30.2px;
+}
+.bifileEarmarkPdfIcon3 {
+  position: absolute;
+  top: 303.35px;
+  left: 0;
+  width: 61.77px;
+  height: 48.04px;
+  overflow: hidden;
+}
+.documento5 {
+  position: absolute;
+  top: 312.96px;
+  left: 76.87px;
+  font-weight: 500;
+  text-align: left;
+  display: inline-block;
+  width: 166.09px;
+  height: 30.2px;
+}
+.btnEditar {
+  position: absolute;
+  top: 0;
+  left: 789.25px;
+}
+.btnEditar1,
+.btnEditar2,
+.btnEditarChild {
+  position: absolute;
+  top: 72.75px;
+  left: 789.25px;
+}
+.btnEditar2,
+.btnEditarChild {
+  top: 149.61px;
+}
+.btnEditarChild {
+  top: 0;
+  left: 0;
+  border-radius: var(--br-8xs);
+  background-color: var(--gris-claro);
+  width: 172.7px;
+  height: 46.67px;
+}
+.editar {
+  position: absolute;
+  top: 8.24px;
+  left: 45.3px;
+  font-weight: 500;
+  display: inline-block;
+  width: 82.83px;
+  height: 30.2px;
+}
+.btnEditar3,
+.btnEditar4,
+.btnEditar5,
+.info {
+  position: absolute;
+  top: 227.85px;
+  left: 789.25px;
+  width: 172.7px;
+  height: 46.67px;
+  color: var(--color-dimgray-100);
+}
+.btnEditar4,
+.btnEditar5,
+.info {
+  top: 304.72px;
+}
+.btnEditar5,
+.info {
+  top: 384.33px;
+}
+.info {
+  height: 42.09%;
+  width: 66.8%;
+  top: 33.4%;
+  right: 10.49%;
+  bottom: 24.51%;
+  left: 22.71%;
+  text-align: center;
+  color: var(--color-dimgray-200);
+}
+.icon,
+.username {
+  position: relative;
+}
+.icon {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+.username {
+  display: inline-block;
+  width: 556px;
+}
+.profile,
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.profile {
+  position: absolute;
+  top: 51px;
+  left: 327px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+  font-size: 60px;
+  color: var(--white);
+  font-family: var(--font-raleway);
+}
+.sideMenuNuevoChild {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--white);
+  border-right: 1px solid var(--gris-claro);
+  box-sizing: border-box;
+}
+.icons,
+.text1 {
+  position: relative;
+}
+.icons {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.text1 {
+  line-height: 140%;
+}
+.bottom,
+.content,
+.listManu {
+  display: flex;
+  justify-content: flex-start;
+}
+.content {
+  width: 186px;
+  height: 24px;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-base);
+}
+.bottom,
+.listManu {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.listManu {
+  border-radius: var(--br-5xs);
+  padding: var(--padding-base);
+}
+.bottom {
+  position: absolute;
+  height: 5.47%;
+  width: 81.95%;
+  top: 84.38%;
+  right: 9.02%;
+  bottom: 10.16%;
+  left: 9.02%;
+}
+.ajustesDelPerfil,
+.ayuda,
+.documentos {
+  position: absolute;
+  height: 5.47%;
+  width: 99.62%;
+  right: 0;
+  left: 0.38%;
+  background-color: var(--gris-claro);
+}
+.ayuda {
+  top: 36.52%;
+  bottom: 58.01%;
+  display: none;
+}
+.ajustesDelPerfil,
+.documentos {
+  top: 28.71%;
+  bottom: 65.82%;
+}
+.ajustesDelPerfil {
+  top: 20.9%;
+  bottom: 73.63%;
+  display: none;
+}
+.swVel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 218px;
+  -webkit-text-stroke: 1.5px #fff;
+}
+.groupChild,
+.swVelParent {
+  position: absolute;
+  top: 8.37px;
+  left: 95.27px;
+  width: 16.2px;
+  height: 36.26px;
+}
+.swVelParent {
+  top: 0;
+  left: 0;
+  width: 218px;
+  height: 54px;
+}
+.icon1,
+.swivel {
+  position: relative;
+  flex-shrink: 0;
+}
+.swivel {
+  align-self: stretch;
+  height: 54px;
+  text-align: center;
+  font-size: 45.65px;
+  color: #111439;
+}
+.icon1 {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+.mail,
+.username1 {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+}
+.mail {
+  font-size: 14px;
+  font-family: var(--font-lato);
+}
+.profile1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.text3 {
+  position: relative;
+  line-height: 140%;
+  mix-blend-mode: normal;
+}
+.pajamasdocumentsIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.listitem,
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.listitem {
+  align-self: stretch;
+  gap: 24px;
+  font-family: var(--font-lato);
+}
+.top {
+  position: absolute;
+  height: 39.65%;
+  top: 2.34%;
+  bottom: 58.01%;
+  left: calc(50% - 97px);
+  gap: 44px;
+  font-family: var(--font-raleway);
+}
+.sideMenuNuevo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 266px;
+  height: 1024px;
+  font-size: var(--font-size-base);
+}
+.comentarios,
+.subeTusDocumentos {
+  position: absolute;
+  top: 258px;
+  left: 335px;
+  font-size: 30px;
+  font-weight: 500;
+}
+.comentarios {
+  top: 807px;
+  font-size: 25px;
+}
+.documentosGaSolicitanteChild {
+  position: absolute;
+  top: 852px;
+  left: 335px;
+  border-radius: 10px;
+  border: 1px solid var(--gris-claro);
+  box-sizing: border-box;
+  width: 954px;
+  height: 130px;
+}
+.documentosGaSolicitante {
+  position: relative;
+  background-color: var(--white);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-lg);
+  color: var(--gris-fuerte);
+  font-family: var(--font-lato);
+}
