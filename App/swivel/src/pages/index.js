@@ -4,10 +4,8 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar.jsx'
-import Hero from '@/components/Hero'
 import Testimonials from '@/components/Testimonials'
 import Process from '@/components/Process'
-import Footer from '@/components/Footer'
 import { useState, useEffect } from 'react'
 
 const inter = Inter({ subsets: ['latin'] });
