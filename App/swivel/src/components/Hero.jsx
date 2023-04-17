@@ -1,3 +1,11 @@
+/*
+  Autor: Mateo Herrera
+  Fecha: 2023-04-15
+
+  Este componente representa el hero de la pagina, el cual contiene la imagen
+  principal de la pagina y el texto que explica el servicio que ofrece la pagina.
+*/
+
 import React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -5,6 +13,8 @@ import Link from 'next/link'
 import { Typography } from '@mui/material'
 import Image from 'next/image'
 
+
+// Funcion que retorna el hero de la pagina
 const Hero = () => {
   return (
     
@@ -23,7 +33,7 @@ const Hero = () => {
 
               >
                 Compra tu auto <br/>
-                completamente en línea
+                completamente en linea
               </Typography>
             </div>
             <div className='text-lg-start text-center p-2'>
@@ -35,7 +45,8 @@ const Hero = () => {
                 }}
                 fontFamily='Lato'
               >
-                Encuentras cientos de autos y marcas diferentes en una misma plataforma y haz tu compra 100% en linea
+                Encuentras cientos de autos y marcas diferentes en una misma 
+                plataforma y haz tu compra 100% en linea
               </Typography>
             </div>
             <div className='d-flex justify-content-lg-start justify-content-center align p-2'>
