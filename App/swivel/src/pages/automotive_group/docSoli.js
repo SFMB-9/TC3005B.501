@@ -1,5 +1,6 @@
-import { Button } from "@mui/material";
-import styles from "<prefix>/styles/index.module.css";
+import { Button } from "@mui/material"
+import styles from '@/styles/grupoStyles/docSoli.module.css'
+
 
 const DocumentosGASolicitante = () => {
   return (
