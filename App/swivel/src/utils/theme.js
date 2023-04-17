@@ -23,44 +23,5 @@ export const theme = createTheme({
     button: {
       textTransform: 'none'
     }
-  },
-  overrides: {
-    MuiInputBase: {
-      root: {
-        "&$focused": {
-          border: "none",
-        },
-      },
-      input: {
-        padding: "8px",
-        width: "100%",
-        borderRadius: "4px",
-        border: "1px solid #ccc",
-        "&:focus": {
-          outline: "none",
-          boxShadow: "0px 0px 2px #F55C7A",
-        },
-      },
-    },
-    MuiOutlinedInput: {
-      root: {
-        borderRadius: "4px",
-        "& $notchedOutline": {
-          borderColor: "#ccc",
-        },
-        "&:hover $notchedOutline": {
-          borderColor: "#F68E70",
-        },
-        "&$focused $notchedOutline": {
-          borderColor: "#F55C7A",
-          borderWidth: "2px",
-        },
-      },
-      input: {
-        padding: "8px",
-        width: "100%",
-      },
-      notchedOutline: {},
-    },
-  },
+  }
 });
