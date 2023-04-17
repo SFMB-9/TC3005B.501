@@ -1,9 +1,11 @@
 import Footer from '@/components/footer'
 import Hero from '@/components/hero'
 import { Inter } from 'next/font/google'
-import Navbar from '@/components/navbar'
-import Process from '@/components/process'
-import Testimonials from '@/components/testimonials'
+import styles from '@/styles/Home.module.css'
+import Link from 'next/link'
+import Navbar from '@/components/Navbar.jsx'
+import Testimonials from '@/components/Testimonials'
+import Process from '@/components/Process'
 import { useState, useEffect } from 'react'
 
 const inter = Inter({ subsets: ['latin'] });

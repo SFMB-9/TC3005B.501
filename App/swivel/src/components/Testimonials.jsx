@@ -1,7 +1,16 @@
+/*
+  Autor: Mateo Herrera
+  Fecha: 2023-04-15
+
+  Este script representa el componente Testimonials, el cual es utilizado para mostrar
+  las razones por las cuales comprar en SWIVEL.
+*/
+
 import React from 'react'
 import { Typography } from '@mui/material'
 import Card from './ui/card'
 
+// Funcion que retorna el componente Testimonials
 const Testimonials = () => {
   return (
     <section className='mb-5'>
