@@ -43,7 +43,7 @@ export default function NAGForm() {
           <span className={styles.tag}>Calle</span>
         </Grid>
         <Grid item xs={12} sm={10}>
-          <TextField fullWidth variant='outlined' autoComplete='Avenida Carlos Lazo' />
+          <TextField small fullWidth variant='outlined' autoComplete='Avenida Carlos Lazo' />
         </Grid>
       </Grid>
       <Grid container spacing={4}>
