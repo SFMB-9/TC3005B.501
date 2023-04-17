@@ -59,7 +59,7 @@ const Hero = () => {
             </div>
           </div>
           <div className='col-lg d-flex d-none d-lg-block'>
-            <Image className='car_image' src='/carro_naranja.svg' alt='car' width={800} height={800}></Image>
+            <Image className='car_image' src='/orange_car.svg' alt='car' width={800} height={800}></Image>
           </div>
           <div className='col-lg d-flex '>
             <Box
@@ -67,7 +67,7 @@ const Hero = () => {
               className='blob_hero'
               height={700}
               alt="blob hero section"
-              src="/blob_hero_section.svg"
+              src="/hero_section_blob.svg"
             />
           </div>
         </div>
