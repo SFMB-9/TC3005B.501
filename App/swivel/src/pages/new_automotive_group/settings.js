@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Sidebar from '@/components/ui/sidebar'
 import NAGHeader from '@/components/new_automotive_group_header'
 import NAGForm from '@/components/new_automotive_group_form'
-import styles from '@/styles/page.module.css'
 
 export default function Settings() {
   const [collapsed, setCollapsed] = useState(false)
