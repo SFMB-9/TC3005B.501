@@ -1,40 +1,20 @@
-import Footer from '@/components/footer'
-import Hero from '@/components/hero'
+import Head from 'next/head'
+import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import Navbar from '@/components/navbar'
-import Process from '@/components/process'
-import Testimonials from '@/components/testimonials'
-import { useState, useEffect } from 'react'
+import styles from '@/styles/Home.module.css'
+import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showHeader, setShowHeader] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const position = window.pageYOffset;
-      setScrollPosition(position);
-      setShowHeader(position < window.innerHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const carPosition = Math.min(scrollPosition * -1.2, 400);
-  const opacity = Math.max(1 - (carPosition / 400), 0);
-
   return (
     <>
-      <Navbar /> 
-      <Hero />
-      <Testimonials />
-      <Process />
-      <Footer />
+      <Link href='/'>
+        <Image src='/logo.png' alt='Swivel' width={200} height={200} />
+      </Link>
+      <Link href='/auth/register'>Regístrate</Link>
+      <Link href='/auth/login'>Inicia sesión</Link>
+      <Link href='/automotive_group/settings'>Ajustes GA</Link>
     </>
   )
 }
