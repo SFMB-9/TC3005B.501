@@ -18,7 +18,7 @@ const pages = [
   {name: 'Auto-Quiz™', link: '/quiz'},  
 ];
 const settings = [
-  {name: 'Registrate', link: '/auth/signup'},
+  {name: 'Registrate', link: '/auth/signup_seller'},
   {name: 'Inicia Sesion', link: '/auth/login'},
 ];
 
