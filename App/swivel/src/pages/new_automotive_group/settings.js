@@ -66,17 +66,6 @@ export default function Settings() {
           <NAGForm/>
         </div>
       </div>
-
-      <style jsx>{`
-        @media only screen and (max-width: 768px) {
-          .sidebar {
-            display: none;
-          }
-          .app.toggled {
-            margin-left: 0 !important;
-          }
-        }
-      `}</style>
     </>
   )
 }
