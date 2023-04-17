@@ -14,7 +14,7 @@ const Process = () => {
         width: '100%',
       }}>
         <Image
-          src="/fondo_proceso.svg"
+          src="/process_background_image.svg"
           quality={100}
           fill={true}
           style={{objectFit: 'cover', zIndex: -1,}}
