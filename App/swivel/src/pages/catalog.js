@@ -1,14 +1,10 @@
-import { Navbar } from "@/components/navbar"
+import Navbar from '@/components/navbar'
 
-const Catalog = () => {
-    return (
-        <div>
-            <Navbar/>
-            Catálogo
-            (Searchbar component)
-            (Catalog component)
-        </div>
-    )
+export default function Catalog() {
+  return (
+    <>
+      <Navbar />
+      (Catalog Body)
+    </>
+  )
 }
-
-export default Catalog
