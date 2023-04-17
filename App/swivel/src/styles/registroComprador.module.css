@@ -23,8 +23,8 @@
   }
 
   .crearCuenta {
-    font-size: 30px;
-    font-family: var(--font-lato);
+    font-family: var(--font-raleway);
+    font-size: 200%;
     color: #1d1e41;
     text-align: left;
   }
@@ -58,7 +58,7 @@
   }
 
   .card {
-    flex: 1;
+    /*flex: 1; Se omite el flex para unir las 2 tarjetas, como el mockup*/
     align-items: flex-start;
     justify-content: center;
   }

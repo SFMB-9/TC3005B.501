@@ -26,12 +26,12 @@
 }
 
 .crearCuenta {
-  align-self: left;
-  font-family: var(--font-raleway);
-  font-size: var(--font-size-21xl);
+  align-self: center;
+  font-family: var(--font-lato);
+  font-size: 140%;
   color: var(--color-black);
   text-align: center;
-  padding: 20px 0px 10px;
+  /*padding: 20px 0px 10px;*/
 }
 
 .campoForm {
@@ -57,6 +57,13 @@
     color: gray;
     border-color: lightgray;
     text-align: center;
+  }
+
+  .logo{
+    position: relative;
+    width: 40%;
+    padding-top: 2%;
+
   }
   
   .logoIcon {
@@ -91,10 +98,10 @@
 }
 
 .forms {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap:5px;
   width: 400px;
 }

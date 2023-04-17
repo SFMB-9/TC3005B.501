@@ -7,8 +7,8 @@ export default function FormRegistro (){
     return (
       <div className={styles.formulario}>
         <form className={styles.forms}>
-          <img className={styles.logo} alt="" src="/swivelLogo.svg" />
-          <b className={styles.crearCuenta}>Crear Cuenta</b>
+          <img className={styles.logo} alt="" src="/swivel_logo.svg" />
+          <b className={styles.crearCuenta}>Crear cuenta</b>
           <div className={styles.datosPersonales}>
             <Form.Control placeholder="Nombre(s)"/>
             <Form.Control placeholder="Apellidos"/>
@@ -39,7 +39,7 @@ export default function FormRegistro (){
           className={styles.botngoogle}
           name="loginButtonGoogle"
           variant="secondary">
-          <img className={styles.logoIcon} alt="" src="/googleLogo.svg" />
+          <img className={styles.logoIcon} alt="" src="/google_logo.svg" />
           Crear cuenta con Google
         </Button>
         
