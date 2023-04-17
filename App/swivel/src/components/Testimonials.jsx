@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import Card from './Card'
+import Card from './ui/card'
 
 const Testimonials = () => {
   return (
