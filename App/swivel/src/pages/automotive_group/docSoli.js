@@ -1,5 +1,10 @@
 import { Button } from "@mui/material"
 import styles from '@/styles/grupoStyles/docSoli.module.css'
+import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
+import { useState } from 'react'
+import Link from 'next/link'
+import Sidebar from '@/components/ui/sidebar'
+import NAGHeader from '@/components/new_automotive_group_header'
 
 
 const DocumentosGASolicitante = () => {
