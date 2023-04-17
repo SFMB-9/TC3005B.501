@@ -1,5 +1,5 @@
-import { Button } from "@mui/material"
-import styles from '@styles/grupoStyles/docSoli.module.css'
+import { Button } from "@mui/material";
+import styles from "<prefix>/styles/index.module.css";
 
 const DocumentosGASolicitante = () => {
   return (
@@ -10,24 +10,16 @@ const DocumentosGASolicitante = () => {
         <img className={styles.groupIcon} alt="" src="/grupo_auto/bifileearmarkpdf.svg" />
         <div className={styles.documento}>Documento</div>
         <div className={styles.rechazado}>Rechazado</div>
-        <Button
+        <div
           className={styles.aprobado}
-          sx={{ width: 138.63375854492188 }}
-          variant="text"
-          name="aprobado"
-          color="primary"
         >
           Aprobado
-        </Button>
-        <Button
+        </div>
+        <div
           className={styles.aprobado1}
-          sx={{ width: 138.63375854492188 }}
-          variant="text"
-          name="aprobado"
-          color="primary"
         >
           Aprobado
-        </Button>
+        </div>
         <div className={styles.pendiente}>Pendiente</div>
         <div className={styles.pendiente1}>Pendiente</div>
         <div className={styles.pendiente2}>Pendiente</div>
@@ -69,18 +61,14 @@ const DocumentosGASolicitante = () => {
         <Button
           className={styles.btnEditar1}
           sx={{ width: 172.7026824951172 }}
-          variant="outlined"
           name="editButtonNo"
-          color="primary"
         >
           Editar
         </Button>
         <Button
           className={styles.btnEditar2}
           sx={{ width: 172.7026824951172 }}
-          variant="outlined"
           name="editButtonNo"
-          color="primary"
         >
           Editar
         </Button>
