@@ -3,7 +3,7 @@ import '@/styles/hero.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import Head from "next/head";
 import { useEffect } from 'react'
-import { theme } from '../utils/theme'
+import { theme } from '@/utils/theme'
 import { ThemeProvider } from '@mui/material'
 
 export default function App({ Component, pageProps }) {
