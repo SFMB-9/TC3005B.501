@@ -29,7 +29,7 @@ const pages = [
 ];
 const settings = [
   {name: 'Registrate', link: '/auth/signup_seller'},
-  {name: 'Inicia Sesion', link: '/auth/login'},
+  {name: 'Inicia Sesion', link: '/auth/login_comprador'},
 ];
 
 // Funcion que retorna el componente Navbar

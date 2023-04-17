@@ -3,9 +3,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Sidebar from '@/components/ui/sidebar'
 import NAGHeader from '@/components/new_automotive_group_header'
-import NAGForm from '@/components/new_automotive_group_form'
 
-export default function Settings() {
+export default function Branches () {
   const [collapsed, setCollapsed] = useState(false)
   const [toggled, setToggled] = useState(false)
 
@@ -21,7 +20,6 @@ export default function Settings() {
     setCollapsed(!collapsed)
     setToggled(false)
   }
-
   return (
     <>
       <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
@@ -43,27 +41,28 @@ export default function Settings() {
             className="sidebar"
           >
             <MenuItem
-              icon={<img src="/sidebar_settings_icon.svg" />}
+              icon={<img src="/sidebar_branches_icon.svg" />}
               component={<Link href="/new_automotive_group/settings" />}
             >
-              Ajustes del perfil
+              Agencias
             </MenuItem>
             <MenuItem
-              icon={<img src="/sidebar_docs_icon.svg" />}
+              icon={<img src="/sidebar_statistics_icon.svg" />}
               component={<Link href="/new_automotive_group/docs" />}
             >
-              Documentos
+              Estadísticas
             </MenuItem>
-            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
-              Ayuda
+            <MenuItem icon={<img src="/sidebar_managers_icon.svg" />}>
+              Gerentes
             </MenuItem>
           </Sidebar>
         </ProSidebarProvider>
         {/* Page */}
-        <div>
+        <div style={{width: '100'}}>
           <NAGHeader />
-          {/* Solicitud Alta Grupo Automotriz */}
-          <NAGForm/>
+          <div>
+            Agencias
+          </div>
         </div>
       </div>
     </>

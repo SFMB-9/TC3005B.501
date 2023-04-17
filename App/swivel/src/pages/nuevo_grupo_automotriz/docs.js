@@ -1,9 +1,12 @@
-import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
-import { useState } from 'react'
-import Link from 'next/link'
-import Sidebar from '@/components/ui/sidebar'
+import { ProSidebarProvider, MenuItem } from 'react-pro-sidebar';
+import Sidebar from '@/components/ui/sidebar';
+import NAGHeader from '@/components/new_automotive_group_header';
+import { useState } from 'react';
+import Link from 'next/link';
+import NAGForm from '@/components/new_automotive_group_form';
 
-export default function Branches () {
+
+export default function Docs () {
   const [collapsed, setCollapsed] = useState(false)
   const [toggled, setToggled] = useState(false)
 
@@ -19,12 +22,13 @@ export default function Branches () {
     setCollapsed(!collapsed)
     setToggled(false)
   }
+
   return (
     <>
-      <div className='row' id='body-row'>
+      <div className={`app ${toggled ? 'toggled' : ''}`} style={{display: 'flex'}}>
         {/* Sidebar */}
         <ProSidebarProvider>
-        <Sidebar
+          <Sidebar
             collapsed={collapsed}
             toggled={toggled}
             handleToggleSidebar={handleToggleSidebar}
@@ -37,31 +41,32 @@ export default function Branches () {
               style={{ bottom: 0 }}
               >Cerrar sesión</MenuItem>
             }
-            className="sidebar"
           >
             <MenuItem
-              icon={<img src="/sidebar_branches_icon.svg" />}
-              component={<Link href="/new_automotive_group/settings" />}
+              icon={<img src="/sidebar_settings_icon.svg" />}
+              component={<Link href="./settings" />}
             >
-              Agencias
+              Ajustes del perfil
             </MenuItem>
             <MenuItem
-              icon={<img src="/sidebar_statistics_icon.svg" />}
-              component={<Link href="/new_automotive_group/docs" />}
+              icon={<img src="/sidebar_docs_icon.svg" />}
+              component={<Link href="./docs" />}
             >
-              Estadísticas
+              Documentos
             </MenuItem>
-            <MenuItem icon={<img src="/sidebar_managers_icon.svg" />}>
-              Gerentes
+            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
+              Ayuda
             </MenuItem>
           </Sidebar>
         </ProSidebarProvider>
         {/* Page */}
-        <div className='col py-3'>
+        <div style={{width: '100%'}}>
+          <NAGHeader/>
           <div>
-            Agencias
+            Sube tus documentos y espera a que sean aprobados
           </div>
           <div>
+            (Doc-state-editbtn table)
           </div>
         </div>
       </div>

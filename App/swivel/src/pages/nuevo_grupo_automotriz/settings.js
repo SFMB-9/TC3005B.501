@@ -1,11 +1,11 @@
-import { ProSidebarProvider, MenuItem } from 'react-pro-sidebar';
-import Sidebar from '@/components/ui/sidebar';
-import NewAutomotiveGroupHeader from '@/components/new_automotive_group_header';
-import { useState } from 'react';
-import Link from 'next/link';
+import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
+import { useState } from 'react'
+import Link from 'next/link'
+import Sidebar from '@/components/ui/sidebar'
+import NAGHeader from '@/components/new_automotive_group_header'
+import NAGForm from '@/components/new_automotive_group_form'
 
-
-export default function Docs () {
+export default function Settings() {
   const [collapsed, setCollapsed] = useState(false)
   const [toggled, setToggled] = useState(false)
 
@@ -24,7 +24,7 @@ export default function Docs () {
 
   return (
     <>
-      <div className={`app ${toggled ? 'toggled' : ''}`} style={{display: 'flex'}}>
+      <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
         {/* Sidebar */}
         <ProSidebarProvider>
           <Sidebar
@@ -40,16 +40,17 @@ export default function Docs () {
               style={{ bottom: 0 }}
               >Cerrar sesión</MenuItem>
             }
+            className="sidebar"
           >
             <MenuItem
               icon={<img src="/sidebar_settings_icon.svg" />}
-              component={<Link href="/new_automotive_group/settings" />}
+              component={<Link href="./settings" />}
             >
               Ajustes del perfil
             </MenuItem>
             <MenuItem
               icon={<img src="/sidebar_docs_icon.svg" />}
-              component={<Link href="/new_automotive_group/docs" />}
+              component={<Link href="./docs" />}
             >
               Documentos
             </MenuItem>
@@ -59,18 +60,11 @@ export default function Docs () {
           </Sidebar>
         </ProSidebarProvider>
         {/* Page */}
-        <main>
-          <NewAutomotiveGroupHeader/>
-          {/* Documentos */}
-          <div style={{padding: '20px 50px'}}>
-            <div>
-              Sube tus documentos y espera a que sean aprobados
-            </div>
-            <div>
-              (Doc-state-editbtn table)
-            </div>
-          </div>
-        </main>
+        <div style={{width: '100%'}}>
+          <NAGHeader />
+          {/* Solicitud Alta Grupo Automotriz */}
+          <NAGForm/>
+        </div>
       </div>
     </>
   )
