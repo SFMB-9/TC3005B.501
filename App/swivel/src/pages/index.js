@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar.jsx'
 import Testimonials from '@/components/Testimonials'
 import Process from '@/components/Process'
 import { useState, useEffect } from 'react'
+import RegistroAutosPopup from '@/components/registro_autos_popup'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,6 +38,12 @@ export default function Home() {
       <Testimonials />
       <Process />
       <Footer />
+      <RegistroAutosPopup trigger = {true}> 
+      <h3>Mi popup</h3>
+      
+      </RegistroAutosPopup>
+
+
     </>
   )
 }
