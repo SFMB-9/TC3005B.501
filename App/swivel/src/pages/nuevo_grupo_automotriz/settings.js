@@ -1,3 +1,10 @@
+/* 
+Salvador Federico Milanés Braniff
+17-4-2023
+
+Pantalla de ajustes del perfil del Grupo Automotriz
+Incluye un componente de Sidebar y un Formulario de Alta de Grupo Automotriz
+*/
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import { useState } from 'react'
 import Link from 'next/link'

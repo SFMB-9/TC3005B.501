@@ -1,3 +1,11 @@
+/*
+Salvador Federico Milanés Braniff
+17-4-2023
+
+Pantalla de documentos del Grupo Automotriz
+Incluye un componente de Sidebar y una sección para subir documentos
+*/
+
 import { ProSidebarProvider, MenuItem } from 'react-pro-sidebar';
 import Sidebar from '@/components/ui/sidebar';
 import NAGHeader from '@/components/new_automotive_group_header';
