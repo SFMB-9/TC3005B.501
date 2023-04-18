@@ -133,7 +133,7 @@ const DocumentosGASolicitante = () => {
             handleSidebarCollapse={handleSidebarCollapse}
             footer={
               <MenuItem
-              icon={<img src="/sidebar_logout_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_logout_icon.svg" />}
               component={<Link href="/auth/login" />}
               style={{ bottom: 0 }}
               >Cerrar sesión</MenuItem>
@@ -141,18 +141,18 @@ const DocumentosGASolicitante = () => {
             className="sidebar"
           >
             <MenuItem
-              icon={<img src="/sidebar_settings_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_settings_icon.svg" />}
               component={<Link href="./settings" />}
             >
               Ajustes del perfil
             </MenuItem>
             <MenuItem
-              icon={<img src="/sidebar_docs_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_docs_icon.svg" />}
               component={<Link href="./docs" />}
             >
               Documentos
             </MenuItem>
-            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
+            <MenuItem disabled icon={<img src="/grupo_auto/sidebar_help_icon.svg" />}>
               Ayuda
             </MenuItem>
           </Sidebar>

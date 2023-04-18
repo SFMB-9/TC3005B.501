@@ -23,18 +23,18 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
           <Menu iconShape="circle">
             <MenuItem
               style={{ justifyContent: 'space-between' }}
-              icon={<img src="/sidebar_hamburger_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_hamburger_icon.svg" />}
               onClick={() => {
                 collapseSidebar();
               }}
             >
               <div>
-                <img src="/appbar_swivel_logo.svg" width="100%" />
+                <img src="/grupo_auto/appbar_swivel_logo.svg" width="100%" />
               </div>
             </MenuItem>
             <MenuItem
               disabled
-              icon={<img src="/sidebar_profile_icon_2.svg" />}
+              icon={<img src="/grupo_auto/sidebar_profile_icon_2.svg" />}
             >
               <div id={styles.profile}>
                 <b className={styles.name}>Grupo A.</b>
