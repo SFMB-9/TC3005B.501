@@ -1,0 +1,348 @@
+.vectorIcon {
+    position: absolute;
+    top: 563px;
+    left: 646.69px;
+    width: 536px;
+    height: 460px;
+  }
+  .vectorIcon1,
+  .vectorIcon2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 625px;
+    height: 674px;
+  }
+  .vectorIcon2 {
+    top: 157px;
+    left: 883.69px;
+    width: 478px;
+    height: 432px;
+  }
+  .misDocumentosChild {
+    position: absolute;
+    top: 209px;
+    left: 258px;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    width: 1034px;
+    height: 713px;
+  }
+  .bienvenidx,
+  .nombreApellidos {
+    position: absolute;
+    top: 107px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+  }
+  .nombreApellidos {
+    left: 1063px;
+    font-weight: 500;
+  }
+  .bienvenidx {
+    left: 763px;
+    font-size: 48px;
+    font-family: var(--font-raleway);
+  }
+  .borrarCuenta {
+    position: absolute;
+    top: 28px;
+    left: 654px;
+  }
+  .borrarEditar,
+  .ine,
+  .pendiente {
+    position: absolute;
+    top: 28px;
+    left: 804px;
+  }
+  .ine,
+  .pendiente {
+    left: 470px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    font-weight: 500;
+  }
+  .ine {
+    top: 24px;
+    left: 128px;
+    color: var(--contraste);
+  }
+  .bifileEarmarkPdfIcon {
+    position: absolute;
+    top: 19px;
+    left: 51px;
+    width: 42px;
+    height: 41px;
+    overflow: hidden;
+  }
+  .documento1Child {
+    position: absolute;
+    top: -0.25px;
+    left: -0.25px;
+    border-top: 0.5px solid var(--contraste);
+    box-sizing: border-box;
+    width: 945.5px;
+    height: 0.5px;
+  }
+  .documento1 {
+    position: absolute;
+    top: 71px;
+    left: 0;
+    width: 945px;
+    height: 65px;
+  }
+  .subir {
+    position: absolute;
+    top: 2px;
+    left: 758px;
+  }
+  .comprobanteDeDomicilio {
+    position: absolute;
+    top: 25px;
+    left: 128px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    font-weight: 500;
+    color: var(--contraste);
+  }
+  .documento2,
+  .documento21 {
+    position: absolute;
+    left: 0;
+    width: 945px;
+    height: 65px;
+  }
+  .documento2 {
+    top: 251px;
+    color: var(--primario3);
+  }
+  .documento21 {
+    top: 161px;
+    color: #329703;
+  }
+  .misDocumentos1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 64px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    font-family: var(--font-raleway);
+    color: var(--contraste);
+  }
+  .infoDocumentos {
+    position: absolute;
+    top: 242px;
+    left: 304px;
+    width: 945px;
+    height: 316px;
+    text-align: left;
+    font-size: var(--font-size-5xl);
+    color: rgba(17, 20, 57, 0.46);
+  }
+  .misDocumentos {
+    position: absolute;
+    top: 1px;
+    left: 78px;
+    width: 1361.69px;
+    height: 1023px;
+  }
+  .shapeWithText {
+    position: relative;
+    border-radius: 6px;
+    background-color: #c4c4c4;
+    width: 1440px;
+    height: 72px;
+  }
+  .shapeWithText1,
+  .shapeWithText2 {
+    position: relative;
+    background-color: var(--color-whitesmoke);
+  }
+  .shapeWithText1 {
+    border-radius: 10.47px;
+    width: 1307.87px;
+    height: 26.18px;
+  }
+  .shapeWithText2 {
+    width: 16px;
+    height: 17.45px;
+  }
+  .browser {
+    position: relative;
+    width: 1440px;
+    height: 72px;
+  }
+  .swVel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 218px;
+  }
+  .groupChild,
+  .swVelParent {
+    position: absolute;
+    top: 8.37px;
+    left: 95.27px;
+    width: 16.2px;
+    height: 36.26px;
+  }
+  .swVelParent {
+    top: 0;
+    left: 0;
+    width: 218px;
+    height: 54px;
+  }
+  .icon,
+  .swivel {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .swivel {
+    width: 218px;
+    height: 54px;
+    text-align: center;
+    font-size: 45.65px;
+  }
+  .icon {
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+  }
+  .gerente,
+  .mail {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+  }
+  .mail {
+    font-size: var(--font-size-sm);
+    font-family: var(--font-lato);
+  }
+  .profile,
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .profile {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--gap-xs);
+  }
+  .icon1,
+  .text1 {
+    position: relative;
+  }
+  .icon1 {
+    width: 29px;
+    height: 29px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .text1 {
+    line-height: 140%;
+  }
+  .content,
+  .listManu {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .content {
+    width: 186px;
+    height: 24px;
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-base);
+  }
+  .listManu {
+    border-radius: var(--br-5xs);
+    flex-direction: column;
+    padding: var(--padding-base);
+    align-items: flex-start;
+  }
+  .folderIcon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .text2 {
+    position: relative;
+    text-decoration: underline;
+    line-height: 140%;
+  }
+  .icons,
+  .icons1 {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+  .icons1 {
+    width: 24px;
+    height: 24px;
+  }
+  .listitem,
+  .top {
+    justify-content: flex-start;
+  }
+  .listitem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-5xl);
+    font-family: var(--font-lato);
+  }
+  .top {
+    align-self: stretch;
+    gap: var(--gap-25xl);
+  }
+  .bottom,
+  .sideMenu,
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bottom {
+    align-self: stretch;
+    justify-content: flex-start;
+    color: var(--gray-shades-dark-gray);
+    font-family: var(--font-lato);
+  }
+  .sideMenu {
+    position: absolute;
+    width: 18.47%;
+    top: calc(50% - 440px);
+    right: 81.53%;
+    left: 0;
+    background-color: var(--white);
+    border: 1px solid rgba(0, 0, 0, 0.31);
+    box-sizing: border-box;
+    height: 952px;
+    overflow: hidden;
+    padding: var(--padding-5xl) var(--padding-5xl) 32px;
+    justify-content: space-between;
+    text-align: left;
+    font-size: var(--font-size-base);
+    font-family: var(--font-raleway);
+  }
+  .documentosUsuario {
+    position: relative;
+    background-color: var(--white);
+    width: 100%;
+    height: 1024px;
+    text-align: right;
+    font-size: 28px;
+    color: var(--contraste);
+    font-family: var(--font-lato);
+  }
+  
