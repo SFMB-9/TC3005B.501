@@ -7,12 +7,8 @@
 */
 
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Link from 'next/link'
-import { Typography } from '@mui/material'
-import Image from 'next/image'
-
+import { Box, Button, Typography } from '@mui/material'
+import { Link, Image  } from 'next'
 
 // Funcion que retorna el hero de la pagina
 const Hero = () => {
