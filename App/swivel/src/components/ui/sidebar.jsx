@@ -1,5 +1,12 @@
+/*
+Salvador Federico Milanes Braniff
+17-04-2023
+
+Componente de sidebar que se puede personalizar para cada pagina.
+Incluye el logo de la empresa, el nombre del usuario y el menu de navegacion.
+*/
 import React from 'react';
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@mui/material';
 import { Sidebar as ReactProSidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
 import styles from '@/styles/sidebar.module.css';
 
