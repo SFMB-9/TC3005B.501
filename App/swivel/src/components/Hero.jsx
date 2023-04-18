@@ -8,7 +8,8 @@
 
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
-import { Link, Image  } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 
 // Funcion que retorna el hero de la pagina
 const Hero = () => {
@@ -26,7 +27,6 @@ const Hero = () => {
                 }}
                 variant='h3'
                 fontFamily='Lato'
-
               >
                 Compra tu auto <br/>
                 completamente en linea

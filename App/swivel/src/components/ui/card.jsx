@@ -5,7 +5,6 @@
   Este script reresenta el componente Card, el cual es utilizado para mostrar
   información de manera resumida en una tarjeta.
 */
-
 import * as React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 

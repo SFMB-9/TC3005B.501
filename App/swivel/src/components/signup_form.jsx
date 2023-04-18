@@ -1,6 +1,7 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button } from "react-bootstrap";
 import Link from 'next/link'
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "@/styles/signup_form.module.css";
 
 export default function LoginForm (){
