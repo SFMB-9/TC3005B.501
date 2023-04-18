@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar.jsx'
 import Testimonials from '@/components/Testimonials'
 import Process from '@/components/Process'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] });
 
