@@ -1,10 +1,11 @@
-import Navbar from '@/components/navbar'
+import LandingPageLayout from '@/components/landing_page_layout'
 
 export default function Catalog() {
   return (
     <>
-      <Navbar />
-      (Catalog Body)
+      <LandingPageLayout>
+        (Catalog page)
+      </LandingPageLayout>
     </>
   )
 }
