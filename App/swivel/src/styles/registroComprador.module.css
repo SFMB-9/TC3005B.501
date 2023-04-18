@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.cardRegistro {
+    flex: auto;
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+    background-color: var(--white);
+    height: 82.5vh;
+    display: flex;
+    flex-direction: column;
+    padding: 43px 0;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+  .clipPathGroup {
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+
+  .clipPathGroup,
+  .crearCuenta {
+    align-self: stretch;
+    position: relative;
+  }
+
+  .crearCuenta {
+    padding-left: 15vh;
+    padding-top: 25vh;
+    display: flex;
+    font-family: Raleway;
+    font-size: 200%;
+    color: #1d1e41;
+    text-align: left;
+  }
+
+  .welcometext {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 407px;
+    padding: 110px 0;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    gap: 25px;
+    margin-top: -615px;
+  }
+
+  .cardwelcome {
+    width: 500px;
+    height: 82.5vh;
+    display: flex;
+    background-image: url(../Blobs.svg);
+    border-bottom-right-radius: 2vh;
+    border-top-right-radius: 2vh;
+  }
+
+  .card,
+  .registro {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .registro {
+    position: relative;
+    background-image: url(../Fondo.svg);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 80px 150px 85px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }

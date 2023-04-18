@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar.jsx'
 import Testimonials from '@/components/Testimonials'
 import Process from '@/components/Process'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,6 +38,13 @@ export default function Home() {
       <Testimonials />
       <Process />
       <Footer />
+      <Link href='/'>
+        <Image src='/logo.png' alt='Swivel' width={200} height={200} />
+      </Link>
+      <Link href='/auth/register'>Regístrate</Link>
+      <Link href='/auth/login'>Inicia sesión</Link>
+      <Link href='/automotive_group/settings'>Ajustes GA</Link>
+      <Link href='/registroComprador'>Regístrate</Link>
     </>
   )
 }

@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.formulario {
+  background-color: #fff;
+  border-radius: 10px;
+  height: 200px;
+  width: 500px;
+  justify-content: center;
+  align-items: center;
+}
+
+.crearCuenta,
+.swVel {
+  position: relative;
+}
+
+.datosPersonales {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.swVel {
+  display: inline-block;
+  text-align: left;
+  width: 233px;
+  -webkit-text-stroke: 1.5px #fff;
+}
+
+.crearCuenta {
+  align-self: center;
+  font-family: Raleway;
+  font-size: 160%;
+  color: #1d1e41;
+  text-align: center;
+  /*padding: 20px 0px 10px;*/
+}
+
+.campoForm {
+    border: 0;
+    background-color: transparent;
+    align-self: stretch;
+    text-align: left;
+  }
+  
+  .labelText {
+    padding: 2px, 0, 1px ;
+  }
+  
+  .botnregistro {
+    align-self: stretch;
+    background-color: #1d1e41;
+    border-color: var(--contraste);
+  }
+
+  .botngoogle {
+    align-self: stretch;
+    background-color: lightgray;
+    color: gray;
+    border-color: lightgray;
+    text-align: center;
+  }
+
+  .logo{
+    position: relative;
+    width: 40%;
+    padding-top: 2%;
+
+  }
+  
+  .logoIcon {
+    position: relative;
+    border-radius: var(--br-12xs);
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding-left: 5px;
+  }
+  
+  .signInWith {
+  position: relative;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  font-family: var(--font-lato);
+  color: var(--color-gray-300);
+  text-align: left;
+}
+
+.officialButtonsSignInWit {
+  align-self: stretch;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-gray-200);
+  box-shadow: 0 0 1px #000, 0 1px 1px rgba(0, 0, 0, 0.17);
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-12xs) var(--padding-3xs) var(--padding-12xs)
+    var(--padding-12xs);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.forms {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap:5px;
+  width: 400px;
+}
