@@ -134,7 +134,7 @@ const DocumentosGASolicitante = () => {
             footer={
               <MenuItem
               icon={<img src="/grupo_auto/sidebar_logout_icon.svg" />}
-              component={<Link href="/auth/login" />}
+              component={<Link href="/auth/login"></Link>}
               style={{ bottom: 0 }}
               >Cerrar sesión</MenuItem>
             }
@@ -142,13 +142,13 @@ const DocumentosGASolicitante = () => {
           >
             <MenuItem
               icon={<img src="/grupo_auto/sidebar_settings_icon.svg" />}
-              component={<Link href="./settings" />}
+              component={<Link href="./settings"></Link>}
             >
               Ajustes del perfil
             </MenuItem>
             <MenuItem
               icon={<img src="/grupo_auto/sidebar_docs_icon.svg" />}
-              component={<Link href="./docs" />}
+              component={<Link href="./docs"></Link>}
             >
               Documentos
             </MenuItem>
