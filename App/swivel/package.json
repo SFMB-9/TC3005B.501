@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/material": "^5.12.1",
     "bootstrap": "^3.4.1",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
