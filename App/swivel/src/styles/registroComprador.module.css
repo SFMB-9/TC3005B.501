@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 .cardRegistro {
     flex: auto;
     border-radius: var(--br-3xs) 0 0 var(--br-3xs);
@@ -23,7 +27,7 @@
   }
 
   .crearCuenta {
-    font-family: var(--font-raleway);
+    font-family: Raleway;
     font-size: 200%;
     color: #1d1e41;
     text-align: left;
@@ -43,10 +47,10 @@
 
   .cardwelcome {
     width: 500px;
-    height: 400px;
+    height: 500px;
     display: flex;
     background-image: url(../Blobs.svg);
-    border-radius: 25px;
+    border-radius: 10px;
   }
 
   .card,

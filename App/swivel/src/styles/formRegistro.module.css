@@ -1,7 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 .formulario {
   background-color: #fff;
-  border-radius: 25px;
-  height: 400px;
+  border-radius: 10px;
+  height: 500px;
   width: 500px;
   justify-content: center;
   align-items: center;
@@ -27,9 +31,9 @@
 
 .crearCuenta {
   align-self: center;
-  font-family: var(--font-lato);
-  font-size: 140%;
-  color: var(--color-black);
+  font-family: Raleway;
+  font-size: 160%;
+  color: #1d1e41;
   text-align: center;
   /*padding: 20px 0px 10px;*/
 }

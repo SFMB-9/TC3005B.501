@@ -12,7 +12,7 @@ export default function registroComprador () {
           <div className={styles.cardwelcome}>
             <div className={styles.crearCuenta}>
                 Compra el auto de <br></br>
-                tus sueños a un <br></br>
+                tus sueños en un <br></br>
                 click
             </div>
           </div>
