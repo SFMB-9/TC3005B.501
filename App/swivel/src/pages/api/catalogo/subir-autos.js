@@ -1,4 +1,4 @@
-// posts.js
+// Upload cars to the database
 import connectToDatabase from "../../util/mongodb";
 
 // Nice to haves:
