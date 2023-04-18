@@ -35,7 +35,6 @@ a {
 ::-webkit-scrollbar-track {
   background-color: #f2f2f2;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #c4c4c4;
   border-radius: 8px;
@@ -54,17 +53,17 @@ a {
   --font-size-21xl: 40px;
   --font-size-38xl-2: 57.2px;
   --font-size-5xl: 24px;
-
-  /* Colores principales. */
-  --white: #ffffff;
-  --contraste: rgba(32, 35, 79, 1);
   
-  /* Paddings */
-  --padding-12xs: 1px;
-  --padding-3xs: 10px;
+/* Colores principales. */
+--white: #ffffff;
+--contraste: rgba(32, 35, 79, 1);
 
-  /* Radios de bordes */
-  --br-3xs: 10px;
-  --br-12xs: 1px;
+/* Paddings */
+--padding-12xs: 1px;
+--padding-3xs: 10px;
+
+/* Radios de bordes */
+--br-3xs: 10px;
+--br-12xs: 1px;
 
 }
