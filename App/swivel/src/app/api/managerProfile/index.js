@@ -1,23 +1,23 @@
 import {getSession} from 'next-auth/client'
+import { MongoClient } from 'mongodb';
 //import of function that does db connection
 
 export default async (req, res) => {
-    //lets assume that I have a function that does db connection
-    //and returns the user data
+    
     const session = await getSession({ req })
+    const user = session.get('user');
+    
 
-  
-
-
-    const profile = {
-        name: 'John',
-        surname: 'Doe',
-        email: 'john.doe@ex',
-        phone: '123456789'
-    }
     if (session) {
         // Signed in
-        res.status(200).json({profile})
+        const { userId } = user;
+        const client = await MongoClient.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+          });
+        const db = client.db();
+        const userData = await db.collection('users').findOne({ _id: userId });
+        res.status(200).json({userData})
     } else {
         // Not Signed in
         res.status(400).json({message: 'Invalid Request body'})
