@@ -3,11 +3,13 @@ import styles from '@/styles/grupoStyles/docSoli.module.css'
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import { useState } from 'react'
 import Link from 'next/link'
-import Sidebar from '@/components/ui/sidebar'
+import Sidebar from '@/components/sidebar'
 import NAGHeader from '@/components/new_automotive_group_header'
 
 
 const DocumentosGASolicitante = () => {
+    const [collapsed, setCollapsed] = useState(false)
+    const [toggled, setToggled] = useState(false)
 
     const handleCollapsedChange = () => {
         setCollapsed(!collapsed)
@@ -121,9 +123,6 @@ const DocumentosGASolicitante = () => {
             </div>
           </div>
         </div>
-        <div className={styles.ayuda} />
-        <div className={styles.documentos} />
-        <div className={styles.ajustesDelPerfil} />
         {/* Sidebar */}
         <ProSidebarProvider>
           <Sidebar
@@ -158,53 +157,9 @@ const DocumentosGASolicitante = () => {
             </MenuItem>
           </Sidebar>
         </ProSidebarProvider>
-        <div className={styles.top}>
-          <div className={styles.swivel}>
-            <div className={styles.swVelParent}>
-              <b className={styles.swVel}>SW VEL</b>
-              <img className={styles.groupChild} alt="" src="/grupo_auto/vector-4.svg" />
-            </div>
-          </div>
-          <div className={styles.profile1}>
-            <img className={styles.icon1} alt="" src="/grupo_auto/icon1.svg" />
-            <div className={styles.text}>
-              <b className={styles.username1}>Grupo A.</b>
-              <div className={styles.mail}>grupo.a@demo.com</div>
-            </div>
-          </div>
-          <div className={styles.listitem}>
-            <div className={styles.listManu}>
-              <div className={styles.content}>
-                <img
-                  className={styles.icons}
-                  alt=""
-                  src="/grupo_auto/ajustes.svg"
-                />
-                <div className={styles.text3}>Ajustes del perfil</div>
-              </div>
-            </div>
-            <div className={styles.listManu}>
-              <div className={styles.content}>
-                <img
-                  className={styles.pajamasdocumentsIcon}
-                  alt=""
-                  src="/grupo_auto/documentos.svg"
-                />
-                <div className={styles.text1}>Documentos</div>
-              </div>
-            </div>
-            <div className={styles.listManu}>
-              <div className={styles.content}>
-                <img
-                  className={styles.pajamasdocumentsIcon}
-                  alt=""
-                  src="/grupo_auto/ayuda.svg"
-                />
-                <div className={styles.text1}>Ayuda</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+      <div>
+        <NAGHeader/>
       </div>
       <div className={styles.subeTusDocumentos}>
         Sube tus documentos y espera a que sean aprobados
