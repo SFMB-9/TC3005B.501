@@ -91,7 +91,7 @@ const PopupSubirDocs = ({ onClose }) => {
         <img
           className={styles.fileIcon}
           alt=""
-          src="/file-icon.svg"
+          src="/buyer/file-icon.svg"
           onClick={onClose}
         />
       </fieldset>

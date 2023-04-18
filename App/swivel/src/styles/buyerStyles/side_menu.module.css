@@ -1,9 +1,12 @@
 .swVel {
     position: absolute;
+    text-align:center;
     top: 0;
     left: 0;
     display: inline-block;
     width: 218px;
+    font-size: 260%;
+    
   }
   .groupChild,
   .swVelParent {
@@ -18,6 +21,7 @@
     left: 0;
     width: 218px;
     height: 54px;
+    position: center;
   }
   .icon,
   .swivel {
@@ -144,16 +148,16 @@
   .sideMenu {
     position: absolute;
     width: 18.47%;
-    top: calc(35% - 440px);
+    top: calc(43% - 440px);
     right:auto;
     left: 0;
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.31);
+    border: 2px solid rgba(0, 0, 0, 0.31);
     box-sizing: border-box;
     height: 952px;
     overflow: auto;
     padding: 24px 24px 32px;
-    justify-content: space-between;
+    justify-content:space-between;
     text-align: left;
     font-size: 16px;
     color: #111439;
