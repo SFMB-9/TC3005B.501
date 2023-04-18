@@ -124,7 +124,40 @@ const DocumentosGASolicitante = () => {
         <div className={styles.ayuda} />
         <div className={styles.documentos} />
         <div className={styles.ajustesDelPerfil} />
-
+        {/* Sidebar */}
+        <ProSidebarProvider>
+          <Sidebar
+            collapsed={collapsed}
+            toggled={toggled}
+            handleToggleSidebar={handleToggleSidebar}
+            handleCollapsedChange={handleCollapsedChange}
+            handleSidebarCollapse={handleSidebarCollapse}
+            footer={
+              <MenuItem
+              icon={<img src="/sidebar_logout_icon.svg" />}
+              component={<Link href="/auth/login" />}
+              style={{ bottom: 0 }}
+              >Cerrar sesión</MenuItem>
+            }
+            className="sidebar"
+          >
+            <MenuItem
+              icon={<img src="/sidebar_settings_icon.svg" />}
+              component={<Link href="./settings" />}
+            >
+              Ajustes del perfil
+            </MenuItem>
+            <MenuItem
+              icon={<img src="/sidebar_docs_icon.svg" />}
+              component={<Link href="./docs" />}
+            >
+              Documentos
+            </MenuItem>
+            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
+              Ayuda
+            </MenuItem>
+          </Sidebar>
+        </ProSidebarProvider>
         <div className={styles.top}>
           <div className={styles.swivel}>
             <div className={styles.swVelParent}>
