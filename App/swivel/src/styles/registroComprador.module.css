@@ -4,16 +4,17 @@
 
 .cardRegistro {
     flex: auto;
-    border-radius: var(--br-3xs) 0 0 var(--br-3xs);
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
     background-color: var(--white);
-    height: 625px;
+    height: 82.5vh;
     display: flex;
     flex-direction: column;
     padding: 43px 0;
     box-sizing: border-box;
     align-items: center;
     justify-content: flex-start;
-  }
+}
 
   .clipPathGroup {
     max-width: 100%;
@@ -27,6 +28,9 @@
   }
 
   .crearCuenta {
+    padding-left: 15vh;
+    padding-top: 25vh;
+    display: flex;
     font-family: Raleway;
     font-size: 200%;
     color: #1d1e41;
@@ -47,10 +51,11 @@
 
   .cardwelcome {
     width: 500px;
-    height: 500px;
+    height: 82.5vh;
     display: flex;
     background-image: url(../Blobs.svg);
-    border-radius: 10px;
+    border-bottom-right-radius: 2vh;
+    border-top-right-radius: 2vh;
   }
 
   .card,
@@ -59,12 +64,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-  }
-
-  .card {
-    /*flex: 1; Se omite el flex para unir las 2 tarjetas, como el mockup*/
-    align-items: flex-start;
-    justify-content: center;
   }
 
   .registro {
@@ -79,5 +78,3 @@
     justify-content: center;
     text-align: center;
   }
-
-  
