@@ -1,70 +1,70 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700 &display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
 body {
-    max-width: 100vw;
-    overflow-x: hidden;
-    font-family: Lato;
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: Lato;
 }
 
 a {
-    color: #000;
-    text-decoration: none;
+  color: #000;
+  text-decoration: none;
 }
 
-@media(prefers-color-scheme: light) {
-    html {
-        color-scheme: light;
-    }
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
 }
 
 /* Hide the default scrollbar */
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Show the minimalist scrollbar */
 ::-webkit-scrollbar-track {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #c4c4c4;
-    border-radius: 8px;
+  background-color: #c4c4c4;
+  border-radius: 8px;
 }
 
 
 :root {
-    /* Info tipografía. */
-    --font-lato: Lato;
-    --font-raleway: Raleway;
+  /* Info tipografía. */
+  --font-lato: Lato;
+  --font-raleway: Raleway;
 
-    /* Tamaños de tipografía. */
-    --font-size-17xl: 36px;
-    --font-size-45xl: 64px;
-    --font-size-xl: 20px;
-    --font-size-21xl: 40px;
-    --font-size-38xl-2: 57.2px;
-    --font-size-5xl: 24px;
+  /* Tamaños de tipografía. */
+  --font-size-17xl: 36px;
+  --font-size-45xl: 64px;
+  --font-size-xl: 20px;
+  --font-size-21xl: 40px;
+  --font-size-38xl-2: 57.2px;
+  --font-size-5xl: 24px;
 
-    /* Colores principales. */
-    --white: #ffffff;
-    --contraste: rgba(32, 35, 79, 1);
+  /* Colores principales. */
+  --white: #ffffff;
+  --contraste: rgba(32, 35, 79, 1);
+  
+  /* Paddings */
+  --padding-12xs: 1px;
+  --padding-3xs: 10px;
 
-    /* Paddings */
-    --padding-12xs: 1px;
-    --padding-3xs: 10px;
-
-    /* Radios de bordes */
-    --br-3xs: 10px;
-    --br-12xs: 1px;
+  /* Radios de bordes */
+  --br-3xs: 10px;
+  --br-12xs: 1px;
 
 }
