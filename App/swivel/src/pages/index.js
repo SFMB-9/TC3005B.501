@@ -39,7 +39,6 @@ export default function Home() {
       <Process />
       <Footer />
       <RegistroAutosPopup trigger = {true}> 
-      <h3>Mi popup</h3>
       
       </RegistroAutosPopup>
 

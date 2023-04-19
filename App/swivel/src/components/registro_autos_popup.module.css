@@ -12,11 +12,27 @@
   align-items: center;
 }
 
+.title{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.formRow{
+  display: flex;
+  justify-content: space-around;
+  padding : 10px;
+}
+
+.registerButton{
+  display: flex;
+  justify-content: center;
+}
+
 .popupInner{
   position: relative;
-  width: 100%;
+  width: 60%;
   padding: 32px;
-  max-width: 640px;
   background-color: #ffff;
 }
 
