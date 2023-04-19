@@ -5,10 +5,10 @@ formulario para ingresar al sistema.
 
 Autor: Ana Paula Katsuda Zalce
 */
-import { Form, Button } from "react-bootstrap";
-import Link from 'next/link'
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Form, Button } from "react-bootstrap";
+import Link from 'next/link'
 import styles from "@/styles/login_form.module.css";
 
 /* Función que retorna el formulario de inicio de sesión con los campos de 

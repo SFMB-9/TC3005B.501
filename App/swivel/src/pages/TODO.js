@@ -1,11 +1,10 @@
-import LandingPageLayout from '@/components/landing_page_layout'
+import Navbar from '@/components/navbar'
 
 export default function TODO() {
-  return (
-    <>
-      <LandingPageLayout>
-        (TODO page)
-      </LandingPageLayout>
-    </>
-  )
+    return (
+        <>
+            <Navbar/>
+            (TODO Body)
+        </>
+    )
 }

@@ -1,11 +1,10 @@
-import LandingPageLayout from '@/components/landing_page_layout'
+import Navbar from '@/components/navbar'
 
 export default function quiz() {
-  return (
-    <>
-      <LandingPageLayout>
-        (Quiz page)
-      </LandingPageLayout>
-    </>
-  )
+    return (
+        <>
+            <Navbar/>
+            (Quiz Body)
+        </>
+    )
 }

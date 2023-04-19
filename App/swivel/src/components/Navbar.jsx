@@ -5,32 +5,31 @@
   Este script representa el componente Navbar, el cual es utilizado para mostrar
   la barra de navegacion de la pagina.
 */
+
 import * as React from 'react';
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography
-} from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Link from 'next/link';
+import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Link from 'next/link';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 // Constantes que contienen los nombres de las paginas y sus respectivos links
 const pages = [
-  { name: 'Catálogo', link: '/catalog' },
-  { name: 'TODO', link: '/TODO' },
-  { name: 'Auto-Quiz™', link: '/quiz' },
+  {name: 'Catálogo', link: '/catalog'},
+  {name: 'TODO', link: '/TODO'}, 
+  {name: 'Auto-Quiz™', link: '/quiz'},  
 ];
 const settings = [
-  { name: 'Registrate', link: '/auth/signup_comprador' },
-  { name: 'Inicia Sesion', link: '/auth/login_comprador' },
+  {name: 'Registrate', link: '/auth/signup_seller'},
+  {name: 'Inicia Sesion', link: '/auth/login_comprador'},
 ];
 
 // Funcion que retorna el componente Navbar
@@ -67,14 +66,14 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
+    <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href='/'>
             <Box
               component="img"
-              sx={{
-                display: { xs: 'none', md: 'flex' },
+              sx={{ 
+                display: { xs: 'none', md: 'flex' }, 
                 mr: 1,
                 height: '30px',
               }}
@@ -116,9 +115,9 @@ function ResponsiveAppBar() {
                 <Link key={page.name} href={page.link} style={{ textDecoration: 'none' }}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography
-                      color='black'
-                      fontFamily='Raleway'
-                      fontSize={13}>
+                     color='black' 
+                     fontFamily='Raleway' 
+                     fontSize={13}>
                       {page.name}
                     </Typography>
                   </MenuItem>
@@ -129,8 +128,8 @@ function ResponsiveAppBar() {
           <Link href='/'>
             <Box
               component="img"
-              sx={{
-                display: { xs: 'flex', md: 'none' },
+              sx={{ 
+                display: { xs: 'flex', md: 'none' }, 
                 mr: 1,
                 height: '30px',
                 flexGrow: 1,
@@ -147,16 +146,16 @@ function ResponsiveAppBar() {
             }}
           >
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly' }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly'}}>
             {pages.map((page) => (
               <Link href={page.link} style={{ textDecoration: 'none' }} key={page.name}>
-                <Typography
-                  color='black'
-                  fontFamily='Raleway'
-                  fontSize={13}
-                >
-                  {page.name}
-                </Typography>
+                  <Typography
+                   color='black' 
+                   fontFamily='Raleway'
+                   fontSize={13}
+                  >
+                    {page.name}
+                  </Typography>
               </Link>
             ))}
           </Box>
@@ -165,7 +164,7 @@ function ResponsiveAppBar() {
             <>
               <Box sx={{ display: { md: 'none' } }}>
                 <IconButton onClick={handleMenu} sx={{ p: 0, color: 'black' }}>
-                  <MoreVertIcon />
+                  <MoreVertIcon/>
                 </IconButton>
                 <Menu
                   sx={{ mt: '45px' }}
@@ -186,12 +185,12 @@ function ResponsiveAppBar() {
                   {settings.map((setting) => (
                     <Link href={setting.link} style={{ textDecoration: 'none' }} key={setting.name}>
                       <MenuItem key={setting.name} onClick={handleClose}>
-                        <Typography
-                          textAlign="center"
-                          fontFamily='Raleway'
-                          fontSize={13}
+                        <Typography 
+                          textAlign="center" 
+                          fontFamily='Raleway' 
+                          fontSize={13} 
                           color='black'>
-                          {setting.name}
+                            {setting.name}
                         </Typography>
                       </MenuItem>
                     </Link>
@@ -205,14 +204,14 @@ function ResponsiveAppBar() {
                     <Button
                       variant='contained'
                       disableElevation
-                      color={index === 0 ? 'secondary' : 'alternate'}
-                      className='mx-2 rounded-pill'
+                      color= {index === 0 ? 'secondary' : 'alternate'}
+                      className= 'mx-2 rounded-pill'
                       size='medium'
                       onClick={handleClose}
                       sx={{ my: 2, display: 'block' }}
                     >
                       <Typography
-                        color='black'
+                        color='black' 
                         fontFamily='Raleway'
                         fontSize={13}
                       >
@@ -254,16 +253,16 @@ function ResponsiveAppBar() {
               >
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
-                    color='black'
+                    color='black' 
                     fontFamily='Raleway'
                     fontSize={13}
                   >
                     Perfil
                   </Typography>
                 </MenuItem>
-                <MenuItem onClick={() => { handleCloseUserMenu; setAuth(false) }}>
+                <MenuItem onClick={() => {handleCloseUserMenu; setAuth(false)}}>
                   <Typography
-                    color='black'
+                    color='black' 
                     fontFamily='Raleway'
                     fontSize={13}
                   >

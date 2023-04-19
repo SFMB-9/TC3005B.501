@@ -5,6 +5,8 @@
   Este script representa el componente Step, el cual es utilizado para mostrar
   un paso del proceso de compra de la pagina.
 */
+
+import React from 'react'
 import { Typography } from '@mui/material'
 import Image from 'next/image'
 

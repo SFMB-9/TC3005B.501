@@ -5,12 +5,14 @@ sesión y elementos visuales de dicha pantalla.
 
 Autor: Ana Paula Katsuda Zalce
 */
+
+import Link from 'next/link'
 import LoginForm from '@/components/login_form';
 import styles from "@/styles/login_comprador.module.css";
 
 /* Función que retorna la pantalla de inicio de sesión del comprador. Incluye el 
 formulario de inicio de sesión y elementos visuales. */
-export default function LoginComprador () {
+export default function LoginBuyer () {
   return (
     <div className={styles.login}>
       <div className={styles.card}>

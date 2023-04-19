@@ -1,5 +1,4 @@
 import { Grid, TextField, Button } from '@mui/material';
-
 import styles from '@/styles/new_automotive_group_form.module.css'
 
 export default function NAGForm() {
