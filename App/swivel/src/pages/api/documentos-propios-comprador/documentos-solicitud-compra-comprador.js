@@ -23,7 +23,7 @@ export default async function handler(req, res) {
             const saleProcess = await saleProcessCollection.findOne({ _id: ObjectId(req.proceso_id)});
 
             const documentCollection = db.collection("documentos");
-            const documentsList = await documentCollection.findAll({ _id: ObjectId(saleProcess["usuario_final_id"])});
+            const documentsList = await documentCollection.find({ usuario_propietario_id: ObjectId(saleProcess["usuario_final_id"])});
 
             const result = { 
                 documentos: documentsList,

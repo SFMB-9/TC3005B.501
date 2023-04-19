@@ -23,7 +23,7 @@ export default async function handler(req, res) {
             const drivingTestData = await drivingTestCollection.findOne({ _id: ObjectId(req.prueba_manejo_id)});
 
             const documentCollection = db.collection("documentos");
-            const documentsList = await documentCollection.findAll({ _id: ObjectId(drivingTestData["usuario_final_id"])});
+            const documentsList = await documentCollection.find({ usuario_propietario_id: ObjectId(drivingTestData["usuario_final_id"])});
 
             const result = { 
                 documentos: documentsList,

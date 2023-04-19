@@ -33,7 +33,7 @@ export default async function handler(req, res) {
             const autoGroupData = await autoGroupCollection.findOne({ _id: ObjectId(agencyData["grupo_automotriz_id"])});
 
             const documentCollection = db.collection("documentos");
-            const documentsList = await documentCollection.findAll({ _id: ObjectId(saleProcess["usuario_final_id"])});
+            const documentsList = await documentCollection.find({ usuario_propietario_id: ObjectId(saleProcess["usuario_final_id"])});
 
             const result = { 
                 usuario_final_id: saleProcess["usuario_final_id"],
@@ -43,6 +43,7 @@ export default async function handler(req, res) {
                 modelo: carData["modelo"],
                 ano: carData["ano"],
                 precio: carData["precio"],
+                array_fotografias_url: carData["array_fotografias_url"],
                 estado: directionData["estado"],
                 ciudad: directionData["ciudad"],
                 calle: directionData["calle"],
