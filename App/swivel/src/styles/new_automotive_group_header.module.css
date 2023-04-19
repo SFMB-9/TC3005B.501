@@ -1,0 +1,28 @@
+/* NAG Header Styles */
+.header {
+    background-image: url('/new_automotive_group_header.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: #f0751d; */
+    display: flex;
+}
+
+.name {
+    color: #fff;
+    font-size: 40px;
+    font-family: Raleway;
+    align-self: center;
+}
+
+.icon {
+    width: 80px;
+    align-self: center;
+    padding: 10px;
+}
+
+.tag {
+    padding: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
