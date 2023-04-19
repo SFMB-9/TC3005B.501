@@ -32,10 +32,10 @@ export default async function handler(req, res) {
 
     let user;
 
-    User.exists({email:email}, async function (err, doc) { // email existence check within the db, returns if there is already an account with the email
+    User.exists({ email: email }, async function (err, doc) { // email existence check within the db, returns if there is already an account with the email
       if (doc){
         user = await User.create({ name, email, password, encrypted_role});
-        res.status(201).json({ user });
+        res.status(200).json({ message: "User registered successfully" });
       }
       else{
         res.status(400).json({ message: "Account already exists" });
