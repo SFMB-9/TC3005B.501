@@ -33,7 +33,7 @@
   position: relative;
   width: 60%;
   padding: 32px;
-  background-color: #ffff;
+  background-color: var(--white);
 }
 
 .popupInner .closeBtn{
