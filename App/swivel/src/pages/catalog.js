@@ -1,7 +1,13 @@
+/*
+Salvador Federico Milanes Braniff
+Ana Paula Katsuda Zalce
+18-04-2023
+*/
 import React, { useState } from 'react';
-import LandingPageLayout from '@/components/landing_page_layout';
-import Searchbar from '@/components/ui/searchbar';
 import { Grid, Chip } from '@mui/material';
+
+import Searchbar from '@/components/ui/searchbar';
+import LandingPageLayout from '@/components/landing_page_layout';
 
 export default function Catalog() {
   const [filters, setFilters] = useState(['Chevrolet', 'Amarillo', '4 puertas']);
