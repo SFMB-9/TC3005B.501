@@ -16,16 +16,17 @@ export default function RegisterUser () {
         e.preventDefault();
 
         try {
-        const { data } = await axios.post("/api/register", {
-            name,
-            email,
-            password,
-            role: "user",
-        });
+            const { data } = await axios.post("/api/register", {
+                name,
+                email,
+                password,
+                role: "user"
+            });
 
-        console.log(data);
-        } catch (error) {
-        console.log(error);
+            console.log(data);
+        } 
+        catch (error) {
+            console.log(error.response.data);
         }
     };
 
@@ -42,7 +43,9 @@ export default function RegisterUser () {
                         id="name_field"
                         className="form-control"
                         value={name}
+                        pattern="[a-zA-Z]+" 
                         onChange={(e) => setName(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -53,7 +56,8 @@ export default function RegisterUser () {
                         id="email_field"
                         className="form-control"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}                        
+                        required
                     />
                 </div>
 
@@ -65,6 +69,7 @@ export default function RegisterUser () {
                         className="form-control"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
 
