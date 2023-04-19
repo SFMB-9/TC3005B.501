@@ -12,8 +12,8 @@ import { Typography } from '@mui/material';
 
 // Constante que contiene los links de la primera columna del footer
 const pages1 = [
-  {name: 'Compra un auto', link: '/comprar'},
-  {name: 'Registra tu agencia', link: '/registrar-agencia'}, 
+  {name: 'Compra un auto', link: '/catalog'},
+  {name: 'Registra tu agencia', link: '/signup_agencia'}, 
   {name: 'Contacto', link: '/contacto'},    
 ];
 
