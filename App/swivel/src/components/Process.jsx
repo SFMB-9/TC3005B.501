@@ -5,14 +5,12 @@
   Este script representa el componente Process, el cual es utilizado para mostrar
   el proceso de compra de la pagina.
 */
-
 import React from 'react'
-import Step from '@/components/ui/step'
+import { Typography, Button } from '@mui/material'
 import Image from 'next/image'
-import { Typography } from '@mui/material'
 import Link from 'next/link'
-import Button from '@mui/material/Button'
 
+import Step from '@/components/ui/process_step'
 
 // Funcion que retorna el componente Process
 const Process = () => {

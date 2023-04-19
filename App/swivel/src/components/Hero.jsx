@@ -7,12 +7,9 @@
 */
 
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Link from 'next/link'
-import { Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import Image from 'next/image'
-
+import Link from 'next/link'
 
 // Funcion que retorna el hero de la pagina
 const Hero = () => {
@@ -30,7 +27,6 @@ const Hero = () => {
                 }}
                 variant='h3'
                 fontFamily='Lato'
-
               >
                 Compra tu auto <br/>
                 completamente en linea
@@ -70,7 +66,7 @@ const Hero = () => {
             </div>
           </div>
           <div className='col-lg d-flex d-none d-lg-block'>
-            <Image className='car_image' src='/orange_car.svg' alt='car' width={800} height={800}></Image>
+            <Image className='car_image' src='/orange_car.svg' alt='car' width={800} height={800} priority></Image>
           </div>
           <div className='col-lg d-flex '>
             <Box

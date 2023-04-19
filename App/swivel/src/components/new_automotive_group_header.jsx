@@ -1,7 +1,7 @@
 // New Automotive Group Header Component
 import styles from '@/styles/new_automotive_group_header.module.css'
 
-const NewAutomotiveGroupHeader = () => {
+const NAGHeader = () => {
     return (
         <div className={styles.header}>
             <div className={styles.tag}>
@@ -12,4 +12,4 @@ const NewAutomotiveGroupHeader = () => {
     )
 }
 
-export default NewAutomotiveGroupHeader
+export default NAGHeader

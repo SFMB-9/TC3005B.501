@@ -5,9 +5,8 @@
   Este componente representa el footer de la pagina, el cual contiene los links
   a las paginas mas importantes del sitio web.
 */
-
-import Image from 'next/image'
 import React from 'react'
+import Image from 'next/image'
 import Link from 'next/link';
 import { Typography } from '@mui/material';
 
