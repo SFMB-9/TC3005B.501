@@ -1,0 +1,24 @@
+/*
+  Autor: Mateo Herrera
+  Fecha: 2023-04-15
+
+  Estilos para el componente hero
+*/
+
+section.hero {
+  margin: 5rem 0;
+  height: 70vh;
+}
+
+.car_image {
+  position: absolute;
+  left: 35%;
+  top: 5%;
+}
+
+.blob_hero {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
