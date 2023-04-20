@@ -1,9 +1,9 @@
 /*
+Autor: Ana Paula Katsuda Zalce
+
 Código utilizado para el formulario de inicio de sesión. 
 Este componente se puede reutilizar en cualquier pantalla que requiera un 
 formulario para ingresar al sistema.
-
-Autor: Ana Paula Katsuda Zalce
 */
 
 import "bootstrap/dist/css/bootstrap.min.css";

@@ -1,3 +1,10 @@
+/*
+Salvador Federico Milanes Braniff
+18-04-2023
+
+Formulario de configuración de nuevo grupo automotriz; 
+embebido en el layout de nuevo grupo automotriz
+*/
 import { useState } from 'react'
 
 import NAGForm from '@/components/new_automotive_group_form'
