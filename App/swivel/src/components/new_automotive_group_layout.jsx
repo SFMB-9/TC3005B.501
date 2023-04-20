@@ -3,6 +3,7 @@ Salvador Federico Milanes Braniff
 17-04-2023
 
 Layout genérico para las páginas de Nuevo Grupo Automotriz.
+Utilizarlo permite reducir la cantidad de codigo redundante en interfaces
 */
 import { useState } from 'react'
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
