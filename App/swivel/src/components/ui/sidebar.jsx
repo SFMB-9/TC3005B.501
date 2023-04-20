@@ -1,3 +1,10 @@
+/*
+Salvador Federico Milanes Braniff
+14-04-2023
+
+Sidebar es el componente de la barra lateral de la aplicación.
+Es abstracto, lo que permite reutilizarlo en diferentes partes de la aplicación.
+*/
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from '@mui/material';
 import { Sidebar as ReactProSidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
