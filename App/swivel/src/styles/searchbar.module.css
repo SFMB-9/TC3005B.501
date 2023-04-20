@@ -31,3 +31,11 @@
   position: absolute;
   right: 2.5rem; /* move the icon to the right of the search bar */
 }
+
+.searchbar_left_item {
+  margin-right: 1rem; /* add margin to the right of the left item */
+}
+
+.searchbar_right_item {
+  margin-left: 1rem; /* add margin to the left of the right item */
+}

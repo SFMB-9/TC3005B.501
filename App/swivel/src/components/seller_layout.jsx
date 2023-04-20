@@ -3,6 +3,7 @@ import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import Link from 'next/link'
 
 import Sidebar from '@/components/ui/sidebar'
+import Navbar from '@/components/navbar'
 
 export default function SellerLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false)
@@ -24,7 +25,7 @@ export default function SellerLayout({ children }) {
   return (
     <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
       {/* Sidebar */}
-      <ProSidebarProvider>
+      {/* <ProSidebarProvider>
       <Sidebar
           collapsed={collapsed}
           toggled={toggled}
@@ -46,14 +47,15 @@ export default function SellerLayout({ children }) {
           >Solicitudes</MenuItem>
           <MenuItem
             icon={<img src="/sidebar_chat_icon.png" />}
-            component={<Link href="./chat" />}
+            component={<Link href="./chats" />}
           >Chat</MenuItem>
           <MenuItem
             icon={<img src="/sidebar_catalog_icon.png" />}
             component={<Link href="./catalog" />}
           >Catálogo</MenuItem>
         </Sidebar>
-      </ProSidebarProvider>
+      </ProSidebarProvider> */}
+      {/* <Navbar/> */}
       <div style={{width: '100%'}}>
         {children}
       </div>
