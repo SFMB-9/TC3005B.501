@@ -1,3 +1,10 @@
+/*
+Salvador Federico Milanes Braniff
+14-04-2023
+
+Sidebar es el componente de la barra lateral de la aplicación.
+Es abstracto, lo que permite reutilizarlo en diferentes partes de la aplicación.
+*/
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from '@mui/material';
 import { Sidebar as ReactProSidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
@@ -8,7 +15,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const { collapseSidebar } = useProSidebar();
   const isSlimScreen = useMediaQuery('(max-width: 768px)');
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const [isArrowVisible, setIsArrowVisible] = useState(isSlimScreen);
+  const [isBurgerVisible, setIsArrowVisible] = useState(isSlimScreen);
 
   const handleArrowClick = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -58,7 +65,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
         style={{ height: '100%', opacity: 1, position: isSlimScreen && isSidebarVisible ? 'fixed' : 'relative', display: isSlimScreen && !isSidebarVisible ? 'none' : 'block' }}
         onClick={handleSidebarClick}
       >
-        {/* Sidebar Content */}
+        {/* Contenido del Sidebar */}
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           <div style={{ flexGrow: 1, overflowY: 'auto' }}>
             <Menu iconShape="circle">
@@ -82,14 +89,14 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
               {children}
             </Menu>
           </div>
-          {/* Set div at bottom */}
+          {/* Pie del Sidebar */}
           <div className="sidebar_footer" style={{ flexShrink: 0 }}>
             <Menu>{footer}</Menu>
           </div>
         </div>
       </ReactProSidebar>
-      {/* Arrow Button */}
-      {isArrowVisible && (
+      {/* Parrilla para mostrar Sidebar colapsado */}
+      {isBurgerVisible && (
         <div
           className="sidebar-arrow-button"
           style={{ zIndex: 1000, position: 'fixed', top: '2vh', left: '1vw', transform: 'translateY(-50%)' }}
