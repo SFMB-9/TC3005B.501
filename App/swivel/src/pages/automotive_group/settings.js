@@ -13,7 +13,9 @@ export default function Settings () {
         <a>Ajustes GA</a>
         </div>
       </Link>
-      <Link href='/automotive_group/docs'>
+      <Link href='/automotive_group/docSoli'>
+        
+      <Link href='/automotive_group/docSoli'>Documentos de grupo</Link>
         <div>
         <a>Documentos</a>
         </div>
