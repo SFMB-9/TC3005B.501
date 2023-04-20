@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { FormControl, FormLabel, InputLabel, TextField, Button, Link, Select, MenuItem } from '@mui/material'
 import styles from './registro_autos_popup.module.css'
-import { FileUpload, HdrEnhancedSelectSharp } from '@mui/icons-material'
+import FileUpload from "react-material-file-upload";
 
 export default function RegistroAutosPopup(props) {
   const [marca, setMarca] = useState("")
@@ -15,28 +15,15 @@ export default function RegistroAutosPopup(props) {
   const [tipoVehiculo, setTipoVehiculo] = useState("")
   const [disponibilidad, setDisponibilidad] = useState("")
   const [marcaError, setMarcaError] = useState(false)
-  const [anioError, setModeloError] = useState(false)
-  const [modeloError, setAnioError] = useState(false)
+  const [modeloError, setModeloError] = useState(false)
+  const [anioError, setAnioError] = useState(false)
   const [precioError, setPrecioError] = useState(false)
   const [colorError, setColorError] = useState(false)
   const [combustibleError, setCombustibleError] = useState(false)
   const [motorError, setMotorError] = useState(false)
   const [tipoVehiculoError, setTipoVehiculoError] = useState(false)
   const [disponibilidadError, setDisponibilidadError] = useState(false)
-  const [files, setFiles] = useState([]);
-
-  const colores = [
-    "Rojo",
-    "Azul",
-    "Verde",
-    "Blanco"
-  ]
-
-
-  const disponibilidades = [
-    "Disponible",
-    "No disponible"
-  ]
+  const [files, setFiles] = useState(null)
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -148,11 +135,14 @@ export default function RegistroAutosPopup(props) {
                 sx={{ mb: 3 }}
               />
               <FormControl sx={{ mb: 3, width: 221 }}>
-                <InputLabel htmlFor="disponibilidad-select">Anio</InputLabel>
+                <InputLabel htmlFor="anio-select">Año</InputLabel>
                 <Select
                   id="disponibilidad-select"
                   value={anio}
                   onChange={handleChangeAnio}
+                  error={anioError}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
                 >
                   <MenuItem value={2021}>2021</MenuItem>
                   <MenuItem value={2020}>2020</MenuItem>
@@ -202,11 +192,12 @@ export default function RegistroAutosPopup(props) {
                 sx={{ mb: 3 }}
               />
               <FormControl sx={{ mb: 3, width: 221 }}>
-                <InputLabel htmlFor="disponibilidad-select">Combustible</InputLabel>
+                <InputLabel htmlFor="combustible-select">Combustible</InputLabel>
                 <Select
                   id="disponibilidad-select"
                   value={combustible}
                   onChange={handleChangeCombustible}
+                  error={combustibleError}
                 >
                   <MenuItem value={1}>Gasolina</MenuItem>
                   <MenuItem value={2}>Diesel</MenuItem>
@@ -229,11 +220,12 @@ export default function RegistroAutosPopup(props) {
               />
 
               <FormControl sx={{ mb: 3, width: 221 }}>
-                <InputLabel htmlFor="disponibilidad-select">TipoVehiculo</InputLabel>
+                <InputLabel htmlFor="tipoVehiculo-select">TipoVehiculo</InputLabel>
                 <Select
                   id="disponibilidad-select"
                   value={tipoVehiculo}
                   onChange={handleChangetipoVehiculo}
+                  error={tipoVehiculoError}
                 >
                   <MenuItem value={1}>Hatchback</MenuItem>
                   <MenuItem value={2}>Sedan</MenuItem>
@@ -249,6 +241,8 @@ export default function RegistroAutosPopup(props) {
                   id="disponibilidad-select"
                   value={disponibilidad}
                   onChange={handleChangeDisponibilidad}
+                  error={disponibilidadError}
+                  displayEmpty
                 >
                   <MenuItem value={1}>Disponible</MenuItem>
                   <MenuItem value={2}>No Disponible</MenuItem>
@@ -256,7 +250,8 @@ export default function RegistroAutosPopup(props) {
               </FormControl>
 
             </div>
-            <div className={styles.registerButton}>
+            <div className={styles.fileUpload}>
+              <h5>Imagenes (Subir fotos 3d)</h5>
               <FileUpload value={files} onChange={setFiles} />
             </div>
             <div className={styles.registerButton}>
@@ -264,7 +259,6 @@ export default function RegistroAutosPopup(props) {
             </div>
 
           </form>
-          <small>Need an account? <Link to="/">Register here</Link></small>
         </React.Fragment>
       </div>
     </div>

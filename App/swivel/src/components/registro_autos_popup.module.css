@@ -27,6 +27,7 @@
 .registerButton{
   display: flex;
   justify-content: center;
+  padding-top: 20px;
 }
 
 .popupInner{
@@ -37,7 +38,7 @@
 }
 
 .popupInner .closeBtn{
-  position: absolute;
+  position: absolute; 
   top: 16px;
   right: 16px;
 }
