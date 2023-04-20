@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import SignupForm from '@/components/signup_form';
 import styles from "@/styles/signup_form.module.css";
 
-export default function LoginVendedor () {
+export default function LoginBuyer () {
     return (
       <div className={styles.login}>
         <div className={styles.card}>
@@ -27,5 +28,5 @@ export default function LoginVendedor () {
         </div>
       </div>
     </div>
-  );
+    );
 };

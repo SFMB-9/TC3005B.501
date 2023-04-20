@@ -7,7 +7,7 @@ Utilizarlo permite reducir la cantidad de codigo redundante en interfaces
 */
 import styles from '@/styles/new_automotive_group_header.module.css'
 
-const NAGHeader = () => {
+const NewAutomotiveGroupHeader = () => {
     return (
         <div className={styles.header}>
             <div className={styles.tag}>
@@ -18,4 +18,4 @@ const NAGHeader = () => {
     )
 }
 
-export default NAGHeader
+export default NewAutomotiveGroupHeader

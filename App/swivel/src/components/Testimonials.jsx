@@ -5,8 +5,9 @@
   Este script representa el componente Testimonials, el cual es utilizado para mostrar
   las razones por las cuales comprar en SWIVEL.
 */
-import { Typography } from '@mui/material'
 
+import React from 'react'
+import { Typography } from '@mui/material'
 import Card from './ui/card'
 
 // Funcion que retorna el componente Testimonials
