@@ -32,6 +32,7 @@
 
 .popupInner{
   position: relative;
+  border-radius: 10px;
   width: 60%;
   padding: 32px;
   background-color: var(--white);

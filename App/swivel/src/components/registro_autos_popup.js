@@ -25,6 +25,7 @@ export default function RegistroAutosPopup(props) {
   const [tipoVehiculoError, setTipoVehiculoError] = useState(false)
   const [disponibilidadError, setDisponibilidadError] = useState(false)
   const [files, setFiles] = useState(null)
+  const [filesError, setFilesError] = useState(false)
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -76,10 +77,6 @@ export default function RegistroAutosPopup(props) {
     }
     if (disponibilidad === '') {
       setDisponibilidadError(true);
-    }
-
-    if (marca && anio) {
-      console.log(marca, anio)
     }
 
   }
@@ -235,8 +232,7 @@ export default function RegistroAutosPopup(props) {
                   required
                 >
                   <MenuItem value={1}>Hatchback</MenuItem>
-                  <MenuItem value={2}>Sedan</MenuItem>
-                  <MenuItem value={3}>SUV</MenuItem>
+                  <MenuItem value={2}>Sedan</MenuItem>                  <MenuItem value={3}>SUV</MenuItem>
                   <MenuItem value={4}>Pickup</MenuItem>
                   <MenuItem value={5}>Camioneta</MenuItem>
                 </Select>
@@ -263,6 +259,7 @@ export default function RegistroAutosPopup(props) {
               <FileUpload
                 value={files}
                 onChange={setFiles}
+                required
               />
             </div>
             <div className={styles.registerButton}>
