@@ -114,7 +114,7 @@ const DocumentosGASolicitante = () => {
         </div>
       </div>
       <div className={styles.sideMenuNuevo}>
-        <div className={styles.sideMenuNuevoChild} />
+        <div className={styles.sideMenuNuevoChild}/>
         <div className={styles.bottom}>
           <div className={styles.listManu}>
             <div className={styles.content}>
@@ -137,29 +137,11 @@ const DocumentosGASolicitante = () => {
               component={<Link href="/auth/login"/>}
               style={{ bottom: 0 }}
               >
-                <div>
-                  <a>Cerrar sesión</a>
-                </div>
+                <a>Cerrar sesión</a>
               </MenuItem>
             }
             className="sidebar"
             >
-            <MenuItem
-              icon={<img src="/grupo_auto/sidebar_settings_icon.svg" />}
-              component={<Link href="/settings"/>}
-            >
-              <div>
-                <a>Ajustes del perfil</a>
-              </div>
-            </MenuItem>
-            <MenuItem
-              icon={<img src="/grupo_auto/sidebar_docs_icon.svg" />}
-              component={<Link href="/docs"/>}
-            >
-              <div>
-                <a>Documentos</a>
-              </div>
-            </MenuItem>
             <MenuItem disabled icon={<img src="/grupo_auto/sidebar_help_icon.svg"/>}>
               Ayuda
             </MenuItem>

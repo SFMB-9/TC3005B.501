@@ -15,7 +15,7 @@ export default function Home() {
       <Link href='/auth/register'>Regístrate</Link>
       <Link href='/auth/login'>Inicia sesión</Link>
       <Link href='/automotive_group/settings'>Ajustes GA</Link>
-      <Link href='/automotive_group/docSoli'>Documentos</Link>
+      <Link href='/automotive_group/docSoli'>Documentos de grupo</Link>
     </>
   )
 }
