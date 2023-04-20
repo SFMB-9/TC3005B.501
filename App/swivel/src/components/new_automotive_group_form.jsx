@@ -1,3 +1,11 @@
+/*
+Salvador Federico Milanes Braniff
+18-04-2023
+
+NAGForm es un formulario de configuración 
+inicial del grupo automotriz.
+Es reactivo y se ajusta a la pantalla de forma dinámica.
+*/
 import { Grid, TextField, Button } from '@mui/material';
 
 import styles from '@/styles/new_automotive_group_form.module.css'

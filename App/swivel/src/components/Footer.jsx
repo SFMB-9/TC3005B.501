@@ -12,8 +12,8 @@ import { Typography } from '@mui/material';
 
 // Constante que contiene los links de la primera columna del footer
 const pages1 = [
-  {name: 'Compra un auto', link: '/comprar'},
-  {name: 'Registra tu agencia', link: '/registrar-agencia'}, 
+  {name: 'Compra un auto', link: '/catalog'},
+  {name: 'Registra tu agencia', link: '/signup_agencia'}, 
   {name: 'Contacto', link: '/contacto'},    
 ];
 
@@ -36,7 +36,7 @@ const Footer = () => {
           <div className='col'>
             <div className='d-flex flex-column align-items-center align-items-md-start'>
               {pages1.map((page) => (
-                <Link href={page.link} style={{ textDecoration: 'none' }} className='p-1'>
+                <Link href={page.link} style={{ textDecoration: 'none' }} className='p-1' key={page.name}>
                     <Typography
                       color='white' 
                       fontFamily='Lato'

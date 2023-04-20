@@ -21,11 +21,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Constantes que contienen los nombres de las paginas y sus respectivos links
 const pages = [
   { name: 'Catálogo', link: '/catalog' },
-  { name: 'TODO', link: '/TODO' },
   { name: 'Auto-Quiz™', link: '/quiz' },
 ];
 const settings = [
@@ -70,7 +70,7 @@ function ResponsiveAppBar() {
     <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href='/'>
+          {/* <Link href='/'>
             <Box
               component="img"
               sx={{
@@ -81,12 +81,21 @@ function ResponsiveAppBar() {
               alt="Logo."
               src="/appbar_swivel_logo.svg"
             />
-          </Link>
+          </Link> */}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              mr: 1,
+            }}
+          >
+            <Link href='/'>
+              <Image src="/appbar_swivel_logo.svg" alt="Logo" width={120} height={30} />
+            </Link>
+          </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -126,27 +135,28 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <Link href='/'>
-            <Box
-              component="img"
-              sx={{
-                display: { xs: 'flex', md: 'none' },
-                mr: 1,
-                height: '30px',
-                flexGrow: 1,
-              }}
-              alt="Logo."
-              src="/appbar_swivel_logo.svg"
-            />
-          </Link>
-          <Typography
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              alignSelf: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Link href='/'>
+              <Image src="/appbar_swivel_logo.svg" alt="Logo" width={120} height={30} />
+            </Link>
+          </Box>
+          {/* <Typography
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
             }}
           >
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly' }}>
             {pages.map((page) => (
               <Link href={page.link} style={{ textDecoration: 'none' }} key={page.name}>
@@ -168,11 +178,10 @@ function ResponsiveAppBar() {
                   <MoreVertIcon />
                 </IconButton>
                 <Menu
-                  sx={{ mt: '45px' }}
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: 'top',
+                    vertical: 'bottom',
                     horizontal: 'right',
                   }}
                   keepMounted
@@ -205,7 +214,7 @@ function ResponsiveAppBar() {
                     <Button
                       variant='contained'
                       disableElevation
-                      color={index === 0 ? 'secondary' : 'alternate'}
+                      color={index === 0 ? 'secondary' : 'warning'}
                       className='mx-2 rounded-pill'
                       size='medium'
                       onClick={handleClose}

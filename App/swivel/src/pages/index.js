@@ -1,3 +1,9 @@
+/*
+Mateo Herrera Lavalle
+
+Pagina principal (landing)
+Incluye el hero, testimonials y process
+*/
 import { Inter } from 'next/font/google'
 
 import Hero from '@/components/hero'
