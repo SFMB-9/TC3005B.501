@@ -1,9 +1,14 @@
-import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
+/*
+Salvador Federico Milanes Braniff
+18-04-2023
+
+Formulario de configuración de nuevo grupo automotriz; 
+embebido en el layout de nuevo grupo automotriz
+*/
 import { useState } from 'react'
-import Link from 'next/link'
-import Sidebar from '@/components/ui/sidebar'
-import NAGHeader from '@/components/new_automotive_group_header'
+
 import NAGForm from '@/components/new_automotive_group_form'
+import NAGLayout from '@/components/new_automotive_group_layout'
 
 export default function Settings() {
   const [collapsed, setCollapsed] = useState(false)
@@ -24,48 +29,9 @@ export default function Settings() {
 
   return (
     <>
-      <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
-        {/* Sidebar */}
-        <ProSidebarProvider>
-          <Sidebar
-            collapsed={collapsed}
-            toggled={toggled}
-            handleToggleSidebar={handleToggleSidebar}
-            handleCollapsedChange={handleCollapsedChange}
-            handleSidebarCollapse={handleSidebarCollapse}
-            footer={
-              <MenuItem
-              icon={<img src="/sidebar_logout_icon.svg" />}
-              component={<Link href="/auth/login" />}
-              style={{ bottom: 0 }}
-              >Cerrar sesión</MenuItem>
-            }
-            className="sidebar"
-          >
-            <MenuItem
-              icon={<img src="/sidebar_settings_icon.svg" />}
-              component={<Link href="./settings" />}
-            >
-              Ajustes del perfil
-            </MenuItem>
-            <MenuItem
-              icon={<img src="/sidebar_docs_icon.svg" />}
-              component={<Link href="./docs" />}
-            >
-              Documentos
-            </MenuItem>
-            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
-              Ayuda
-            </MenuItem>
-          </Sidebar>
-        </ProSidebarProvider>
-        {/* Page */}
-        <div style={{width: '100%'}}>
-          <NAGHeader />
-          {/* Solicitud Alta Grupo Automotriz */}
-          <NAGForm/>
-        </div>
-      </div>
+      <NAGLayout>
+        <NAGForm/>
+      </NAGLayout>
     </>
   )
 }

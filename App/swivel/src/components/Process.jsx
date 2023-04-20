@@ -86,14 +86,15 @@ const Process = () => {
               <Button
                 variant='contained'
                 disableElevation
-                color='contrast'
+                color='primary'
                 size='large'
+                className='p-2'
               >
                 <Typography
                   color='White ' 
                   fontFamily='Lato'
                   fontWeight='bolder'
-                  fontSize={13}
+                  fontSize={20}
                 >
                   Comprar un auto
                 </Typography>

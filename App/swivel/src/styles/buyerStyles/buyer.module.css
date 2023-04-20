@@ -1,0 +1,208 @@
+.fondoIcon {
+    position: absolute;
+    top: -8px;
+    left: 15px;
+    width: 1528px;
+    height: 1032.04px;
+    background-color: aliceblue;
+  }
+  .mostrardocumentosChild {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    width: 1077px;
+    height: 781px;
+  }
+  .subirbutton {
+    position: absolute;
+    top: 44px;
+    left: 835.42px;
+    cursor: pointer;
+  
+  }
+  .borrarbutton,
+  .editarbutton {
+    position: absolute;
+    top: 28px;
+  }
+  .editarbutton {
+    left: 681.11px;
+  }
+  .borrarbutton {
+    left: 837.32px;
+  }
+  .comprobanteDeDomicilio,
+  .estatus {
+    position: absolute;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    font-weight: 500;
+    display: inline-block;
+
+  }
+  .estatus {
+    top: 28px;
+    left: 489.48px;
+    width: 115.6px;
+  }
+  .comprobanteDeDomicilio {
+    top: 25px;
+    left: 133.31px;
+    color: var(--contraste);
+    width: 279.11px;
+  }
+  .bifileEarmarkPdfIcon {
+    position: absolute;
+    top: 19px;
+    left: 53.11px;
+    width: 43.74px;
+    height: 41px;
+    overflow: hidden;
+  }
+  .documento3Child {
+    position: absolute;
+    top: -0.25px;
+    left: -0.25px;
+    border-top: 0.5px solid var(--contraste);
+    box-sizing: border-box;
+    width: 984.67px;
+    height: 0.5px;
+  }
+  .documento3 {
+    position: absolute;
+    top: 180px;
+    left: 0;
+    width: 984.17px;
+    height: 65px;
+    color: rgba(17, 20, 57, 0.46);
+  }
+  .estatus1,
+  .licenciaDeConducir {
+    position: absolute;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  .estatus1 {
+    cursor: pointer;
+    top: 28px;
+    left: 489.48px;
+    width: 102.06px;
+  }
+  .licenciaDeConducir {
+    top: 25px;
+    left: 133.31px;
+    color: var(--contraste);
+    width: 214.54px;
+  }
+  .documento2 {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 984.17px;
+    height: 65px;
+    color: rgba(17, 20, 57, 0.46);
+  }
+  .estatus2,
+  .ine {
+    position: absolute;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  .estatus2 {
+    cursor: pointer;
+    top: 28px;
+    left: 489.48px;
+    width: 108.31px;
+  }
+  .ine {
+    top: 24px;
+    left: 133.31px;
+    color: var(--contraste);
+    width: 40.62px;
+  }
+  .documento1,
+  .infoDocumentos {
+    position: absolute;
+    width: 984.17px;
+  }
+  .documento1 {
+    top: 0;
+    left: 0;
+    height: 65px;
+    color: rgba(17, 20, 57, 0.46);
+  }
+  .infoDocumentos {
+    top: 113px;
+    left: 46px;
+    height: 245px;
+  }
+  .misDocumentos1 {
+    position: absolute;
+    top: 42px;
+    left: 46px;
+    font-size: 64px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    display: inline-block;
+    font-family: var(--font-raleway);
+    color: var(--contraste);
+    width: 515.52px;
+    color: rgba(17, 20, 57, 1);
+  }
+  .misDocumentos,
+  .mostrardocumentos {
+    position: absolute;
+    width: 1077px;
+    height: 781px;
+    background-color: aliceblue;
+  }
+  .mostrardocumentos {
+    top: 0;
+    left: 0;
+  }
+  .misDocumentos {
+    top: 155px;
+    left: 314px;
+    text-align: left;
+    font-size: var(--font-size-5xl);
+    color: var(--primario3);
+    font-family: var(--font-lato);
+  }
+  .bienvenidx,
+  .nombreApellidos {
+    position: absolute;
+    top: 35px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    display: inline-block;
+    color: rgb(58, 58, 58);
+  }
+  .nombreApellidos {
+    left: 1101.85px;
+    font-weight: 500;
+    width: 238.49px;
+  }
+  .bienvenidx {
+    left: 806.08px;
+    font-size: 48px;
+    font-family: var(--font-raleway);
+    width: 256.2px;
+    color: rgba(17, 20, 57, 1)
+  }
+  .subirDocumento {
+    position: relative;
+    background-color: var(--white);
+    width: 100%;
+    height: 1024px;
+    text-align: right;
+    font-size: 28px;
+    color: var(--contraste);
+    font-family: var(--font-lato);
+  }
