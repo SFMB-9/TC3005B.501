@@ -36,7 +36,7 @@ const Footer = () => {
           <div className='col'>
             <div className='d-flex flex-column align-items-center align-items-md-start'>
               {pages1.map((page) => (
-                <Link href={page.link} style={{ textDecoration: 'none' }} className='p-1'>
+                <Link href={page.link} style={{ textDecoration: 'none' }} className='p-1' key={page.name}>
                     <Typography
                       color='white' 
                       fontFamily='Lato'
