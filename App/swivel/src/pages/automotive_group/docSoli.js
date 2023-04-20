@@ -123,8 +123,8 @@ const DocumentosGASolicitante = () => {
             </div>
           </div>
         </div>
-        {/* Sidebar */}
-        <ProSidebarProvider>
+       {/* Sidebar */}
+       <ProSidebarProvider>
           <Sidebar
             collapsed={collapsed}
             toggled={toggled}
@@ -133,16 +133,26 @@ const DocumentosGASolicitante = () => {
             handleSidebarCollapse={handleSidebarCollapse}
             footer={
               <MenuItem
-              icon={<img src="/grupo_auto/sidebar_logout_icon.svg" />}
-              component={<Link href="/auth/login"/>}
+              icon={<img src="/sidebar_logout_icon.svg" />}
+              component={<Link href="/auth/login" />}
               style={{ bottom: 0 }}
-              >
-                <a>Cerrar sesión</a>
-              </MenuItem>
+              >Cerrar sesión</MenuItem>
             }
             className="sidebar"
+          >
+            <MenuItem
+              icon={<img src="/sidebar_settings_icon.svg" />}
+              component={<Link href="./settings" />}
             >
-            <MenuItem disabled icon={<img src="/grupo_auto/sidebar_help_icon.svg"/>}>
+              Ajustes del perfil
+            </MenuItem>
+            <MenuItem
+              icon={<img src="/sidebar_docs_icon.svg" />}
+              component={<Link href="./docs" />}
+            >
+              Documentos
+            </MenuItem>
+            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
               Ayuda
             </MenuItem>
           </Sidebar>
