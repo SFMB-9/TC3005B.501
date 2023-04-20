@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { FormControl, FormLabel, InputLabel, TextField, Button, Link, Select, MenuItem } from '@mui/material'
 import styles from './registro_autos_popup.module.css'
-import { FileUpload } from '@mui/icons-material'
+import { FileUpload, HdrEnhancedSelectSharp } from '@mui/icons-material'
 
 export default function RegistroAutosPopup(props) {
   const [marca, setMarca] = useState("")
@@ -100,6 +100,18 @@ export default function RegistroAutosPopup(props) {
     setDisponibilidad(event.target.value);
   }
 
+  const handleChangetipoVehiculo = (event) => {
+    setTipoVehiculo(event.target.value);
+  }
+
+  const handleChangeCombustible = (event) => {
+    setCombustible(event.target.value);
+  }
+
+  const handleChangeAnio = (event) => {
+    setAnio(event.target.value);
+  }
+
 
   return (props.trigger) ? (
     <div className={styles.popup}>
@@ -135,17 +147,36 @@ export default function RegistroAutosPopup(props) {
                 error={modeloError}
                 sx={{ mb: 3 }}
               />
-              <TextField
-                label="Año"
-                onChange={e => setAnio(e.target.value)}
-                required
-                variant="outlined"
-                color="secondary"
-                type="text"
-                value={anio}
-                error={anioError}
-                sx={{ mb: 3 }}
-              />
+              <FormControl sx={{ mb: 3, width: 221 }}>
+                <InputLabel htmlFor="disponibilidad-select">Anio</InputLabel>
+                <Select
+                  id="disponibilidad-select"
+                  value={anio}
+                  onChange={handleChangeAnio}
+                >
+                  <MenuItem value={2021}>2021</MenuItem>
+                  <MenuItem value={2020}>2020</MenuItem>
+                  <MenuItem value={2019}>2019</MenuItem>
+                  <MenuItem value={2018}>2018</MenuItem>
+                  <MenuItem value={2017}>2017</MenuItem>
+                  <MenuItem value={2016}>2016</MenuItem>
+                  <MenuItem value={2015}>2015</MenuItem>
+                  <MenuItem value={2014}>2014</MenuItem>
+                  <MenuItem value={2013}>2013</MenuItem>
+                  <MenuItem value={2012}>2012</MenuItem>
+                  <MenuItem value={2011}>2011</MenuItem>
+                  <MenuItem value={2010}>2010</MenuItem>
+                  <MenuItem value={2009}>2009</MenuItem>
+                  <MenuItem value={2008}>2008</MenuItem>
+                  <MenuItem value={2007}>2007</MenuItem>
+                  <MenuItem value={2006}>2006</MenuItem>
+                  <MenuItem value={2005}>2005</MenuItem>
+                  <MenuItem value={2004}>2004</MenuItem>
+                  <MenuItem value={2003}>2003</MenuItem>
+                  <MenuItem value={2002}>2002</MenuItem>
+                  <MenuItem value={2001}>2001</MenuItem>
+                </Select>
+              </FormControl>
             </div>
             <div className={styles.formRow}>
               <TextField
@@ -170,17 +201,19 @@ export default function RegistroAutosPopup(props) {
                 error={colorError}
                 sx={{ mb: 3 }}
               />
-              <TextField
-                label="Combustible"
-                onChange={e => setCombustible(e.target.value)}
-                required
-                variant="outlined"
-                color="secondary"
-                type="text"
-                value={combustible}
-                error={combustibleError}
-                sx={{ mb: 3 }}
-              />
+              <FormControl sx={{ mb: 3, width: 221 }}>
+                <InputLabel htmlFor="disponibilidad-select">Combustible</InputLabel>
+                <Select
+                  id="disponibilidad-select"
+                  value={combustible}
+                  onChange={handleChangeCombustible}
+                >
+                  <MenuItem value={1}>Gasolina</MenuItem>
+                  <MenuItem value={2}>Diesel</MenuItem>
+                  <MenuItem value={3}>Hibrido</MenuItem>
+                  <MenuItem value={4}>Electrico</MenuItem>
+                </Select>
+              </FormControl>
             </div>
             <div className={styles.formRow}>
               <TextField
@@ -194,17 +227,22 @@ export default function RegistroAutosPopup(props) {
                 error={motorError}
                 sx={{ mb: 3 }}
               />
-              <TextField
-                label="Tipo de vehiculo"
-                onChange={e => setTipoVehiculo(e.target.value)}
-                required
-                variant="outlined"
-                color="secondary"
-                type="text"
-                value={tipoVehiculo}
-                error={tipoVehiculoError}
-                sx={{ mb: 3 }}
-              />
+
+              <FormControl sx={{ mb: 3, width: 221 }}>
+                <InputLabel htmlFor="disponibilidad-select">TipoVehiculo</InputLabel>
+                <Select
+                  id="disponibilidad-select"
+                  value={tipoVehiculo}
+                  onChange={handleChangetipoVehiculo}
+                >
+                  <MenuItem value={1}>Hatchback</MenuItem>
+                  <MenuItem value={2}>Sedan</MenuItem>
+                  <MenuItem value={3}>SUV</MenuItem>
+                  <MenuItem value={4}>Pickup</MenuItem>
+                  <MenuItem value={5}>Camioneta</MenuItem>
+                </Select>
+              </FormControl>
+
               <FormControl sx={{ mb: 3, width: 221 }}>
                 <InputLabel htmlFor="disponibilidad-select">Disponibilidad</InputLabel>
                 <Select

@@ -41,8 +41,6 @@ export default function Home() {
       <RegistroAutosPopup trigger = {true}> 
       
       </RegistroAutosPopup>
-
-
     </>
   )
 }
