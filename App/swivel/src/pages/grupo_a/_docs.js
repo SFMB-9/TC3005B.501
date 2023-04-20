@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Button, Icon } from "@mui/material";
-import SideMenu from "@/components/buyer/side_menu_buyer";
-import styles from '@/styles/buyerStyles/buyer.module.css';
+import Link from 'next/link'
 import MUIDataTable from "mui-datatables";
 
+import Sidebar from '@/components/ui/sidebar';
+import NAGHeader from '@/components/new_automotive_group_header';
 
 const columns = [
     { name: "Nombre", label:"Nombre", options: { filter: false, sort: true } },
@@ -11,7 +12,7 @@ const columns = [
     { name: "Ultima modificación", label:"Ultima modificación", options: { filter: false, sort: true } },
     { name: "Estatus", label:"Estatus", options: { filter: true, sort: true } },
     { name: "Comentarios", label:"Comentarios", options: { filter: false, sort: true } }
-  ];
+];
 
 const data = [
  ["Doc_1", "Vista Previa", "DD/MM/AAAA", "Rechazado","Ver Comentarios"],
@@ -59,39 +60,72 @@ const options = {
     },
   },
 };
-
-const Docs = () => {
-  return (
-    <>
-      <div className={styles.subirDocumento}>
-        <img className={styles.fondoIcon} alt="" src="/buyer/fondo.svg" />
-        <section className={styles.misDocumentos}>
-          <div className={styles.mostrardocumentos}>
-            <div className={styles.mostrardocumentosChild} />
-            <Button
-              className={styles.subirbutton}
-              sx={{ width: 180.17002868652344 }}
-              variant="contained"
-              color="primary"
+export default function Docs () {
+    const [collapsed, setCollapsed] = useState(false)
+    const [toggled, setToggled] = useState(false)
+  
+    const handleCollapsedChange = () => {
+      setCollapsed(!collapsed)
+    }
+  
+    const handleToggleSidebar = (value) => {
+      setToggled(value)
+    }
+  
+    const handleSidebarCollapse = () => {
+      setCollapsed(!collapsed)
+      setToggled(false)
+    }
+    return (
+      <>
+        <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
+          {/* Sidebar */}
+          <ProSidebarProvider>
+            <Sidebar
+              collapsed={collapsed}
+              toggled={toggled}
+              handleToggleSidebar={handleToggleSidebar}
+              handleCollapsedChange={handleCollapsedChange}
+              handleSidebarCollapse={handleSidebarCollapse}
+              footer={
+                <MenuItem
+                icon={<img src="/sidebar_logout_icon.svg" />}
+                component={<Link href="/auth/login" />}
+                style={{ bottom: 0 }}
+                >Cerrar sesión</MenuItem>
+              }
+              className="sidebar"
             >
-              Subir nuevo
-            </Button>
-            <div className={styles.infoDocumentos}>
-              <MUIDataTable
+              <MenuItem
+                icon={<img src="/sidebar_branches_icon.svg" />}
+                component={<Link href="/new_automotive_group/settings" />}
+              >
+                Agencias
+              </MenuItem>
+              <MenuItem
+                icon={<img src="/sidebar_statistics_icon.svg" />}
+                component={<Link href="/new_automotive_group/docs" />}
+              >
+                Estadísticas
+              </MenuItem>
+              <MenuItem icon={<img src="/sidebar_managers_icon.svg" />}>
+                Gerentes
+              </MenuItem>
+            </Sidebar>
+          </ProSidebarProvider>
+          {/* Page */}
+          <div style={{width: '100'}}>
+            <NAGHeader />
+              <div>
+                Documentos
+              </div>
+            <MUIDataTable
                 data={data}
                 columns={columns}
                 options={options}
-              /> 
-            </div>
-            <b className={styles.misDocumentos1}>Documentos</b>
+            /> 
           </div>
-        </section>
-        <SideMenu />
-        <div className={styles.nombreApellidos}>{`Nombre - Apellidos `}</div>
-        <b className={styles.bienvenidx}>Bienvenidx</b>
-      </div>
-    </>
-  );
-};
-
-export default Docs;
+        </div>
+      </>
+    )
+  }
