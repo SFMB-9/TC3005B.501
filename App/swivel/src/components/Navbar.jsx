@@ -215,7 +215,7 @@ function ResponsiveAppBar() {
                     <Button
                       variant='contained'
                       disableElevation
-                      color={index === 0 ? 'secondary' : 'alternate'}
+                      color={index === 0 ? 'secondary' : 'warning'}
                       className='mx-2 rounded-pill'
                       size='medium'
                       onClick={handleClose}
