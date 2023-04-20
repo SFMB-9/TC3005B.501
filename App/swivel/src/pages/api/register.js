@@ -10,11 +10,11 @@ export default async function handler(req, res) {
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)){ // regex to check name format validity, returns if non-compliant
-      return res.status(400).json({ message: "Front, please check formats properly" });
+      return res.status(400).json({ message: "Front, please check formats properly, name" });
     }
 
-    if (!/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){// regex to check email format validity, returns if non-compliant
-      return res.status(400).json({ message: "Front, please check formats properly" });
+    if (!/[\w\.-]+@([\w-]+\.)+[\w-]{2,4}/.test(email)){// regex to check email format validity, returns if non-compliant
+      return res.status(400).json({ message: "Front, please check formats properly, email" });
     }
 
     let ping = require("ping");
@@ -32,14 +32,20 @@ export default async function handler(req, res) {
 
     let user;
 
-    User.exists({ email: email }, async function (err, doc) { // email existence check within the db, returns if there is already an account with the email
-      if (doc){
-        user = await User.create({ name, email, password, encrypted_role});
-        res.status(200).json({ message: "User registered successfully" });
-      }
-      else{
-        res.status(400).json({ message: "Account already exists" });
-      }
-    }); 
+    let flag = User.exists({ email: email }); 
+    
+    // email existence check within the db, returns if there is already an account with the email
+    if (!flag){
+      user = await User.create({ name, email, password, encrypted_role});
+      res.status(200).json({ message: "User registered successfully" });
+    }
+    else{
+      res.status(400).json({ message: "Account already exists" });
+    }
+    
+
+    /* console.log(flag);
+
+    res.status(200).json({ message: "User registered successfully" }); */
   }
 }
