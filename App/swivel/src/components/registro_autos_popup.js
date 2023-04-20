@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { FormControl, FormLabel, InputLabel, TextField, Button, Link, Select, MenuItem } from '@mui/material'
 import styles from './registro_autos_popup.module.css'
 import FileUpload from "react-material-file-upload";
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function RegistroAutosPopup(props) {
   const [marca, setMarca] = useState("")
@@ -103,7 +104,9 @@ export default function RegistroAutosPopup(props) {
   return (props.trigger) ? (
     <div className={styles.popup}>
       <div className={styles.popupInner}>
-        <button className={styles.closeBtn} onClick={() => props.setTrigger(false)}> close </button>
+        <Button className={styles.closeBtn} onClick={() => props.setTrigger(false)}>
+          <CloseIcon />
+        </Button>
         {props.children}
 
         <React.Fragment>
@@ -142,7 +145,7 @@ export default function RegistroAutosPopup(props) {
                   onChange={handleChangeAnio}
                   error={anioError}
                   displayEmpty
-                  inputProps={{ 'aria-label': 'Without label' }}
+                  required
                 >
                   <MenuItem value={2021}>2021</MenuItem>
                   <MenuItem value={2020}>2020</MenuItem>
@@ -198,6 +201,8 @@ export default function RegistroAutosPopup(props) {
                   value={combustible}
                   onChange={handleChangeCombustible}
                   error={combustibleError}
+                  displayEmpty
+                  required
                 >
                   <MenuItem value={1}>Gasolina</MenuItem>
                   <MenuItem value={2}>Diesel</MenuItem>
@@ -226,6 +231,8 @@ export default function RegistroAutosPopup(props) {
                   value={tipoVehiculo}
                   onChange={handleChangetipoVehiculo}
                   error={tipoVehiculoError}
+                  displayEmpty
+                  required
                 >
                   <MenuItem value={1}>Hatchback</MenuItem>
                   <MenuItem value={2}>Sedan</MenuItem>
@@ -243,6 +250,7 @@ export default function RegistroAutosPopup(props) {
                   onChange={handleChangeDisponibilidad}
                   error={disponibilidadError}
                   displayEmpty
+                  required
                 >
                   <MenuItem value={1}>Disponible</MenuItem>
                   <MenuItem value={2}>No Disponible</MenuItem>
@@ -252,10 +260,13 @@ export default function RegistroAutosPopup(props) {
             </div>
             <div className={styles.fileUpload}>
               <h5>Imagenes (Subir fotos 3d)</h5>
-              <FileUpload value={files} onChange={setFiles} />
+              <FileUpload
+                value={files}
+                onChange={setFiles}
+              />
             </div>
             <div className={styles.registerButton}>
-              <Button variant="outlined" color="secondary" type="submit">Registrar</Button>
+              <Button variant="contained" color="primary" type="submit">Registrar</Button>
             </div>
 
           </form>
