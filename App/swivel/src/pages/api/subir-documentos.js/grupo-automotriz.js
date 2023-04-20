@@ -1,5 +1,8 @@
-// H_016: Endpoint de subir documento como Usuario Gpo Automotriz
+/*
+H_016: Endpoint de subir documento como Usuario Gpo Automotriz
 
+@catlikeflyer
+*/
 import { getSession } from "next-auth/client";
 import multer from "multer"; // Import package
 import { v4 as uuidv4 } from "uuid"; // Import package

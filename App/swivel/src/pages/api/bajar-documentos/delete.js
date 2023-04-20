@@ -1,4 +1,8 @@
-// H_028 Endpoint de Baja de documento
+/* 
+H_028 Endpoint de Baja de documento
+
+@catlikeflyer
+*/
 
 import fs from 'fs';
 import { MongoClient, ObjectId } from 'mongodb';
