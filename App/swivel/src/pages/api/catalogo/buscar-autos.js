@@ -6,7 +6,8 @@ export default async function handler(req, res) {
     const db = client.db("nextjs-mongodb-demo");
     
     // Assemble the query using the query parameters
-    const query = { marca: req.query.marca };
+    const query = buildQuery(req.query, {});
+    console.log(query)
 
     if(req.method === 'GET') {
         try{
@@ -52,4 +53,34 @@ function assembleFilter(result, filters){
     filters.modelos = Array.from(modelos);
 
     return filters;
+}
+
+function buildQuery(queryParams, dbQuery){
+    let properties;
+    let subq = {};
+    let arr = [];
+
+    if(queryParams.marca !== undefined){
+        properties = queryParams.marca;
+        subq.$in = [];
+        arr = properties.split(",");
+        subq.$in = arr;
+        dbQuery.marca = subq;
+        subq = {};
+        arr = [];
+        properties = "";
+    }
+
+    if(queryParams.modelo !== undefined){
+        properties = queryParams.modelo;
+        subq.$in = [];
+        arr = properties.split(",");
+        subq.$in = arr;
+        dbQuery.modelo = subq;
+        subq = {};
+        arr = [];
+        properties = "";
+    }
+
+    return dbQuery;
 }
