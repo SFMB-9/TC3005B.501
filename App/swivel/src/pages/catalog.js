@@ -1,7 +1,10 @@
 /*
-Salvador Federico Milanes Braniff
 Ana Paula Katsuda Zalce
+Salvador Federico Milanes Braniff
 18-04-2023
+
+Catalogo de vehiculos, con sidebar de filtros
+y searchbar que emplearía elastic search.
 */
 import React, { useState } from 'react';
 import { Grid, Chip } from '@mui/material';
