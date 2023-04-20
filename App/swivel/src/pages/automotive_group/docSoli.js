@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button, Container } from "@mui/material"
 import styles from '@/styles/grupoStyles/docSoli.module.css'
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import { useState } from 'react'
@@ -115,14 +115,6 @@ const DocumentosGASolicitante = () => {
       </div>
       <div className={styles.sideMenuNuevo}>
         <div className={styles.sideMenuNuevoChild}/>
-        <div className={styles.bottom}>
-          <div className={styles.listManu}>
-            <div className={styles.content}>
-              <img className={styles.icons} alt="" src="/grupo_auto/icons.svg" />
-              <div className={styles.text1}>Cerrar Sesión</div>
-            </div>
-          </div>
-        </div>
        {/* Sidebar */}
        <ProSidebarProvider>
           <Sidebar
@@ -133,7 +125,7 @@ const DocumentosGASolicitante = () => {
             handleSidebarCollapse={handleSidebarCollapse}
             footer={
               <MenuItem
-              icon={<img src="/sidebar_logout_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_logout_icon.svg" />}
               component={<Link href="/auth/login" />}
               style={{ bottom: 0 }}
               >Cerrar sesión</MenuItem>
@@ -141,18 +133,18 @@ const DocumentosGASolicitante = () => {
             className="sidebar"
           >
             <MenuItem
-              icon={<img src="/sidebar_settings_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_settings_icon.svg" />}
               component={<Link href="./settings" />}
             >
               Ajustes del perfil
             </MenuItem>
             <MenuItem
-              icon={<img src="/sidebar_docs_icon.svg" />}
+              icon={<img src="/grupo_auto/sidebar_docs_icon.svg" />}
               component={<Link href="./docs" />}
             >
               Documentos
             </MenuItem>
-            <MenuItem disabled icon={<img src="/sidebar_help_icon.svg" />}>
+            <MenuItem disabled icon={<img src="/grupo_auto/sidebar_help_icon.svg" />}>
               Ayuda
             </MenuItem>
           </Sidebar>
@@ -165,7 +157,7 @@ const DocumentosGASolicitante = () => {
         Sube tus documentos y espera a que sean aprobados
       </div>
       <div className={styles.comentarios}>Comentarios:</div>
-      <div className={styles.documentosGaSolicitanteChild} />
+      <div className={styles.documentosGaSolicitanteChild}></div>
     </div>
   );
 };
