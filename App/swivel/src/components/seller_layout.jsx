@@ -21,7 +21,7 @@ export default function SellerLayout({ children }) {
     setCollapsed(!collapsed)
     setToggled(false)
   }
-  
+
   return (
     <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
       {/* Sidebar */}
@@ -56,7 +56,7 @@ export default function SellerLayout({ children }) {
         </Sidebar>
       </ProSidebarProvider> */}
       {/* <Navbar/> */}
-      <div style={{width: '100%'}}>
+      <div style={{ width: '100%' }}>
         {children}
       </div>
     </div>

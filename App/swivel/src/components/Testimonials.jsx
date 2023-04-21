@@ -30,7 +30,7 @@ const Testimonials = () => {
         </div>
         <div className='text-lg-start text-center p-3 pt-0 row'>
           <div className='d-lg-flex col-lg align-items-stretch'>
-            <Card 
+            <Card
               img='/info_card_photo_1.png'
               title='Compra 100% en línea'
               text='Busca, compara y compra en un mismo sitio sin necesidad de salir de tu hogar.'
@@ -44,7 +44,7 @@ const Testimonials = () => {
             />
           </div>
           <div className='d-lg-flex col-lg align-items-stretch'>
-            <Card 
+            <Card
               img='/info_card_photo_3.png'
               title='Agencias verificadas'
               text='Todas las agencias de la plataforma pasan por un proceso de verificación para asegurar que tu compra sea confiable.  '

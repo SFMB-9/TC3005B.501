@@ -1,37 +1,38 @@
-import { useState } from "react";
-import { Button, Icon } from "@mui/material";
+import { Button } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 //import styles from "../../styles/ga_documents_compt.module.css";
 
 const arch = (value) => {
-    if (value == "Vista Previa") {
-        return "primary"
-    } else {
-        return "secondary"
-    }
+  if (value == "Vista Previa") {
+    return "primary"
+  } else {
+    return "secondary"
+  }
 }
 
 const stat = (value) => {
-    if (value == "En proceso") {
-        return true
-    } else {
-        return false
-    }
+  if (value == "En proceso") {
+    return true
+  } else {
+    return false
+  }
 }
 
 const status = (value) => {
-    if (value == "Rechazado") {
-        return "error"
-    } else if (value == "Aprovado") {
-        return "success"
-    } else {
-        return "info"
-    }
+  if (value == "Rechazado") {
+    return "error"
+  } else if (value == "Aprovado") {
+    return "success"
+  } else {
+    return "info"
+  }
 }
 
 const columns = [
-    { name: "Nombre", label:"Nombre", options: { filter: false, sort: true } },
-    { name: "Archivo", label:"Archivo", options: { filter: false, sort: false, 
+  { name: "Nombre", label: "Nombre", options: { filter: false, sort: true } },
+  {
+    name: "Archivo", label: "Archivo", options: {
+      filter: false, sort: false,
       customBodyRender: (value, tableMeta, updateValue) => (
         <Button
           sx={{ width: 150 }}
@@ -40,9 +41,13 @@ const columns = [
         >
           {value}
         </Button>
-      ) } },
-    { name: "Ultima modificación", label:"Ultima modificación", options: { filter: false, sort: true } },
-    { name: "Estatus", label:"Estatus", options: { filter: true, sort: true,
+      )
+    }
+  },
+  { name: "Ultima modificación", label: "Ultima modificación", options: { filter: false, sort: true } },
+  {
+    name: "Estatus", label: "Estatus", options: {
+      filter: true, sort: true,
       customBodyRender: (value, tableMeta, updateValue) => (
         <Button
           sx={{ width: 132.2635498046875 }}
@@ -55,41 +60,43 @@ const columns = [
         >
           {value}
         </Button>
-      ) } },
-    { name: "Comentarios", label:"Comentarios", options: { filter: false, sort: true } }
+      )
+    }
+  },
+  { name: "Comentarios", label: "Comentarios", options: { filter: false, sort: true } }
 ];
 
 const data = [
-    ["Doc_1", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado","Ver Comentarios"],
-    ["Doc_2", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_3", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_4", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_5", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_6", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_7", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_8", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_9", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_10", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_11", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_12", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_13", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_14", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_15", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_16", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_17", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_18", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_19", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_20", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_21", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_22", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_23", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_24", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_25", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_26", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
-    ["Doc_27", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
-    ["Doc_28", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_29", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
-    ["Doc_30", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_1", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_2", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_3", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_4", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_5", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_6", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_7", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_8", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_9", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_10", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_11", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_12", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_13", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_14", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_15", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_16", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_17", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_18", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_19", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_20", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_21", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_22", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_23", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_24", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_25", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_26", "Vista Previa", "DD/MM/AAAA", "En proceso", "Sin Comentarios"],
+  ["Doc_27", "Vista Previa", "DD/MM/AAAA", "Aprovado", "Sin Comentarios"],
+  ["Doc_28", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_29", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
+  ["Doc_30", "Seleccionar Archivo", "DD/MM/AAAA", "Rechazado", "Ver Comentarios"],
 ];
 
 const options = {
@@ -131,15 +138,15 @@ const options = {
     },
   },
 };
-export default function Docs_comp () {
-    return (
-      <>
-        <MUIDataTable
-          title={"Documentos"}
-          data={data}
-          columns={columns}
-          options={options}
-        /> 
-      </>
-    )
-  }
+export default function Docs_comp() {
+  return (
+    <>
+      <MUIDataTable
+        title={"Documentos"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+    </>
+  )
+}

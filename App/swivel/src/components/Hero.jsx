@@ -7,17 +7,14 @@
 */
 
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Link from 'next/link'
-import { Typography } from '@mui/material'
+import { Box, Button, Link, Typography } from '@mui/material'
 import Image from 'next/image'
 
 
 // Funcion que retorna el hero de la pagina
 const Hero = () => {
   return (
-    
+
     <section className='hero'>
       <div className='container px-0 pt-5'>
         <div className='row justify-content-between'>
@@ -32,7 +29,7 @@ const Hero = () => {
                 fontFamily='Lato'
 
               >
-                Compra tu auto <br/>
+                Compra tu auto <br />
                 completamente en linea
               </Typography>
             </div>
@@ -45,7 +42,7 @@ const Hero = () => {
                 }}
                 fontFamily='Lato'
               >
-                Encuentras cientos de autos y marcas diferentes en una misma 
+                Encuentras cientos de autos y marcas diferentes en una misma
                 plataforma y haz tu compra 100% en linea
               </Typography>
             </div>
@@ -58,7 +55,7 @@ const Hero = () => {
                   size='large'
                 >
                   <Typography
-                    color='White ' 
+                    color='White '
                     fontFamily='Lato'
                     fontWeight='bolder'
                     fontSize={13}
@@ -83,7 +80,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
+
     </section>
   )
 }

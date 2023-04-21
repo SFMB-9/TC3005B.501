@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
-import { FormControl, FormLabel, InputLabel, TextField, Button, Link, Select, MenuItem } from '@mui/material'
-import styles from './registro_autos_popup.module.css'
+import { FormControl, InputLabel, TextField, Button, Select, MenuItem } from '@mui/material'
 import FileUpload from "react-material-file-upload";
 import CloseIcon from '@mui/icons-material/Close';
+
+import styles from '@/styles/registro_autos_popup.module.css'
 
 export default function RegistroAutosPopup(props) {
   const [marca, setMarca] = useState("")

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; //npm install bootstrap@3
 import { TextField, Button as MuiButton } from "@mui/material";
 import { Form } from "react-bootstrap"; //npm install react-bootstrap bootstrap
+
+import "bootstrap/dist/css/bootstrap.min.css"; //npm install bootstrap@3
 import styles from "@/styles/buyerStyles/docsUpdate.module.css";
 
 const PopupSubirDocs = ({ onClose }) => {

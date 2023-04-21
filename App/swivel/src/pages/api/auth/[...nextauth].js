@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import User from "../../../models/user";
@@ -15,13 +14,13 @@ export const authOptions = {
   },
   providers: [
     CredentialsProvider({
-      
-        name: 'Credentials',
-        id: 'credentials',
-        credentials: {
-            email: { label: "Email", type: "text" },
-            password: { label: "Password", type: "password" }
-        },
+
+      name: 'Credentials',
+      id: 'credentials',
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" }
+      },
 
       async authorize(credentials) {
         dbConnect();
@@ -38,7 +37,7 @@ export const authOptions = {
           throw new Error("Invalid Email or Password");
         }
 
-        return { id: user._id.toString(), email: user.email, role: decryptRole(user.encrypted_role)};
+        return { id: user._id.toString(), email: user.email, role: decryptRole(user.encrypted_role) };
       },
     }),
   ],
@@ -49,7 +48,7 @@ export const authOptions = {
   secret: process.env.NEXT_AUTH_SECRET,
 
   callbacks: {
-    async jwt({token, user}) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.role = user.role; // You can store the user's role in the token
@@ -57,11 +56,11 @@ export const authOptions = {
       return token;
     },
 
-    async session({ session, token}) {
+    async session({ session, token }) {
       session.id = token.id;
       session.role = token.role;
       return session;
-  }
+    }
   },
 };
 

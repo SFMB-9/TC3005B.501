@@ -1,9 +1,10 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button } from "react-bootstrap";
 import Link from 'next/link'
-import styles from "./LoginForm.module.css";
+import { Form, Button } from "react-bootstrap";
 
-export default function LoginForm (){
+import "bootstrap/dist/css/bootstrap.min.css";
+import styles from "@/styles/LoginForm.module.css";
+
+export default function LoginForm() {
   return (
     <form className={styles.forms}>
       <img className={styles.logo} alt="" src="/swivelLogo.svg" />

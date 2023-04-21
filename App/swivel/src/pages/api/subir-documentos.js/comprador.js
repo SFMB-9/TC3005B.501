@@ -6,7 +6,7 @@ H_016: Endpoint de subir documento como Usuario Comprador
 import { getSession } from "next-auth/client";
 import multer from "multer"; // Import package
 import { v4 as uuidv4 } from "uuid"; // Import package
-import { connectToDatabase } from "../../util/mongodb";
+import { connectToDatabase } from "@/utils/mongodb";
 
 const thisUserType = "comprador";
 

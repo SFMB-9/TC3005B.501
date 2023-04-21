@@ -9,10 +9,8 @@
 import React from 'react'
 import Step from '@/components/ui/step'
 import Image from 'next/image'
-import { Typography } from '@mui/material'
+import { Typography, Button } from '@mui/material'
 import Link from 'next/link'
-import Button from '@mui/material/Button'
-
 
 // Funcion que retorna el componente Process
 const Process = () => {
@@ -26,7 +24,7 @@ const Process = () => {
           src="/process_background_image.svg"
           quality={100}
           fill={true}
-          style={{objectFit: 'cover', zIndex: -1,}}
+          style={{ objectFit: 'cover', zIndex: -1, }}
         />
 
         <div className='container p-5'>
@@ -80,7 +78,7 @@ const Process = () => {
               />
             </div>
           </div>
-          
+
           <div className='d-flex justify-content-center mt-5'>
             <Link href='/catalog' style={{ textDecoration: 'none' }}>
               <Button
@@ -91,7 +89,7 @@ const Process = () => {
                 className='p-2'
               >
                 <Typography
-                  color='White ' 
+                  color='White '
                   fontFamily='Lato'
                   fontWeight='bolder'
                   fontSize={20}

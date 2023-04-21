@@ -8,7 +8,7 @@ de detalle de compra.
 Autor: Diego Corrales
 */
 
-import connectToDatabase from "../../util/mongodb";
+import connectToDatabase from "@/utils/mongodb";
 
 
 export default async function handler(req, res) {

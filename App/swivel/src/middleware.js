@@ -23,27 +23,29 @@ function isAuthorizedRole(role, url) {
 
 export default withAuth(
 
-function middleware(req) {
-  if (!isAuthorizedRole(req.nextauth.token.user?.role, req.nextUrl.pathname)) {
+  function middleware(req) {
+    if (!isAuthorizedRole(req.nextauth.token.user?.role, req.nextUrl.pathname)) {
       return NextResponse.redirect("http://localhost:3000/auth/login");
-  }
-},
-
-{
-  callbacks: {
-    authorized: (params) => {
-      let { token } = params;
-      return !!token;
-    },
-      
+    }
   },
-  
-  secret: process.env.NEXT_AUTH_SECRET,
-}
+
+  {
+    callbacks: {
+      authorized: (params) => {
+        let { token } = params;
+        return !!token;
+      },
+
+    },
+
+    secret: process.env.NEXT_AUTH_SECRET,
+  }
 
 )
 
-export const config = { matcher: [
-  "/automotive_group/:path*",
-  "/user/:path*",
-]};
+export const config = {
+  matcher: [
+    "/automotive_group/:path*",
+    "/user/:path*",
+  ]
+};

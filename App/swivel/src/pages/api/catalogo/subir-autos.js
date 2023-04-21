@@ -1,5 +1,5 @@
 // Upload cars to the database
-import connectToDatabase from "../../util/mongodb";
+import connectToDatabase from "../../../utils/mongodb";
 
 // Nice to haves:
 // - Validar que el usuario que sube el auto es un agente de la agencia
@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   const client = await connectToDatabase;
   const db = client.db("nextjs-mongodb-demo");
 
-  if(req.method === 'POST' && req.body !== null) {
-    try{
+  if (req.method === 'POST' && req.body !== null) {
+    try {
       let auto = {
         //auto_id: req.body.auto_id,
         marca: req.body.marca,
@@ -29,8 +29,8 @@ export default async function handler(req, res) {
       let result = await db
         .collection("posts")
         .insertOne(auto);
-      
-      if(!result){
+
+      if (!result) {
         return res.status(500).json({ message: "Error al subir auto" });
       }
 
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         .status(200)
         .json({ message: "Auto agregado exitosamente", result: result });
     }
-    catch(err){
+    catch (err) {
       return res.status(400).json({ message: "Error al subir auto", error: err });
     }
   }

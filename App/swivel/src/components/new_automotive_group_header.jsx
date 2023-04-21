@@ -12,7 +12,7 @@ const NewAutomotiveGroupHeader = () => {
     return (
         <div className={styles.header}>
             <div className={styles.tag}>
-                <img src='/grupo_auto/header_profile_icon.svg' className={styles.icon}/>
+                <img src='/grupo_auto/header_profile_icon.svg' className={styles.icon} />
                 <span className={styles.name}>Grupo Automotriz</span>
             </div>
         </div>

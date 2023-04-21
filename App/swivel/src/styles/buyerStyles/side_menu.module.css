@@ -1,166 +1,190 @@
 .swVel {
-    position: absolute;
-    text-align:center;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    width: 218px;
-    font-size: 260%;
-    
-  }
-  .groupChild,
-  .swVelParent {
-    position: absolute;
-    top: 8.37px;
-    left: 95.27px;
-    width: 16.2px;
-    height: 36.26px;
-  }
-  .swVelParent {
-    top: 0;
-    left: 0;
-    width: 218px;
-    height: 54px;
-    position: center;
-  }
-  .icon,
-  .swivel {
-    position: relative;
-    flex-shrink: 0;
-  }
-  .swivel {
-    width: 218px;
-    height: 54px;
-    text-align: center;
-    font-size: 45.65px;
-  }
-  .icon {
-    width: 48px;
-    height: 48px;
-    overflow: hidden;
-  }
-  .gerente,
-  .mail {
-    position: relative;
-    display: inline-block;
-    width: 150px;
-  }
-  .mail {
-    font-size: 14px;
-    font-family: Lato;
-  }
-  .profile,
-  .text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  .profile {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-  }
-  .icon1,
-  .text1 {
-    position: relative;
-  }
-  .icon1 {
-    width: 29px;
-    height: 29px;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-  .text1 {
-    line-height: 140%;
-  }
-  .content,
-  .listManu {
-    display: flex;
-    justify-content: flex-start;
-  }
-  .content {
-    width: 186px;
-    height: 24px;
-    flex-shrink: 0;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-  }
-  .listManu {
-    border-radius: 8px;
-    flex-direction: column;
-    padding: 16px;
-    align-items: flex-start;
-  }
-  .folderIcon {
-    position: relative;
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-  .text2 {
-    position: relative;
-    text-decoration: underline;
-    line-height: 140%;
-  }
-  .icons,
-  .icons1 {
-    position: relative;
-    width: 26px;
-    height: 26px;
-    flex-shrink: 0;
-  }
-  .icons1 {
-    width: 24px;
-    height: 24px;
-  }
-  .listitem,
-  .top {
-    justify-content: flex-start;
-  }
-  .listitem {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    font-family: Lato;
-  }
-  .top {
-    align-self: stretch;
-    gap: 44px;
-  }
-  .bottom,
-  .sideMenu,
-  .top {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .bottom {
-    align-self: stretch;
-    justify-content: flex-start;
-    color: #09090a;
-    font-family: Lato;
-  }
-  .sideMenu {
-    position: absolute;
-    width: 18.47%;
-    top: calc(43% - 440px);
-    right:auto;
-    left: 0;
-    background-color: #fff;
-    border: 2px solid rgba(0, 0, 0, 0.31);
-    box-sizing: border-box;
-    height: 952px;
-    overflow: auto;
-    padding: 24px 24px 32px;
-    justify-content:space-between;
-    text-align: left;
-    font-size: 16px;
-    color: #111439;
-    font-family: Raleway;
-  }
-  
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 218px;
+  font-size: 260%;
+
+}
+
+.groupChild,
+.swVelParent {
+  position: absolute;
+  top: 8.37px;
+  left: 95.27px;
+  width: 16.2px;
+  height: 36.26px;
+}
+
+.swVelParent {
+  top: 0;
+  left: 0;
+  width: 218px;
+  height: 54px;
+  position: center;
+}
+
+.icon,
+.swivel {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.swivel {
+  width: 218px;
+  height: 54px;
+  text-align: center;
+  font-size: 45.65px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+
+.gerente,
+.mail {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+}
+
+.mail {
+  font-size: 14px;
+  font-family: Lato;
+}
+
+.profile,
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.profile {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.icon1,
+.text1 {
+  position: relative;
+}
+
+.icon1 {
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.text1 {
+  line-height: 140%;
+}
+
+.content,
+.listManu {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.content {
+  width: 186px;
+  height: 24px;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.listManu {
+  border-radius: 8px;
+  flex-direction: column;
+  padding: 16px;
+  align-items: flex-start;
+}
+
+.folderIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.text2 {
+  position: relative;
+  text-decoration: underline;
+  line-height: 140%;
+}
+
+.icons,
+.icons1 {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.icons1 {
+  width: 24px;
+  height: 24px;
+}
+
+.listitem,
+.top {
+  justify-content: flex-start;
+}
+
+.listitem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  font-family: Lato;
+}
+
+.top {
+  align-self: stretch;
+  gap: 44px;
+}
+
+.bottom,
+.sideMenu,
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bottom {
+  align-self: stretch;
+  justify-content: flex-start;
+  color: #09090a;
+  font-family: Lato;
+}
+
+.sideMenu {
+  position: absolute;
+  width: 18.47%;
+  top: calc(43% - 440px);
+  right: auto;
+  left: 0;
+  background-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.31);
+  box-sizing: border-box;
+  height: 952px;
+  overflow: auto;
+  padding: 24px 24px 32px;
+  justify-content: space-between;
+  text-align: left;
+  font-size: 16px;
+  color: #111439;
+  font-family: Raleway;
+}

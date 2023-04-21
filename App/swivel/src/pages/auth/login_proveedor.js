@@ -5,18 +5,18 @@ sesión y elementos visuales de dicha pantalla.
 
 Autor: Ana Paula Katsuda Zalce
 */
-
-import AuthComponent from "@/components/auth_component";
 import * as React from 'react';
+
+import AuthComponent from "@/components/ui/auth_component";
 import LoginForm from "@/components/login_form";
 
 // Función que devuelve la pantalla de inicio de sesión del proveedor.
 export default function LoginProveedor() {
     return (
         <div>
-        <AuthComponent backImage='/login_background_1.svg' form={<LoginForm/>}
-         cardImage='/card_welcome.svg' bodyText='Vender un auto nunca fue tan fácil' titleText='Bienvenidx'
-        />
+            <AuthComponent backImage='/login_background_1.svg' form={<LoginForm />}
+                cardImage='/card_welcome.svg' bodyText='Vender un auto nunca fue tan fácil' titleText='Bienvenidx'
+            />
         </div>
     );
 }

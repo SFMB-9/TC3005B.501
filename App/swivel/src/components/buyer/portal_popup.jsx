@@ -1,6 +1,6 @@
 import { useMemo, useCallback, useState, useRef, useEffect } from "react";
-
 import { createPortal } from "react-dom";
+
 import styles from "@/styles/buyerStyles/portal_popup.module.css";
 
 const PortalPopup = ({

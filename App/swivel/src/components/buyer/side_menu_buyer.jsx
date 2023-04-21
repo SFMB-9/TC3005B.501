@@ -1,4 +1,5 @@
-import { Button, Icon } from "@mui/material";
+import { Button } from "@mui/material";
+
 import styles from "@/styles/buyerStyles/side_menu.module.css";
 
 
