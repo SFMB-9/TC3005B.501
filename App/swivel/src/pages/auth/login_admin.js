@@ -1,9 +1,7 @@
-import Link from 'next/link'
 import LoginForm from '@/components/loginForm';
-import styles from "./LoginAdmin.module.css";
-import Footer from '@/components/footer';
+import styles from "@/styles/LoginAdmin.module.css";
 
-export default function loginAdmin () {
+export default function loginAdmin() {
   return (
     <div className={styles.login}>
       <div className={styles.card}>
@@ -29,8 +27,8 @@ export default function loginAdmin () {
         </div>
       </div>
     </div>
-    );
-  };
+  );
+};
 
 
-  
+

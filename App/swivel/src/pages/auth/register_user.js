@@ -1,17 +1,16 @@
 "use client";
 
-import Link from 'next/link'
 import axios from "axios";
 import React, { useState } from "react";
 
-export default function RegisterUser () {
+export default function RegisterUser() {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const { encryptRole } = require('../../utils/crypto');
-    
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -24,7 +23,7 @@ export default function RegisterUser () {
             });
 
             console.log(data);
-        } 
+        }
         catch (error) {
             console.log(error.response.data);
         }
@@ -35,7 +34,7 @@ export default function RegisterUser () {
         <>
             <form onSubmit={submitHandler}>
                 <h1>Register</h1>
-                
+
                 <div>
                     <label htmlFor="name_field">Name</label>
                     <input
@@ -43,7 +42,7 @@ export default function RegisterUser () {
                         id="name_field"
                         className="form-control"
                         value={name}
-                        pattern="[a-zA-Z]+" 
+                        pattern="[a-zA-Z]+"
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
@@ -56,7 +55,7 @@ export default function RegisterUser () {
                         id="email_field"
                         className="form-control"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}                        
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
@@ -76,7 +75,7 @@ export default function RegisterUser () {
                 <button type="submit">Register</button>
 
             </form>
-            
+
 
         </>
     )
