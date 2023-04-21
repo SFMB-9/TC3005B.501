@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { Button, Icon } from "@mui/material";
+import { Button } from "@mui/material";
+
 import SideMenu from "@/components/buyer/side_menu_buyer";
 import styles from '@/styles/buyerStyles/buyer.module.css';
 

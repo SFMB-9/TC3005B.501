@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import LoginForm from '@/components/loginForm';
-import styles from "./LoginBuyer.module.css";
+import styles from "@/styles/LoginBuyer.module.css";
 
-export default function LoginBuyer () {
+export default function LoginBuyer() {
   return (
     <div className={styles.login}>
       <div className={styles.card}>
@@ -28,8 +27,8 @@ export default function LoginBuyer () {
         </div>
       </div>
     </div>
-    );
-  };
+  );
+};
 
 
-  
+

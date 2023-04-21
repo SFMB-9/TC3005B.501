@@ -4,19 +4,13 @@ Mateo Herrera Lavalle
 Pagina principal (landing)
 Incluye el hero, testimonials y process
 */
-import { Inter } from 'next/font/google'
+import Image from 'next/image'
+import Link from 'next/link'
 
 import Hero from '@/components/hero'
 import Testimonials from '@/components/testimonials'
 import Process from '@/components/process'
 import LandingPageLayout from '@/components/landing_page_layout'
-import Head from 'next/head'
-import Image from 'next/image'
-//import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import Link from 'next/link'
-
-//const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
