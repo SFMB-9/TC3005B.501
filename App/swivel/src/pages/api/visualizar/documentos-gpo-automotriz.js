@@ -6,7 +6,7 @@ Maybe we can merge them into one
 @catlikeflyer
 */
 
-import connectToDatabase from "../../util/mongodb";
+import connectToDatabase from "@/utils/mongodb";
 import { getSession } from "next-auth/client";
 
 export default async function handler(req, res) {
