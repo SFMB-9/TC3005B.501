@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-export default function Register () {
+export default function Register() {
     return (
         <>
-        <Link href='/'>Home</Link>
+            <Link href='/'>Home</Link>
         </>
     )
 }

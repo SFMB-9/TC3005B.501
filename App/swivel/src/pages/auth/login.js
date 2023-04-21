@@ -1,14 +1,10 @@
-
 "use client";
 
 import Link from "next/link";
 import React, { useState } from "react";
-
 import { signIn } from "next-auth/react";
 
-
-
-export default function Login () {
+export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,10 +26,9 @@ export default function Login () {
     }
   };
 
-
   return (
     <>
-      
+
       <form onSubmit={submitHandler}>
         <h1>Login</h1>
         <div>
@@ -65,7 +60,7 @@ export default function Login () {
           </p>
         </div>
       </form>
-      
+
     </>
   )
 }

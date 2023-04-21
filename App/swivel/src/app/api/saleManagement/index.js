@@ -9,13 +9,12 @@ const sellerSchema = new mongoose.Schema({
 });
 
 
-
 // Create the seller model
 const Seller = mongoose.model('Seller', sellerSchema);
 
 const handler = async (req, res) => {
   // Receive details of the purchase and manager ID
-  const {gerente_id} = req.body;
+  const { gerente_id } = req.body;
 
   // Connect to the MongoDB database using Mongoose
   await mongoose.connect(process.env.MONGODB_URI, {
@@ -35,7 +34,7 @@ const handler = async (req, res) => {
 
     // Update the seller's document to reflect the new purchase
     await Seller.updateOne({ "id": sellerId }, { $inc: { "ventas_en_proceso": 1 } });
-    
+
     // Respond with a success message
     res.status(200).json({ message: 'Compra asignada correctamente', sellerId });
   } catch (error) {

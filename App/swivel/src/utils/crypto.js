@@ -9,7 +9,7 @@ export function encryptRole(text) {
   const cipher = crypto.createCipheriv(algorithm, key, iv);
   const encrypted = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]);
   return encrypted.toString('hex');
-  
+
 }
 
 // Decrypt the role
@@ -20,7 +20,3 @@ export function decryptRole(encryptedText) {
   const decrypted = Buffer.concat([decipher.update(Buffer.from(encryptedText, 'hex')), decipher.final()]);
   return decrypted.toString('utf8');
 }
-
-
-  
-

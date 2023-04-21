@@ -14,7 +14,7 @@ const SaleCreation = moongose.model('SaleCreation', saleCreationSchema);
 
 const handler = async (req, res) => {
     // Receive details of the purchase and manager ID
-    const { arrayDocumentos, autoId, usuarioFinalId, chatId,sellerId} = req.body;
+    const { arrayDocumentos, autoId, usuarioFinalId, chatId, sellerId } = req.body;
 
     // Connect to the MongoDB database using Mongoose
     await moongose.connect(process.env.MONGODB_URI, {
@@ -23,24 +23,24 @@ const handler = async (req, res) => {
     });
 
     try {
-    // Create the purchase
-    await SaleCreation.create({
-        array_documentos: arrayDocumentos,
-        auto_id: autoId,
-        usuario_final_id: usuarioFinalId,
-        vendedor_id: sellerId,
-        chat_id: chatId,
-    });
+        // Create the purchase
+        await SaleCreation.create({
+            array_documentos: arrayDocumentos,
+            auto_id: autoId,
+            usuario_final_id: usuarioFinalId,
+            vendedor_id: sellerId,
+            chat_id: chatId,
+        });
 
-    // Respond with a success message
-    res.status(200).json({ message: 'Compra creada'})
+        // Respond with a success message
+        res.status(200).json({ message: 'Compra creada' })
     } catch (error) {
-    console.error(error);
-    // Respond with an error message
-    res.status(500).json({ message: 'Hubo un error al crear la compra' });
+        console.error(error);
+        // Respond with an error message
+        res.status(500).json({ message: 'Hubo un error al crear la compra' });
     } finally {
-    // Close the Mongoose connection
-    await mongoose.disconnect();
+        // Close the Mongoose connection
+        await mongoose.disconnect();
     }
 };
 

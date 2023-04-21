@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMediaQuery } from '@mui/material';
 import { Sidebar as ReactProSidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
+
 import styles from '@/styles/sidebar.module.css';
 
 const Sidebar = ({ handleToggleSidebar, children, footer }) => {

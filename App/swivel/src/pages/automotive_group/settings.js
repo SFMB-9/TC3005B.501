@@ -1,24 +1,24 @@
 import Link from 'next/link'
 
-export default function Settings () {
+export default function Settings() {
 
   return (
     <>
       <Link href='/'>
         <div>
-        <a>Home</a>
+          <a>Home</a>
         </div>
       </Link>
       <Link href='/automotive_group/settings'>
         <div>
-        <a>Ajustes GA</a>
+          <a>Ajustes GA</a>
         </div>
       </Link>
       <Link href='/automotive_group/docSoli'>
-        
-      <Link href='/automotive_group/docSoli'>Documentos de grupo</Link>
+
+        <Link href='/automotive_group/docSoli'>Documentos de grupo</Link>
         <div>
-        <a>Documentos</a>
+          <a>Documentos</a>
         </div>
       </Link>
     </>

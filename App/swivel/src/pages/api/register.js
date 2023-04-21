@@ -1,5 +1,5 @@
 import User from "../../models/user";
-import dbConnect from "../../config/dbConnect";    
+import dbConnect from "../../config/dbConnect";
 
 /* 
 Required imports for email verification (to be finalized...)
@@ -17,36 +17,36 @@ export default async function handler(req, res) {
     const { name, email, password, role } = req.body;
     const encrypted_role = encryptRole(role);
 
-    if (!/[a-zA-Z]+/.test(name)){ // regex to check name format validity, returns if non-compliant
+    if (!/[a-zA-Z]+/.test(name)) { // regex to check name format validity, returns if non-compliant
       return res.status(400).json({ message: "wrong name format" });
     }
 
-    if (!/[\w\.-]+@([\w-]+\.)+[\w-]{2,4}/.test(email)){// regex to check email format validity, returns if non-compliant
+    if (!/[\w\.-]+@([\w-]+\.)+[\w-]{2,4}/.test(email)) {// regex to check email format validity, returns if non-compliant
       return res.status(400).json({ message: "wrong email format" });
     }
 
     let ping = require("ping");
 
-    ping.sys.probe(email, function(isAlive){ // email existence validation, pings the email and returns if non-existent
-      isAlive ? function(){
+    ping.sys.probe(email, function (isAlive) { // email existence validation, pings the email and returns if non-existent
+      isAlive ? function () {
         // continue
       }
-      : function(){
-        return res.status(400).json({ message: "Email is invalid" });
-      }
-    });    
+        : function () {
+          return res.status(400).json({ message: "Email is invalid" });
+        }
+    });
 
     let usedEmail = await User.exists({ email: email });
-    
+
     // email existence check within the db, returns if there is already an account with the email
-    if (!usedEmail){      
-      await User.create({ name, email, password, encrypted_role});
+    if (!usedEmail) {
+      await User.create({ name, email, password, encrypted_role });
       res.status(200).json({ message: "User registered successfully" });
     }
-    else{
+    else {
       res.status(400).json({ message: "Account already exists" });
-    } 
-    
+    }
+
     /* 
     base code for email verification, must be implemented above
     requires a functional email provider such as Mailgun in order to be finalized

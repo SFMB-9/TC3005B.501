@@ -1,4 +1,3 @@
-
 .wrapper {
   display: flex;
 }
@@ -13,9 +12,10 @@
 
 
 .searchbar_box {
-  padding: 0.6rem  1.4rem;
+  padding: 0.6rem 1.4rem;
   display: flex;
-  align-items: center; /* center the search icon vertically */
+  align-items: center;
+  /* center the search icon vertically */
 }
 
 .searchbar {
@@ -29,13 +29,16 @@
 
 .searchbar_icon {
   position: absolute;
-  right: 2.5rem; /* move the icon to the right of the search bar */
+  right: 2.5rem;
+  /* move the icon to the right of the search bar */
 }
 
 .searchbar_left_item {
-  margin-right: 1rem; /* add margin to the right of the left item */
+  margin-right: 1rem;
+  /* add margin to the right of the left item */
 }
 
 .searchbar_right_item {
-  margin-left: 1rem; /* add margin to the left of the right item */
+  margin-left: 1rem;
+  /* add margin to the left of the right item */
 }

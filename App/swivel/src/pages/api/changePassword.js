@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     const currentPassword = await User.findOne({ email: email }).password;
 
     if (currentPassword === password) {
-        return res.status(400).json({ message: "New password must be different" });
+      return res.status(400).json({ message: "New password must be different" });
     }
 
     await User.updateOne({ email: email }, { $set: { password: password } });
