@@ -1,0 +1,108 @@
+.cardlogin {
+  flex: auto;
+  border-radius: var(--br-3xs) 0 0 var(--br-3xs);
+  background-color: var(--white);
+  height: 625px;
+  display: flex;
+  flex-direction: column;
+  padding: 43px 0;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.clipPathGroup {
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.bienvenidx,
+.clipPathGroup,
+.iniciaSesinY {
+  align-self: stretch;
+  position: relative;
+}
+
+.bienvenidx {
+  font-size: var(--font-size-38xl-2);
+  ;
+  color: var(--white);
+  font-family: var(--font-raleway);
+}
+
+.iniciaSesinY {
+  font-size: var(--font-size-17xl);
+  font-family: var(--font-lato);
+  color: var(--white);
+}
+
+.cardwelcome1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardwelcomebackground {
+  display: flex;
+}
+
+.welcometext {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 407px;
+  padding: 110px 0;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  gap: 25px;
+  margin-top: -615px;
+}
+
+.cardwelcome1 {
+  flex: 1;
+  justify-content: center;
+}
+
+.cardwelcomebackground {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0 var(--br-3xs) var(--br-3xs) 0;
+  background-color: var(--white);
+  width: 602px;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.cardwelcome {
+  flex: 1;
+  height: 625px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.card,
+.login {
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  flex: 1;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.login {
+  position: relative;
+  background-color: var(--contraste);
+  width: 100%;
+  overflow: hidden;
+  padding: 80px 150px 85px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
