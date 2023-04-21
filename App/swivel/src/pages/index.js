@@ -12,9 +12,11 @@ import Process from '@/components/process'
 import LandingPageLayout from '@/components/landing_page_layout'
 import Head from 'next/head'
 import Image from 'next/image'
+//import { Inter } from 'next/font/google'
+import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] });
+//const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
@@ -30,6 +32,7 @@ export default function Home() {
       <Link href='/auth/registerUser'>Regístrate</Link>
       <Link href='/auth/login'>Inicia sesión</Link>
       <Link href='/automotive_group/settings'>Ajustes GA</Link>
+      <Link href='/automotive_group/docSoli'>Documentos de grupo</Link>
     </>
   )
 }
