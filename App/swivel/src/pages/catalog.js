@@ -1,6 +1,7 @@
 /*
 Ana Paula Katsuda Zalce
 Salvador Federico Milanes Braniff
+Sebastián González Villacorta
 18-04-2023
 
 Catalogo de vehiculos, con sidebar de filtros
