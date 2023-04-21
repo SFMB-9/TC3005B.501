@@ -4,7 +4,8 @@ import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import { useState } from 'react'
 import Link from 'next/link'
 import Sidebar from '@/components/sidebar'
-import NAGHeader from '@/components/new_automotive_group_header'
+import NAGHeader from '@/components/new_automotive_group_header' 
+import theme from '@/utils/theme'
 
 
 const DocumentosGASolicitante = () => {
@@ -73,10 +74,11 @@ const DocumentosGASolicitante = () => {
         <div className={styles.documento5}>Documento</div>
         <Button
           className={styles.btnEditar}
+          style={{textTransform: 'none'}}
           sx={{ width: 172.7026824951172 }}
           variant="contained"
           name="editButton"
-          color="primary"
+          color="secondary"
         >
           Editar
         </Button>

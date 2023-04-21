@@ -171,10 +171,8 @@
 .btnEditar {
   position: absolute;
   top: 0;
-  left: 789.25px;
+  left: 500.25px;
   text-transform: none;
-  color: #fff;
-  background-color: #111439;
 }
 .btnEditar1,
 .btnEditar2,
@@ -183,8 +181,6 @@
   text-transform: none;
   top: 72.75px;
   left: 789.25px;
-  color: #5A5A5A;
-  background-color: #D9D9D9;
 }
 .btnEditar2,
 .btnEditarChild {
