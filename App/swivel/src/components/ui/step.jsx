@@ -1,10 +1,11 @@
 /*
-  Autor: Mateo Herrera
-  Fecha: 2023-04-15
+Mateo Herrera
+Fecha: 2023-04-15
 
-  Este script representa el componente Step, el cual es utilizado para mostrar
-  un paso del proceso de compra de la pagina.
+Este script representa el componente Step, el cual es utilizado para mostrar
+un paso del proceso de compra de la pagina.
 */
+import React from 'react'
 import { Typography } from '@mui/material'
 import Image from 'next/image'
 
@@ -24,7 +25,7 @@ const Step = (props) => {
         {props.number}
       </Typography>
 
-      <Image src={props.img} width={170} height={170} className='py-3'/>
+      <Image src={props.img} width={170} height={170} className='py-3' />
 
       <Typography
         sx={{

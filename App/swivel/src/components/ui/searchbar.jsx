@@ -10,7 +10,7 @@ import Image from "next/image";
 
 import styles from "@/styles/searchbar.module.css";
 
-export default function Searchbar({ onSearch, leftItem, placeholderText='Buscar', rightItem }) {
+export default function Searchbar({ onSearch, leftItem, placeholderText = 'Buscar', rightItem }) {
   const [search, setSearch] = useState("");
   const [searching, setSearching] = useState(false);
 
@@ -38,7 +38,7 @@ export default function Searchbar({ onSearch, leftItem, placeholderText='Buscar'
             value={search}
             onChange={handleSearch}
           />
-          <Image src="/searchbar_search_icon.svg" alt="search" width={30} height={30} className={styles.searchbar_icon}/>
+          <Image src="/searchbar_search_icon.svg" alt="search" width={30} height={30} className={styles.searchbar_icon} />
         </div>
         {rightItem && <div className={styles.searchbar_right_item}>{rightItem}</div>}
       </div>

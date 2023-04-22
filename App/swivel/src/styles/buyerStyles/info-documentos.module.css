@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,500;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.borrarCuenta {
+  position: absolute;
+  top: 28px;
+  left: 654px;
+}
+
+.borrarEditar,
+.ine,
+.pendiente {
+  position: absolute;
+  top: 28px;
+  left: 804px;
+}
+
+.ine,
+.pendiente {
+  left: 470px;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.ine {
+  top: 24px;
+  left: 128px;
+  color: #111439;
+}
+
+.bifileEarmarkPdfIcon {
+  position: absolute;
+  top: 19px;
+  left: 51px;
+  width: 42px;
+  height: 41px;
+  overflow: hidden;
+}
+
+.documento1Child {
+  position: absolute;
+  top: -0.25px;
+  left: -0.25px;
+  border-top: 0.5px solid #111439;
+  box-sizing: border-box;
+  width: 945.5px;
+  height: 0.5px;
+}
+
+.documento1 {
+  position: absolute;
+  top: 71px;
+  left: 0;
+  width: 945px;
+  height: 65px;
+}
+
+.subir {
+  position: absolute;
+  top: 2px;
+  left: 758px;
+  cursor: pointer;
+}
+
+.comprobanteDeDomicilio {
+  position: absolute;
+  top: 25px;
+  left: 128px;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+  font-weight: 500;
+  color: #111439;
+}
+
+.documento2,
+.documento21 {
+  position: absolute;
+  top: 251px;
+  left: 0;
+  width: 945px;
+  height: 65px;
+  color: #f55c7a;
+}
+
+.documento21 {
+  top: 161px;
+  color: #329703;
+}
+
+.misDocumentos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 64px;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+  font-family: Raleway;
+  color: #111439;
+}
+
+.infoDocumentos {
+  position: absolute;
+  top: 242px;
+  left: 304px;
+  width: 945px;
+  height: 316px;
+  text-align: left;
+  font-size: 24px;
+  color: rgba(17, 20, 57, 0.46);
+  font-family: Lato;
+  background-color: aliceblue;
+}

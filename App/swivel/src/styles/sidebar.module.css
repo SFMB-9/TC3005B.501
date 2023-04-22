@@ -18,7 +18,7 @@
 }
 
 #sidebar_container {
-  min-height: 100vh;   
+  min-height: 100vh;
   background-color: #fff;
   color: #000;
   padding: 0;
@@ -31,17 +31,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  
+
 }
-  
+
 .sidebar-expanded {
   width: 230px;
 }
-  
+
 .sidebar-collapsed {
   width: 60px;
 }
-  
+
 /* Menu item */
 #sidebar_container .list-group a {
   height: 50px;

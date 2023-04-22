@@ -16,4 +16,10 @@ export default function LoginProveedor() {
         <AuthComponent backImage='' form={<LoginForm/>}
              cardImage='/welcome_proveedores.svg' backColor= '#111439' bodyText='Vender un auto nunca fue tan fácil.' titleText='Centro de Ventas' textColor='white'
             />    );
+        <div>
+            <AuthComponent backImage='/login_background_1.svg' form={<LoginForm />}
+                cardImage='/card_welcome.svg' bodyText='Vender un auto nunca fue tan fácil' titleText='Bienvenidx'
+            />
+        </div>
+    );
 }
