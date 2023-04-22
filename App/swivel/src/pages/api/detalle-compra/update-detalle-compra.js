@@ -1,10 +1,10 @@
-/*
+/* ------------------------------------ 
 [H_70]
 
 Endpoint para la modificación de la etapa de compra dentro de los detalles de compra como usuario vendedor
 
 Autor: Alfredo Jeong Hyun Park
-*/
+----------------------------------- */
 
 import connectToDatabase from '../../util/mongodb'
 
