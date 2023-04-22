@@ -3,7 +3,7 @@ import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import { useState } from 'react'
 import Link from 'next/link'
 
-import styles from '@/styles/grupoStyles/docSoli.module.css'
+import styles from '@/styles/new_automotive_group_docs.module.css'
 import Sidebar from '@/components/sidebar'
 import NAGHeader from '@/components/new_automotive_group_header'
 
