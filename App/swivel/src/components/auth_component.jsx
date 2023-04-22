@@ -16,10 +16,12 @@ import { useTheme } from '@mui/material/styles';
 /* 
 Función que recibe las siguientes props: 
 - Imagen de fondo
+- Color de fondo
 - Formulario que se utilizará
 - Imagen para la carta de autenticación
 - Texto de título
 - Texto de cuerpo 
+- Color de texto
 
 La función regresa el componente reactivo de la pantalla de autenticación con los datos especificados en las props.
 */
@@ -29,7 +31,7 @@ export default function AuthComponent(props) {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
     // Estilo de la carta de autenticación
-    const boxstyle = {
+    const boxStyle = {
       position: 'absolute',
       top: '50%',
       left: '50%',
@@ -43,10 +45,10 @@ export default function AuthComponent(props) {
     return (
       <div style={{
         height: '100vh',
-        backgroundColor: '#111439',
+        backgroundColor: props.backColor,
         backgroundImage: 'url(' + props.backImage + ')',
       }}>
-        <Card sx={{ borderRadius: '10px'}} style={boxstyle}>
+        <Card sx={{ borderRadius: '10px'}} style={boxStyle}>
           <Grid container style={{ height: '100%' }}>
             <Grid item xs={12} sm={12} md={6} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} style={{height: '100%'}}>
               <CardContent style={{backgroundColor: 'white', width: '65%'}} >
@@ -66,16 +68,17 @@ export default function AuthComponent(props) {
                   }}>
                       <Box style={{marginBottom: '5%'}}>
                           <Typography wrap variant="h2" sx={{
-                          color: 'white',
+                          color: props.textColor,
                           fontWeight: 'bolder',
                           fontSize: '3.7rem', 
                           fontFamily: 'Raleway',
+                          textAlign: 'center',
                           display: isMediumScreen ? 'none' : 'flex'
                       }}> {props.titleText} </Typography>
                       </Box>
                       <Box>
                           <Typography variant="h4" wrap  sx={{
-                          color: 'white', 
+                          color: props.textColor, 
                           paddingLeft: '17%',
                           paddingRight: '14%', 
                           fontFamily: 'lato',

@@ -53,7 +53,7 @@ export default function LoginForm (){
         </button>
       </div>
       <div className="text-center">
-        <p>No tienes cuenta?<a href="#!">Regístrate aquí</a></p>
+        <p>No tienes cuenta? <a href="#!">Regístrate aquí</a></p>
       </div>
     </form>
     </>
