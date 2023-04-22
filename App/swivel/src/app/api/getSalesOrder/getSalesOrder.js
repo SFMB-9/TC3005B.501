@@ -23,7 +23,8 @@ export const getSalesOrder = async (req, res) => {
 
 			const allSalesInProgress = await Seller.find({
 				vendedor_id: req.body.vendedor_id,
-			})
+			}, 'ventas_en_proceso')
+			
 			return res
 				.status(200)
 				.json({
