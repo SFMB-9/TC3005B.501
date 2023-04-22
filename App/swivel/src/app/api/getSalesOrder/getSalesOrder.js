@@ -21,16 +21,17 @@ export const getSalesOrder = async (req, res) => {
 				useUnifiedTopology: true,
 			})
 
-			const allSalesInProgress = await Seller.find({
-				vendedor_id: req.body.vendedor_id,
-			}, 'ventas_en_proceso')
-			
-			return res
-				.status(200)
-				.json({
-					message: 'Obtuvo todas las ventas en proceso.',
-					ventasTotales: allSalesInProgress,
-				})
+			const allSalesInProgress = await Seller.find(
+				{
+					vendedor_id: req.body.vendedor_id,
+				},
+				'ventas_en_proceso'
+			)
+
+			return res.status(200).json({
+				message: 'Obtuvo todas las ventas en proceso.',
+				ventasTotales: allSalesInProgress,
+			})
 		} catch (error) {
 			return res
 				.status(500)
