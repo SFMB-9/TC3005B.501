@@ -37,7 +37,7 @@ export default function AuthComponent(props) {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: isSmallScreen ? '90%' : '80%',
-      height: '80%',
+      height: '85%',
       bgcolor: 'background.card',
       boxShadow: 24,
     };
