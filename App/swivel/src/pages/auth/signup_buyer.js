@@ -14,7 +14,7 @@ import SignUpForm from '@/components/signup_formBuyer';
 formulario de inicio de sesión y elementos visuales. */
 export default function SignUpBuyer () {
   return (
-    <AuthComponent backImage='/login_background_1.svg' form={<SignUpForm/>}
-         cardImage='/card_welcome.svg' bodyText='Compra el auto de tus sueños en un solo click' titleText='Bienvenidx'
+    <AuthComponent backImage='/background_buyer.svg' form={<SignUpForm/>}
+         cardImage='/blob_buyer.svg' bodyText='Compra el auto de tus sueños en un solo click' titleText='Bienvenidx'
         />    );
   };

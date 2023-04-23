@@ -20,7 +20,7 @@ export default function SignUpForm (){
                     fontWeight: 'bold',
                     fontSize: '2rem', 
                     fontFamily: 'Raleway',
-          }}> Crea tu Cuenta</Typography></b>
+          }}> Regístrate</Typography></b>
     </div>
     <form className="d-flex flex-column ">
       <div className="form-outline mb-2">
@@ -42,7 +42,7 @@ export default function SignUpForm (){
         <button type="button" className="btn btn-primary btn-block mb-2"><Typography wrap sx={{
                     color: 'white',
                     fontFamily: 'lato',
-          }}> Regístrate </Typography></button>
+          }}> Crear Cuenta </Typography></button>
         <button type="button" className="btn btn-secondary btn-block mb-2">
             <Typography sx={{
                     color: 'white',
