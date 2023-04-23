@@ -47,15 +47,15 @@ export default function LoginForm() {
           }}> Ingresar </Typography></button>
           <button type="button" className="btn btn-secondary btn-block mb-2">
             <Typography sx={{
-              color: 'white',
-              fontFamily: 'lato',
-            }}> <img alt="logo de google" src="/google_logo.svg" /> Ingresar con Google </Typography>
-          </button>
-        </div>
-        <div className="text-center">
-          <p>No tienes cuenta?<a href="#!">Regístrate aquí</a></p>
-        </div>
-      </form>
+                    color: 'white',
+                    fontFamily: 'lato',
+          }}> <img alt="logo de google" src="/google_logo.svg"/> Ingresar con Google </Typography>
+        </button>
+      </div>
+      <div className="text-center">
+        <p>No tienes cuenta? <a href="#!">Regístrate aquí</a></p>
+      </div>
+    </form>
     </>
   );
 };
