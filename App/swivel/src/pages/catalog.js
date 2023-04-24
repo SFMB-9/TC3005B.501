@@ -8,7 +8,7 @@ Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
 import React, { useState } from 'react';
-import { Grid, Chip } from '@mui/material';
+import { Grid, Chip, Button } from '@mui/material';
 
 import Searchbar from '@/components/ui/searchbar';
 import LandingPageLayout from '@/components/landing_page_layout';
@@ -31,6 +31,7 @@ export default function Catalog() {
         <Grid container>
           <Grid item xs={12} sm={3}>
             <div style={{ padding: '10px', borderRight: '1px solid lightgray', borderTop: '1px solid lightgray'}}>
+              <Button>Aplicar filtros</Button>
               Agregar filtro
               {filters.map((filter, index) => (
                 <Chip
@@ -40,6 +41,7 @@ export default function Catalog() {
                   onDelete={() => handleDelete(index)}
                 />
               ))}
+
             </div>
           </Grid>
           <Grid item xs={12} sm={9}>
