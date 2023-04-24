@@ -13,13 +13,13 @@ import Image from 'next/image';
 // tarjeta
 export default function MediaCard(props) {
   return (
-    <Card sx={{ borderRadius: 4 }} style={{ backgroundColor: "#F6F6F6" }} className='mt-4'>
+    <Card sx={{ borderRadius: 4}} style={{backgroundColor: "#F6F6F6"}} className='mt-4'>
       <CardMedia
-        sx={{ height: 180, borderRadius: 4, boxShadow: 3 }}
+        sx={{ height: 180, borderRadius: 4, boxShadow: 3}}
         title="card image"
       >
         <div style={{ position: 'relative', height: '100%' }}>
-          <Image src={props.img} fill={true} style={{ objectFit: 'cover' }} />
+          <Image src={props.img} fill={true} style={{objectFit: 'cover'}} />
         </div>
       </CardMedia>
       <CardContent>

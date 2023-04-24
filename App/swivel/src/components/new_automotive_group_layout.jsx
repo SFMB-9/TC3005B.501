@@ -41,9 +41,9 @@ export default function NAGLayout({ children }) {
           handleSidebarCollapse={handleSidebarCollapse}
           footer={
             <MenuItem
-              icon={<img src="/sidebar_logout_icon.svg" />}
-              component={<Link href="/auth/login_comprador" />}
-              style={{ bottom: 0 }}
+            icon={<img src="/sidebar_logout_icon.svg" />}
+            component={<Link href="/auth/login_comprador" />}
+            style={{ bottom: 0 }}
             >Cerrar sesión</MenuItem>
           }
           className="sidebar"
@@ -65,8 +65,8 @@ export default function NAGLayout({ children }) {
           </MenuItem>
         </Sidebar>
       </ProSidebarProvider>
-      <div style={{ width: '100%' }}>
-        <NAGHeader />
+      <div style={{width: '100%'}}>
+        <NAGHeader/>
         {children}
       </div>
     </div>
