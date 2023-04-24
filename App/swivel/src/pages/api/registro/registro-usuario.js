@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, email, password, role } = req.body;
+    const { name, last_name, email, password, role } = req.body;
     const encrypted_role = encryptRole(role);
 
     if (!formatCheck(/[a-zA-Z]+/, name)) { // regex to check name format validity, returns if non-compliant
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     let usedEmail = await User.exists({ email: email });
     
     if (!usedEmail) { // email existence check within the db, returns if there is already an account with the email
-      await User.create({ name, email, password, encrypted_role, verified: false });
+      await User.create({ name, last_name, email, password, encrypted_role, verified: false });
       res.status(200).json({ message: "User registered successfully" });
     }
     else {
