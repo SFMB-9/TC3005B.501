@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
+import { useState } from 'react'
 import Link from 'next/link'
 
 import Sidebar from '@/components/ui/sidebar'
 import NAGHeader from '@/components/new_automotive_group_header'
 
-export default function Branches () {
+export default function Branches() {
   const [collapsed, setCollapsed] = useState(false)
   const [toggled, setToggled] = useState(false)
 
@@ -34,9 +34,9 @@ export default function Branches () {
             handleSidebarCollapse={handleSidebarCollapse}
             footer={
               <MenuItem
-              icon={<img src="/sidebar_logout_icon.svg" />}
-              component={<Link href="/auth/login" />}
-              style={{ bottom: 0 }}
+                icon={<img src="/sidebar_logout_icon.svg" />}
+                component={<Link href="/auth/login" />}
+                style={{ bottom: 0 }}
               >Cerrar sesión</MenuItem>
             }
             className="sidebar"
@@ -59,7 +59,7 @@ export default function Branches () {
           </Sidebar>
         </ProSidebarProvider>
         {/* Page */}
-        <div style={{width: '100'}}>
+        <div style={{ width: '100' }}>
           <NAGHeader />
           <div>
             Agencias

@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
 import Head from "next/head";
-import { theme } from '@/utils/theme'
+import { useEffect } from 'react'
 import { ThemeProvider } from '@mui/material'
 
+import { theme } from '@/utils/theme'
 import 'bootstrap/dist/css/bootstrap.css'
 import '@/styles/globals.css'
 import '@/styles/hero.css'
