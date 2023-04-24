@@ -1,6 +1,6 @@
-import EmailVerification from "../../models/emailVerification";
-import User from "../../models/user";
-import dbConnect from "../../config/dbConnect";
+import EmailVerification from "../../../models/emailVerification";
+import User from "../../../models/user";
+import dbConnect from "../../../config/dbConnect";
 
 export default async function handler (req, res) {
     const token = req.query.token; // retrieve the token from the query string

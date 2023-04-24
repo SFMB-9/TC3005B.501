@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
     let token = tokenGenerator();
 
-    const verificationLink = `https://localhost:3000/verify-email?token=${token}`; 
+    const verificationLink = `https://localhost:3000/registro/verify-email?token=${token}`; 
 
     await EmailVerification.create({email: email, token: token});
 
