@@ -1,7 +1,7 @@
 // Delete a car from the catalog
 import { ObjectId } from "mongodb";
 
-import connectToDatabase from "../../../utils/mongodb";
+import connectToDatabase from "@/utils/mongodb";
 
 export default async function handler(req, res) {
   const client = await connectToDatabase;
