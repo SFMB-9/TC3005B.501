@@ -12,6 +12,7 @@ import { Grid, Chip } from '@mui/material';
 
 import Searchbar from '@/components/ui/searchbar';
 import LandingPageLayout from '@/components/landing_page_layout';
+import CatalogGrid from '@/components/catalog_grid';
 
 export default function Catalog() {
   const [filters, setFilters] = useState(['Chevrolet', 'Amarillo', '4 puertas']);
@@ -43,7 +44,13 @@ export default function Catalog() {
           </Grid>
           <Grid item xs={12} sm={9}>
             <Searchbar />
-            Aqui va el catalogo
+            <div style={{
+              padding: '3%', 
+              overflowY: 'scroll',
+              maxHeight: '100vh',
+            }}>
+                <CatalogGrid />
+            </div>
           </Grid>
         </Grid>
       </LandingPageLayout>
