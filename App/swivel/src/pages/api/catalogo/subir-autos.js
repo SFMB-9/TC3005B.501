@@ -1,5 +1,5 @@
 // Upload cars to the database
-import connectToDatabase from "../../../utils/mongodb";
+import connectToDatabase from "@/utils/mongodb";
 
 // Nice to haves:
 // - Validar que el usuario que sube el auto es un agente de la agencia

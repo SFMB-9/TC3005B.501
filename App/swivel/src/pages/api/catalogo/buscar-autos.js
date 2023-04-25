@@ -1,5 +1,5 @@
 // Search for cars in the database using query parameters
-import connectToDatabase from "@/util/mongodb";
+import connectToDatabase from "@/utils/mongodb";
 
 export default async function handler(req, res) {
     const client = await connectToDatabase;
@@ -41,16 +41,16 @@ export default async function handler(req, res) {
 }
 
 function assembleFilter(result, filters) {
-    let marcas = new Set();
-    let modelos = new Set();
+    let marca = new Set();
+    let modelo = new Set();
 
     result.forEach((auto) => {
-        marcas.add(auto.marca);
-        modelos.add(auto.modelo);
+        marca.add(auto.marca);
+        modelo.add(auto.modelo);
     });
 
-    filters.marcas = Array.from(marcas);
-    filters.modelos = Array.from(modelos);
+    filters.marca = Array.from(marca);
+    filters.modelo = Array.from(modelo);
 
     return filters;
 }
