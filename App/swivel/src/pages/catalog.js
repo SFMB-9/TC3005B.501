@@ -20,6 +20,7 @@ export default function Catalog() {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedChips, setSelectedChips] = useState([]);
   const [apiData, setApiData] = useState(null);
+  const [catalogData, setCatalogData] = useState([]);
   const [rawJson, setRawJson] = useState(null);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
@@ -33,6 +34,7 @@ export default function Catalog() {
     const data = await response.json();
     setFilters(data.filters);
     setApiData(data);
+    setCatalogData(data.result);
     setRawJson(JSON.stringify(data, null, 2));
   };
 
@@ -136,8 +138,8 @@ export default function Catalog() {
               <div style={{ fontSize: '20px', margin: '10px 0' }}>
                 {`http://localhost:3000/api/catalogo/buscar-autos${selectedFilters.length ? `?${selectedFilters.join("&")}` : ""}`}
               </div>
-              <ApiDataDisplay apiData={apiData} />
-              <CatalogGrid />
+              {/* <ApiDataDisplay apiData={apiData} /> */}
+              <CatalogGrid carListing={catalogData}/>
             </div>
           </Grid>
         </Grid>

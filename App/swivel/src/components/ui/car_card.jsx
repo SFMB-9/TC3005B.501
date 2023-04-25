@@ -12,9 +12,15 @@ import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@mui/m
 export default function CarCard(props) {
   return (
     <Card sx={{ maxWidth: 500 }}>
-      <CardMedia>
+      <CardMedia
+        component="img"
+        height="140"
+        image={props.carImage}
+        alt="car"
+      />
+      {/* <CardMedia>
         {props.carImage}
-      </CardMedia>
+      </CardMedia> */}
       <CardActionArea
         component="a"
         href={props.carUrl}

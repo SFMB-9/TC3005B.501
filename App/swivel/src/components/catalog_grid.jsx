@@ -12,7 +12,7 @@ import Carousel from 'react-material-ui-carousel';
 import CarCard from '@/components/ui/car_card';
 
 // Datos que se consumirán para mostrar el catálogo de autos.
-const carTest = [
+const carTest1 = [
     {
         carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
         carImages: [
@@ -249,41 +249,42 @@ const carTest = [
 
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
-export default function CatalogGrid(props) {
-    const carList = carTest.map((car) =>
+export default function CatalogGrid({carListing}) {
+    console.log(carListing)
+    const carList = carListing.map((car) =>
         <Grid item xs={12} sm={6} md={4}>
             <CarCard
-                carUrl={car.carUrl}
-                carImages={car.carImages}
-                carImage=
-                {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
-                    style: {
-                        position: 'absolute',
-                        marginTop: '-23px',
-                        zIndex: 1,
-                        backgroundColor: 'rgba(217,217,214, 0.3)',
-                    }
-                }} indicatorIconButtonProps={{
-                    style: {
-                        color: 'white',
-                    }
-                }} activeIndicatorIconButtonProps={{
-                    style: {
-                        color: 'grey',
-                    }
-                }}>
-                    {car.carImages.map((image) =>
-                        <a href={image.url}>
-                            <img src={image.image} alt={image.alt} height='30%' width='100%' />
-                        </a>
-                    )}
-                </Carousel>}
-                carBrand={car.carBrand}
-                carModel={car.carModel}
-                carYear={car.carYear}
-                carLocation={car.carLocation}
-                carAgency={car.carAgency}
-                carPrice={car.carPrice}
+                carUrl= 'https://www.w3schools.com/tags/tag_iframe.asp' //{car.carUrl}
+                carImage= "/info_card_photo_3.png"//{car.carImages}
+                // carImage=
+                // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
+                //     style: {
+                //         position: 'absolute',
+                //         marginTop: '-23px',
+                //         zIndex: 1,
+                //         backgroundColor: 'rgba(217,217,214, 0.3)',
+                //     }
+                // }} indicatorIconButtonProps={{
+                //     style: {
+                //         color: 'white',
+                //     }
+                // }} activeIndicatorIconButtonProps={{
+                //     style: {
+                //         color: 'grey',
+                //     }
+                // }}>
+                //     {car.carImages.map((image) =>
+                //         <a href={image.url}>
+                //             <img src={image.image} alt={image.alt} height='30%' width='100%' />
+                //         </a>
+                //     )}
+                // </Carousel>}
+                carBrand={car.marca}
+                carModel={car.modelo}
+                carYear={car.ano}
+                carLocation= 'aquí toy' //{car.carLocation}
+                carAgency={car.agencia_id}
+                carPrice={car.precio}
             />
         </Grid>
     );
