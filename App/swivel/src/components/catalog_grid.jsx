@@ -7,7 +7,7 @@ acomodadas y ordenadas en un grid.
 */
 import React from 'react';
 import Grid from '@mui/material';
-import Carousel from 'react-material-ui-carousel';
+// import Carousel from 'react-material-ui-carousel';
 
 import CarCard from '@/components/ui/car_card';
 
@@ -254,29 +254,30 @@ export default function CatalogGrid(props) {
         <Grid item xs={12} sm={6} md={4}>
             <CarCard
                 carUrl={car.carUrl}
-                carImage=
-                {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
-                    style: {
-                        position: 'absolute',
-                        marginTop: '-23px',
-                        zIndex: 1,
-                        backgroundColor: 'rgba(217,217,214, 0.3)',
-                    }
-                }} indicatorIconButtonProps={{
-                    style: {
-                        color: 'white',
-                    }
-                }} activeIndicatorIconButtonProps={{
-                    style: {
-                        color: 'grey',
-                    }
-                }}>
-                    {car.carImages.map((image) =>
-                        <a href={image.url}>
-                            <img src={image.image} alt={image.alt} height='30%' width='100%' />
-                        </a>
-                    )}
-                </Carousel>}
+                carImages={car.carImages}
+                // carImage=
+                // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
+                //     style: {
+                //         position: 'absolute',
+                //         marginTop: '-23px',
+                //         zIndex: 1,
+                //         backgroundColor: 'rgba(217,217,214, 0.3)',
+                //     }
+                // }} indicatorIconButtonProps={{
+                //     style: {
+                //         color: 'white',
+                //     }
+                // }} activeIndicatorIconButtonProps={{
+                //     style: {
+                //         color: 'grey',
+                //     }
+                // }}>
+                //     {car.carImages.map((image) =>
+                //         <a href={image.url}>
+                //             <img src={image.image} alt={image.alt} height='30%' width='100%' />
+                //         </a>
+                //     )}
+                // </Carousel>}
                 carBrand={car.carBrand}
                 carModel={car.carModel}
                 carYear={car.carYear}
