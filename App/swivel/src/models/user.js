@@ -5,9 +5,11 @@ const userSchema = new mongoose.Schema({
   name: String,
   last_name: String,
   email: String,
+  cellphone: String,
   password: String,
   encrypted_role: String,
   verified: Boolean,
+  token: String,
 });
 
 userSchema.pre("save", async function (next) {
