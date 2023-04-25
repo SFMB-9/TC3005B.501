@@ -7,15 +7,14 @@ Sebastián González Villacorta
 Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Chip, Button } from '@mui/material';
 
 import Searchbar from '@/components/ui/searchbar';
 import LandingPageLayout from '@/components/landing_page_layout';
-import CatalogGrid from '@/components/catalog_grid';
 
 export default function Catalog() {
-  const [filters, setFilters] = useState(['Chevrolet', 'Amarillo', '4 puertas']);
+  const [filters, setFilters] = useState([]);
 
   const handleDelete = (index) => {
     setFilters((prevFilters) => {
@@ -24,6 +23,15 @@ export default function Catalog() {
       return newFilters;
     });
   };
+
+  useEffect(() => {
+    const fetchFilters = async () => {
+      const response = await fetch('http://localhost:3000/api/catalogo/buscar-autos');
+      const data = await response.json();
+      setFilters(data);
+    };
+    fetchFilters();
+  }, []);
 
   return (
     <>
@@ -51,7 +59,7 @@ export default function Catalog() {
               overflowY: 'scroll',
               maxHeight: '100vh',
             }}>
-                <CatalogGrid />
+              {/* <CatalogGrid /> */}
             </div>
           </Grid>
         </Grid>
