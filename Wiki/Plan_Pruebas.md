@@ -298,7 +298,7 @@ Cada desarrollador tiene como responsabilidad realizar una prueba informal a cad
 
 ### Pruebas de Integración
 
-- Registro de auto
+- Registro de auto: Todas las pruebas deberán permitir a un usuario con los permisos correctos registrar un nuevo auto dentro del catálogo. Para ello, un usuario con permisos correctos deberá ser capaz de entrar a una vista que contenga un botón de registro de automóvil, llenar un formulario con información referente al auto y registrar este auto en la base de datos. Por otro lado, el usuario cliente deberá ser capaz de encontrar el vehículo registrado dentro de la plataforma.
 
 - Compra de un Auto: Todas las pruebas deberán permitir que el cliente tenga la capacidad de comprar un auto exitosamente, y que este pase por las dos posibilidades principales en el proceso de compra, siendo la aceptación o negación de la solicitud. Para ello, el cliente debe ser capaz de seleccionar un auto junto con sus especificaciones, aplicar para la compra del mismo, subir la información y documentos necesarios, darle seguimiento a su solicitud, esperar la aceptación/negación de la misma, efectuar la compra por uno de los métodos de pago disponible, continuar la comunicación con el vendedor el tiempo que sea necesario para finalmente recibir su adquisición.
 
