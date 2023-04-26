@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     }
 
     /* if (passwordStrength(password).value !== "Strong" || passwordStrength(password).value !== "Medium") {
-      return res.status(400).json({ message: "Password is too weak" }); // this should be primarily checked in the front end before making the request
+      return res.status(400).json({ message: passwordStrength(password).value }); // this should be primarily checked in the frontend before making the request
     } */
     
     let usedEmail = await User.exists({ email: email });
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       await User.create({ name, last_name, email, cellphone, password, encrypted_role, verified: false, token });
       res.status(200).json({ message: "User registered successfully" });
 
-      const verificationLink = `https://localhost:3000/api/registro/verify-email?token=${token}&email=${email}`;
+      const verificationLink = `http://localhost:3000/registro/verify-email?token=${token}&email=${email}`;
 
       const transporter = nodemailer.createTransport({
             service: 'gmail',

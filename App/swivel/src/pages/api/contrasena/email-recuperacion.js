@@ -4,7 +4,7 @@ export default async (req, res) => {
     if (req.method === 'POST') {
         const { email } = req.body;
         
-        const verificationLink = `https://localhost:3000/api/contrasena/cambiar-contrasena?email=${email}`; 
+        const verificationLink = `http://localhost:3000/contrasena/email-recuperacion?email=${email}`; // cambiar a http://localhost:3000/contrasena/recuperar-contrasena?email=${email} 
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',

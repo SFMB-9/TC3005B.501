@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google"; // google
+import AzureADB2CProvider from "next-auth/providers/azure-ad-b2c"; // microsoft
 
 import User from "../../../models/user";
 import bcrypt from "bcryptjs";

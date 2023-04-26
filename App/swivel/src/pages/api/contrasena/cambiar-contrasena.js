@@ -16,7 +16,7 @@ export default async function handler(req, res){
         }
 
         /* if (passwordStrength(password).value !== "Strong" || passwordStrength(password).value !== "Medium") {
-          return res.status(400).json({ message: "Password is too weak" }); // this should be primarily checked in the front end before making the request
+          return res.status(400).json({ message: passwordStrength(password).value }); // this should be primarily checked in the front end before making the request
         }  */   
         
         await User.updateOne({ email: email }, { password: password });
