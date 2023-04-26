@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 import { Form, Button } from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,10 +25,7 @@ export default function LoginForm() {
           placeholder="Contraseña"
         />
       </Form.Group>
-      <Button
-        className={styles.botningreso}
-        name="loginButton"
-      >
+      <Button className={styles.botningreso} name="loginButton">
         Ingresar
       </Button>
       <Button
@@ -41,8 +38,10 @@ export default function LoginForm() {
       </Button>
       <i className={styles.noTienesCuentaContainer}>
         {`¿No tienes cuenta? `}
-        <span className={styles.regstrateAqu}><Link href='/'>Regístrate aquí</Link></span>
+        <span className={styles.regstrateAqu}>
+          <Link href="/">Regístrate aquí</Link>
+        </span>
       </i>
     </form>
   );
-};
+}

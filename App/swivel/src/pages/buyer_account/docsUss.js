@@ -2,9 +2,9 @@ import { useState, useCallback } from "react";
 import { Button } from "@mui/material";
 
 import SideMenu from "@/components/buyer/side_menu_buyer";
-import styles from '@/styles/buyerStyles/buyer.module.css';
+import styles from "@/styles/buyerStyles/buyer.module.css";
 
-//importar la pantalla popup donde el usuario sube sus documentos 
+//importar la pantalla popup donde el usuario sube sus documentos
 import PopupSubirDocs from "../buyer_account/docsUpdate";
 import PortalPopup from "@/components/buyer/portal_popup";
 

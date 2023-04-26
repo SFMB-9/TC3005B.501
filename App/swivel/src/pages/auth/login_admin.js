@@ -1,4 +1,4 @@
-import LoginForm from '@/components/login/loginForm';
+import LoginForm from "@/components/login/loginForm";
 import styles from "@/styles/LoginAdmin.module.css";
 
 export default function loginAdmin() {
@@ -28,7 +28,4 @@ export default function loginAdmin() {
       </div>
     </div>
   );
-};
-
-
-
+}

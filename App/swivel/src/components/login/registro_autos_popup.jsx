@@ -1,32 +1,39 @@
-import React from 'react'
-import { useState } from 'react'
-import { FormControl, InputLabel, TextField, Button, Select, MenuItem } from '@mui/material'
+import React from "react";
+import { useState } from "react";
+import {
+  FormControl,
+  InputLabel,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import FileUpload from "react-material-file-upload";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
-import styles from '@/styles/registro_autos_popup.module.css'
+import styles from "@/styles/registro_autos_popup.module.css";
 
 export default function RegistroAutosPopup(props) {
-  const [marca, setMarca] = useState("")
-  const [modelo, setModelo] = useState("")
-  const [anio, setAnio] = useState("")
-  const [precio, setPrecio] = useState("")
-  const [color, setColor] = useState("")
-  const [combustible, setCombustible] = useState("")
-  const [motor, setMotor] = useState("")
-  const [tipoVehiculo, setTipoVehiculo] = useState("")
-  const [disponibilidad, setDisponibilidad] = useState("")
-  const [marcaError, setMarcaError] = useState(false)
-  const [modeloError, setModeloError] = useState(false)
-  const [anioError, setAnioError] = useState(false)
-  const [precioError, setPrecioError] = useState(false)
-  const [colorError, setColorError] = useState(false)
-  const [combustibleError, setCombustibleError] = useState(false)
-  const [motorError, setMotorError] = useState(false)
-  const [tipoVehiculoError, setTipoVehiculoError] = useState(false)
-  const [disponibilidadError, setDisponibilidadError] = useState(false)
-  const [files, setFiles] = useState(null)
-  const [filesError, setFilesError] = useState(false)
+  const [marca, setMarca] = useState("");
+  const [modelo, setModelo] = useState("");
+  const [anio, setAnio] = useState("");
+  const [precio, setPrecio] = useState("");
+  const [color, setColor] = useState("");
+  const [combustible, setCombustible] = useState("");
+  const [motor, setMotor] = useState("");
+  const [tipoVehiculo, setTipoVehiculo] = useState("");
+  const [disponibilidad, setDisponibilidad] = useState("");
+  const [marcaError, setMarcaError] = useState(false);
+  const [modeloError, setModeloError] = useState(false);
+  const [anioError, setAnioError] = useState(false);
+  const [precioError, setPrecioError] = useState(false);
+  const [colorError, setColorError] = useState(false);
+  const [combustibleError, setCombustibleError] = useState(false);
+  const [motorError, setMotorError] = useState(false);
+  const [tipoVehiculoError, setTipoVehiculoError] = useState(false);
+  const [disponibilidadError, setDisponibilidadError] = useState(false);
+  const [files, setFiles] = useState(null);
+  const [filesError, setFilesError] = useState(false);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -40,7 +47,7 @@ export default function RegistroAutosPopup(props) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     setMarcaError(false);
     setModeloError(false);
@@ -52,70 +59,71 @@ export default function RegistroAutosPopup(props) {
     setTipoVehiculoError(false);
     setDisponibilidadError(false);
 
-    if (marca === '') {
+    if (marca === "") {
       setMarcaError(true);
     }
-    if (modelo === '') {
+    if (modelo === "") {
       setModeloError(true);
     }
-    if (anio === '') {
+    if (anio === "") {
       setAnioError(true);
     }
-    if (precio === '') {
+    if (precio === "") {
       setPrecioError(true);
     }
-    if (color === '') {
+    if (color === "") {
       setColorError(true);
     }
-    if (combustible === '') {
+    if (combustible === "") {
       setCombustibleError(true);
     }
-    if (motor === '') {
+    if (motor === "") {
       setMotorError(true);
     }
-    if (tipoVehiculo === '') {
+    if (tipoVehiculo === "") {
       setTipoVehiculoError(true);
     }
-    if (disponibilidad === '') {
+    if (disponibilidad === "") {
       setDisponibilidadError(true);
     }
-
-  }
+  };
 
   const handleChangeDisponibilidad = (event) => {
     setDisponibilidad(event.target.value);
-  }
+  };
 
   const handleChangetipoVehiculo = (event) => {
     setTipoVehiculo(event.target.value);
-  }
+  };
 
   const handleChangeCombustible = (event) => {
     setCombustible(event.target.value);
-  }
+  };
 
   const handleChangeAnio = (event) => {
     setAnio(event.target.value);
-  }
+  };
 
-
-  return (props.trigger) ? (
+  return props.trigger ? (
     <div className={styles.popup}>
       <div className={styles.popupInner}>
-        <Button className={styles.closeBtn} onClick={() => props.setTrigger(false)}>
+        <Button
+          className={styles.closeBtn}
+          onClick={() => props.setTrigger(false)}
+        >
           <CloseIcon />
         </Button>
         {props.children}
 
         <React.Fragment>
-          <form autoComplete="off" onSubmit={handleSubmit} >
+          <form autoComplete="off" onSubmit={handleSubmit}>
             <div className={styles.title}>
               <h3>Ingresa la informacion necesaria para registrar un auto</h3>
             </div>
             <div className={styles.formRow}>
               <TextField
                 label="Marca"
-                onChange={e => setMarca(e.target.value)}
+                onChange={(e) => setMarca(e.target.value)}
                 required
                 variant="outlined"
                 color="secondary"
@@ -126,7 +134,7 @@ export default function RegistroAutosPopup(props) {
               />
               <TextField
                 label="Modelo"
-                onChange={e => setModelo(e.target.value)}
+                onChange={(e) => setModelo(e.target.value)}
                 required
                 variant="outlined"
                 color="secondary"
@@ -172,7 +180,7 @@ export default function RegistroAutosPopup(props) {
             <div className={styles.formRow}>
               <TextField
                 label="Precio"
-                onChange={e => setPrecio(e.target.value)}
+                onChange={(e) => setPrecio(e.target.value)}
                 required
                 variant="outlined"
                 color="secondary"
@@ -183,7 +191,7 @@ export default function RegistroAutosPopup(props) {
               />
               <TextField
                 label="Color"
-                onChange={e => setColor(e.target.value)}
+                onChange={(e) => setColor(e.target.value)}
                 required
                 variant="outlined"
                 color="secondary"
@@ -193,7 +201,9 @@ export default function RegistroAutosPopup(props) {
                 sx={{ mb: 3 }}
               />
               <FormControl sx={{ mb: 3, width: 221 }}>
-                <InputLabel htmlFor="combustible-select">Combustible</InputLabel>
+                <InputLabel htmlFor="combustible-select">
+                  Combustible
+                </InputLabel>
                 <Select
                   id="disponibilidad-select"
                   value={combustible}
@@ -212,7 +222,7 @@ export default function RegistroAutosPopup(props) {
             <div className={styles.formRow}>
               <TextField
                 label="Motor"
-                onChange={e => setMotor(e.target.value)}
+                onChange={(e) => setMotor(e.target.value)}
                 required
                 variant="outlined"
                 color="secondary"
@@ -223,7 +233,9 @@ export default function RegistroAutosPopup(props) {
               />
 
               <FormControl sx={{ mb: 3, width: 221 }}>
-                <InputLabel htmlFor="tipoVehiculo-select">TipoVehiculo</InputLabel>
+                <InputLabel htmlFor="tipoVehiculo-select">
+                  TipoVehiculo
+                </InputLabel>
                 <Select
                   id="disponibilidad-select"
                   value={tipoVehiculo}
@@ -233,14 +245,17 @@ export default function RegistroAutosPopup(props) {
                   required
                 >
                   <MenuItem value={1}>Hatchback</MenuItem>
-                  <MenuItem value={2}>Sedan</MenuItem>                  <MenuItem value={3}>SUV</MenuItem>
+                  <MenuItem value={2}>Sedan</MenuItem>{" "}
+                  <MenuItem value={3}>SUV</MenuItem>
                   <MenuItem value={4}>Pickup</MenuItem>
                   <MenuItem value={5}>Camioneta</MenuItem>
                 </Select>
               </FormControl>
 
               <FormControl sx={{ mb: 3, width: 221 }}>
-                <InputLabel htmlFor="disponibilidad-select">Disponibilidad</InputLabel>
+                <InputLabel htmlFor="disponibilidad-select">
+                  Disponibilidad
+                </InputLabel>
                 <Select
                   id="disponibilidad-select"
                   value={disponibilidad}
@@ -253,23 +268,21 @@ export default function RegistroAutosPopup(props) {
                   <MenuItem value={2}>No Disponible</MenuItem>
                 </Select>
               </FormControl>
-
             </div>
             <div className={styles.fileUpload}>
               <h5>Imagenes (Subir fotos 3d)</h5>
-              <FileUpload
-                value={files}
-                onChange={setFiles}
-                required
-              />
+              <FileUpload value={files} onChange={setFiles} required />
             </div>
             <div className={styles.registerButton}>
-              <Button variant="contained" color="primary" type="submit">Registrar</Button>
+              <Button variant="contained" color="primary" type="submit">
+                Registrar
+              </Button>
             </div>
-
           </form>
         </React.Fragment>
       </div>
     </div>
-  ) : "";
+  ) : (
+    ""
+  );
 }

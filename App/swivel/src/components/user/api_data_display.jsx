@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function ApiDataDisplay({ apiData }) {
-  const [jsonString, setJsonString] = useState('');
+  const [jsonString, setJsonString] = useState("");
 
   useEffect(() => {
     if (apiData) {
@@ -9,9 +9,7 @@ function ApiDataDisplay({ apiData }) {
     }
   }, [apiData]);
 
-  return (
-    <pre>{jsonString}</pre>
-  );
+  return <pre>{jsonString}</pre>;
 }
 
 export default ApiDataDisplay;

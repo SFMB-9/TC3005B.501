@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 
 import styles from "@/styles/buyerStyles/side_menu.module.css";
 
-
 const SideMenu = () => {
   return (
     <div className={styles.sideMenu}>
@@ -10,7 +9,11 @@ const SideMenu = () => {
         <div className={styles.logo}>
           <div className={styles.swVelParent}>
             <b className={styles.swVel}>SW VEL</b>
-            <img className={styles.groupChild} alt="" src="/buyer/vector-4.svg" />
+            <img
+              className={styles.groupChild}
+              alt=""
+              src="/buyer/vector-4.svg"
+            />
           </div>
         </div>
         <div className={styles.profile}>

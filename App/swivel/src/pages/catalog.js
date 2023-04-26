@@ -7,13 +7,13 @@ Sebastián González Villacorta
 Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
-import React, { useState, useEffect } from 'react';
-import { Grid, Chip } from '@mui/material';
-import Searchbar from '@/components/general/searchbar';
-import LandingPageLayout from '@/components/user/landing_page_layout';
-import CatalogGrid from '@/components/user/catalog_grid';
-import styles from '@/styles/catalog.module.css';
-import ApiDataDisplay from '@/components/user/api_data_display';
+import React, { useState, useEffect } from "react";
+import { Grid, Chip } from "@mui/material";
+import Searchbar from "@/components/general/searchbar";
+import LandingPageLayout from "@/components/user/landing_page_layout";
+import CatalogGrid from "@/components/user/catalog_grid";
+import styles from "@/styles/catalog.module.css";
+import ApiDataDisplay from "@/components/user/api_data_display";
 
 export default function Catalog() {
   const [filters, setFilters] = useState(null);
@@ -26,7 +26,9 @@ export default function Catalog() {
 
   const fetchFilters = async () => {
     const queryString = selectedFilters.length
-      ? `?${selectedFilters.map(filter => filter.replace('modelos', 'modelo')).join("&")}`
+      ? `?${selectedFilters
+          .map((filter) => filter.replace("modelos", "modelo"))
+          .join("&")}`
       : "";
     const response = await fetch(
       `http://localhost:3000/api/catalogo/buscar-autos${queryString}`
@@ -44,31 +46,39 @@ export default function Catalog() {
 
   const handleMenuItemClick = (category, item) => {
     event.stopPropagation();
-    setExpandedMenuItems(prevExpandedMenuItems => ({
+    setExpandedMenuItems((prevExpandedMenuItems) => ({
       ...prevExpandedMenuItems,
       [category]: {
         ...prevExpandedMenuItems[category],
         [item]: !prevExpandedMenuItems[category]?.[item],
-      }
+      },
     }));
 
-    setSelectedFilters(prevSelectedFilters => {
+    setSelectedFilters((prevSelectedFilters) => {
       const newSelectedFilters = [...prevSelectedFilters];
       if (expandedMenuItems[category]?.[item]) {
         const filterIndex = newSelectedFilters.indexOf(`${category}=${item}`);
         if (filterIndex > -1) {
           newSelectedFilters.splice(filterIndex, 1);
         }
-        setSelectedChips(prevSelectedChips => prevSelectedChips.filter(chip => chip.category !== category || chip.value !== item));
+        setSelectedChips((prevSelectedChips) =>
+          prevSelectedChips.filter(
+            (chip) => chip.category !== category || chip.value !== item
+          )
+        );
       } else {
         // remove any existing filter for this category
-        newSelectedFilters.filter(f => !f.startsWith(`${category}=`));
+        newSelectedFilters.filter((f) => !f.startsWith(`${category}=`));
         // add the new filter if it's not null
         if (item) {
           newSelectedFilters.push(`${category}=${item}`);
-          setSelectedChips(prevSelectedChips => {
+          setSelectedChips((prevSelectedChips) => {
             const newChip = { category, value: item };
-            const isChipDuplicate = prevSelectedChips.find(chip => chip.category === newChip.category && chip.value === newChip.value);
+            const isChipDuplicate = prevSelectedChips.find(
+              (chip) =>
+                chip.category === newChip.category &&
+                chip.value === newChip.value
+            );
             if (isChipDuplicate) {
               return prevSelectedChips;
             } else {
@@ -83,7 +93,7 @@ export default function Catalog() {
 
   const renderSubMenu = (category, subMenuItems) => (
     <ul className={styles.filters}>
-      {subMenuItems.map(subMenuItem => (
+      {subMenuItems.map((subMenuItem) => (
         <li key={subMenuItem} className={styles.item}>
           <label className={styles.label}>
             <input
@@ -110,7 +120,9 @@ export default function Catalog() {
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
                   label={`${chip.category}: ${chip.value}`}
-                  onDelete={() => handleMenuItemClick(chip.category, chip.value)}
+                  onDelete={() =>
+                    handleMenuItemClick(chip.category, chip.value)
+                  }
                   color="primary"
                   variant="outlined"
                   className={styles.filterChip}
@@ -120,8 +132,14 @@ export default function Catalog() {
                 <ul className={styles.filterList}>
                   {Object.entries(filters).map(([category, subMenuItems]) => (
                     <li key={category} className={styles.filterItem}>
-                      <button className={styles.filterButton} onClick={() => handleMenuItemClick(category, null)}>{category}</button>
-                      {expandedMenuItems[category]?.[null] && renderSubMenu(category, subMenuItems)}
+                      <button
+                        className={styles.filterButton}
+                        onClick={() => handleMenuItemClick(category, null)}
+                      >
+                        {category}
+                      </button>
+                      {expandedMenuItems[category]?.[null] &&
+                        renderSubMenu(category, subMenuItems)}
                     </li>
                   ))}
                 </ul>
@@ -130,16 +148,20 @@ export default function Catalog() {
           </Grid>
           <Grid item xs={12} sm={9}>
             <Searchbar />
-            <div style={{
-              padding: '3%',
-              overflowY: 'scroll',
-              maxHeight: '100vh',
-            }}>
-              <div style={{ fontSize: '20px', margin: '10px 0' }}>
-                {`http://localhost:3000/api/catalogo/buscar-autos${selectedFilters.length ? `?${selectedFilters.join("&")}` : ""}`}
+            <div
+              style={{
+                padding: "3%",
+                overflowY: "scroll",
+                maxHeight: "100vh",
+              }}
+            >
+              <div style={{ fontSize: "20px", margin: "10px 0" }}>
+                {`http://localhost:3000/api/catalogo/buscar-autos${
+                  selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
+                }`}
               </div>
               {/* <ApiDataDisplay apiData={apiData} /> */}
-              <CatalogGrid carListing={catalogData}/>
+              <CatalogGrid carListing={catalogData} />
             </div>
           </Grid>
         </Grid>
