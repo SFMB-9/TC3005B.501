@@ -4,6 +4,7 @@ import formatCheck from "../../../utils/regex";
 import pingEmail from "../../../utils/ping";
 import tokenGenerator from "../../../utils/token-generator";
 import nodemailer from 'nodemailer';
+import { passwordStrength } from 'check-password-strength';
 
 import { encryptRole } from "../../../utils/crypto";
 
@@ -31,6 +32,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: "Email is invalid" });
     }
 
+    if (passwordStrength(password).value !== "Strong" || passwordStrength(password).value !== "Medium") {
+      return res.status(400).json({ message: "Password is too weak" }); // this should be primarily checked in the front end before making the request
+    }
+
     let token = tokenGenerator();
     
     let usedEmail = await AutoGroup.exists({ email: email });
@@ -39,7 +44,7 @@ export default async function handler(req, res) {
       await AutoGroup.create({ name, postal_code, email, street, ext_number, state, city, password, encrypted_role, verified: false, token });
       res.status(200).json({ message: "User registered successfully" });
       
-      const verificationLink = `https://localhost:3000/verify-email?token=${token}`; 
+      const verificationLink = `https://localhost:3000/verify-email?token=${token}&email=${email}`; 
 
       await EmailVerification.create({email: email, token: token});
 
@@ -69,5 +74,8 @@ export default async function handler(req, res) {
     else {
       res.status(400).json({ message: "Account already exists" });
     }
+  }
+  else{
+    res.status(400).json({ message: "Wrong request method" });
   }
 }

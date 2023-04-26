@@ -1,0 +1,35 @@
+import nodemailer from 'nodemailer';
+
+export default async (req, res) => {
+    if (req.method === 'POST') {
+        const { email } = req.body;
+        
+        const verificationLink = `https://localhost:3000/cambiar-contrasena?email=${email}`; 
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.EMAIL_PASSWORD,
+            },
+        });
+
+        const mailOptions = {
+            from: `Swivel <${process.env.EMAIL_ADDRESS}>`,
+            to: email,
+            subject: 'Recuperación de contraseña',
+            html: `<p>Click the following link to recover your password:</p> <p><a href="${verificationLink}">Recover</a></p>`,
+        };
+
+        transporter.sendMail(mailOptions, (err, res) => {
+            if (err) {
+            console.log('Error');
+            } else {
+            console.log('Email Sent');
+            }
+        });
+    }
+    else {
+        res.status(400).json({ message: "Wrong request method" });
+    }
+}
