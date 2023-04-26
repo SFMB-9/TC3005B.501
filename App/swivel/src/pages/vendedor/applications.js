@@ -1,5 +1,5 @@
-import SellerLayout from "@/components/seller_layout"
-import Searchbar from "@/components/ui/searchbar"
+import SellerLayout from "@/components/seller/seller_layout"
+import Searchbar from "@/components/general/searchbar"
 
 export default function Applications() {
   return (

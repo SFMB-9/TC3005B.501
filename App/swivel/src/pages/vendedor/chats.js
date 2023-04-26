@@ -1,4 +1,4 @@
-import SellerLayout from "@/components/seller_layout"
+import SellerLayout from "@/components/seller/seller_layout"
 
 export default function Applications() {
   return (

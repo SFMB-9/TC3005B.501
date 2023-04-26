@@ -2,8 +2,8 @@ import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import { useState } from 'react'
 import Link from 'next/link'
 
-import Sidebar from '@/components/ui/sidebar'
-import NAGHeader from '@/components/new_automotive_group_header'
+import Sidebar from '@/components/general/sidebar'
+import NAGHeader from '@/components/automotive_group/new_automotive_group_header'
 
 export default function Branches() {
   const [collapsed, setCollapsed] = useState(false)

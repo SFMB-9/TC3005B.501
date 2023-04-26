@@ -9,8 +9,8 @@ import { useState } from 'react'
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import Link from 'next/link'
 
-import NAGHeader from '@/components/new_automotive_group_header'
-import Sidebar from '@/components/ui/sidebar'
+import NAGHeader from '@/components/automotive_group/new_automotive_group_header'
+import Sidebar from '@/components/general/sidebar'
 
 export default function NAGLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false)
