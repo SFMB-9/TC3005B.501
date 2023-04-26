@@ -4,7 +4,7 @@ export default async (req, res) => {
     if (req.method === 'POST') {
         const { email } = req.body;
         
-        const verificationLink = `https://localhost:3000/cambiar-contrasena?email=${email}`; 
+        const verificationLink = `https://localhost:3000/api/contrasena/cambiar-contrasena?email=${email}`; 
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -28,6 +28,8 @@ export default async (req, res) => {
             console.log('Email Sent');
             }
         });
+
+        res.status(200).json({ message: "Recovery email sent" });
     }
     else {
         res.status(400).json({ message: "Wrong request method" });

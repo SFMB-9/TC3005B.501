@@ -7,7 +7,7 @@ export default async function handler(req, res){
         dbConnect();
 
         const email = req.query.email;
-        const { password } = req.body;
+        const password = req.body.password;
 
         const savedPassword = await User.findOne({ email: email }, 'password');
 
@@ -15,15 +15,11 @@ export default async function handler(req, res){
             return res.status(400).json({ message: "Password can't be the same" });
         }
 
-        if (passwordStrength(password).value !== "Strong" || passwordStrength(password).value !== "Medium") {
+        /* if (passwordStrength(password).value !== "Strong" || passwordStrength(password).value !== "Medium") {
           return res.status(400).json({ message: "Password is too weak" }); // this should be primarily checked in the front end before making the request
-        }    
-
-        if (token !== savedToken) {
-            return res.status(400).json({ message: "Wrong token" });
-        }
+        }  */   
         
-        User.updateOne({ email: email }, { password: password });
+        await User.updateOne({ email: email }, { password: password });
         return res.status(200).json({ message: "Password updated" });        
     }
     else{
