@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Link from 'next/link'
 import MUIDataTable from "mui-datatables";
+import { ProSidebarProvider, MenuItem } from "react-pro-sidebar";
 
-import Sidebar from '@/components/ui/sidebar';
-import NAGHeader from '@/components/new_automotive_group_header';
+import Sidebar from '@/components/general/sidebar';
+import NAGHeader from '@/components/automotive_group/new_automotive_group_header';
 
 const columns = [
   { name: "Nombre", label: "Nombre", options: { filter: false, sort: true } },

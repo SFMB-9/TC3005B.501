@@ -7,10 +7,8 @@ sesión y elementos visuales de dicha pantalla.
 */
 import * as React from 'react';
 
-import AuthComponent from '@/components/ui/auth_component';
-import LoginForm from '@/components/login_form';
-import * as React from 'react';
-import AuthComponent from '@/components/auth_component';
+import LoginForm from '@/components/login/login_form';
+import AuthComponent from '@/components/login/auth_component';
 
 /* Función que retorna la pantalla de inicio de sesión del comprador. Incluye el 
 formulario de inicio de sesión y elementos visuales. */

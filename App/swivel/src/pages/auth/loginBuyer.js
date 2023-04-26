@@ -1,4 +1,4 @@
-import LoginForm from '@/components/loginForm';
+import LoginForm from '@/components/login/loginForm';
 import styles from "@/styles/LoginBuyer.module.css";
 
 export default function LoginBuyer() {
