@@ -7,7 +7,7 @@
 */
 
 import React from 'react'
-import Step from '@/components/ui/step'
+import Step from '@/components/user/step'
 import Image from 'next/image'
 import { Typography, Button } from '@mui/material'
 import Link from 'next/link'

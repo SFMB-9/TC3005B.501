@@ -7,8 +7,8 @@ embebido en el layout de nuevo grupo automotriz
 */
 import { useState } from 'react'
 
-import NAGForm from '@/components/new_automotive_group_form'
-import NAGLayout from '@/components/new_automotive_group_layout'
+import NAGForm from '@/components/automotive_group/new_automotive_group_form'
+import NAGLayout from '@/components/automotive_group/new_automotive_group_layout'
 
 export default function Settings() {
   const [collapsed, setCollapsed] = useState(false)

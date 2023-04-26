@@ -1,4 +1,4 @@
-import SignupForm from '@/components/signup_form';
+import SignupForm from '@/components/login/signup_form';
 import styles from "@/styles/signup_form.module.css";
 
 export default function LoginBuyer() {

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
 import Link from 'next/link'
 
-import Sidebar from '@/components/ui/sidebar'
-import Navbar from '@/components/navbar'
+import Sidebar from '@/components/general/sidebar'
+import Navbar from '@/components/general/Navbar'
 
 export default function SellerLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false)

@@ -4,8 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import styles from '@/styles/new_automotive_group_docs.module.css'
-import Sidebar from '@/components/sidebar'
-import NAGHeader from '@/components/new_automotive_group_header'
+import Sidebar from '@/components/general/sidebar'
+import NAGHeader from '@/components/automotive_group/new_automotive_group_header'
 
 const DocumentosGASolicitante = () => {
     const [collapsed, setCollapsed] = useState(false)
