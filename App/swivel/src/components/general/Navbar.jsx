@@ -29,7 +29,7 @@ const pages = [
   { name: 'Auto-Quiz™', link: '/quiz' },
 ];
 const settings = [
-  { name: 'Registrate', link: '/auth/register_user' },
+  { name: 'Registrate', link: '/auth/signup_comprador' },
   { name: 'Inicia Sesion', link: '/auth/login_comprador' },
 ];
 
