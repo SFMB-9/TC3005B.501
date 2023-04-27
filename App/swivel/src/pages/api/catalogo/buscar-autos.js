@@ -17,6 +17,22 @@ export default async function handler(req, res) {
   const query = buildQuery(req.query, {});
   console.log(query);
 
+  const filterHeaders = {
+    marca: "Marca",
+    modelo: "Modelo",
+    ano: "Año",
+    precio: "Precio",
+    color: "Color",
+    combustible: "Combustible",
+    rendimiento: "Rendimiento",
+    transmision: "Transmisión",
+    cantidad: "Cantidad",
+    motor: "Motor",
+    estado_agencia: "Estado de la agencia",
+    municipio_agencia: "Municipio de la agencia",
+    tipo_vehiculo: "Tipo de vehículo"
+  };
+  
   if (req.method === "GET") {
     try {
       // Make the custom query to the database
@@ -41,6 +57,7 @@ export default async function handler(req, res) {
           message: "Autos recuperados exitosamente",
           result: result,
           filters: filters,
+          filterHeaders: filterHeaders
         });
     } catch (err) {
       return res
@@ -117,7 +134,11 @@ function buildQuery(queryParams, dbQuery) {
         properties = queryParams.ano;
         subq.$in = [];
         arr = properties.split(",");
-        subq.$in = arr;
+        let arrNum = [];
+        arr.forEach ((element) => {
+            arrNum.push(parseInt(element));
+        });
+        subq.$in = arrNum;
         dbQuery.ano = subq;
         subq = {};
         arr = [];
