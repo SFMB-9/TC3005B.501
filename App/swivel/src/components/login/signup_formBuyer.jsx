@@ -3,6 +3,7 @@ Autor: Karla Mondragón
 
 Código utilizado para el formulario de registro de usuario comprador. 
 */
+
 "use client";
 
 import axios from "axios";
@@ -63,6 +64,7 @@ export default function SignUpForm() {
           </Typography>
         </b>
       </div>
+
       <form className="d-flex flex-column" onSubmit={submitHandler}>
         <div className="form-outline mb-2">
           <div className="d-flex flex-row ">
@@ -74,6 +76,7 @@ export default function SignUpForm() {
               pattern="[a-zA-Z]+"
               onChange={(e) => setName(e.target.value)}
               required
+
             />
             <input
               type="text"
@@ -83,6 +86,7 @@ export default function SignUpForm() {
               pattern="[a-zA-Z]+"
               onChange={(e) => setSurname(e.target.value)}
               required
+
             />
           </div>
         </div>
@@ -94,6 +98,7 @@ export default function SignUpForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+
           />
         </div>
         <div className="form-outline mb-2">
@@ -104,6 +109,7 @@ export default function SignUpForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+
           />
         </div>
         <div className="form-outline mb-2">
