@@ -147,7 +147,7 @@ export default function Catalog() {
               )}
             </div>
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={10}>
             <Searchbar />
             <div
               style={{
