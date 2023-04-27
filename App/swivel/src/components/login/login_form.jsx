@@ -5,14 +5,42 @@ Código utilizado para el formulario de inicio de sesión.
 Este componente se puede reutilizar en cualquier pantalla que requiera un 
 formulario para ingresar al sistema.
 */
+
 import Typography from "@mui/material/Typography";
 
+"use client";
+
+import Link from "next/link";
+import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+
+import Typography from "@mui/material/Typography";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Función que retorna el formulario de inicio de sesión con los campos de 
 correo electrónico y contraseña, junto con los botones de ingreso o de 
 ir a la pantalla de registro. */
 export default function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await signIn("credentials", {
+        redirect: true,
+        email,
+        password,
+        callbackUrl: `${window.location.origin}/auth/logout`,
+      });
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="d-flex flex-column justify-content-center align-items-center">
@@ -37,8 +65,9 @@ export default function LoginForm() {
           </Typography>
         </b>
       </div>
-      <form className="d-flex flex-column ">
-        <div class="form-outline mb-2">
+
+      <form className="d-flex flex-column " onSubmit={submitHandler}>
+        <div className="form-outline mb-2">
           <label className="form-label">
             <Typography
               sx={{
@@ -50,7 +79,13 @@ export default function LoginForm() {
               Correo electrónico{" "}
             </Typography>
           </label>
-          <input type="email" className="form-control" />
+          <input
+            type="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
         </div>
         <div className="form-outline mb-2">
           <label className="form-label">
@@ -60,14 +95,16 @@ export default function LoginForm() {
                 fontFamily: "lato",
               }}
             >
-              {" "}
-              Contraseña{" "}
-            </Typography>
-          </label>
-          <input type="password" className="form-control" />
+              {" "} Contraseña{" "} </Typography> </label>
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-          <button type="button" className="btn btn-primary btn-block mb-2">
+          <button type="submit" className="btn btn-primary btn-block mb-2">
             <Typography
               wrap
               sx={{
@@ -79,7 +116,8 @@ export default function LoginForm() {
               Ingresar{" "}
             </Typography>
           </button>
-          <button type="button" className="btn btn-secondary btn-block mb-2">
+
+          <button type="submit" className="btn btn-secondary btn-block mb-2">
             <Typography
               sx={{
                 color: "white",
@@ -94,7 +132,7 @@ export default function LoginForm() {
         </div>
         <div className="text-center">
           <p>
-            No tienes cuenta? <a href="#!">Regístrate aquí</a>
+            No tienes cuenta? <a href="/auth/register_user">Regístrate aquí</a>
           </p>
         </div>
       </form>

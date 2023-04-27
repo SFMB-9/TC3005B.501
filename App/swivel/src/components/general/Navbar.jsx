@@ -29,8 +29,8 @@ const pages = [
   { name: "Auto-Quiz™", link: "/quiz" },
 ];
 const settings = [
-  { name: "Registrate", link: "/auth/signup_comprador" },
-  { name: "Inicia Sesion", link: "/auth/login_comprador" },
+  { name: 'Registrate', link: '/auth/register_user' },
+  { name: 'Inicia Sesion', link: '/auth/login_comprador' },
 ];
 
 // Funcion que retorna el componente Navbar
