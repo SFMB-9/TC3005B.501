@@ -683,9 +683,9 @@ Nombre del Tester: <br>
 Fecha: <br>
 Nombre de la Función/Componente: <br>
 
-| ID | Descripción | Resultado Esperado | Parámtero n | Parámtero n+1 |Resultado Actual | Observaciones | Pasa o No Pasa |  
-|----|:-------:| :---------- | :----------------- | :--------------- | :------------ | :------------ | :---------: |
-| x  | Ejemplo | Ejemplo     | Ejemplo            | Ejemplo          | Ejemplo       | Ejemplo       | Sí/No   |  
+| ID | Descripción | Resultado Esperado | Parámtero |Resultado Actual | Observaciones | Pasa o No Pasa |  
+|----|:-------:| :---------- | :----------------- | :------------ | :------------ | :---------: |
+| x  | Ejemplo | Ejemplo     | Ejemplo            | Ejemplo       | Ejemplo       | Sí/No   |  
 <br>
 
 **Template Caja Blanca**
@@ -705,9 +705,9 @@ Nombre del Tester: <br>
 Fecha: <br>
 Nombre de la Función/Componente: <br>
 
-| ID | Descripción de la Relación | Resultado Esperado | Parámtero n | Parámtero n+1 |Resultado Actual | Observaciones | Pasa o No Pasa |  
-|----|:-------:| :---------- | :----------------- | :--------------- | :------------ | :------------ | :---------: |
-| x  | Ejemplo | Ejemplo     | Ejemplo            | Ejemplo          | Ejemplo       | Ejemplo       | Sí/No   |  
+| ID | Descripción de la Relación | Resultado Esperado | Parámtero | Resultado Actual | Observaciones | Pasa o No Pasa |  
+|----|:-------:| :---------- | :----------------- | :--------------- | :------------ | :---------: |
+| x  | Ejemplo | Ejemplo     | Ejemplo            | Ejemplo          | Ejemplo       | Sí/No   |  
 <br>
 
 # 6. Conclusiones
