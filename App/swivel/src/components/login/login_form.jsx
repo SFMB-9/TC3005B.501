@@ -28,7 +28,7 @@ export default function LoginForm() {
         redirect: true,
         email,
         password,
-        callbackUrl: `${window.location.origin}/auth/logout`,
+        callbackUrl: `${window.location.origin}/`,
       });
 
       console.log(data);
@@ -128,7 +128,7 @@ export default function LoginForm() {
         </div>
         <div className="text-center">
           <p>
-            No tienes cuenta? <a href="/auth/register_user">Regístrate aquí</a>
+            No tienes cuenta? <a href="/auth/signup_buyer">Regístrate aquí</a>
           </p>
         </div>
       </form>
