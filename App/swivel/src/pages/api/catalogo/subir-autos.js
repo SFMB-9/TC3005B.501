@@ -1,4 +1,12 @@
-// Upload cars to the database
+/*
+
+Sebastian Gonzalez Villacorta
+26/4/2023
+
+Description: Endpoint to upload a car to the database
+
+*/
+
 import connectToDatabase from "@/utils/mongodb";
 
 // Nice to haves:
@@ -19,10 +27,15 @@ export default async function handler(req, res) {
         precio: req.body.precio,
         color: req.body.color,
         combustible: req.body.combustible,
-        disponibilidad: req.body.disponibilidad,
+        rendimiento: req.body.rendimiento,
+        transmision: req.body.transmision,
+        cantidad: req.body.cantidad,
         motor: req.body.motor,
         agencia_id: req.body.agencia_id,
+        estado_agencia: req.body.estado_agencia,
+        municipio_agencia: req.body.municipio_agencia,
         tipo_vehiculo: req.body.tipo_vehiculo,
+        descripcion: req.body.descripcion
         // Falta agregar el campo de imagenes
       };
 
