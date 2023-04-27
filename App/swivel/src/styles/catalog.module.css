@@ -1,22 +1,26 @@
 .filterContainer {
-  padding: 10px;
+  padding: 20px;
   border-right: 1px solid lightgray;
   border-top: 1px solid lightgray;
 }
 
 .filterTitle {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  font-family: 'Raleway';
+  font-size: 1.7em;
 }
 
 .filterList {
   list-style: none;
   margin: 0;
   padding: 0;
+  
 }
 
 .filterItem {
   margin-bottom: 5px;
+  font-family: 'Lato';
 }
 
 .filterButton {
@@ -26,16 +30,20 @@
   background: none;
   border: none;
   cursor: pointer;
+  border-bottom: 1px solid lightgray;
+  font-family: 'Raleway';
 }
 
 .filters {
   list-style: none;
   margin: 0;
   padding: 0;
+  
 }
 
 .item {
-  margin-bottom: 5
+  margin-bottom: 5;
+  
 }
 
 .submenu {
@@ -47,4 +55,25 @@
   align-items: center;
   padding-left: 10px;
   margin-right: 10px;
+}
+
+.checkbox {
+  margin-left: 5px;
+}
+
+.label input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.label input[type="checkbox"] + .checkmark {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.label input[type="checkbox"]:checked + .checkmark:after {
+  content: "";
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
