@@ -51,29 +51,11 @@
 }
 
 .label {
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  margin-right: 10px;
+  margin-left: 0.001em;
+  margin-bottom: -5px;
 }
 
-.checkbox {
-  margin-left: 5px;
-}
-
-.label input[type="checkbox"] {
-  cursor: pointer;
-}
-
-.label input[type="checkbox"] + .checkmark {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.label input[type="checkbox"]:checked + .checkmark:after {
-  content: "";
-  border: solid #000;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+.labelText {
+  font-family: 'Lato';
+  margin-left: -0.2em;
 }
