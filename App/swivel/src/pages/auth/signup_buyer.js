@@ -5,16 +5,21 @@ El código provee la interfaz en donde se encuentra el formulario de registro
 
 Autor: Karla Mondragón
 */
-import * as React from 'react';
+import * as React from "react";
 
-import AuthComponent from '@/components/auth_component';
-import SignUpForm from '@/components/signup_formBuyer';
+import AuthComponent from "@/components/login/auth_component";
+import SignUpForm from "@/components/login/signup_formBuyer";
 
 /* Función que retorna la pantalla de inicio de sesión del comprador. Incluye el 
 formulario de inicio de sesión y elementos visuales. */
-export default function SignupBuyer () {
+export default function SignupBuyer() {
   return (
-    <AuthComponent backImage='/background_buyer.svg' form={<SignUpForm/>}
-         cardImage='/blob_buyer.svg' bodyText='Compra el auto de tus sueños en un solo click' titleText='Bienvenidx'
-        />    );
-  };
+    <AuthComponent
+      backImage="/background_buyer.svg"
+      form={<SignUpForm />}
+      cardImage="/blob_buyer.svg"
+      bodyText="Compra el auto de tus sueños en un solo click"
+      titleText="Bienvenidx"
+    />
+  );
+}
