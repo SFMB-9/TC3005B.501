@@ -21,7 +21,7 @@ export default function VerificationPage() {
             }
 
             try {
-                const { data } = await axios.post(`/api/registro/registro-usuario?token=${token}&email=${email}`);
+                const { data } = await axios.post(`/api/registro/verify-email?token=${token}&email=${email}`);
 
                 console.log(data);
 

@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       });
 
       const mailOptions = {
-        from: `Swivel <${process.env.EMAIL_ADDRESS}>`,
+        from: `Swivel <Swivel Team>`,
         to: email,
         subject: 'Verify your email',
         html: `<p>Click the following link to verify your email:</p> <p><a href="${verificationLink}">VERIFY</a></p>`,

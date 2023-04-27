@@ -6,7 +6,7 @@ export default async function handler(req, res){
     if(req.method === "PUT"){
         dbConnect();
 
-        const email = req.query.email;
+        const email = req.body.email;
         const password = req.body.password;
 
         const savedPassword = await User.findOne({ email: email }, 'password');
