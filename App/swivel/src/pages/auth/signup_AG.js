@@ -7,12 +7,12 @@ Autor: Karla Mondragón
 */
 import * as React from 'react';
 
-import AuthComponent from '@/components/auth_component';
-import SignUpForm from '@/components/signup_formGA';
+import AuthComponent from '@/components/login/auth_component';
+import SignUpForm from '@/components/login/signup_form';
 
 /* Función que retorna la pantalla de inicio de sesión del comprador. Incluye el 
 formulario de inicio de sesión y elementos visuales. */
-export default function SignUpBuyer () {
+export default function SignupGA () {
   return (
     <AuthComponent backImage='/background_providers.svg' form={<SignUpForm/>}
         cardImage='/blob_providers.svg' 

@@ -1,5 +1,5 @@
-import LoginForm from "@/components/login/loginForm";
-import styles from "@/styles/LoginBuyer.module.css";
+import LoginForm from "@/components/login/login_form";
+import styles from "@/styles/Login_buyer.module.css";
 
 export default function LoginBuyer() {
   return (

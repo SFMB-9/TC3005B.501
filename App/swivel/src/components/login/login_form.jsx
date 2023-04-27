@@ -5,15 +5,11 @@ Código utilizado para el formulario de inicio de sesión.
 Este componente se puede reutilizar en cualquier pantalla que requiera un 
 formulario para ingresar al sistema.
 */
-
-import Typography from "@mui/material/Typography";
-
 "use client";
 
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-
 import Typography from "@mui/material/Typography";
 import "bootstrap/dist/css/bootstrap.min.css";
 
