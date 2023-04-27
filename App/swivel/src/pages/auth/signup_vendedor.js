@@ -1,7 +1,7 @@
 import SignupForm from "@/components/login/signup_form";
 import styles from "@/styles/signup_form.module.css";
 
-export default function LoginBuyer() {
+export default function SignupBuyer() {
   return (
     <div className={styles.login}>
       <div className={styles.card}>
