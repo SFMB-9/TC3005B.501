@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, email, password, role } = req.body;
+    const { name, surname, email, password, role } = req.body;
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
-      await User.create({ name, email, password, encrypted_role });
+      await User.create({ name, surname, email, password, encrypted_role });
       res.status(200).json({ message: "User registered successfully" });
     } else {
       res.status(400).json({ message: "Account already exists" });

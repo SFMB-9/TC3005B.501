@@ -5,6 +5,7 @@ import React, { useState } from "react";
 
 export default function RegisterUser() {
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,6 +17,7 @@ export default function RegisterUser() {
     try {
       const { data } = await axios.post("/api/register", {
         name,
+        surname,
         email,
         password,
         role: "user",
@@ -41,6 +43,19 @@ export default function RegisterUser() {
             value={name}
             pattern="[a-zA-Z]+"
             onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="name_field">Surname</label>
+          <input
+            type="text"
+            id="name_field"
+            className="form-control"
+            value={surname}
+            pattern="[a-zA-Z]+"
+            onChange={(e) => setSurname(e.target.value)}
             required
           />
         </div>
