@@ -1,4 +1,4 @@
-import mongoose from 'moongose';
+import mongoose from 'mongoose';
 const Usuario = require('../../../models/usuario');
 import dbConnect from "../../../config/dbConnect";
 //will change this when sessions are implemented
