@@ -5,32 +5,35 @@ Salvador Federico Milanes Braniff
 Layout genérico para las páginas de Nuevo Grupo Automotriz.
 Utilizarlo permite reducir la cantidad de codigo redundante en interfaces
 */
-import { useState } from 'react'
-import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
-import Link from 'next/link'
+import { useState } from "react";
+import { MenuItem, ProSidebarProvider } from "react-pro-sidebar";
+import Link from "next/link";
 
-import NAGHeader from '@/components/automotive_group/new_automotive_group_header'
-import Sidebar from '@/components/general/sidebar'
+import NAGHeader from "@/components/automotive_group/new_automotive_group_header";
+import Sidebar from "@/components/general/sidebar";
 
 export default function NAGLayout({ children }) {
-  const [collapsed, setCollapsed] = useState(false)
-  const [toggled, setToggled] = useState(false)
+  const [collapsed, setCollapsed] = useState(false);
+  const [toggled, setToggled] = useState(false);
 
   const handleCollapsedChange = () => {
-    setCollapsed(!collapsed)
-  }
+    setCollapsed(!collapsed);
+  };
 
   const handleToggleSidebar = (value) => {
-    setToggled(value)
-  }
+    setToggled(value);
+  };
 
   const handleSidebarCollapse = () => {
-    setCollapsed(!collapsed)
-    setToggled(false)
-  }
+    setCollapsed(!collapsed);
+    setToggled(false);
+  };
 
   return (
-    <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
+    <div
+      className={`app ${toggled ? "toggled" : ""}`}
+      style={{ display: "flex" }}
+    >
       {/* Sidebar */}
       <ProSidebarProvider>
         <Sidebar
@@ -44,7 +47,9 @@ export default function NAGLayout({ children }) {
               icon={<img src="/sidebar_logout_icon.svg" />}
               component={<Link href="/auth/login_comprador" />}
               style={{ bottom: 0 }}
-            >Cerrar sesión</MenuItem>
+            >
+              Cerrar sesión
+            </MenuItem>
           }
           className="sidebar"
         >
@@ -65,10 +70,10 @@ export default function NAGLayout({ children }) {
           </MenuItem>
         </Sidebar>
       </ProSidebarProvider>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: "100%" }}>
         <NAGHeader />
         {children}
       </div>
     </div>
-  )
+  );
 }

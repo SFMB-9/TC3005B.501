@@ -13,9 +13,10 @@ const EmailVerification = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    expires: '1d', // Automatically delete expired tokens after 1 day
+    expires: "1d", // Automatically delete expired tokens after 1 day
     default: Date.now,
   },
 });
 
-export default mongoose.models.EmailVerification || mongoose.model("EmailVerification", EmailVerification);
+export default mongoose.models.EmailVerification ||
+  mongoose.model("EmailVerification", EmailVerification);

@@ -1,29 +1,32 @@
-import React, { useState } from 'react'
-import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
-import Link from 'next/link'
+import React, { useState } from "react";
+import { MenuItem, ProSidebarProvider } from "react-pro-sidebar";
+import Link from "next/link";
 
-import Sidebar from '@/components/general/sidebar'
-import Navbar from '@/components/general/Navbar'
+import Sidebar from "@/components/general/sidebar";
+import Navbar from "@/components/general/Navbar";
 
 export default function SellerLayout({ children }) {
-  const [collapsed, setCollapsed] = useState(false)
-  const [toggled, setToggled] = useState(false)
+  const [collapsed, setCollapsed] = useState(false);
+  const [toggled, setToggled] = useState(false);
 
   const handleCollapsedChange = () => {
-    setCollapsed(!collapsed)
-  }
+    setCollapsed(!collapsed);
+  };
 
   const handleToggleSidebar = (value) => {
-    setToggled(value)
-  }
+    setToggled(value);
+  };
 
   const handleSidebarCollapse = () => {
-    setCollapsed(!collapsed)
-    setToggled(false)
-  }
+    setCollapsed(!collapsed);
+    setToggled(false);
+  };
 
   return (
-    <div className={`app ${toggled ? 'toggled' : ''}`} style={{ display: 'flex' }}>
+    <div
+      className={`app ${toggled ? "toggled" : ""}`}
+      style={{ display: "flex" }}
+    >
       {/* Sidebar */}
       {/* <ProSidebarProvider>
       <Sidebar
@@ -56,9 +59,7 @@ export default function SellerLayout({ children }) {
         </Sidebar>
       </ProSidebarProvider> */}
       {/* <Navbar/> */}
-      <div style={{ width: '100%' }}>
-        {children}
-      </div>
+      <div style={{ width: "100%" }}>{children}</div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import LoginForm from '@/components/login/loginForm';
+import LoginForm from "@/components/login/loginForm";
 import styles from "@/styles/LoginBuyer.module.css";
 
 export default function LoginBuyer() {
@@ -28,7 +28,4 @@ export default function LoginBuyer() {
       </div>
     </div>
   );
-};
-
-
-
+}

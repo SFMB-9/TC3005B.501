@@ -6,58 +6,55 @@
   principal de la pagina y el texto que explica el servicio que ofrece la pagina.
 */
 
-import React from 'react'
-import { Box, Button, Link, Typography } from '@mui/material'
-import Image from 'next/image'
-
+import React from "react";
+import { Box, Button, Link, Typography } from "@mui/material";
+import Image from "next/image";
 
 // Funcion que retorna el hero de la pagina
 const Hero = () => {
   return (
-
-    <section className='hero'>
-      <div className='container px-0 pt-5'>
-        <div className='row justify-content-between'>
-          <div className='col-lg-7'>
-            <div className='text-lg-start text-center p-2'>
+    <section className="hero">
+      <div className="container px-0 pt-5">
+        <div className="row justify-content-between">
+          <div className="col-lg-7">
+            <div className="text-lg-start text-center p-2">
               <Typography
                 sx={{
-                  color: 'black',
-                  fontWeight: 'bold',
+                  color: "black",
+                  fontWeight: "bold",
                 }}
-                variant='h3'
-                fontFamily='Lato'
-
+                variant="h3"
+                fontFamily="Lato"
               >
                 Compra tu auto <br />
                 completamente en linea
               </Typography>
             </div>
-            <div className='text-lg-start text-center p-2'>
+            <div className="text-lg-start text-center p-2">
               <Typography
                 sx={{
-                  color: 'black',
-                  width: { xs: '100%', lg: '50%' },
-                  fontSize: '20px',
+                  color: "black",
+                  width: { xs: "100%", lg: "50%" },
+                  fontSize: "20px",
                 }}
-                fontFamily='Lato'
+                fontFamily="Lato"
               >
                 Encuentras cientos de autos y marcas diferentes en una misma
                 plataforma y haz tu compra 100% en linea
               </Typography>
             </div>
-            <div className='d-flex justify-content-lg-start justify-content-center align p-2'>
-              <Link href='/compra' style={{ textDecoration: 'none' }}>
+            <div className="d-flex justify-content-lg-start justify-content-center align p-2">
+              <Link href="/compra" style={{ textDecoration: "none" }}>
                 <Button
-                  variant='contained'
+                  variant="contained"
                   disableElevation
-                  color='contrast'
-                  size='large'
+                  color="contrast"
+                  size="large"
                 >
                   <Typography
-                    color='White '
-                    fontFamily='Lato'
-                    fontWeight='bolder'
+                    color="White "
+                    fontFamily="Lato"
+                    fontWeight="bolder"
                     fontSize={13}
                   >
                     Comprar un auto
@@ -66,13 +63,19 @@ const Hero = () => {
               </Link>
             </div>
           </div>
-          <div className='col-lg d-flex d-none d-lg-block'>
-            <Image className='car_image' src='/orange_car.svg' alt='car' width={800} height={800}></Image>
+          <div className="col-lg d-flex d-none d-lg-block">
+            <Image
+              className="car_image"
+              src="/orange_car.svg"
+              alt="car"
+              width={800}
+              height={800}
+            ></Image>
           </div>
-          <div className='col-lg d-flex '>
+          <div className="col-lg d-flex ">
             <Box
               component="img"
-              className='blob_hero'
+              className="blob_hero"
               height={700}
               alt="blob hero section"
               src="/hero_section_blob.svg"
@@ -80,9 +83,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

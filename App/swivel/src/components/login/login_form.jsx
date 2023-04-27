@@ -6,6 +6,8 @@ Este componente se puede reutilizar en cualquier pantalla que requiera un
 formulario para ingresar al sistema.
 */
 
+import Typography from "@mui/material/Typography";
+
 "use client";
 
 import Link from "next/link";
@@ -83,6 +85,7 @@ export default function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
         </div>
         <div className="form-outline mb-2">
           <label className="form-label">
@@ -113,6 +116,7 @@ export default function LoginForm() {
               Ingresar{" "}
             </Typography>
           </button>
+
           <button type="submit" className="btn btn-secondary btn-block mb-2">
             <Typography
               sx={{

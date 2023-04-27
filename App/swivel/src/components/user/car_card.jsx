@@ -5,8 +5,14 @@ Ana Paula Katsuda Zalce
 Carta que contiene la información esencial de un auto para luego ser mostrada 
 en el catálogo.
 */
-import * as React from 'react';
-import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@mui/material';
+import * as React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActionArea,
+} from "@mui/material";
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
@@ -21,10 +27,7 @@ export default function CarCard(props) {
       {/* <CardMedia>
         {props.carImage}
       </CardMedia> */}
-      <CardActionArea
-        component="a"
-        href={props.carUrl}
-      >
+      <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.carBrand} {props.carModel}

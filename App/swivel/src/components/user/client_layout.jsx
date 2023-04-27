@@ -9,28 +9,40 @@
       icon={<img src="/sidebar_logout_icon.svg" />}
       component={<Link href="/auth/login_comprador" />}
       style={{ bottom: 0 }}
-    >Cerrar sesión</MenuItem>
+    >
+      Cerrar sesión
+    </MenuItem>
   }
   className="sidebar"
 >
   <MenuItem
     icon={<img src="/sidebar_profile_icon.png" />}
     component={<Link href="./account" />}
-  >Mi cuenta</MenuItem>
+  >
+    Mi cuenta
+  </MenuItem>
   <MenuItem
     icon={<img src="/sidebar_folder_icon.png" />}
     component={<Link href="./docs" />}
-  >Mis documentos</MenuItem>
+  >
+    Mis documentos
+  </MenuItem>
   <MenuItem
     icon={<img src="/sidebar_bell_icon.png" />}
     component={<Link href="./applications" />}
-  >Mis solicitudes</MenuItem>
+  >
+    Mis solicitudes
+  </MenuItem>
   <MenuItem
     icon={<img src="/sidebar_heart_icon.png" />}
     component={<Link href="./favorites" />}
-  >Favoritos</MenuItem>
+  >
+    Favoritos
+  </MenuItem>
   <MenuItem
     icon={<img src="/sidebar_catalog_icon.png" />}
     component={<Link href="./catalog" />}
-  >Catálogo</MenuItem>
-</Sidebar>
+  >
+    Catálogo
+  </MenuItem>
+</Sidebar>;

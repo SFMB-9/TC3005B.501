@@ -1,16 +1,16 @@
 import Head from "next/head";
-import { useEffect } from 'react'
-import { ThemeProvider } from '@mui/material'
+import { useEffect } from "react";
+import { ThemeProvider } from "@mui/material";
 
-import { theme } from '@/utils/theme'
-import 'bootstrap/dist/css/bootstrap.css'
-import '@/styles/globals.css'
-import '@/styles/hero.css'
+import { theme } from "@/utils/theme";
+import "bootstrap/dist/css/bootstrap.css";
+import "@/styles/globals.css";
+import "@/styles/hero.css";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
-    import('bootstrap/dist/js/bootstrap')
-  }, [])
+    import("bootstrap/dist/js/bootstrap");
+  }, []);
   return (
     <>
       <Head>
@@ -20,5 +20,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  ) 
+  );
 }

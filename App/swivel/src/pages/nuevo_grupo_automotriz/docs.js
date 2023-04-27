@@ -1,47 +1,47 @@
-import { Button } from "@mui/material"
-import { MenuItem, ProSidebarProvider } from 'react-pro-sidebar'
-import { useState } from 'react'
-import Link from 'next/link'
+import { Button } from "@mui/material";
+import { MenuItem, ProSidebarProvider } from "react-pro-sidebar";
+import { useState } from "react";
+import Link from "next/link";
 
-import styles from '@/styles/new_automotive_group_docs.module.css'
-import Sidebar from '@/components/general/sidebar'
-import NAGHeader from '@/components/automotive_group/new_automotive_group_header'
+import styles from "@/styles/new_automotive_group_docs.module.css";
+import Sidebar from "@/components/general/sidebar";
+import NAGHeader from "@/components/automotive_group/new_automotive_group_header";
 
 const DocumentosGASolicitante = () => {
-    const [collapsed, setCollapsed] = useState(false)
-    const [toggled, setToggled] = useState(false)
+  const [collapsed, setCollapsed] = useState(false);
+  const [toggled, setToggled] = useState(false);
 
-    const handleCollapsedChange = () => {
-        setCollapsed(!collapsed)
-      }
-    
-      const handleToggleSidebar = (value) => {
-        setToggled(value)
-      }
-    
-      const handleSidebarCollapse = () => {
-        setCollapsed(!collapsed)
-        setToggled(false)
-      }
-    
+  const handleCollapsedChange = () => {
+    setCollapsed(!collapsed);
+  };
+
+  const handleToggleSidebar = (value) => {
+    setToggled(value);
+  };
+
+  const handleSidebarCollapse = () => {
+    setCollapsed(!collapsed);
+    setToggled(false);
+  };
+
   return (
     <div className={styles.documentosGaSolicitante}>
-      <img className={styles.blobsHeaderIcon} alt="" src="/grupo_auto/blobsheader.svg" />
+      <img
+        className={styles.blobsHeaderIcon}
+        alt=""
+        src="/grupo_auto/blobsheader.svg"
+      />
       <div className={styles.block} />
       <div className={styles.info}>
-        <img className={styles.groupIcon} alt="" src="/grupo_auto/bifileearmarkpdf.svg" />
+        <img
+          className={styles.groupIcon}
+          alt=""
+          src="/grupo_auto/bifileearmarkpdf.svg"
+        />
         <div className={styles.documento}>Documento</div>
         <div className={styles.rechazado}>Rechazado</div>
-        <div
-          className={styles.aprobado}
-        >
-          Aprobado
-        </div>
-        <div
-          className={styles.aprobado1}
-        >
-          Aprobado
-        </div>
+        <div className={styles.aprobado}>Aprobado</div>
+        <div className={styles.aprobado1}>Aprobado</div>
         <div className={styles.pendiente}>Pendiente</div>
         <div className={styles.pendiente1}>Pendiente</div>
         <div className={styles.pendiente2}>Pendiente</div>
@@ -63,7 +63,11 @@ const DocumentosGASolicitante = () => {
           src="/grupo_auto/bifileearmarkpdf.svg"
         />
         <div className={styles.documento3}>Documento</div>
-        <img className={styles.groupIcon1} alt="" src="/grupo_auto/bifileearmarkpdf.svg" />
+        <img
+          className={styles.groupIcon1}
+          alt=""
+          src="/grupo_auto/bifileearmarkpdf.svg"
+        />
         <div className={styles.documento4}>Documento</div>
         <img
           className={styles.bifileEarmarkPdfIcon3}
@@ -73,7 +77,7 @@ const DocumentosGASolicitante = () => {
         <div className={styles.documento5}>Documento</div>
         <Button
           className={styles.btnEditar}
-          style={{textTransform: 'none'}}
+          style={{ textTransform: "none" }}
           sx={{ width: 172.7026824951172 }}
           variant="contained"
           name="editButton"
@@ -115,9 +119,9 @@ const DocumentosGASolicitante = () => {
         </div>
       </div>
       <div className={styles.sideMenuNuevo}>
-        <div className={styles.sideMenuNuevoChild}/>
-       {/* Sidebar */}
-       <ProSidebarProvider>
+        <div className={styles.sideMenuNuevoChild} />
+        {/* Sidebar */}
+        <ProSidebarProvider>
           <Sidebar
             collapsed={collapsed}
             toggled={toggled}
@@ -126,10 +130,12 @@ const DocumentosGASolicitante = () => {
             handleSidebarCollapse={handleSidebarCollapse}
             footer={
               <MenuItem
-              icon={<img src="/grupo_auto/sidebar_logout_icon.svg" />}
-              component={<Link href="/auth/login" />}
-              style={{ bottom: 0 }}
-              >Cerrar sesión</MenuItem>
+                icon={<img src="/grupo_auto/sidebar_logout_icon.svg" />}
+                component={<Link href="/auth/login" />}
+                style={{ bottom: 0 }}
+              >
+                Cerrar sesión
+              </MenuItem>
             }
             className="sidebar"
           >
@@ -145,14 +151,17 @@ const DocumentosGASolicitante = () => {
             >
               Documentos
             </MenuItem>
-            <MenuItem disabled icon={<img src="/grupo_auto/sidebar_help_icon.svg" />}>
+            <MenuItem
+              disabled
+              icon={<img src="/grupo_auto/sidebar_help_icon.svg" />}
+            >
               Ayuda
             </MenuItem>
           </Sidebar>
         </ProSidebarProvider>
       </div>
       <div>
-        <NAGHeader/>
+        <NAGHeader />
       </div>
       <div className={styles.subeTusDocumentos}>
         Sube tus documentos y espera a que sean aprobados

@@ -6,8 +6,8 @@ LandingPageLayout es el componente que contiene la estructura de la página de i
 Utilizarlo permite reducir la cantidad de codigo redundante en interfaces
 que compartan la misma estructura.
 */
-import Navbar from '../general/Navbar';
-import Footer from '../general/Footer';
+import Navbar from "../general/Navbar";
+import Footer from "../general/Footer";
 
 export default function LandingPageLayout({ children }) {
   return (

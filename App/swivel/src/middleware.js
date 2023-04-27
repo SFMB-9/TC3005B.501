@@ -1,11 +1,8 @@
-import { withAuth } from "next-auth/middleware"
+import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-
 const rolePageMap = {
-  user: [
-    "/user/home",
-  ],
+  user: ["/user/home"],
 
   GA: [
     "/automotive_group/dashboard",
@@ -20,11 +17,11 @@ function isAuthorizedRole(role, url) {
   return rolePageMap[role]?.includes(url);
 }
 
-
 export default withAuth(
-
   function middleware(req) {
-    if (!isAuthorizedRole(req.nextauth.token.user?.role, req.nextUrl.pathname)) {
+    if (
+      !isAuthorizedRole(req.nextauth.token.user?.role, req.nextUrl.pathname)
+    ) {
       return NextResponse.redirect("http://localhost:3000/auth/login");
     }
   },
@@ -35,17 +32,12 @@ export default withAuth(
         let { token } = params;
         return !!token;
       },
-
     },
 
     secret: process.env.NEXT_AUTH_SECRET,
   }
-
-)
+);
 
 export const config = {
-  matcher: [
-    "/automotive_group/:path*",
-    "/user/:path*",
-  ]
+  matcher: ["/automotive_group/:path*", "/user/:path*"],
 };

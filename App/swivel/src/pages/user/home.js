@@ -3,5 +3,5 @@ export default function UserHome() {
     <>
       <h1>WELCOME TO USER HOME</h1>
     </>
-  )
+  );
 }

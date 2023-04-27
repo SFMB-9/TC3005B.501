@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const client = await connectToDatabase;
   const db = client.db("nextjs-mongodb-demo");
 
-  if (req.method === 'POST' && req.body !== null) {
+  if (req.method === "POST" && req.body !== null) {
     try {
       let auto = {
         //auto_id: req.body.auto_id,
@@ -24,11 +24,9 @@ export default async function handler(req, res) {
         agencia_id: req.body.agencia_id,
         tipo_vehiculo: req.body.tipo_vehiculo,
         // Falta agregar el campo de imagenes
-      }
+      };
 
-      let result = await db
-        .collection("posts")
-        .insertOne(auto);
+      let result = await db.collection("posts").insertOne(auto);
 
       if (!result) {
         return res.status(500).json({ message: "Error al subir auto" });
@@ -37,9 +35,10 @@ export default async function handler(req, res) {
       return res
         .status(200)
         .json({ message: "Auto agregado exitosamente", result: result });
-    }
-    catch (err) {
-      return res.status(400).json({ message: "Error al subir auto", error: err });
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: "Error al subir auto", error: err });
     }
   }
 }
