@@ -101,8 +101,9 @@ export default function Catalog() {
               checked={expandedMenuItems[category]?.[subMenuItem]}
               onChange={() => handleMenuItemClick(category, subMenuItem)}
             />
-            <span className={styles.checkbox}></span>
-            {subMenuItem}
+            <span className={styles.checkbox}>
+              {subMenuItem}
+            </span>
           </label>
         </li>
       ))}
@@ -113,7 +114,7 @@ export default function Catalog() {
     <>
       <LandingPageLayout>
         <Grid container>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
               <div className={styles.filterTitle}>Filtros</div>
               {selectedChips.map((chip, index) => (
@@ -160,7 +161,7 @@ export default function Catalog() {
                   selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
                 }`}
               </div>
-              {/* <ApiDataDisplay apiData={apiData} /> */}
+              <ApiDataDisplay apiData={apiData} />
               <CatalogGrid carListing={catalogData} />
             </div>
           </Grid>
