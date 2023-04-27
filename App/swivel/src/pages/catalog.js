@@ -125,7 +125,7 @@ export default function Catalog() {
               {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
-                  label={`${chip.category}: ${chip.value}`}
+                  label={`${filterHeaders[chip.category]}: ${chip.value}`}
                   onDelete={() =>
                     handleMenuItemClick(chip.category, chip.value)
                   }
