@@ -15,10 +15,10 @@ formulario de inicio de sesión y elementos visuales. */
 export default function LoginBuyer() {
   return (
     <AuthComponent
-      backImage="/login_background_1.svg"
+      backImage=""
       form={<LoginForm />}
-      cardImage="/card_welcome.svg"
-      backColor="#111439"
+      cardImage="/card_welcome.png"
+      backColor="black"
       bodyText="Compra el auto de tus sueños en un solo click"
       titleText="Bienvenidx"
       textColor="white"

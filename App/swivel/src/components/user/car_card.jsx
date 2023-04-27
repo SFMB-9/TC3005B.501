@@ -20,7 +20,7 @@ export default function CarCard(props) {
     <Card sx={{ maxWidth: 500 }}>
       <CardMedia
         component="img"
-        height="140"
+        height="180"
         image={props.carImage}
         alt="car"
       />
@@ -29,14 +29,29 @@ export default function CarCard(props) {
       </CardMedia> */}
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{
+            marginBottom: '1px',
+            fontFamily: 'Raleway'
+          }}>
             {props.carBrand} {props.carModel}
           </Typography>
-          <Typography gutterBottom variant="body2" color="text.secondary">
-            {props.carYear} · {props.carLocation} · {props.carAgency}
+          <Typography gutterBottom variant="body2" color="text.secondary" sx={{
+            marginBottom: '-0.5px',
+            fontFamily: 'Lato'
+          }}>
+            {props.carYear} · {props.carLocation} · {props.carBrand} {props.carAgency}
           </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {props.carPrice}
+          <Typography gutterBottom variant="body2" sx={{
+            marginBottom: '-0.5px',
+            fontFamily: 'Lato'
+          }}>
+            {props.carColor} 
+          </Typography>
+          <Typography gutterBottom variant="h6" component="div" sx={{
+            marginBottom: '-0.5px',
+            fontFamily: 'Raleway'
+          }}>
+            ${props.carPrice} MXN
           </Typography>
         </CardContent>
       </CardActionArea>

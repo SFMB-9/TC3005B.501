@@ -155,12 +155,12 @@ export default function Catalog() {
                 maxHeight: "100vh",
               }}
             >
-              <div style={{ fontSize: "20px", margin: "10px 0" }}>
+              {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
                 {`http://localhost:3000/api/catalogo/buscar-autos${
                   selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
                 }`}
               </div>
-              {/* <ApiDataDisplay apiData={apiData} /> */}
+              <ApiDataDisplay apiData={apiData} /> */}
               <CatalogGrid carListing={catalogData} />
             </div>
           </Grid>

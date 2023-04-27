@@ -247,47 +247,66 @@ const carTest1 = [
   },
 ];
 
+const dummyImages = [
+  '/dummy_car_image1.png',
+  '/dummy_car_image2.png',
+  '/dummy_car_image3.png',
+  '/dummy_car_image4.png',
+  '/dummy_car_image5.png',
+]
+
+function selectImage() {
+  return dummyImages[Math.floor(Math.random() * dummyImages.length)];
+}
+
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
 export default function CatalogGrid({ carListing }) {
   console.log(carListing);
-  const carList = carListing.map((car) => (
-    <Grid item xs={12} sm={6} md={4}>
-      <CarCard
-        carUrl="https://www.w3schools.com/tags/tag_iframe.asp" //{car.carUrl}
-        carImage="/info_card_photo_3.png" //{car.carImages}
-        // carImage=
-        // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
-        //     style: {
-        //         position: 'absolute',
-        //         marginTop: '-23px',
-        //         zIndex: 1,
-        //         backgroundColor: 'rgba(217,217,214, 0.3)',
-        //     }
-        // }} indicatorIconButtonProps={{
-        //     style: {
-        //         color: 'white',
-        //     }
-        // }} activeIndicatorIconButtonProps={{
-        //     style: {
-        //         color: 'grey',
-        //     }
-        // }}>
-        //     {car.carImages.map((image) =>
-        //         <a href={image.url}>
-        //             <img src={image.image} alt={image.alt} height='30%' width='100%' />
-        //         </a>
-        //     )}
-        // </Carousel>}
-        carBrand={car.marca}
-        carModel={car.modelo}
-        carYear={car.ano}
-        carLocation="aquí toy" //{car.carLocation}
-        carAgency={car.agencia_id}
-        carPrice={car.precio}
-      />
-    </Grid>
-  ));
+  let carList;
+  if (carListing !== undefined) {
+    carList = carListing.map((car) => (
+      <Grid item xs={12} sm={6} md={4}>
+        <CarCard
+          carUrl="https://www.w3schools.com/tags/tag_iframe.asp" //{car.carUrl}
+          carImage={selectImage()} //{car.carImages}
+          // carImage=
+          // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
+          //     style: {
+          //         position: 'absolute',
+          //         marginTop: '-23px',
+          //         zIndex: 1,
+          //         backgroundColor: 'rgba(217,217,214, 0.3)',
+          //     }
+          // }} indicatorIconButtonProps={{
+          //     style: {
+          //         color: 'white',
+          //     }
+          // }} activeIndicatorIconButtonProps={{
+          //     style: {
+          //         color: 'grey',
+          //     }
+          // }}>
+          //     {car.carImages.map((image) =>
+          //         <a href={image.url}>
+          //             <img src={image.image} alt={image.alt} height='30%' width='100%' />
+          //         </a>
+          //     )}
+          // </Carousel>}
+          carBrand={car.marca}
+          carModel={car.modelo}
+          carYear={car.ano}
+          carLocation={car.estado_agencia} //{car.carLocation}
+          carAgency={car.municipio_agencia}
+          carColor={car.color}
+          carPrice={car.precio}
+        />
+      </Grid>
+    ));
+  }
+  else {
+    carList = <h1 className="d-flex flex-column justify-content-center align-items-center"> No se encontraron autos </h1>
+  }
   return (
     <>
       <Grid

@@ -15,11 +15,13 @@ formulario de inicio de sesión y elementos visuales. */
 export default function SignupBuyer() {
   return (
     <AuthComponent
-      backImage="/background_buyer.svg"
+      backImage=""
+      backColor="black"
       form={<SignUpForm />}
-      cardImage="/blob_buyer.svg"
-      bodyText="Compra el auto de tus sueños en un solo click"
+      cardImage="/card_welcome_register.png"
+      bodyText="Regístrate y empieza a comprar el auto de tus sueños"
       titleText="Bienvenidx"
+      textColor="white"
     />
   );
 }

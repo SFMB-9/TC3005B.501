@@ -28,7 +28,7 @@ const pages2 = [
 // Funcion que retorna el footer de la pagina
 const Footer = () => {
   return (
-    <section style={{ backgroundColor: "#111439" }} className="px-0 mx-0 py-2">
+    <section style={{ backgroundColor: "black" }} className="px-0 mx-0 py-2">
       <div className="container px-0">
         <div className="row align-items-center">
           <div className="col-5 d-none d-md-block">
