@@ -15,7 +15,7 @@ const autoGroupSchema = new mongoose.Schema({
   token: String,
 });
 
-userSchema.pre("save", async function (next) {
+autoGroupSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
