@@ -710,6 +710,18 @@ Nombre de la Función/Componente: <br>
 | x  | Ejemplo | Ejemplo     | Ejemplo            | Ejemplo          | Ejemplo       | Sí/No   |  
 <br>
 
+**Template Prueba de Aceptacion**
+
+Nombre del Tester: <br>
+Fecha: <br>
+
+| ID | MVP Num | 
+|----|----|
+| x  | x  |
+| Componente / Funcionalidad | Comentario |
+|x|x|
+<br>
+
 # 6. Conclusiones
 El presente documento demuestra la planeación de pruebas para el aplicativo propuesto. Este documento detalla la implementación de todas las pruebas a ejecutar sobre el aplicativo: desde su concepción, ejecución, y documentación.
 
