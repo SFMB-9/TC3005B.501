@@ -249,9 +249,9 @@ El propósito de las pruebas de integración es comprobar el correcto funcionami
 El propósito de este tipo de pruebas es validar con el equipo de desarrollo y NDS si el sistema está a la par con sus expectativas y cumple las funcionalidades que fueron discutidas en el documento SRS.
 
 - _Alcance:_ Todos los aspectos del pedazo de software serán probados pruebas de validación. Esto con el objetivo de revisar si aspectos de diseño y funcionalidad de la aplicación están a la par de las expectativas de NDS.
-- _Responsables:_ Rubén Raya (NDS), los desarrolladores, los testers y el SCRUM master..
+- _Responsables:_ Rubén Raya (NDS), los desarrolladores, los testers y el lider de QA.
 - _Metodología:_ Los desarrolladores se reunirán con Rubén Raya y bajo su supervisión se encargará de validar los aspectos importantes de la aplicación desarrollada.
-- _Cada cuándo:_ En cuanto se cumplan las pruebas de integración.
+- _Cada cuándo:_ A la hora de realizarce las presentaciones de progreso con NDS.
 
 ### Prueba de Recorrido Estático (Validación)
 El propósito de este tipo de pruebas es asegurar que el servicio, en términos de funcionalidad y desempeño, actúe de manera satisfactoria.
