@@ -718,7 +718,7 @@ Fecha: <br>
 | ID | MVP Num | 
 |----|----|
 | x  | x  |
-| Componente / Funcionalidad | Comentario |
+| Tema Principal | Comentario |
 |x|x|
 <br>
 
