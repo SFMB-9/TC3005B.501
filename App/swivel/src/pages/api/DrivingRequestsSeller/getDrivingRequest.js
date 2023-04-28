@@ -11,8 +11,8 @@ export default async (req, res) => {
         const user = session.get('user');
         */
 
-        const vendedor_id = req.query.vendedor_id;
-        const tipo_proceso = req.query.tipo_proceso;
+        const _id = req.query._id;
+    
         //seller id and type are passed as query parameters
       
         await dbConnect();
@@ -20,12 +20,12 @@ export default async (req, res) => {
     
         try {
         // Find the processes that belong to the seller and are of a specific type
-        const procesos = await Proceso.find({vendedor_id, tipo_proceso});
+        const proceso = await Proceso.findById(_id);
 
-      res.status(200).json({ procesos }, { status: 'success'});
+      res.status(200).json({ proceso }, { status: 'Se ha encontrado el proceso'});
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: error.message });
     } 
   };
 

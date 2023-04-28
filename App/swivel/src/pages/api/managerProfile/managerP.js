@@ -7,7 +7,6 @@ import dbConnect from "../../../config/dbConnect";
 export default async (req, res) => {
 
     const {id} = req.query;
-    console.log(typeof(id));
     
     dbConnect();
     try{

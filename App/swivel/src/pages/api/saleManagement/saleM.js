@@ -17,7 +17,6 @@ const handler = async (req, res) => {
       .lean()
       .exec();
     const sellerId = result[0]._id;
-    console.log(sellerId);
     // Update the seller's document to reflect the new purchase
     await Usuario.updateOne({ "_id": sellerId }, { $inc: { "contar_ventas_en_proceso": 1 } });
 

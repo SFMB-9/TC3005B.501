@@ -5,6 +5,9 @@ const procesoSchema = new mongoose.Schema({
     type: String,
     
   },
+  status: {
+    type: String,
+  },
   tipo_proceso: {
     type: String,
   
@@ -21,8 +24,9 @@ const procesoSchema = new mongoose.Schema({
   chat: {
     type: JSON,
   },
+  _id: mongoose.Schema.Types.ObjectId,
+
 }); 
 
-const Proceso = mongoose.model('Proceso', procesoSchema, 'procesos'); // pass the collection name explicitly
 
-module.exports = Proceso;
+module.exports = mongoose.models.Proceso || mongoose.model('Proceso', procesoSchema, 'procesos'); // pass the collection name explicitlyo;

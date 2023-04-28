@@ -33,6 +33,4 @@ const usuarioSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 }); 
 
-const Usuario = mongoose.model('Usuario', usuarioSchema, 'usuarios'); // pass the collection name explicitly
-
-module.exports = Usuario;
+module.exports = mongoose.models.Usuario || mongoose.model('Usuario', usuarioSchema, 'usuarios'); // pass the collection name explicitly
