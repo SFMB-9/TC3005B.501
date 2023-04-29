@@ -13,7 +13,7 @@ const handler = async (req, res) => {
     const result = await Usuario
       .find({ "gerente_id": gerente_id, "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
       .sort({ "contar_ventas_en_proceso": 1 })
-      .limit(1, { _id: 0, id: 1 })
+      .limit(1, { _id: 0, _id: 1 })
       .lean()
       .exec();
     const sellerId = result[0]._id;

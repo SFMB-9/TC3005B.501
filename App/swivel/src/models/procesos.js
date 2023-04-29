@@ -12,8 +12,8 @@ const procesoSchema = new mongoose.Schema({
     type: String,
   
   },
-  documentos_url: {
-    type: JSON,
+  documentos: {
+    type: Array,
   },
   auto: {
     type: JSON,
