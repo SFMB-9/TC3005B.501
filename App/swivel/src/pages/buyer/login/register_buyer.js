@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 
 import axios from "axios";
 import React, { useState } from "react";
@@ -9,7 +9,7 @@ export default function RegisterUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { encryptRole } = require("../../utils/crypto");
+  const { encryptRole } = require("../../../utils/crypto");
 
   const submitHandler = async (e) => {
     e.preventDefault();

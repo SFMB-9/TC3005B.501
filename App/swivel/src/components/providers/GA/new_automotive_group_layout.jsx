@@ -9,7 +9,7 @@ import { useState } from "react";
 import { MenuItem, ProSidebarProvider } from "react-pro-sidebar";
 import Link from "next/link";
 
-import NAGHeader from "@/components/automotive_group/new_automotive_group_header";
+import NAGHeader from "@/components/providers/GA/new_automotive_group_header";
 import Sidebar from "@/components/general/sidebar";
 
 export default function NAGLayout({ children }) {

@@ -13,7 +13,7 @@ import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/user/landing_page_layout";
 import CatalogGrid from "@/components/user/catalog_grid";
 import styles from "@/styles/catalog.module.css";
-import ApiDataDisplay from "@/components/user/api_data_display";
+import ApiDataDisplay from "@/components/buyer/api_data_display";
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);

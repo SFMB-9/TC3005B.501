@@ -1,3 +1,4 @@
+/* Must be a component */
 import { Button } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 //import styles from "../../styles/ga_documents_compt.module.css";
