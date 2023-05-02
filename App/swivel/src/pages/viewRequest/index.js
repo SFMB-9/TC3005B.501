@@ -7,6 +7,7 @@ const RequestDetails = () => {
   const router = useRouter();
   const [request, setRequests] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [comment, setComment] = useState(''); // new state for adding comments
   const { id } = router.query;
 
   const fetchRequests = async () => {
@@ -19,13 +20,18 @@ const RequestDetails = () => {
     setDocuments(d);
     
   }
-  
+ 
   // This function updates the status of a document
   const updateDocumentStatus = async (_id,doc_id, status) => {
     await axios.put('/api/DrivingRequestsSeller/updateDocumentStatus', { _id,doc_id, status });
     fetchRequests();
   };
   
+  // This function creates a new comment for a document
+  const addNewComment = async (_id,doc_id) => {
+    await axios.put('/api/DrivingRequestsSeller/updateDocumentComment', { _id, doc_id, comment });
+    fetchRequests();
+  };
   
   useEffect(() => {
     fetchRequests();
@@ -51,7 +57,6 @@ const RequestDetails = () => {
         <table>
           <thead>
             <tr>
-              <th>Document ID</th>
               <th>Document Name</th>
               <th>Document Status</th>
               <th>Ultima modificación</th>
@@ -74,6 +79,18 @@ const RequestDetails = () => {
                   </select>
                 </td>
                 <td>{document.fecha_modificacion}</td>
+                <td>
+                {document.comentarios && document.comentarios.map((comentario, j) => (
+                   <p key={j}>{comentario}</p>
+                ))}
+                <input
+                  type="text"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder='Añade un comentario'
+                  onKeyDown={(e) => e.key === 'Enter' && addNewComment(request._id,i)}
+                />
+                </td>
               </tr>
             ))}
           </tbody>
