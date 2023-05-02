@@ -52,14 +52,21 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-
+        <br/>
         <button type="submit">Sign in</button>
+      </form>
+        <div>
+          <button onClick={() => signIn("azuread-b2c")}>Sign in with Google</button>
+          <br/>
+          <button onClick={() => signIn("google")}>Sign in with Microsoft</button>
+        </div>
+
+
         <div className="text-center">
           <p>
             Not a member? <Link href="/register">Register</Link>
           </p>
         </div>
-      </form>
 
     </>
   )

@@ -1,4 +1,4 @@
-import AutoGroup from "../../../models/autoGroup";
+import User from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 import formatCheck from "../../../utils/regex";
 import pingEmail from "../../../utils/ping";
@@ -38,10 +38,23 @@ export default async function handler(req, res) {
 
     let token = tokenGenerator();
     
-    let usedEmail = await AutoGroup.exists({ email: email });
+    let usedEmail = await User.exists({ email: email });
     
     if (!usedEmail) { // email existence check within the db, returns if there is already an account with the email
-      await AutoGroup.create({ name, postal_code, email, street, ext_number, state, city, password, encrypted_role, verified: false, token });
+      await User.create({ 
+        name: name, 
+        email: email, 
+        password: password, 
+        encrypted_role: encrypted_role, 
+        verified: false, 
+        token: token,
+         
+        postal_code: postal_code, 
+        street: street, 
+        ext_number: ext_number, 
+        state: state, 
+        city: city 
+      });
       res.status(200).json({ message: "User registered successfully" });
       
       const verificationLink = `http://localhost:3000/registro/verify-email?token=${token}&email=${email}`; 

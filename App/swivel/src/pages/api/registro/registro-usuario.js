@@ -41,7 +41,17 @@ export default async function handler(req, res) {
     let token = tokenGenerator();
     
     if (!usedEmail) { // email existence check within the db, returns if there is already an account with the email
-      await User.create({ name, last_name, email, cellphone, password, encrypted_role, verified: false, token });
+      await User.create({ 
+        name: name, 
+        email: email,
+        password: password,  
+        encrypted_role: encrypted_role, 
+        verified: false, 
+        token: token,
+        
+        last_name: last_name, 
+        cellphone: cellphone 
+      });
       res.status(200).json({ message: "User registered successfully" });
 
       const verificationLink = `http://localhost:3000/registro/verify-email?token=${token}&email=${email}`;
