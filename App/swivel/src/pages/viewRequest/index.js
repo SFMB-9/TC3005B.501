@@ -7,7 +7,8 @@ const RequestDetails = () => {
   const router = useRouter();
   const [request, setRequests] = useState([]);
   const [documents, setDocuments] = useState([]);
-  const [comment, setComment] = useState(''); // new state for adding comments
+  const [comment, setComment] = useState(''); 
+  const [date, setDate] = useState('');
   const { id } = router.query;
 
   const fetchRequests = async () => {
@@ -32,6 +33,12 @@ const RequestDetails = () => {
     await axios.put('/api/DrivingRequestsSeller/updateDocumentComment', { _id, doc_id, comment });
     fetchRequests();
   };
+
+  const addDate = async (_id) => {
+    await axios.put('/api/DrivingRequestsSeller/updateRequestDate', { _id, date });
+    fetchRequests();
+  };
+
   
   useEffect(() => {
     fetchRequests();
@@ -51,6 +58,18 @@ const RequestDetails = () => {
       <p>Status: {request.status}</p>
       <p>Última modificación: {request.fecha_modificacion}</p>
       <p>fecha de creación: {request.fecha_inicio}</p>
+      <p> Agendar una cita: </p>
+    
+      <input type="datetime-local"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      >
+      </input>
+      <button onClick={() => addDate(request._id)}> Agendar </button>
+    
+      <p>Fecha actualmente agendada: </p>
+      <p>{request.fecha_agendada}</p>
+      
       <div>
         {/* This is the table that displays the documents of a request*/}
         <h1>Request Documents</h1>

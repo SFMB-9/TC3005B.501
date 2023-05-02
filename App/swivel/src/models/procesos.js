@@ -18,6 +18,9 @@ const procesoSchema = new mongoose.Schema({
   auto: {
     type: JSON,
   },
+  fecha_agendada: {
+    type: Date,
+  },
   usuario_final_id: {
     type: String,
   },
