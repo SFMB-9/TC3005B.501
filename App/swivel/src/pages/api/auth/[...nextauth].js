@@ -26,6 +26,7 @@ export const authOptions = {
 
       async authorize(credentials) {
         dbConnect();
+
         const { email, password } = credentials;
         const user = await User.findOne({ email: email });
 
@@ -46,11 +47,55 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+      scope: "openid email profile",
+      accessTokenUrl: 'https://oauth2.googleapis.com/token',
+      profileUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
       
-      async profile(profile, tokens) {        
+      profile: async (profile, tokens) => {        
         dbConnect();
 
         const user = await User.findOne({ email: profile.email });
+
+        if (user) {
+          return {
+            id: user._id.toString(),
+            name: user.nombre + ' ' + user.apellidos,
+            email: user.email,
+            role: decryptRole(user.tipo_usuario),
+          };
+        } 
+        else {
+          const newUser = await User.create({
+            email: profile.email,
+            nombres: profile.given_name,
+            apellidos: profile.family_name,
+            is_account_verified: profile.email_verified,
+            account_provider: "google",
+            tipo_usuario: "user",
+          });
+    
+          return {
+            id: newUser._id.toString(),
+            name: newUser.nombre + ' ' + newUser.apellidos,
+            email: newUser.email,
+            role: decryptRole(newUser.tipo_usuario),
+          };
+        }
+      },
+    }),    
+
+    AzureADProvider({
+      clientId: process.env.AZURE_AD_CLIENT_ID,
+      clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
+      tenantId: process.env.AZURE_AD_TENANT_ID,
+
+      profile: async (profile, tokens) => {
+        dbConnect();
+        
+        const user = await User.findOne({ email: profile.email });
+        
         if (user) {
           return {
             id: user._id.toString(),
@@ -58,14 +103,13 @@ export const authOptions = {
             email: user.email,
             role: decryptRole(user.encrypted_role),
           };
-        } 
-        else {
+        } else {
           const newUser = await User.create({
             email: profile.email,
-            name: profile.name,
-            provider: "google",
+            name: profile.displayName,
+            account_provider: "azure-ad",
           });
-    
+      
           return {
             id: newUser._id.toString(),
             name: newUser.name,
@@ -74,13 +118,7 @@ export const authOptions = {
           };
         }
       },
-    }),
-    
-
-    AzureADProvider({
-      clientId: process.env.AZURE_AD_CLIENT_ID,
-      clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
-      tenantId: process.env.AZURE_AD_TENANT_ID,
+      
     }),
   ],
 

@@ -5,7 +5,12 @@ const rolePageMap = {
   user: [
     "/user/home",
   ],
-
+  manager : [
+    "",
+  ],
+  seller: [
+    "",
+  ],
   GA: [
     "/automotive_group/dashboard",
     "/automotive_group/docs",
@@ -21,13 +26,18 @@ function isAuthorizedRole(role, url) {
 
 export default withAuth(
   async function middleware(req, res) {
-    const { token } = await req.nextauth.session;
+    const token = req.nextauth?.session?.token;
     const { pathname } = req.nextUrl;
 
-    if (!token || !isAuthorizedRole(token.user?.role, pathname)) {
-      // If the user is not authenticated or not authorized to access the requested URL,
-      // redirect them to the NextAuth login page
-      return NextResponse.redirect("/api/auth/signin");
+    if (!token) {
+      // If the user is not authenticated, redirect them to the NextAuth login page
+      return NextResponse.redirect("http://localhost:3000/api/auth/signin");
+    }
+
+    if (!isAuthorizedRole(token.user?.role, pathname)) {
+      // If the user is not authorized to access the requested URL,
+      // redirect them to the home page or show an error message
+      return NextResponse.redirect("/");
     }
   },
 
@@ -42,6 +52,7 @@ export default withAuth(
     secret: process.env.NEXT_AUTH_SECRET,
   }
 );
+
 
 export const config = {
   matcher: [
