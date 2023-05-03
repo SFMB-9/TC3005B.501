@@ -86,7 +86,7 @@ export const authOptions = {
       },
     }),    
 
-    AzureADProvider({
+    /* AzureADProvider({
       clientId: process.env.AZURE_AD_CLIENT_ID,
       clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
       tenantId: process.env.AZURE_AD_TENANT_ID,
@@ -103,11 +103,15 @@ export const authOptions = {
             email: user.email,
             role: decryptRole(user.encrypted_role),
           };
-        } else {
+        } 
+        else {
           const newUser = await User.create({
             email: profile.email,
-            name: profile.displayName,
+            nombres: profile.given_name,
+            apellidos: profile.family_name,
+            is_account_verified: profile.email_verified,
             account_provider: "azure-ad",
+            tipo_usuario: "user",
           });
       
           return {
@@ -119,7 +123,7 @@ export const authOptions = {
         }
       },
       
-    }),
+    }), */
   ],
 
   /* pages: {
