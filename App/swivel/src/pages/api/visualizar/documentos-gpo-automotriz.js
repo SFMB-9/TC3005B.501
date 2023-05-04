@@ -26,19 +26,15 @@ export default async function handler(req, res) {
         documentos: docs,
       };
 
-      return res
-        .status(200)
-        .json({
-          message: "Documentos del usuario recuperados exitosamente",
-          result: result,
-        });
+      return res.status(200).json({
+        message: "Documentos del usuario recuperados exitosamente",
+        result: result,
+      });
     } catch (err) {
-      return res
-        .status(400)
-        .json({
-          message: "Error al recuperar documentos del usuario",
-          error: err,
-        });
+      return res.status(400).json({
+        message: "Error al recuperar documentos del usuario",
+        error: err,
+      });
     }
   }
 }

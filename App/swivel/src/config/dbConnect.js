@@ -1,7 +1,6 @@
 import mongoose, { mongo } from "mongoose";
 
 const dbConnect = () => {
-
   const { MONGODB_URI } = process.env;
 
   mongoose.connect(MONGODB_URI, {
