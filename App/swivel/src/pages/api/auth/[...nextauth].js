@@ -84,46 +84,7 @@ export const authOptions = {
           };
         }
       },
-    }),    
-
-    /* AzureADProvider({
-      clientId: process.env.AZURE_AD_CLIENT_ID,
-      clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
-      tenantId: process.env.AZURE_AD_TENANT_ID,
-
-      profile: async (profile, tokens) => {
-        dbConnect();
-        
-        const user = await User.findOne({ email: profile.email });
-        
-        if (user) {
-          return {
-            id: user._id.toString(),
-            name: user.name,
-            email: user.email,
-            role: decryptRole(user.encrypted_role),
-          };
-        } 
-        else {
-          const newUser = await User.create({
-            email: profile.email,
-            nombres: profile.given_name,
-            apellidos: profile.family_name,
-            is_account_verified: profile.email_verified,
-            account_provider: "azure-ad",
-            tipo_usuario: "user",
-          });
-      
-          return {
-            id: newUser._id.toString(),
-            name: newUser.name,
-            email: newUser.email,
-            role: decryptRole(newUser.encrypted_role),
-          };
-        }
-      },
-      
-    }), */
+    }),
   ],
 
   /* pages: {
