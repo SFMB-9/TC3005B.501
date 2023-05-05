@@ -3,71 +3,78 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { data: session, loading } = useSession();
+  const router = useRouter();
+
+  /* if (session) {
+    router.push("/");
+    return null;
+  } */
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const data = await signIn("credentials", {
-        redirect: true,
-        email,
-        password,
-        callbackUrl: `${window.location.origin}/auth/logout`,
-      });
+        redirect: false,
+        email: email,
+        password: password,
+      });      
 
-      console.log(data);
-    } catch (error) {
+      if(data.error){
+        console.log(data);
+      }
+      else{
+        router.push("/");
+      }
+
+    } 
+    catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <>
+    <div>
+      <h1>Login</h1>
 
       <form onSubmit={submitHandler}>
-        <h1>Login</h1>
         <div>
-          <label htmlFor="email_field"> Email address </label>
+          <label htmlFor="email_field">Correo</label>
           <input
             type="email"
             id="email_field"
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
 
         <div>
-          <label htmlFor="password_field"> Password </label>
+          <label htmlFor="password_field">Contraseña</label>
           <input
             type="password"
             id="password_field"
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
-        <br/>
+
         <button type="submit">Sign in</button>
       </form>
-        <div>
-          <button onClick={() => signIn("azuread-b2c")}>Sign in with Google</button>
-          <br/>
-          <button onClick={() => signIn("google")}>Sign in with Microsoft</button>
-        </div>
-
-
-        <div className="text-center">
-          <p>
-            Not a member? <Link href="/register">Register</Link>
-          </p>
-        </div>
-
-    </>
+      <br/>
+      <button onClick={() => signIn("google")}>Sign in with Google</button>
+    </div>
   )
 }

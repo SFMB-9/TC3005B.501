@@ -6,8 +6,6 @@ import tokenGenerator from "../../../utils/token-generator";
 import nodemailer from 'nodemailer';
 import { passwordStrength } from 'check-password-strength';
 
-import { encryptRole } from "../../../utils/crypto";
-
 /* 
 default register function
 Recieves: request object, response object
@@ -17,15 +15,22 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, last_name, email, cellphone, password, role } = req.body;
-    const encrypted_role = encryptRole(role);
+    const {  role, name, last_name, email, password, cellphone } = req.body;
 
-    if (!formatCheck(/[a-zA-Z]+/, name)) { // regex to check name format validity, returns if non-compliant
+    if (!formatCheck(/[a-zA-Z ]+/, name)) { // regex to check name format validity, returns if non-compliant
       return res.status(400).json({ message: "Wrong NAME format" });
+    }
+    
+    if (!formatCheck(/[a-zA-Z ]+/, last_name)) { // regex to check last name format validity, returns if non-compliant
+      return res.status(400).json({ message: "Wrong LASTNAME format" });
     }
 
     if (!formatCheck(/[\w\.-]+@([\w-]+\.)+[\w-]{2,4}/, email)) { // regex to check email format validity, returns if non-compliant
       return res.status(400).json({ message: "Wrong EMAIL format" });
+    }
+
+    if (!formatCheck(/[0-9]{10}/, cellphone)) { // regex to check cellphone length validity, returns if non-compliant
+      return res.status(400).json({ message: "Wrong CELLPHONE length (not 10 digits)" });
     }
 
     if (!pingEmail(email)) {
@@ -41,16 +46,15 @@ export default async function handler(req, res) {
     let token = tokenGenerator();
     
     if (!usedEmail) { // email existence check within the db, returns if there is already an account with the email
-      await User.create({ 
-        name: name, 
+      await User.create({  
+        tipo_usuario: role, 
+        nombres: name,      
+        apellidos: last_name, 
         email: email,
-        password: password,  
-        encrypted_role: encrypted_role, 
-        verified: false, 
-        token: token,
-        
-        last_name: last_name, 
-        cellphone: cellphone 
+        contraseña: password,  
+        numero_telefonico: cellphone,
+        is_account_verified: false, 
+        email_verification_token: token,   
       });
       res.status(200).json({ message: "User registered successfully" });
 

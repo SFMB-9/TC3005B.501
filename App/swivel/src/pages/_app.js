@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useEffect } from 'react'
 import { ThemeProvider } from '@mui/material'
+import { SessionProvider } from "next-auth/react";
 
 import { theme } from '@/utils/theme'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }) {
     import('bootstrap/dist/js/bootstrap')
   }, [])
   return (
+    <SessionProvider session={pageProps.session}>
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,5 +22,6 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
+    </SessionProvider>
   ) 
 }

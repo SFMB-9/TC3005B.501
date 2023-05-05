@@ -30,14 +30,14 @@ export default withAuth(
     const { pathname } = req.nextUrl;
 
     if (!token) {
-      // If the user is not authenticated, redirect them to the NextAuth login page
-      return NextResponse.redirect("http://localhost:3000/api/auth/signin");
+      // If the user is not authenticated, redirect them to the login page
+      return NextResponse.redirect("http://localhost:3000/auth/login");
     }
 
     if (!isAuthorizedRole(token.user?.role, pathname)) {
       // If the user is not authorized to access the requested URL,
       // redirect them to the home page or show an error message
-      return NextResponse.redirect("/");
+      return NextResponse.redirect("http://localhost:3000/");
     }
   },
 

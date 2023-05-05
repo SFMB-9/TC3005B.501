@@ -6,20 +6,22 @@ import React, { useState } from "react";
 export default function RegisterUser() {
 
     const [name, setName] = useState("");
+    const [last_name, setLastName] = useState("");
+    const [cellphone, setCellphone] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const { encryptRole } = require('../../utils/crypto');
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
         try {
             const { data } = await axios.post("/api/registro/registro-usuario", {
+                role: "user",
                 name,
+                last_name,
                 email,
                 password,
-                role: "user"
+                cellphone,
             });
 
             console.log(data);
@@ -36,20 +38,31 @@ export default function RegisterUser() {
                 <h1>Register</h1>
 
                 <div>
-                    <label htmlFor="name_field">Name</label>
+                    <label htmlFor="name_field">Nombres</label>
                     <input
                         type="text"
                         id="name_field"
                         className="form-control"
                         value={name}
-                        pattern="[a-zA-Z]+"
                         onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                </div>
+                
+                <div>
+                    <label htmlFor="last_name_field">Apellidos</label>
+                    <input
+                        type="text"
+                        id="last_name_field"
+                        className="form-control"
+                        value={last_name}
+                        onChange={(e) => setLastName(e.target.value)}
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="email_field">Email address</label>
+                    <label htmlFor="email_field">Correo</label>
                     <input
                         type="email"
                         id="email_field"
@@ -61,13 +74,25 @@ export default function RegisterUser() {
                 </div>
 
                 <div>
-                    <label htmlFor="password_field">Password</label>
+                    <label htmlFor="password_field">Contraseña</label>
                     <input
                         type="password"
                         id="password_field"
                         className="form-control"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                
+                <div>
+                    <label htmlFor="cellphone_field">Número telefónico</label>
+                    <input
+                        type="text"
+                        id="cellphone_field"
+                        className="form-control"
+                        value={cellphone}
+                        onChange={(e) => setCellphone(e.target.value)}
                         required
                     />
                 </div>

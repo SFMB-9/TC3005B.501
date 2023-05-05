@@ -6,8 +6,6 @@ import tokenGenerator from "../../../utils/token-generator";
 import nodemailer from 'nodemailer';
 import { passwordStrength } from 'check-password-strength';
 
-import { encryptRole } from "../../../utils/crypto";
-
 /* 
 default register function
 Recieves: request object, response object
@@ -17,10 +15,9 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, postal_code, email, street, ext_number, state, city, password, role } = req.body;
-    const encrypted_role = encryptRole(role);
+    const {  role, name, email, password, street, ext_number, int_number, city, state, country, postal_code } = req.body;
 
-    if (!formatCheck(/[a-zA-Z]+/, name)) { // regex to check name format validity, returns if non-compliant
+    if (!formatCheck(/[a-zA-Z ]+/, name)) { // regex to check name format validity, returns if non-compliant
       return res.status(400).json({ message: "Wrong NAME format" });
     }
 
@@ -42,19 +39,25 @@ export default async function handler(req, res) {
     
     if (!usedEmail) { // email existence check within the db, returns if there is already an account with the email
       await User.create({ 
-        name: name, 
+        tipo_usuario: role, 
+        nombres: name, 
         email: email, 
-        password: password, 
-        encrypted_role: encrypted_role, 
-        verified: false, 
-        token: token,
-         
-        postal_code: postal_code, 
-        street: street, 
-        ext_number: ext_number, 
-        state: state, 
-        city: city 
+        contraseña: password, 
+
+        direccion:{ 
+          calle: street, 
+          numero_exterior: ext_number, 
+          numero_interior: int_number,
+          ciudad: city,
+          estado: state, 
+          pais: country,
+          codigo_postal: postal_code, 
+        },
+
+        is_account_verified: false, 
+        email_verification_token: token,
       });
+
       res.status(200).json({ message: "User registered successfully" });
       
       const verificationLink = `http://localhost:3000/registro/verify-email?token=${token}&email=${email}`; 

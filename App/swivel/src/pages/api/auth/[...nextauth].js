@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google"; // google
-import AzureADProvider from "next-auth/providers/azure-ad"; // microsoft
 
 import User from "../../../models/user";
 import bcrypt from "bcryptjs";
@@ -14,6 +13,7 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
+
   providers: [
     CredentialsProvider({
 
@@ -34,14 +34,16 @@ export const authOptions = {
           throw new Error("Invalid Email or Password");
         }
 
-        const isPasswordMatched = await bcrypt.compare(password, user.password);
+        const isPasswordMatched = await bcrypt.compare(password, user.contraseña);
 
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or Password");
         }
 
-        return { id: user._id.toString(), email: user.email, role: decryptRole(user.encrypted_role) };
+        return { id: user._id.toString(), email: user.email, role: decryptRole(user.tipo_usuario) };
       },
+
+      callbackUrl: "http://localhost:3000/auth/callback/credentials",
     }),
 
     GoogleProvider({
@@ -61,7 +63,7 @@ export const authOptions = {
         if (user) {
           return {
             id: user._id.toString(),
-            name: user.nombre + ' ' + user.apellidos,
+            name: user.nombres + ' ' + user.apellidos,
             email: user.email,
             role: decryptRole(user.tipo_usuario),
           };
@@ -78,7 +80,7 @@ export const authOptions = {
     
           return {
             id: newUser._id.toString(),
-            name: newUser.nombre + ' ' + newUser.apellidos,
+            name: newUser.nombres + ' ' + newUser.apellidos,
             email: newUser.email,
             role: decryptRole(newUser.tipo_usuario),
           };
@@ -108,7 +110,6 @@ export const authOptions = {
       session.role = token.role;
       return session;
     },
-
   },
 };
 
