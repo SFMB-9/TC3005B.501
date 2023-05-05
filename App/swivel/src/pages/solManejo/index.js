@@ -1,75 +1,111 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+
+
 const SellerDashboard = () => {
-
-  const router = useRouter();
-  const viewRequest = (id) => {
-    // Navigate to a new page to view the details of the request
-    router.push({
-      pathname: '/viewRequest',
-      query: { id },
-    })
-  };
+    const router = useRouter();
+    
+    // user object is a map of user id to user data
+    const [user, setUser] = useState(null);
 
 
-  const [requests, setRequests] = useState([]);
+    // requests is an array of request objects
+    const [requests, setRequests] = useState([]);
 
-  const fetchRequests = async () => {
-    const res = await axios.get('/api/DrivingRequestsSeller/drivingRequest',
-    {params : {vendedor_id:"6448c555af4b91297c2a3061", tipo_proceso: "pruebaManejo"}});
-    const r = res.data.procesos;
-    setRequests(r);
-  };
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            // Get all requests
+            const requestRes = await axios.get('/api/DrivingRequestsSeller/drivingRequest', {
+            params: {
+                vendedor_id: "6448c555af4b91297c2a3061",
+                tipo_proceso: "pruebaManejo"
+            }
+            });
 
-  const updateRequestStatus = async (_id, status) => {
-    await axios.put('/api/DrivingRequestsSeller/updateRequestStatus', { _id, status });
-    fetchRequests();
-  };
-  
+            const requests = requestRes.data.procesos;
+            // Get all unique user ids
+            const userIds = [...new Set(requests.map(request => request.usuario_final_id))];
+            // Get all users
+            const userPromises = userIds.map(id => axios.get(`/api/managerProfile/managerP?id=${id}`));
+            const userRes = await Promise.all(userPromises);
+            
+            // Create a map of user id to user data
+            const users = userRes.reduce((acc, res) => {
+            const userData = res.data.userData;
+            return {
+                ...acc,
+                [userData._id]: userData
+            };
+            }, {});
 
+            // Set the requests and users state
+            setRequests(requests);
+            setUser(users);
+        } catch (error) {
+            console.log(error);
+        }
+        };
 
-  useEffect(() => {
-    fetchRequests();
-  }, []);
+        fetchData();
+    }, []);
 
-  return (
-    <div>
-      <h1>Seller Dashboard</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Request ID</th>
-            <th>ID Usuario</th>
-            <th>Tipo de Proceso</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((request) => (
-            <tr key={request._id}>
-              <td>{request._id}</td>
-              <td>{request.usuario_final_id}</td>
-              <td>{request.tipo_proceso}</td>
-              <td>{request.status}</td>
-              <td>
-                  <select
-                    value={request.status}
-                    onChange={(e) => updateRequestStatus(request._id, e.target.value)}
-                  >
-                    <option value="En_Revision">En_Revision</option>
-                    <option value="Aceptada">Aceptada</option>
-                    <option value="Rechazada">Rechazada</option>
-                  </select>
-                  <button onClick={() => viewRequest(request._id)}>View Details</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    // Update the status of a request
+    const updateRequestStatus = async (_id, status) => {
+        await axios.put('/api/DrivingRequestsSeller/updateRequestStatus', { _id, status });
+        const updatedRequests = requests.map(request => {
+        if (request._id === _id) {
+            return { ...request, status };
+        } else {
+            return request;
+        }
+        });
+        setRequests(updatedRequests);
+    };
+
+        return (
+            <div>
+            <h1>Seller Dashboard</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Auto</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {requests.map((request) => (
+                    <tr key={request._id}>
+                    <td>{request.auto?
+                        `${request.auto.marca} ${request.auto.modelo}`
+                        :"Este proceso no contiene auto"}</td>
+                    <td>{/* If the user object is not null, display the user's name*/}
+                        {user[request.usuario_final_id]
+                        ? `${user[request.usuario_final_id].nombres} ${user[request.usuario_final_id].apellidos}`
+                        : "Usuario no encontrado"}
+                    </td>
+                    <td>{request.fecha_agendada}</td>
+                    <td>
+                        {/* updateRequestStatus is called when the select value changes */}
+                        <select
+                        value={request.status}
+                        onChange={(e) => updateRequestStatus(request._id, e.target.value)}
+                        >
+                        <option value="En_Revision">En_Revision</option>
+                        <option value="Aceptada">Aceptada</option>
+                        <option value="Rechazada">Rechazada</option>
+                        </select>
+                    </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+            </div>
+        );      
 };
 
 export default SellerDashboard;
+
