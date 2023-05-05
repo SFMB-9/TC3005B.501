@@ -9,6 +9,9 @@ const SellerDashboard = () => {
     // user object is a map of user id to user data
     const [user, setUser] = useState(null);
 
+    // Filter the requests by status
+    const [statusFilter, setStatusFilter] = useState('all');
+
 
     // requests is an array of request objects
     const [requests, setRequests] = useState([]);
@@ -75,6 +78,15 @@ const SellerDashboard = () => {
         return (
             <div>
             <h1>Seller Dashboard</h1>
+            <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            >
+            <option value="all">All</option>
+            <option value="En_Revision">En Revision</option>
+            <option value="Aceptada">Aceptada</option>
+            <option value="Rechazada">Rechazada</option>
+            </select>
             <table>
                 <thead>
                 <tr>
@@ -84,7 +96,15 @@ const SellerDashboard = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {requests.map((request) => (
+                {requests
+                .filter((request) => {
+                    if (statusFilter === 'all') {
+                    return true;
+                    } else {
+                    return request.status === statusFilter;
+                    }
+                })
+                .map((request) => (
                     <tr key={request._id}>
                     <td>{request.auto?
                         `${request.auto.marca} ${request.auto.modelo}`
