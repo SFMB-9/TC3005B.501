@@ -1,13 +1,22 @@
+import { signOut } from "next-auth/react";
+
 export default function SellerLandingPage({ children }) {
   return (
     <>
       <div>
-          <h5>Perfil</h5>
+        <h5>Perfil</h5>
         <li>
           <a href="#">Cambiar Contraseña</a>
         </li>
         <li>
-          <a href="#">Logout</a>
+          <a
+            href="#"
+            onClick={() =>
+              signOut({ callbackUrl: "http://localhost:3000/auth/login" })
+            }
+          >
+            Logout
+          </a>
         </li>
       </div>
       <div style={{ padding: "200px" }}>
