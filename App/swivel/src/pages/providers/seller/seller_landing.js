@@ -6,7 +6,7 @@ export default function SellerLandingPage({ children }) {
       <div>
         <h5>Perfil</h5>
         <li>
-          <a href="#">Cambiar Contraseña</a>
+          <a href="/auth/change_password">Cambiar Contraseña</a>
         </li>
         <li>
           <a
