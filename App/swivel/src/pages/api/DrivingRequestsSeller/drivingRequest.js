@@ -21,7 +21,9 @@ export default async (req, res) => {
         try {
         // Find the processes that belong to the seller and are of a specific type
         const procesos = await Proceso.find({vendedor_id:vendedor_id, tipo_proceso:tipo_proceso});
-
+      
+       
+           
       res.status(200).json({ procesos }, { status: 'success'});
     } catch (error) {
       console.error(error);

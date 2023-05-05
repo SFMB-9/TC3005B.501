@@ -18,15 +18,14 @@ export default async (req, res) => {
         const proc = await Proceso.findById(request_id);
         //get the documents of the process
         const doc = proc.documentos;
-        const comments = doc[doc_id].comentarios;
-        comments.push(comment);
-        doc[doc_id].comentarios = comments;
+        //update comment
+        doc[doc_id].comentarios = comment;
         proc.documentos = doc;
         proc.markModified('documentos');
         //save the changes
         await proc.save();
 
-        res.status(200).json({ status: 'added comments: ' + comment + ' in request: ' + request_id + ' at document: ' + doc[doc_id].nombre});
+        res.status(200).json({ status: 'added comment: ' + comment + ' in request: ' + request_id + ' at document: ' + doc[doc_id].nombre});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
