@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "jest",
     "lint": "next lint"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "bootstrap": "^5.2.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "jest": "^29.5.0",
     "mongodb": "^5.3.0",
     "mongoose": "^7.0.3",
     "mui-datatables": "^4.3.0",
@@ -36,5 +38,11 @@
     "react-router-dom": "^6.10.0",
     "react-sidebar-pro": "^3.1.1",
     "sass-loader": "^13.2.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.21.5",
+    "dotenv": "^16.0.3",
+    "mongodb-memory-server": "^8.12.2",
+    "supertest": "^6.3.3"
   }
 }
