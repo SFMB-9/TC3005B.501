@@ -16,25 +16,25 @@ import { connectToDatabase } from "@/utils/mongodb";
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
-      const { docsId } = req.query; 
+      const { vendedorId } = req.query; 
 
-      if (!docsId) {
-        return res.status(400).json({ error: "Missing docs ID" });
+      if (!vendedorId) {
+        return res.status(400).json({ error: "Missing Vendedor ID" });
       }
 
       const { db } = await connectToDatabase();
 
-      const docs = await db
-        .collection("documentos")
-        .findOne({ documentos_id: ObjectId(userId) });
+      const vendedor = await db
+        .collection("vendedor")
+        .findOne({ vendedor_id: ObjectId(vendedorId) });
 
       // Add proceso de venta, keyed to Processo ID
 
-      if (!proceso_venta) {
-        return res.status(404).json({ error: "Docs not found" });
+      if (!vendedor_id) {
+        return res.status(404).json({ error: "Vendedor not found" });
       }
 
-      res.status(200).json(docs);
+      res.status(200).json(vendedor);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
