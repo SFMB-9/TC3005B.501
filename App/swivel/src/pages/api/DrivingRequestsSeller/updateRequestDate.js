@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
 
+//this doesnt have a test because I don't know if we'll use it
+
 //import {getSession} from 'next-auth/client'
 
 export default async (req, res) => {
@@ -23,7 +25,7 @@ export default async (req, res) => {
         proc.fecha_agendada = formatted;
         await proc.save();
         //save the changes
-        res.status(200).json({ status: 'date of ' + proceso_id + ' updated to ' + date});
+        res.status(200).json({ message: 'date of ' + proceso_id + ' updated to ' + date});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });

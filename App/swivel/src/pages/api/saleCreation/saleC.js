@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
 
+//this doesnt have a test because I don't know if we'll use it
 
 const handler = async (req, res) => {
     // Receive details of the purchase and manager ID
