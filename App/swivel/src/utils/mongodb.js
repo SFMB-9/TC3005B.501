@@ -1,7 +1,7 @@
 // MONGODB_URI= "mongodb+srv://sebasgonvi:r1DsubV4F8A1NAZm@clustertest.l66fito.mongodb.net/?retryWrites=true&w=majority"
 import { MongoClient } from 'mongodb'
 
-const uri = "mongodb+srv://sebasgonvi:r1DsubV4F8A1NAZm@clustertest.l66fito.mongodb.net/?retryWrites=true&w=majority"
+const uri = "mongodb+srv://cluster0.zrsjjzp.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
 const options = {
   useUnifiedTopology: true,
   useNewUrlParser: true,

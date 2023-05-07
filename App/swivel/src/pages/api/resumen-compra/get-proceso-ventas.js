@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       const { db } = await connectToDatabase();
 
       const proceso_venta = await db
-        .collection("proceso_venta")
+        .collection("procesos")
         .findOne({ usuario_final_id: ObjectId(userId) });
 
       // Add proceso de venta, keyed to Processo ID
