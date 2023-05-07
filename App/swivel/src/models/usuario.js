@@ -2,35 +2,48 @@ const mongoose = require('mongoose');
 
 const usuarioSchema = new mongoose.Schema({
     tipo_usuario: {
-    type: String,
-   
+        type: String,
     },
     nombres: {
-    type: String,
-
+        type: String,
     },
     apellidos: {
-    type: String,
-   
+        type: String,
     },
     email: {
-    type: String,
-   
+        type: String,
     },
     contrasena: {
-    type: String,
-   
+        type: String,
     }, 
+    rol_encriptado: {
+        type: String,
+    },
     gerente_id: {
-    type: String,
+        type: String,
     },
     contar_ventas_completas: {
-    type: Number,
+        type: Number,
     },
     contar_ventas_en_proceso: {
-    type: Number,
+        type: Number,
     },
-    _id: mongoose.Schema.Types.ObjectId,
+    documentos_url: {
+        url: String,
+        fecha_modificacion: Date,
+        estatus: String,
+        comentarios: String
+    },
+    direccion: {
+        calle: String,
+        numero_exterior: String,
+        numero_interior: String,
+        ciudad: String,
+        estado: String,
+        pais: String,
+        codigo_postal: String
+    },
+    //_id: mongoose.Schema.Types.ObjectId,
 }); 
 
 module.exports = mongoose.models.Usuario || mongoose.model('Usuario', usuarioSchema, 'usuarios'); // pass the collection name explicitly

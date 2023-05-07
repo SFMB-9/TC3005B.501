@@ -3,20 +3,57 @@ const mongoose = require('mongoose');
 const procesoSchema = new mongoose.Schema({
   vendedor_id: {
     type: String,
-    
   },
-  status: {
+  agencia_id: {
+    type: String,
+  },
+  direccion_agencia: {
+    calle: String,
+    numero_exterior: String,
+    numero_interior: String,
+    ciudad: String,
+    estado: String,
+    pais: String,
+    codigo_postal: String
+  },
+  grupo_automotriz_id: {
+    type: String,
+  },
+  grupo_automotriz: {
+    type: String,
+  },
+  superadmin: {
+    type: String,
+  },
+  estatus_validacion: {
     type: String,
   },
   tipo_proceso: {
     type: String,
   
   },
-  documentos: {
+  documentos_url: {
     type: Array,
   },
+  direccion: {
+    calle: String,
+    numero_exterior: String,
+    numero_interior: String,
+    ciudad: String,
+    estado: String,
+    pais: String,
+    codigo_postal: String
+  },
   auto: {
-    type: JSON,
+    auto_id: String,
+    marca: String,
+    modelo: String,
+    ano: String,
+    precio: String,
+    array_fotografias: [String]
+  },
+  fecha_inicio: {
+    type: Date,
   },
   fecha_agendada: {
     type: Date,
@@ -24,10 +61,7 @@ const procesoSchema = new mongoose.Schema({
   usuario_final_id: {
     type: String,
   },
-  chat: {
-    type: JSON,
-  },
-  _id: mongoose.Schema.Types.ObjectId,
+  //_id: mongoose.Schema.Types.ObjectId,
 
 }); 
 

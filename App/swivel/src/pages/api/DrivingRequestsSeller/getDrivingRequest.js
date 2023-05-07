@@ -12,12 +12,10 @@ export default async (req, res) => {
         */
 
         const _id = req.query._id;
-    
         //seller id and type are passed as query parameters
       
         await dbConnect();
       
-    
         try {
         // Find the processes that belong to the seller and are of a specific type
         const proceso = await Proceso.findById(_id);
