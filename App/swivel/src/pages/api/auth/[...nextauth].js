@@ -5,8 +5,7 @@ import User from "../../../models/user";
 import bcrypt from "bcryptjs";
 import dbConnect from "../../../config/dbConnect";
 
-const { decryptRole } = require('../../../utils/crypto');
-
+const { decryptRole } = require("../../../utils/crypto");
 
 export const authOptions = {
   session: {
@@ -14,12 +13,11 @@ export const authOptions = {
   },
   providers: [
     CredentialsProvider({
-
-      name: 'Credentials',
-      id: 'credentials',
+      name: "Credentials",
+      id: "credentials",
       credentials: {
         email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials) {
@@ -31,13 +29,20 @@ export const authOptions = {
           throw new Error("Invalid Email or Password");
         }
 
-        const isPasswordMatched = await bcrypt.compare(credentials.password, user.password);
+        const isPasswordMatched = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
 
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or Password");
         }
 
-        return { id: user._id.toString(), email: user.email, role: decryptRole(user.encrypted_role) };
+        return {
+          id: user._id.toString(),
+          email: user.email,
+          role: decryptRole(user.encrypted_role),
+        };
       },
     }),
   ],
@@ -60,7 +65,7 @@ export const authOptions = {
       session.id = token.id;
       session.role = token.role;
       return session;
-    }
+    },
   },
 };
 
