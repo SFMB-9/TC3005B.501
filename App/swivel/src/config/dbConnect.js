@@ -7,6 +7,7 @@ const dbConnect = () => {
   mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    dbName: process.env.MONGODB_DB,
   });
 
   const db = mongoose.connection;

@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const {  role, name, last_name, email, password, cellphone } = req.body;
+    const { role, name, last_name, email, password, cellphone } = req.body;
 
     if (!formatCheck(/[a-zA-Z ]+/, name)) { // regex to check name format validity, returns if non-compliant
       return res.status(400).json({ message: "Wrong NAME format" });

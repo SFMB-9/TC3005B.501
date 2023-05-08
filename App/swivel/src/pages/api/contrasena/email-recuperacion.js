@@ -2,15 +2,15 @@ import nodemailer from 'nodemailer';
 
 export default async (req, res) => {
     if (req.method === 'POST') {
-        const { email } = req.body;
+        const email = req.body.email;
         
-        const verificationLink = `http://localhost:3000/contrasena/email-recuperacion?email=${email}`; // cambiar a http://localhost:3000/contrasena/recuperar-contrasena?email=${email} 
+        const verificationLink = `http://localhost:3000/contrasena/email-recuperacion?email=${email}`; 
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-            user: process.env.EMAIL_ADDRESS,
-            pass: process.env.EMAIL_PASSWORD,
+                user: process.env.EMAIL_ADDRESS,
+                pass: process.env.EMAIL_PASSWORD,
             },
         });
 
