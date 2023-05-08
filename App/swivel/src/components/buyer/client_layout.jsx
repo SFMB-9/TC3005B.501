@@ -33,6 +33,9 @@
   >
     Mis solicitudes
   </MenuItem>
+  <MenuItem component={<Link href='./buyer/appointments'/>}>
+    Mis pruebas de manejo
+  </MenuItem>
   <MenuItem
     icon={<img src="/sidebar_heart_icon.png" />}
     component={<Link href="./favorites" />}
