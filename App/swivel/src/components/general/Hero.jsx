@@ -44,7 +44,7 @@ const Hero = () => {
               </Typography>
             </div>
             <div className="d-flex justify-content-lg-start justify-content-center align p-2">
-              <Link href="/compra" style={{ textDecoration: "none" }}>
+              <Link href="/catalog" style={{ textDecoration: "none" }}>
                 <Button
                   variant="contained"
                   disableElevation

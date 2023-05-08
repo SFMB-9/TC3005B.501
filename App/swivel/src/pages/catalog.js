@@ -8,36 +8,36 @@ Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
-import { Grid, Chip } from "@mui/material";
+import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/user/landing_page_layout";
 import CatalogGrid from "@/components/user/catalog_grid";
 import styles from "@/styles/catalog.module.css";
-import ApiDataDisplay from "@/components/user/api_data_display";
+import ApiDataDisplay from "@/components/buyer/api_data_display";
 
 export default function Catalog() {
+  const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedChips, setSelectedChips] = useState([]);
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
-  const [rawJson, setRawJson] = useState(null);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
   const fetchFilters = async () => {
     const queryString = selectedFilters.length
       ? `?${selectedFilters
-          .map((filter) => filter.replace("modelos", "modelo"))
-          .join("&")}`
+        .map((filter) => filter.replace("modelos", "modelo"))
+        .join("&")}`
       : "";
     const response = await fetch(
       `http://localhost:3000/api/catalogo/buscar-autos${queryString}`
     );
     const data = await response.json();
+    setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setApiData(data);
     setCatalogData(data.result);
-    setRawJson(JSON.stringify(data, null, 2));
   };
 
   useEffect(() => {
@@ -94,16 +94,22 @@ export default function Catalog() {
   const renderSubMenu = (category, subMenuItems) => (
     <ul className={styles.filters}>
       {subMenuItems.map((subMenuItem) => (
-        <li key={subMenuItem} className={styles.item}>
-          <label className={styles.label}>
-            <input
-              type="checkbox"
-              checked={expandedMenuItems[category]?.[subMenuItem]}
-              onChange={() => handleMenuItemClick(category, subMenuItem)}
-            />
-            <span className={styles.checkbox}></span>
-            {subMenuItem}
-          </label>
+        <li key={subMenuItem}>
+          <FormControlLabel
+            className={styles.label}
+            control={
+              <Checkbox
+                size="small"
+                checked={expandedMenuItems[category]?.[subMenuItem]}
+                onChange={() => handleMenuItemClick(category, subMenuItem)}
+              />
+            }
+            label={
+              <Typography className={styles.labelText}>
+                {subMenuItem}
+              </Typography>
+            }
+          />
         </li>
       ))}
     </ul>
@@ -113,13 +119,13 @@ export default function Catalog() {
     <>
       <LandingPageLayout>
         <Grid container>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
               <div className={styles.filterTitle}>Filtros</div>
               {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
-                  label={`${chip.category}: ${chip.value}`}
+                  label={`${filterHeaders[chip.category]}: ${chip.value}`}
                   onDelete={() =>
                     handleMenuItemClick(chip.category, chip.value)
                   }
@@ -136,7 +142,7 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        {category}
+                        {filterHeaders[category]}
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
@@ -146,7 +152,7 @@ export default function Catalog() {
               )}
             </div>
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={10}>
             <Searchbar />
             <div
               style={{
@@ -155,12 +161,12 @@ export default function Catalog() {
                 maxHeight: "100vh",
               }}
             >
-              <div style={{ fontSize: "20px", margin: "10px 0" }}>
+              {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
                 {`http://localhost:3000/api/catalogo/buscar-autos${
                   selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
                 }`}
               </div>
-              {/* <ApiDataDisplay apiData={apiData} /> */}
+              <ApiDataDisplay apiData={apiData} /> */}
               <CatalogGrid carListing={catalogData} />
             </div>
           </Grid>
