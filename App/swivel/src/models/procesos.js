@@ -61,6 +61,18 @@ const procesoSchema = new mongoose.Schema({
   usuario_final_id: {
     type: String,
   },
+  horas_min: {
+    type: Number,
+  },
+  horas_max: {
+    type: Number,
+  },
+  dias_anticipo: {
+    type: Number,
+  },
+  dias_max: {
+    type: Number,
+  },
   //_id: mongoose.Schema.Types.ObjectId,
 
 }); 

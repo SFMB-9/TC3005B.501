@@ -7,7 +7,7 @@ const autoSchema = new mongoose.Schema({
     precio: String,
     color: String,
     combustible: String,
-    rendimiento: Number,
+    autonomia: Number,
     transmision: String,
     cantidad: String,
     motor: String,
@@ -16,7 +16,7 @@ const autoSchema = new mongoose.Schema({
     municipio_agencia: String,
     tipo_vehiculo: String,
     descripcion: String,
-    array_fotografias: [String],
+    array_fotografias_url: [String],
     grupo_automotriz_id: String,
     grupo_automotriz: String,
     gerente_id: String

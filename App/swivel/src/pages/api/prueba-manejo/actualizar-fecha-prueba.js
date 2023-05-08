@@ -8,21 +8,23 @@ export default async (req, res) => {
     
         //request id and date are passed as body parameters
         const proceso_id = req.body._id;
-        const date = req.body.date
+        const date = req.body.selectedDate;
 
         //format date to ISO
         const formatted = new Date(date).toISOString();
 
-       
-      
         dbConnect();
     
         try {
         // Find the process that needs to be updated
         const proc = await Proceso.findById(proceso_id);
         proc.fecha_agendada = formatted;
+        // Save the changes
         await proc.save();
-        //save the changes
+        
+        // Find the corresponding agency to register the selection
+        
+
         res.status(200).json({ status: 'date of ' + proceso_id + ' updated to ' + date});
     } catch (error) {
       console.error(error);

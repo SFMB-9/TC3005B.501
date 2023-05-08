@@ -1,6 +1,6 @@
 /*
 Diego Corrales Pinedo
-27-04-2023
+5/7/2023
 
 Car detail page, in which a user can
 request a driving test for the car
@@ -13,8 +13,8 @@ import { useRouter } from 'next/router';
 
 const CarDetail = () => {
 
-  const autoId = "64506e169a98a9592f546aea";
-  const userId = "645573df2e24dc6386669ee4";
+  const autoId = "645875ec3b0cf3da15559bd7";
+  const userId = "64586ff82cd17fbeb63aa3d0";
 
   const router = useRouter();
   
@@ -32,6 +32,7 @@ const CarDetail = () => {
     const res = await axios.post('/api/prueba-manejo/crear-prueba',
     {auto_id: autoId, user_id: userId});
     const proceso_id = res.data.result.proceso_id;
+    await axios.post('/api/prueba-manejo/agregar-proceso-usuario', { userId, proceso_id });
     setProcessId(proceso_id);
   };
 

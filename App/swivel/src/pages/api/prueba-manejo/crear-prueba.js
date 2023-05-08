@@ -1,20 +1,20 @@
 /* 
 Author: Diego Corrales
-Date: 27/4/23
+Date: 7/5/23
 Endpoint to create a driving test request for 
 a final user. Used when clicking the "Request 
 driving test" button in the car detail page.
-[H_046]
 */
 
 import Proceso from "../../../models/procesos";
 import Auto from "../../../models/auto";
 import Usuario from "../../../models/usuario";
 import dbConnect from "../../../config/dbConnect";
+import axios from 'axios';
 
 /*
 TODO:
-Definir lo de direccion_agencia
+Definir lo de direccion_agencia: De donde va a salir?
 Cambiar el vendedor_id creado por el del endpoint
 */
 
@@ -24,6 +24,7 @@ export default async (req, res) => {
     try {
         const carData = await Auto.findById(req.body.auto_id); 
         const userData = await Usuario.findById(req.body.user_id);
+        const agencyData = await Usuario.findById(carData["gerente_id"]);
         
         const direccionAgencia = {
             calle: "Santo Tomas",
@@ -35,16 +36,16 @@ export default async (req, res) => {
             codigo_postal: "01200"
         } 
         
-        
         /*
         // Assign the seller with the least amount of pending requests
         const getMostAvailableSeller = async () => {
-            return response = await fetch(
-                `http://localhost:3000/api/saleManagement/saleM${carData["gerente_id"]}`
-            ).json();
+            const res = await axios.put('/api/prueba-manejo/asignar-vendedor'
+            , { _id: carData["gerente_id"] });
+            console.log("Seller ID AFTER: " + res.sellerId);
+            return res;
         }
-        const vendedorId = getMostAvailableSeller().sellerId
-        */
+        const vendedorId = getMostAvailableSeller().sellerId; */
+        const vendedorId = "Placeholder";
 
         // Create the Process with the defined data
         const proceso = await Proceso.create({ 
@@ -56,7 +57,7 @@ export default async (req, res) => {
             direccion: userData["direccion"],
             fecha_inicio: Date.now(),
             grupo_automotriz: carData["grupo_automotriz"],
-            vendedor_id: "1 Vendedor",
+            vendedor_id: vendedorId,
             usuario_final_id: req.body.user_id,
             auto: {
                 "auto_id": req.body.auto_id,
@@ -64,9 +65,13 @@ export default async (req, res) => {
                 "modelo": carData["modelo"],
                 "ano": carData["ano"],
                 "precio": carData["precio"],
-                "array_fotografias": carData["array_fotografias"]
+                "array_fotografias_url": carData["array_fotografias_url"]
             },
             direccion_agencia: direccionAgencia,
+            horas_min: agencyData["horas_min"],
+            horas_max: agencyData["horas_max"],
+            dias_anticipo: agencyData["dias_anticipo"],
+            dias_max: agencyData["dias_max"],
         });
 
         const procesoJSON = proceso.toJSON();
