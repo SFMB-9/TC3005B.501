@@ -24,7 +24,10 @@ export default async function handler(req, res) {
 
       const proceso = await db
         .collection("procesos")
-        .updateOne({ proceso_id: ObjectId(procesoId) }, { $set: { estado: "confirmado" } });
+        .updateOne(
+          { proceso_id: ObjectId(procesoId) },
+          { $set: { estado: "confirmado" } }
+        );
 
       if (!proceso) {
         return res.status(404).json({ error: "Proceso not found" });
