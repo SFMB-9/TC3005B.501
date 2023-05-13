@@ -14,6 +14,7 @@ import LandingPageLayout from "@/components/user/landing_page_layout";
 import CatalogGrid from "@/components/user/catalog_grid";
 import styles from "@/styles/catalog.module.css";
 import ApiDataDisplay from "@/components/user/api_data_display";
+import { Search } from "@mui/icons-material";
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -25,15 +26,19 @@ export default function Catalog() {
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
   const fetchFilters = async () => {
-    const queryString = selectedFilters.length
+    console.log(selectedFilters)
+    let queryString = selectedFilters.length
       ? `?${selectedFilters
         .map((filter) => filter.replace("modelos", "modelo"))
         .join("&")}`
       : "";
+
     const response = await fetch(
-      `http://localhost:3000/api/catalogo/buscar-autos${queryString}`
+      `http://localhost:3000/api/catalogoNuevo/buscar-auto${queryString}`
     );
+
     const data = await response.json();
+
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setApiData(data);
@@ -122,7 +127,7 @@ export default function Catalog() {
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
               <div className={styles.filterTitle}>Filtros</div>
-              {selectedChips.map((chip, index) => (
+              {/* {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
                   label={`${filterHeaders[chip.category]}: ${chip.value}`}
@@ -133,7 +138,7 @@ export default function Catalog() {
                   variant="outlined"
                   className={styles.filterChip}
                 />
-              ))}
+              ))} */}
               {filters && (
                 <ul className={styles.filterList}>
                   {Object.entries(filters).map(([category, subMenuItems]) => (
@@ -153,7 +158,13 @@ export default function Catalog() {
             </div>
           </Grid>
           <Grid item xs={12} sm={10}>
-            <Searchbar />
+            {/*
+              Pasar la función fetchSearch como prop al componente Searchbar
+              // para que se ejecute cuando se presione el botón de búsqueda
+            */}
+            <Searchbar
+              setState={setSelectedFilters}
+            > </Searchbar>
             <div
               style={{
                 padding: "3%",

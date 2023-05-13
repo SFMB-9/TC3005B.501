@@ -262,7 +262,7 @@ function selectImage() {
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
 export default function CatalogGrid({ carListing }) {
-  console.log(carListing);
+  //console.log(carListing);
   let carList;
   if (carListing !== undefined) {
     carList = carListing.map((car) => (
@@ -293,13 +293,13 @@ export default function CatalogGrid({ carListing }) {
           //         </a>
           //     )}
           // </Carousel>}
-          carBrand={car.marca}
-          carModel={car.modelo}
-          carYear={car.ano}
-          carLocation={car.estado_agencia} //{car.carLocation}
-          carAgency={car.municipio_agencia}
-          carColor={car.color}
-          carPrice={car.precio}
+          carBrand={car._source.marca}
+          carModel={car._source.modelo}
+          carYear={car._source.año}
+          carLocation={car._source.estado_agencia} //{car.carLocation}
+          carAgency={car._source.municipio_agencia}
+          carColor={car._source.color}
+          carPrice={car._source.precio}
         />
       </Grid>
     ));
