@@ -1,4 +1,4 @@
-import User from "../../models/user";
+import { User, SellerUser } from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
 /* 
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, surname, email, password, role } = req.body;
+    const { name, surname, email, password, role} = req.body;
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -44,8 +44,28 @@ export default async function handler(req, res) {
 
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
-      await User.create({ name, surname, email, password, encrypted_role });
-      res.status(200).json({ message: "User registered successfully" });
+      
+      if (role === "user") {
+        await User.create({ name, surname, email, password, encrypted_role });
+        res.status(200).json({ message: "User registered successfully" });
+      } 
+      
+      else if (role === "seller") {
+
+        const agency = req.body.agency;
+        const phone = req.body.phone;
+
+        await SellerUser.create({
+          name,
+          surname,
+          email,
+          password,
+          encrypted_role,
+          agency,
+          phone,
+        });
+        res.status(200).json({ message: "Seller registered successfully" });
+      }
     } else {
       res.status(400).json({ message: "Account already exists" });
     }
