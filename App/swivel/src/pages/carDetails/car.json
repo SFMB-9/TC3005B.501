@@ -1,0 +1,40 @@
+{
+    "key": "ayudanosequeponeraqui",
+    "carDealer": {
+        "name": "Autos de México",
+        "address": "Av. Insurgentes Sur 1602, Crédito Constructor, Benito Juárez, 03940 Ciudad de México, CDMX"
+    },
+    "brand": "Fiat",
+    "model": "Uno",
+    "year": 2010,
+    "price": 100000,
+    "colors": ["rojo", "azul", "verde"],
+    "basic": {
+        "fuel": "hibrido",
+        "type": "sedan",
+        "interiorColor": "negro",
+        "seats": 5,
+        "fuelCapacity": 50,
+        "transmision": "automatico",
+        "traction": "4WD"
+    },
+    "characteristics": [
+        "Tecnología Bluetooth", 
+        "Aire acondicionado", 
+        "Calentador de asientos", 
+        "Radio AM/FM", 
+        "Sistema de navegación", 
+        "Bolsas de aire duales",
+        "Bolsas de aire interiores",
+        "Cámara trasera",
+        "Control vehicular",
+        "Alarma"
+    ],
+    "extras": [
+        ["Rines de hierro", 5000, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."], 
+        ["Televisión", 15000, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."], 
+        ["Tapetes de Temporada", 2000, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."], 
+        ["Alerón", 7000, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."] 
+    ]
+
+}
