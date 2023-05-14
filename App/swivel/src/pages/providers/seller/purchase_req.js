@@ -16,13 +16,15 @@ const SellerDashboard = () => {
     // requests is an array of request objects
     const [requests, setRequests] = useState([]);
 
+    const { seller_id } = router.query;
+
     useEffect(() => {
         const fetchData = async () => {
         try {
             // Get all requests
             const requestRes = await axios.get('/api/DrivingRequestsSeller/drivingRequest', {
             params: {
-                vendedor_id: "6448c555af4b91297c2a3061",
+                vendedor_id: seller_id,
                 tipo_proceso: "pruebaManejo"
             }
             });
