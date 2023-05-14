@@ -35,17 +35,6 @@ export default async (req, res) => {
             pais: "Mexico",
             codigo_postal: "01200"
         } 
-        
-        /*
-        // Assign the seller with the least amount of pending requests
-        const getMostAvailableSeller = async () => {
-            const res = await axios.put('/api/prueba-manejo/asignar-vendedor'
-            , { _id: carData["gerente_id"] });
-            console.log("Seller ID AFTER: " + res.sellerId);
-            return res;
-        }
-        const vendedorId = getMostAvailableSeller().sellerId; */
-        const vendedorId = "Placeholder";
 
         // Create the Process with the defined data
         const proceso = await Proceso.create({ 
@@ -57,7 +46,6 @@ export default async (req, res) => {
             direccion: userData["direccion"],
             fecha_inicio: Date.now(),
             grupo_automotriz: carData["grupo_automotriz"],
-            vendedor_id: vendedorId,
             usuario_final_id: req.body.user_id,
             auto: {
                 "auto_id": req.body.auto_id,

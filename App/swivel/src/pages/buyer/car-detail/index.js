@@ -29,10 +29,20 @@ const CarDetail = () => {
   const [processId, setProcessId] = useState('');
 
   const createDrivingTest = async () => {
+    // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba',
     {auto_id: autoId, user_id: userId});
     const proceso_id = res.data.result.proceso_id;
-    await axios.post('/api/prueba-manejo/agregar-proceso-usuario', { userId, proceso_id });
+    // Get most available seller
+    const sellerRes = await axios.put('/api/prueba-manejo/vendedor-disponible', 
+    { _id: autoId });
+    const seller_id = sellerRes.data.sellerId;
+    // Assign seller to driving test request and vice-versa
+    await axios.post('/api/prueba-manejo/agregar-vendedor', 
+    { seller_id, proceso_id });
+    // Add the driving test request to the list of processes of the user
+    await axios.post('/api/prueba-manejo/agregar-proceso-usuario', 
+    { userId, proceso_id });
     setProcessId(proceso_id);
   };
 

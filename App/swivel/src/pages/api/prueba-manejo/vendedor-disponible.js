@@ -7,20 +7,22 @@ Adapted from api/SaleManagement/saleM, orignally
 created by Andrew.
 */
 
-import mongoose from 'mongoose';
-const Usuario = require('../../../models/usuario');
+const mongoose = require('mongoose');
+import Auto from "../../../models/auto";
+import Usuario from "../../../models/usuario";
 import dbConnect from "../../../config/dbConnect";
 
 export default async (req, res) => {
   // Receive details of the purchase and manager ID
-  const gerente_id = req.body._id;
-
-  console.log("Gerente ID: " + gerente_id);
+  const autoId = req.body._id;
 
   // Connect to the MongoDB database using Mongoose
-  //dbConnect();
+  dbConnect();
 
   try {
+    const carData = await Auto.findById(req.body._id);
+    const gerente_id = carData["gerente_id"];
+
     // Find the seller with the lowest number of unfinished sales under the given manager ID
     const result = await Usuario
       .find({ "gerente_id": gerente_id, "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
@@ -29,19 +31,12 @@ export default async (req, res) => {
       .lean()
       .exec();
     const sellerId = result[0]._id;
-    // Update the seller's document to reflect the new purchase
-    await Usuario.updateOne({ "_id": sellerId }, { $inc: { "contar_ventas_en_proceso": 1 } });
-
-    console.log("Seller ID: " + sellerId);
 
     // Respond with a success message
-    res.status(200).json({ message: 'Compra asignada correctamente', sellerId });
+    res.status(200).json({ message: 'Vendedor conseguido exitosamente', sellerId });
   } catch (error) {
     console.error(error);
     // Respond with an error message
-    res.status(500).json({ message: error });
-  } finally {
-    // Close the Mongoose connection
-    await mongoose.disconnect();
+    res.status(500).json({ message: error.message });
   }
 };
