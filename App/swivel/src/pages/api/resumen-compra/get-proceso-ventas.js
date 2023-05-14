@@ -18,22 +18,25 @@ import { connectToDatabase } from "@/utils/mongodb";
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
-      const { userId } = req.query; // Change user ID to get it from auth session
+      const { userId, procesoId } = req.query; // Change user ID to get it from auth session
 
-      if (!userId) {
-        return res.status(400).json({ error: "Missing user ID" });
+      if (!userId || !procesoId) {
+        return res.status(400).json({ error: "Missing queries" });
       }
 
       const { db } = await connectToDatabase();
 
       const proceso_venta = await db
         .collection("procesos")
-        .findOne({ usuario_final_id: ObjectId(userId) });
+        .findOne({
+          usuario_final_id: ObjectId(userId),
+          proceso_id: ObjectId(procesoId),
+        });
 
       // Add proceso de venta, keyed to Processo ID
 
       if (!proceso_venta) {
-        return res.status(404).json({ error: "User not found" });
+        return res.status(404).json({ error: "Proceso not found" });
       }
 
       res.status(200).json(user);
