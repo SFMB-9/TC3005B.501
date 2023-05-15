@@ -1,9 +1,15 @@
 import CustomHero from "@/components/general/custom_hero";
-import CustomNavbar from "../../components/general/custom_navbar";
+import CustomNavbar from "@/components/general/custom_navbar";
+import CustomTogglerBar from "@/components/general/custom_toggler_bar";
 import Link from "next/link";
 import { Typography } from "@mui/material";
+import Catalog from "../catalog";
 
 export default function Landing() {
+  const components = [
+    ()=><Catalog/>,
+    ()=><h1>hola3</h1>,
+  ]
   return (
     <div>
       <CustomNavbar
@@ -36,6 +42,10 @@ export default function Landing() {
         ]}
       />
       <CustomHero/>
+      <CustomTogglerBar
+        components={components}
+        transparent
+      />
       <h1>seller landing</h1>
     </div>
   )
