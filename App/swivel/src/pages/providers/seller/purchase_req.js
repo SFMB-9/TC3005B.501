@@ -24,63 +24,63 @@ const SellerDashboard = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-        try {
-            // Get all requests
-            const requestRes = await axios.get('/api/DrivingRequestsSeller/drivingRequest', {
-            params: {
-                vendedor_id: session.id,
-                tipo_proceso: "pruebaManejo"
+            try {
+                // Get all requests
+                const requestRes = await axios.get('/api/DrivingRequestsSeller/drivingRequest', {
+                    params: {
+                        vendedor_id: session.id,
+                        tipo_proceso: "pruebaManejo"
+                    }
+                });
+
+                const requests = requestRes.data.procesos;
+                // Get all unique user ids
+                const userIds = [...new Set(requests.map(request => request.usuario_final_id))];
+                // Get all users
+                const userPromises = userIds.map(id => axios.get(`/api/managerProfile/managerP?id=${id}`));
+                const userRes = await Promise.all(userPromises);
+
+                // Create a map of user id to user data
+                const users = userRes.reduce((acc, res) => {
+                    const userData = res.data.userData;
+                    return {
+                        ...acc,
+                        [userData._id]: userData
+                    };
+                }, {});
+
+                // Set the requests and users state
+                setRequests(requests);
+                setUser(users);
+            } catch (error) {
+                console.log(error);
             }
-            });
-
-            const requests = requestRes.data.procesos;
-            // Get all unique user ids
-            const userIds = [...new Set(requests.map(request => request.usuario_final_id))];
-            // Get all users
-            const userPromises = userIds.map(id => axios.get(`/api/managerProfile/managerP?id=${id}`));
-            const userRes = await Promise.all(userPromises);
-            
-            // Create a map of user id to user data
-            const users = userRes.reduce((acc, res) => {
-            const userData = res.data.userData;
-            return {
-                ...acc,
-                [userData._id]: userData
-            };
-            }, {});
-
-            // Set the requests and users state
-            setRequests(requests);
-            setUser(users);
-        } catch (error) {
-            console.log(error);
-        }
         };
 
-        if(session){
+        if (session) {
             fetchData();
         }
-        
+
     }, [session]);
 
     // Update the status of a request
     const updateRequestStatus = async (_id, status) => {
         await axios.put('/api/DrivingRequestsSeller/updateRequestStatus', { _id, status });
         const updatedRequests = requests.map(request => {
-        if (request._id === _id) {
-            return { ...request, status };
-        } else {
-            return request;
-        }
+            if (request._id === _id) {
+                return { ...request, status };
+            } else {
+                return request;
+            }
         });
         setRequests(updatedRequests);
     };
 
     // Navigate to a new page to view the details of the request
-    const viewRequest = (id,user_id) => {
+    const viewRequest = (id, user_id) => {
         router.push({
-        pathname: './view_req',
-        query: { id, user_id },
+            pathname: './view_req',
+            query: { id, user_id },
         });
     };
 
@@ -218,7 +218,8 @@ const SellerDashboard = () => {
             </div>
 
             </div>
-        );      
+        </>
+    );
 };
 
 export default SellerDashboard;

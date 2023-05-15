@@ -1,12 +1,12 @@
 .filterContainer {
-  padding: 20px;
+  /* padding: 20px; */
   border-right: 1px solid lightgray;
   border-top: 1px solid lightgray;
 }
 
 .filterTitle {
   font-weight: bold;
-  margin-bottom: 15px;
+  margin: 15px;
   font-family: 'Raleway';
   font-size: 1.7em;
 }
@@ -18,9 +18,9 @@
   
 }
 
-.filterItem {
-  margin-bottom: 5px;
+.filterItem:first-child {
   font-family: 'Lato';
+  border-top: 1px solid #959595;
 }
 
 .filterButton {
@@ -28,10 +28,28 @@
   width: 100%;
   text-align: left;
   background: none;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border: none;
   cursor: pointer;
-  border-bottom: 1px solid lightgray;
   font-family: 'Raleway';
+}
+
+.filterButton:first-child {
+  border-bottom: 1px solid #959595;
+}
+
+.filterButton.active {
+  background-color: #c10202;
+}
+
+.filterItem:last-child {
+  border-bottom: 1px solid #959595;
+}
+
+.filterItem:last-child .filterButton:last-child {
+  border: none;
 }
 
 .filters {
@@ -53,9 +71,16 @@
 .label {
   margin-left: 0.001em;
   margin-bottom: -5px;
+  padding-left: 30px;
 }
 
 .labelText {
   font-family: 'Lato';
   margin-left: -0.2em;
+}
+
+.arrow {
+  float: right;
+  margin-right: 20px;
+  margin-top: 5px;
 }
