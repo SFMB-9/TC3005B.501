@@ -1,3 +1,9 @@
+/*
+This page is the seller dashboard for the purchase requests. 
+It displays all the purchase requests that the seller has received.
+Author: Mateo Herrera
+*/
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";

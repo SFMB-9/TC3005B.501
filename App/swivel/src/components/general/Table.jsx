@@ -1,3 +1,8 @@
+/*
+This component is a table that is used in the swivel app to display data
+Author: Mateo Herrera
+*/
+
 import { DataGrid } from '@mui/x-data-grid';
 import UsersActions from './UserActions';
 import { useMemo, useState } from 'react';
@@ -8,11 +13,11 @@ export default function DataTable(props) {
       ...props.columns,
       {
         field: 'actions',
-        headerName: 'Save',
+        headerName: '',
         type: 'actions',
         renderCell: (params) => (
           <UsersActions 
-            {...{ params, rowId, setRowId, endpoint: props.endpoint}}
+            {...{ params, rowId, setRowId, endpoint: props.endpoint, info: props.requiredInfo}}
           />
         ),
       },

@@ -1,25 +1,27 @@
+/*
+Auxiliary component for the UsersTable component. 
+It is used to display the save button and the loading icon when the user 
+is editing a row.
+Author: Mateo Herrera
+*/
+
 import { Box, CircularProgress, Fab } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Check, Save } from '@mui/icons-material';
 
-const UsersActions = ({ params, rowId, setRowId, endpoint}) => {
+const UsersActions = ({ params, rowId, setRowId, endpoint, info}) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [changed, setChanged] = useState(false);
   
   const handleSubmit = async () => {
-    endpoint()
     setLoading(true);
     setChanged(false);
-    setTimeout(async() => {
-      // const { role, active, _id } = params.row;
-      // const result = await updateStatus({ role, active }, _id, dispatch);
-      if (true) {
-        setSuccess(true);
-        setRowId(null);
-      }
-      setLoading(false);
-    }, 1000);
+    const { _id } = params.row;
+    await endpoint(info.rid, _id, params.row.comentarios);
+    setSuccess(true);
+    setRowId(null);
+    setLoading(false);
   };
   
   useEffect(() => {
@@ -36,37 +38,36 @@ const UsersActions = ({ params, rowId, setRowId, endpoint}) => {
     >
       {success ? (
         <Fab
-          color="primary"
           sx={{
-            width: 40,
-            height: 40,
-            bgcolor: 'green',
-            '&:hover': { bgcolor: 'green' },
+            width: 0,
+            boxShadow: 'none',
+            disabled: true,
           }}
         >
-          <Check />
+          <Check sx={{width: 20}}/>
         </Fab>
       ) : (
         <Fab
           color='green'
+          size='small'
           sx={{
-            width: 40,
-            height: 40,
+            width: 0,
+            boxShadow: 'none',
           }}
           disabled={(params.id !== rowId || loading) && !changed}
           onClick={handleSubmit}
         >
-          <Save />
+          <Save sx={{width: 20}}/>
         </Fab>
       )}
       {loading && (
         <CircularProgress
-          size={52}
+          size={42}
           sx={{
-            color: 'green',
+            color: '#F55C7A',
             position: 'absolute',
-            top: -6,
-            left: -6,
+            top: -2,
+            left: -21,
             zIndex: 1,
           }}
         />
