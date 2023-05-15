@@ -2,22 +2,25 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSession } from "next-auth/react";
-
+import DataTable from '@/components/general/Table';
+import { Select, MenuItem, Button } from '@mui/material';
 
 const SellerDashboard = () => {
-    const router = useRouter();
-    
-    // user object is a map of user id to user data
-    const [user, setUser] = useState(null);
 
-    // Filter the requests by status
-    const [statusFilter, setStatusFilter] = useState('all');
-
-    const { data: session } = useSession();
-
-    // requests is an array of request objects
-    const [requests, setRequests] = useState([]);
-
+  
+  
+  const router = useRouter();
+  
+  // user object is a map of user id to user data
+  const [user, setUser] = useState(null);
+  
+  // Filter the requests by status
+  const [statusFilter, setStatusFilter] = useState('all');
+  
+  const { data: session } = useSession();
+  
+  // requests is an array of request objects
+  const [requests, setRequests] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -81,6 +84,89 @@ const SellerDashboard = () => {
         });
     };
 
+    const columns = [ 
+        {
+          field: 'auto ',
+          headerName: 'Vehículo',
+          headerAlign: 'center',
+          align: 'center',
+          minWidth: 150,
+          flex: 1,
+          valueGetter: (params) => {
+            let cell = params.row.auto?
+            `${params.row.auto.marca} ${params.row.auto.modelo}`
+            :"Este proceso no contiene auto"
+            return cell;
+          }
+        },
+        {
+          field: 'cliente',
+          headerName: 'Cliente',
+          headerAlign: 'center',
+          align: 'center',
+          minWidth: 150,
+          flex: 1,
+          valueGetter: (params) => {
+            let cell = user[params.row.usuario_final_id]
+            ? `${user[params.row.usuario_final_id].name} ${user[params.row.usuario_final_id].surname}`
+            : "Usuario no encontrado"
+            return cell;
+          }
+        },
+        {
+          field: 'status',
+          headerName: 'Estatus',
+          headerAlign: 'center',
+          align: 'center',
+          minWidth: 150,
+          flex: 1,
+          type: 'actions',
+          renderCell: (params) => (
+            <Select
+              value={params.row.status}
+              onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
+              label="Status"
+              variant='standard'
+              size='small'
+              color='primary'
+              sx={{fontFamily: 'Lato', fontSize: '12px'}}
+            >
+              <MenuItem sx={{fontFamily: 'Lato', fontSize: '12px'}} value="En_Revision">En Proceso</MenuItem>
+              <MenuItem sx={{fontFamily: 'Lato', fontSize: '12px'}} value="Aceptada">Aprobado</MenuItem>
+              <MenuItem sx={{fontFamily: 'Lato', fontSize: '12px'}} value="Rechazada">Rechazado</MenuItem>
+            </Select>
+          ),
+        },
+        {
+          field: 'detalles',
+          headerName: 'Detalles',
+          headerAlign: 'center',
+          align: 'center',
+          minWidth: 150,
+          flex: 1,
+          type: 'actions',
+          renderCell: (params) => (
+            <Button 
+              variant="contained" 
+              disableElevation 
+              onClick={() => viewRequest(params.row._id, params.row.usuario_final_id)}
+              className='py-0'
+              sx={{fontFamily: 'Lato', fontSize: '12px', backgroundColor: '#111439'}}
+            >
+              Ver detalles
+            </Button>
+          ),
+        }
+      ]
+
+      const rows = requests.filter((request) => {
+        if (statusFilter === 'all') {
+        return true;
+        } else {
+        return request.status === statusFilter;
+        }
+    })
+
         return (
             <div>
             <h1>Seller Dashboard</h1>
@@ -93,50 +179,44 @@ const SellerDashboard = () => {
             <option value="Aceptada">Aceptada</option>
             <option value="Rechazada">Rechazada</option>
             </select>
-            <table>
-                <thead>
-                <tr>
-                    <th>Auto</th>
-                    <th>Cliente</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                {requests
-                .filter((request) => {
-                    if (statusFilter === 'all') {
-                    return true;
-                    } else {
-                    return request.status === statusFilter;
+            
+            <div className='section'>
+              <div className='p-5'>
+                <DataTable 
+                  columns={columns} 
+                  rows={rows} 
+                  rowSelection={false}
+                  sx={{
+                    border: 1,
+                    borderColor: '#D9D9D9',
+                    "& .MuiDataGrid-cell": {
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      borderLeft: 0,
+                      borderColor: '#D9D9D9',
+                      fontFamily: 'Lato',
+                      fontSize: '12px',
+                      color: '#333333',
+                      },
+                    "& .MuiDataGrid-columnHeaders": {
+                      fontFamily: 'Lato',
+                      fontSize: '16px',
+                      color: '#333333',
+                    },
+                    "& .MuiDataGrid-columnHeaderTitle": {
+                      fontWeight: 'bold !important'
+                    },
+                    "& .MuiPaginationItem-text": {
+                      fontFamily: 'Lato',
+                      color: '#333333',
                     }
-                })
-                .map((request) => (
-                    <tr key={request._id}>
-                    <td>{request.auto?
-                        `${request.auto.marca} ${request.auto.modelo}`
-                        :"Este proceso no contiene auto"}</td>
-                    <td>{/* If the user object is not null, display the user's name*/}
-                        {user[request.usuario_final_id]
-                        ? `${user[request.usuario_final_id].name} ${user[request.usuario_final_id].surname}`
-                        : "Usuario no encontrado"}
-                    </td>
-                    <td>
-                        {/* updateRequestStatus is called when the select value changes */}
-                        <select
-                        value={request.status}
-                        onChange={(e) => updateRequestStatus(request._id, e.target.value)}
-                        >
-                        <option value="En_Revision">En_Revision</option>
-                        <option value="Aceptada">Aceptada</option>
-                        <option value="Rechazada">Rechazada</option>
-                        </select>
-                        {/* viewRequest is called when the button is clicked */}
-                        <button onClick={() => viewRequest(request._id, request.usuario_final_id)}>View Details</button>
-                    </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+                  }} 
+                />
+              </div>
+
+            </div>
+
             </div>
         );      
 };
