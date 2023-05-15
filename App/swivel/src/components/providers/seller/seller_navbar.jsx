@@ -1,22 +1,12 @@
 import CustomNavbar from "@/components/general/custom_navbar"
-import { Typography } from "@mui/material"
 
 export default function SellerNavbar() {
   return (
     <CustomNavbar
-      home='/providers/seller/landing'
+      home='/providers/seller'
       elems_right={[
-        <a href="/providers/seller/purchase_req" style={{ textDecoration: "none" }}>
-          <Typography color="white" fontFamily="Lato" fontSize={13}>
-            Solicitudes
-          </Typography>
-        </a>,
-        <a href="" style={{ textDecoration: "none" }}>
-          {/* <img src='/navbar_account_icon.svg' alt='account icon'/> */}
-          <Typography color="white" fontFamily="Lato" fontSize={13}>
-            Mi cuenta
-          </Typography>
-        </a>,
+        {name: 'Solicitudes', href: '', popup: [{name: 'Solicitudes de compra', href: '/providers/seller/purchase_req'}, {name: 'Solicitudes de prueba de manejo', href: '/providers/seller/driving_req'}]},
+        {name: 'Mi cuenta', href: '', popup: [{name: 'Nombre del usuario', href: ''}, {name: 'Cambiar contraseña', href: '/auth/change_password'}, {name: 'Cerrar sesión', href: ''}]},
       ]}
     />
   )
