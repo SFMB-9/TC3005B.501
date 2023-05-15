@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import DataTable from "@/components/general/Table";
 import { Select, MenuItem, Button, Typography } from "@mui/material";
 import SimpleToggleButton from "@/components/general/SimpleToggleMenu";
+import SellerNavbar from "@/components/providers/seller/seller_navbar";
 
 const SellerDashboard = () => {
   const router = useRouter();
@@ -204,6 +205,8 @@ const SellerDashboard = () => {
   });
 
   return (
+    <>
+    <SellerNavbar/>
     <div>
       <Typography
         variant="h3"
@@ -212,7 +215,7 @@ const SellerDashboard = () => {
         className="pt-5"
         sx={{ fontFamily: "Lato", color: "#333333" }}
       >
-        Solicitudes de Compra
+        Solicitudes de compra
       </Typography>
       <div className="section">
         <div className="text-center pt-3">
@@ -271,6 +274,7 @@ const SellerDashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
