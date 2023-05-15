@@ -9,7 +9,9 @@ y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import Searchbar from "@/components/general/searchbar";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import BuyerLayout from "@/components/buyer/buyer_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
 import styles from "@/styles/catalog.module.css";
@@ -141,7 +143,12 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        {filterHeaders[category]}
+                        <div >
+                          {filterHeaders[category]}
+                          <div className={styles.arrow}>
+                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+                          </div>
+                        </div>
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
