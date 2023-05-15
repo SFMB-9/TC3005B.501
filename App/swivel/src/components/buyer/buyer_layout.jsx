@@ -13,8 +13,9 @@ import BuyerNavbar from "../buyer/buyer_navbar";
 export default function LandingPageLayout({ children }) {
   return (
     <>
-      {/* <Navbar /> */}
-      <BuyerNavbar/>
+      <BuyerNavbar
+        session={false}
+      />
       {children}
       <Footer />
     </>

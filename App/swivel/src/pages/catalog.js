@@ -131,7 +131,7 @@ export default function Catalog() {
                     handleMenuItemClick(chip.category, chip.value)
                   }
                   color="primary"
-                  variant="outlined"
+                  
                   className={styles.filterChip}
                 />
               ))}
