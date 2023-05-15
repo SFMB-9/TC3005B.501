@@ -10,10 +10,9 @@ y searchbar que emplearía elastic search.
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/user/landing_page_layout";
-import CatalogGrid from "@/components/user/catalog_grid";
+import BuyerLayout from "@/components/buyer/buyer_layout";
+import CatalogGrid from "@/components/buyer/catalog_grid";
 import styles from "@/styles/catalog.module.css";
-import ApiDataDisplay from "@/components/buyer/api_data_display";
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -117,7 +116,7 @@ export default function Catalog() {
 
   return (
     <>
-      <LandingPageLayout>
+      <BuyerLayout>
         <Grid container>
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
@@ -153,7 +152,7 @@ export default function Catalog() {
             </div>
           </Grid>
           <Grid item xs={12} sm={10}>
-            <Searchbar />
+            {/* <Searchbar /> */}
             <div
               style={{
                 padding: "3%",
@@ -171,7 +170,7 @@ export default function Catalog() {
             </div>
           </Grid>
         </Grid>
-      </LandingPageLayout>
+      </BuyerLayout>
     </>
   );
 }
