@@ -9,7 +9,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 
-import CarCard from "@/components/user/car_card";
+import CarCard from "@/components/buyer/car_card";
 
 // Datos que se consumirán para mostrar el catálogo de autos.
 const carTest1 = [

@@ -9,11 +9,12 @@ y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/user/landing_page_layout";
-import CatalogGrid from "@/components/user/catalog_grid";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import BuyerLayout from "@/components/buyer/buyer_layout";
+import CatalogGrid from "@/components/buyer/catalog_grid";
 import styles from "@/styles/catalog.module.css";
-import ApiDataDisplay from "@/components/buyer/api_data_display";
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -117,7 +118,7 @@ export default function Catalog() {
 
   return (
     <>
-      <LandingPageLayout>
+      <BuyerLayout>
         <Grid container>
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
@@ -142,7 +143,12 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        {filterHeaders[category]}
+                        <div >
+                          {filterHeaders[category]}
+                          <div className={styles.arrow}>
+                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+                          </div>
+                        </div>
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
@@ -153,7 +159,7 @@ export default function Catalog() {
             </div>
           </Grid>
           <Grid item xs={12} sm={10}>
-            <Searchbar />
+            {/* <Searchbar /> */}
             <div
               style={{
                 padding: "3%",
@@ -171,7 +177,7 @@ export default function Catalog() {
             </div>
           </Grid>
         </Grid>
-      </LandingPageLayout>
+      </BuyerLayout>
     </>
   );
 }

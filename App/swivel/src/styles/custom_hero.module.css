@@ -1,0 +1,67 @@
+.hero_container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1rem; /* Add margin to separate the hero from other elements */
+}
+
+.hero_background {
+  position: relative;
+  width: 100%;
+  padding-bottom: 15.5%; /* Set the aspect ratio based on your needs */
+  overflow: hidden;
+}
+
+.hero_background img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2rem; /* Add padding to create space for the text */
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.hero_title, .hero_message {
+  text-align: center;
+}
+
+.hero_title {
+  font-family: 'Raleway';
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+}
+
+.hero_message {
+  font-family: 'Lato';
+  font-size: 1rem;
+  font-weight: 400;
+}
+.hero_background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(14, 17, 25, 0.65);
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
