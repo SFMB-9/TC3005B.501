@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 
 
 const SellerDashboard = () => {
-    const router = useRouter();
-    
     // user object is a map of user id to user data
     const [user, setUser] = useState(null);
 
@@ -13,14 +11,17 @@ const SellerDashboard = () => {
 
     // requests is an array of request objects
     const [requests, setRequests] = useState([]);
+    
+    const { data: session } = useSession();
 
     useEffect(() => {
         const fetchData = async () => {
+        
         try {
             // Get all requests
             const requestRes = await axios.get('/api/DrivingRequestsSeller/drivingRequest', {
             params: {
-                vendedor_id: "6448c555af4b91297c2a3061",
+                vendedor_id: session.id,
                 tipo_proceso: "pruebaManejo"
             }
             });
@@ -31,7 +32,7 @@ const SellerDashboard = () => {
             // Get all users
             const userPromises = userIds.map(id => axios.get(`/api/managerProfile/managerP?id=${id}`));
             const userRes = await Promise.all(userPromises);
-            
+           
             // Create a map of user id to user data
             const users = userRes.reduce((acc, res) => {
             const userData = res.data.userData;
@@ -49,8 +50,10 @@ const SellerDashboard = () => {
         }
         };
 
-        fetchData();
-    }, []);
+        if(session){
+            fetchData();
+        }
+    }, [session]);
 
     // Update the status of a request
     const updateRequestStatus = async (_id, status) => {
@@ -102,7 +105,7 @@ const SellerDashboard = () => {
                         :"Este proceso no contiene auto"}</td>
                     <td>{/* If the user object is not null, display the user's name*/}
                         {user[request.usuario_final_id]
-                        ? `${user[request.usuario_final_id].nombres} ${user[request.usuario_final_id].apellidos}`
+                        ? `${user[request.usuario_final_id].name} ${user[request.usuario_final_id].surname}`
                         : "Usuario no encontrado"}
                     </td>
                     <td>{request.fecha_agendada}</td>
