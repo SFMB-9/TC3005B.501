@@ -31,7 +31,6 @@ export default function SellerLandingPage({ children }) {
         </a>
       </li> */}
       <ReqCards/>
-      <Footer />
     </>
   );
 }
