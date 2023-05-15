@@ -1,30 +1,25 @@
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
 
 export default function SellerLandingPage({ children }) {
   const router = useRouter();
-  const { data: session } = useSession();
 
-  useEffect(() => {}, [session]);
-
-  const purchaseRequest = (seller_id) => {
+  const purchaseRequest = () => {
     router.push({
       pathname: "./purchase_req",
     });
   };
 
-  const drivingRequest = (seller_id) => {
+  const drivingRequest = () => {
     router.push({
       pathname: "./driving_req",
-      query: { seller_id },
     });
   };
 
   return (
     <>
-      {session ? (
+      
         <div>
           <h5>Perfil</h5>
           <li>
@@ -42,14 +37,14 @@ export default function SellerLandingPage({ children }) {
           </li>
           <div style={{ padding: "200px" }}>
             <button
-              onClick={() => purchaseRequest(session.id)}
+              onClick={() => purchaseRequest()}
               type="button"
               style={{ padding: "50px", margin: "50px" }}
             >
               Solicitudes de Compra
             </button>
             <button
-              onClick={() => drivingRequest(session.id)}
+              onClick={() => drivingRequest()}
               type="button"
               style={{ padding: "50px", margin: "50px" }}
             >
@@ -57,9 +52,6 @@ export default function SellerLandingPage({ children }) {
             </button>
           </div>
         </div>
-      ) : (
-        <div>Loading...</div>
-      )}
     </>
   );
 }

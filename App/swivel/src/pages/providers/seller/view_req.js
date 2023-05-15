@@ -12,6 +12,8 @@ const RequestDetails = () => {
 
   // This function fetches the request details using the _id in the URL
   const fetchRequests = async () => {
+    console.log("id", id);
+    console.log("user_id", user_id);
     const res = await axios.get('/api/DrivingRequestsSeller/getDrivingRequest', {params : {_id: id}});
     const r = res.data.proceso;
     const d = r.documentos.map(doc => ({...doc, comment: ''}));
@@ -30,7 +32,7 @@ const RequestDetails = () => {
 
   // This function updates the status of a document
   const updateDocumentStatus = async (_id,doc_id, status) => {
-    await axios.put('/api/DrivingRequestsSeller/updateDocumentStatus', { _id,doc_id, status });
+    await axios.put('/api/DrivingRequestsSeller/updateDocumentStatus', { _id, doc_id, status });
     fetchRequests();
   };
   
@@ -43,12 +45,17 @@ const RequestDetails = () => {
   
 
   useEffect(() => {
-    fetchRequests();
-  }, []);
+    if(id){
+      fetchRequests();
+    }
+    
+  }, [id]);
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if(user_id){
+      fetchUser();
+    } 
+  }, [user_id]);
 
 
   if (router.isFallback) {
@@ -74,9 +81,9 @@ const RequestDetails = () => {
       {user?
       <div>
       <p>ID: {user._id}</p>
-      <p>Nombre: {user.nombres}</p>
+      <p>Nombre: {user.name}</p>
       <p>email: {user.email}</p>
-      <p>Telefono: {user.telefono}</p>
+      <p>Telefono: {user.phone}</p>
       </div>
       :<p>No hay cliente</p>}
       <div>

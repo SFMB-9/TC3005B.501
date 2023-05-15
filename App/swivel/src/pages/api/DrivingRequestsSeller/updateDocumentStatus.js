@@ -10,7 +10,7 @@ export default async (req, res) => {
         const request_id = req.body._id;
         const doc_id = req.body.doc_id;
         const new_status = req.body.status
-        
+      
 
         if(req.method !== 'PUT'){
             return res.status(405).json({message: 'Metodo no permitido'})
@@ -33,7 +33,8 @@ export default async (req, res) => {
         //change the status of the document
         doc[doc_id].status = new_status;
         proc.documentos = doc;
-        proc.markModified('documentos');
+        console.log(proc);
+        proc.markModified(`documentos.${doc_id}.status`); 
         //save the changes
         await proc.save();
         res.status(200).json({ message: 'status of document: ' + doc[doc_id].nombre + ' in request: ' + request_id + ' to ' + new_status});

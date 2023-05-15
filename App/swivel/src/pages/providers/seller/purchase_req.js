@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 
 
 const SellerDashboard = () => {
@@ -12,11 +13,11 @@ const SellerDashboard = () => {
     // Filter the requests by status
     const [statusFilter, setStatusFilter] = useState('all');
 
+    const { data: session } = useSession();
 
     // requests is an array of request objects
     const [requests, setRequests] = useState([]);
 
-    const { seller_id } = router.query;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +25,7 @@ const SellerDashboard = () => {
             // Get all requests
             const requestRes = await axios.get('/api/DrivingRequestsSeller/drivingRequest', {
             params: {
-                vendedor_id: seller_id,
+                vendedor_id: session.id,
                 tipo_proceso: "pruebaManejo"
             }
             });
@@ -53,8 +54,11 @@ const SellerDashboard = () => {
         }
         };
 
-        fetchData();
-    }, []);
+        if(session){
+            fetchData();
+        }
+        
+    }, [session]);
 
     // Update the status of a request
     const updateRequestStatus = async (_id, status) => {
@@ -72,7 +76,7 @@ const SellerDashboard = () => {
     // Navigate to a new page to view the details of the request
     const viewRequest = (id,user_id) => {
         router.push({
-        pathname: '/viewRequest',
+        pathname: './view_req',
         query: { id, user_id },
         });
     };
@@ -113,7 +117,7 @@ const SellerDashboard = () => {
                         :"Este proceso no contiene auto"}</td>
                     <td>{/* If the user object is not null, display the user's name*/}
                         {user[request.usuario_final_id]
-                        ? `${user[request.usuario_final_id].nombres} ${user[request.usuario_final_id].apellidos}`
+                        ? `${user[request.usuario_final_id].name} ${user[request.usuario_final_id].surname}`
                         : "Usuario no encontrado"}
                     </td>
                     <td>
@@ -138,4 +142,3 @@ const SellerDashboard = () => {
 };
 
 export default SellerDashboard;
-
