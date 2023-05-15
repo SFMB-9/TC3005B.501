@@ -203,9 +203,9 @@ const RequestDetails = () => {
               <div className="col-4">
                 {/*Car details*/}
 
-                <ul class="list-group">
+                <ul className="list-group">
                   <li
-                    class="list-group-item"
+                    className="list-group-item"
                     style={{ backgroundColor: "#333333" }}
                   >
                     {" "}
@@ -221,33 +221,33 @@ const RequestDetails = () => {
                   {request.auto ? (
                     <>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {request.auto.marca}
                       </li>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {request.auto.modelo}
                       </li>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {request.auto.precio}
                       </li>
                     </>
                   ) : (
-                    <li class="list-group-item">No hay auto</li>
+                    <li className="list-group-item">No hay auto</li>
                   )}
                 </ul>
               </div>
               <div className="col">
-                <ul class="list-group">
+                <ul className="list-group">
                   <li
-                    class="list-group-item"
+                    className="list-group-item"
                     style={{ backgroundColor: "#333333" }}
                   >
                     {" "}
@@ -263,35 +263,35 @@ const RequestDetails = () => {
                   {user ? (
                     <>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {user._id}
                       </li>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {user.name}
                       </li>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {user.email}
                       </li>
                       <li
-                        class="list-group-item"
+                        className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
                         {user.phone} Phone
                       </li>
                     </>
                   ) : (
-                    <li class="list-group-item">"No hay cliente</li>
+                    <li className="list-group-item">"No hay cliente</li>
                   )}
                   <li
-                    class="list-group-item p-0"
+                    className="list-group-item p-0"
                     style={{ fontFamily: "Lato", fontSize: 11 }}
                   >
                     <Button
