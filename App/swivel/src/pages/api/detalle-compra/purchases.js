@@ -7,9 +7,7 @@ export default async function handler(req, res) {
 	if (req.method === 'GET' && req.body !== null) {
 		try {
 			const saleProcessCollection = db.collection('proceso_venta')
-			const result = await saleProcessCollection.find({}).toArray((err, purchases) => {
-        console.log(purchases) 
-      })
+			const result = await saleProcessCollection.find({_id: ObjectId(req.usuario_final_id)}).toArray()
 
 			return res.status(200).json({
 				message: 'Detalle de compra recuperado exitosamente',
