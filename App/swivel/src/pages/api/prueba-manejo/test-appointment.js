@@ -6,10 +6,8 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET' && req.body !== null) {
     try {
-      const testsCollection = db.collection('prueba_manejo')  
-      const tests = await testsCollection.find({}).toArray((err, tests) => {
-        console.log(tests) 
-      })
+      const testsCollection = db.collection('proceso')  
+      const tests = await testsCollection.find({_id: ObjectId(req.usuario_final_id), tipo_proceso: 'pruebaManejo'}).toArray()
 
       return res.status(200).json({
         message:'Pruebas recuperadas exitosamente',
