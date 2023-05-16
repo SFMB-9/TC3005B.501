@@ -30,9 +30,9 @@ const RequestDetails = () => {
   const [firstImage, setFirstImage] = useState("");
   const [userData, setUserData] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
   const { auto_id, user_id } = router.query;
-  const markerCoordinates = [37.7749, -122.4194];
 
   const fetchDetails = async () => {  
     const res = await axios.get('/api/prueba-manejo/get-car-info'
@@ -66,8 +66,8 @@ const RequestDetails = () => {
     // Add the driving test request to the list of processes of the user
     await axios.post('/api/prueba-manejo/agregar-proceso-usuario', 
     { user_id: user_id, proceso_id: proceso_id });
-    // Add the selected date to the driving test request
-    await axios.put('/api/prueba-manejo/actualizar-fecha-prueba', { proceso_id: proceso_id, selected_date: selectedDate });
+    // Add the selected date and time to the driving test request
+    await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
   };
 
@@ -143,27 +143,40 @@ const RequestDetails = () => {
         <DatePicker
           selected={selectedDate} 
           onChange={date => setSelectedDate(date)}
+          dateFormat='dd/MM/yyyy'
+          minDate={addDays(new Date(), carData.dias_anticipo)}
+          maxDate={addDays(new Date(), carData.dias_max)}
+          startDate={addDays(new Date(), carData.dias_anticipo)}
+        />
+        <DatePicker
+          selected={selectedTime} 
+          onChange={time => setSelectedTime(time)}
           showTimeSelect
+          showTimeSelectOnly
           timeFormat='hh aa'
           timeIntervals={60}
           minTime={setHours(new Date(), carData.horas_min)}
           maxTime={setHours(new Date(), carData.horas_max)}
-          dateFormat='dd/MM/yyyy hh:mm aa'
-          minDate={addDays(new Date(), carData.dias_anticipo)}
-          maxDate={addDays(new Date(), carData.dias_max)}
-          startDate={addDays(new Date(), carData.dias_anticipo)}
-          
+          dateFormat='hh:mm aa'
         />
 
         {selectedDate && (
-        <p>
+          <p>
             Fecha actualmente agendada:{" "}
             {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
-            {format(selectedDate, "dd/MM/yyyy hh:mm aa")} (Tiempo local)
-        </p>
+            {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
+          </p>
         )}
 
-        {selectedDate ? (
+        {selectedTime && (
+          <p>
+            Hora actualmente agendada:{" "}
+            {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
+            {format(selectedTime, "hh:mm aa")} (Tiempo local)
+          </p>
+        )}
+
+        {(selectedDate && selectedTime) ? (
           <div>
             <button onClick={() => 
               createDrivingTest()
@@ -171,7 +184,7 @@ const RequestDetails = () => {
           </div>
         ) : (
           <div>
-            <p>Selecciona un horario para confirmar tu cita.</p>
+            <p>Selecciona una fecha y horario para confirmar tu cita.</p>
           </div>
         )}
         

@@ -1,8 +1,8 @@
 /* 
-Author: Diego Corrales
-Date: 7/5/23
+Diego Corrales Pinedo
+15/5/23
 Endpoint to add a newly-created process ID
-to the list of processes of a user
+to the list of processes of a user.
 */
 
 const mongoose = require('mongoose');

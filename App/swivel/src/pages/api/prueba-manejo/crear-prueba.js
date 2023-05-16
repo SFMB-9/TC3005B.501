@@ -1,9 +1,9 @@
 /* 
-Author: Diego Corrales
-Date: 7/5/23
+Diego Corrales Pinedo
+15/5/23
 Endpoint to create a driving test request for 
 a final user. Used when clicking the "Request 
-driving test" button in the car detail page.
+driving test" button in the test-detail page.
 */
 
 import Proceso from "../../../models/procesos";

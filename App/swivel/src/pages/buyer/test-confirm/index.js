@@ -20,6 +20,7 @@ const RequestDetails = () => {
   const [carData, setCarData] = useState({});
   const [firstImage, setFirstImage] = useState("");
   const [chosenDate, setChosenDate] = useState("");
+  const [chosenTime, setChosenTime] = useState("");
   const { id } = router.query;
 
   const fetchRequests = async () => {  
@@ -31,6 +32,7 @@ const RequestDetails = () => {
     setCarData(res.data.proceso.auto);
     setFirstImage(res.data.proceso.auto.array_fotografias_url[0]);
     setChosenDate(res.data.proceso.fecha_agendada);
+    setChosenTime(res.data.proceso.hora_agendada);
   }
 
   useEffect(() => {
@@ -45,9 +47,8 @@ const RequestDetails = () => {
     // This is the page that displays the details of a request
     <div>
         <h1>Resumen de la cita</h1>
-        <p>Agendada: {chosenDate}</p>
         <p>Fecha: {chosenDate.slice(0, 10)} (UTC)</p>
-        <p>Hora: {chosenDate.slice(11, 16)} (UTC)</p>
+        <p>Hora: {chosenTime.slice(11, 16)} (UTC)</p>
 
         <p>Direccion: {agencyAddress.calle},  
             Num. {agencyAddress.numero_exterior},   

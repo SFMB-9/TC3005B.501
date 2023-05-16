@@ -1,3 +1,11 @@
+/* 
+Diego Corrales Pinedo
+15/5/2023
+
+Endpoint to get all the data
+of a given user in the db.
+*/
+
 const mongoose = require('mongoose');
 import dbConnect from "../../../config/dbConnect";
 import Usuario from '../../../models/usuario';

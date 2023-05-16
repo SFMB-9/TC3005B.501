@@ -58,6 +58,9 @@ const procesoSchema = new mongoose.Schema({
   fecha_agendada: {
     type: Date,
   },
+  hora_agendada: {
+    type: Date,
+  },
   usuario_final_id: {
     type: String,
   },
