@@ -16,7 +16,7 @@ const serviceAccount = require("@/utils/firebase/serviceAccountKey.json");
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: "your-firebase-storage-bucket",
+    storageBucket: "your-firebase-storage-bucket", // <-- this is your Firebase Storage Bucket name
   });
 }
 
@@ -24,7 +24,7 @@ const bucket = admin.storage().bucket();
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const form = new formidable.IncomingForm();
+    const form = new formidable.IncomingForm(); // 
 
     form.parse(req, async (err, fields, files) => {
       if (err) {
