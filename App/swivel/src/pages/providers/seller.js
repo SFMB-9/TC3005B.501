@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Button, Box } from "@mui/material";
 import CustomHero from "@/components/general/custom_hero";
 import SellerNavbar from "@/components/providers/seller/seller_navbar";
 import ReqCards from "@/components/providers/seller/req_cards";
-import Footer from "@/components/general/footer";
+// import { signOut } from "next-auth/client";
 
 export default function SellerLandingPage({ children }) {
 
