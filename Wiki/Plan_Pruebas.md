@@ -318,9 +318,9 @@ La plataforma es capaz de manejar un número de usuarios simultáneos igual o ma
 | No. | Nombre del Entregable | Autor | Sprint Esperado | Supervisor  |
 |---|---|---|---|---|
 | 1 | Plan de pruebas V1  | P.M. y Líder de QA  | 1  | Felipe Morales  |
-| 2 | Plan de pruebas VF  | P.M. y Líder de QA  | 1  | Felipe Morales  |
-| 3 | Casos de pruebas de Caja Negra | Equipo de desarrollo | 4 | P.M. y Líder de QA  |
-| 4 |  Casos de pruebas de Caja Blanca | Equipo de desarrollo | Dependiente de Caja Negra  | P.M. y Líder de QA  |
+| 2 | Plan de pruebas VF  | P.M. y Líder de QA  | 2  | Felipe Morales  |
+| 3 | Casos de pruebas de Caja Negra | Equipo de desarrollo | A partir del 4, conforme los desarrolladores acaben su componente. Se utilizará JEST. Dependiendo de los flujos y las historias asignadas ese sprint son la cantidad de pruebas que se esperan ser realizadas. | P.M. y Líder de QA  |
+| 4 |  Casos de pruebas de Caja Blanca | Equipo de desarrollo | Dependiendo de los componentes que no pasen la prueba de caja negra, se realizarán pruebas de caja blanca  | P.M. y Líder de QA  |
 | 5 | Casos de pruebas de Integración | Equipo de desarrollo | Al acabar caja blanca, tentativamente sprint 8  |
 | 6 | Casos de pruebas de Recorrido | Equipo de desarrollo | Tentativamente sprint 9 |
 | 7 | Casos de pruebas de Estrés | Equipo de desarrollo | Tentativamente sprint 9 |
