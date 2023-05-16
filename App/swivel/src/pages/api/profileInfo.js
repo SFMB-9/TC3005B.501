@@ -12,14 +12,7 @@ export default async function handler(req, res)
         try {
             const profileCollection = db.collection('usuario')
             const info = await profileCollection.findOne({_usuario_id: usuario_id})
-            const profiles = await profileCollection.find({}).toArray((err, users) => {
-                console.log(profiles)
-            })
-
-            return res.status(200).json({
-                message: 'Perfiles recuperados exitosamente',
-                pruebas: profiles,
-            })
+            return info
         }
         catch (error) {
             console.error(error)

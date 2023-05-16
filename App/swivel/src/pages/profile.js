@@ -21,6 +21,9 @@ export default function profileInfo()
         </div>
         <div id="ProfileInfo">
             <h1>Datos personales</h1>
+            <p>{profileInfo.nombres}</p>
+            <p>{profileInfo.apellidos}</p>
+            <p>{profileInfo.email}</p>
             <form name="Datos personales" method="POST">
                 <label>
                     Nombre(s)
