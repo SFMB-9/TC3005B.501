@@ -328,6 +328,8 @@ La plataforma es capaz de manejar un número de usuarios simultáneos igual o ma
 | 9 | Reporte de defectos | Equipo de pruebas | 9 | P.M. y Líder de QA | 
 <br>
 
+Link donde se registran las pruebas completadas: https://docs.google.com/spreadsheets/d/123XrjJUrWD4eUmy2fyBO-DPIpYVRpFbTCKobFPUwjgk/edit?usp=sharing
+
 ## 2.8 Historias de Usuario
 Lista tentativa, sujeta a cambios.
 
