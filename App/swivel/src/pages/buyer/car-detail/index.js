@@ -3,8 +3,8 @@ Diego Corrales Pinedo
 5/7/2023
 
 Car detail page, in which a user can
-request a driving test for the car
-they are seeing.
+start the process of requesting a driving 
+test for the car they are seeing.
 */
 
 import { useState, useEffect } from 'react';
@@ -13,51 +13,24 @@ import { useRouter } from 'next/router';
 
 const CarDetail = () => {
 
-  const autoId = "645875ec3b0cf3da15559bd7";
+  const autoId = "64628905d5bf84071fa085d7";
   const userId = "64586ff82cd17fbeb63aa3d0";
 
   const router = useRouter();
   
-  const viewRequest = (id) => {
+  const viewRequest = (auto_id, user_id) => {
     // Navigate to a new page to view the details of the request
     router.push({
-      pathname: '/buyer/view-test-request',
-      query: { id },
+      pathname: '/buyer/test-detail',
+      query: { auto_id, user_id },
     })
   };
-
-  const [processId, setProcessId] = useState('');
-
-  const createDrivingTest = async () => {
-    // Create driving test request
-    const res = await axios.post('/api/prueba-manejo/crear-prueba',
-    {auto_id: autoId, user_id: userId});
-    const proceso_id = res.data.result.proceso_id;
-    // Get most available seller
-    const sellerRes = await axios.put('/api/prueba-manejo/vendedor-disponible', 
-    { _id: autoId });
-    const seller_id = sellerRes.data.sellerId;
-    // Assign seller to driving test request and vice-versa
-    await axios.post('/api/prueba-manejo/agregar-vendedor', 
-    { seller_id, proceso_id });
-    // Add the driving test request to the list of processes of the user
-    await axios.post('/api/prueba-manejo/agregar-proceso-usuario', 
-    { userId, proceso_id });
-    setProcessId(proceso_id);
-  };
-
-  // Execute viewRequest only when processId changes
-  useEffect(() => {
-    if (processId !== "") {
-      viewRequest(processId);
-    }
-  }, [processId]);
 
   return (
     <div>
       <h1>Car detail</h1>
       <button onClick={() => 
-        createDrivingTest()
+        viewRequest(autoId, userId)
       }>Request Driving Test</button>
     </div>
   );

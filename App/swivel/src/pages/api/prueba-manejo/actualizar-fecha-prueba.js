@@ -7,8 +7,8 @@ const Proceso = require('../../../models/procesos');
 export default async (req, res) => {
     
         //request id and date are passed as body parameters
-        const proceso_id = req.body._id;
-        const date = req.body.selectedDate;
+        const proceso_id = req.body.proceso_id;
+        const date = req.body.selected_date;
 
         //format date to ISO
         const formatted = new Date(date).toISOString();
@@ -21,11 +21,8 @@ export default async (req, res) => {
         proc.fecha_agendada = formatted;
         // Save the changes
         await proc.save();
-        
-        // Find the corresponding agency to register the selection
-        
 
-        res.status(200).json({ status: 'date of ' + proceso_id + ' updated to ' + date});
+        res.status(200).json({ status: 'Date of ' + proceso_id + ' updated to ' + date});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });

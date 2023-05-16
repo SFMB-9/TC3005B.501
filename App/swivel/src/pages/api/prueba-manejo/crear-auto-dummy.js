@@ -33,7 +33,11 @@ export default async function handler(req, res) {
                 array_fotografias_url: ["/dummy_car_image1.png", "/dummy_car_image2.png"],
                 grupo_automotriz_id: "0987654321",
                 grupo_automotriz: "Mazda Co.",
-                gerente_id: "6458716c0628c82dc52b0cba"
+                gerente_id: "6458716c0628c82dc52b0cba",
+                horas_min: 4,
+                horas_max: 20,
+                dias_anticipo: 6,
+                dias_max: 9,
             });
 
             const autoJSON = auto.toJSON();

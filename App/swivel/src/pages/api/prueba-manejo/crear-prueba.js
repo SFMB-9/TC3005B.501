@@ -12,12 +12,6 @@ import Usuario from "../../../models/usuario";
 import dbConnect from "../../../config/dbConnect";
 import axios from 'axios';
 
-/*
-TODO:
-Definir lo de direccion_agencia: De donde va a salir?
-Cambiar el vendedor_id creado por el del endpoint
-*/
-
 export default async (req, res) => {
     dbConnect();
     
@@ -56,10 +50,8 @@ export default async (req, res) => {
                 "array_fotografias_url": carData["array_fotografias_url"]
             },
             direccion_agencia: direccionAgencia,
-            horas_min: agencyData["horas_min"],
-            horas_max: agencyData["horas_max"],
-            dias_anticipo: agencyData["dias_anticipo"],
-            dias_max: agencyData["dias_max"],
+            numero_telefonico: agencyData["numero_telefonico"],
+            comentarios: "",
         });
 
         const procesoJSON = proceso.toJSON();

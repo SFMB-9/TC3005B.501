@@ -15,7 +15,7 @@ export default async (req, res) => {
     
         // Process ID and user ID are passed as body parameters
         const proceso_id = req.body.proceso_id;
-        const user_id = req.body.userId;
+        const user_id = req.body.user_id;
 
         dbConnect();
     

@@ -50,7 +50,7 @@ const procesoSchema = new mongoose.Schema({
     modelo: String,
     ano: String,
     precio: String,
-    array_fotografias: [String]
+    array_fotografias_url: [String]
   },
   fecha_inicio: {
     type: Date,
@@ -61,20 +61,13 @@ const procesoSchema = new mongoose.Schema({
   usuario_final_id: {
     type: String,
   },
-  horas_min: {
-    type: Number,
+  numero_telefonico: {
+    type: String,
   },
-  horas_max: {
-    type: Number,
-  },
-  dias_anticipo: {
-    type: Number,
-  },
-  dias_max: {
-    type: Number,
-  },
+  comentarios: {
+    type: String,
+  }
   //_id: mongoose.Schema.Types.ObjectId,
-
 }); 
 
 

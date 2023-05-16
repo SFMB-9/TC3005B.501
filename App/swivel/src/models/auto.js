@@ -19,7 +19,11 @@ const autoSchema = new mongoose.Schema({
     array_fotografias_url: [String],
     grupo_automotriz_id: String,
     grupo_automotriz: String,
-    gerente_id: String
+    gerente_id: String,
+    horas_min: Number,
+    horas_max: Number,
+    dias_anticipo: Number,
+    dias_max: Number
 });
 
 export default mongoose.models.Auto || mongoose.model("Auto", autoSchema);
