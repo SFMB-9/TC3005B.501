@@ -20,6 +20,7 @@
     "bootstrap": "^5.2.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "firebase": "^9.22.0",
     "mongodb": "^5.2.0",
     "mongoose": "^7.0.3",
     "mui-datatables": "^4.3.0",
