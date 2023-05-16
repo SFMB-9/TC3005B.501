@@ -95,6 +95,6 @@ describe('POST /api/registro/verify-email', () => {
 
         await handler(req,res);
 
-        expect(status).toHaveBeenCalledWith(400);
+        expect(status).toHaveBeenCalledWith(405);
     });
 });

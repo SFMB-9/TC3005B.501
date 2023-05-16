@@ -237,6 +237,6 @@ describe('POST /api/registro/registro-usuario', () => {
 
         await handler(req,res);
 
-        expect(status).toHaveBeenCalledWith(400);
+        expect(status).toHaveBeenCalledWith(405);
     });
 });

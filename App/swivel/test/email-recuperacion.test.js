@@ -36,6 +36,6 @@ describe('POST /api/contrasena/email-recuperacion', () => {
 
         await handler(req,res);
 
-        expect(status).toHaveBeenCalledWith(400);
+        expect(status).toHaveBeenCalledWith(405);
     });
 });

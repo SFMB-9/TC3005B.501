@@ -75,6 +75,6 @@ describe('PUT /api/contrasena/cambiar-contrasena', () => {
 
         await handler(req,res);
 
-        expect(status).toHaveBeenCalledWith(400);
+        expect(status).toHaveBeenCalledWith(405);
     });
 });

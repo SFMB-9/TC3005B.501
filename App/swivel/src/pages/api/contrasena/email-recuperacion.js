@@ -32,6 +32,6 @@ export default async (req, res) => {
         res.status(200).json({ message: "Recovery email sent" });
     }
     else {
-        res.status(400).json({ message: "Wrong request method" });
+        res.status(405).json({ message: "Wrong request method" });
     }
 }

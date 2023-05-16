@@ -217,6 +217,6 @@ describe('POST /api/registro/registro-grupo-automotriz', () => {
 
         await handler(req,res);
 
-        expect(status).toHaveBeenCalledWith(400);
+        expect(status).toHaveBeenCalledWith(405);
     });
 });

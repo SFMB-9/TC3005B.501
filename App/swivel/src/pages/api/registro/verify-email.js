@@ -13,10 +13,10 @@ export default async function handler (req, res) {
       res.status(200).json({ message: "Email has been validated" }); // display a confirmation message to the user
     }
     else {
-      res.status(401).json({ message: "Email could not be validated" }); // display an error message to the user
+      res.status(400).json({ message: "Email could not be validated" }); // display an error message to the user
     }
   }
   else {
-    res.status(400).json({ message: "Wrong request method" });
+    res.status(405).json({ message: "Wrong request method" });
   }
 } 
