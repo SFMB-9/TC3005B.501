@@ -42,10 +42,6 @@ export default function ResumenCompra() {
         console.error("Error fetching data:", error);
       }
     };
-
-    
-
-    
   };
 
   React.useEffect(() => {
