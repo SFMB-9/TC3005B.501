@@ -107,7 +107,7 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
             <Button
           variant="contained"
           disableElevation
-          href="/providers/seller/landing"
+          href="/providers/seller"
           className="me-3"
           sx={{
             fontFamily: "Lato",
