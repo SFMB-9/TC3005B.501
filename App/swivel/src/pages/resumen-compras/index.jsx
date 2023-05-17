@@ -4,9 +4,6 @@ import { storage } from "@/utils/firebase/firebase";
 const DocLister = ({ title, status, handleFileUpload }) => (
   <div style={{ display: "flex", alignItems: "center" }}>
     <h1>{title}</h1>
-    <input type="file" onChange={handleFileUpload}>
-      Upload File
-    </input>
     <button>Borrar</button>
     <p>Estado: {status}</p>
   </div>
@@ -81,10 +78,14 @@ export default function ResumenCompra() {
   return (
     <div>
       <h1>Resumen de Compra</h1>
+      <p>Tipo de Proceso: {proceso.tipo_proceso}</p>
       <h2>Datos del coche</h2>
-      <p>Modelo de coche: {proceso}</p>
-      <p>Precio de coche: {proceso}</p>
+      {JSON.stringify(proceso.auto)}
       <h1>Documentos:</h1>
+      {proceso.documentos &&
+        proceso.documentos.map((doc) => (
+          <DocLister title={doc.nombre} key={doc._id} status={doc.status} />
+        ))}
     </div>
   );
 }

@@ -27,15 +27,17 @@ export default async function handler(req, res) {
 
       const { db } = await connectToDatabase();
 
-      const proceso_venta = db.collection("procesos").find({}).toArray;
+      const proceso_venta = await db
+        .collection("procesos")
+        .findOne({ _id: new ObjectId(procesoId) });
+
+      res.status(200).json(proceso_venta);
 
       // Add proceso de venta, keyed to Processo ID
 
       if (!proceso_venta) {
         return res.status(404).json({ error: "Proceso not found" });
       }
-
-      res.status(200).json(proceso_venta);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });

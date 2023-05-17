@@ -12,12 +12,15 @@ async function connectToDatabase() {
   try {
     await client.connect();
     console.log("Connected to the MongoDB server");
-    const db = client.db("testcluster");
+    const db = client.db();
     return { db, client };
 
     // Continue with your database operations...
   } catch (error) {
     console.error("Error connecting to the MongoDB server:", error);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    // await client.close();  
   }
 }
 
