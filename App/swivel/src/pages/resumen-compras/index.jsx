@@ -43,6 +43,7 @@ export default function ResumenCompra() {
             body: JSON.stringify({
               docId: docId,
               url: fileHolder,
+              procesoId: proceso.proceso_id,
             }),
           }
         );
@@ -51,6 +52,8 @@ export default function ResumenCompra() {
         console.error("Error fetching data:", error);
       }
     };
+
+    fetchData();
   };
 
   React.useEffect(() => {
