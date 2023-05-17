@@ -9,7 +9,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 
-import CarCard from "@/components/user/car_card";
+import CarCard from "@/components/buyer/car_card";
 
 // Datos que se consumirán para mostrar el catálogo de autos.
 const carTest1 = [
@@ -268,7 +268,7 @@ export default function CatalogGrid({ carListing }) {
     carList = carListing.map((car) => (
       <Grid item xs={12} sm={6} md={4}>
         <CarCard
-          carUrl="https://www.w3schools.com/tags/tag_iframe.asp" //{car.carUrl}
+          carUrl={`/catalogo/${car._id}`}  //{car.carUrl}
           carImage={selectImage()} //{car.carImages}
           // carImage=
           // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
