@@ -17,9 +17,6 @@ export default function SellerLandingPage({ children }) {
       />
       {/* <h5>Perfil</h5>
       <li>
-        <a href="/auth/change_password">Cambiar Contraseña</a>
-      </li>
-      <li>
         <a
           href="#"
           onClick={() =>
