@@ -7,6 +7,8 @@ import React, { useState, useEffect } from "react";
 // 2. Arreglar herramienta/seleccion financiamiento
 // 3. Agregar seleccion de extras
 // 4. Agregar seleccion de entrega
+// 5. Agregar seleccion de color
+// 6. Agregar funcionalidad de checkout
 
 
 export default function CarDetails() {
