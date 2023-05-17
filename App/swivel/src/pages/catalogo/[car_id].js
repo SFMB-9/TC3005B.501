@@ -22,7 +22,9 @@ export default function CarDetails() {
     const [monthlyPayment, setMonthlyPayment] = useState(0);
     const [carPrice, setCarPrice] = useState(0);
 
-    const [totalPayment, setTotalPayment] = useState(0);
+    const [selectedExtras, setSelectedExtras] = useState([]);
+
+    const [totalPrice, setTotalPrice] = useState(0);
 
     // "enganche": [10,20,30,40,50],
     // "plazo": {"12": 5.7,"24": 5.8,"36": 6.0,"48": 6.2,"60": 6.6},
@@ -52,6 +54,33 @@ export default function CarDetails() {
 
         setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
     };
+
+    // Function to handle checkbox selection
+    const handleCheckboxChange = (event) => {
+        const extraTitulo = event.target.value;
+        const isChecked = event.target.checked;
+
+        // Update the selected extras based on checkbox changes
+        if (isChecked) {
+            const selectedExtra = Object.values(carDetails.extras).find((extra) => extra.titulo === extraTitulo);
+            setSelectedExtras([...selectedExtras, selectedExtra]);
+            calculateTotalPrice();
+            
+        } else {
+            const unSelectedExtra = Object.values(carDetails.extras).find((extra) => extra.titulo === extraTitulo);
+            const updatedExtras = selectedExtras.filter((extra) => extra.titulo !== unSelectedExtra.titulo);
+            setSelectedExtras(updatedExtras);
+            calculateTotalPrice();
+            
+        }
+    };
+
+    // Calculate the total price based on selected extras
+    const calculateTotalPrice = () => {
+        const extrasPrice = selectedExtras.reduce((total, extra) => total + extra.precio, 0);
+        setTotalPrice(extrasPrice);
+    };
+
     if (carDetails != null) {
         return (
             <div>
@@ -100,6 +129,28 @@ export default function CarDetails() {
                         <p> Precio: {extra.precio}</p>
                     </div>
                 ))}
+                <div>
+                    <div>
+                        <h2>Select Extras:</h2>
+                        {Object.values(carDetails.extras).map((extra) => (
+                            <div key={extra.titulo}>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value={extra.titulo}
+                                        checked={selectedExtras.some((selectedExtra) => selectedExtra.titulo === extra.titulo)}
+                                        onChange={(e)=>{
+                                            handleCheckboxChange(e);
+                                            calculateTotalPrice();
+                                        }}
+                                    />
+                                    {extra.titulo} (+${extra.precio}) {extra.descripcion}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                    <p>Total Price: ${totalPrice}</p>
+                </div>
 
                 <h2>Financiamiento</h2>
                 <div>
