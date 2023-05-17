@@ -62,12 +62,12 @@ export default function CarDetails() {
 
         // Update the selected extras based on checkbox changes
         if (isChecked) {
-            const selectedExtra = Object.values(carDetails.extras).find((extra) => extra.titulo === extraTitulo);
+            const selectedExtra = carDetails.extras.find((extra) => extra.titulo === extraTitulo);
             setSelectedExtras([...selectedExtras, selectedExtra]);
             calculateTotalPrice();
             
         } else {
-            const unSelectedExtra = Object.values(carDetails.extras).find((extra) => extra.titulo === extraTitulo);
+            const unSelectedExtra = carDetails.extras.find((extra) => extra.titulo === extraTitulo);
             const updatedExtras = selectedExtras.filter((extra) => extra.titulo !== unSelectedExtra.titulo);
             setSelectedExtras(updatedExtras);
             calculateTotalPrice();
@@ -98,7 +98,7 @@ export default function CarDetails() {
                 {/* Ver por que no funciona extraer colores*/}
                 <div>
                     <h3>Fotos de auto por color</h3>
-                    {Object.values(carDetails.colores).map((color) => (
+                    {carDetails.colores.map((color) => (
                         <div>
                             <p style={{ color: color.valor_hexadecimal, }}>{color.nombre}</p>
                             {color.imagenes.map((imagen) => (
@@ -123,7 +123,7 @@ export default function CarDetails() {
                 ))}
 
                 <h2>Extras</h2>
-                {Object.values(carDetails.extras).map((extra) => (
+                {carDetails.extras.map((extra) => (
                     <div>
                         <p>{extra.titulo}: {extra.descripcion}</p>
                         <p> Precio: {extra.precio}</p>
@@ -132,7 +132,7 @@ export default function CarDetails() {
                 <div>
                     <div>
                         <h2>Select Extras:</h2>
-                        {Object.values(carDetails.extras).map((extra) => (
+                        {carDetails.extras.map((extra) => (
                             <div key={extra.titulo}>
                                 <label>
                                     <input

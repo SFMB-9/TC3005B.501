@@ -262,14 +262,13 @@ function selectImage() {
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
 export default function CatalogGrid({ carListing }) {
-  //console.log(carListing);
   let carList;
   if (carListing !== undefined) {
     carList = carListing.map((car) => (
       <Grid item xs={12} sm={6} md={4}>
         <CarCard
           carUrl={`/catalogo/${car._id}`}  //{car.carUrl}
-          carImage={selectImage()} //{car.carImages}
+          carImage={car._source.fotos_3d[0]} //{car.carImages}
           // carImage=
           // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
           //     style: {

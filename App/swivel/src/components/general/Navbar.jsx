@@ -25,7 +25,7 @@ import Image from "next/image";
 
 // Constantes que contienen los nombres de las paginas y sus respectivos links
 const pages = [
-  { name: "Catálogo", link: "/catalog" },
+  { name: "Catálogo", link: "/catalogo" },
   { name: "Auto-Quiz™", link: "/quiz" },
 ];
 const settings = [

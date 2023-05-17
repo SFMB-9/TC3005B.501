@@ -24,7 +24,6 @@ export default function Catalog() {
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
   const fetchFilters = async () => {
-    console.log(selectedFilters)
     let queryString = selectedFilters.length
       ? `?${selectedFilters
         .map((filter) => filter.replace("modelos", "modelo"))
