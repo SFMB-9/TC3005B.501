@@ -9,8 +9,7 @@ import { connectToDatabase } from "@/utils/mongodb";
 export default async function handler(req, res) {
   if (req.method === "UPDATE") {
     try {
-      const { procesoId, docId, url } = req.query; // Change user ID to get it from auth session
-
+      const { docId, procesoId, url } = req.body; // Change user ID to get it from auth session
       if (!docId || !procesoId || !url) {
         return res.status(400).json({ error: "Missing queries" });
       }

@@ -34,7 +34,17 @@ export default function ResumenCompra() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-         {`http://localhost:3000/api/resumen-compra/upload-file?docId=${docId}&url=${fileHolder}&procesoId=${proceso.proceso_id}`} 
+          "http://localhost:3000/api/resumen-compra/upload-file",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              docId: docId,
+              url: fileHolder,
+            }),
+          }
         );
         const jsonData = await response.json();
       } catch (error) {
