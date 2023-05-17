@@ -1,18 +1,18 @@
-import firebase from 'firebase/app';
-import 'firebase/storage';
+import { getStorage } from "firebase/storage";
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-    // Hide in .env
-    apiKey: "AIzaSyCCvl5TuSfNljAoMopwcLQ44Dyz-TPLWZA",
-    authDomain: "swivel-test-b63aa.firebaseapp.com",
-    projectId: "swivel-test-b63aa",
-    storageBucket: "swivel-test-b63aa.appspot.com",
-    messagingSenderId: "969238254638",
-    appId: "1:969238254638:web:e42ce2f011636d57157bbf"
+  // Hide in .env
+  apiKey: "AIzaSyCCvl5TuSfNljAoMopwcLQ44Dyz-TPLWZA",
+  authDomain: "swivel-test-b63aa.firebaseapp.com",
+  projectId: "swivel-test-b63aa",
+  storageBucket: "swivel-test-b63aa.appspot.com",
+  messagingSenderId: "969238254638",
+  appId: "1:969238254638:web:e42ce2f011636d57157bbf",
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const storage = firebase.storage();
+const storage = getStorage(app);
 
-export { storage, firebase as default };
+export { storage, app as default};

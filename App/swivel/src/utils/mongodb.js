@@ -1,28 +1,24 @@
 // MONGODB_URI= "mongodb+srv://sebasgonvi:r1DsubV4F8A1NAZm@clustertest.l66fito.mongodb.net/?retryWrites=true&w=majority"
-import { MongoClient } from 'mongodb'
+import { MongoClient } from "mongodb";
 
-const uri = "mongodb+srv://cluster0.zrsjjzp.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
-const options = {
-  useUnifiedTopology: true,
+const uri =
+  "mongodb+srv://asananez:testPassword@testcluster.9q0xofl.mongodb.net/test";
+const client = new MongoClient(uri, {
   useNewUrlParser: true,
-}
+  useUnifiedTopology: true,
+});
 
-let client
-let connectToDatabase
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log("Connected to the MongoDB server");
+    const db = client.db("testcluster");
+    return { db, client };
 
-if (!uri) {
-  throw new Error('Add Mongo URI to .env.local')
-}
-
-if (process.env.NODE_ENV === 'development') {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options)
-    global._mongoClientPromise = client.connect()
+    // Continue with your database operations...
+  } catch (error) {
+    console.error("Error connecting to the MongoDB server:", error);
   }
-  connectToDatabase = global._mongoClientPromise
-} else {
-  client = new MongoClient(uri, options)
-  connectToDatabase = client.connect()
 }
 
-export default connectToDatabase
+export default connectToDatabase;

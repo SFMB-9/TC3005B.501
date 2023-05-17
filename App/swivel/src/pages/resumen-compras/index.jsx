@@ -13,7 +13,7 @@ const DocLister = ({ title, status, handleFileUpload }) => (
 );
 
 export default function ResumenCompra() {
-  const [proceso, setProceso] = React.useState({});
+  const [proceso, setProceso] = React.useState([]);
   const [fileHolder, setFileHolder] = React.useState("");
   const user_id = 1; // get from session
 
@@ -60,8 +60,13 @@ export default function ResumenCompra() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/resumen-compra/get-proceso-venta?userId=" +
-            { user_id }
+          "http://localhost:3000/api/resumen-compra/get-proceso-ventas?userId=645497ccd204363b117ce157&procesoId=6461507301ef5a23678e01c1",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const jsonData = await response.json();
         setProceso(jsonData);
@@ -77,17 +82,9 @@ export default function ResumenCompra() {
     <div>
       <h1>Resumen de Compra</h1>
       <h2>Datos del coche</h2>
-      <p>Modelo de coche: {}</p>
-      <p>Precio de coche: {}</p>
+      <p>Modelo de coche: {proceso}</p>
+      <p>Precio de coche: {proceso}</p>
       <h1>Documentos:</h1>
-      {proceso.documentos.map((doc, index) => (
-        <DocLister
-          title={doc.title}
-          status={doc.status}
-          handleFileUpload={handleFileUpload}
-          key={index}
-        />
-      ))}
     </div>
   );
 }

@@ -13,7 +13,8 @@ Cuando se haga el call se va necesitar hacer el call a varios apis de manera sim
 
  */
 
-import { connectToDatabase } from "@/utils/mongodb";
+import connectToDatabase from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -26,10 +27,7 @@ export default async function handler(req, res) {
 
       const { db } = await connectToDatabase();
 
-      const proceso_venta = await db.collection("procesos").findOne({
-        usuario_final_id: ObjectId(userId),
-        proceso_id: ObjectId(procesoId),
-      });
+      const proceso_venta = db.collection("procesos").find({}).toArray;
 
       // Add proceso de venta, keyed to Processo ID
 
@@ -37,7 +35,7 @@ export default async function handler(req, res) {
         return res.status(404).json({ error: "Proceso not found" });
       }
 
-      res.status(200).json(user);
+      res.status(200).json(proceso_venta);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
