@@ -26,6 +26,7 @@ export default function ResumenCompra() {
       console.log("File uploaded successfully!");
       fileRef.getDownloadURL().then((url) => {
         console.log("File URL:", url);
+        setFileHolder(url);
         // Do something with the URL, such as storing it in your component state
       });
     });
@@ -33,11 +34,9 @@ export default function ResumenCompra() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/resumen-compra/get-proceso-venta?userId=" +
-            { user_id }
+         {`http://localhost:3000/api/resumen-compra/upload-file?docId=${docId}&url=${fileHolder}&procesoId=${proceso.proceso_id}`} 
         );
         const jsonData = await response.json();
-        setProceso(jsonData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
