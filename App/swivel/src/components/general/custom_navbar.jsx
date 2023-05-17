@@ -4,6 +4,7 @@ import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 import styles from '@/styles/custom_navbar.module.css'
 
@@ -49,12 +50,7 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
         {/* Logo medium */}
         <Box sx={{ display: { xs: "none", md: "flex" }, mr: 6 }}>
           <Link href={home}>
-            <Image
-              src="/swivel_logo_white.svg"
-              alt="Logo"
-              width={120}
-              height={30}
-            />
+            <Image src="/swivel_logo_white.svg" alt="Logo" width={120} height={30} />
           </Link>
         </Box>
         {/* Left-most elements, screen medium */}
@@ -67,12 +63,7 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
             marginLeft: "25px", // Adjust the value to move the section more to the left
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              gap: "60px", // Adjust the value to increase or decrease the spacing
-            }}
-          >
+          <div style={{ display: "flex", gap: "60px" }}>
             {elems_left.map((element, index) => (
               <Link key={index} href={element.href}>
                 <MenuItem onClick={handleCloseNavMenu}>
@@ -114,9 +105,7 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
               {elems_left.map((element, index) => (
                 <Link key={index} href={element.href}>
                   <MenuItem key={index} onClick={handleCloseNavMenu}>
-                    <Typography
-                      className={styles.submenu_item}
-                    >
+                    <Typography className={styles.submenu_item}>
                       {element.name}
                     </Typography>
                   </MenuItem>
@@ -147,15 +136,10 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
             display: { xs: "none", md: "flex" },
             justifyContent: "flex-end",
             alignItems: "center",
-            marginRight: "16px", // Adjust the value to move the section more to the right
+            marginRight: "16px"
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              gap: "60px", // Adjust the value to increase or decrease the spacing
-            }}
-          >
+          <div style={{ display: "flex", gap: "60px" }}>
             {elems_right.map((element, index) => (
               // Check if the element is a popup
               element.popup ? (
@@ -184,13 +168,18 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
                   >
                     {element.popup.map((popup_element, index) => (
                       <MenuItem key={index} onClick={handleCloseUserMenu}>
-                        <Link href={popup_element.href}>
-                          <Typography
-                            className={styles.submenu_item}
-                          >
-                            {popup_element.name}
-                          </Typography>
-                        </Link>
+                        {/* Check if the element is a signup component */}
+                        {popup_element.signoutComponent ? (
+                            <Typography className={styles.popup_item} onClick={()=> signOut({callbackUrl: popup_element.signoutComponent})}>
+                              {popup_element.name}
+                            </Typography>
+                          ) : (
+                            <Link href={popup_element.href}>
+                              <Typography className={styles.popup_item} onClick={()=> handleSignout(popup_element.signoutComponent)}>
+                                {popup_element.name}
+                              </Typography>
+                            </Link>
+                          )}
                       </MenuItem>
                     ))}
                   </Menu>
@@ -209,80 +198,83 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
         </Box>
         {/* Right-most elements, screen small */}
         {elems_right.length > 0 && (
-        <Box sx={{ display: { md: "none" } }}>
-          <IconButton onClick={handleMenu} sx={{ p: 0, color: "white" }}>
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {elems_right.map((element, index) => (
-              // Check if the element is a popup
-              element.popup ? (
-                <div key={index}>
-                  <MenuItem
-                    onClick={(event) => handleOpenUserMenu(event, index)}
-                  >
-                    <Typography className={styles.submenu_item}>
-                      {element.name}
-                    </Typography>
+          <Box sx={{ display: { md: "none" } }}>
+            <IconButton onClick={handleMenu} sx={{ p: 0, color: "white" }}>
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {elems_right.map((element, index) => (
+                // Check if the element is a popup
+                element.popup ? (
+                  <div key={index}>
+                    <MenuItem
+                      onClick={(event) => handleOpenUserMenu(event, index)}
+                    >
+                      <Typography className={styles.submenu_item}>
+                        {element.name}
+                      </Typography>
+                    </MenuItem>
+                    <Menu
+                      id={`menu-appbar-popup-${index}`}
+                      anchorEl={anchorElUser === index ? anchorEl : null}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser === index)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      {element.popup.map((popup_element, subIndex) => (
+                        <MenuItem key={subIndex} onClick={handleCloseUserMenu}>
+                          {/* Check if the element is a signup component */}
+                          {popup_element.signoutComponent ? (
+                            <Typography className={styles.popup_item} onClick={()=> handleSignout(popup_element.signoutComponent)}>
+                              {popup_element.name}
+                            </Typography>
+                          ) : (
+                            <Link href={popup_element.href}>
+                              <Typography className={styles.popup_item} onClick={()=> handleSignout(popup_element.signoutComponent)}>
+                                {popup_element.name}
+                              </Typography>
+                            </Link>
+                          )}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </div>
+                ) : (
+                  <MenuItem key={index} onClick={handleClose}>
+                    <Link href={element.href}>
+                      <Typography className={styles.submenu_item}>
+                        {element.name}
+                      </Typography>
+                    </Link>
                   </MenuItem>
-                  <Menu
-                    id={`menu-appbar-popup-${index}`}
-                    anchorEl={anchorElUser === index ? anchorEl : null}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser === index)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {element.popup.map((popup_element, subIndex) => (
-                      <MenuItem
-                        key={subIndex}
-                        onClick={handleCloseUserMenu}
-                      >
-                        <Link href={popup_element.href}>
-                          <Typography className={styles.popup_item}>
-                            {popup_element.name}
-                          </Typography>
-                        </Link>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </div>
-              ) : (
-                <MenuItem key={index} onClick={handleClose}>
-                  <Link href={element.href}>
-                    <Typography className={styles.submenu_item}>
-                      {element.name}
-                    </Typography>
-                  </Link>
-                </MenuItem>
-              )
-            ))}
-          </Menu>
-        </Box>
+                )
+              ))}
+            </Menu>
+          </Box>
         )}
       </Toolbar>
-      {/* </Container> */}
     </AppBar>
   );
 }
