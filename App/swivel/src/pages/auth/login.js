@@ -1,25 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import React, { useState, useEffect } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { data: session } = useSession();
+
+  useEffect(() => {}, [session]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const data = await signIn("credentials", {
-        redirect: true,
+        redirect: false,
         email,
         password,
-        callbackUrl: `${window.location.origin}/auth/logout`,
+        // callbackUrl: `${window.location.origin}/auth/logout`,
       });
 
-      console.log(data);
+      if (data.error) {
+        console.log("Error:", data.error);
+      } else {
+        let callbackUrl;
+        if (session.role === "seller") {
+          callbackUrl = `${window.location.origin}/providers/seller/seller_landing`;
+        } else {
+          callbackUrl = `${window.location.origin}/auth/logout`;
+        }
+
+        window.location.href = callbackUrl;
+      }
     } catch (error) {
       console.log(error);
     }
