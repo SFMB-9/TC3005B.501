@@ -1,6 +1,6 @@
 /*
-    This file is used to change the password of the user
-    Author: Mateo Herrera
+  This file is used to change the password of the user
+  Author: Mateo Herrera
 */
 
 "use client";
