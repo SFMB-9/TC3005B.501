@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
       const file_update = await db.collection("procesos").updateOne(
         {
-          proceso_id: ObjectId(procesoId),
+          proceso_id: new ObjectId(procesoId),
           "documentos.id": docId,
         },
         {

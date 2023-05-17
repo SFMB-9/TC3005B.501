@@ -1,9 +1,10 @@
 import React from "react";
-import { storage } from "@/utils/firebase/firebase";
+import FileUpload from "./FileUpload";
 
-const DocLister = ({ title, status, handleFileUpload }) => (
+const DocLister = ({ title, status, docId, procesoId }) => (
   <div style={{ display: "flex", alignItems: "center" }}>
-    <h1>{title}</h1>
+    <p>{title}</p>
+    <FileUpload docId={docId} procesoId={procesoId} />
     <button>Borrar</button>
     <p>Estado: {status}</p>
   </div>
@@ -11,47 +12,6 @@ const DocLister = ({ title, status, handleFileUpload }) => (
 
 export default function ResumenCompra() {
   const [proceso, setProceso] = React.useState([]);
-  const [fileHolder, setFileHolder] = React.useState("");
-  const user_id = 1; // get from session
-
-  const handleFileUpload = (event, docId) => {
-    const file = event.target.files[0];
-    const storageRef = storage.ref();
-    const fileRef = storageRef.child(file.name);
-
-    fileRef.put(file).then(() => {
-      console.log("File uploaded successfully!");
-      fileRef.getDownloadURL().then((url) => {
-        console.log("File URL:", url);
-        setFileHolder(url);
-        // Do something with the URL, such as storing it in your component state
-      });
-    });
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/api/resumen-compra/upload-file",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              docId: docId,
-              url: fileHolder,
-              procesoId: proceso.proceso_id,
-            }),
-          }
-        );
-        const jsonData = await response.json();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +44,13 @@ export default function ResumenCompra() {
       <h1>Documentos:</h1>
       {proceso.documentos &&
         proceso.documentos.map((doc) => (
-          <DocLister title={doc.nombre} key={doc._id} status={doc.status} />
+          <DocLister
+            title={doc.nombre}
+            key={doc._id}
+            status={doc.status}
+            docId={doc._id}
+            procesoId={proceso.proceso_id}
+          />
         ))}
     </div>
   );
