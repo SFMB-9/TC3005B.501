@@ -1,3 +1,4 @@
+import { Summarize } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from "react";
 
@@ -5,7 +6,6 @@ import React, { useState, useEffect } from "react";
 // 1. Encriptar id de coche y desencriptar en el endpoint
 
 // 6. Agregar funcionalidad de checkout
-
 
 export default function CarDetails() {
     const router = useRouter();
@@ -75,9 +75,14 @@ export default function CarDetails() {
         const monthlyPayment = carPriceWithDownPayment / selectedTerm;
         const monthlyPaymentTotal = monthlyPayment + (monthlyPayment * (interestRate / 100));
 
-        setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
-    };
+        if(isNaN(monthlyPaymentTotal)) {
+            setMonthlyPayment(0);
+        } else{
+            setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
+        }
 
+        
+    };
 
     // Function to handle checkbox change of
     const handleCheckboxChange = (event) => {
@@ -124,7 +129,10 @@ export default function CarDetails() {
                         </div>
                     ))}
                 </div>
-
+                    <button>Comprar</button>
+                <div>
+                
+                </div>
                 <h2>Resumen del Auto</h2>
 
                 <p>Combustible: {carDetails.combustible}</p>
