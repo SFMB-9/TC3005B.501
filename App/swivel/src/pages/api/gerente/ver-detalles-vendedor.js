@@ -12,9 +12,9 @@ export default async function handler(req, res) {
 
     const { email, agency } = req.body;
 
-    const seller = await User.findOne({ email: email, agencia, agency }, "nombres apellidos email telefono");
+    const result = await User.findOne({ email: email, agencia: agency }, "nombres apellidos email telefono");
 
-    res.status(200).json({ message: "User details recovered successfully", seller: seller });
+    res.status(200).json(result);
     
   }
   else{
