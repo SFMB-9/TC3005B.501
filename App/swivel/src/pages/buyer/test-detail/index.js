@@ -19,7 +19,7 @@ import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
 import axios from 'axios';
 
-import Map from '@/pages/Map';
+//import Map from '@/pages/Map';
 
 const RequestDetails = () => {
 
@@ -34,6 +34,8 @@ const RequestDetails = () => {
   const [processId, setProcessId] = useState('');
   const { auto_id, user_id } = router.query;
 
+  console.log("auto_id: " + auto_id);
+  console.log("user_id: " + user_id);
   const fetchDetails = async () => {  
     const res = await axios.get('/api/prueba-manejo/get-car-info'
     , {params : {_id: auto_id}});
@@ -125,8 +127,8 @@ const RequestDetails = () => {
             </table>
         </div>
         
-        <h1>Mapa a la agencia</h1>
-        <Map coordinates={[40.73, -73.935]}/>
+        {/* <h1>Mapa a la agencia</h1>
+        <Map coordinates={[40.73, -73.935]}/> */}
 
         <h1>Detalles auto</h1>
         <p>Marca: {carData.marca} </p>
