@@ -4,7 +4,7 @@ import FileUpload from "./FileUpload";
 const DocLister = ({ title, status, docId, procesoId }) => (
   <div style={{ display: "flex", alignItems: "center" }}>
     <p>{title}</p>
-    <FileUpload docId={docId} procesoId={procesoId} />
+    <FileUpload body={{ docId, procesoId }} />
     <button>Borrar</button>
     <p>Estado: {status}</p>
   </div>

@@ -4,11 +4,21 @@
 @description
  */
 import { connectToDatabase } from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
+import bodyParser from "body-parser";
+
+export const config = {
+  api: {
+    bodyParser: false, // Disable Next.js default body parsing
+  },
+};
+
+const jsonParser = bodyParser.json();
 
 export default async function handler(req, res) {
   if (req.method === "UPDATE") {
     try {
-      const { docId, procesoId, url } = req.body; // Change user ID to get it from auth session
+      const { docId, procesoId, url } = req.query; // Change user ID to get it from auth session
       if (!docId || !procesoId || !url) {
         return res.status(400).json({ error: "Missing queries" });
       }
@@ -16,13 +26,9 @@ export default async function handler(req, res) {
       const { db } = await connectToDatabase();
 
       const file_update = await db.collection("procesos").updateOne(
-        {
-          proceso_id: new ObjectId(procesoId),
-          "documentos.id": docId,
-        },
-        {
-          $set: { "documentos.$.url": url },
-        }
+        { _id: new ObjectId(procesoId) }, // Parent object node filter
+        { $set: { "documentos.$url": url } }, // Update operation
+        { arrayFilters: [{ "url._id": new ObjectId(docId) }] } // Array filter
       );
 
       // Add proceso de venta, keyed to Processo ID

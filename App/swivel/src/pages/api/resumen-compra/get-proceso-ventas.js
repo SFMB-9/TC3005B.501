@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       }
 
       const { db } = await connectToDatabase();
-
+ 
       const proceso_venta = await db
         .collection("procesos")
         .findOne({ _id: new ObjectId(procesoId) });
