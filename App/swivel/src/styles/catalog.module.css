@@ -15,7 +15,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  
 }
 
 .filterItem:first-child {
@@ -83,4 +82,10 @@
   float: right;
   margin-right: 20px;
   margin-top: 5px;
+}
+
+.category {
+  padding: 0;
+  margin: 0;
+  margin-bottom: -30px;
 }

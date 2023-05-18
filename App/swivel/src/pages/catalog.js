@@ -14,6 +14,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import BuyerLayout from "@/components/buyer/buyer_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
+import Searchbar from "@/components/general/searchbar";
+
 import styles from "@/styles/catalog.module.css";
 
 export default function Catalog() {
@@ -143,8 +145,10 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        <div >
-                          {filterHeaders[category]}
+                        <div>
+                          <div className={styles.category}>
+                            {filterHeaders[category]}
+                          </div>
                           <div className={styles.arrow}>
                             {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
                           </div>
@@ -159,7 +163,7 @@ export default function Catalog() {
             </div>
           </Grid>
           <Grid item xs={12} sm={10}>
-            {/* <Searchbar /> */}
+            <Searchbar />
             <div
               style={{
                 padding: "3%",
