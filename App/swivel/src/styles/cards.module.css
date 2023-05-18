@@ -5,6 +5,13 @@
   gap: 45px;
 }
 
+.actionCardsContainer {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+  gap: 20px;
+}
+
 @media (max-width: 700px) {
   .reqCardsContainer {
     flex-direction: column;

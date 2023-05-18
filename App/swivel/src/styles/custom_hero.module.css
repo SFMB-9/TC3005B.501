@@ -2,14 +2,6 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  margin-bottom: 1rem; /* Add margin to separate the hero from other elements */
-}
-
-.hero_background {
-  position: relative;
-  width: 100%;
-  padding-bottom: 15.5%; /* Set the aspect ratio based on your needs */
-  overflow: hidden;
 }
 
 .hero_background img {
@@ -47,6 +39,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.1rem;
+  max-width: 40vw;
 }
 
 .hero_message {
@@ -64,4 +57,12 @@
   background-color: rgba(14, 17, 25, 0.65);
   mix-blend-mode: multiply;
   z-index: 1;
+}
+
+/* Resize title on small screens */
+@media screen and (max-width: 600px) {
+  .hero_title {
+    font-size: 1.5rem;
+    max-width: 70vw; 
+  }
 }
