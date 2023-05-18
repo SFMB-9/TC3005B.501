@@ -2,27 +2,28 @@
 
 import axios from "axios";
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function SellerSignup() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
+
+  const [session, loading] = useSession();
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("/api/register", {
-        name,
-        surname,
-        email,
-        password,
-        role: "seller",
-        agency,
-        phone,
+      const { data } = await axios.post("/api/registro/registro-vendedor", {
+        name: name,
+        last_name: surname,
+        email: email,
+        password: password,
+        agency: session.user.agency,
+        cellphone: phone,
       });
 
       console.log(data);
@@ -75,18 +76,6 @@ export default function SellerSignup() {
         </div>
 
         <div>
-          <label htmlFor="agency_field">Agency</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={agency}
-            onChange={(e) => setAgency(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
           <label htmlFor="phone_field">Phone Number</label>
           <input
             type="text"
@@ -109,6 +98,7 @@ export default function SellerSignup() {
             required
           />
         </div>
+        
         <button type="submit">Register</button>
       </form>
     </>

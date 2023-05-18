@@ -33,6 +33,6 @@ export default async function handler(req, res) {
     }
   }
   else{
-    res.status(400).json({ message: "Wrong request method" });
+    res.status(405).json({ message: "Wrong request method" });
   }
 }

@@ -118,14 +118,20 @@ const SearchResults = () => {
       };
 
     return (
+
         <div>
-            <h1>Buscar</h1>
-            <input
-                type="text"
-                value={searchValue}
-                onChange={handleSearchChange}
-                placeholder="Buscar..."
-            />
+            <div>
+                <h1>Buscar</h1>
+                <input
+                    type="text"
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    placeholder="Buscar..."
+                />
+                <a href='/seller/seller_signup'>
+                    <button> [+] </button>
+                </a>
+            </div>
 
             <ul>
                 {filteredResults.map((entry) => (
