@@ -23,7 +23,7 @@ const CarRegistrationForm = () => {
     extras: [],
     enganche: [],
     plazo: {},
-    entrega: {},
+    entrega: [],
     disponible_prueba: '',
     visible_catalogo: '',
     descripcion: '',
@@ -36,7 +36,9 @@ const CarRegistrationForm = () => {
   const [enganche, setEnganche] = useState([]);
   const [color, setColor] = useState([]);
   const [plazo, setPlazo] = useState({});
-
+  const [entrega, setEntrega] = useState([]);
+  
+  
   const handleColorChange = (index, event) => {
     const { name, value } = event.target;
     setColor((prevColor) => {
@@ -45,22 +47,15 @@ const CarRegistrationForm = () => {
       return updatedColor;
     });
   };
-  const handlePlazoChange = (event) => {
+
+  const handleEntregaChange = (index, event) => {
     const { name, value } = event.target;
-    const [type, originalKey] = name.split('-');
-    if (type === 'key') {
-      const updatedPlazo = { ...plazo };
-      const plazoValue = updatedPlazo[originalKey];
-      delete updatedPlazo[originalKey];
-      updatedPlazo[value] = plazoValue;
-      setPlazo(updatedPlazo);
-    } else if (type === 'value') {
-      const updatedPlazo = { ...plazo, [originalKey]: value };
-      setPlazo(updatedPlazo);
-    }
+    setEntrega((prevEntregas) => {
+      const updatedEntregas = [...prevEntregas];
+      updatedEntregas[index] = { ...updatedEntregas[index], [name]: value };
+      return updatedEntregas;
+    });
   };
-  
-  
 
   const handleCaracteristicaChange = (index, value) => {
     const updatedCaracteristicas = [...caracteristicas];
@@ -90,12 +85,7 @@ const CarRegistrationForm = () => {
       return updatedColor;
     });
   };
-  const handleRemovePlazo = (index) => {
-    setPlazo((prevPlazo) => {
-      const { [index]: _, ...updatedPlazo } = prevPlazo;
-      return updatedPlazo;
-    });
-  };
+
 
   const handleRemoveCaracteristica = (index) => {
     setCaracteristicas((prevCaracteristicas) => {
@@ -127,21 +117,48 @@ const CarRegistrationForm = () => {
   };
 
   const handleAddRow = (setStateFunc, createEmptyFunc) => {
-    if(setStateFunc !== setPlazo)
       setStateFunc((prevState) => [...prevState, createEmptyFunc()]);
-    else
-      setStateFunc((prevState) => ({...prevState, [Object.keys(prevState).length]: ''}));
   };
 
+  
   const createEmptyColor = () => ({ nombre: '', hex: '' });
   const createEmptyCaracteristica = () => ('');
   const createEmptyExtra = () => ({ nombre: '', precio: 0, descripcion: '' });
   const createEmptyEnganche = () => (0);
-  const createEmptyPlazo = () => ({});
+  const createEmptyEntrega = () => ({ nombre: '', precio: 0, descripcion: '' });
+
+  const handleKeyChange = (index, key) => {
+    const updatedPlazo = { ...plazo };
+    updatedPlazo[index] = { ...updatedPlazo[index], key };
+    setPlazo(updatedPlazo);
+  };
+
+  const handleValueChange = (index, value) => {
+    const updatedPlazo = { ...plazo };
+    updatedPlazo[index] = { ...updatedPlazo[index], value };
+    setPlazo(updatedPlazo);
+  };
+
+  const handleRemovePlazo = (index) => {
+    const updatedPlazo = { ...plazo };
+    delete updatedPlazo[index];
+    setPlazo(updatedPlazo);
+  };
+
+  const handleRemoveEntrega = (index) => {
+    const updatedEntrega = [...entrega];
+    updatedEntrega[index] = createEmptyEntrega();
+    setEntrega(updatedEntrega);
+  };
+
+  const handlePlazoAddRow = () => {
+    const newIndex = Object.keys(plazo).length;
+    setPlazo({ ...plazo, [newIndex]: { key: '', value: '' } });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedCar = { ...car, colores: color, caracteristicas: caracteristicas, extras: extras, enganche: enganche };
+    const updatedCar = { ...car, colores: color, caracteristicas: caracteristicas, extras: extras, enganche: enganche, plazo: plazo,entrega: entrega };
     // Do something with the car data, like sending it to an API or storing it in a database
     console.log(updatedCar);
     // Reset the form
@@ -167,7 +184,7 @@ const CarRegistrationForm = () => {
       extras: [],
       enganche: [],
       plazo: {},
-      entrega: {},
+      entrega: [],
       disponible_prueba: '',
       visible_catalogo: '',
       descripcion: '',
@@ -484,40 +501,84 @@ const CarRegistrationForm = () => {
         </button>
       </div>
       <br />
-      <br />
       <div>
-        <h3>Plazos:</h3>
-        {Object.entries(plazo).map(([key, value]) => (
-          <div key={key}>
+        <h3>Plazo:</h3>
+        {Object.entries(plazo).map(([index, item]) => (
+          <div key={index}>
             <label>
-              Plazo:
+              Key:
               <input
-                type="number"
-                name={`key-${key}`}
-                value={key}
-                onChange={handlePlazoChange}
+                type="text"
+                name="key"
+                value={item.key}
+                onChange={(event) => handleKeyChange(index, event.target.value)}
               />
             </label>
             <label>
-              Taza:
+              Value:
               <input
-                type="number"
-                name={`value-${key}`}
-                value={value}
-                onChange={handlePlazoChange}
+                type="text"
+                name="value"
+                value={item.value}
+                onChange={(event) => handleValueChange(index, event.target.value)}
               />
             </label>
-            <span> | </span>
-            <button type="button" onClick={() => handleRemovePlazo(key)}>
+            <button type="button" onClick={() => handleRemovePlazo(index)}>
               X
             </button>
             <hr />
           </div>
         ))}
-        <button type="button" onClick={() => handleAddRow(setPlazo, createEmptyPlazo)}>
+        <button type="button" onClick={handlePlazoAddRow}>
+          Add Row
+        </button>
+      </div>
+      <br />
+      <div>
+        <h3>Entrega:</h3>
+        {entrega.map((object, index) => (
+          <div key={index}>
+            <label>
+              Nombre:
+              <input
+                type="text"
+                name="nombre"
+                value={object.nombre}
+                onChange={(event) => handleEntregaChange(index, event)}
+              />
+            </label>
+            <span> | </span>
+            <label>
+              Precio:
+              <input
+                type="number"
+                name="precio"
+                value={object.precio}
+                onChange={(event) => handleEntregaChange(index, event)}
+              />
+            </label>
+            <span> | </span>
+            <label>
+              Descripción:
+              <input
+                type="text"
+                name="descripcion"
+                value={object.descripcion}
+                onChange={(event) => handleEntregaChange(index, event)}
+              />
+            </label>
+            <span> | </span>
+            <button type="button" onClick={() => handleRemoveEntrega(index)}>
+              X
+            </button>
+            <hr />
+          </div>
+        ))}
+        <button type="button" onClick={() => handleAddRow(setEntrega, createEmptyEntrega)}>
            Add Row
         </button>
       </div>
+
       <br />
 
       <button type="submit">Register Car</button>
