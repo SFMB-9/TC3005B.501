@@ -2,10 +2,12 @@
 Ana Paula Katsuda Zalce
 Salvador Federico Milanes Braniff
 Sebastián González Villacorta
-18-04-2023
+Diego Corrales Pinedo
+18-05-2023
 
-Catalogo de vehiculos, con sidebar de filtros
-y searchbar que emplearía elastic search.
+Catalogo de vehiculos de agencia, con sidebar 
+de filtros y searchbar que emplearía elastic 
+search.
 */
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
@@ -13,8 +15,9 @@ import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/buyer/landing_page_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
 import styles from "@/styles/catalog.module.css";
-import ApiDataDisplay from "@/components/buyer/api_data_display";
-import { Search } from "@mui/icons-material";
+import { Delete, HelpOutline } from "@mui/icons-material";
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -25,16 +28,19 @@ export default function Catalog() {
   const [catalogData, setCatalogData] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
+  const router = useRouter();
+
   const fetchFilters = async () => {
-    console.log(selectedFilters)
     let queryString = selectedFilters.length
-      ? `?${selectedFilters
+      ? `${selectedFilters
         .map((filter) => filter.replace("modelos", "modelo"))
         .join("&")}`
       : "";
 
+    const agencyName = "Kia";
+
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/buscar-auto${queryString}`
+      `http://localhost:3000/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
     );
 
     const data = await response.json();
@@ -120,6 +126,29 @@ export default function Catalog() {
     </ul>
   );
 
+  const viewCreateCar = () => {
+    // Navigate to the page to create cars
+    router.push({
+      pathname: '/providers/manager/crear-auto',
+      query: {},
+    })
+  };
+
+  const viewEditCar = (auto_id) => {
+    // Navigate to the page to create cars
+    router.push({
+      pathname: '/providers/manager/editar-auto',
+      query: {auto_id},
+    })
+  };
+
+  const deleteCar = async (auto_id) => {
+    // Delete car from elastic
+    let res = await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`, 
+    {method: 'DELETE'});
+    fetchFilters();
+  };
+
   return (
     <>
       <LandingPageLayout>
@@ -178,7 +207,45 @@ export default function Catalog() {
                 }`}
               </div>
               <ApiDataDisplay apiData={apiData} /> */}
-              <CatalogGrid carListing={catalogData} />
+              {/* <CatalogGrid carListing={catalogData} /> */}
+              {/* Display listing of cars */}
+              {catalogData ? (
+                    <div>
+                      <div>
+                        <table style={{width: "100%"}}>
+                        <thead>
+                            <tr>
+                            <th></th>
+                            <th>Modelo</th>
+                            <th>Año</th>
+                            <th>Marca</th>
+                            <th>ID</th>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {catalogData.map((car, i) => (
+                            <tr key={i}>
+                                <td><img src={car._source.fotos_3d[0]} height="50" width="60"/></td>
+                                <td>{car._source.modelo}</td>
+                                <td>{car._source.año}</td>
+                                <td>{car._source.marca}</td>
+                                <td>{car._id}</td>
+                                <td><button onClick={() => viewEditCar(car._id)}> Editar </button></td>
+                                <td><button onClick={() => deleteCar(car._id)}> Borrar </button></td>
+                            </tr>
+                            ))}
+                        </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <h2>No se econtraron autos.</h2>
+                    </div>
+                  )}
+            <button onClick={() => viewCreateCar()}> Agregar auto </button>
             </div>
           </Grid>
         </Grid>
