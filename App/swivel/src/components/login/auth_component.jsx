@@ -74,8 +74,8 @@ export default function AuthComponent(props) {
               component="img"
               sx={{
                 display: isMediumScreen ? "none" : "flex",
-                width: "auto",
-                height: "auto",
+                width: "100%",
+                height: "100%",
               }}
               image={props.cardImage}
               alt="Welcome Background"

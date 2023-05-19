@@ -13,7 +13,9 @@ export default function LandingPageLayout({ children }) {
   return (
     <>
       <Navbar />
-      {children}
+      <div className="min-vh-100">
+        {children}
+      </div>
       <Footer />
     </>
   );

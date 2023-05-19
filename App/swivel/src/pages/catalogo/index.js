@@ -9,9 +9,14 @@ y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterListIcon from '@mui/icons-material/FilterList';
+
 import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/buyer/landing_page_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
+import ApiDataDisplay from "@/components/buyer/api_data_display";
 import styles from "@/styles/catalog.module.css";
 
 export default function Catalog() {
@@ -21,6 +26,7 @@ export default function Catalog() {
   const [selectedChips, setSelectedChips] = useState([]);
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
+  const [catalogColors, setCatalogColors] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
   const fetchFilters = async () => {
@@ -40,6 +46,7 @@ export default function Catalog() {
     setFilters(data.filters);
     setApiData(data);
     setCatalogData(data.result);
+    setCatalogColors(data.result.colors);
   };
 
   useEffect(() => {
@@ -120,10 +127,18 @@ export default function Catalog() {
   return (
     <>
       <LandingPageLayout>
-        <Grid container>
-          <Grid item xs={12} sm={2}>
+        <Grid container sx={
+          {paddingLeft: "3%", 
+          paddingRight: "3%"}
+        } >
+          <Grid item xs={12} md={3} sm={6}>
             <div className={styles.filterContainer}>
-              <div className={styles.filterTitle}>Filtros</div>
+              <div className={styles.filterTitle}> 
+                <div className={styles.iconWrapper}>
+                  <FilterListIcon className={styles.filterListIcon} /> 
+                </div>
+                <span>Filtros</span>
+              </div>
               {/* {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
@@ -144,7 +159,14 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        {filterHeaders[category]}
+                        <div >
+                          {filterHeaders[category]}
+                          
+                            <div className={styles.arrow}>
+                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+                            </div>
+                    
+                        </div>
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
@@ -154,7 +176,7 @@ export default function Catalog() {
               )}
             </div>
           </Grid>
-          <Grid item xs={12} sm={10}>
+          <Grid item xs={12} md={9} sm={6}>
             {/*
               Pasar la función fetchSearch como prop al componente Searchbar
               // para que se ejecute cuando se presione el botón de búsqueda
@@ -162,20 +184,30 @@ export default function Catalog() {
             <Searchbar
               setState={setSelectedFilters}
             > </Searchbar>
-            <div
-              style={{
-                padding: "3%",
-                overflowY: "scroll",
-                maxHeight: "100vh",
-              }}
-            >
-              {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                {`http://localhost:3000/api/catalogo/buscar-autos${
-                  selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                }`}
+            <div>
+              <div className={styles.catalogHeader}>
+                <span className="justify-content-start">
+                  Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
+                </span>
+                <span className="justify-content-end">
+                  Ordenar por
+                </span>
               </div>
-              <ApiDataDisplay apiData={apiData} /> */}
-              <CatalogGrid carListing={catalogData} />
+              <div
+                style={{
+                  padding: "3%",
+                  overflowY: "scroll",
+                  maxHeight: "100vh",
+                }}
+              >
+                {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
+                  {`http://localhost:3000/api/catalogo/buscar-autos${
+                    selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
+                  }`}
+                </div>
+                <ApiDataDisplay apiData={catalogData} /> */}
+                <CatalogGrid carListing={catalogData} />
+              </div>
             </div>
           </Grid>
         </Grid>
