@@ -1,4 +1,4 @@
-import CustomCard from '@/components/general/custom_card';
+import CustomCard from '@/components/general/custom_icon_card';
 import styles from '@/styles/cards.module.css';
 
 export default function ActionsCards() {
