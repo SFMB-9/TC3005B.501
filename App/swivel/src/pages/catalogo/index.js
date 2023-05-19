@@ -10,7 +10,7 @@ y searchbar que emplearía elastic search.
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/buyer/landing_page_layout";
+import LandingPageLayout from "@/components/buyer/buyer_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
 import styles from "@/styles/catalog.module.css";
 
