@@ -3,7 +3,7 @@ Salvador Federico Milanes Braniff
 18-04-2023
 
 Searchbar es el componente de búsqueda de la barra de navegación.
-Es reacriva y se ajusta a la pantalla de forma dinámica.
+Es reactiva y se ajusta a la pantalla de forma dinámica.
 */
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -47,23 +47,23 @@ export default function Searchbar({
           <form onSubmit={handleSubmit}>
             <input
               className={styles.searchbar}
-              variant="outlined"
+              // variant="outlined"
               size="small"
               type="text"
               placeholder={placeholderText}
               value={search}
               onChange={handleSearch}
             />
-            <button type="submit">Search</button>
+            <button type="submit">
+              <Image
+                src="/searchbar_search_icon.svg"
+                alt="search"
+                width={30}
+                height={30}
+                className={styles.searchbar_icon}
+              />       
+            </button>
           </form>
-          <Image
-            src="/searchbar_search_icon.svg"
-            alt="search"
-            width={30}
-            height={30}
-            className={styles.searchbar_icon}
-          />
-          
         </div>
         {rightItem && (
           <div className={styles.searchbar_right_item}>{rightItem}</div>

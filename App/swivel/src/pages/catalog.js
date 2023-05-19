@@ -175,7 +175,7 @@ export default function Catalog() {
             */}
             <Searchbar
               setState={setSelectedFilters}
-            > </Searchbar>
+            />
             <div
               style={{
                 padding: "3%",
