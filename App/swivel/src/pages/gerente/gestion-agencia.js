@@ -7,6 +7,7 @@ const WorkingHoursComponent = () => {
     const [endTime, setEndTime] = useState('');
     const [preDays, setPreDays] = useState(0);
     const [maxDays, setMaxDays] = useState(0);
+    const [agency, setAgency] = useState('');
     
     const [session, loading] = useSession();
   
@@ -30,7 +31,7 @@ const WorkingHoursComponent = () => {
     // Handle form submission
     const handleSubmit = async () => {
         try {
-            await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: session.user.agency, horas_min, horas_max, dias_anticipo, dias_max });
+            await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: agency, horas_min: horas_min, horas_max: horas_max, dias_anticipo: dias_anticipo, dias_max: dias_max });
         } 
         catch (error) {
             console.error('Error fetching search results:', error);
@@ -65,6 +66,18 @@ const WorkingHoursComponent = () => {
             onChange={handleMaxDaysChange}
             inputProps={{ min: 0 }}
         />
+
+        <div>
+          <label htmlFor="agency_field">Agencia</label>
+          <input
+            type="text"
+            id="agency_field"
+            className="form-control"
+            value={agencia}
+            onChange={(e) => setAgency(e.target.value)}
+            required
+          />
+        </div>
 
         <Button onClick={handleSubmit} variant="contained" color="primary">
             Submit

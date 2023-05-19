@@ -2,16 +2,14 @@
 
 import axios from "axios";
 import React, { useState } from "react";
-import { useSession } from "next-auth/react";
 
 export default function SellerSignup() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
-
-  const [session, loading] = useSession();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -22,7 +20,7 @@ export default function SellerSignup() {
         last_name: surname,
         email: email,
         password: password,
-        agency: session.user.agency,
+        agency: agency,
         cellphone: phone,
       });
 
@@ -71,6 +69,18 @@ export default function SellerSignup() {
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="agency_field">Agency</label>
+          <input
+            type="text"
+            id="agency_field"
+            className="form-control"
+            value={agency}
+            onChange={(e) => setAgency(e.target.value)}
             required
           />
         </div>

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSession } from "next-auth/react";
 
 const SearchResults = () => {
     const [results, setResults] = useState([]);
-    const [session, loading] = useSession();
 
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
@@ -15,6 +13,7 @@ const SearchResults = () => {
     const [editedEmail, setEditedEmail] = useState('');
     const [editedCellphone, setEditedCellphone] = useState('');
     const [oldEmail, setOldEmail] = useState('');
+    const [agency, setAgency] = useState('');
   
     // Function to fetch search results from the API endpoint
     const fetchResults = async () => {
@@ -43,7 +42,7 @@ const SearchResults = () => {
     // Function to delete an entry
     const deleteEntry = async (entry) => {
         try {
-            await axios.delete('/api/gerente/eliminar-vendedor', { email: entry, agency: session.user.agency });
+            await axios.delete('/api/gerente/eliminar-vendedor', { email: entry, agency: agency });
             // Refresh the results after deletion
             fetchResults();
         } 
@@ -131,6 +130,18 @@ const SearchResults = () => {
                 <a href='/seller/seller_signup'>
                     <button> [+] </button>
                 </a>
+            </div>
+
+            <div>
+            <label htmlFor="agency_field">Agencia</label>
+            <input
+                type="text"
+                id="agency_field"
+                className="form-control"
+                value={agencia}
+                onChange={(e) => setAgency(e.target.value)}
+                required
+            />
             </div>
 
             <ul>
