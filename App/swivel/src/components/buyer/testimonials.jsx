@@ -6,34 +6,11 @@
   las razones por las cuales comprar en SWIVEL.
 */
 import React from "react";
-import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css";
 import CustomCard from "@/components/general/custom_card";
 import styles from '@/styles/testimonials.module.css'
 
 export default function Testimonials() {
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      partialVisibilityGutter: 80, // Adjust the value to control the gap between cards
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      partialVisibilityGutter: 80, // Adjust the value to control the gap between cards
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      partialVisibilityGutter: 80, // Adjust the value to control the gap between cards
-    },
-  };
-
-  // const customTransition = {
-  //   transform: 'translateX(calc(-10% - 50px))', // Adjust the value to increase the horizontal gap between cards
-  // };
-
   return (
     <div className={styles.testimonials_container}>
       <h1 className={styles.header}>Reseñas</h1>
