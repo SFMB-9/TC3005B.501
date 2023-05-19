@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 const CarDetail = () => {
 
-  const autoId = "64628905d5bf84071fa085d7";
+  const autoId = "HWbdNYgBBj91CA9yeGJm";
   const userId = "64586ff82cd17fbeb63aa3d0";
 
   const router = useRouter();

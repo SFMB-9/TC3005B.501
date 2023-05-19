@@ -16,7 +16,6 @@ const RequestDetails = () => {
 
   const router = useRouter();
   const [request, setRequests] = useState([]);
-  const [agencyAddress, setAgencyAddress] = useState({});
   const [carData, setCarData] = useState({});
   const [firstImage, setFirstImage] = useState("");
   const [chosenDate, setChosenDate] = useState("");
@@ -28,7 +27,6 @@ const RequestDetails = () => {
     , {params : {_id: id}});
     const retrievedRequest = res.data.proceso;
     setRequests(retrievedRequest);
-    setAgencyAddress(res.data.proceso.direccion_agencia);
     setCarData(res.data.proceso.auto);
     setFirstImage(res.data.proceso.auto.array_fotografias_url[0]);
     setChosenDate(res.data.proceso.fecha_agendada);
@@ -50,14 +48,7 @@ const RequestDetails = () => {
         <p>Fecha: {chosenDate.slice(0, 10)} (UTC)</p>
         <p>Hora: {chosenTime.slice(11, 16)} (UTC)</p>
 
-        <p>Direccion: {agencyAddress.calle},  
-            Num. {agencyAddress.numero_exterior},   
-            Int. {agencyAddress.numero_interior},  
-            {agencyAddress.ciudad},  
-            {agencyAddress.estado},  
-            {agencyAddress.pais}.  
-            CP: {agencyAddress.codigo_postal}
-        </p>
+        <p>Direccion: {request.direccion_agencia}</p>
         <p>Telefono: {request.numero_telefonico}</p>
         
         <h1>Auto</h1>

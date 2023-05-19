@@ -1,20 +1,11 @@
 const mongoose = require('mongoose');
 
 const procesoSchema = new mongoose.Schema({
-  vendedor_id: {
-    type: String,
-  },
-  agencia_id: {
+  nombre_agencia: {
     type: String,
   },
   direccion_agencia: {
-    calle: String,
-    numero_exterior: String,
-    numero_interior: String,
-    ciudad: String,
-    estado: String,
-    pais: String,
-    codigo_postal: String
+    type: String,
   },
   grupo_automotriz_id: {
     type: String,
@@ -30,7 +21,6 @@ const procesoSchema = new mongoose.Schema({
   },
   tipo_proceso: {
     type: String,
-  
   },
   documentos_url: {
     type: Array,

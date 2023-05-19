@@ -4,6 +4,9 @@ Diego Corrales Pinedo
 
 Endpoint to get all the data
 of a given car in the db.
+
+NOTE: Replaced by get-car-info-elastic
+since cars will be stored in elastic.
 */
 
 const mongoose = require('mongoose');

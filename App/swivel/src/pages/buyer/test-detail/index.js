@@ -34,19 +34,18 @@ const RequestDetails = () => {
   const [processId, setProcessId] = useState('');
   const { auto_id, user_id } = router.query;
 
-  console.log("auto_id: " + auto_id);
-  console.log("user_id: " + user_id);
   const fetchDetails = async () => {  
-    const res = await axios.get('/api/prueba-manejo/get-car-info'
-    , {params : {_id: auto_id}});
-    const retrievedAuto = res.data.auto;
+    let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`, 
+    {method: 'GET'});
+    const res = await rawResult.json();
+    const retrievedAuto = res.auto._source;
     const resUser = await axios.get('/api/prueba-manejo/get-user-info'
     , {params : {_id: user_id}});
     const retrievedUser = resUser.data.user;
     const retrievedDocuments = resUser.data.user.documentos_url;
     const retrievedAddress = resUser.data.user.direccion;
     setCarData(retrievedAuto);
-    setFirstImage(retrievedAuto.array_fotografias_url[0]);
+    setFirstImage(retrievedAuto.fotos_3d[0]);
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
     setUserAddress(retrievedAddress);
@@ -62,7 +61,7 @@ const RequestDetails = () => {
 
   const createDrivingTest = async () => {
     // Create driving test request
-    const res = await axios.post('/api/prueba-manejo/crear-prueba',
+    const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
     {auto_id: auto_id, user_id: user_id});
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
@@ -133,9 +132,9 @@ const RequestDetails = () => {
         <h1>Detalles auto</h1>
         <p>Marca: {carData.marca} </p>
         <p>Modelo: {carData.modelo} </p>
-        <p>Anio: {carData.ano} </p>
+        <p>Año: {carData.año} </p>
         <p>Precio: {carData.precio} </p>
-        <p>Ubicacion: {carData.estado_agencia}, {carData.municipio_agencia}</p>
+        <p>Direccion: {carData.direccion_agencia}</p>
         <img src={firstImage}
           alt="Imagen de auto ejemplo" 
           width="500" 
