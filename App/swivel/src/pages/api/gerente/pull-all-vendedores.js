@@ -1,6 +1,6 @@
 import User from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
-import { encryptRole } from "@/utils/crypto";
+import { encryptRole } from "../../../utils/crypto";
 
 /* 
 ALL seller details retrieval function
@@ -12,15 +12,12 @@ export default async function handler(req, res) {
         dbConnect();
 
         try {
-        // Query the database for documents matching the specified value
-        const result = await User.find({ tipo_usuario: encryptRole("seller") });
-    
-        // Return the result as JSON
-        res.status(200).json(result);
+            let result = await User.find({ tipo_usuario: encryptRole("seller") }).exec();
+            res.status(200).json(result);
         } 
         catch (error) {
-        console.error('Error fetching data:', error);
-        res.status(400).json({ error: 'An error occurred' });
+            console.error('Error fetching data:', error);
+            res.status(400).json({ error: 'An error occurred' });
         }
     }
     else {

@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     const { name, last_name, email, password, cellphone, agency } = req.body;
     
-    let usedEmail = await User.exists({ email: email });
+    let usedEmail = await User.findOne({ email: email });
     
     if (!usedEmail) { // email existence check within the db, returns if there is already an account with the email
       await User.create({  
@@ -23,7 +23,8 @@ export default async function handler(req, res) {
         contraseña: password,  
         numero_telefonico: cellphone,
         agencia: agency,
-        is_account_verified: true, 
+        is_account_verified: true,
+        account_provider: null 
       });
 
       res.status(200).json({ message: "User registered successfully" });
