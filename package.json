@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "react-on-screen": "^2.1.1"
+  }
+}
