@@ -1,7 +1,7 @@
 import React from "react";
 import CustomHero from "@/components/general/custom_hero";
 import SellerNavbar from "@/components/providers/seller/seller_navbar";
-import ReqCards from "@/components/providers/seller/req_cards";
+import SellerRequestCards from "@/components/providers/seller/request_cards";
 
 export default function SellerLandingPage() {
   return (
@@ -11,7 +11,7 @@ export default function SellerLandingPage() {
         title="Bienvenidx, nombre"
         message="Administra tus solicitudes pendientes"
       />
-      <ReqCards/>
+      <SellerRequestCards/>
     </>
   );
 }
