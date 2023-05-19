@@ -1,5 +1,6 @@
 import { Typography, Button } from "@mui/material"
 import Link from "next/link"
+import Searchbar from "@/components/general/searchbar"
 
 import styles from "@/styles/custom_hero.module.css"
 
@@ -11,6 +12,7 @@ export default function CustomHero({
   messageSize = 30,
   containerSize = 30,
   button = false,
+  searchbar = false,
 }) {
   return (
     <div className={styles.hero_container} style={{ height: containerSize + 'vh' }}>
@@ -55,6 +57,14 @@ export default function CustomHero({
                   </Typography>
                 </Button>
               </Link>
+            </div>
+          )
+        }
+        {/* If searchbar present */}
+        {searchbar &&
+          (
+            <div className="d-flex justify-content-center mt-5">
+              <Searchbar/>
             </div>
           )
         }
