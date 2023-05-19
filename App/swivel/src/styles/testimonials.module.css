@@ -10,13 +10,18 @@
   font-family: 'Raleway';
   margin-top: 10vh;
 }
+
 .container {
-  margin-top: 10vh;
   display: flex;
   flex-direction: row;
-  gap:2vw;
+  gap: 2vw;
+  margin-top: 10vh;
   margin-bottom: 10vh;
 }
-.item {
-  height: 70vh;
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
