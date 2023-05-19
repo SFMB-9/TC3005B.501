@@ -175,7 +175,7 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
                             </Typography>
                           ) : (
                             <Link href={popup_element.href}>
-                              <Typography className={styles.popup_item} onClick={()=> handleSignout(popup_element.signoutComponent)}>
+                              <Typography className={styles.popup_item}>
                                 {popup_element.name}
                               </Typography>
                             </Link>
