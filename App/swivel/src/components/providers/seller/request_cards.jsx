@@ -1,10 +1,10 @@
-import CustomCard from '@/components/general/custom_card';
+import CustomIconCard from '@/components/general/custom_icon_card';
 import styles from '@/styles/cards.module.css';
 
 export default function ReqCards() {
   return (
     <div className={styles.reqCardsContainer}>
-      <CustomCard
+      <CustomIconCard
         imageSource="/seller_sales_image.jpg"
         icon="/seller_cart_icon.svg"
         text="Solicitudes de Compra"
@@ -13,7 +13,7 @@ export default function ReqCards() {
         header=''
         fiftyFifty={false}
       />
-      <CustomCard
+      <CustomIconCard
         imageSource="/seller_tests_image.jpg"
         icon="/seller_wheel_icon.svg"
         text="Solicitudes de prueba de manejo"
