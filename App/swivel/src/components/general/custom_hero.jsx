@@ -64,7 +64,9 @@ export default function CustomHero({
         {searchbar &&
           (
             <div className="d-flex justify-content-center mt-5">
-              <Searchbar/>
+              <Searchbar
+                transparent
+              />
             </div>
           )
         }

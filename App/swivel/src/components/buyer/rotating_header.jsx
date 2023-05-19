@@ -54,7 +54,6 @@ export default function RotatingHeader() {
             message = ''
             searchbar
           />
-          {/* <h1><span>{text}</span></h1> */}
         </div>}
       </TrackVisibility>
     </section>

@@ -1,11 +1,35 @@
 import styles from '@/styles/car_views.module.css'
 import CustomTogglerBar from '../general/custom_toggler_bar'
+import CarCard from './car_card'
 
 export default function CarViews() {
   const components = [
-    {name: 'Revisados recientemente', component: () => <>recent get</>},
-    {name: 'Populares', component: () => <>popular get</>},
-    {name: 'Recomendaciónes', component: () => <>recomendation get</>},
+    {name: 'Revisados recientemente', component: () => 
+      <>
+        <div className={styles.cards}>
+          <CarCard/>
+          <CarCard/>
+          <CarCard/>
+        </div>
+      </>
+    },
+    {name: 'Populares', component: () => 
+    <>
+      <div className={styles.cards}>
+        <CarCard/>
+        <CarCard/>
+        <CarCard/>
+      </div>
+    </>
+    },
+    {name: 'Recomendaciónes', component: () => 
+    <>
+      <div className={styles.cards}>
+        <CarCard/>
+        <CarCard/>
+        <CarCard/>
+      </div>
+    </>},
   ]
   return(
     <>

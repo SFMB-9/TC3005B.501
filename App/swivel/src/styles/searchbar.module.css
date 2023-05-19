@@ -1,42 +1,37 @@
-.wrapper {
-  display: flex;
-}
-
 .searchbar_container {
   background-image: url('/searchbar_background_image.svg');
-  width: 100%;
-  flex: 1;
   background-repeat: no-repeat;
   background-size: cover;
+  justify-content: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0 1rem; /* Add padding to create space for the icon */
-  position: relative; /* Add position relative */
-}
-
-.searchbar_box {
   padding: 0.6rem 1.4rem;
-  display: flex;
-  align-items: center;
-  flex: 1; /* Make the search bar box flex to occupy available space */
 }
 
-.searchbar {
+.searchbar_container.transparent {
+  background-image: none;
+}
+
+.searchbar_field {
   border-radius: 20px;
-  border: none;
   outline: none;
-  padding: 0.4rem 2.4rem 0.2rem 1.2rem; /* Adjust padding to make space for the icon */
-  flex: 1; /* Make the search input flex to occupy available space */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.5rem 0.2rem 1.2rem;
+  border-radius: 20px;
+  background-color: #FFF;
+}
+
+.searchbar_field input {
+  flex-grow: 1;
+  border: none;
   text-overflow: ellipsis;
+  outline: none;
 }
 
 .searchbar_icon {
-  position: absolute; /* Add position absolute */
-  right: 0.8rem; /* Adjust the right position as needed */
-  top: 50%; /* Vertically center the icon */
-  transform: translateY(-50%); /* Adjust the vertical centering */
-  background: none;
   border: none;
-  outline: none;
-  cursor: pointer;
+  background-color: #fff;
 }

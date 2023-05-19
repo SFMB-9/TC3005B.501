@@ -8,6 +8,13 @@
   padding: 50px;
 }
 
+.cards {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .header {
   font-family: 'Raleway';
   margin-bottom: 50px;

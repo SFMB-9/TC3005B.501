@@ -17,13 +17,6 @@ export default function Home() {
   return (
     <>
       <BuyerLayout>
-        {/* <CustomHero
-          titleSize='200'
-          title='Compra el auto de tus sueños en línea'
-          message=''
-          button
-          containerSize={50}
-        /> */}
         <RotatingHeader/>
         <CategoryViews/>
         <CarViews/>

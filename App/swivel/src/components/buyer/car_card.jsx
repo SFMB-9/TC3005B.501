@@ -24,9 +24,6 @@ export default function CarCard(props) {
         image={props.carImage}
         alt="car"
       />
-      {/* <CardMedia>
-        {props.carImage}
-      </CardMedia> */}
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{
