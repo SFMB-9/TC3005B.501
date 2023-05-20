@@ -13,8 +13,12 @@ import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/buyer/buyer_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
 import styles from "@/styles/catalog.module.css";
+import { useRouter } from "next/router";
+import ApiDataDisplay from "@/components/buyer/api_data_display";
 
 export default function Catalog() {
+  const router = useRouter();
+
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -23,6 +27,32 @@ export default function Catalog() {
   const [catalogData, setCatalogData] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
+  console.log(router.query);
+
+  // if(router.query.marca){
+  //   if(!selectedFilters.includes(`marca=${router.query.marca}`)){
+  //     setSelectedFilters((prevSelectedFilters) => {
+  //       const newSelectedFilters = [...prevSelectedFilters];
+  //       newSelectedFilters.push(`marca=${router.query.marca}`);
+  //       setSelectedChips((prevSelectedChips) => {
+  //         const newChip = { category: "marca", value: router.query.marca };
+  //         const isChipDuplicate = prevSelectedChips.find(
+  //           (chip) =>
+  //             chip.category === newChip.category &&
+  //             chip.value === newChip.value
+  //         );
+  //         if (isChipDuplicate) {
+  //           return prevSelectedChips;
+  //         } else {
+  //           return [...prevSelectedChips, newChip];
+  //         }
+  //       });
+  //       return newSelectedFilters;
+  //     });
+  //   }
+  // }
+
+  console.log(selectedFilters);
   const fetchFilters = async () => {
     let queryString = selectedFilters.length
       ? `?${selectedFilters
@@ -31,7 +61,7 @@ export default function Catalog() {
       : "";
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/buscar-auto${queryString}`
+      `http://localhost:3000/api/catalogoNuevo/filter${queryString}`
     );
 
     const data = await response.json();
@@ -60,33 +90,39 @@ export default function Catalog() {
       const newSelectedFilters = [...prevSelectedFilters];
       if (expandedMenuItems[category]?.[item]) {
         const filterIndex = newSelectedFilters.indexOf(`${category}=${item}`);
+
         if (filterIndex > -1) {
           newSelectedFilters.splice(filterIndex, 1);
         }
-        setSelectedChips((prevSelectedChips) =>
-          prevSelectedChips.filter(
-            (chip) => chip.category !== category || chip.value !== item
-          )
-        );
+        // setSelectedChips((prevSelectedChips) =>
+        //   prevSelectedChips.filter(
+        //     (chip) => chip.category !== category || chip.value !== item
+        //   )
+        // );
       } else {
         // remove any existing filter for this category
-        newSelectedFilters.filter((f) => !f.startsWith(`${category}=`));
+        newSelectedFilters.filter((f) => { !f.startsWith(`${category}=`) });
+
+        
         // add the new filter if it's not null
         if (item) {
+
+          //   // Append the item to the category
+
           newSelectedFilters.push(`${category}=${item}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category, value: item };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
+          // setSelectedChips((prevSelectedChips) => {
+          //   const newChip = { category, value: item };
+          //   const isChipDuplicate = prevSelectedChips.find(
+          //     (chip) =>
+          //       chip.category === newChip.category &&
+          //       chip.value === newChip.value
+          //   );
+          //   if (isChipDuplicate) {
+          //     return prevSelectedChips;
+          //   } else {
+          //     return [...prevSelectedChips, newChip];
+          //   }
+          // });
         }
       }
       return newSelectedFilters;
@@ -170,9 +206,8 @@ export default function Catalog() {
               }}
             >
               {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                {`http://localhost:3000/api/catalogo/buscar-autos${
-                  selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                }`}
+                {`http://localhost:3000/api/catalogo/buscar-autos${selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
+                  }`}
               </div>
               <ApiDataDisplay apiData={apiData} /> */}
               <CatalogGrid carListing={catalogData} />
