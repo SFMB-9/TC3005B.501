@@ -1,9 +1,16 @@
+/*
+  This file is used to change the password of the user
+  Author: Mateo Herrera
+*/
+
 "use client";
 
 import axios from "axios";
 //import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
+import { Typography } from "@mui/material";
+import { TextField, Button } from '@mui/material';
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
@@ -43,40 +50,101 @@ export default function ChangePassword() {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <h1>Change Password</h1>
+      <div className="section">
+        <div className="container">
+          <div className="pt-4">
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            className="pb-2"
+            sx={{ fontFamily: "Raleway", color: "#333333" }}
+          >
+            Cambiar contraseña
+          </Typography>
 
-        <label htmlFor="password_field">Old Password</label>
-        <input
-          type="password"
-          id="password_field"
-          className="form-control"
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-          required
-        />
-        <label htmlFor="password_field">New Password</label>
-        <input
-          type="password"
-          id="password_field"
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <Typography
+            className="pb-4"
+            sx={{ fontFamily: "Lato", color: "#333333", fontSize: "12px",}}
+          >
+            Se cerrarán todas las sesiones, excepto la actual, para proteger tu cuenta. <br/>
+La contraseña debe tener al menos seis caracteres, e incluir una combinación de números, letras y caracteres especiales (!$@%).
+          </Typography>
+            <form onSubmit={submitHandler}>
+            <TextField
+              id="password_field"
+              label="Old Password"
+              type="password"
+              value={oldPassword}
+              className="d-flex flex-strech"
+              size="small"
+              onChange={(e) => setOldPassword(e.target.value)}
+              required
+            /> <br/>
+            <TextField
+              id="password_field"
+              label="New Password"
+              type="password"
+              size="small"
+              className="d-flex flex-strech"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            /><br/>
+            <TextField
+              id="password_field"
+              label="Confirm Password"
+              type="password"
+              size="small"
+              className="d-flex flex-strech"
+              value={confPassword}
+                onChange={(e) => setConfPassword(e.target.value)}
+                required
+            />
+            <br/>
 
-        <label htmlFor="password_field">Confirm Password</label>
-        <input
-          type="password"
-          id="password_field"
-          className="form-control"
-          value={confPassword}
-          onChange={(e) => setConfPassword(e.target.value)}
-          required
-        />
+            <div className="text-center">
 
-        <button type="submit">Cambiar Contraseña</button>
-      </form>
+            <Button
+          variant="contained"
+          disableElevation
+          href="/providers/seller"
+          className="me-3"
+          sx={{
+            fontFamily: "Lato",
+            backgroundColor: "#D9D9D9",
+            "&:hover": {
+              backgroundColor: "#b3b3b3",
+              color: "#fff",
+            },
+          }}
+        >
+          Cancelar
+        </Button>
+
+            <Button
+          variant="contained"
+          type="submit"
+          disableElevation
+          onClick={() =>
+            viewRequest(params.row._id, params.row.usuario_final_id)
+          }
+          sx={{
+            fontFamily: "Lato",
+            backgroundColor: "#F55C7A",
+            "&:hover": {
+              backgroundColor: "#f22c53",
+              color: "#fff",
+            },
+          }}
+        >
+          Cambiar Contraseña
+        </Button>
+            </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

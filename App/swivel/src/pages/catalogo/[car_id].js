@@ -75,14 +75,39 @@ export default function CarDetails() {
         const monthlyPayment = carPriceWithDownPayment / selectedTerm;
         const monthlyPaymentTotal = monthlyPayment + (monthlyPayment * (interestRate / 100));
 
-        if(isNaN(monthlyPaymentTotal)) {
+        if (isNaN(monthlyPaymentTotal)) {
             setMonthlyPayment(0);
-        } else{
+        } else {
             setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
         }
-
-        
     };
+
+    const buildSummary = () => {
+        const summary = {
+            marca: carDetails.marca,
+            modelo: carDetails.modelo,
+            año: carDetails.año,
+            precio: carDetails.precio,
+            direccion_agencia: carDetails.direccion_agencia,
+            color: selectedColor.nombre,
+            color_images: selectedColor.imagenes,
+            extras: selectedExtras,
+            total_price_extras: totalPriceExtras,
+            porcentaje_enganche: selectedDownPayment,
+            enganche: downPayment,
+            plazo: selectedTerm,
+            tasa: interestRate,
+            pago_mensual: monthlyPayment,
+            metodo_entrega: selectedDeliveryPrice
+        }
+
+        console.log(summary);
+    };
+
+
+
+
+
 
     // Function to handle checkbox change of
     const handleCheckboxChange = (event) => {
@@ -129,9 +154,9 @@ export default function CarDetails() {
                         </div>
                     ))}
                 </div>
-                    <button>Comprar</button>
+                <button onClick={()=>{buildSummary()}}>Comprar</button>
                 <div>
-                
+
                 </div>
                 <h2>Resumen del Auto</h2>
 
@@ -228,6 +253,8 @@ export default function CarDetails() {
                     <p>Precio por Entega: {selectedDeliveryPrice}</p>
                 </div>
             </div>
+
+
 
         );
     } else {
