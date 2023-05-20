@@ -5,9 +5,9 @@ import Searchbar from "@/components/general/searchbar"
 import styles from "@/styles/custom_hero.module.css"
 
 export default function CustomHero({
-  backgroundImage = "/dummy_car_image2.png",
-  title = "Bienvenidx a Swivel",
-  message = "Compra tu auto completamente en linea",
+  backgroundImage = '/dummy_car_image2.png',
+  title = 'Bienvenidx a Swivel',
+  message = 'Compra tu auto completamente en linea',
   titleSize = 50,
   messageSize = 30,
   containerSize = 30,

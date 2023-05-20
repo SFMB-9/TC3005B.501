@@ -8,8 +8,9 @@ export default function RotatingHeader() {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState('/dummy_car_image2.png');
   const [delta, setDelta] = useState(100);
+
 
   useEffect(() => {
     const tick = () => {
