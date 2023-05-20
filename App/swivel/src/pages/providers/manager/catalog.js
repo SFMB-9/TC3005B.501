@@ -24,17 +24,19 @@ export default function Catalog() {
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
+  const [deletingCarIds, setDeletingCarIds] = useState([]);
+  
+  const agencyName = "Kia";
 
   const router = useRouter();
 
   const fetchFilters = async () => {
+    console.log("Fetching...");
     let queryString = selectedFilters.length
       ? `${selectedFilters
         .map((filter) => filter.replace("modelos", "modelo"))
         .join("&")}`
       : "";
-
-    const agencyName = "Kia";
 
     const response = await fetch(
       `http://localhost:3000/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
@@ -140,10 +142,13 @@ export default function Catalog() {
   };
 
   const deleteCar = async (auto_id) => {
+    setDeletingCarIds([...deletingCarIds, auto_id]);
     // Delete car from elastic
-    let res = await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`, 
+    await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`, 
     {method: 'DELETE'});
     fetchFilters();
+    console.log("TYPE:" + typeof deletingCarIds);
+    console.log("Array: " + deletingCarIds);
   };
 
   return (
@@ -229,8 +234,8 @@ export default function Catalog() {
                                 <td>{car._source.año}</td>
                                 <td>{car._source.marca}</td>
                                 <td>{car._id}</td>
-                                <td><button onClick={() => viewEditCar(car._id)}> Editar </button></td>
-                                <td><button onClick={() => deleteCar(car._id)}> Borrar </button></td>
+                                <td><button onClick={() => viewEditCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Editar </button></td>
+                                <td><button onClick={() => deleteCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Borrar </button></td>
                             </tr>
                             ))}
                         </tbody>
