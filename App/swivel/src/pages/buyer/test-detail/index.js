@@ -32,6 +32,7 @@ const RequestDetails = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
+  const [managerData, setManagerData] = useState({});
   const { auto_id, user_id } = router.query;
 
   const fetchDetails = async () => {  
@@ -44,11 +45,15 @@ const RequestDetails = () => {
     const retrievedUser = resUser.data.user;
     const retrievedDocuments = resUser.data.user.documentos_url;
     const retrievedAddress = resUser.data.user.direccion;
+    const resManager = await axios.get('/api/prueba-manejo/get-manager-info'
+    , {params : {agency_name: retrievedAuto.nombre_agencia}});
+    const retrievedManager = resManager.data.user;
     setCarData(retrievedAuto);
     setFirstImage(retrievedAuto.fotos_3d[0]);
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
     setUserAddress(retrievedAddress);
+    setManagerData(retrievedManager);
   }
 
   const viewRequest = (id) => {
@@ -145,9 +150,9 @@ const RequestDetails = () => {
           selected={selectedDate} 
           onChange={date => setSelectedDate(date)}
           dateFormat='dd/MM/yyyy'
-          minDate={addDays(new Date(), carData.dias_anticipo)}
-          maxDate={addDays(new Date(), carData.dias_max)}
-          startDate={addDays(new Date(), carData.dias_anticipo)}
+          minDate={addDays(new Date(), managerData.dias_anticipo)}
+          maxDate={addDays(new Date(), managerData.dias_max)}
+          startDate={addDays(new Date(), managerData.dias_anticipo)}
         />
         <DatePicker
           selected={selectedTime} 
@@ -156,8 +161,8 @@ const RequestDetails = () => {
           showTimeSelectOnly
           timeFormat='hh aa'
           timeIntervals={60}
-          minTime={setHours(new Date(), carData.horas_min)}
-          maxTime={setHours(new Date(), carData.horas_max)}
+          minTime={setHours(new Date(), managerData.horas_min)}
+          maxTime={setHours(new Date(), managerData.horas_max)}
           dateFormat='hh:mm aa'
         />
 

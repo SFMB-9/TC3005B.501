@@ -21,17 +21,19 @@ export default async (req, res) => {
         const carData = jsonResult.auto._source;
         
         const userData = await Usuario.findById(req.body.user_id);
+        const agencyData = await Usuario.findOne({ "agencia": carData.nombre_agencia, "tipo_usuario": "gerente" });
         
         // Create the Process with the defined data
         const proceso = await Proceso.create({ 
             tipo_proceso: "prueba_manejo",
             estatus_validacion: "En proceso",
             documentos_url: userData["documentos_url"],
-            // grupo_automotriz_id: carData["grupo_automotriz_id"],
+            grupo_automotriz_id: agencyData["grupo_automotriz_id"],
             nombre_agencia: carData.nombre_agencia,
             direccion: userData["direccion"],
             fecha_inicio: Date.now(),
-            // grupo_automotriz: carData["grupo_automotriz"],
+            grupo_automotriz: agencyData["grupo_automotriz"],
+            superadmin: agencyData["superadmin"],
             usuario_final_id: req.body.user_id,
             auto: {
                 "auto_id": req.body.auto_id,
@@ -42,7 +44,7 @@ export default async (req, res) => {
                 "array_fotografias_url": carData.fotos_3d
             },
             direccion_agencia: carData.direccion_agencia,
-            // numero_telefonico: agencyData["numero_telefonico"],
+            numero_telefonico: agencyData["numero_telefonico"],
             comentarios: "",
         });
 
