@@ -1,40 +1,41 @@
-import CustomCard from '@/components/general/custom_icon_card';
+import CustomIconCard from '@/components/general/custom_icon_card';
 import styles from '@/styles/cards.module.css';
 
 export default function ActionsCards() {
   return (
     <div className={styles.actionCardsContainer}>
-      <CustomCard
-        imageSource="/seller_sales_image.jpg"
+      <CustomIconCard
+        imageSource="/manager/catalog_action.jpg"
         icon="/seller_cart_icon.svg"
-        text="Solicitudes de Compra"
+        text="Administración del catálogo"
         href="/providers/seller/purchase_req"
         light={false}
         header=''
         fiftyFifty={false}
       />
-      <CustomCard
-        imageSource="/seller_tests_image.jpg"
+      <CustomIconCard
+        imageSource="/manager/seller_action.jpg"
         icon="/seller_wheel_icon.svg"
-        text="Solicitudes de prueba de manejo"
+        text="Administración de vendedores"
         href="/providers/seller/driving_req"
         light={false}
         header=''
         fiftyFifty={false}
       />
-      <CustomCard
-        imageSource="/seller_tests_image.jpg"
+      <CustomIconCard
+        imageSource="/manager/branch_action.jpg"
         icon="/seller_wheel_icon.svg"
-        text="Solicitudes de prueba de manejo"
+        text="Administración de la agencia"
         href="/providers/seller/driving_req"
         light={false}
         header=''
         fiftyFifty={false}
       />
-      <CustomCard
-        imageSource="/seller_tests_image.jpg"
+      <CustomIconCard
+        imageSource="/manager/statistics_action.png"
         icon="/seller_wheel_icon.svg"
-        text="Solicitudes de prueba de manejo"
+        // Add new line to text
+        text="Estadísticas de ventas"
         href="/providers/seller/driving_req"
         light={false}
         header=''

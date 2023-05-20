@@ -1,4 +1,4 @@
-import BuyerNavbar from "@/components/buyer/buyer_navbar"
+import BuyerNavbar from "@/components/buyer/navbar"
 import CustomHero from "@/components/general/custom_hero"
 import CustomScrollerBar from "@/components/general/custom_scroller_bar"
 
