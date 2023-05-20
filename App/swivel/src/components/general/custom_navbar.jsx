@@ -7,8 +7,15 @@ import { useState } from "react";
 import { signOut } from "next-auth/react";
 
 import styles from '@/styles/custom_navbar.module.css'
+import Searchbar from "./searchbar";
 
-export default function CustomNavbar({ home = '/', elems_left = [], elems_right = [], black = false }) {
+export default function CustomNavbar({
+  home = '/',
+  elems_left = [],
+  searchbar = false,
+  elems_right = [],
+  black = false
+}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -129,6 +136,7 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
             <Image src="/swivel_logo_white.svg" alt="Logo" width={120} height={30} />
           </Link>
         </Box>
+        {/* If searchbar present */}
         {/* Right-most elements, screen medium */}
         <Box
           sx={{
@@ -139,6 +147,9 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
             marginRight: "16px"
           }}
         >
+          {searchbar && (
+            <Searchbar transparent />
+          )}
           <div style={{ display: "flex", gap: "60px" }}>
             {elems_right.map((element, index) => (
               // Check if the element is a popup
@@ -170,16 +181,16 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
                       <MenuItem key={index} onClick={handleCloseUserMenu}>
                         {/* Check if the element is a signup component */}
                         {popup_element.signoutComponent ? (
-                            <Typography className={styles.popup_item} onClick={()=> signOut({callbackUrl: popup_element.signoutComponent})}>
+                          <Typography className={styles.popup_item} onClick={() => signOut({ callbackUrl: popup_element.signoutComponent })}>
+                            {popup_element.name}
+                          </Typography>
+                        ) : (
+                          <Link href={popup_element.href}>
+                            <Typography className={styles.popup_item}>
                               {popup_element.name}
                             </Typography>
-                          ) : (
-                            <Link href={popup_element.href}>
-                              <Typography className={styles.popup_item}>
-                                {popup_element.name}
-                              </Typography>
-                            </Link>
-                          )}
+                          </Link>
+                        )}
                       </MenuItem>
                     ))}
                   </Menu>
@@ -247,12 +258,12 @@ export default function CustomNavbar({ home = '/', elems_left = [], elems_right 
                         <MenuItem key={subIndex} onClick={handleCloseUserMenu}>
                           {/* Check if the element is a signup component */}
                           {popup_element.signoutComponent ? (
-                            <Typography className={styles.popup_item} onClick={()=> handleSignout(popup_element.signoutComponent)}>
+                            <Typography className={styles.popup_item} onClick={() => handleSignout(popup_element.signoutComponent)}>
                               {popup_element.name}
                             </Typography>
                           ) : (
                             <Link href={popup_element.href}>
-                              <Typography className={styles.popup_item} onClick={()=> handleSignout(popup_element.signoutComponent)}>
+                              <Typography className={styles.popup_item} onClick={() => handleSignout(popup_element.signoutComponent)}>
                                 {popup_element.name}
                               </Typography>
                             </Link>

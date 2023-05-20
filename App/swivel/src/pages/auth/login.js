@@ -1,15 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
+import AuthComponent from "@/components/login/auth_component";
+import { Typography } from "@mui/material";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
 
-  useEffect(() => {}, [session]);
+  useEffect(() => { }, [session]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -26,7 +27,9 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
-        if (session.role === "seller") {
+        if (session.role === "buyer") {
+          callbackUrl = `${window.location.origin}/`;
+        } else if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else {
           callbackUrl = `${window.location.origin}/auth/logout`;
@@ -41,37 +44,85 @@ export default function Login() {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <h1>Login</h1>
-        <div>
-          <label htmlFor="email_field"> Email address </label>
-          <input
-            type="email"
-            id="email_field"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+      <AuthComponent
+        backImage=""
+        fields={
+          <form className="d-flex flex-column " onSubmit={submitHandler}>
+            <div className="form-outline mb-2">
+              <label className="form-label">
+                <Typography
+                  sx={{
+                    color: "black",
+                    fontFamily: "lato",
+                  }}
+                >
+                  {" "}
+                  Correo electrónico{" "}
+                </Typography>
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-        <div>
-          <label htmlFor="password_field"> Password </label>
-          <input
-            type="password"
-            id="password_field"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+            </div>
+            <div className="form-outline mb-2">
+              <label className="form-label">
+                <Typography
+                  sx={{
+                    color: "black",
+                    fontFamily: "lato",
+                  }}
+                >
+                  {" "} Contraseña{" "} </Typography> </label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+              <button type="submit" className="btn btn-primary btn-block mb-2">
+                <Typography
+                  wrap
+                  sx={{
+                    color: "white",
+                    fontFamily: "lato",
+                  }}
+                >
+                  {" "}
+                  Ingresar{" "}
+                </Typography>
+              </button>
 
-        <button type="submit">Sign in</button>
-        <div className="text-center">
-          <p>
-            Not a member? <Link href="/register">Register</Link>
-          </p>
-        </div>
-      </form>
+              <button type="submit" className="btn btn-secondary btn-block mb-2">
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontFamily: "lato",
+                  }}
+                >
+                  {" "}
+                  <img alt="logo de google" src="/google_logo.svg" /> Ingresar con
+                  Google{" "}
+                </Typography>
+              </button>
+            </div>
+            <div className="text-center">
+              <p>
+                No tienes cuenta? <a href="/auth/signup_buyer">Regístrate aquí</a>
+              </p>
+            </div>
+          </form>}
+        cardImage="/card_welcome.png"
+        backColor="black"
+        bodyText="Compra el auto de tus sueños en un solo click"
+        titleText="Bienvenidx"
+        textColor="white"
+      />
     </>
   );
 }
