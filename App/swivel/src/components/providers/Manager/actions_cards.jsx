@@ -6,7 +6,7 @@ export default function ActionsCards() {
     <div className={styles.actionCardsContainer}>
       <CustomIconCard
         imageSource="/manager/catalog_action.jpg"
-        icon="/seller_cart_icon.svg"
+        icon="/manager/catalog_icon.svg"
         text="Administración del catálogo"
         href="/providers/seller/purchase_req"
         light={false}
@@ -15,7 +15,7 @@ export default function ActionsCards() {
       />
       <CustomIconCard
         imageSource="/manager/seller_action.jpg"
-        icon="/seller_wheel_icon.svg"
+        icon="/manager/seller_icon.svg"
         text="Administración de vendedores"
         href="/providers/seller/driving_req"
         light={false}
@@ -24,7 +24,7 @@ export default function ActionsCards() {
       />
       <CustomIconCard
         imageSource="/manager/branch_action.jpg"
-        icon="/seller_wheel_icon.svg"
+        icon="/manager/branch_icon.svg"
         text="Administración de la agencia"
         href="/providers/seller/driving_req"
         light={false}
@@ -33,8 +33,7 @@ export default function ActionsCards() {
       />
       <CustomIconCard
         imageSource="/manager/statistics_action.png"
-        icon="/seller_wheel_icon.svg"
-        // Add new line to text
+        icon="/manager/statistics_icon.svg"
         text="Estadísticas de ventas"
         href="/providers/seller/driving_req"
         light={false}
