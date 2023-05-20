@@ -7,7 +7,6 @@ acomodadas y ordenadas en un grid.
 */
 import React from "react";
 import { Grid } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
 
 import CarCard from "@/components/buyer/car_card";
 

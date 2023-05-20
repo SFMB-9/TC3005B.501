@@ -1,33 +1,40 @@
-import { set } from 'mongoose';
+import { Summarize } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from "react";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
-// 2. Arreglar herramienta/seleccion financiamiento
-// 3. Agregar seleccion de extras
-// 4. Agregar seleccion de entrega
-// 5. Agregar seleccion de color
-// 6. Agregar funcionalidad de checkout
 
+// 6. Agregar funcionalidad de checkout
 
 export default function CarDetails() {
     const router = useRouter();
     const { car_id } = router.query;
     const [carDetails, setCarDetails] = useState(null);
 
-    const [selectedDownPayment, setSelectedDownPayment] = useState(null);
+    // States for selected down payment
+    const [selectedDownPayment, setSelectedDownPayment] = useState(0);
+    const [downPayment, setDownPayment] = useState(0);
+
     const [selectedTerm, setSelectedTerm] = useState(null);
     const [interestRate, setInterestRate] = useState(null);
     const [monthlyPayment, setMonthlyPayment] = useState(0);
+
     const [carPrice, setCarPrice] = useState(0);
 
+    const [totalCarPrice, setTotalCarPrice] = useState(0);
+
+    // State for extras
     const [selectedExtras, setSelectedExtras] = useState([]);
+    const [totalPriceExtras, setTotalPriceExtras] = useState(0);
 
-    const [totalPrice, setTotalPrice] = useState(0);
+    // State for color
+    const [selectedColor, setSelectedColor] = useState(null);
 
-    // "enganche": [10,20,30,40,50],
-    // "plazo": {"12": 5.7,"24": 5.8,"36": 6.0,"48": 6.2,"60": 6.6},
+    // State for delivery price
+    const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState(0);
+
+
 
     const fetchCarDetails = async () => {
         const response = await fetch(
@@ -38,6 +45,7 @@ export default function CarDetails() {
 
         setCarDetails(data.result);
         setCarPrice(data.result.precio);
+        setSelectedColor(data.result.colores[0]);
     };
 
     useEffect(() => {
@@ -45,41 +53,79 @@ export default function CarDetails() {
             return;
         }
         fetchCarDetails();
-    }, [car_id]);
+        calculateTotalPriceExtras();
+        calculateDownPaymentAmount();
+        calculateMonthlyPayment();
+    }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate]);
 
-    const calculateMonthlyPayment = () => {
-        let carPriceWithDownPayment = carPrice - (carPrice * (selectedDownPayment / 100));
-        let monthlyPayment = (carPriceWithDownPayment / selectedTerm);
-        let monthlyPaymentTotal = monthlyPayment + (monthlyPayment * (interestRate / 100));
 
-        setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
+    // Calculate the total price based on selected extras
+    const calculateTotalPriceExtras = () => {
+        const extrasPrice = selectedExtras.reduce((total, extra) => total + extra.precio, 0);
+        setTotalPriceExtras(extrasPrice);
     };
 
-    // Function to handle checkbox selection
+    const calculateDownPaymentAmount = () => {
+        let downPaymentAmmount = carPrice * (selectedDownPayment / 100);
+        setDownPayment(downPaymentAmmount);
+    };
+
+    const calculateMonthlyPayment = () => {
+        const carPriceWithDownPayment = (carPrice + totalPriceExtras) - downPayment;
+        const monthlyPayment = carPriceWithDownPayment / selectedTerm;
+        const monthlyPaymentTotal = monthlyPayment + (monthlyPayment * (interestRate / 100));
+
+        if (isNaN(monthlyPaymentTotal)) {
+            setMonthlyPayment(0);
+        } else {
+            setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
+        }
+    };
+
+    const buildSummary = () => {
+        const summary = {
+            marca: carDetails.marca,
+            modelo: carDetails.modelo,
+            año: carDetails.año,
+            precio: carDetails.precio,
+            direccion_agencia: carDetails.direccion_agencia,
+            color: selectedColor.nombre,
+            color_images: selectedColor.imagenes,
+            extras: selectedExtras,
+            total_price_extras: totalPriceExtras,
+            porcentaje_enganche: selectedDownPayment,
+            enganche: downPayment,
+            plazo: selectedTerm,
+            tasa: interestRate,
+            pago_mensual: monthlyPayment,
+            metodo_entrega: selectedDeliveryPrice
+        }
+
+        console.log(summary);
+    };
+
+
+
+
+
+
+    // Function to handle checkbox change of
     const handleCheckboxChange = (event) => {
         const extraTitulo = event.target.value;
         const isChecked = event.target.checked;
 
-        // Update the selected extras based on checkbox changes
         if (isChecked) {
-            const selectedExtra = carDetails.extras.find((extra) => extra.titulo === extraTitulo);
-            setSelectedExtras([...selectedExtras, selectedExtra]);
-            calculateTotalPrice();
-            
+            const selectedExtra = carDetails.extras.find(
+                (extra) => extra.titulo === extraTitulo
+            );
+            setSelectedExtras((prevSelectedExtras) => [...prevSelectedExtras, selectedExtra]);
         } else {
-            const unSelectedExtra = carDetails.extras.find((extra) => extra.titulo === extraTitulo);
-            const updatedExtras = selectedExtras.filter((extra) => extra.titulo !== unSelectedExtra.titulo);
-            setSelectedExtras(updatedExtras);
-            calculateTotalPrice();
-            
+            setSelectedExtras((prevSelectedExtras) =>
+                prevSelectedExtras.filter((extra) => extra.titulo !== extraTitulo)
+            );
         }
     };
 
-    // Calculate the total price based on selected extras
-    const calculateTotalPrice = () => {
-        const extrasPrice = selectedExtras.reduce((total, extra) => total + extra.precio, 0);
-        setTotalPrice(extrasPrice);
-    };
 
     if (carDetails != null) {
         return (
@@ -93,21 +139,25 @@ export default function CarDetails() {
                     <p>Ubicación: {carDetails.direccion_agencia}</p>
                     <p>Agencia: {carDetails.nombre_agencia}</p>
                     <p>Precio: {carDetails.precio}</p>
-                </div>
 
-                {/* Ver por que no funciona extraer colores*/}
-                <div>
-                    <h3>Fotos de auto por color</h3>
-                    {carDetails.colores.map((color) => (
-                        <div>
-                            <p style={{ color: color.valor_hexadecimal, }}>{color.nombre}</p>
-                            {color.imagenes.map((imagen) => (
-                                <img src={imagen} alt={carDetails.modelo} />
-                            ))}
-                        </div>
+                    <p style={{ color: selectedColor.valor_hexadecimal, }}>{selectedColor.nombre}</p>
+                    {selectedColor.imagenes.map((imagen) => (
+                        <img src={imagen} alt={carDetails.modelo} />
                     ))}
                 </div>
 
+                <div>
+                    <h3>Seleccionar color</h3>
+                    {carDetails.colores.map((color) => (
+                        <div>
+                            <button onClick={() => setSelectedColor(color)}>{color.nombre}</button>
+                        </div>
+                    ))}
+                </div>
+                <button onClick={()=>{buildSummary()}}>Comprar</button>
+                <div>
+
+                </div>
                 <h2>Resumen del Auto</h2>
 
                 <p>Combustible: {carDetails.combustible}</p>
@@ -122,13 +172,6 @@ export default function CarDetails() {
                     <li>{caracteristica}</li>
                 ))}
 
-                <h2>Extras</h2>
-                {carDetails.extras.map((extra) => (
-                    <div>
-                        <p>{extra.titulo}: {extra.descripcion}</p>
-                        <p> Precio: {extra.precio}</p>
-                    </div>
-                ))}
                 <div>
                     <div>
                         <h2>Select Extras:</h2>
@@ -139,9 +182,9 @@ export default function CarDetails() {
                                         type="checkbox"
                                         value={extra.titulo}
                                         checked={selectedExtras.some((selectedExtra) => selectedExtra.titulo === extra.titulo)}
-                                        onChange={(e)=>{
+                                        onChange={(e) => {
                                             handleCheckboxChange(e);
-                                            calculateTotalPrice();
+                                            calculateTotalPriceExtras();
                                         }}
                                     />
                                     {extra.titulo} (+${extra.precio}) {extra.descripcion}
@@ -149,25 +192,29 @@ export default function CarDetails() {
                             </div>
                         ))}
                     </div>
-                    <p>Total Price: ${totalPrice}</p>
+                    <p>Total Price Extras: ${totalPriceExtras}</p>
                 </div>
 
                 <h2>Financiamiento</h2>
                 <div>
                     <div>
                         <label>
-                            Enganche:
-                            <select value={selectedDownPayment} onChange={(e) => {
-                                setSelectedDownPayment(e.target.value);
-                            }}>
-                                <option value="">Seleccione Porcentaje de Enganche</option>
+                            Porcentaje Enganche:
+                            <select
+                                value={selectedDownPayment.toString()}
+                                onChange={(e) => {
+                                    setSelectedDownPayment(parseInt(e.target.value));
+                                }}
+                            >
+                                <option value="0">Seleccione Porcentaje de Enganche</option>
                                 {carDetails.enganche.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option}
+                                    <option key={option} value={option.toString()}>
+                                        {option}%
                                     </option>
                                 ))}
                             </select>
                         </label>
+                        <p>Enganche: {downPayment}</p>
                     </div>
                     <div>
                         <label>
@@ -175,7 +222,6 @@ export default function CarDetails() {
                             <select value={selectedTerm} onChange={(e) => {
                                 setSelectedTerm(e.target.value);
                                 setInterestRate(carDetails.plazo[e.target.value]);
-                                calculateMonthlyPayment();
                             }}>
                                 <option value="">Seleccione Plazo</option>
                                 {Object.keys(carDetails.plazo).map((option) => (
@@ -189,11 +235,26 @@ export default function CarDetails() {
                     </div>
                     <div>
                         <p>Pago Mensual: {monthlyPayment}</p>
-                        <p>Pago Total: {monthlyPayment * selectedTerm + carPrice - (carPrice * (selectedDownPayment / 100))}</p>
+                        {/* <p>Pago Total: </p> */}
                     </div>
+                    <p>Final Car Price: {carPrice + totalPriceExtras}</p>
                 </div>
                 <h2>Entrega</h2>
+                <div>
+                    {carDetails.entrega.map((metodo_entrega) => (
+                        <div>
+                            <p>Metodo de Entrega: {metodo_entrega.nombre}</p>
+                            <p>Precio: {metodo_entrega.precio}</p>
+                            <p>Descripcion: {metodo_entrega.descripcion}</p>
+                            <button onClick={() => setSelectedDeliveryPrice(metodo_entrega.precio)}>Seleccionar</button>
+                        </div>
+
+                    ))}
+                    <p>Precio por Entega: {selectedDeliveryPrice}</p>
+                </div>
             </div>
+
+
 
         );
     } else {
