@@ -11,12 +11,11 @@ export default function BuyerNavbar({ session = false }) {
         popup: [
           { name: "Nombre del usuario", href: "" },
           { name: "Cambiar contraseña", href: "/auth/change_password" },
-          { name: "Cerrar sesión", href: "" },
+          { name: "Cerrar sesión", href: "#", signoutComponent: '/auth/login' },
         ],
       },
     ]
     : [
-      { name: "Solicitudes", href: "/requests" },
       { name: "Iniciar sesión", href: "/auth/login" },
     ];
 
@@ -28,6 +27,7 @@ export default function BuyerNavbar({ session = false }) {
         { name: "Sobre nosotros", href: "/about" },
         { name: "Compra un auto", href: "/catalog" },
       ]}
+      searchbar
       elems_right={elemsRight}
     />
   );
