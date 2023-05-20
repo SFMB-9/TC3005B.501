@@ -9,12 +9,16 @@ y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/user/landing_page_layout";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import BuyerLayout from "@/components/buyer/buyer_layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
-import styles from "@/styles/catalog.module.css";
+import Searchbar from "@/components/general/searchbar";
 import ApiDataDisplay from "@/components/buyer/api_data_display";
-import { Search } from "@mui/icons-material";
+
+import styles from "@/styles/catalog.module.css";
+
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -122,7 +126,7 @@ export default function Catalog() {
 
   return (
     <>
-      <LandingPageLayout>
+      <BuyerLayout>
         <Grid container>
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
@@ -135,7 +139,7 @@ export default function Catalog() {
                     handleMenuItemClick(chip.category, chip.value)
                   }
                   color="primary"
-                  variant="outlined"
+                  
                   className={styles.filterChip}
                 />
               ))} */}
@@ -147,7 +151,14 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        {filterHeaders[category]}
+                        <div>
+                          <div className={styles.category}>
+                            {filterHeaders[category]}
+                          </div>
+                          <div className={styles.arrow}>
+                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+                          </div>
+                        </div>
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
@@ -164,7 +175,7 @@ export default function Catalog() {
             */}
             <Searchbar
               setState={setSelectedFilters}
-            > </Searchbar>
+            />
             <div
               style={{
                 padding: "3%",
@@ -182,7 +193,7 @@ export default function Catalog() {
             </div>
           </Grid>
         </Grid>
-      </LandingPageLayout>
+      </BuyerLayout>
     </>
   );
 }

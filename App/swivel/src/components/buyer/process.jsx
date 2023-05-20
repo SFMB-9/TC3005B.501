@@ -15,21 +15,14 @@ import Link from "next/link";
 // Funcion que retorna el componente Process
 const Process = () => {
   return (
-    <section>
+    <section style={{backgroundColor: '#000'}}>
       <div
         style={{
           position: "relative",
           width: "100%",
         }}
       >
-        <Image
-          src="/process_background_image.svg"
-          quality={100}
-          fill={true}
-          style={{ objectFit: "cover", zIndex: -1 }}
-        />
-
-        <div className="container p-5">
+        <div className="container p-5" >
           <div>
             <Typography
               sx={{
@@ -37,7 +30,7 @@ const Process = () => {
               }}
               fontSize={40}
               fontFamily="Raleway"
-              align="center"
+              align="left"
             >
               Proceso de compra
             </Typography>
@@ -79,27 +72,6 @@ const Process = () => {
                 de tus sueños"
               />
             </div>
-          </div>
-
-          <div className="d-flex justify-content-center mt-5">
-            <Link href="/catalog" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                disableElevation
-                color="primary"
-                size="large"
-                className="p-2"
-              >
-                <Typography
-                  color="White "
-                  fontFamily="Lato"
-                  fontWeight="bolder"
-                  fontSize={20}
-                >
-                  Comprar un auto
-                </Typography>
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
