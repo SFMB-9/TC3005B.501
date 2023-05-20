@@ -68,11 +68,11 @@ export default async function handler(req, res) {
         await assembleFilter(result, filters);
 
         if (result.length === 0) {
-            return res.status(404).json({ message: "No se encontraron autos" });
+            return res.status(404).json({ message: "No se encontraron autos", filterHeaders: filterHeaders });
         }
 
         if (!result) {
-            return res.status(500).json({ message: "Error al buscar autos" });
+            return res.status(500).json({ message: "Error al buscar autos", filterHeaders: filterHeaders });
         }
 
         return res
@@ -84,7 +84,7 @@ export default async function handler(req, res) {
                 filterHeaders: filterHeaders
             });
     } catch (err) {
-        return res.status(400).json({ message: 'Error al buscar autos', error: err.message });
+        return res.status(400).json({ message: 'Error al buscar autos', error: err.message, filterHeaders: filterHeaders });
     }
 
 }
