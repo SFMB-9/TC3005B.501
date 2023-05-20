@@ -14,9 +14,18 @@ import {
   CardActionArea,
 } from "@mui/material";
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
+  const theme = createTheme({
+    palette: {
+      contrast: {
+        main: '#F55C7A',
+      },
+    },
+  });
   return (
     <Card sx={{ maxWidth: 500, maxHeight: 330}}>
       <CardMedia
@@ -50,13 +59,20 @@ export default function CarCard(props) {
             <FormatColorFillIcon sx={{ fontSize: 15, marginRight: '0.5rem' }} />
             Disponible en {props.carColor} {props.carColor > 1 ? "colores": "color" }
           </Typography>
-          <Typography gutterBottom variant="h6" component="div" sx={{
-            marginBottom: '0.5rem',
-            fontFamily: 'Lato',
-            fontWeight: 'bolder',
-          }}>
-            ${Intl.NumberFormat().format(props.carPrice)} MXN
-          </Typography>
+          <div className="d-flex flex-row align-items-center justify-content-between">
+            <div>
+              <Typography gutterBottom variant="h6" sx={{
+                marginBottom: '0',
+                fontFamily: 'Lato',
+                fontWeight: 'bolder',
+              }}>
+                ${Intl.NumberFormat().format(props.carPrice)} MXN
+              </Typography>
+            </div>
+            <ThemeProvider theme={theme}>
+              <div><ArrowForwardIcon sx={{ fontSize: 25, color:"#F55C7A"}} /></div>
+            </ThemeProvider>
+          </div>
         </CardContent>
       </CardActionArea>
     </Card>

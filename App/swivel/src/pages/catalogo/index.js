@@ -187,11 +187,13 @@ export default function Catalog() {
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start">
+                <Typography color="text.secondary">
                   Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
+                </Typography>
                 </span>
-                <span className="justify-content-end">
+                {/* <span className="justify-content-end">
                   Ordenar por
-                </span>
+                </span> */}
               </div>
               <div
                 style={{
