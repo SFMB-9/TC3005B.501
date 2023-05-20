@@ -1,6 +1,6 @@
 import React from "react";
 import CustomHero from "@/components/general/custom_hero";
-import SellerNavbar from "@/components/providers/seller/seller_navbar";
+import SellerNavbar from "@/components/providers/seller/navbar";
 import ActionsCards from "@/components/providers/manager/action_cards";
 
 export default function ManagerLandingPage() {

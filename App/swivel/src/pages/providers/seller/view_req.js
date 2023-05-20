@@ -8,7 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import DataTable from "@/components/general/Table";
 import { Select, MenuItem, Button, Typography } from "@mui/material";
-import SellerNavbar from "@/components/providers/seller/seller_navbar";
+import SellerNavbar from "@/components/providers/seller/navbar";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 const RequestDetails = () => {
