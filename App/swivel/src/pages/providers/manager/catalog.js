@@ -10,14 +10,11 @@ de filtros y searchbar que emplearía elastic
 search.
 */
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import { Grid, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/buyer/landing_page_layout";
-import CatalogGrid from "@/components/buyer/catalog_grid";
+import ManagerLayout from "@/components/providers/manager/layout";
 import styles from "@/styles/catalog.module.css";
-import { Delete, HelpOutline } from "@mui/icons-material";
 import { useRouter } from 'next/router';
-import axios from 'axios';
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -151,7 +148,7 @@ export default function Catalog() {
 
   return (
     <>
-      <LandingPageLayout>
+      <ManagerLayout>
         <Grid container>
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
@@ -249,7 +246,7 @@ export default function Catalog() {
             </div>
           </Grid>
         </Grid>
-      </LandingPageLayout>
+      </ManagerLayout>
     </>
   );
 }

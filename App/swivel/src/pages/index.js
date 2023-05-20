@@ -5,7 +5,7 @@ Pagina principal (landing)
 Incluye el hero, testimonials y process
 */
 // import CustomHero from "@/components/general/custom_hero";
-import BuyerLayout from "@/components/buyer/buyer_layout";
+import BuyerLayout from "@/components/buyer/layout";
 import RotatingHeader from "@/components/buyer/rotating_header";
 import Process from "@/components/buyer/process";
 import CategoryViews from "@/components/buyer/category_views";

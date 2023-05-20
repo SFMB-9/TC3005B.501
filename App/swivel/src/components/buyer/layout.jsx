@@ -8,9 +8,9 @@ que compartan la misma estructura.
 */
 import Navbar from "../general/navbar";
 import Footer from "../general/footer";
-import BuyerNavbar from "../buyer/buyer_navbar";
+import BuyerNavbar from "./navbar";
 
-export default function LandingPageLayout({ children }) {
+export default function BuyerLayout({ children }) {
   return (
     <>
       <BuyerNavbar
