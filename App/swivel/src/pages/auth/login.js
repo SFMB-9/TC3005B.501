@@ -31,7 +31,11 @@ export default function Login() {
           callbackUrl = `${window.location.origin}/`;
         } else if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
-        } else {
+        }
+        if (session.role === "manager") {
+          callbackUrl = `${window.location.origin}/providers/manager`;
+        }
+        else {
           callbackUrl = `${window.location.origin}/auth/logout`;
         }
 

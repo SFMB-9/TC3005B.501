@@ -60,4 +60,18 @@ userSchema.pre("save", async function (next) {
   this.tipo_usuario = encryptRole(this.tipo_usuario);
 });
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+
+const managerSchema = new mongoose.Schema({
+  agency: String,
+  phone: String,
+});
+
+const SellerUser = User.discriminators && User.discriminators.Type
+  ? User.discriminators.Type
+  : User.discriminator('Type', sellerSchema);
+
+const ManagerUser = User.discriminators && User.discriminators.Type
+  ? User.discriminators.Type
+  : User.discriminator('Type', managerSchema);
+
+export { User, SellerUser, ManagerUser };
