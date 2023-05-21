@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/buyer/buyer_layout";
+import BuyerLayout from "@/components/buyer/layout";
 import CatalogPagination from "@/components/buyer/catalog_pagination";
 import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
@@ -248,7 +248,7 @@ export default function Catalog() {
   };
   return (
     <>
-      <LandingPageLayout>
+      <BuyerLayout>
         <Grid container sx={
           {
             paddingLeft: "3%",
@@ -310,6 +310,8 @@ export default function Catalog() {
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
                   <Typography color="text.secondary">
+                    {/* Ommit if item not present */}
+
                     Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
                   </Typography>
                 </span>
@@ -337,7 +339,7 @@ export default function Catalog() {
             </div>
           </Grid>
         </Grid>
-      </LandingPageLayout>
+      </BuyerLayout>
     </>
   );
 };
