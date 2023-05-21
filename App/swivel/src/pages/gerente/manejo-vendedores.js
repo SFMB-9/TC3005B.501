@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from "next/router";
 
 const SearchResults = () => {
+
+    const router = useRouter();
+
     const [results, setResults] = useState([]);
 
     const [searchValue, setSearchValue] = useState('');
@@ -14,6 +18,12 @@ const SearchResults = () => {
     const [editedCellphone, setEditedCellphone] = useState('');
     const [oldEmail, setOldEmail] = useState('');
     const [agency, setAgency] = useState('');
+
+    const RoutRegistroVendedor = () => {
+        router.push({
+          pathname: "/providers/seller/signup"
+        });
+      };
   
     // Function to fetch search results from the API endpoint
     const fetchResults = async () => {
@@ -128,7 +138,7 @@ const SearchResults = () => {
                     placeholder="Buscar..."
                 />
                 <a href='/seller/seller_signup'>
-                    <button> [+] </button>
+                    <button onClick={RoutRegistroVendedor()}> [+] </button>
                 </a>
             </div>
 

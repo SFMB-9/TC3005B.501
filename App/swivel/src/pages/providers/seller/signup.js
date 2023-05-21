@@ -15,11 +15,12 @@ export default function SellerSignup() {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("/api/registro/registro-vendedor", {
+      const { data } = await axios.post("/api/register", {
         name: name,
-        last_name: surname,
+        surname: surname,
         email: email,
         password: password,
+        role: "seller",
         agency: agency,
         cellphone: phone,
       });

@@ -1,6 +1,22 @@
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function ManagerLanding({ children }) {
+
+  const router = useRouter();
+
+  const RoutManejoVendedores = () => {
+    router.push({
+      pathname: "/gerente/manejo-vendedores"
+    });
+  };
+
+  const RoutGestionAgencia = () => {
+    router.push({
+      pathname: "/gerente/gestion-agencia"
+    });
+  };
+
   return (
     <>
       <div>
@@ -21,13 +37,13 @@ export default function ManagerLanding({ children }) {
       </div>
       <div style={{ padding: "200px" }}>
         <button type="button" style={{ padding: "50px", margin: "50px" }}>
-         Manejo de Catálogo 
+          Manejo de Catálogo 
         </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
-         Manejo de Vendedores 
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutManejoVendedores()}>
+          Manejo de Vendedores 
         </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
-         Admin de Agencias 
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutGestionAgencia()}>
+          Admin de Agencias 
         </button>
       </div>
     </>
