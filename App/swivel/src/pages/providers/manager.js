@@ -6,22 +6,29 @@ export default function ManagerLanding({ children }) {
 
   const router = useRouter();
 
-  const RoutManejoVendedores = () => {
+  const routManejoVendedores = () => {
     router.push({
       pathname: "/gerente/manejo-vendedores"
     });
   };
 
-  const RoutGestionAgencia = () => {
+  const routGestionAgencia = () => {
     router.push({
       pathname: "/gerente/gestion-agencia"
     });
   };
 
-  const viewManagerCatalog = () => {
+  const routManagerCatalog = () => {
     // Navigate to the manager catalog page
     router.push({
       pathname: '/providers/manager/catalog',
+    })
+  };
+  
+  const routPasswordChange = () => {
+    // Navigate to the manager catalog page
+    router.push({
+      pathname: '/auth/change_password',
     })
   };
 
@@ -35,7 +42,7 @@ export default function ManagerLanding({ children }) {
       <div>
         <h5>Perfil</h5>
         <li>
-          <a href="/auth/change_password">Cambiar Contraseña</a>
+          <a href="#" onClick={routPasswordChange}>Cambiar Contraseña</a>
         </li>
         <li>
           <a
@@ -49,13 +56,13 @@ export default function ManagerLanding({ children }) {
         </li>
       </div>
       <div style={{ padding: "200px" }}>
-        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={viewManagerCatalog}>
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={routManagerCatalog}>
          Manejo de Catálogo 
         </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutManejoVendedores}>
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={routManejoVendedores}>
           Manejo de Vendedores 
         </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutGestionAgencia}>
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={routGestionAgencia}>
           Admin de Agencias 
         </button>
       </div>
