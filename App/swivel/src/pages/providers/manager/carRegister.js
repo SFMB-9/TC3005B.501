@@ -1,5 +1,18 @@
-import { set } from 'mongoose';
 import React, { useState } from 'react';
+/**
+ * @fileoverview Componente para subir archivos a firebase storage
+ * @module src/pages/resumen-compras/FileUpload
+ * @requires firebase
+ * @requires firebase/storage
+ * @requires firebase/storage/ref
+ * @requires firebase/storage/uploadBytesResumable
+ * @requires firebase/storage/getDownloadURL
+ * @requires src/utils/firebase/firebase
+ *
+ *
+ */
+import { storage } from "../../../utils/firebase/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const CarRegistrationForm = () => {
   const [car, setCar] = useState({
@@ -39,6 +52,41 @@ const CarRegistrationForm = () => {
   const [plazo, setPlazo] = useState({});
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
+
+
+  
+
+  async function FileUpload(file) {
+    return new Promise((resolve, reject) => {
+      const storageRef = ref(storage, "resumen-compra/" + file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+        },
+        (err) => {
+          console.log(err);
+          reject(err); // Reject the Promise if an error occurs
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then((url) => {
+              console.log(url);
+              resolve(url); // Resolve the Promise with the URL
+            })
+            .catch((err) => {
+              console.log(err);
+              reject(err); // Reject the Promise if an error occurs
+            });
+        }
+      );
+    });
+  }
+  
 
   const handleRemoveCarFotos = (index) => {
     setFotos((prevFotos) => {
@@ -173,9 +221,11 @@ const CarRegistrationForm = () => {
   };
 
   const handleRemoveEntrega = (index) => {
-    const updatedEntrega = [...entrega];
-    updatedEntrega[index] = createEmptyEntrega();
-    setEntrega(updatedEntrega);
+    setEntrega((prevEntrega) => {
+      const updatedEntrega = [...prevEntrega];
+      updatedEntrega.splice(index, 1);
+      return updatedEntrega;
+    });
   };
 
   const handlePlazoAddRow = () => {
@@ -192,11 +242,18 @@ const CarRegistrationForm = () => {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedCar = { ...car, colores: color, caracteristicas: caracteristicas, extras: extras, enganche: enganche, plazo: plazo,entrega: entrega };
     
-    // Do something with the car data, like sending it to an API or storing it in a database
+    for(let i = 0; i < fotos.length; i++){
+      for(let j = 0; j < fotos[i].length; j++){
+        const foto = await FileUpload(fotos[i][j]);
+        updatedCar.colores[i].imagenes.push(foto);
+        console.log(updatedCar.colores[i].imagenes)
+      }
+    }
+    
     console.log(updatedCar);
     // Reset the form
     setCar({
@@ -232,6 +289,7 @@ const CarRegistrationForm = () => {
 
 
   return (
+    
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="cantidad">Cantidad</label>
@@ -439,7 +497,7 @@ const CarRegistrationForm = () => {
                   <input
                     type="file"
                     name="foto"
-                    onChange={(event) => handleFotosChange(index,i, event)}
+                    onChange={(event) => handleFotosChange(index,i, event.target.files[0])}
                   />
                 </label>
                 <button type="button" onClick={() => handleRemoveFotos(index,i)}>
