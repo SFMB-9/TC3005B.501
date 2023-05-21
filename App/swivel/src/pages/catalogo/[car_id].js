@@ -1,3 +1,5 @@
+// Author: Mateo Herrera Sebastian Gonzalez
+
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import {
@@ -70,7 +72,9 @@ export default function CarDetails() {
   }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate]);
 
   const handleButtonClick = (sectionId) => {
-    const navbarHeight = document.getElementById("nav").getBoundingClientRect().height
+    const navbarHeight = document
+      .getElementById("nav")
+      .getBoundingClientRect().height;
     const element = document.getElementById(sectionId);
     if (element) {
       const offsetTop = element.offsetTop - navbarHeight;
@@ -159,7 +163,7 @@ export default function CarDetails() {
     ];
 
     const enganche = carDetails.enganche.map((enganche) => ({
-      value: enganche.toString(),
+      value: enganche,
       label: `${enganche}%`,
     }));
     const plazo = Object.keys(carDetails.plazo).map((plazo) => ({
@@ -254,7 +258,11 @@ export default function CarDetails() {
                       </div>
                       <div className="pt-2 text-end">
                         <IconButton aria-label="360">
-                          <img src="/buyer/360_symbol.png" height="15px" />
+                          <img
+                            src="/buyer/360_symbol.png"
+                            height="15px"
+                            alt="360"
+                          />
                         </IconButton>
                       </div>
                     </Grid>
@@ -281,6 +289,7 @@ export default function CarDetails() {
                                   : "/buyer/heart.png"
                               }
                               height="20px"
+                              alt="heart"
                             />
                           </IconButton>
                         </div>
@@ -304,6 +313,7 @@ export default function CarDetails() {
                             src="/buyer/ubicacion.png"
                             height="18px"
                             className="mt-1"
+                            alt="ubicacion"
                           />
                           <Typography
                             fontFamily="Lato"
@@ -315,7 +325,11 @@ export default function CarDetails() {
                           </Typography>
                         </div>
                         <div className="d-flex pt-2 align-items-center">
-                          <img src="/buyer/agencia.png" height="17px" />
+                          <img
+                            src="/buyer/agencia.png"
+                            height="17px"
+                            alt="agencia"
+                          />
                           <Typography
                             fontFamily="Lato"
                             color="#BABABA"
@@ -345,8 +359,8 @@ export default function CarDetails() {
                           </Typography>
 
                           <div className="d-flex">
-                            {carDetails.colores.map((color) => (
-                              <div className="pt-1">
+                            {carDetails.colores.map((color, index) => (
+                              <div className="pt-1" key={index}>
                                 <IconButton
                                   aria-label="color"
                                   onClick={() => setSelectedColor(color)}
@@ -402,158 +416,186 @@ export default function CarDetails() {
             </div>
           </Container>
 
-
-
           <StickyDiv>
-          <div id="nav">
+            <div id="nav">
+              <div style={{ backgroundColor: "#1F1F1F" }}>
+                <Container maxWidth="xl">
+                  <div className="section p-5 py-3 d-flex justify-content-between">
+                    <div className="d-flex align-items-center">
+                      <img
+                        src={
+                          selectedColor.imagenes
+                            ? selectedColor.imagenes[0]
+                            : ""
+                        }
+                        className="rounded d-none d-sm-block me-3"
+                        alt={carDetails.modelo}
+                        style={{
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          overflow: "hidden",
+                          height: "100px",
+                          width: "177px",
+                        }}
+                      />
 
-          <div style={{ backgroundColor: "#1F1F1F" }}>
-            <Container maxWidth="xl">
-              <div className="section p-5 py-3 d-flex justify-content-between">
-                <div className="d-flex align-items-center">
-                  <img
-                    src={
-                      selectedColor.imagenes ? selectedColor.imagenes[0] : ""
-                    }
-                    className="rounded d-none d-sm-block me-3"
-                    alt={carDetails.modelo}
-                    style={{
-                      objectFit: "cover",
-                      objectPosition: "center",
-                      overflow: "hidden",
-                      height: "100px",
-                      width: "177px",
-                    }}
-                  />
+                      <div>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#fff"
+                          fontWeight={"bold"}
+                          fontSize={{ xs: 22, md: 28, lg: 28 }}
+                          className="pb-1"
+                        >
+                          {carDetails.marca} {carDetails.modelo}
+                        </Typography>
 
-                  <div>
-                    <Typography
-                      fontFamily="Lato"
-                      color="#fff"
-                      fontWeight={"bold"}
-                      fontSize={{ xs: 22, md: 28, lg: 28 }}
-                      className="pb-1"
-                    >
-                      {carDetails.marca} {carDetails.modelo}
-                    </Typography>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#fff"
+                          fontSize={{ xs: 20, md: 26, lg: 26 }}
+                          style={{ fontWeight: "lighter" }}
+                        >
+                          {carDetails.año}
+                        </Typography>
+                      </div>
+                    </div>
 
-                    <Typography
-                      fontFamily="Lato"
-                      color="#fff"
-                      fontSize={{ xs: 20, md: 26, lg: 26 }}
-                      style={{ fontWeight: "lighter" }}
-                    >
-                      {carDetails.año}
-                    </Typography>
+                    <div className="d-flex flex-column align-items-center justify-content-center">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#fff"
+                        fontWeight={"bold"}
+                        fontSize={{ xs: 20, md: 28, lg: 28 }}
+                      >
+                        ${carPrice + totalPriceExtras + selectedDeliveryPrice}{" "}
+                        MXN
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        disableElevation
+                        sx={{
+                          backgroundColor: "#F55C7A",
+                          fontFamily: "lato",
+                          fontWeight: "bold",
+                          ":hover": { backgroundColor: "#BABABA" },
+                        }}
+                        size="small"
+                        className="w-100"
+                      >
+                        Compra
+                      </Button>
+                    </div>
                   </div>
-                </div>
-
-                <div className="d-flex flex-column align-items-center justify-content-center">
-                  <Typography
-                    fontFamily="Lato"
-                    color="#fff"
-                    fontWeight={"bold"}
-                    fontSize={{ xs: 20, md: 28, lg: 28 }}
-                  >
-                    ${carPrice + totalPriceExtras + selectedDeliveryPrice} MXN
-                  </Typography>
-                  <Button
-                              variant="contained"
-                              disableElevation
-                              sx={{
-                                backgroundColor: "#F55C7A",
-                                fontFamily: "lato",
-                                fontWeight: "bold",
-                                ":hover": { backgroundColor: "#BABABA" },
-                              }}
-                              size="small"
-                              className="w-100"
-                            >
-                              Compra
-                            </Button>
-                </div>
+                </Container>
               </div>
-            </Container>
-          </div>
 
-          <div style={{ borderBottom: "solid 1px #5B5B5B", backgroundColor: "#FFF" }}>
-      <Container maxWidth="xl">
-        <div
-          className="section px-5 d-flex align-items-end justify-content-around"
-          style={{ height: "60px" }}
-        >
-          <div className="w-100">
-            <Button
-              onClick={() => handleButtonClick("resumen")}
-              style={{ textTransform: "none" }}
-              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
-              className="w-100"
-            >
-              <Typography
-                fontFamily="Lato"
-                color="#000"
-                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+              <div
+                style={{
+                  borderBottom: "solid 1px #5B5B5B",
+                  backgroundColor: "#FFF",
+                }}
               >
-                Resumen del auto
-              </Typography>
-            </Button>
-          </div>
-          <div className="w-100">
-            <Button
-              onClick={() => handleButtonClick("caracteristicas")}
-              style={{ textTransform: "none" }}
-              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
-              className="w-100"
-            >
-              <Typography
-                fontFamily="Lato"
-                color="#000"
-                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
-              >
-                Características
-              </Typography>
-            </Button>
-          </div>
-          <div className="w-100">
-            <Button
-              onClick={() => handleButtonClick("extras")}
-              style={{ textTransform: "none" }}
-              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
-              className="w-100"
-            >
-              <Typography
-                fontFamily="Lato"
-                color="#000"
-                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
-              >
-                Extras
-              </Typography>
-            </Button>
-          </div>
-          <div className="w-100">
-            <Button
-              onClick={() => handleButtonClick("financiamiento")}
-              style={{ textTransform: "none" }}
-              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
-              className="w-100"
-            >
-              <Typography
-                fontFamily="Lato"
-                color="#000"
-                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
-              >
-                Financiamiento
-              </Typography>
-            </Button>
-          </div>
-        </div>
-      </Container>
-    </div>
-          </div>
+                <Container maxWidth="xl">
+                  <div
+                    className="section px-5 d-flex align-items-end justify-content-around"
+                    style={{ height: "60px" }}
+                  >
+                    <div className="w-100">
+                      <Button
+                        onClick={() => handleButtonClick("resumen")}
+                        style={{ textTransform: "none" }}
+                        sx={{
+                          borderRadius: 0,
+                          ":hover": {
+                            borderBottom: "solid 2px #F55C7A",
+                            backgroundColor: "#FFF",
+                          },
+                        }}
+                        className="w-100"
+                      >
+                        <Typography
+                          fontFamily="Lato"
+                          color="#000"
+                          fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+                        >
+                          Resumen del auto
+                        </Typography>
+                      </Button>
+                    </div>
+                    <div className="w-100">
+                      <Button
+                        onClick={() => handleButtonClick("caracteristicas")}
+                        style={{ textTransform: "none" }}
+                        sx={{
+                          borderRadius: 0,
+                          ":hover": {
+                            borderBottom: "solid 2px #F55C7A",
+                            backgroundColor: "#FFF",
+                          },
+                        }}
+                        className="w-100"
+                      >
+                        <Typography
+                          fontFamily="Lato"
+                          color="#000"
+                          fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+                        >
+                          Características
+                        </Typography>
+                      </Button>
+                    </div>
+                    <div className="w-100">
+                      <Button
+                        onClick={() => handleButtonClick("extras")}
+                        style={{ textTransform: "none" }}
+                        sx={{
+                          borderRadius: 0,
+                          ":hover": {
+                            borderBottom: "solid 2px #F55C7A",
+                            backgroundColor: "#FFF",
+                          },
+                        }}
+                        className="w-100"
+                      >
+                        <Typography
+                          fontFamily="Lato"
+                          color="#000"
+                          fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+                        >
+                          Extras
+                        </Typography>
+                      </Button>
+                    </div>
+                    <div className="w-100">
+                      <Button
+                        onClick={() => handleButtonClick("financiamiento")}
+                        style={{ textTransform: "none" }}
+                        sx={{
+                          borderRadius: 0,
+                          ":hover": {
+                            borderBottom: "solid 2px #F55C7A",
+                            backgroundColor: "#FFF",
+                          },
+                        }}
+                        className="w-100"
+                      >
+                        <Typography
+                          fontFamily="Lato"
+                          color="#000"
+                          fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+                        >
+                          Financiamiento
+                        </Typography>
+                      </Button>
+                    </div>
+                  </div>
+                </Container>
+              </div>
+            </div>
           </StickyDiv>
-          
 
-          <Container maxWidth="xl" id='resumen'>
+          <Container maxWidth="xl" id="resumen">
             <div className="section p-5">
               <Typography
                 fontFamily="Lato"
@@ -573,7 +615,12 @@ export default function CarDetails() {
                         key={index}
                       >
                         <div className="d-flex align-items-center">
-                          <img src={detail.icon} height="18px" width={"18px"} />
+                          <img
+                            src={detail.icon}
+                            height="18px"
+                            width={"18px"}
+                            alt="detalle"
+                          />
                           <Typography
                             fontFamily="Lato"
                             color="#1F1F1F"
@@ -603,7 +650,12 @@ export default function CarDetails() {
                         key={index}
                       >
                         <div className="d-flex align-items-center">
-                          <img src={detail.icon} height="18px" width={"18px"} />
+                          <img
+                            src={detail.icon}
+                            height="18px"
+                            width={"18px"}
+                            alt="icono"
+                          />
                           <Typography
                             fontFamily="Lato"
                             color="#1F1F1F"
@@ -642,8 +694,11 @@ export default function CarDetails() {
                 </Typography>
 
                 <div className="row mt-4">
-                  {carDetails.caracteristicas.map((caracteristica) => (
-                    <div className="col-lg-3 col-md-4 col-sm-6 p-5 py-3">
+                  {carDetails.caracteristicas.map((caracteristica, index) => (
+                    <div
+                      className="col-lg-3 col-md-4 col-sm-6 p-5 py-3"
+                      key={index}
+                    >
                       <li>
                         <Typography
                           fontFamily="Lato"
@@ -732,7 +787,7 @@ export default function CarDetails() {
             </Container>
           </div>
 
-          <Container maxWidth="xl" id='financiamiento'>
+          <Container maxWidth="xl" id="financiamiento">
             <div className="section p-5 pt-0">
               <Typography
                 fontFamily="Lato"
@@ -878,7 +933,7 @@ export default function CarDetails() {
                     </Typography>
                   </div>
                   {carDetails.entrega.map((entrega, index) => (
-                    <div key={index}className="mb-3">
+                    <div key={index} className="mb-3">
                       <SimpleAccordion
                         content={entrega.descripcion}
                         backgroundColorTitle="#F7F7F7"
@@ -899,7 +954,7 @@ export default function CarDetails() {
                               // value={extra.titulo}
                               checked={selectedDeliveryPrice === entrega.precio}
                               onChange={(e) => {
-                                setSelectedDeliveryPrice(entrega.precio)
+                                setSelectedDeliveryPrice(entrega.precio);
                               }}
                               onClick={(e) => {
                                 e.stopPropagation();

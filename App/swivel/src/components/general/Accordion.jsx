@@ -1,3 +1,7 @@
+// Autor: Mateo Herrera
+// Descripcion: Este componente representa un acordeon, el cual es utilizado para mostrar
+// informacion en la pagina de ayuda
+
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';

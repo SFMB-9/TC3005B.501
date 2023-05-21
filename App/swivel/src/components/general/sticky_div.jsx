@@ -1,4 +1,6 @@
-import { Divider } from '@mui/material';
+// Author: Mateeo Herrera
+// Description: This component is a sticky div that is used in the swivel app to
+// display the filters and the table header
 import React, { useEffect, useRef, useState } from 'react';
 
 const StickyDiv = (props) => {
@@ -27,7 +29,6 @@ const StickyDiv = (props) => {
           ref.current.style.width = '100%';
         } else {
           setHeight(ref.current.getBoundingClientRect().height)
-          console.log(height);
           isStickyRef.current = false;
           ref.current.style.position = '';
           ref.current.style.top = '';

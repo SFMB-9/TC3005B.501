@@ -1,3 +1,5 @@
+// Author: Mateo Herrera
+// Description: Slider component for the swivel app
 import * as React from 'react';
 import Slider from '@mui/material/Slider';
 
