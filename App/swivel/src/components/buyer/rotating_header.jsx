@@ -53,6 +53,7 @@ export default function RotatingHeader() {
             title = {text}
             message = ''
             searchbar
+            containerSize={90}
           />
         </div>}
       </TrackVisibility>
