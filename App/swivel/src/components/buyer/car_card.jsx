@@ -16,7 +16,6 @@ import {
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useMediaQuery } from "@mui/material";
 
 
 // Función que devuelve la carta con la información del auto.
