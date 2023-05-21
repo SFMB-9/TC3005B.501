@@ -132,7 +132,7 @@ export default function Catalog() {
   const viewCreateCar = () => {
     // Navigate to the page to create cars
     router.push({
-      pathname: '/providers/manager/crear-auto',
+      pathname: '/providers/manager/carRegister',
       query: {},
     })
   };

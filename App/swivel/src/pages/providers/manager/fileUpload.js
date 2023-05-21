@@ -14,9 +14,16 @@ import React, { useState } from "react";
 import { storage } from "../../../utils/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
+
+
+
 function FileUpload({ body }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const handleFileChangeOutside = (event) => {
+    return file;
+  };
+  
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const storageRef = ref(storage, "resumen-compra/" + file.name);
