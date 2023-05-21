@@ -18,9 +18,9 @@ export default async function handler(req, res) {
 
     // Extract the value of search and remove special characters
     let searchQuery = req.query.search;
-    searchQuery = searchQuery.replace(/[^a-zA-Z ]/g, "");
+    searchQuery = searchQuery.replace(/[^a-zA-Z\s]/g, "");
 
-    // If search is not "", undefeined, or null, then build the query
+    // If search is not "", undefined, or null, then build the query
     if (Boolean(searchQuery)) {
         query = {
             "track_total_hits": true,
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
             }
         }
     }
-    
+
     if(req.method !== 'GET'){
         return res.status(400).json({message: 'Method not allowed'});
     }
@@ -47,7 +47,9 @@ export default async function handler(req, res) {
             body: query
         }, {meta: true});
         
-        let result = elasticResponse.body.hits.hits;
+        let fullResults = elasticResponse.body.hits.hits;
+
+        let result = fullResults.map(item => item._id);
 
         if (result.length === 0) {
             return res.status(404).json({ message: "No se encontraron autos" });
