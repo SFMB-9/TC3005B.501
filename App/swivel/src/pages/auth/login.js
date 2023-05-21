@@ -20,7 +20,6 @@ export default function Login() {
         redirect: false,
         email,
         password,
-        // callbackUrl: `${window.location.origin}/auth/logout`,
       });
 
       if (data.error) {
