@@ -1,7 +1,18 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import LandingPageLayout from "@/components/buyer/landing_page_layout";
-import { Container, Grid, Item, Box } from "@mui/material";
+import {
+  Container,
+  Grid,
+  IconButton,
+  Box,
+  Typography,
+  Button,
+} from "@mui/material";
+import LandingPageLayout from "@/components/buyer/buyer_layout";
+import SimpleAccordion from "@/components/general/Accordion";
+import CustomSlider from "@/components/general/Slider";
+
+import StickyDiv from "@/components/general/sticky_div";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -17,7 +28,8 @@ export default function CarDetails() {
   const [selectedDownPayment, setSelectedDownPayment] = useState(0);
   const [downPayment, setDownPayment] = useState(0);
 
-  const [selectedTerm, setSelectedTerm] = useState(null);
+  const [selectedTerm, setSelectedTerm] = useState(0);
+  const [favorite, setFavorite] = useState(false);
   const [interestRate, setInterestRate] = useState(null);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
 
@@ -56,6 +68,15 @@ export default function CarDetails() {
     calculateDownPaymentAmount();
     calculateMonthlyPayment();
   }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate]);
+
+  const handleButtonClick = (sectionId) => {
+    const navbarHeight = document.getElementById("nav").getBoundingClientRect().height
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offsetTop = element.offsetTop - navbarHeight;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+    }
+  };
 
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
@@ -101,209 +122,813 @@ export default function CarDetails() {
   };
 
   if (carDetails != null) {
+    const firstDetails = [
+      {
+        name: "Tipo de combustible",
+        value: carDetails.combustible,
+        icon: "/buyer/combustible.png",
+      },
+      {
+        name: "Tipo de vehículo",
+        value: carDetails.tipo_vehiculo,
+        icon: "/buyer/tipoVehiculo.png",
+      },
+      {
+        name: "Motor de vehículo",
+        value: carDetails.motor,
+        icon: "/buyer/tipoCombustible.png",
+      },
+    ];
+
+    const secondDetails = [
+      {
+        name: "Transmisión",
+        value: carDetails.transmision,
+        icon: "/buyer/transmision.png",
+      },
+      {
+        name: "Rendimiento",
+        value: carDetails.rendimiento,
+        icon: "/buyer/traccion.png",
+      },
+      {
+        name: "Pasajeros",
+        value: carDetails.pasajeros,
+        icon: "/buyer/pasajeros.png",
+      },
+    ];
+
+    const enganche = carDetails.enganche.map((enganche) => ({
+      value: enganche.toString(),
+      label: `${enganche}%`,
+    }));
+    const plazo = Object.keys(carDetails.plazo).map((plazo) => ({
+      value: parseInt(plazo),
+      label: `${plazo}`,
+    }));
     return (
       <div>
         <LandingPageLayout>
-          <Container maxWidth='xl'>
-            
+          <Container maxWidth="xl">
             <div className="section p-5">
               <a href="/catalogo">Regresar al catalogo</a>
               <div className="pt-4">
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={6} md={8}>
-                    <Item><div id="carouselExampleIndicators" className="carousel slide">
-                      <div className="carousel-indicators">
-                      {selectedColor.imagenes.map((image, index) => (
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={2}>
+                    <Grid item md={7} sm={12}>
+                      <div
+                        id="carouselExampleIndicators"
+                        className="carousel slide"
+                      >
+                        <div className="carousel-indicators">
+                          {selectedColor.imagenes.map((image, index) => (
+                            <button
+                              key={index}
+                              type="button"
+                              data-bs-target="#carouselExampleIndicators"
+                              style={{
+                                backgroundColor: "000",
+                                color: "black",
+                                borderTop: "none",
+                                position: "relative",
+                                top: "45px",
+                                borderBottom: "none",
+                                borderRadius: "100%",
+                                height: "10px",
+                                width: "10px",
+                                backgroundColor: "grey",
+                              }}
+                              data-bs-slide-to={index}
+                              className={index === 0 ? "active" : ""}
+                              aria-current={index === 0 ? "true" : ""}
+                            ></button>
+                          ))}
+                        </div>
+                        <div className="carousel-inner rounded">
+                          {selectedColor.imagenes.map((image, index) => (
+                            <div
+                              key={index}
+                              className={`carousel-item ${
+                                index === 0 ? "active" : ""
+                              }`}
+                            >
+                              <img
+                                src={image}
+                                className="d-block w-100"
+                                alt={carDetails.modelo}
+                                style={{
+                                  objectFit: "cover",
+                                  objectPosition: "center",
+                                  overflow: "hidden",
+                                  height: "40vw",
+                                  maxHeight: "460px",
+                                }}
+                              />
+                            </div>
+                          ))}
+                        </div>
                         <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        style={{ backgroundColor: "000", color: "black", borderTop: 'none', position:'relative', top:'40px', borderBottom:'none', borderRadius: '100%', height: '10px', width: '10px', backgroundColor: 'grey'}}
-                        data-bs-slide-to={index}
-                        className={index === 0 ? "active" : ""}
-                        aria-current={index === 0 ? "true" : ""}
-                      ></button>
-                      ))}
+                          className="carousel-control-prev"
+                          type="button"
+                          data-bs-target="#carouselExampleIndicators"
+                          data-bs-slide="prev"
+                        >
+                          <span
+                            className="carousel-control-prev-icon"
+                            aria-hidden="true"
+                          ></span>
+                          <span className="visually-hidden">Previous</span>
+                        </button>
+                        <button
+                          className="carousel-control-next"
+                          type="button"
+                          data-bs-target="#carouselExampleIndicators"
+                          data-bs-slide="next"
+                        >
+                          <span
+                            className="carousel-control-next-icon"
+                            aria-hidden="true"
+                          ></span>
+                          <span className="visually-hidden">Next</span>
+                        </button>
                       </div>
-                      <div className="carousel-inner rounded">
-                        {selectedColor.imagenes.map((image, index) => (
-                          <div className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                            <img src={image} className="d-block w-100" alt={carDetails.modelo} style={{objectFit: "cover", objectPosition: "center", overflow: "hidden", height: "50vw", maxHeight:'460px'}} />
-                          </div>
-                        ))}
+                      <div className="pt-2 text-end">
+                        <IconButton aria-label="360">
+                          <img src="/buyer/360_symbol.png" height="15px" />
+                        </IconButton>
                       </div>
-                      <button
-                        className="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev"
-                      >
-                        <span
-                          className="carousel-control-prev-icon"
-                          aria-hidden="true"
-                        ></span>
-                        <span className="visually-hidden">Previous</span>
-                      </button>
-                      <button
-                        className="carousel-control-next"
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next"
-                      >
-                        <span
-                          className="carousel-control-next-icon"
-                          aria-hidden="true"
-                        ></span>
-                        <span className="visually-hidden">Next</span>
-                      </button>
-                    </div></Item>
-                  </Grid>
-                  <Grid item xs={6} md={4}>
-                    <Item>xs=6 md=4</Item>
-                  </Grid>
-                </Grid>
-              </Box>
-                <div className="row">
-                  <div className="col-lg-8">
-                    
-                  </div>
-                  <div className="col-lg border">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <p>Año: {carDetails.año}</p>
-              <p>Marca: {carDetails.marca}</p>
-              <p>Modelo: {carDetails.modelo}</p>
-              <p>Ubicación: {carDetails.direccion_agencia}</p>
-              <p>Agencia: {carDetails.nombre_agencia}</p>
-              <p>Precio: {carDetails.precio}</p>
-
-              <p style={{ color: selectedColor.valor_hexadecimal }}>
-                {selectedColor.nombre}
-              </p>
-              {selectedColor.imagenes.map((imagen) => (
-                <img src={imagen} alt={carDetails.modelo} />
-              ))}
-            </div>
-
-            <div>
-              <h3>Seleccionar color</h3>
-              {carDetails.colores.map((color) => (
-                <div>
-                  <button onClick={() => setSelectedColor(color)}>
-                    {color.nombre}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <h2>Resumen del Auto</h2>
-
-            <p>Combustible: {carDetails.combustible}</p>
-            <p>Motor: {carDetails.motor}</p>
-            <p>Tipo: {carDetails.tipo_vehiculo}</p>
-            <p>Transmisión: {carDetails.transmision}</p>
-            <p>Rendimiento: {carDetails.rendimiento}</p>
-            <p>Num. Pasajeros: {carDetails.pasajeros}</p>
-
-            <h2>Características</h2>
-            {carDetails.caracteristicas.map((caracteristica) => (
-              <li>{caracteristica}</li>
-            ))}
-
-            <div>
-              <div>
-                <h2>Select Extras:</h2>
-                {carDetails.extras.map((extra) => (
-                  <div key={extra.titulo}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        value={extra.titulo}
-                        checked={selectedExtras.some(
-                          (selectedExtra) => selectedExtra.titulo === extra.titulo
-                        )}
-                        onChange={(e) => {
-                          handleCheckboxChange(e);
-                          calculateTotalPriceExtras();
+                    </Grid>
+                    <Grid item md={5} xs={12}>
+                      <div
+                        className="rounded p-3 d-flex flex-column justify-content-between"
+                        style={{
+                          height: "100%",
+                          borderWidth: "2px",
+                          borderColor: "#BABABA",
+                          borderStyle: "solid",
                         }}
-                      />
-                      {extra.titulo} (+${extra.precio}) {extra.descripcion}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <p>Total Price Extras: ${totalPriceExtras}</p>
-            </div>
+                      >
+                        <div className="text-end">
+                          <IconButton
+                            aria-label="favorito"
+                            onClick={() => setFavorite(!favorite)}
+                            className="p-0"
+                          >
+                            <img
+                              src={
+                                favorite
+                                  ? "/buyer/heart_filled.png"
+                                  : "/buyer/heart.png"
+                              }
+                              height="20px"
+                            />
+                          </IconButton>
+                        </div>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#8A8A8A"
+                          fontSize={{ xs: 17, md: 20, lg: 24 }}
+                        >
+                          {carDetails.año}
+                        </Typography>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#000"
+                          fontSize={{ xs: 25, md: 28, lg: 33 }}
+                          className="pt-2"
+                        >
+                          {carDetails.marca} {carDetails.modelo}
+                        </Typography>
+                        <div className="d-flex pt-3 align-items-start">
+                          <img
+                            src="/buyer/ubicacion.png"
+                            height="18px"
+                            className="mt-1"
+                          />
+                          <Typography
+                            fontFamily="Lato"
+                            color="#BABABA"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            className="ms-2"
+                          >
+                            {carDetails.direccion_agencia}
+                          </Typography>
+                        </div>
+                        <div className="d-flex pt-2 align-items-center">
+                          <img src="/buyer/agencia.png" height="17px" />
+                          <Typography
+                            fontFamily="Lato"
+                            color="#BABABA"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            className="ms-2"
+                          >
+                            {carDetails.nombre_agencia}
+                          </Typography>
+                        </div>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#000"
+                          fontSize={{ xs: 30, md: 32, lg: 42 }}
+                          fontWeight="bold"
+                          className="pt-3"
+                        >
+                          ${carDetails.precio} MXN
+                        </Typography>
+                        <div>
+                          <Typography
+                            fontFamily="Lato"
+                            color="#BABABA"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            className="pt-1"
+                          >
+                            Elegir color
+                          </Typography>
 
-            <h2>Financiamiento</h2>
-            <div>
-              <div>
-                <label>
-                  Porcentaje Enganche:
-                  <select
-                    value={selectedDownPayment.toString()}
-                    onChange={(e) => {
-                      setSelectedDownPayment(parseInt(e.target.value));
-                    }}
-                  >
-                    <option value="0">Seleccione Porcentaje de Enganche</option>
-                    {carDetails.enganche.map((option) => (
-                      <option key={option} value={option.toString()}>
-                        {option}%
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <p>Enganche: {downPayment}</p>
+                          <div className="d-flex">
+                            {carDetails.colores.map((color) => (
+                              <div className="pt-1">
+                                <IconButton
+                                  aria-label="color"
+                                  onClick={() => setSelectedColor(color)}
+                                  style={{
+                                    backgroundColor: color.valor_hexadecimal,
+                                    borderRadius: "100%",
+                                    height: "22px",
+                                    width: "22px",
+                                    border: "none",
+                                  }}
+                                  className="me-1"
+                                />
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="pt-3 text-center">
+                            <Button
+                              variant="contained"
+                              className="me-3"
+                              disableElevation
+                              sx={{
+                                backgroundColor: "#FFF",
+                                color: "#3A3A3A",
+                                fontFamily: "lato",
+                                fontWeight: "bold",
+                                border: "solid 1px #BABABA",
+                                ":hover": { backgroundColor: "#BABABA" },
+                              }}
+                            >
+                              Prueba de manejo
+                            </Button>
+
+                            <Button
+                              variant="contained"
+                              disableElevation
+                              sx={{
+                                backgroundColor: "#F55C7A",
+                                fontFamily: "lato",
+                                fontWeight: "bold",
+                                ":hover": { backgroundColor: "#BABABA" },
+                              }}
+                            >
+                              Compra
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Box>
               </div>
-              <div>
-                <label>
-                  Plazo:
-                  <select
-                    value={selectedTerm}
-                    onChange={(e) => {
-                      setSelectedTerm(e.target.value);
-                      setInterestRate(carDetails.plazo[e.target.value]);
-                    }}
-                  >
-                    <option value="">Seleccione Plazo</option>
-                    {Object.keys(carDetails.plazo).map((option) => (
-                      <option key={option} value={parseInt(option)}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  <p>Tasa de Interes: {carDetails.plazo[selectedTerm]}</p>
-                </label>
-              </div>
-              <div>
-                <p>Pago Mensual: {monthlyPayment}</p>
-                {/* <p>Pago Total: </p> */}
-              </div>
-              <p>Final Car Price: {carPrice + totalPriceExtras}</p>
             </div>
-            <h2>Entrega</h2>
-            <div>
-              {carDetails.entrega.map((metodo_entrega) => (
-                <div>
-                  <p>Metodo de Entrega: {metodo_entrega.nombre}</p>
-                  <p>Precio: {metodo_entrega.precio}</p>
-                  <p>Descripcion: {metodo_entrega.descripcion}</p>
-                  <button
-                    onClick={() =>
-                      setSelectedDeliveryPrice(metodo_entrega.precio)
+          </Container>
+
+
+
+          <StickyDiv>
+          <div id="nav">
+
+          <div style={{ backgroundColor: "#1F1F1F" }}>
+            <Container maxWidth="xl">
+              <div className="section p-5 py-3 d-flex justify-content-between">
+                <div className="d-flex align-items-center">
+                  <img
+                    src={
+                      selectedColor.imagenes ? selectedColor.imagenes[0] : ""
                     }
-                  >
-                    Seleccionar
-                  </button>
+                    className="rounded d-none d-sm-block me-3"
+                    alt={carDetails.modelo}
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "center",
+                      overflow: "hidden",
+                      height: "100px",
+                      width: "177px",
+                    }}
+                  />
+
+                  <div>
+                    <Typography
+                      fontFamily="Lato"
+                      color="#fff"
+                      fontWeight={"bold"}
+                      fontSize={{ xs: 22, md: 28, lg: 28 }}
+                      className="pb-1"
+                    >
+                      {carDetails.marca} {carDetails.modelo}
+                    </Typography>
+
+                    <Typography
+                      fontFamily="Lato"
+                      color="#fff"
+                      fontSize={{ xs: 20, md: 26, lg: 26 }}
+                      style={{ fontWeight: "lighter" }}
+                    >
+                      {carDetails.año}
+                    </Typography>
+                  </div>
                 </div>
-              ))}
-              <p>Precio por Entega: {selectedDeliveryPrice}</p>
+
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#fff"
+                    fontWeight={"bold"}
+                    fontSize={{ xs: 20, md: 28, lg: 28 }}
+                  >
+                    ${carPrice + totalPriceExtras + selectedDeliveryPrice} MXN
+                  </Typography>
+                  <Button
+                              variant="contained"
+                              disableElevation
+                              sx={{
+                                backgroundColor: "#F55C7A",
+                                fontFamily: "lato",
+                                fontWeight: "bold",
+                                ":hover": { backgroundColor: "#BABABA" },
+                              }}
+                              size="small"
+                              className="w-100"
+                            >
+                              Compra
+                            </Button>
+                </div>
+              </div>
+            </Container>
+          </div>
+
+          <div style={{ borderBottom: "solid 1px #5B5B5B", backgroundColor: "#FFF" }}>
+      <Container maxWidth="xl">
+        <div
+          className="section px-5 d-flex align-items-end justify-content-around"
+          style={{ height: "60px" }}
+        >
+          <div className="w-100">
+            <Button
+              onClick={() => handleButtonClick("resumen")}
+              style={{ textTransform: "none" }}
+              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
+              className="w-100"
+            >
+              <Typography
+                fontFamily="Lato"
+                color="#000"
+                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+              >
+                Resumen del auto
+              </Typography>
+            </Button>
+          </div>
+          <div className="w-100">
+            <Button
+              onClick={() => handleButtonClick("caracteristicas")}
+              style={{ textTransform: "none" }}
+              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
+              className="w-100"
+            >
+              <Typography
+                fontFamily="Lato"
+                color="#000"
+                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+              >
+                Características
+              </Typography>
+            </Button>
+          </div>
+          <div className="w-100">
+            <Button
+              onClick={() => handleButtonClick("extras")}
+              style={{ textTransform: "none" }}
+              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
+              className="w-100"
+            >
+              <Typography
+                fontFamily="Lato"
+                color="#000"
+                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+              >
+                Extras
+              </Typography>
+            </Button>
+          </div>
+          <div className="w-100">
+            <Button
+              onClick={() => handleButtonClick("financiamiento")}
+              style={{ textTransform: "none" }}
+              sx={{borderRadius: 0, ':hover': {borderBottom: "solid 2px #F55C7A", backgroundColor: "#FFF"}}}
+              className="w-100"
+            >
+              <Typography
+                fontFamily="Lato"
+                color="#000"
+                fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
+              >
+                Financiamiento
+              </Typography>
+            </Button>
+          </div>
+        </div>
+      </Container>
+    </div>
+          </div>
+          </StickyDiv>
+          
+
+          <Container maxWidth="xl" id='resumen'>
+            <div className="section p-5">
+              <Typography
+                fontFamily="Lato"
+                color="#1F1F1F"
+                fontSize={{ xs: 25, md: 28, lg: 33 }}
+                className="pt-2"
+              >
+                Resumen del Auto
+              </Typography>
+
+              <Grid container className="mt-1" direction="row" spacing={4}>
+                <Grid item md={6} xs={12}>
+                  <div className="d-flex flex-column">
+                    {firstDetails.map((detail, index) => (
+                      <div
+                        className="d-flex justify-content-between mb-5"
+                        key={index}
+                      >
+                        <div className="d-flex align-items-center">
+                          <img src={detail.icon} height="18px" width={"18px"} />
+                          <Typography
+                            fontFamily="Lato"
+                            color="#1F1F1F"
+                            fontWeight={"bold"}
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            className="ms-3"
+                          >
+                            {detail.name}
+                          </Typography>
+                        </div>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#333333"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          {detail.value}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <div className="d-flex flex-column">
+                    {secondDetails.map((detail, index) => (
+                      <div
+                        className="d-flex justify-content-between mb-5"
+                        key={index}
+                      >
+                        <div className="d-flex align-items-center">
+                          <img src={detail.icon} height="18px" width={"18px"} />
+                          <Typography
+                            fontFamily="Lato"
+                            color="#1F1F1F"
+                            fontWeight={"bold"}
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            className="ms-3"
+                          >
+                            {detail.name}
+                          </Typography>
+                        </div>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#333333"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          {detail.value}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+
+          <div style={{ backgroundColor: "#F7F7F7" }} id="caracteristicas">
+            <Container maxWidth="xl">
+              <div className="section p-5">
+                <Typography
+                  fontFamily="Lato"
+                  color="#1F1F1F"
+                  fontSize={{ xs: 25, md: 28, lg: 33 }}
+                  className="pt-2"
+                >
+                  Características
+                </Typography>
+
+                <div className="row mt-4">
+                  {carDetails.caracteristicas.map((caracteristica) => (
+                    <div className="col-lg-3 col-md-4 col-sm-6 p-5 py-3">
+                      <li>
+                        <Typography
+                          fontFamily="Lato"
+                          color="#1F1F1F"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          {caracteristica}
+                        </Typography>
+                      </li>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </div>
+
+          <div id="extras">
+            <Container maxWidth="xl">
+              <div className="section p-5">
+                <Typography
+                  fontFamily="Lato"
+                  color="#1F1F1F"
+                  fontSize={{ xs: 25, md: 28, lg: 33 }}
+                  className="pt-2"
+                >
+                  Extras
+                </Typography>
+
+                <div className="row my-4">
+                  {carDetails.extras.map((extra) => (
+                    <div className="col-md-6 mb-3" key={extra.titulo}>
+                      <SimpleAccordion
+                        content={extra.descripcion}
+                        backgroundColorTitle="#F7F7F7"
+                        fontFamily="Lato"
+                        fontSize={{ xs: 13, md: 15, lg: 16 }}
+                        color="#333333"
+                      >
+                        <div className="d-flex justify-content-between w-100">
+                          <div className="d-flex">
+                            <input
+                              type="checkbox"
+                              style={{
+                                width: "16px",
+                                borderWidth: "1px",
+                                color: "#333333",
+                                accentColor: "#F55C7A",
+                              }}
+                              value={extra.titulo}
+                              checked={selectedExtras.some(
+                                (selectedExtra) =>
+                                  selectedExtra.titulo === extra.titulo
+                              )}
+                              onChange={(e) => {
+                                handleCheckboxChange(e);
+                                calculateTotalPriceExtras();
+                              }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                              className="me-3"
+                            />
+                            <Typography
+                              fontFamily="Lato"
+                              color="#1F1F1F"
+                              fontSize={{ xs: 15, md: 16, lg: 18 }}
+                              fontWeight={"bold"}
+                            >
+                              {extra.titulo}
+                            </Typography>
+                          </div>
+
+                          <Typography
+                            fontFamily="Lato"
+                            color="#8A8A8A"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                          >
+                            (+${extra.precio})
+                          </Typography>
+                        </div>
+                      </SimpleAccordion>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </div>
+
+          <Container maxWidth="xl" id='financiamiento'>
+            <div className="section p-5 pt-0">
+              <Typography
+                fontFamily="Lato"
+                color="#1F1F1F"
+                fontSize={{ xs: 25, md: 28, lg: 33 }}
+              >
+                Financiamiento
+              </Typography>
+
+              <div className="row my-5">
+                <div className="col-md-6">
+                  <div className="text-center mb-4">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#1F1F1F"
+                      fontSize={{ xs: 16, md: 17, lg: 19 }}
+                      fontWeight={"bold"}
+                    >
+                      Calcula tus mensualidades
+                    </Typography>
+                  </div>
+
+                  <div style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}>
+                    <div
+                      style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}
+                      className="p-4 px-5"
+                    >
+                      <Typography
+                        fontFamily="Lato"
+                        color="#1F1F1F"
+                        fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        className="mb-3"
+                      >
+                        Enganche
+                      </Typography>
+
+                      <CustomSlider
+                        marks={enganche}
+                        max={enganche[enganche.length - 1].value}
+                        onChange={(e) => {
+                          setSelectedDownPayment(parseInt(e.target.value));
+                        }}
+                        defaultValue={0}
+                      />
+                    </div>
+                    <div style={{ backgroundColor: "#d9d9d9" }}>
+                      <div className="px-5 py-2 d-flex justify-content-between">
+                        <Typography
+                          fontFamily="Lato"
+                          color="#1F1F1F"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          Enganche de <strong>{selectedDownPayment}%</strong>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="Lato"
+                          color="#1F1F1F"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          <strong>${downPayment} MXN</strong>
+                        </Typography>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}
+                      className="p-4 px-5"
+                    >
+                      <Typography
+                        fontFamily="Lato"
+                        color="#1F1F1F"
+                        fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        className="mb-3"
+                      >
+                        Plazo (meses)
+                      </Typography>
+
+                      <CustomSlider
+                        marks={plazo}
+                        max={plazo[plazo.length - 1].value}
+                        onChange={(e) => {
+                          setSelectedTerm(e.target.value);
+                          setInterestRate(carDetails.plazo[e.target.value]);
+                        }}
+                        defaultValue={0}
+                      />
+                    </div>
+                    <div style={{ backgroundColor: "#d9d9d9" }}>
+                      <div className="px-5 py-2 d-flex justify-content-between">
+                        <Typography
+                          fontFamily="Lato"
+                          color="#1F1F1F"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          Plazo de <strong>{selectedTerm} meses</strong>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="Lato"
+                          color="#1F1F1F"
+                          fontSize={{ xs: 15, md: 16, lg: 18 }}
+                        >
+                          Tasa de{" "}
+                          <strong>
+                            {" "}
+                            {carDetails.plazo[selectedTerm]
+                              ? carDetails.plazo[selectedTerm]
+                              : 0}
+                            %
+                          </strong>
+                        </Typography>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}
+                      className="py-4 p-5 text-center"
+                    >
+                      <Typography
+                        fontFamily="Lato"
+                        color="#1F1F1F"
+                        fontSize={{ xs: 17, md: 18, lg: 20 }}
+                      >
+                        <strong>
+                          ${monthlyPayment !== "NaN" ? monthlyPayment : 0} MXN
+                        </strong>{" "}
+                        al mes
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <div className="text-center mb-4">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#1F1F1F"
+                      fontSize={{ xs: 16, md: 17, lg: 19 }}
+                      fontWeight={"bold"}
+                    >
+                      Metodo de entrega
+                    </Typography>
+                  </div>
+                  {carDetails.entrega.map((entrega, index) => (
+                    <div key={index}className="mb-3">
+                      <SimpleAccordion
+                        content={entrega.descripcion}
+                        backgroundColorTitle="#F7F7F7"
+                        fontFamily="Lato"
+                        fontSize={{ xs: 13, md: 15, lg: 16 }}
+                        color="#333333"
+                      >
+                        <div className="d-flex justify-content-between w-100">
+                          <div className="d-flex">
+                            <input
+                              type="checkbox"
+                              style={{
+                                width: "16px",
+                                borderWidth: "1px",
+                                color: "#333333",
+                                accentColor: "#F55C7A",
+                              }}
+                              // value={extra.titulo}
+                              checked={selectedDeliveryPrice === entrega.precio}
+                              onChange={(e) => {
+                                setSelectedDeliveryPrice(entrega.precio)
+                              }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                              className="me-3"
+                            />
+                            <Typography
+                              fontFamily="Lato"
+                              color="#1F1F1F"
+                              fontSize={{ xs: 15, md: 16, lg: 18 }}
+                              fontWeight={"bold"}
+                            >
+                              {entrega.nombre}
+                            </Typography>
+                          </div>
+
+                          <Typography
+                            fontFamily="Lato"
+                            color="#8A8A8A"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                          >
+                            (+${entrega.precio})
+                          </Typography>
+                        </div>
+                      </SimpleAccordion>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Container>
         </LandingPageLayout>
