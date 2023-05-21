@@ -8,26 +8,33 @@ Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import { Grid, Chip, Checkbox, FormControlLabel, Typography} from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/buyer/landing_page_layout";
-import CatalogGrid from "@/components/buyer/catalog_grid";
+import LandingPageLayout from "@/components/buyer/buyer_layout";
+import CatalogPagination from "@/components/buyer/catalog_pagination";
+import SortCatalog from "@/components/buyer/sort_catalog";
 import ApiDataDisplay from "@/components/buyer/api_data_display";
 import styles from "@/styles/catalog.module.css";
+import { set } from "mongoose";
 
 export default function Catalog() {
+  // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [expandedMenuItems, setExpandedMenuItems] = useState({});
   const [selectedChips, setSelectedChips] = useState([]);
+
+  // Data variables
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
   const [catalogColors, setCatalogColors] = useState([]);
-  const [expandedMenuItems, setExpandedMenuItems] = useState({});
+  const [sortOption, setSortOption] = useState('');
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const fetchFilters = async () => {
     let queryString = selectedFilters.length
@@ -124,14 +131,67 @@ export default function Catalog() {
     </ul>
   );
 
+  const handleNoSort = () => {
+    setCatalogData(apiData.result);
+    console.log("No sort",catalogData);
+  };
+
+  const handleSortByAscPrice = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return a._source.precio - b._source.precio; // Sort in ascending order
+    });
+    setCatalogData(sortedData);
+    console.log("Precio asc",catalogData);
+  };
+
+  const handleSortByDescPrice = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return b._source.precio - a._source.precio; // Sort in descending order
+    });
+    setCatalogData(sortedData);
+    console.log("Precio des",catalogData);
+  };
+
+  const handleSortByAscModel = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return a._source.modelo.localeCompare(b._source.modelo); // Sort in ascending order
+    });
+    setCatalogData(sortedData);
+    console.log("Modelo asc",catalogData);
+  };
+
+  const handleSortByDescModel = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return b._source.modelo.localeCompare(a._source.modelo); // Sort in descending order
+    });
+    setCatalogData(sortedData);
+    console.log("Modelo des",catalogData);
+  };
+
+  const handleSelectedSortOption = (selectedOption) => {
+    setSortOption(selectedOption);
+    if (selectedOption === "price-asc") {
+      handleSortByAscPrice();
+    } else if (selectedOption === "price-des") {
+      handleSortByDescPrice();
+    } else if (selectedOption === "model-asc") {
+      handleSortByAscModel();
+    } else if (selectedOption === "model-des") {
+      handleSortByDescModel();
+    } else if (selectedOption === "restart") {
+      handleNoSort();
+    }
+  };
+  
+
   return (
     <>
       <LandingPageLayout>
         <Grid container sx={
           {paddingLeft: "3%", 
-          paddingRight: "3%"}
+          paddingRight: "1%"}
         } >
-          <Grid item xs={12} md={3} sm={6}>
+          <Grid item xs={12} md={3} sm={4}>
             <div className={styles.filterContainer}>
               <div className={styles.filterTitle}> 
                 <div className={styles.iconWrapper}>
@@ -176,24 +236,26 @@ export default function Catalog() {
               )}
             </div>
           </Grid>
-          <Grid item xs={12} md={9} sm={6}>
+          <Grid item xs={12} md={9} sm={8}>
             {/*
               Pasar la función fetchSearch como prop al componente Searchbar
               // para que se ejecute cuando se presione el botón de búsqueda
             */}
-            <Searchbar
+            {/* <Searchbar
               setState={setSelectedFilters}
-            > </Searchbar>
+            > </Searchbar> */}
             <div>
               <div className={styles.catalogHeader}>
-                <span className="justify-content-start">
+                <span className="justify-content-start align-items-center">
                 <Typography color="text.secondary">
                   Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
                 </Typography>
                 </span>
-                {/* <span className="justify-content-end">
-                  Ordenar por
-                </span> */}
+                <span className="d-flex align-items-center">
+                  <span style={{
+                    marginRight: "1rem"
+                  }}>Ordenar por </span><SortCatalog handleSortOption={handleSelectedSortOption}/>
+                </span>
               </div>
               <div
                 style={{
@@ -208,7 +270,7 @@ export default function Catalog() {
                   }`}
                 </div>
                 <ApiDataDisplay apiData={catalogData} /> */}
-                <CatalogGrid carListing={catalogData} />
+                <CatalogPagination catalogData={catalogData} itemsPerPage={30}/>
               </div>
             </div>
           </Grid>

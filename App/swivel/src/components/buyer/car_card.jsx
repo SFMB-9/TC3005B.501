@@ -16,6 +16,8 @@ import {
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMediaQuery } from "@mui/material";
+
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
@@ -26,8 +28,9 @@ export default function CarCard(props) {
       },
     },
   });
+  const cardMaxWidth = 500;
   return (
-    <Card sx={{ maxWidth: 500, maxHeight: 330}}>
+    <Card sx={{ maxWidth: cardMaxWidth, maxHeight: 330}}>
       <CardMedia
         component="img"
         height="160"
@@ -39,13 +42,14 @@ export default function CarCard(props) {
           <Typography gutterBottom variant="h5" component="div" sx={{
             marginBottom: '0.5rem',
             fontFamily: 'Raleway',
-            fontSize: '1.2rem'
+            fontSize: "1.2rem"
           }}>
             {props.carBrand} {props.carModel}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary" sx={{
             marginBottom: '0.5rem',
-            fontFamily: 'Lato'
+            fontFamily: 'Lato',
+            fontSize: '1.8vh'
           }}>
             {props.carYear} · {props.carLocation} · {props.carBrand} {props.carAgency}
           </Typography>
@@ -62,6 +66,7 @@ export default function CarCard(props) {
                 marginBottom: '0',
                 fontFamily: 'Lato',
                 fontWeight: 'bolder',
+                fontSize: "1.2rem"
               }}>
                 ${Intl.NumberFormat().format(props.carPrice)} MXN
               </Typography>
