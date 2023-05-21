@@ -2,7 +2,7 @@ import mongoose, { model } from "mongoose";
 import bcrypt from "bcryptjs";
 const { encryptRole } = require('../utils/crypto');
 
-const userSchema = new mongoose.Schema({
+const baseSchema = new mongoose.Schema({
   tipo_usuario: String,                 // universal : role
   nombres: String,                      // universal
   apellidos: String,                    // client/seller/manager
@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
   documentos_requeridos_agencia: {}
 });
 
-userSchema.pre("save", async function (next) {
+baseSchema.pre("save", async function (next) {
   if (!this.isModified("contraseña")) {
     next();
   }
@@ -52,7 +52,7 @@ userSchema.pre("save", async function (next) {
   this.contraseña = await bcrypt.hash(this.contraseña, 10);
 });
 
-userSchema.pre("save", async function (next) {
+baseSchema.pre("save", async function (next) {
   if (!this.isModified("tipo_usuario")) {
     next();
   }
@@ -60,6 +60,12 @@ userSchema.pre("save", async function (next) {
   this.tipo_usuario = encryptRole(this.tipo_usuario);
 });
 
+const User = mongoose.models.User || mongoose.model("User", baseSchema);
+
+const sellerSchema = new mongoose.Schema({
+  agency: String,
+  phone: String,
+});
 
 const managerSchema = new mongoose.Schema({
   agency: String,
