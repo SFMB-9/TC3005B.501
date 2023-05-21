@@ -1,3 +1,4 @@
+import { set } from 'mongoose';
 import React, { useState } from 'react';
 
 const CarRegistrationForm = () => {
@@ -37,6 +38,15 @@ const CarRegistrationForm = () => {
   const [color, setColor] = useState([]);
   const [plazo, setPlazo] = useState({});
   const [entrega, setEntrega] = useState([]);
+  const [fotos, setFotos] = useState([]);
+
+  const handleRemoveCarFotos = (index) => {
+    setFotos((prevFotos) => {
+      const updatedFotos = [...prevFotos];
+      updatedFotos.splice(index, 1);
+      return updatedFotos;
+    });
+  };
   
   
   const handleColorChange = (index, event) => {
@@ -46,6 +56,11 @@ const CarRegistrationForm = () => {
       updatedColor[index] = { ...updatedColor[index], [name]: value };
       return updatedColor;
     });
+  };
+  const handleFotosChange = (index, i, event) => {
+    const updatedFotos = [...fotos];
+    updatedFotos[index][i] = event;
+    setFotos(updatedFotos);
   };
 
   const handleEntregaChange = (index, event) => {
@@ -86,6 +101,13 @@ const CarRegistrationForm = () => {
     });
   };
 
+  const handleRemoveFotos = (index,i) => {
+    setFotos((prevFotos) => {
+      const updatedFotos = [...prevFotos];
+      updatedFotos[index].splice(i, 1);
+      return updatedFotos;
+    });
+  };
 
   const handleRemoveCaracteristica = (index) => {
     setCaracteristicas((prevCaracteristicas) => {
@@ -120,12 +142,17 @@ const CarRegistrationForm = () => {
       setStateFunc((prevState) => [...prevState, createEmptyFunc()]);
   };
 
+
+    
+
   
-  const createEmptyColor = () => ({ nombre: '', hex: '' });
+  const createEmptyColor = () => ({ nombre: '', hex: '', imagenes: [] });
   const createEmptyCaracteristica = () => ('');
   const createEmptyExtra = () => ({ nombre: '', precio: 0, descripcion: '' });
   const createEmptyEnganche = () => (0);
   const createEmptyEntrega = () => ({ nombre: '', precio: 0, descripcion: '' });
+  const createEmptyFoto = () => new File([], 'empty.jpg', { type: 'image/jpeg' });
+  const createEmptyCarFoto = () => ([]);
 
   const handleKeyChange = (index, key) => {
     const updatedPlazo = { ...plazo };
@@ -156,9 +183,19 @@ const CarRegistrationForm = () => {
     setPlazo({ ...plazo, [newIndex]: { key: '', value: '' } });
   };
 
+  const handleFotoAddRow = (index) => {
+    setFotos((prevFotos) => {
+      const updatedFotos = [...prevFotos];
+      updatedFotos[index] = [...updatedFotos[index], createEmptyFoto()];
+      return updatedFotos;
+    });
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedCar = { ...car, colores: color, caracteristicas: caracteristicas, extras: extras, enganche: enganche, plazo: plazo,entrega: entrega };
+    
     // Do something with the car data, like sending it to an API or storing it in a database
     console.log(updatedCar);
     // Reset the form
@@ -395,13 +432,34 @@ const CarRegistrationForm = () => {
               />
             </label>
             <span> | </span>
-            <button type="button" onClick={() => handleRemoveColor(index)}>
+            {fotos[index].map((foto, i) => (
+              <div key={i}>
+                <label>
+                  Foto:
+                  <input
+                    type="file"
+                    name="foto"
+                    onChange={(event) => handleFotosChange(index,i, event)}
+                  />
+                </label>
+                <button type="button" onClick={() => handleRemoveFotos(index,i)}>
+                  X
+                </button>
+              </div>
+              
+            ))}
+            <span> | </span>
+            <button type="button" onClick={() => handleFotoAddRow(index)}>
+              Añadir Foto
+            </button>
+            
+            <button type="button" onClick={() => {handleRemoveColor(index); handleRemoveCarFotos(index)}}>
               X
             </button>
             <hr />
           </div>
         ))}
-        <button type="button" onClick={() => handleAddRow(setColor, createEmptyColor)}>
+        <button type="button" onClick={() => { handleAddRow(setFotos,createEmptyCarFoto); handleAddRow(setColor, createEmptyColor); }}>
            Add Row
         </button>
       </div>
