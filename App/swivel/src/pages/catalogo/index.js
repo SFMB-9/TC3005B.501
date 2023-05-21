@@ -9,24 +9,34 @@ y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
 import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterListIcon from '@mui/icons-material/FilterList';
+
 import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/buyer/buyer_layout";
-import CatalogGrid from "@/components/buyer/catalog_grid";
+import CatalogPagination from "@/components/buyer/catalog_pagination";
+import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from "next/router";
 import ApiDataDisplay from "@/components/buyer/api_data_display";
+import { set } from "mongoose";
 
 export default function Catalog() {
 
   const router = useRouter();
 
+  // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [expandedMenuItems, setExpandedMenuItems] = useState({});
   const [selectedChips, setSelectedChips] = useState([]);
+
+  // Data variables
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
-  const [expandedMenuItems, setExpandedMenuItems] = useState({});
+  const [catalogColors, setCatalogColors] = useState([]);
 
   const buildQuery = (selectedFilters) => {
     let query = {};
@@ -55,7 +65,7 @@ export default function Catalog() {
     //     .join("&")}`
     //   : "";
 
-    
+
     let queryString = buildQuery(selectedFilters);
 
     const response = await fetch(
@@ -63,7 +73,7 @@ export default function Catalog() {
     );
 
     const data = await response.json();
-    
+
     if (router.query.marca) {
       removeQueryParam("marca");
       if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
@@ -92,6 +102,7 @@ export default function Catalog() {
     setFilters(data.filters);
     setApiData(data);
     setCatalogData(data.result);
+    setCatalogColors(data.result.colors);
   };
 
   useEffect(() => {
@@ -184,13 +195,74 @@ export default function Catalog() {
     );
   };
 
+  const handleNoSort = () => {
+    setCatalogData(apiData.result);
+    console.log("No sort", catalogData);
+  };
+
+  const handleSortByAscPrice = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return a._source.precio - b._source.precio; // Sort in ascending order
+    });
+    setCatalogData(sortedData);
+    console.log("Precio asc", catalogData);
+  };
+
+  const handleSortByDescPrice = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return b._source.precio - a._source.precio; // Sort in descending order
+    });
+    setCatalogData(sortedData);
+    console.log("Precio des", catalogData);
+  };
+
+  const handleSortByAscModel = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return a._source.modelo.localeCompare(b._source.modelo); // Sort in ascending order
+    });
+    setCatalogData(sortedData);
+    console.log("Modelo asc", catalogData);
+  };
+
+  const handleSortByDescModel = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return b._source.modelo.localeCompare(a._source.modelo); // Sort in descending order
+    });
+    setCatalogData(sortedData);
+    console.log("Modelo des", catalogData);
+  };
+
+  const handleSelectedSortOption = (selectedOption) => {
+    setSortOption(selectedOption);
+    if (selectedOption === "price-asc") {
+      handleSortByAscPrice();
+    } else if (selectedOption === "price-des") {
+      handleSortByDescPrice();
+    } else if (selectedOption === "model-asc") {
+      handleSortByAscModel();
+    } else if (selectedOption === "model-des") {
+      handleSortByDescModel();
+    } else if (selectedOption === "restart") {
+      handleNoSort();
+    }
+  };
   return (
     <>
       <LandingPageLayout>
-        <Grid container>
-          <Grid item xs={12} sm={2}>
+        <Grid container sx={
+          {
+            paddingLeft: "3%",
+            paddingRight: "1%"
+          }
+        } >
+          <Grid item xs={12} md={3} sm={4}>
             <div className={styles.filterContainer}>
-              <div className={styles.filterTitle}>Filtros</div>
+              <div className={styles.filterTitle}>
+                <div className={styles.iconWrapper}>
+                  <FilterListIcon className={styles.filterListIcon} />
+                </div>
+                <span>Filtros</span>
+              </div>
               {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
@@ -211,7 +283,12 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        {filterHeaders[category]}
+                        <div >
+                          {filterHeaders[category]}
+                          <div className={styles.arrow}>
+                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+                          </div>
+                        </div>
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
@@ -221,31 +298,47 @@ export default function Catalog() {
               )}
             </div>
           </Grid>
-          <Grid item xs={12} sm={10}>
+          <Grid item xs={12} md={9} sm={8}>
             {/*
-              Pasar la función fetchSearch como prop al componente Searchbar
-              // para que se ejecute cuando se presione el botón de búsqueda
-            */}
-            <Searchbar
-              setState={setSelectedFilters}
-            > </Searchbar>
-            <div
-              style={{
-                padding: "3%",
-                overflowY: "scroll",
-                maxHeight: "100vh",
-              }}
-            >
-              {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                {`http://localhost:3000/api/catalogo/buscar-autos${selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                  }`}
+                Pasar la función fetchSearch como prop al componente Searchbar
+                // para que se ejecute cuando se presione el botón de búsqueda
+              */}
+            {/* <Searchbar
+                setState={setSelectedFilters}
+              > </Searchbar> */}
+            <div>
+              <div className={styles.catalogHeader}>
+                <span className="justify-content-start align-items-center">
+                  <Typography color="text.secondary">
+                    Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
+                  </Typography>
+                </span>
+                <span className="d-flex align-items-center">
+                  <span style={{
+                    marginRight: "1rem"
+                  }}>Ordenar por </span><SortCatalog handleSortOption={handleSelectedSortOption} />
+                </span>
               </div>
-              <ApiDataDisplay apiData={apiData} /> */}
-              <CatalogGrid carListing={catalogData} />
+              <div
+                style={{
+                  padding: "3%",
+                  overflowY: "scroll",
+                  maxHeight: "100vh",
+                }}
+              >
+                {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
+                    {`http://localhost:3000/api/catalogo/buscar-autos${
+                      selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
+                    }`}
+                  </div>
+                  <ApiDataDisplay apiData={catalogData} /> */}
+                <CatalogPagination catalogData={catalogData} itemsPerPage={30} />
+              </div>
             </div>
           </Grid>
         </Grid>
       </LandingPageLayout>
     </>
   );
-}
+};
+

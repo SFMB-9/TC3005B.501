@@ -1,14 +1,33 @@
 .filterContainer {
   /* padding: 20px; */
+  /* margin-top: 1.2rem;
+  margin-right: 1rem; */
+  width: 100%;
+  /* border: 1px solid lightgray;
+  border-radius: 0.5rem; */
   border-right: 1px solid lightgray;
   border-top: 1px solid lightgray;
+  overflow-y: scroll;
 }
 
 .filterTitle {
   font-weight: bold;
   margin: 15px;
   font-family: 'Raleway';
-  font-size: 1.7em;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
+.filterListIcon {
+  width: 100%;
 }
 
 .filterList {
@@ -27,12 +46,13 @@
   width: 100%;
   text-align: left;
   background: none;
-  padding-left: 40px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-left: 0.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
   border: none;
   cursor: pointer;
   font-family: 'Raleway';
+  font-size: 1.1rem;
 }
 
 .filterButton:first-child {
@@ -71,6 +91,7 @@
   margin-left: 0.001em;
   margin-bottom: -5px;
   padding-left: 30px;
+  padding-left: 30px;
 }
 
 .labelText {
@@ -79,9 +100,21 @@
 }
 
 .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   float: right;
   margin-right: 20px;
-  margin-top: 5px;
+}
+
+.catalogHeader{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
 }
 
 .category {

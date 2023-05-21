@@ -17,7 +17,9 @@ export default function LandingPageLayout({ children }) {
       <BuyerNavbar
         session={false}
       />
-      {children}
+      <div className="min-vh-100">
+        {children}
+      </div>
       <Footer />
     </>
   );
