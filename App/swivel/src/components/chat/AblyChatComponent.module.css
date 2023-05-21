@@ -11,12 +11,13 @@
     padding: 1em;
     height: calc(100vh - 40px - 100px - 100px - 100px);
     overflow-y: auto;
+    background-color: #F5F7FA; 
 }
 
 .form {
     display: grid;
     grid-template-columns: 1fr 100px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #ddd; 
 }
 
 .textarea {
@@ -24,6 +25,7 @@
     border: 0;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto, Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue, sans-serif;
     font-size: 1.2em;
+    color: #333; 
 }
 
 .button {
@@ -31,21 +33,22 @@
     color: white;
     font-weight: bold;
     font-size: 1.4em;
-    background: linear-gradient(to right, #363795, #005C97);
+    background: #007BFF; 
 }
 
 .button:hover {
-    background: linear-gradient(90deg, rgba(54,55,149,1) 0%, rgba(0,92,151,1) 62%, rgba(0,125,205,1) 100%);
+    background: #0069D9; 
 }
 
 .button:disabled, 
 .button:hover:disabled {
-    background: linear-gradient(to right, #363795, #005C97);
+    background: #007BFF; 
     opacity: 0.5;
 }
 
 .message {
-    background-color: #eef5f8;
+    background-color: #fff; 
+    color: #333; 
     padding: 1em;
     border-radius: 10px;
     flex-grow: 0;
