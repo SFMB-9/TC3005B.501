@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">Chat</h1>
+        <h1 className="title">Nombre del Usuario</h1>
         <AblyChatComponent />
       </main>
 

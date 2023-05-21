@@ -86,10 +86,14 @@ const AblyChatComponent = () => {
       message.clientId === session.id || message.connectionId === ably.connection.id
         ? "me"
         : "other";
+
+    const date = new Date(message.timestamp);
+    const formattedDate = `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
     return (
-      <span key={index} className={styles.message} data-author={author}>
-        {message.data}
-      </span>
+        <span key={index} className={styles.message} data-author={author}>
+          {message.data}
+          <span className={styles.timestamp}>{formattedDate}</span>
+        </span>
     );
   });
 

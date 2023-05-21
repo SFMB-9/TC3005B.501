@@ -49,8 +49,18 @@
 .message {
     background-color: #fff; 
     color: #333; 
-    padding: 1em;
+    padding: 1.3em;
     border-radius: 10px;
     flex-grow: 0;
     border-bottom-left-radius: 0;
+    position: relative;
+}
+
+.timestamp {
+    font-size: 0.75em;
+    padding: 7px;
+    color: #999;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
