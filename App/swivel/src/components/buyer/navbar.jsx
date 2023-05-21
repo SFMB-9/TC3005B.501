@@ -28,7 +28,7 @@ export default function BuyerNavbar() {
       home="/"
       elems_left={[
         { name: "Sobre nosotros", href: "/about" },
-        { name: "Compra un auto", href: "/catalogo" },
+        { name: "Compra un auto", href: "/catalog" },
       ]}
       searchbar
       elems_right={elemsRight}

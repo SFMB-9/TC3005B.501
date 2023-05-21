@@ -10,7 +10,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import LandingPageLayout from "@/components/buyer/buyer_layout";
+import LandingPageLayout from "@/components/buyer/layout";
 import SimpleAccordion from "@/components/general/Accordion";
 import CustomSlider from "@/components/general/Slider";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -176,7 +176,7 @@ export default function CarDetails() {
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalogo">
+              <a href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}

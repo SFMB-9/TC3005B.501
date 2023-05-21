@@ -115,7 +115,7 @@ export default function Login() {
             </div>
             <div className="text-center">
               <p>
-                No tienes cuenta? <a href="/auth/signup_buyer">Regístrate aquí</a>
+                No tienes cuenta? <a href="/auth/signup">Regístrate aquí</a>
               </p>
             </div>
           </form>}
