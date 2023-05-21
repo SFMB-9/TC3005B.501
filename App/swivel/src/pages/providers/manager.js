@@ -1,6 +1,16 @@
 import { signOut } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 export default function ManagerLanding({ children }) {
+  const router = useRouter();
+
+  const viewManagerCatalog = () => {
+    // Navigate to the manager catalog page
+    router.push({
+      pathname: '/providers/manager/catalog',
+    })
+  };
+  
   return (
     <>
       <div>
@@ -20,7 +30,9 @@ export default function ManagerLanding({ children }) {
         </li>
       </div>
       <div style={{ padding: "200px" }}>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
+        <button type="button" 
+          style={{ padding: "50px", margin: "50px" }}
+          onClick={() => viewManagerCatalog()}>
          Manejo de Catálogo 
         </button>
         <button type="button" style={{ padding: "50px", margin: "50px" }}>
