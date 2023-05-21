@@ -15,13 +15,20 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/buyer/buyer_layout";
+import CatalogGrid from "@/components/buyer/catalog_grid";
+import LandingPageLayout from "@/components/buyer/buyer_layout";
 import CatalogPagination from "@/components/buyer/catalog_pagination";
 import SortCatalog from "@/components/buyer/sort_catalog";
 import ApiDataDisplay from "@/components/buyer/api_data_display";
 import styles from "@/styles/catalog.module.css";
+import { useRouter } from "next/router";
+import ApiDataDisplay from "@/components/buyer/api_data_display";
 import { set } from "mongoose";
 
 export default function Catalog() {
+
+  const router = useRouter();
+
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
@@ -32,22 +39,69 @@ export default function Catalog() {
   // Data variables
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
-  const [catalogColors, setCatalogColors] = useState([]);
-  const [sortOption, setSortOption] = useState('');
-  const [sortOrder, setSortOrder] = useState("asc");
+
+    return queryString;
+  };
+
+  const buildQuery = (selectedFilters) => {
+    let query = {};
+    selectedFilters.forEach((filter) => {
+      const [category, item] = filter.split(":");
+      if (!query[category]) {
+        query[category] = [];
+      }
+      query[category].push(item);
+    });
+
+    let queryString = "";
+    Object.entries(query).forEach(([category, items]) => {
+      if (items.length) {
+        queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
+      }
+    });
+
+    return queryString;
+  };
 
   const fetchFilters = async () => {
-    let queryString = selectedFilters.length
-      ? `?${selectedFilters
-        .map((filter) => filter.replace("modelos", "modelo"))
-        .join("&")}`
-      : "";
+    // let queryString = selectedFilters.length
+    //   ? `?${selectedFilters
+    //     .map((filter) => filter.replace("modelos", "modelo"))
+    //     .join("&")}`
+    //   : "";
+
+    
+    let queryString = buildQuery(selectedFilters);
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/buscar-auto${queryString}`
+      `http://localhost:3000/api/catalogoNuevo/filter?${queryString}`
     );
 
     const data = await response.json();
+    
+    if (router.query.marca) {
+      removeQueryParam("marca");
+      if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`marca:${router.query.marca}`);
+          setSelectedChips((prevSelectedChips) => {
+            const newChip = { category: "marca", value: router.query.marca };
+            const isChipDuplicate = prevSelectedChips.find(
+              (chip) =>
+                chip.category === newChip.category &&
+                chip.value === newChip.value
+            );
+            if (isChipDuplicate) {
+              return prevSelectedChips;
+            } else {
+              return [...prevSelectedChips, newChip];
+            }
+          });
+          return newSelectedFilters;
+        });
+      }
+    }
 
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
@@ -73,7 +127,7 @@ export default function Catalog() {
     setSelectedFilters((prevSelectedFilters) => {
       const newSelectedFilters = [...prevSelectedFilters];
       if (expandedMenuItems[category]?.[item]) {
-        const filterIndex = newSelectedFilters.indexOf(`${category}=${item}`);
+        const filterIndex = newSelectedFilters.indexOf(`${category}:${item}`);
         if (filterIndex > -1) {
           newSelectedFilters.splice(filterIndex, 1);
         }
@@ -84,10 +138,13 @@ export default function Catalog() {
         );
       } else {
         // remove any existing filter for this category
-        newSelectedFilters.filter((f) => !f.startsWith(`${category}=`));
+        //newSelectedFilters.filter((f) => { !f.startsWith(`${category}=`) });
+
+
         // add the new filter if it's not null
         if (item) {
-          newSelectedFilters.push(`${category}=${item}`);
+
+          newSelectedFilters.push(`${category}:${item}`);
           setSelectedChips((prevSelectedChips) => {
             const newChip = { category, value: item };
             const isChipDuplicate = prevSelectedChips.find(
@@ -106,6 +163,7 @@ export default function Catalog() {
       return newSelectedFilters;
     });
   };
+
 
   const renderSubMenu = (category, subMenuItems) => (
     <ul className={styles.filters}>
@@ -130,6 +188,17 @@ export default function Catalog() {
       ))}
     </ul>
   );
+
+  const removeQueryParam = (param) => {
+    const { pathname, query } = router;
+    const params = new URLSearchParams(query);
+    params.delete(param);
+    router.replace(
+      { pathname, query: params.toString() },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   const handleNoSort = () => {
     setCatalogData(apiData.result);
@@ -199,7 +268,7 @@ export default function Catalog() {
                 </div>
                 <span>Filtros</span>
               </div>
-              {/* {selectedChips.map((chip, index) => (
+              {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
                   label={`${filterHeaders[chip.category]}: ${chip.value}`}
@@ -210,7 +279,7 @@ export default function Catalog() {
                   variant="outlined"
                   className={styles.filterChip}
                 />
-              ))} */}
+              ))}
               {filters && (
                 <ul className={styles.filterList}>
                   {Object.entries(filters).map(([category, subMenuItems]) => (
