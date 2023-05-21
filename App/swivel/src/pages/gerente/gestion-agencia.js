@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Button } from '@material-ui/core';
-import { useSession } from "next-auth/react";
 
-const WorkingHoursComponent = () => {
+export default function WorkingHoursComponent() {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [preDays, setPreDays] = useState(0);
     const [maxDays, setMaxDays] = useState(0);
     const [agency, setAgency] = useState('');
-    
-    const [session, loading] = useSession();
   
     // Handle input changes
     const handleStartTimeChange = (event) => {
@@ -40,27 +36,27 @@ const WorkingHoursComponent = () => {
   
     return (
       <div>
-        <TextField
-          label="Hora de apertura"
+      <label>Hora de apertura</label>
+        <input
           type="time"
           value={startTime}
           onChange={handleStartTimeChange}
         />
-        <TextField
-          label="Hora de cierre"
+        <label>Hora de cierre</label>
+        <input
           type="time"
           value={endTime}
           onChange={handleEndTimeChange}
         />
-        <TextField
-            label="Días de antelación"
+        <label>Días de antelación</label>
+        <input
             type="number"
             value={preDays}
             onChange={handlePreDaysChange}
             inputProps={{ min: 0 }}
         />
-        <TextField
-            label="Número de días disponible"
+        <label>Número de días disponible</label>
+        <input
             type="number"
             value={maxDays}
             onChange={handleMaxDaysChange}
@@ -73,15 +69,15 @@ const WorkingHoursComponent = () => {
             type="text"
             id="agency_field"
             className="form-control"
-            value={agencia}
+            value={agency}
             onChange={(e) => setAgency(e.target.value)}
             required
           />
         </div>
 
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+        <button onClick={handleSubmit}>
             Submit
-        </Button>
+        </button>
       </div>
     );
   };
