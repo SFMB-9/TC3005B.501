@@ -1,12 +1,12 @@
 import React from "react";
 import CustomHero from "@/components/general/custom_hero";
-import SellerNavbar from "@/components/providers/seller/seller_navbar";
-import ActionsCards from "@/components/providers/manager/action_cards";
+import ManagerNavbar from "@/components/providers/manager/navbar";
+import ActionsCards from "@/components/providers/Manager/actions_cards";
 
 export default function ManagerLandingPage() {
   return (
     <>
-      <SellerNavbar />
+      <ManagerNavbar />
       <CustomHero
         title="Bienvenidx, nombre"
         message="Administra tus solicitudes pendientes"

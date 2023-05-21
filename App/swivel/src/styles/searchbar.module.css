@@ -1,5 +1,6 @@
 .searchbar_container {
-  background-image: url('/searchbar_background_image.svg');
+  /* background-image: url('/searchbar_background_image.svg'); */
+  background-color: black;
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;

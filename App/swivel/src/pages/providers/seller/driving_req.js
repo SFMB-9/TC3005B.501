@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import DataTable from "@/components/general/Table";
 import { Select, MenuItem, Button, Typography } from "@mui/material";
 import SimpleToggleButton from "@/components/general/SimpleToggleMenu";
-import SellerNavbar from "@/components/providers/seller/seller_navbar";
+import SellerNavbar from "@/components/providers/seller/navbar";
 
 const SellerDashboard = () => {
   // user object is a map of user id to user data

@@ -264,7 +264,7 @@ export default function CatalogGrid({ carListing }) {
   let carList;
   if (carListing !== undefined) {
     carList = carListing.map((car) => (
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4}>
         <CarCard
           carUrl={`/catalogo/${car._id}`}  //{car.carUrl}
           carImage={car._source.fotos_3d[0]} //{car.carImages}
@@ -296,7 +296,7 @@ export default function CatalogGrid({ carListing }) {
           carYear={car._source.año}
           carLocation={car._source.estado_agencia} //{car.carLocation}
           carAgency={car._source.municipio_agencia}
-          carColor={car._source.color}
+          carColor={car._source.colores.length}
           carPrice={car._source.precio}
         />
       </Grid>
