@@ -18,6 +18,13 @@ export default function ManagerLanding({ children }) {
     });
   };
 
+  const viewManagerCatalog = () => {
+    // Navigate to the manager catalog page
+    router.push({
+      pathname: '/providers/manager/catalog',
+    })
+  };
+
   useEffect(() => {
     // You can perform any client-side logic here
     // This code will only execute in the browser environment
@@ -42,8 +49,8 @@ export default function ManagerLanding({ children }) {
         </li>
       </div>
       <div style={{ padding: "200px" }}>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
-          Manejo de Catálogo 
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={viewManagerCatalog}>
+         Manejo de Catálogo 
         </button>
         <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutManejoVendedores}>
           Manejo de Vendedores 

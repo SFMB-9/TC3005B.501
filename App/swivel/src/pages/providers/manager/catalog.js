@@ -15,6 +15,7 @@ import Searchbar from "@/components/general/searchbar";
 import ManagerLayout from "@/components/providers/manager/layout";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -25,10 +26,13 @@ export default function Catalog() {
   const [catalogData, setCatalogData] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
   const [deletingCarIds, setDeletingCarIds] = useState([]);
-  
-  const agencyName = "Kia";
 
   const router = useRouter();
+
+  // Get agency name from session
+  //const { data: session } = useSession();
+  //const agencyName = session.nombre_agencia;
+  const agencyName = "Volkswagen";
 
   const fetchFilters = async () => {
     console.log("Fetching...");
@@ -146,9 +150,6 @@ export default function Catalog() {
     // Delete car from elastic
     await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`, 
     {method: 'DELETE'});
-    fetchFilters();
-    console.log("TYPE:" + typeof deletingCarIds);
-    console.log("Array: " + deletingCarIds);
   };
 
   return (
