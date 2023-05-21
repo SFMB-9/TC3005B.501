@@ -8,18 +8,15 @@ Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography} from "@mui/material";
+import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Searchbar from "@/components/general/searchbar";
 import LandingPageLayout from "@/components/buyer/buyer_layout";
-import CatalogGrid from "@/components/buyer/catalog_grid";
-import LandingPageLayout from "@/components/buyer/buyer_layout";
 import CatalogPagination from "@/components/buyer/catalog_pagination";
 import SortCatalog from "@/components/buyer/sort_catalog";
-import ApiDataDisplay from "@/components/buyer/api_data_display";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from "next/router";
 import ApiDataDisplay from "@/components/buyer/api_data_display";
@@ -39,9 +36,7 @@ export default function Catalog() {
   // Data variables
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
-
-    return queryString;
-  };
+  const [catalogColors, setCatalogColors] = useState([]);
 
   const buildQuery = (selectedFilters) => {
     let query = {};
@@ -70,7 +65,7 @@ export default function Catalog() {
     //     .join("&")}`
     //   : "";
 
-    
+
     let queryString = buildQuery(selectedFilters);
 
     const response = await fetch(
@@ -78,7 +73,7 @@ export default function Catalog() {
     );
 
     const data = await response.json();
-    
+
     if (router.query.marca) {
       removeQueryParam("marca");
       if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
@@ -202,7 +197,7 @@ export default function Catalog() {
 
   const handleNoSort = () => {
     setCatalogData(apiData.result);
-    console.log("No sort",catalogData);
+    console.log("No sort", catalogData);
   };
 
   const handleSortByAscPrice = () => {
@@ -210,7 +205,7 @@ export default function Catalog() {
       return a._source.precio - b._source.precio; // Sort in ascending order
     });
     setCatalogData(sortedData);
-    console.log("Precio asc",catalogData);
+    console.log("Precio asc", catalogData);
   };
 
   const handleSortByDescPrice = () => {
@@ -218,7 +213,7 @@ export default function Catalog() {
       return b._source.precio - a._source.precio; // Sort in descending order
     });
     setCatalogData(sortedData);
-    console.log("Precio des",catalogData);
+    console.log("Precio des", catalogData);
   };
 
   const handleSortByAscModel = () => {
@@ -226,7 +221,7 @@ export default function Catalog() {
       return a._source.modelo.localeCompare(b._source.modelo); // Sort in ascending order
     });
     setCatalogData(sortedData);
-    console.log("Modelo asc",catalogData);
+    console.log("Modelo asc", catalogData);
   };
 
   const handleSortByDescModel = () => {
@@ -234,7 +229,7 @@ export default function Catalog() {
       return b._source.modelo.localeCompare(a._source.modelo); // Sort in descending order
     });
     setCatalogData(sortedData);
-    console.log("Modelo des",catalogData);
+    console.log("Modelo des", catalogData);
   };
 
   const handleSelectedSortOption = (selectedOption) => {
@@ -251,20 +246,20 @@ export default function Catalog() {
       handleNoSort();
     }
   };
-  
-
   return (
     <>
       <LandingPageLayout>
         <Grid container sx={
-          {paddingLeft: "3%", 
-          paddingRight: "1%"}
+          {
+            paddingLeft: "3%",
+            paddingRight: "1%"
+          }
         } >
           <Grid item xs={12} md={3} sm={4}>
             <div className={styles.filterContainer}>
-              <div className={styles.filterTitle}> 
+              <div className={styles.filterTitle}>
                 <div className={styles.iconWrapper}>
-                  <FilterListIcon className={styles.filterListIcon} /> 
+                  <FilterListIcon className={styles.filterListIcon} />
                 </div>
                 <span>Filtros</span>
               </div>
@@ -290,11 +285,9 @@ export default function Catalog() {
                       >
                         <div >
                           {filterHeaders[category]}
-                          
-                            <div className={styles.arrow}>
+                          <div className={styles.arrow}>
                             {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
-                            </div>
-                    
+                          </div>
                         </div>
                       </button>
                       {expandedMenuItems[category]?.[null] &&
@@ -307,23 +300,23 @@ export default function Catalog() {
           </Grid>
           <Grid item xs={12} md={9} sm={8}>
             {/*
-              Pasar la función fetchSearch como prop al componente Searchbar
-              // para que se ejecute cuando se presione el botón de búsqueda
-            */}
+                Pasar la función fetchSearch como prop al componente Searchbar
+                // para que se ejecute cuando se presione el botón de búsqueda
+              */}
             {/* <Searchbar
-              setState={setSelectedFilters}
-            > </Searchbar> */}
+                setState={setSelectedFilters}
+              > </Searchbar> */}
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
-                <Typography color="text.secondary">
-                  Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
-                </Typography>
+                  <Typography color="text.secondary">
+                    Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
+                  </Typography>
                 </span>
                 <span className="d-flex align-items-center">
                   <span style={{
                     marginRight: "1rem"
-                  }}>Ordenar por </span><SortCatalog handleSortOption={handleSelectedSortOption}/>
+                  }}>Ordenar por </span><SortCatalog handleSortOption={handleSelectedSortOption} />
                 </span>
               </div>
               <div
@@ -334,12 +327,12 @@ export default function Catalog() {
                 }}
               >
                 {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                  {`http://localhost:3000/api/catalogo/buscar-autos${
-                    selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                  }`}
-                </div>
-                <ApiDataDisplay apiData={catalogData} /> */}
-                <CatalogPagination catalogData={catalogData} itemsPerPage={30}/>
+                    {`http://localhost:3000/api/catalogo/buscar-autos${
+                      selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
+                    }`}
+                  </div>
+                  <ApiDataDisplay apiData={catalogData} /> */}
+                <CatalogPagination catalogData={catalogData} itemsPerPage={30} />
               </div>
             </div>
           </Grid>
@@ -347,4 +340,5 @@ export default function Catalog() {
       </LandingPageLayout>
     </>
   );
-}
+};
+
