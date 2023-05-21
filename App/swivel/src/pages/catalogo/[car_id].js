@@ -13,8 +13,9 @@ import {
 import LandingPageLayout from "@/components/buyer/buyer_layout";
 import SimpleAccordion from "@/components/general/Accordion";
 import CustomSlider from "@/components/general/Slider";
-
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
+import Carousel from "@/components/general/Carousel";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -175,87 +176,19 @@ export default function CarDetails() {
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalogo">Regresar al catalogo</a>
+              <a href="/catalogo">
+                <ArrowBackIosNewIcon
+                  sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
+                />{" "}
+                <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
+                  Regresar al catalogo
+                </span>
+              </a>
               <div className="pt-4">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>
                     <Grid item md={7} sm={12}>
-                      <div
-                        id="carouselExampleIndicators"
-                        className="carousel slide"
-                      >
-                        <div className="carousel-indicators">
-                          {selectedColor.imagenes.map((image, index) => (
-                            <button
-                              key={index}
-                              type="button"
-                              data-bs-target="#carouselExampleIndicators"
-                              style={{
-                                backgroundColor: "000",
-                                color: "black",
-                                borderTop: "none",
-                                position: "relative",
-                                top: "45px",
-                                borderBottom: "none",
-                                borderRadius: "100%",
-                                height: "10px",
-                                width: "10px",
-                                backgroundColor: "grey",
-                              }}
-                              data-bs-slide-to={index}
-                              className={index === 0 ? "active" : ""}
-                              aria-current={index === 0 ? "true" : ""}
-                            ></button>
-                          ))}
-                        </div>
-                        <div className="carousel-inner rounded">
-                          {selectedColor.imagenes.map((image, index) => (
-                            <div
-                              key={index}
-                              className={`carousel-item ${
-                                index === 0 ? "active" : ""
-                              }`}
-                            >
-                              <img
-                                src={image}
-                                className="d-block w-100"
-                                alt={carDetails.modelo}
-                                style={{
-                                  objectFit: "cover",
-                                  objectPosition: "center",
-                                  overflow: "hidden",
-                                  height: "40vw",
-                                  maxHeight: "460px",
-                                }}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <button
-                          className="carousel-control-prev"
-                          type="button"
-                          data-bs-target="#carouselExampleIndicators"
-                          data-bs-slide="prev"
-                        >
-                          <span
-                            className="carousel-control-prev-icon"
-                            aria-hidden="true"
-                          ></span>
-                          <span className="visually-hidden">Previous</span>
-                        </button>
-                        <button
-                          className="carousel-control-next"
-                          type="button"
-                          data-bs-target="#carouselExampleIndicators"
-                          data-bs-slide="next"
-                        >
-                          <span
-                            className="carousel-control-next-icon"
-                            aria-hidden="true"
-                          ></span>
-                          <span className="visually-hidden">Next</span>
-                        </button>
-                      </div>
+                      <Carousel images={selectedColor.imagenes} indicators={true} />
                       <div className="pt-2 text-end">
                         <IconButton aria-label="360">
                           <img
@@ -519,7 +452,7 @@ export default function CarDetails() {
                           color="#000"
                           fontSize={{ xs: 11, sm: 16, md: 18, lg: 18 }}
                         >
-                          Resumen del auto
+                          Resumen
                         </Typography>
                       </Button>
                     </div>
@@ -905,7 +838,7 @@ export default function CarDetails() {
 
                     <div
                       style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}
-                      className="py-4 p-5 text-center"
+                      className="py-4 p-5 text-center mb-4"
                     >
                       <Typography
                         fontFamily="Lato"
