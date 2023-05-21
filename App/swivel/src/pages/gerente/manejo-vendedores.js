@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
 
-const SearchResults = () => {
+export default function SearchResults() {
 
     const router = useRouter();
 
@@ -148,7 +148,7 @@ const SearchResults = () => {
                 type="text"
                 id="agency_field"
                 className="form-control"
-                value={agencia}
+                value={agency}
                 onChange={(e) => setAgency(e.target.value)}
                 required
             />
@@ -208,7 +208,4 @@ const SearchResults = () => {
             )}
         </div>
     );
-};
-    
-export default SearchResults;
-    
+};    

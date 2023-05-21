@@ -1,5 +1,6 @@
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function ManagerLanding({ children }) {
 
@@ -16,6 +17,11 @@ export default function ManagerLanding({ children }) {
       pathname: "/gerente/gestion-agencia"
     });
   };
+
+  useEffect(() => {
+    // You can perform any client-side logic here
+    // This code will only execute in the browser environment
+  }, []);
 
   return (
     <>
@@ -39,10 +45,10 @@ export default function ManagerLanding({ children }) {
         <button type="button" style={{ padding: "50px", margin: "50px" }}>
           Manejo de Catálogo 
         </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutManejoVendedores()}>
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutManejoVendedores}>
           Manejo de Vendedores 
         </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutGestionAgencia()}>
+        <button type="button" style={{ padding: "50px", margin: "50px" }} onClick={RoutGestionAgencia}>
           Admin de Agencias 
         </button>
       </div>
