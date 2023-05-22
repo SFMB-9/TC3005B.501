@@ -1,0 +1,66 @@
+.chatHolder {
+    display: grid;
+    grid-template-rows: 1fr 100px;
+}
+
+.chatText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+    padding: 1em;
+    height: calc(100vh - 40px - 100px - 100px - 100px);
+    overflow-y: auto;
+    background-color: #F5F7FA; 
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    border-top: 1px solid #ddd; 
+}
+
+.textarea {
+    padding: 1em;
+    border: 0;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto, Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue, sans-serif;
+    font-size: 1.2em;
+    color: #333; 
+}
+
+.button {
+    border: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.4em;
+    background: #007BFF; 
+}
+
+.button:hover {
+    background: #0069D9; 
+}
+
+.button:disabled, 
+.button:hover:disabled {
+    background: #007BFF; 
+    opacity: 0.5;
+}
+
+.message {
+    background-color: #fff; 
+    color: #333; 
+    padding: 1.3em;
+    border-radius: 10px;
+    flex-grow: 0;
+    border-bottom-left-radius: 0;
+    position: relative;
+}
+
+.timestamp {
+    font-size: 0.75em;
+    padding: 7px;
+    color: #999;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

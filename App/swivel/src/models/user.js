@@ -29,10 +29,18 @@ const sellerSchema = new mongoose.Schema({
   phone: String,
 });
 
-// const SellerUser = User.discriminator("SellerUser", sellerSchema);
+
+const managerSchema = new mongoose.Schema({
+  agency: String,
+  phone: String,
+});
 
 const SellerUser = User.discriminators && User.discriminators.Type
   ? User.discriminators.Type
   : User.discriminator('Type', sellerSchema);
 
-export { User, SellerUser };
+const ManagerUser = User.discriminators && User.discriminators.Type
+  ? User.discriminators.Type
+  : User.discriminator('Type', managerSchema);
+
+export { User, SellerUser, ManagerUser };

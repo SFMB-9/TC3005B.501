@@ -10,7 +10,7 @@ import { MenuItem, ProSidebarProvider } from "react-pro-sidebar";
 import Link from "next/link";
 
 import NAGHeader from "@/components/providers/GA/new_automotive_group_header";
-import Sidebar from "@/components/general/sidebar";
+import Sidebar from "@/components/general/custom_sidebar";
 
 export default function NAGLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);

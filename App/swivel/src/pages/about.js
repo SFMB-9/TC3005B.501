@@ -1,4 +1,4 @@
-import BuyerLayout from "@/components/buyer/buyer_layout";
+import BuyerLayout from "@/components/buyer/layout";
 
 export default function About() {
   return (

@@ -20,18 +20,23 @@ export default function Login() {
         redirect: false,
         email,
         password,
-        // callbackUrl: `${window.location.origin}/auth/logout`,
       });
 
       if (data.error) {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
-        if (session.role === "buyer") {
+        if (session.role === "user") {
           callbackUrl = `${window.location.origin}/`;
         } else if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
+        } else if (session.role === "GA") {
+          callbackUrl = `${window.location.origin}/providers/GA`;
+        } else if (session.role === "manager") {
+          callbackUrl = `${window.location.origin}/providers/manager`;
         } else {
+          // Log the role to vscode console
+          console.log("Role:", session.role);
           callbackUrl = `${window.location.origin}/auth/logout`;
         }
 

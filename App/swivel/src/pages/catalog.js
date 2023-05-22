@@ -12,7 +12,7 @@ import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/materia
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import BuyerLayout from "@/components/buyer/buyer_layout";
+import BuyerLayout from "@/components/buyer/layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
 import Searchbar from "@/components/general/searchbar";
 import ApiDataDisplay from "@/components/buyer/api_data_display";

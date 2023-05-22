@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Searchbar from "@/components/general/searchbar";
-import LandingPageLayout from "@/components/buyer/buyer_layout";
+import BuyerLayout from "@/components/buyer/layout";
 import CatalogPagination from "@/components/buyer/catalog_pagination";
 import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
@@ -261,7 +261,7 @@ export default function Catalog() {
 
   return (
     <>
-      <LandingPageLayout>
+      <BuyerLayout>
         <Grid container sx={
           {
             paddingLeft: "3%",
@@ -370,7 +370,7 @@ export default function Catalog() {
             </div>
           </Grid>
         </Grid>
-      </LandingPageLayout>
+      </BuyerLayout>
     </>
   );
 };
