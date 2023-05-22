@@ -1,25 +1,12 @@
-/*
-
-Sebastian Gonzalez Villacorta
-21/5/2023
-
-Description: Create new entry of proceso de venta in MongoDB
-
-*/
-
 import mongoose from "mongoose";
 import dbConnect from "../../../config/dbConnect";
-const Proceso = require('../../../models/procesos');
 const Usuario = require('../../../models/usuario');
 
 export default async function handler(req, res) {
-
-    const auto = JSON.stringify(req.body.auto);
-
     await dbConnect();
 
+    console.log("Asignando vendedor a compra en endpoint");
     try {
-
         const resultVendedor = await Usuario
             .find({ "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
             .sort({ "contar_ventas_en_proceso": 1 })
@@ -39,28 +26,12 @@ export default async function handler(req, res) {
         
         const agenciaVendedor = await Usuario.findById(usuarioVendedor.agencia_id);
 
-        const usuario = await Usuario.findById(req.body.usuario_final_id);
-
-        await Proceso.create({
-            tipo_proceso: "solicitudCompra",
-            estatus: "documentosPendientes",
-            documentos: [],
-            fecha_creacion: Date.now(),
-            auto: auto, //Llega del request
-            usuario_final: usuario,
-            vendedor: usuarioVendedor,
-            agencia: agenciaVendedor,
-            cantidad_a_pagar: req.cantidad_a_pagar, //Llega del request
-        });
-
-        res.status(200).json({ message: 'Compra creada' });
+        return res.status(200).json({ message: 'Compra asignada correctamente', vendedor: usuarioVendedor, agencia: agenciaVendedor });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
+        console.log("Error en asignar endpoint: " + error)
+        return res.status(500).json({ message: 'Hubo un error al asignar vendedor a la compra' });
     } finally {
         await mongoose.disconnect();
         console.log("Desconectado de MongoDB");
     }
-
-}
-
+} 

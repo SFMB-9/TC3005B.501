@@ -3,24 +3,25 @@ const mongoose = require('mongoose');
 const usuarioSchema = new mongoose.Schema({
     tipo_usuario: {
     type: String,
-   
     },
     nombres: {
     type: String,
-
     },
     apellidos: {
     type: String,
-   
     },
     email: {
     type: String,
-   
     },
     contrasena: {
     type: String,
-   
-    }, 
+    },
+    direccion: {
+    type: JSON,
+    },
+    numero_telefonico: {
+    type: String,
+    },
     gerente_id: {
     type: String,
     },
@@ -29,6 +30,9 @@ const usuarioSchema = new mongoose.Schema({
     },
     contar_ventas_en_proceso: {
     type: Number,
+    },
+    agencia_id: {
+    type: String,
     },
     _id: mongoose.Schema.Types.ObjectId,
 }); 

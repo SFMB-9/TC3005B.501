@@ -1,35 +1,47 @@
+const { Decimal128 } = require('mongodb');
 const mongoose = require('mongoose');
 
 const procesoSchema = new mongoose.Schema({
-  vendedor_id: {
-    type: String,
-    
-  },
-  status: {
-    type: String,
-  },
   tipo_proceso: {
     type: String,
-  
+  },
+  estatus: {
+    type: String,
   },
   documentos: {
     type: Array,
   },
+  fecha_creacion: {
+    type: Date,
+  },
   auto: {
     type: JSON,
+  },
+  usuario_final: {
+    type: JSON,
+  },
+  vendedor: {
+    type: JSON,
+  },
+  agencia: {
+    type: JSON,
+  },
+  cantidad_a_pagar: {
+    type: Decimal128,
   },
   fecha_agendada: {
     type: Date,
   },
-  usuario_final_id: {
-    type: String,
-  },
   chat: {
     type: JSON,
   },
-  _id: mongoose.Schema.Types.ObjectId,
-
-}); 
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    required: true,
+    auto: true,
+  }
+});
 
 
 module.exports = mongoose.models.Proceso || mongoose.model('Proceso', procesoSchema, 'procesos'); // pass the collection name explicitlyo;
