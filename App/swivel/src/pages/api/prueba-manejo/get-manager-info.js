@@ -19,7 +19,7 @@ export default async (req, res) => {
 
         try {
         // Find the car specific to the given id
-        const user = await Usuario.findOne({ "nombres": nombre_agencia, "tipo_usuario": "agencia" });
+        const user = await Usuario.findOne({ "agencia": nombre_agencia, "tipo_usuario": "gerente" });
 
       res.status(200).json({ user }, { status: 'Se ha encontrado el usuario gerente'});
     } catch (error) {
