@@ -12,11 +12,33 @@
 
 .filterTitle {
   font-weight: bold;
-  margin: 15px;
+  /* margin: 15px; */
   font-family: 'Raleway';
   font-size: 1.5em;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+}
+
+.filterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.filterBody{
+  padding-bottom: 0.8rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.buttonWrapper {
+  justify-self: flex-end;
 }
 
 .iconWrapper {
