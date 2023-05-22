@@ -6,8 +6,7 @@ const Carousel = (props) => {
                         id="carouselExampleIndicators"
                         className="carousel slide"
                       >
-                        {props.indicators && (
-
+                        
                         <div className="carousel-indicators">
                           {props.images.map((image, index) => (
                             <button
@@ -25,6 +24,7 @@ const Carousel = (props) => {
                                 height: "10px",
                                 width: "10px",
                                 backgroundColor: "grey",
+                                visibility: props.indicators ? "visible" : "hidden",
                               }}
                               data-bs-slide-to={index}
                               className={index === 0 ? "active" : ""}
@@ -32,8 +32,7 @@ const Carousel = (props) => {
                             ></button>
                           ))}
                         </div>
-                        )}
-
+                        
                         <div className="carousel-inner rounded">
                           {props.images.map((image, index) => (
                             <div
