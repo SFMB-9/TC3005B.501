@@ -2,20 +2,49 @@ const { Decimal128 } = require('mongodb');
 const mongoose = require('mongoose');
 
 const procesoSchema = new mongoose.Schema({
-  tipo_proceso: {
+  nombre_agencia: {
+    type: String,
+  },
+  direccion_agencia: {
+    type: String,
+  },
+  grupo_automotriz_id: {
+    type: String,
+  },
+  grupo_automotriz: {
+    type: String,
+  },
+  superadmin: {
+    type: String,
+  },
+  estatus_validacion: {
     type: String,
   },
   estatus: {
     type: String,
   },
-  documentos: {
+  documentos_url: {
     type: Array,
   },
-  fecha_creacion: {
-    type: Date,
+  direccion: {
+    calle: String,
+    numero_exterior: String,
+    numero_interior: String,
+    ciudad: String,
+    estado: String,
+    pais: String,
+    codigo_postal: String
   },
   auto: {
-    type: JSON,
+    auto_id: String,
+    marca: String,
+    modelo: String,
+    ano: String,
+    precio: String,
+    array_fotografias_url: [String]
+  },
+  fecha_inicio: {
+    type: Date,
   },
   usuario_final: {
     type: JSON,
@@ -32,16 +61,20 @@ const procesoSchema = new mongoose.Schema({
   fecha_agendada: {
     type: Date,
   },
-  chat: {
-    type: JSON,
+  hora_agendada: {
+    type: Date,
   },
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
-    required: true,
-    auto: true,
+  usuario_final_id: {
+    type: String,
+  },
+  numero_telefonico: {
+    type: String,
+  },
+  comentarios: {
+    type: String,
   }
-});
+  //_id: mongoose.Schema.Types.ObjectId,
+}); 
 
 
 module.exports = mongoose.models.Proceso || mongoose.model('Proceso', procesoSchema, 'procesos'); // pass the collection name explicitlyo;

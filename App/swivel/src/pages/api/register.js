@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, surname, email, password, role} = req.body;
+    const { name, surname, email, password, role } = req.body;
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -40,13 +40,19 @@ export default async function handler(req, res) {
           };
     });
 
-    let usedEmail = await User.exists({ email: email });
+    let usedEmail = await User.findOne({ email: email });
 
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
       
       if (role === "user") {
-        await User.create({ name, surname, email, password, encrypted_role });
+        await User.create({ 
+          nombres: name, 
+          apellidos: surname, 
+          email: email, 
+          contraseña: password, 
+          tipo_usuario: encrypted_role 
+        });
         res.status(200).json({ message: "User registered successfully" });
       } 
       
@@ -56,13 +62,13 @@ export default async function handler(req, res) {
         const phone = req.body.phone;
 
         await SellerUser.create({
-          name,
-          surname,
-          email,
-          password,
-          encrypted_role,
-          agency,
-          phone,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          contraseña: password,
+          tipo_usuario: encrypted_role,
+          agencia: agency,
+          telefono: phone,
         });
         res.status(200).json({ message: "Seller registered successfully" });
       }
@@ -73,13 +79,13 @@ export default async function handler(req, res) {
         const phone = req.body.phone;
 
         await ManagerUser.create({
-          name,
-          surname,
-          email,
-          password,
-          encrypted_role,
-          agency,
-          phone,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          contraseña: password,
+          tipo_usuario: encrypted_role,
+          agencia: agency,
+          telefono: phone,
         });
         res.status(200).json({ message: "Manager registered successfully" });
       }
