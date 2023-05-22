@@ -1,5 +1,6 @@
 .searchbar_container {
-  background-image: url('/searchbar_background_image.svg');
+  /* background-image: url('/searchbar_background_image.svg'); */
+  /* background-color: black; */
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;
@@ -15,6 +16,7 @@
 
 .searchbar_field {
   border-radius: 20px;
+  border: 2px solid #909090;
   outline: none;
   width: 100%;
   display: flex;
@@ -22,6 +24,10 @@
   padding: 0.4rem 0.5rem 0.2rem 1.2rem;
   border-radius: 20px;
   background-color: #FFF;
+}
+
+.searchbar_field.transparent {
+  border: none;
 }
 
 .searchbar_field input {

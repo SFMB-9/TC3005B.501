@@ -11,13 +11,13 @@ que compartan la misma estructura.
 import BuyerNavbar from "./navbar";
 import Footer from "../general/footer";
 
-export default function LandingPageLayout({ children }) {
+export default function BuyerLayout({ children }) {
   return (
     <>
-      <BuyerNavbar
-        session={false}
-      />
-      {children}
+      <BuyerNavbar/>
+      <div className="min-vh-100">
+        {children}
+      </div>
       <Footer />
     </>
   );

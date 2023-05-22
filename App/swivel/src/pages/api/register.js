@@ -1,4 +1,4 @@
-import { User, SellerUser } from "../../models/user";
+import { User, SellerUser, ManagerUser} from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
 /* 
@@ -65,6 +65,23 @@ export default async function handler(req, res) {
           phone,
         });
         res.status(200).json({ message: "Seller registered successfully" });
+      }
+
+      else if (role === "manager") {
+
+        const agency = req.body.agency;
+        const phone = req.body.phone;
+
+        await ManagerUser.create({
+          name,
+          surname,
+          email,
+          password,
+          encrypted_role,
+          agency,
+          phone,
+        });
+        res.status(200).json({ message: "Manager registered successfully" });
       }
     } else {
       res.status(400).json({ message: "Account already exists" });
