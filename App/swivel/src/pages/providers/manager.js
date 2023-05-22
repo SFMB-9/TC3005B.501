@@ -8,13 +8,13 @@ export default function ManagerLanding({ children }) {
 
   const routManejoVendedores = () => {
     router.push({
-      pathname: "/gerente/manejo-vendedores"
+      pathname: "/providers/manager/manejo-vendedores"
     });
   };
 
   const routGestionAgencia = () => {
     router.push({
-      pathname: "/gerente/gestion-agencia"
+      pathname: "/providers/manager/gestion-agencia"
     });
   };
 
