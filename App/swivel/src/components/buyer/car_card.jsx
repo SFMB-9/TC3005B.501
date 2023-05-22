@@ -10,16 +10,22 @@ import {
   Card,
   CardContent,
   CardMedia,
+  IconButton,
   Typography,
   CardActionArea,
 } from "@mui/material";
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from "react";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
+  const [favorite, setFavorite] = useState(false);
+
   const theme = createTheme({
     palette: {
       contrast: {
@@ -29,13 +35,26 @@ export default function CarCard(props) {
   });
   const cardMaxWidth = 500;
   return (
-    <Card sx={{ maxWidth: cardMaxWidth, maxHeight: 330}}>
-      <CardMedia
-        component="img"
-        height="160"
-        image={props.carImage}
-        alt="car"
-      />
+    <Card sx={{ maxWidth: cardMaxWidth, maxHeight: 330 }}>
+      <div style={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height="160"
+          image={props.carImage}
+          alt="car"
+        />
+        <IconButton
+          onClick={() => setFavorite(!favorite)}
+          sx={{
+            position: 'absolute',
+            top: 3.5,
+            right: 3.5,
+            fontSize: '1.4rem',
+            color: '#F55C7A' /*favorite ? '#F55C7A' : 'grey',*/
+          }}>
+          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </IconButton>
+      </div>
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{
@@ -57,7 +76,7 @@ export default function CarCard(props) {
             fontFamily: 'Lato'
           }}>
             <FormatColorFillIcon sx={{ fontSize: 15, marginRight: '0.5rem' }} />
-            Disponible en {props.carColor} {props.carColor > 1 ? "colores": "color" }
+            Disponible en {props.carColor} {props.carColor > 1 ? "colores" : "color"}
           </Typography>
           <div className="d-flex flex-row align-items-center justify-content-between">
             <div>
@@ -71,7 +90,7 @@ export default function CarCard(props) {
               </Typography>
             </div>
             <ThemeProvider theme={theme}>
-              <div><ArrowForwardIcon sx={{ fontSize: 25, color:"#F55C7A"}} /></div>
+              <div><ArrowForwardIcon sx={{ fontSize: 25, color: "#F55C7A" }} /></div>
             </ThemeProvider>
           </div>
         </CardContent>

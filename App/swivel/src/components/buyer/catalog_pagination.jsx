@@ -18,7 +18,15 @@ export default function CatalogPagination({ catalogData, itemsPerPage }) {
   // State that holds the current page
   const [currentPage, setCurrentPage] = useState(1);
   // Calculate the total number of pages based on the number of items per page
-  const totalPages = Math.ceil(catalogData.length / itemsPerPage);
+  let totalPages;
+  if (catalogData !== undefined)
+  {
+    totalPages = Math.ceil(catalogData.length / itemsPerPage);
+  }
+  else
+  {
+    totalPages = 1;
+  }
 
   // Function that handles the page change
   const handlePageChange = (event, page) => {
@@ -30,7 +38,15 @@ export default function CatalogPagination({ catalogData, itemsPerPage }) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   // Slice the catalog data to get the items to show
-  const itemsToShow = catalogData.slice(startIndex, endIndex);
+  let itemsToShow;
+  if (catalogData !== undefined)
+  {
+    itemsToShow = catalogData.slice(startIndex, endIndex);
+  }
+  else
+  {
+    itemsToShow = [];
+  }
 
   // Reset the current page when the catalog data changes
   useEffect(() => {
