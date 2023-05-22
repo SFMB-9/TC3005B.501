@@ -1,13 +1,13 @@
+import { useState } from "react";
 import { AppBar, Box, Toolbar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useState } from "react";
 import { signOut } from "next-auth/react";
-
-import styles from '@/styles/custom_navbar.module.css'
+import styles from '@/styles/custom_navbar.module.css';
 import Searchbar from "./searchbar";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomNavbar({
   home = '/',
@@ -17,9 +17,11 @@ export default function CustomNavbar({
   black = false
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEls, setAnchorEls] = useState({});
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [showSearchbar, setShowSearchbar] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,23 +53,33 @@ export default function CustomNavbar({
     setAnchorEl(null);
   };
 
+  const handleToggleSearchbar = () => {
+    setShowSearchbar(!showSearchbar);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <AppBar position="static" style={{ backgroundColor: black ? '#000' : '#1F1F1F', boxShadow: 'none' }}>
       <Toolbar>
-        {/* Logo medium */}
         <Box sx={{ display: { xs: "none", md: "flex" }, mr: 6 }}>
           <Link href={home}>
             <Image src="/swivel_logo_white.svg" alt="Logo" width={120} height={30} />
           </Link>
         </Box>
-        {/* Left-most elements, screen medium */}
         <Box
           sx={{
             flexGrow: 1,
             display: { xs: "none", md: "flex" },
             justifyContent: "flex-start",
             alignItems: "center",
-            marginLeft: "25px", // Adjust the value to move the section more to the left
+            marginLeft: "25px",
           }}
         >
           <div style={{ display: "flex", gap: "60px" }}>
@@ -82,9 +94,8 @@ export default function CustomNavbar({
             ))}
           </div>
         </Box>
-        {/* Left-most elements, screen small */}
         {elems_left.length > 0 && (
-          <Box sx={{ display: { xs: "flex", md: "none" }, }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-controls="menu-appbar"
@@ -97,15 +108,9 @@ export default function CustomNavbar({
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
               keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
+              transformOrigin={{ vertical: "top", horizontal: "left" }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
             >
@@ -121,7 +126,6 @@ export default function CustomNavbar({
             </Menu>
           </Box>
         )}
-        {/* Logo small width */}
         <Box
           sx={{
             display: { xs: "flex", md: "none" },
@@ -136,8 +140,6 @@ export default function CustomNavbar({
             <Image src="/swivel_logo_white.svg" alt="Logo" width={120} height={30} />
           </Link>
         </Box>
-        {/* If searchbar present */}
-        {/* Right-most elements, screen medium */}
         <Box
           sx={{
             flexGrow: 1,
@@ -147,31 +149,28 @@ export default function CustomNavbar({
             marginRight: "16px"
           }}
         >
+          {/* If searchbar present */}
           {searchbar && (
-            <Searchbar transparent />
-          )}
+          <div
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Searchbar transparent hidden={isHovered||showSearchbar} />
+          </div>
+        )}
           <div style={{ display: "flex", gap: "60px" }}>
             {elems_right.map((element, index) => (
-              // Check if the element is a popup
               element.popup ? (
                 <div key={index}>
-                  <MenuItem
-                    onClick={(event) => handleOpenUserMenu(event, index)}
-                  >
+                  <MenuItem onClick={(event) => handleOpenUserMenu(event, index)}>
                     <Typography className={styles.popup_item}>
                       {element.name}
                     </Typography>
                   </MenuItem>
                   <Menu
                     id="menu-appbar"
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    transformOrigin={{ vertical: "top", horizontal: "right" }}
                     getContentAnchorEl={null}
                     anchorEl={anchorEls[index]}
                     open={Boolean(anchorEls[index])}
@@ -179,7 +178,6 @@ export default function CustomNavbar({
                   >
                     {element.popup.map((popup_element, index) => (
                       <MenuItem key={index} onClick={handleCloseUserMenu}>
-                        {/* Check if the element is a signup component */}
                         {popup_element.signoutComponent ? (
                           <Typography className={styles.popup_item} onClick={() => signOut({ callbackUrl: popup_element.signoutComponent })}>
                             {popup_element.name}
@@ -207,7 +205,6 @@ export default function CustomNavbar({
             ))}
           </div>
         </Box>
-        {/* Right-most elements, screen small */}
         {elems_right.length > 0 && (
           <Box sx={{ display: { md: "none" } }}>
             <IconButton onClick={handleMenu} sx={{ p: 0, color: "white" }}>
@@ -216,25 +213,16 @@ export default function CustomNavbar({
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
               {elems_right.map((element, index) => (
-                // Check if the element is a popup
                 element.popup ? (
                   <div key={index}>
-                    <MenuItem
-                      onClick={(event) => handleOpenUserMenu(event, index)}
-                    >
+                    <MenuItem onClick={(event) => handleOpenUserMenu(event, index)}>
                       <Typography className={styles.submenu_item}>
                         {element.name}
                       </Typography>
@@ -242,21 +230,14 @@ export default function CustomNavbar({
                     <Menu
                       id={`menu-appbar-popup-${index}`}
                       anchorEl={anchorElUser === index ? anchorEl : null}
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right",
-                      }}
+                      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                       keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
+                      transformOrigin={{ vertical: "top", horizontal: "right" }}
                       open={Boolean(anchorElUser === index)}
                       onClose={handleCloseUserMenu}
                     >
                       {element.popup.map((popup_element, subIndex) => (
                         <MenuItem key={subIndex} onClick={handleCloseUserMenu}>
-                          {/* Check if the element is a signup component */}
                           {popup_element.signoutComponent ? (
                             <Typography className={styles.popup_item} onClick={() => handleSignout(popup_element.signoutComponent)}>
                               {popup_element.name}

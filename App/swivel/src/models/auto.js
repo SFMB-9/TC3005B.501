@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose, { model } from "mongoose";
 
 const autoSchema = new mongoose.Schema({
     marca: {
@@ -61,4 +61,4 @@ const autoSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 }); 
 
-module.exports = mongoose.models.Auto || mongoose.model('Auto', autoSchema, 'autos'); // pass the collection name explicitly
+export default mongoose.models.Auto || mongoose.model("Auto", autoSchema);

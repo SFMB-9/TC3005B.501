@@ -27,7 +27,7 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
-        if (session.role === "buyer") {
+        if (session.role === "user") {
           callbackUrl = `${window.location.origin}/`;
         } else if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
@@ -36,6 +36,7 @@ export default function Login() {
           callbackUrl = `${window.location.origin}/providers/manager`;
         }
         else {
+          console.log("Role:", session.role);
           callbackUrl = `${window.location.origin}/auth/logout`;
         }
 
@@ -117,7 +118,7 @@ export default function Login() {
             </div>
             <div className="text-center">
               <p>
-                No tienes cuenta? <a href="/auth/signup_buyer">Regístrate aquí</a>
+                No tienes cuenta? <a href="/auth/signup">Regístrate aquí</a>
               </p>
             </div>
           </form>}
