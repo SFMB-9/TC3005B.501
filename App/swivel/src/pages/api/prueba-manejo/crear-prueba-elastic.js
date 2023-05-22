@@ -21,7 +21,7 @@ export default async (req, res) => {
         const carData = jsonResult.auto._source;
         
         const userData = await Usuario.findById(req.body.user_id);
-        const agencyData = await Usuario.findOne({ "agencia": carData.nombre_agencia, "tipo_usuario": "gerente" });
+        const agencyData = await Usuario.findOne({ "nombres": carData.nombre_agencia, "tipo_usuario": "agencia" });
         
         // Create the Process with the defined data
         const proceso = await Proceso.create({ 
