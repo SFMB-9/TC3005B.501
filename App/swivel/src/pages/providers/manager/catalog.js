@@ -2,23 +2,20 @@
 Ana Paula Katsuda Zalce
 Salvador Federico Milanes Braniff
 Sebastián González Villacorta
-18-04-2023
+Diego Corrales Pinedo
+18-05-2023
 
-Catalogo de vehiculos, con sidebar de filtros
-y searchbar que emplearía elastic search.
+Catalogo de vehiculos de agencia, con sidebar 
+de filtros y searchbar que emplearía elastic 
+search.
 */
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-import BuyerLayout from "@/components/buyer/layout";
-import CatalogGrid from "@/components/buyer/catalog_grid";
+import { Grid, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
-import ApiDataDisplay from "@/components/buyer/api_data_display";
-
+import ManagerLayout from "@/components/providers/manager/layout";
 import styles from "@/styles/catalog.module.css";
-
+import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -28,17 +25,25 @@ export default function Catalog() {
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
+  const [deletingCarIds, setDeletingCarIds] = useState([]);
+
+  const router = useRouter();
+
+  // Get agency name from session
+  //const { data: session } = useSession();
+  //const agencyName = session.nombre_agencia;
+  const agencyName = "Volkswagen";
 
   const fetchFilters = async () => {
-    console.log(selectedFilters)
+    console.log("Fetching...");
     let queryString = selectedFilters.length
-      ? `?${selectedFilters
+      ? `${selectedFilters
         .map((filter) => filter.replace("modelos", "modelo"))
         .join("&")}`
       : "";
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/buscar-auto${queryString}`
+      `http://localhost:3000/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
     );
 
     const data = await response.json();
@@ -124,9 +129,32 @@ export default function Catalog() {
     </ul>
   );
 
+  const viewCreateCar = () => {
+    // Navigate to the page to create cars
+    router.push({
+      pathname: '/providers/manager/carRegister',
+      query: {},
+    })
+  };
+
+  const viewEditCar = (auto_id) => {
+    // Navigate to the page to create cars
+    router.push({
+      pathname: '/providers/manager/editar-auto',
+      query: {auto_id},
+    })
+  };
+
+  const deleteCar = async (auto_id) => {
+    setDeletingCarIds([...deletingCarIds, auto_id]);
+    // Delete car from elastic
+    await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`, 
+    {method: 'DELETE'});
+  };
+
   return (
     <>
-      <BuyerLayout>
+      <ManagerLayout>
         <Grid container>
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
@@ -139,7 +167,7 @@ export default function Catalog() {
                     handleMenuItemClick(chip.category, chip.value)
                   }
                   color="primary"
-                  
+                  variant="outlined"
                   className={styles.filterChip}
                 />
               ))} */}
@@ -151,14 +179,7 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        <div>
-                          <div className={styles.category}>
-                            {filterHeaders[category]}
-                          </div>
-                          <div className={styles.arrow}>
-                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
-                          </div>
-                        </div>
+                        {filterHeaders[category]}
                       </button>
                       {expandedMenuItems[category]?.[null] &&
                         renderSubMenu(category, subMenuItems)}
@@ -175,7 +196,7 @@ export default function Catalog() {
             */}
             <Searchbar
               setState={setSelectedFilters}
-            />
+            > </Searchbar>
             <div
               style={{
                 padding: "3%",
@@ -189,11 +210,49 @@ export default function Catalog() {
                 }`}
               </div>
               <ApiDataDisplay apiData={apiData} /> */}
-              <CatalogGrid carListing={catalogData} />
+              {/* <CatalogGrid carListing={catalogData} /> */}
+              {/* Display listing of cars */}
+              {catalogData ? (
+                    <div>
+                      <div>
+                        <table style={{width: "100%"}}>
+                        <thead>
+                            <tr>
+                            <th></th>
+                            <th>Modelo</th>
+                            <th>Año</th>
+                            <th>Marca</th>
+                            <th>ID</th>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {catalogData.map((car, i) => (
+                            <tr key={i}>
+                                <td><img src={car._source.fotos_3d[0]} height="50" width="60"/></td>
+                                <td>{car._source.modelo}</td>
+                                <td>{car._source.año}</td>
+                                <td>{car._source.marca}</td>
+                                <td>{car._id}</td>
+                                <td><button onClick={() => viewEditCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Editar </button></td>
+                                <td><button onClick={() => deleteCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Borrar </button></td>
+                            </tr>
+                            ))}
+                        </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <h2>No se econtraron autos.</h2>
+                    </div>
+                  )}
+            <button onClick={() => viewCreateCar()}> Agregar auto </button>
             </div>
           </Grid>
         </Grid>
-      </BuyerLayout>
+      </ManagerLayout>
     </>
   );
 }

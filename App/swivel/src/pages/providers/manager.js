@@ -3,7 +3,7 @@ import CustomHero from "@/components/general/custom_hero";
 import ManagerNavbar from "@/components/providers/manager/navbar";
 import ActionsCards from "@/components/providers/Manager/actions_cards";
 
-export default function ManagerLandingPage() {
+export default function Manager() {
   return (
     <>
       <ManagerNavbar />
