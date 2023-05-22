@@ -1,4 +1,4 @@
-import CustomNavbar from "@/components/general/custom_navbar";
+import CustomNavbar from "@/components/general/custom_navbar"
 
 export default function ManagerNavbar() {
   return (
