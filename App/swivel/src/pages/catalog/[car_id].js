@@ -171,6 +171,15 @@ export default function CarDetails() {
       value: parseInt(plazo),
       label: `${plazo}`,
     }));
+
+    const viewDrivingRequestDetails = (auto_id) => {
+      // Navigate to a new page to view the details of the request
+      router.push({
+        pathname: '/buyer/test-detail',
+        query: { auto_id },
+      })
+    };
+
     return (
       <div>
         <LandingPageLayout>
@@ -323,6 +332,7 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
+                              onClick={() => viewDrivingRequestDetails(car_id)}
                             >
                               Prueba de manejo
                             </Button>

@@ -18,11 +18,13 @@ import setHours from "date-fns/setHours";
 import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
 import axios from 'axios';
+import { useSession } from "next-auth/react";
 
 //import Map from '@/pages/Map';
 
 const RequestDetails = () => {
 
+  const { data: session } = useSession();
   const router = useRouter();
   const [documents, setDocuments] = useState([]);
   const [userAddress, setUserAddress] = useState({});
@@ -33,7 +35,9 @@ const RequestDetails = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
   const [managerData, setManagerData] = useState({});
-  const { auto_id, user_id } = router.query;
+  const { auto_id } = router.query;
+  // user_id = session.id;
+  const user_id = "64586ff82cd17fbeb63aa3d0";
 
   const fetchDetails = async () => {  
     let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`, 

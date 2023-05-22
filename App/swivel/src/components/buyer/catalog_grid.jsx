@@ -266,7 +266,7 @@ export default function CatalogGrid({ carListing }) {
     carList = carListing.map((car) => (
       <Grid item xs={12} sm={12} md={6} lg={4}>
         <CarCard
-          carUrl={`/catalogo/${car._id}`}  //{car.carUrl}
+          carUrl={`/catalog/${car._id}`}  //{car.carUrl}
           carImage={car._source.fotos_3d[0]} //{car.carImages}
           // carImage=
           // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
