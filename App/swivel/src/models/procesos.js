@@ -43,7 +43,7 @@ const procesoSchema = new mongoose.Schema({
     precio: String,
     array_fotografias_url: [String]
   },
-  fecha_inicio: {
+  fecha_creacion: {
     type: Date,
   },
   usuario_final: {
@@ -56,7 +56,7 @@ const procesoSchema = new mongoose.Schema({
     type: JSON,
   },
   cantidad_a_pagar: {
-    type: Decimal128,
+    type: Number,
   },
   fecha_agendada: {
     type: Date,
