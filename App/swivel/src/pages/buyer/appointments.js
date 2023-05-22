@@ -12,12 +12,12 @@ export default function Appointments() {
 		const retrievedTests = await data
 		setCompletedTests(
 			retrievedTests.filter((test) => {
-				return test.estatus === 'completed'
+				return test.estatus === 'finalizada'
 			})
 		)
 		setUncompletedTests(
 			retrievedTests.filter((test) => {
-				return test.estatus !== 'completed'
+				return test.estatus !== 'finalizada'
 			})
 		)
 	}
