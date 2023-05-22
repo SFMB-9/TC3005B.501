@@ -291,7 +291,7 @@ export default function Catalog() {
                   </Button>
                 </div>
               </div>
-
+              <div className={styles.filterBody}>
               {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
@@ -300,10 +300,15 @@ export default function Catalog() {
                     handleMenuItemClick(chip.category, chip.value)
                   }
                   color="primary"
-                  variant="outlined"
+                  sx={{
+                    marginBottom: "0.2rem",
+                    marginRight: "0.2rem",
+                  }}
+                  // variant="outlined"
                   className={styles.filterChip}
                 />
               ))}
+              </div>
               {filters && (
                 <ul className={styles.filterList}>
                   {Object.entries(filters).map(([category, subMenuItems]) => (
