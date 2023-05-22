@@ -43,7 +43,7 @@ export default function CarCard(props) {
           image={props.carImage}
           alt="car"
         />
-        <IconButton
+          <IconButton
           onClick={() => setFavorite(!favorite)}
           sx={{
             position: 'absolute',
@@ -53,7 +53,7 @@ export default function CarCard(props) {
             color: '#F55C7A' /*favorite ? '#F55C7A' : 'grey',*/
           }}>
           {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </IconButton>
+          </IconButton>
       </div>
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
