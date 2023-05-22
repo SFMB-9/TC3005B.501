@@ -14,7 +14,8 @@ import { Pagination } from '@mui/material';
 import CatalogGrid from './catalog_grid';
 
 // Function that handles the pagination, accepts the catalog data and the number of items per page
-export default function CatalogPagination({ catalogData, itemsPerPage }) {
+export default function CatalogPagination({ catalogData, itemsPerPage, carCardType }) {
+  console.log("CatalogPagination", catalogData);
   // State that holds the current page
   const [currentPage, setCurrentPage] = useState(1);
   // Calculate the total number of pages based on the number of items per page
@@ -55,7 +56,7 @@ export default function CatalogPagination({ catalogData, itemsPerPage }) {
 
   return (
     <div>
-      <CatalogGrid carListing={itemsToShow} />
+      <CatalogGrid carListing={itemsToShow} cardType={carCardType} />
       <Pagination
         sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}
         count={totalPages}
