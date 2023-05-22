@@ -8,7 +8,7 @@ Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import { Grid, Chip, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -37,6 +37,8 @@ export default function Catalog() {
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
   const [catalogColors, setCatalogColors] = useState([]);
+
+  const [sortOption, setSortOption] = useState('');
 
   const buildQuery = (selectedFilters) => {
     let query = {};
@@ -102,7 +104,12 @@ export default function Catalog() {
     setFilters(data.filters);
     setApiData(data);
     setCatalogData(data.result);
-    setCatalogColors(data.result.colors);
+    if (data.result !== undefined) {
+      setCatalogColors(data.result.colors);
+    }
+    else {
+      setCatalogColors([]);
+    }
   };
 
   useEffect(() => {
@@ -159,6 +166,11 @@ export default function Catalog() {
     });
   };
 
+  const handleUncheckAllFilters = () => {
+    setSelectedFilters([]);
+    setSelectedChips([]);
+    setExpandedMenuItems({});
+  };
 
   const renderSubMenu = (category, subMenuItems) => (
     <ul className={styles.filters}>
@@ -246,6 +258,7 @@ export default function Catalog() {
       handleNoSort();
     }
   };
+
   return (
     <>
       <LandingPageLayout>
@@ -257,12 +270,28 @@ export default function Catalog() {
         } >
           <Grid item xs={12} md={3} sm={4}>
             <div className={styles.filterContainer}>
-              <div className={styles.filterTitle}>
-                <div className={styles.iconWrapper}>
-                  <FilterListIcon className={styles.filterListIcon} />
+              <div className={styles.filterHeader}>
+                <div className={styles.filterTitle}>
+                  <div className={styles.iconWrapper}>
+                    <FilterListIcon className={styles.filterListIcon} />
+                  </div>
+                  <span>Filtros</span>
                 </div>
-                <span>Filtros</span>
+                <div className={styles.buttonWrapper}>
+                  <Button
+                    variant="text"
+                    onClick={handleUncheckAllFilters}
+                    sx={{
+                      textDecoration: "underline",
+                      textAlign: "right",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    Eliminar filtros
+                  </Button>
+                </div>
               </div>
+
               {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
@@ -310,7 +339,11 @@ export default function Catalog() {
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
                   <Typography color="text.secondary">
-                    Mostrando {Intl.NumberFormat().format(catalogData.length)} resultados
+                    Mostrando&nbsp;
+                    {
+                      catalogData !== undefined ? Intl.NumberFormat().format(catalogData.length) : 0
+                    }
+                    &nbsp;resultados
                   </Typography>
                 </span>
                 <span className="d-flex align-items-center">
