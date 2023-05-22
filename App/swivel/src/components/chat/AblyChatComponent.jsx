@@ -83,10 +83,10 @@ const AblyChatComponent = () => {
 
   const messages = receivedMessages.map((message, index) => {
     const author =
-      message.clientId === session.id || message.connectionId === ably.connection.id
+      (message.clientId == session.id)|| (message.connectionId == ably.connection.id && message.connectionId && ably.connection.id)
         ? "me"
         : "other";
-
+    console.log(message.clientId, session.id, message.connectionId, ably.connection.id);
     const date = new Date(message.timestamp);
     const formattedDate = `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
     return (
