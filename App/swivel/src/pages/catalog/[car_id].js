@@ -16,6 +16,8 @@ import CustomSlider from "@/components/general/Slider";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
 import Carousel from "@/components/general/Carousel";
+import TemporaryDrawer from "@/components/general/Drawer";
+import { set } from "mongoose";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -26,6 +28,7 @@ export default function CarDetails() {
   const router = useRouter();
   const { car_id } = router.query;
   const [carDetails, setCarDetails] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // States for selected down payment
   const [selectedDownPayment, setSelectedDownPayment] = useState(0);
@@ -33,7 +36,7 @@ export default function CarDetails() {
 
   const [selectedTerm, setSelectedTerm] = useState(0);
   const [favorite, setFavorite] = useState(false);
-  const [interestRate, setInterestRate] = useState(null);
+  const [interestRate, setInterestRate] = useState(0);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
 
   const [carPrice, setCarPrice] = useState(0);
@@ -57,7 +60,10 @@ export default function CarDetails() {
 
     const data = await response.json();
 
-    setCarDetails(data.result);
+    if (!carDetails) {
+      
+      setCarDetails(data.result);
+    }
     setCarPrice(data.result.precio);
     setSelectedColor(data.result.colores[0]);
   };
@@ -70,7 +76,16 @@ export default function CarDetails() {
     calculateTotalPriceExtras();
     calculateDownPaymentAmount();
     calculateMonthlyPayment();
-  }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate]);
+  }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate, downPayment]);
+
+  useEffect(() => {
+    if (carDetails) {
+      
+      setSelectedDownPayment(carDetails.enganche[0]);
+      setSelectedTerm(parseInt(Object.keys(carDetails.plazo)[0]));
+      setInterestRate(carDetails.plazo[Object.keys(carDetails.plazo)[0]])
+    }
+  }, [carDetails]);
 
   const handleButtonClick = (sectionId) => {
     const navbarHeight = document
@@ -99,11 +114,32 @@ export default function CarDetails() {
 
   const calculateMonthlyPayment = () => {
     const carPriceWithDownPayment = carPrice + totalPriceExtras - downPayment;
+    console.log(carPriceWithDownPayment, carPrice, totalPriceExtras, downPayment);
     const monthlyPayment = carPriceWithDownPayment / selectedTerm;
     const monthlyPaymentTotal =
       monthlyPayment + monthlyPayment * (interestRate / 100);
 
     setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
+  };
+
+  const buildSummary = () => {
+    const summary = {
+      marca: carDetails.marca,
+      modelo: carDetails.modelo,
+      año: carDetails.año,
+      precio: carDetails.precio,
+      direccion_agencia: carDetails.direccion_agencia,
+      color: selectedColor.nombre,
+      color_images: selectedColor.imagenes,
+      extras: selectedExtras,
+      total_price_extras: totalPriceExtras,
+      porcentaje_enganche: selectedDownPayment,
+      enganche: downPayment,
+      plazo: selectedTerm,
+      tasa: interestRate,
+      pago_mensual: monthlyPayment,
+      metodo_entrega: selectedDeliveryPrice,
+    };
   };
 
   // Function to handle checkbox change of
@@ -163,11 +199,11 @@ export default function CarDetails() {
       },
     ];
 
-    const enganche = carDetails.enganche.map((enganche) => ({
+    const enganche = carDetails.enganche?.map((enganche) => ({
       value: enganche,
       label: `${enganche}%`,
     }));
-    const plazo = Object.keys(carDetails.plazo).map((plazo) => ({
+    const plazo = Object.keys(carDetails.plazo)?.map((plazo) => ({
       value: parseInt(plazo),
       label: `${plazo}`,
     }));
@@ -197,7 +233,10 @@ export default function CarDetails() {
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>
                     <Grid item md={7} sm={12}>
-                      <Carousel images={selectedColor.imagenes} indicators={true} />
+                      <Carousel
+                        images={selectedColor.imagenes}
+                        indicators={true}
+                      />
                       <div className="pt-2 text-end">
                         <IconButton aria-label="360">
                           <img
@@ -301,7 +340,7 @@ export default function CarDetails() {
                           </Typography>
 
                           <div className="d-flex">
-                            {carDetails.colores.map((color, index) => (
+                            {carDetails.colores?.map((color, index) => (
                               <div className="pt-1" key={index}>
                                 <IconButton
                                   aria-label="color"
@@ -346,6 +385,7 @@ export default function CarDetails() {
                                 fontWeight: "bold",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
+                              onClick={() => setDrawerOpen(true)}
                             >
                               Compra
                             </Button>
@@ -411,8 +451,16 @@ export default function CarDetails() {
                         fontWeight={"bold"}
                         fontSize={{ xs: 20, md: 28, lg: 28 }}
                       >
-                        ${carPrice + totalPriceExtras + selectedDeliveryPrice}{" "}
-                        MXN
+                        ${carPrice + totalPriceExtras} MXN
+                      </Typography>
+                      <Typography
+                        fontFamily="Lato"
+                        color="#BABABA"
+                        fontWeight={"bold"}
+                        fontSize={{ xs: 10, md: 18, lg: 18 }}
+                        className="text-end w-100 pb-1"
+                      >
+                        +${selectedDeliveryPrice} MXN
                       </Typography>
                       <Button
                         variant="contained"
@@ -423,6 +471,7 @@ export default function CarDetails() {
                           fontWeight: "bold",
                           ":hover": { backgroundColor: "#BABABA" },
                         }}
+                        onClick={() => setDrawerOpen(true)}
                         size="small"
                         className="w-100"
                       >
@@ -552,7 +601,7 @@ export default function CarDetails() {
               <Grid container className="mt-1" direction="row" spacing={4}>
                 <Grid item md={6} xs={12}>
                   <div className="d-flex flex-column">
-                    {firstDetails.map((detail, index) => (
+                    {firstDetails?.map((detail, index) => (
                       <div
                         className="d-flex justify-content-between mb-5"
                         key={index}
@@ -587,7 +636,7 @@ export default function CarDetails() {
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <div className="d-flex flex-column">
-                    {secondDetails.map((detail, index) => (
+                    {secondDetails?.map((detail, index) => (
                       <div
                         className="d-flex justify-content-between mb-5"
                         key={index}
@@ -637,7 +686,7 @@ export default function CarDetails() {
                 </Typography>
 
                 <div className="row mt-4">
-                  {carDetails.caracteristicas.map((caracteristica, index) => (
+                  {carDetails.caracteristicas?.map((caracteristica, index) => (
                     <div
                       className="col-lg-3 col-md-4 col-sm-6 p-5 py-3"
                       key={index}
@@ -671,7 +720,7 @@ export default function CarDetails() {
                 </Typography>
 
                 <div className="row my-4">
-                  {carDetails.extras.map((extra) => (
+                  {carDetails.extras?.map((extra) => (
                     <div className="col-md-6 mb-3" key={extra.titulo}>
                       <SimpleAccordion
                         content={extra.descripcion}
@@ -773,7 +822,7 @@ export default function CarDetails() {
                         onChange={(e) => {
                           setSelectedDownPayment(parseInt(e.target.value));
                         }}
-                        defaultValue={0}
+                        defaultValue={enganche[0]?.value}
                       />
                     </div>
                     <div style={{ backgroundColor: "#d9d9d9" }}>
@@ -816,7 +865,7 @@ export default function CarDetails() {
                           setSelectedTerm(e.target.value);
                           setInterestRate(carDetails.plazo[e.target.value]);
                         }}
-                        defaultValue={0}
+                        defaultValue={plazo[0]?.value}
                       />
                     </div>
                     <div style={{ backgroundColor: "#d9d9d9" }}>
@@ -875,7 +924,7 @@ export default function CarDetails() {
                       Metodo de entrega
                     </Typography>
                   </div>
-                  {carDetails.entrega.map((entrega, index) => (
+                  {carDetails.entrega?.map((entrega, index) => (
                     <div key={index} className="mb-3">
                       <SimpleAccordion
                         content={entrega.descripcion}
@@ -930,6 +979,285 @@ export default function CarDetails() {
             </div>
           </Container>
         </LandingPageLayout>
+
+        <TemporaryDrawer
+          open={drawerOpen}
+          setState={setDrawerOpen}
+          anchor={"bottom"}
+        >
+          <div className="w-100 d-flex justify-content-center">
+
+          <div className="p-5 d" style={{maxWidth: '75vw'}}>
+          <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 17, md: 20, lg: 24 }}
+                      sx={{fontWeight: 'bold'}}
+                      className="text-center mb-2"
+                    >
+                      Confirma tu seleccion
+                    </Typography>
+          <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      fontSize={{ xs: 17, md: 20, lg: 24 }}
+                      sx={{fontWeight: 'bold'}}
+                    >
+                      Tu automovil
+                    </Typography>
+            <Grid container spacing={2}>
+            
+              <Grid item sm={7} xs={12}>
+                <img
+                  src={selectedColor.imagenes[0]}
+                  className="d-block w-100 h-100 rounded"
+                  alt={"imagen carousel"}
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    overflow: "hidden",
+                  }}
+                />
+              </Grid>
+              <Grid item sm={5} xs={12}>
+                <div
+                  className="rounded p-3 d-flex flex-column justify-content-around text-center border"
+                  style={{height: '100%'}}
+                >
+                  <Typography
+                    fontFamily="Lato"
+                    color="#000"
+                    fontSize={{ xs: 25, md: 28, lg: 45 }}
+                    className="pt-2"
+                  >
+                    {carDetails.marca} {carDetails.modelo}
+                  </Typography>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    fontSize={{ xs: 17, md: 20, lg: 30 }}
+                  >
+                    {carDetails.año}
+                  </Typography>
+                  <div>
+                    <div>
+                      <IconButton
+                        aria-label="color"
+                        style={{
+                          backgroundColor: selectedColor.valor_hexadecimal,
+                          borderRadius: "100%",
+                          height: "40px",
+                          width: "40px",
+                          border: "none",
+                        }}
+                        className="me-1"
+                      />
+                    </div>
+                    <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      fontSize={{ xs: 17, md: 20, lg: 24 }}
+                    >
+                      {selectedColor.nombre}
+                    </Typography>
+
+                  </div>
+                </div>
+              </Grid>
+              <Grid item sm={6} xs={12}>
+              <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      fontSize={{ xs: 17, md: 20, lg: 24 }}
+                      sx={{fontWeight: 'bold'}}
+                    >
+                      Tu finaciamiento
+                    </Typography>
+                <div
+                  className="rounded d-flex flex-column justify-content-between text-center border"
+                  style={{
+                    height: "100%",
+                  }}
+                >
+                  <div style={{backgroundColor: '#f7f7f7'}} className="p-1">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 15, md: 20, lg: 24 }}
+                      sx={{fontWeight: 'bold'}}
+                    >
+                      Enganche
+                    </Typography>
+                  </div>
+                  <div className="p-2">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 15, md: 20, lg: 24 }}
+                    >
+                      ${downPayment} MXN
+                    </Typography>
+                  </div>
+                  <div style={{backgroundColor: '#f7f7f7'}} className="p-1">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      sx={{fontWeight: 'bold'}}
+                    >
+                      Mensualidades
+                    </Typography>
+                  </div>
+                  <div className="p-2">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                    >
+                      {selectedTerm} meses
+                    </Typography>
+                  </div>
+                  <div style={{backgroundColor: '#f7f7f7'}} className="p-1">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      fontweight="bold"
+                      sx={{fontWeight: 'bold'}}
+                    >
+                      Taza
+                    </Typography>
+                  </div>
+                  <div className="p-2">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                    >
+                      {interestRate}%
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+              <Grid item sm={6} xs={12}>
+              <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      fontSize={{ xs: 17, md: 20, lg: 24 }}
+                      sx={{fontWeight: 'bold'}}
+                    >
+                      Resumen de pago
+                    </Typography>
+              <div
+                  className="rounded d-flex flex-column justify-content-between border"
+                >
+                  <div className="p-1 px-3">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      className="d-flex justify-content-between mb-2"
+                    >
+                      <div>
+
+                        Enganche:
+                      </div>
+                      <div>
+
+                      ${downPayment}
+                      </div>
+                    </Typography>
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      className="d-flex justify-content-between mb-2"
+                    >
+                      <div>
+
+                        Pago Mensualidad:
+                      </div>
+                      <div>
+
+                      ${monthlyPayment}
+                      </div>
+                    </Typography>
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      className="d-flex justify-content-between mb-2"
+                    >
+                      <div>
+
+                        Entrega:
+                      </div>
+                      <div>
+
+                      ${selectedDeliveryPrice}
+                      </div>
+                    </Typography>
+
+                    <Typography
+                      fontFamily="Lato"
+                      color="#000"
+                      fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      className="d-flex justify-content-between border-top"
+                    >
+                      <div>
+
+                        Total:
+                      </div>
+                      <div>
+
+                      ${parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)}
+                      </div>
+                    </Typography>
+
+                    
+                  </div>
+                  
+                </div>
+                <div className="mt-3 d-flex flex-column">
+
+                            <Button
+                              variant="contained"
+                              disableElevation
+                              size="large"
+                              sx={{
+                                backgroundColor: "#F55C7A",
+                                fontFamily: "lato",
+                                fontWeight: "bold",
+                                ":hover": { backgroundColor: "#BABABA" },
+                              }}
+                              // onClick={() => setDrawerOpen(true)}
+                            >
+                              Proceder con la compra
+                            </Button>
+
+                            <Button
+                              variant="contained"
+                              className="mt-3"
+                              size="large"
+                              disableElevation
+                              sx={{
+                                backgroundColor: "#FFF",
+                                color: "#3A3A3A",
+                                fontFamily: "lato",
+                                fontWeight: "bold",
+                                border: "solid 1px #BABABA",
+                                ":hover": { backgroundColor: "#BABABA" },
+                              }}
+                              onClick={() => setDrawerOpen(false)}
+                            >
+                              Cancelar
+                            </Button>
+                </div>
+              </Grid>
+            </Grid>
+          </div>
+</div>
+        </TemporaryDrawer>
       </div>
     );
   } else {
