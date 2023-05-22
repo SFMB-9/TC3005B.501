@@ -10,7 +10,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import LandingPageLayout from "@/components/buyer/buyer_layout";
+import LandingPageLayout from "@/components/buyer/layout";
 import SimpleAccordion from "@/components/general/Accordion";
 import CustomSlider from "@/components/general/Slider";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -171,12 +171,21 @@ export default function CarDetails() {
       value: parseInt(plazo),
       label: `${plazo}`,
     }));
+
+    const viewDrivingRequestDetails = (auto_id) => {
+      // Navigate to a new page to view the details of the request
+      router.push({
+        pathname: '/buyer/test-detail',
+        query: { auto_id },
+      })
+    };
+
     return (
       <div>
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalogo">
+              <a href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
@@ -323,6 +332,7 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
+                              onClick={() => viewDrivingRequestDetails(car_id)}
                             >
                               Prueba de manejo
                             </Button>
