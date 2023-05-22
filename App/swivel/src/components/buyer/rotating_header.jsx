@@ -54,10 +54,11 @@ export default function RotatingHeader() {
   return (
     <section>
       <TrackVisibility>
-      {({ isVisible }) => 
+      {({ isVisible }) =>
         <div className={isVisible ? "animated__animated animate__fadeIn" : ""}>
           <CustomHero
             title = {text}
+            backgroundImage={image}
             message = ''
             searchbar
             containerSize={90}

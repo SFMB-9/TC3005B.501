@@ -12,8 +12,8 @@ export default function BuyerNavbar() {
         name: "Mi cuenta",
         href: "",
         popup: [
-          { name: "Nombre del usuario", href: "" },
-          { name: "Cambiar contraseña", href: "/auth/change_password" },
+          { name: "Nombre del usuario", href: "/account" },
+          { name: "Cambiar contraseña", href: "/account/change_password" },
           { name: "Cerrar sesión", href: "#", signoutComponent: '/' },
         ],
       },
