@@ -16,13 +16,13 @@ export default function SellerSignup() {
 
     try {
       const { data } = await axios.post("/api/register", {
-        name,
-        surname,
-        email,
-        password,
+        name: name,
+        surname: surname,
+        email: email,
+        password: password,
         role: "seller",
-        agency,
-        phone,
+        agency: agency,
+        cellphone: phone,
       });
 
       console.log(data);
@@ -109,6 +109,7 @@ export default function SellerSignup() {
             required
           />
         </div>
+        
         <button type="submit">Register</button>
       </form>
     </>
