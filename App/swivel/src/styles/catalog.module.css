@@ -31,6 +31,12 @@
   padding-right: 1rem;
 }
 
+.filterBody{
+  padding-bottom: 0.8rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .buttonWrapper {
   justify-self: flex-end;
 }
