@@ -1,9 +1,10 @@
 import BuyerLayout from "@/components/buyer/layout";
 import { Typography, Button } from "@mui/material"
-import Process from "@/components/buyer/process";
+import Process from "@/components/buyer/processSpecified";
 import Link from "next/link"
 
 import styles from "@/styles/about.module.css"
+import ProcessSpecified from "@/components/buyer/processSpecified";
 
 export default function About({
   backgroundImage = '/dummy_car_image3.png',
@@ -62,7 +63,7 @@ export default function About({
             <img src='/dummy_car_image1.png'/>
           </div>
         </div>
-        <Process />
+        <ProcessSpecified />
       </BuyerLayout>
     </>
   );
