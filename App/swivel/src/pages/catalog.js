@@ -12,9 +12,13 @@ import { Grid, Chip, Checkbox, FormControlLabel, Typography } from "@mui/materia
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import BuyerLayout from "@/components/buyer/buyer_layout";
+import BuyerLayout from "@/components/buyer/layout";
 import CatalogGrid from "@/components/buyer/catalog_grid";
+import Searchbar from "@/components/general/searchbar";
+import ApiDataDisplay from "@/components/buyer/api_data_display";
+
 import styles from "@/styles/catalog.module.css";
+
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -26,15 +30,19 @@ export default function Catalog() {
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
 
   const fetchFilters = async () => {
-    const queryString = selectedFilters.length
+    console.log(selectedFilters)
+    let queryString = selectedFilters.length
       ? `?${selectedFilters
         .map((filter) => filter.replace("modelos", "modelo"))
         .join("&")}`
       : "";
+
     const response = await fetch(
-      `http://localhost:3000/api/catalogo/buscar-autos${queryString}`
+      `http://localhost:3000/api/catalogoNuevo/buscar-auto${queryString}`
     );
+
     const data = await response.json();
+
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setApiData(data);
@@ -123,7 +131,7 @@ export default function Catalog() {
           <Grid item xs={12} sm={2}>
             <div className={styles.filterContainer}>
               <div className={styles.filterTitle}>Filtros</div>
-              {selectedChips.map((chip, index) => (
+              {/* {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
                   label={`${filterHeaders[chip.category]}: ${chip.value}`}
@@ -134,7 +142,7 @@ export default function Catalog() {
                   
                   className={styles.filterChip}
                 />
-              ))}
+              ))} */}
               {filters && (
                 <ul className={styles.filterList}>
                   {Object.entries(filters).map(([category, subMenuItems]) => (
@@ -143,8 +151,10 @@ export default function Catalog() {
                         className={styles.filterButton}
                         onClick={() => handleMenuItemClick(category, null)}
                       >
-                        <div >
-                          {filterHeaders[category]}
+                        <div>
+                          <div className={styles.category}>
+                            {filterHeaders[category]}
+                          </div>
                           <div className={styles.arrow}>
                             {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
                           </div>
@@ -159,7 +169,13 @@ export default function Catalog() {
             </div>
           </Grid>
           <Grid item xs={12} sm={10}>
-            {/* <Searchbar /> */}
+            {/*
+              Pasar la función fetchSearch como prop al componente Searchbar
+              // para que se ejecute cuando se presione el botón de búsqueda
+            */}
+            <Searchbar
+              setState={setSelectedFilters}
+            />
             <div
               style={{
                 padding: "3%",

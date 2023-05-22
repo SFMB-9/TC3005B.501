@@ -1,35 +1,17 @@
-import { signOut } from "next-auth/react";
+import React from "react";
+import CustomHero from "@/components/general/custom_hero";
+import ManagerNavbar from "@/components/providers/manager/navbar";
+import ActionsCards from "@/components/providers/Manager/actions_cards";
 
-export default function ManagerLanding({ children }) {
+export default function ManagerLandingPage() {
   return (
     <>
-      <div>
-        <h5>Perfil</h5>
-        <li>
-          <a href="/auth/change_password">Cambiar Contraseña</a>
-        </li>
-        <li>
-          <a
-            href="#"
-            onClick={() =>
-              signOut({ callbackUrl: "http://localhost:3000/auth/login" })
-            }
-          >
-            Logout
-          </a>
-        </li>
-      </div>
-      <div style={{ padding: "200px" }}>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
-         Manejo de Catálogo 
-        </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
-         Manejo de Vendedores 
-        </button>
-        <button type="button" style={{ padding: "50px", margin: "50px" }}>
-         Admin de Agencias 
-        </button>
-      </div>
+      <ManagerNavbar />
+      <CustomHero
+        title="Bienvenidx, nombre"
+        message="Administra tus solicitudes pendientes"
+      />
+      <ActionsCards/>
     </>
   );
 }

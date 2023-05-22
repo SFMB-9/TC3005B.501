@@ -1,31 +1,21 @@
 /*
 Componente de pantalla de autenticación. Este componente se puede reutilizar en cualquier pantalla que requiera un formulario para ingresar al sistema. 
 
-Autor: Ana Paula Katsuda Zalce
+Autor: Ana Paula Katsuda Zalce, Salvador Federico Milanés Braniff
 */
 import * as React from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { useTheme } from "@mui/material/styles";
+import { useMediaQuery, Box, Grid, Card, CardContent, CardMedia, Typography, useTheme } from "@mui/material";
 
-/* 
-Función que recibe las siguientes props: 
-- Imagen de fondo
-- Color de fondo
-- Formulario que se utilizará
-- Imagen para la carta de autenticación
-- Texto de título
-- Texto de cuerpo 
-- Color de texto
-
-La función regresa el componente reactivo de la pantalla de autenticación con los datos especificados en las props.
-*/
-export default function AuthComponent(props) {
+export default function AuthComponent({
+  backColor = "#000",
+  backImage = '',
+  cardImage = "/card_welcome_register.png",
+  title = "Sign in",
+  fields = <></>,
+  textColor = "#FFF",
+  titleText = 'Bienvenidx',
+  bodyText = 'Regístrate y empieza a comprar el auto de tus sueños',
+}) {
   const theme = useTheme();
   // Variables que indican el tamaño de la pantalla
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -46,8 +36,8 @@ export default function AuthComponent(props) {
     <div
       style={{
         height: "100vh",
-        backgroundColor: props.backColor,
-        backgroundImage: "url(" + props.backImage + ")",
+        backgroundColor: backColor,
+        backgroundImage: "url(" + backImage + ")",
       }}
     >
       <Card sx={{ borderRadius: "10px" }} style={boxStyle}>
@@ -66,7 +56,30 @@ export default function AuthComponent(props) {
             style={{ height: "100%" }}
           >
             <CardContent style={{ backgroundColor: "white", width: "65%" }}>
-              {props.form}
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <b className="text-center mt-3 mb-3 fs-2 align-items-stretch">
+                  <Typography
+                    wrap="true"
+                    variant="h1"
+                    sx={{
+                      color: "black",
+                      fontWeight: "bold",
+                      fontSize: "2rem",
+                      fontFamily: "Raleway",
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                </b>
+              </div>
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <img
+                  className="w-75 align-items-center justify-content-center img-fluid"
+                  alt=""
+                  src="/swivel_logo.svg"
+                />
+              </div>
+              {fields}
             </CardContent>
           </Grid>
           <Grid item md={6} style={{ height: "100%" }}>
@@ -74,10 +87,10 @@ export default function AuthComponent(props) {
               component="img"
               sx={{
                 display: isMediumScreen ? "none" : "flex",
-                width: "auto",
-                height: "auto",
+                width: "100%",
+                height: "100%",
               }}
-              image={props.cardImage}
+              image={cardImage}
               alt="Welcome Background"
             />
             <Box
@@ -97,7 +110,7 @@ export default function AuthComponent(props) {
                   wrap
                   variant="h2"
                   sx={{
-                    color: props.textColor,
+                    color: textColor,
                     fontWeight: "bolder",
                     fontSize: "3.7rem",
                     fontFamily: "Raleway",
@@ -106,7 +119,7 @@ export default function AuthComponent(props) {
                   }}
                 >
                   {" "}
-                  {props.titleText}{" "}
+                  {titleText}{" "}
                 </Typography>
               </Box>
               <Box>
@@ -114,7 +127,7 @@ export default function AuthComponent(props) {
                   variant="h4"
                   wrap
                   sx={{
-                    color: props.textColor,
+                    color: textColor,
                     paddingLeft: "17%",
                     paddingRight: "14%",
                     fontFamily: "lato",
@@ -124,7 +137,7 @@ export default function AuthComponent(props) {
                   }}
                 >
                   {" "}
-                  {props.bodyText}{" "}
+                  {bodyText}{" "}
                 </Typography>
               </Box>
             </Box>
