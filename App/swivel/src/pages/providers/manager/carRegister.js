@@ -1,19 +1,7 @@
 import React, { useState } from 'react';
-/**
- * @fileoverview Componente para subir archivos a firebase storage
- * @module src/pages/resumen-compras/FileUpload
- * @requires firebase
- * @requires firebase/storage
- * @requires firebase/storage/ref
- * @requires firebase/storage/uploadBytesResumable
- * @requires firebase/storage/getDownloadURL
- * @requires src/utils/firebase/firebase
- *
- *
- */
-import { storage } from "../../../utils/firebase/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
+//import uploadCar from '@/pages/api/elasticSearch/elasticCarRegister';
+//create car object
 const CarRegistrationForm = () => {
   const [car, setCar] = useState({
     cantidad: 0,
@@ -45,6 +33,57 @@ const CarRegistrationForm = () => {
     fotos_3d: [],
   });
 
+  //handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedCar = { ...car, colores: color, caracteristicas: caracteristicas, extras: extras, enganche: enganche, plazo: plazo,entrega: entrega };
+    // Upload images to bucket
+    for(let i = 0; i < fotos.length; i++){
+      for(let j = 0; j < fotos[i].length; j++){
+        const foto = await FileUpload(fotos[i][j]);
+        updatedCar.colores[i].imagenes.push(foto);
+        console.log(updatedCar.colores[i].imagenes)
+      }
+    }
+    
+    /*
+    For future reference, this is how you upload a car to elastic
+    await elasticCarRegister(updatedCar);
+    */
+
+    console.log(updatedCar);
+    // Reset the form
+    setCar({
+      cantidad: 0,
+      marca: '',
+      modelo: '',
+      colores: [],
+      color_interior: '',
+      combustible: '',
+      motor: '',
+      ano: 0,
+      transmision: '',
+      rendimiento: '',
+      pasajeros: 0,
+      nombre_agencia: '',
+      estado_agencia: '',
+      municipio_agencia: '',
+      direccion_agencia: '',
+      tipo_vehiculo: '',
+      precio: 0,
+      caracteristicas: [],
+      extras: [],
+      enganche: [],
+      plazo: {},
+      entrega: [],
+      disponible_prueba: '',
+      visible_catalogo: '',
+      descripcion: '',
+      ficha_tecnica: '',
+      fotos_3d: [],
+    });
+  };
+
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [extras, setExtras] = useState([]);
   const [enganche, setEnganche] = useState([]);
@@ -53,50 +92,27 @@ const CarRegistrationForm = () => {
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
 
+  //create empty objects
+  const createEmptyColor = () => ({ nombre: '', hex: '', imagenes: [] });
+  const createEmptyCaracteristica = () => ('');
+  const createEmptyExtra = () => ({ nombre: '', precio: 0, descripcion: '' });
+  const createEmptyEnganche = () => (0);
+  const createEmptyEntrega = () => ({ nombre: '', precio: 0, descripcion: '' });
+  const createEmptyFoto = () => new File([], 'empty.jpg', { type: 'image/jpeg' });
+  const createEmptyCarFoto = () => ([]);
 
-  
+  //handle change in normal inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCar((prevCar) => ({ ...prevCar, [name]: value }));
+  };
 
-  async function FileUpload(file) {
-    return new Promise((resolve, reject) => {
-      const storageRef = ref(storage, "resumen-compra/" + file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-  
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const percent = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-        },
-        (err) => {
-          console.log(err);
-          reject(err); // Reject the Promise if an error occurs
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-            .then((url) => {
-              console.log(url);
-              resolve(url); // Resolve the Promise with the URL
-            })
-            .catch((err) => {
-              console.log(err);
-              reject(err); // Reject the Promise if an error occurs
-            });
-        }
-      );
-    });
-  }
-  
-
-  const handleRemoveCarFotos = (index) => {
-    setFotos((prevFotos) => {
-      const updatedFotos = [...prevFotos];
-      updatedFotos.splice(index, 1);
-      return updatedFotos;
-    });
+  //adds row to almost any array
+  const handleAddRow = (setStateFunc, createEmptyFunc) => {
+      setStateFunc((prevState) => [...prevState, createEmptyFunc()]);
   };
   
-  
+  //functions to handle array or object changes
   const handleColorChange = (index, event) => {
     const { name, value } = event.target;
     setColor((prevColor) => {
@@ -105,12 +121,14 @@ const CarRegistrationForm = () => {
       return updatedColor;
     });
   };
+
   const handleFotosChange = (index, i, event) => {
     const updatedFotos = [...fotos];
     updatedFotos[index][i] = event;
     setFotos(updatedFotos);
   };
 
+ 
   const handleEntregaChange = (index, event) => {
     const { name, value } = event.target;
     setEntrega((prevEntregas) => {
@@ -120,6 +138,7 @@ const CarRegistrationForm = () => {
     });
   };
 
+ 
   const handleCaracteristicaChange = (index, value) => {
     const updatedCaracteristicas = [...caracteristicas];
     updatedCaracteristicas[index] = value;
@@ -141,11 +160,21 @@ const CarRegistrationForm = () => {
     setEnganche(updatedEnganche); 
   };
 
+  //functions that remove row from almost any array
+
   const handleRemoveColor = (index) => {
     setColor((prevColor) => {
       const updatedColor = [...prevColor];
       updatedColor.splice(index, 1);
       return updatedColor;
+    });
+  };
+
+  const handleRemoveCarFotos = (index) => {
+    setFotos((prevFotos) => {
+      const updatedFotos = [...prevFotos];
+      updatedFotos.splice(index, 1);
+      return updatedFotos;
     });
   };
 
@@ -180,28 +209,8 @@ const CarRegistrationForm = () => {
       return updatedEnganche;
     });
   };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCar((prevCar) => ({ ...prevCar, [name]: value }));
-  };
-
-  const handleAddRow = (setStateFunc, createEmptyFunc) => {
-      setStateFunc((prevState) => [...prevState, createEmptyFunc()]);
-  };
-
-
-    
-
   
-  const createEmptyColor = () => ({ nombre: '', hex: '', imagenes: [] });
-  const createEmptyCaracteristica = () => ('');
-  const createEmptyExtra = () => ({ nombre: '', precio: 0, descripcion: '' });
-  const createEmptyEnganche = () => (0);
-  const createEmptyEntrega = () => ({ nombre: '', precio: 0, descripcion: '' });
-  const createEmptyFoto = () => new File([], 'empty.jpg', { type: 'image/jpeg' });
-  const createEmptyCarFoto = () => ([]);
-
+  //specific for plazo changes since it uses keys and values
   const handleKeyChange = (index, key) => {
     const updatedPlazo = { ...plazo };
     updatedPlazo[index] = { ...updatedPlazo[index], key };
@@ -228,6 +237,7 @@ const CarRegistrationForm = () => {
     });
   };
 
+  //adds row to almost any array
   const handlePlazoAddRow = () => {
     const newIndex = Object.keys(plazo).length;
     setPlazo({ ...plazo, [newIndex]: { key: '', value: '' } });
@@ -240,53 +250,6 @@ const CarRegistrationForm = () => {
       return updatedFotos;
     });
   };
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const updatedCar = { ...car, colores: color, caracteristicas: caracteristicas, extras: extras, enganche: enganche, plazo: plazo,entrega: entrega };
-    
-    for(let i = 0; i < fotos.length; i++){
-      for(let j = 0; j < fotos[i].length; j++){
-        const foto = await FileUpload(fotos[i][j]);
-        updatedCar.colores[i].imagenes.push(foto);
-        console.log(updatedCar.colores[i].imagenes)
-      }
-    }
-    
-    console.log(updatedCar);
-    // Reset the form
-    setCar({
-      cantidad: 0,
-      marca: '',
-      modelo: '',
-      colores: [],
-      color_interior: '',
-      combustible: '',
-      motor: '',
-      ano: 0,
-      transmision: '',
-      rendimiento: '',
-      pasajeros: 0,
-      nombre_agencia: '',
-      estado_agencia: '',
-      municipio_agencia: '',
-      direccion_agencia: '',
-      tipo_vehiculo: '',
-      precio: 0,
-      caracteristicas: [],
-      extras: [],
-      enganche: [],
-      plazo: {},
-      entrega: [],
-      disponible_prueba: '',
-      visible_catalogo: '',
-      descripcion: '',
-      ficha_tecnica: '',
-      fotos_3d: [],
-    });
-  };
-
 
   return (
     
