@@ -9,10 +9,10 @@ export default function Purchase() {
     const data = await response.json()
     const retrievedPurchases = await data.result
     setCompletedPurchases(retrievedPurchases.filter((purchase) => {
-      return purchase.status === 'completed' 
+      return purchase.status === 'finalizada' 
     }))
     setUncompletedPurchases(retrievedPurchases.filter((purchase) => {
-      return purchase.status !== 'completed' 
+      return purchase.status !== 'finalizada' 
     }))
   }
 
