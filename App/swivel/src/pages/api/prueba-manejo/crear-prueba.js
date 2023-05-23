@@ -9,10 +9,10 @@ NOTE: Replaced by crear-prueba-elastic
 since cars will be stored in elastic.
 */
 
-import Proceso from "../../../models/procesos";
-import Auto from "../../../models/auto";
-import Usuario from "../../../models/usuario";
-import dbConnect from "../../../config/dbConnect";
+import Proceso from "@/models/procesos";
+import Auto from "@/models/auto";
+import Usuario from "@/models/usuario";
+import dbConnect from "@/config/dbConnect";
 import axios from 'axios';
 
 export default async (req, res) => {
