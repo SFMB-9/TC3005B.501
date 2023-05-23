@@ -79,7 +79,7 @@ export default function ChangePassword() {
             <form onSubmit={submitHandler}>
               <TextField
                 id="password_field"
-                label="Old Password"
+                label="Contraseña Actual"
                 type="password"
                 value={oldPassword}
                 className="d-flex flex-strech"
@@ -90,7 +90,7 @@ export default function ChangePassword() {
               <br />
               <TextField
                 id="password_field"
-                label="New Password"
+                label="Nueva Contraseña"
                 type="password"
                 size="small"
                 className="d-flex flex-strech"
@@ -101,7 +101,7 @@ export default function ChangePassword() {
               <br />
               <TextField
                 id="password_field"
-                label="Confirm Password"
+                label="Confirmar Contraseña"
                 type="password"
                 size="small"
                 className="d-flex flex-strech"
