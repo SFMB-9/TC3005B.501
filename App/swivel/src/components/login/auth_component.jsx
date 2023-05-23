@@ -57,6 +57,16 @@ export default function AuthComponent({
           >
             <CardContent style={{ backgroundColor: "white", width: "65%" }}>
               <div className="d-flex flex-column justify-content-center align-items-center">
+                <img
+                  src="/swivel_logo_login.png"
+                  // Scale the logo according to the screen size
+                  style={{
+                    width: isMediumScreen ? "50%" : "40%",
+                    height: isMediumScreen ? "50%" : "40%",
+                  }}
+                />
+              </div>
+              <div className="d-flex flex-column justify-content-center align-items-center">
                 <b className="text-center mt-3 mb-3 fs-2 align-items-stretch">
                   <Typography
                     wrap="true"
@@ -64,20 +74,13 @@ export default function AuthComponent({
                     sx={{
                       color: "black",
                       fontWeight: "bold",
-                      fontSize: "2rem",
+                      fontSize: "2vw",
                       fontFamily: "Raleway",
                     }}
                   >
                     {title}
                   </Typography>
                 </b>
-              </div>
-              <div className="d-flex flex-column justify-content-center align-items-center">
-                <img
-                  className="w-75 align-items-center justify-content-center img-fluid"
-                  alt=""
-                  src="/swivel_logo.svg"
-                />
               </div>
               {fields}
             </CardContent>
@@ -112,7 +115,7 @@ export default function AuthComponent({
                   sx={{
                     color: textColor,
                     fontWeight: "bolder",
-                    fontSize: "3.7rem",
+                    fontSize: "3.7vw",
                     fontFamily: "Raleway",
                     textAlign: "center",
                     display: isMediumScreen ? "none" : "flex",
@@ -131,7 +134,7 @@ export default function AuthComponent({
                     paddingLeft: "17%",
                     paddingRight: "14%",
                     fontFamily: "lato",
-                    fontSize: "2.3rem",
+                    fontSize: "2.3vw",
                     display: isMediumScreen ? "none" : "flex",
                     textAlign: "center",
                   }}
