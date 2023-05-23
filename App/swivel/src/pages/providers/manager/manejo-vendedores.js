@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 //import { useRouter } from "next/router";
 
-import SearchBar from '@/components/general/SearchBar';
+import Searchbar from '@/components/general/searchbar';
+import ManagerLayout from '@/components/providers/Manager/layout';
 import { Margin } from '@mui/icons-material';
 
 export default function SearchResults() {
@@ -23,8 +24,6 @@ export default function SearchResults() {
     const [editedCellphone, setEditedCellphone] = useState('');
     const [oldEmail, setOldEmail] = useState('');
     const [agency, setAgency] = useState('');
-
-    const customSearchbarContainer = `${styles.searchbar_container} ${styles.customSearchbarContainer}`;
 
     const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
     const router = useRouter ? useRouter() : null;
@@ -140,6 +139,7 @@ export default function SearchResults() {
 
     return (
         <>
+        <ManagerLayout>
         <div
             style={{
                 display: 'flex',
@@ -163,7 +163,7 @@ export default function SearchResults() {
                         alignItems: 'center',
                     }}
                 >
-                    <SearchBar 
+                    <Searchbar 
                         setState={handleSearchChange}
                         searchStyle='administrative'
                     />
@@ -249,6 +249,7 @@ export default function SearchResults() {
                 </div>
             )}
         </div>
+      </ManagerLayout >
       </>
     );
 };    

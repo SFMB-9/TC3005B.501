@@ -29,8 +29,6 @@ export default function Searchbar({
   else if (searchStyle === "administrative") {
     containerClasses = `${styles.customSearchbarContainer} ${transparent ? styles.transparent : ''} ${hidden ? styles.hidden : ''}`;
   }
-  
-  console.log("hello", containerClasses);
 
   return (
     <div className={containerClasses}>
