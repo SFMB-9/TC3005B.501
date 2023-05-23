@@ -10,9 +10,9 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     dbConnect();
 
-    const { agency, doc_array } = req.body;
+    const { agency, data } = req.body;
 
-    await User.findOneAndUpdate({ agencia: agency }, { documentos_requeridos_agencia: doc_array });
+    await User.findOneAndUpdate({ agencia: agency }, { documentos_requeridos_agencia: data });
     
     res.status(200).json({ message: "Time constraints updated successfully" });    
   }
