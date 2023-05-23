@@ -7,20 +7,9 @@
     background-color: white;
 }
 
-
-.form {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5em;
-    background-color: white;
-}
-
 .chatHolder {
     display: grid;
     grid-template-rows: 1fr 100px;
-    position: relative;
-   
     position: relative;
    
 }
@@ -30,7 +19,6 @@
     flex-direction: column;
     gap: 1em;
     padding: 1em;
-    height: calc(100vh - 40px - 100px - 100px - 70px);
     height: calc(100vh - 40px - 100px - 100px - 70px);
     overflow-y: auto;
     background-color: #ececec; 

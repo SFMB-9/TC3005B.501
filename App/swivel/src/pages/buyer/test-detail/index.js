@@ -21,8 +21,6 @@ import axios from 'axios';
 import { useSession } from "next-auth/react";
 import ReactModal from 'react-modal';
 import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
-import ReactModal from 'react-modal';
-import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 
 //import Map from '@/pages/Map';
 
@@ -82,7 +80,6 @@ const RequestDetails = () => {
 
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-    {auto_id: auto_id, user_id: user_id, documents: documents});
     {auto_id: auto_id, user_id: user_id, documents: documents});
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
