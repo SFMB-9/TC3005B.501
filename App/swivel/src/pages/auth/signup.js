@@ -109,7 +109,7 @@ export default function SignupBuyer() {
                   }}
                 >
                   {" "}
-                  Crear Cuenta{" "}
+                  Continuar el Registro{" "}
                 </Typography>
               </button>
               <button type="submit" className="btn btn-secondary btn-block mb-2">
