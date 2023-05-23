@@ -19,6 +19,8 @@ import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
+import ReactModal from 'react-modal';
+import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 
 //import Map from '@/pages/Map';
 
@@ -27,6 +29,9 @@ const RequestDetails = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [documents, setDocuments] = useState([]);
+  const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
+  const [changedDocuments, setChangedDocuments] = useState([]);
+  const [uploadedDocument, setUploadedDocument] = useState([]);
   const [userAddress, setUserAddress] = useState({});
   const [carData, setCarData] = useState({});
   const [firstImage, setFirstImage] = useState("");
@@ -35,6 +40,7 @@ const RequestDetails = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
   const [managerData, setManagerData] = useState({});
+  const [isOpen, setIsOpen] = useState([]);
   const { auto_id } = router.query;
   // user_id = session.id;
   const user_id = "64586ff82cd17fbeb63aa3d0";
@@ -69,9 +75,12 @@ const RequestDetails = () => {
   };
 
   const createDrivingTest = async () => {
+    // Save changed documents to firebase
+    await handleSubmit();
+
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-    {auto_id: auto_id, user_id: user_id});
+    {auto_id: auto_id, user_id: user_id, documents: documents});
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
     await axios.post('/api/prueba-manejo/agregar-proceso-usuario', 
@@ -80,6 +89,46 @@ const RequestDetails = () => {
     await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
   };
+
+  // Save the indices that were changed
+  const handleDocumentEdit = (event, indx) => {    
+    const documentIndices = [...changedDocumentIndices];
+    documentIndices.push(indx);
+    setChangedDocumentIndices(documentIndices);
+
+    const currentChangedDocuments = [...changedDocuments];
+    currentChangedDocuments.push(event);
+    setChangedDocuments(currentChangedDocuments);
+
+    const isOpenWithoutIndx = isOpen.filter(function (i) {
+      return i !== indx;
+    });
+
+    setIsOpen(isOpenWithoutIndx);
+  };
+
+  const handleSubmit = async () => {
+    let documentUrl = "";
+    const currentDocs = documents;
+
+    // Store the changed documents inside firebase
+    for(const [i, doc] of changedDocuments.entries()) {
+      // Upload to firebase
+      documentUrl = await FileUpload(doc);
+      // Assign new URL
+      currentDocs[changedDocumentIndices[i]].url = documentUrl;
+      // Change modification date
+      currentDocs[changedDocumentIndices[i]].fecha_modificacion = new Date().toISOString();
+    }
+    console.log("Documents: " + JSON.stringify(currentDocs));
+    setDocuments(currentDocs);
+  }
+
+  const addToIsOpen = async (newKey) => {
+    let currentOpen = [...isOpen];
+    currentOpen.push(newKey);
+    setIsOpen(currentOpen);
+  }
 
   // Execute viewRequest only when processId changes
   useEffect(() => {
@@ -110,13 +159,17 @@ const RequestDetails = () => {
         <div>
             {/* This is the table that displays the user's documents*/}
             <h1>Documentos</h1>
-            <table>
+            <table style={{width: "100%"}}>
                 <thead>
                     <tr>
                     <th>Nombre</th>
+                    <th>URL</th>
                     <th>Estatus</th>
                     <th>Ultima modificación</th>
                     <th>Comentarios</th>
+                    <th>Editar</th>
+                    <th></th>
+                    <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,9 +179,16 @@ const RequestDetails = () => {
                         <td>{document.url}</td>
                         <td>{document.estatus}</td>
                         <td>{document.fecha_modificacion}</td>
-                        <td>
-                        <p>{document.comentarios}</p>
-                        </td>
+                        <td>{document.comentarios}</td>
+                        <td><button onClick={() => addToIsOpen(i)}> Editar </button></td>
+                        {isOpen.includes(i) && (
+                          <td>
+                          <div>
+                            <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
+                            <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                          </div>
+                          </td>
+                        )}
                     </tr>
                     ))}
                 </tbody>
