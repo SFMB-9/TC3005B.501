@@ -43,6 +43,7 @@
     "react-icons": "^4.8.0",
     "react-leaflet": "^4.2.1",
     "react-material-ui-carousel": "^3.4.2",
+    "react-modal": "^3.16.1",
     "react-multi-carousel": "^2.8.3",
     "react-on-screen": "^2.1.1",
     "react-pro-sidebar": "^1.0.0",

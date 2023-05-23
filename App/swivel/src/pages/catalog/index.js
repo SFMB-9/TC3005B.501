@@ -343,7 +343,9 @@ export default function Catalog() {
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
-                  <Typography color="text.secondary">
+                  <Typography color="text.secondary" sx={{
+                    fontFamily: "Lato",
+                  }}>
                     Mostrando&nbsp;
                     {
                       catalogData !== undefined ? Intl.NumberFormat().format(catalogData.length) : 0
@@ -370,7 +372,12 @@ export default function Catalog() {
                     }`}
                   </div>
                   <ApiDataDisplay apiData={catalogData} /> */}
-                <CatalogPagination catalogData={catalogData} itemsPerPage={30} />
+                <CatalogPagination 
+                  catalogData={catalogData} 
+                  itemsPerPage={30} 
+                  // carCardType="drivingTest"
+                  carCardType="catalog"
+                />
               </div>
             </div>
           </Grid>

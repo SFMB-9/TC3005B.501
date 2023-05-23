@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const purchases = await Proceso.find({
       usuario_final_id: user_id,
       tipo_proceso: "solicitudCompra",
-      status: "Finalizada",
+      estatus_validacion: "Finalizada",
     });
 
     res.status(200).json(purchases);

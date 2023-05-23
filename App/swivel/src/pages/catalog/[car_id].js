@@ -19,6 +19,8 @@ import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
 import { set } from "mongoose";
 
+import { useSession } from "next-auth/react";
+
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
 
@@ -52,6 +54,8 @@ export default function CarDetails() {
 
   // State for delivery price
   const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState(0);
+
+  const { data: session } = useSession();
 
   const fetchCarDetails = async () => {
     const response = await fetch(
@@ -98,6 +102,29 @@ export default function CarDetails() {
     }
   };
 
+  const handleConfirmPurchase = () => {
+    const body = {
+      usuario_final_id: session.id,
+      auto: {
+        auto_id: car_id,
+        marca: carDetails.marca,
+        modelo: carDetails.modelo,
+        ano: carDetails.año,
+        precio: carDetails.precio,
+        array_fotografias_url: selectedColor.imagenes
+      },
+      cantidad_a_pagar: downPayment + monthlyPayment + selectedDeliveryPrice
+    }
+     
+    fetch('http://localhost:3000/api/saleCreation', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    }).then(response => {
+      console.log(response.json());
+    })
+
+    
+  }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
     const extrasPrice = selectedExtras.reduce(
@@ -122,25 +149,6 @@ export default function CarDetails() {
     setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
   };
 
-  const buildSummary = () => {
-    const summary = {
-      marca: carDetails.marca,
-      modelo: carDetails.modelo,
-      año: carDetails.año,
-      precio: carDetails.precio,
-      direccion_agencia: carDetails.direccion_agencia,
-      color: selectedColor.nombre,
-      color_images: selectedColor.imagenes,
-      extras: selectedExtras,
-      total_price_extras: totalPriceExtras,
-      porcentaje_enganche: selectedDownPayment,
-      enganche: downPayment,
-      plazo: selectedTerm,
-      tasa: interestRate,
-      pago_mensual: monthlyPayment,
-      metodo_entrega: selectedDeliveryPrice,
-    };
-  };
 
   // Function to handle checkbox change of
   const handleCheckboxChange = (event) => {
@@ -1207,7 +1215,7 @@ export default function CarDetails() {
                         fontWeight: "bold",
                         ":hover": { backgroundColor: "#BABABA" },
                       }}
-                    // onClick={() => setDrawerOpen(true)}
+                      onClick={() => handleConfirmPurchase()}
                     >
                       Proceder con la compra
                     </Button>
