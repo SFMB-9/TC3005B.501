@@ -21,7 +21,7 @@ export default function CatalogGrid({ carListing, cardType }) {
       if (cardType === "catalog") {
         cardProps = {
           catalog: {
-            carUrl: `/catalogo/${car._id}`,
+            carUrl: `/catalog/${car._id}`,
             carImage: car._source.fotos_3d[0],
             carBrand: car._source.marca,
             carModel: car._source.modelo,
