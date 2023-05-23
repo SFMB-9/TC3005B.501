@@ -72,7 +72,7 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
             <form onSubmit={submitHandler}>
             <TextField
               id="password_field"
-              label="Old Password"
+              label="Contraseña Actual"
               type="password"
               value={oldPassword}
               className="d-flex flex-strech"
@@ -82,7 +82,7 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
             /> <br/>
             <TextField
               id="password_field"
-              label="New Password"
+              label="Nueva Contraseña"
               type="password"
               size="small"
               className="d-flex flex-strech"
@@ -92,7 +92,7 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
             /><br/>
             <TextField
               id="password_field"
-              label="Confirm Password"
+              label="Confirmar Contraseña"
               type="password"
               size="small"
               className="d-flex flex-strech"
