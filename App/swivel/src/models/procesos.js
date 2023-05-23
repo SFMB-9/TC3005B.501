@@ -1,3 +1,4 @@
+const { Decimal128 } = require('mongodb');
 const mongoose = require('mongoose');
 
 const procesoSchema = new mongoose.Schema({
@@ -19,7 +20,7 @@ const procesoSchema = new mongoose.Schema({
   estatus_validacion: {
     type: String,
   },
-  tipo_proceso: {
+  estatus: {
     type: String,
   },
   documentos_url: {
@@ -42,8 +43,20 @@ const procesoSchema = new mongoose.Schema({
     precio: String,
     array_fotografias_url: [String]
   },
-  fecha_inicio: {
+  fecha_creacion: {
     type: Date,
+  },
+  usuario_final: {
+    type: JSON,
+  },
+  vendedor: {
+    type: JSON,
+  },
+  agencia: {
+    type: JSON,
+  },
+  cantidad_a_pagar: {
+    type: Number,
   },
   fecha_agendada: {
     type: Date,

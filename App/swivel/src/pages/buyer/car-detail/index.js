@@ -22,7 +22,7 @@ const CarDetail = () => {
     // Navigate to a new page to view the details of the request
     router.push({
       pathname: '/buyer/test-detail',
-      query: { auto_id, user_id },
+      query: { auto_id },
     })
   };
 

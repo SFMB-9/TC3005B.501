@@ -19,6 +19,8 @@ import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
 import { set } from "mongoose";
 
+import { useSession } from "next-auth/react";
+
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
 
@@ -53,6 +55,8 @@ export default function CarDetails() {
   // State for delivery price
   const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState(0);
 
+  const { data: session } = useSession();
+
   const fetchCarDetails = async () => {
     const response = await fetch(
       `http://localhost:3000/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
@@ -61,7 +65,7 @@ export default function CarDetails() {
     const data = await response.json();
 
     if (!carDetails) {
-      
+
       setCarDetails(data.result);
     }
     setCarPrice(data.result.precio);
@@ -80,7 +84,7 @@ export default function CarDetails() {
 
   useEffect(() => {
     if (carDetails) {
-      
+
       setSelectedDownPayment(carDetails.enganche[0]);
       setSelectedTerm(parseInt(Object.keys(carDetails.plazo)[0]));
       setInterestRate(carDetails.plazo[Object.keys(carDetails.plazo)[0]])
@@ -98,6 +102,29 @@ export default function CarDetails() {
     }
   };
 
+  const handleConfirmPurchase = () => {
+    const body = {
+      usuario_final_id: session.id,
+      auto: {
+        auto_id: car_id,
+        marca: carDetails.marca,
+        modelo: carDetails.modelo,
+        ano: carDetails.año,
+        precio: carDetails.precio,
+        array_fotografias_url: selectedColor.imagenes
+      },
+      cantidad_a_pagar: downPayment + monthlyPayment + selectedDeliveryPrice
+    }
+     
+    fetch('http://localhost:3000/api/saleCreation', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    }).then(response => {
+      console.log(response.json());
+    })
+
+    
+  }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
     const extrasPrice = selectedExtras.reduce(
@@ -122,25 +149,6 @@ export default function CarDetails() {
     setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
   };
 
-  const buildSummary = () => {
-    const summary = {
-      marca: carDetails.marca,
-      modelo: carDetails.modelo,
-      año: carDetails.año,
-      precio: carDetails.precio,
-      direccion_agencia: carDetails.direccion_agencia,
-      color: selectedColor.nombre,
-      color_images: selectedColor.imagenes,
-      extras: selectedExtras,
-      total_price_extras: totalPriceExtras,
-      porcentaje_enganche: selectedDownPayment,
-      enganche: downPayment,
-      plazo: selectedTerm,
-      tasa: interestRate,
-      pago_mensual: monthlyPayment,
-      metodo_entrega: selectedDeliveryPrice,
-    };
-  };
 
   // Function to handle checkbox change of
   const handleCheckboxChange = (event) => {
@@ -987,276 +995,276 @@ export default function CarDetails() {
         >
           <div className="w-100 d-flex justify-content-center">
 
-          <div className="p-5 d" style={{maxWidth: '75vw'}}>
-          <Typography
+            <div className="p-5 d" style={{ maxWidth: '75vw' }}>
+              <Typography
+                fontFamily="Lato"
+                color="#000"
+                fontSize={{ xs: 17, md: 20, lg: 24 }}
+                sx={{ fontWeight: 'bold' }}
+                className="text-center mb-2"
+              >
+                Confirma tu seleccion
+              </Typography>
+              <Typography
+                fontFamily="Lato"
+                color="#8A8A8A"
+                fontSize={{ xs: 17, md: 20, lg: 24 }}
+                sx={{ fontWeight: 'bold' }}
+              >
+                Tu automovil
+              </Typography>
+              <Grid container spacing={2}>
+
+                <Grid item sm={7} xs={12}>
+                  <img
+                    src={selectedColor.imagenes[0]}
+                    className="d-block w-100 h-100 rounded"
+                    alt={"imagen carousel"}
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "center",
+                      overflow: "hidden",
+                    }}
+                  />
+                </Grid>
+                <Grid item sm={5} xs={12}>
+                  <div
+                    className="rounded p-3 d-flex flex-column justify-content-around text-center border"
+                    style={{ height: '100%' }}
+                  >
+                    <Typography
                       fontFamily="Lato"
                       color="#000"
-                      fontSize={{ xs: 17, md: 20, lg: 24 }}
-                      sx={{fontWeight: 'bold'}}
-                      className="text-center mb-2"
+                      fontSize={{ xs: 25, md: 28, lg: 45 }}
+                      className="pt-2"
                     >
-                      Confirma tu seleccion
+                      {carDetails.marca} {carDetails.modelo}
                     </Typography>
-          <Typography
+                    <Typography
                       fontFamily="Lato"
                       color="#8A8A8A"
-                      fontSize={{ xs: 17, md: 20, lg: 24 }}
-                      sx={{fontWeight: 'bold'}}
+                      fontSize={{ xs: 17, md: 20, lg: 30 }}
                     >
-                      Tu automovil
+                      {carDetails.año}
                     </Typography>
-            <Grid container spacing={2}>
-            
-              <Grid item sm={7} xs={12}>
-                <img
-                  src={selectedColor.imagenes[0]}
-                  className="d-block w-100 h-100 rounded"
-                  alt={"imagen carousel"}
-                  style={{
-                    objectFit: "cover",
-                    objectPosition: "center",
-                    overflow: "hidden",
-                  }}
-                />
-              </Grid>
-              <Grid item sm={5} xs={12}>
-                <div
-                  className="rounded p-3 d-flex flex-column justify-content-around text-center border"
-                  style={{height: '100%'}}
-                >
-                  <Typography
-                    fontFamily="Lato"
-                    color="#000"
-                    fontSize={{ xs: 25, md: 28, lg: 45 }}
-                    className="pt-2"
-                  >
-                    {carDetails.marca} {carDetails.modelo}
-                  </Typography>
+                    <div>
+                      <div>
+                        <IconButton
+                          aria-label="color"
+                          style={{
+                            backgroundColor: selectedColor.valor_hexadecimal,
+                            borderRadius: "100%",
+                            height: "40px",
+                            width: "40px",
+                            border: "none",
+                          }}
+                          className="me-1"
+                        />
+                      </div>
+                      <Typography
+                        fontFamily="Lato"
+                        color="#8A8A8A"
+                        fontSize={{ xs: 17, md: 20, lg: 24 }}
+                      >
+                        {selectedColor.nombre}
+                      </Typography>
+
+                    </div>
+                  </div>
+                </Grid>
+                <Grid item sm={6} xs={12}>
                   <Typography
                     fontFamily="Lato"
                     color="#8A8A8A"
-                    fontSize={{ xs: 17, md: 20, lg: 30 }}
+                    fontSize={{ xs: 17, md: 20, lg: 24 }}
+                    sx={{ fontWeight: 'bold' }}
                   >
-                    {carDetails.año}
+                    Tu finaciamiento
                   </Typography>
-                  <div>
-                    <div>
-                      <IconButton
-                        aria-label="color"
-                        style={{
-                          backgroundColor: selectedColor.valor_hexadecimal,
-                          borderRadius: "100%",
-                          height: "40px",
-                          width: "40px",
-                          border: "none",
-                        }}
-                        className="me-1"
-                      />
+                  <div
+                    className="rounded d-flex flex-column justify-content-between text-center border"
+                    style={{
+                      height: "100%",
+                    }}
+                  >
+                    <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 15, md: 20, lg: 24 }}
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        Enganche
+                      </Typography>
                     </div>
-                    <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      fontSize={{ xs: 17, md: 20, lg: 24 }}
-                    >
-                      {selectedColor.nombre}
-                    </Typography>
+                    <div className="p-2">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 15, md: 20, lg: 24 }}
+                      >
+                        ${downPayment} MXN
+                      </Typography>
+                    </div>
+                    <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        Mensualidades
+                      </Typography>
+                    </div>
+                    <div className="p-2">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      >
+                        {selectedTerm} meses
+                      </Typography>
+                    </div>
+                    <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                        fontweight="bold"
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        Taza
+                      </Typography>
+                    </div>
+                    <div className="p-2">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                      >
+                        {interestRate}%
+                      </Typography>
+                    </div>
+                  </div>
+                </Grid>
+                <Grid item sm={6} xs={12}>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    fontSize={{ xs: 17, md: 20, lg: 24 }}
+                    sx={{ fontWeight: 'bold' }}
+                  >
+                    Resumen de pago
+                  </Typography>
+                  <div
+                    className="rounded d-flex flex-column justify-content-between border"
+                  >
+                    <div className="p-1 px-3">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                        className="d-flex justify-content-between mb-2"
+                      >
+                        <div>
+
+                          Enganche:
+                        </div>
+                        <div>
+
+                          ${downPayment}
+                        </div>
+                      </Typography>
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                        className="d-flex justify-content-between mb-2"
+                      >
+                        <div>
+
+                          Pago Mensualidad:
+                        </div>
+                        <div>
+
+                          ${monthlyPayment}
+                        </div>
+                      </Typography>
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                        className="d-flex justify-content-between mb-2"
+                      >
+                        <div>
+
+                          Entrega:
+                        </div>
+                        <div>
+
+                          ${selectedDeliveryPrice}
+                        </div>
+                      </Typography>
+
+                      <Typography
+                        fontFamily="Lato"
+                        color="#000"
+                        fontSize={{ xs: 13, md: 20, lg: 24 }}
+                        className="d-flex justify-content-between border-top"
+                      >
+                        <div>
+
+                          Total:
+                        </div>
+                        <div>
+
+                          ${parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)}
+                        </div>
+                      </Typography>
+
+
+                    </div>
 
                   </div>
-                </div>
+                  <div className="mt-3 d-flex flex-column">
+
+                    <Button
+                      variant="contained"
+                      disableElevation
+                      size="large"
+                      sx={{
+                        backgroundColor: "#F55C7A",
+                        fontFamily: "lato",
+                        fontWeight: "bold",
+                        ":hover": { backgroundColor: "#BABABA" },
+                      }}
+                      onClick={() => handleConfirmPurchase()}
+                    >
+                      Proceder con la compra
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      className="mt-3"
+                      size="large"
+                      disableElevation
+                      sx={{
+                        backgroundColor: "#FFF",
+                        color: "#3A3A3A",
+                        fontFamily: "lato",
+                        fontWeight: "bold",
+                        border: "solid 1px #BABABA",
+                        ":hover": { backgroundColor: "#BABABA" },
+                      }}
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      Cancelar
+                    </Button>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid item sm={6} xs={12}>
-              <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      fontSize={{ xs: 17, md: 20, lg: 24 }}
-                      sx={{fontWeight: 'bold'}}
-                    >
-                      Tu finaciamiento
-                    </Typography>
-                <div
-                  className="rounded d-flex flex-column justify-content-between text-center border"
-                  style={{
-                    height: "100%",
-                  }}
-                >
-                  <div style={{backgroundColor: '#f7f7f7'}} className="p-1">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 15, md: 20, lg: 24 }}
-                      sx={{fontWeight: 'bold'}}
-                    >
-                      Enganche
-                    </Typography>
-                  </div>
-                  <div className="p-2">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 15, md: 20, lg: 24 }}
-                    >
-                      ${downPayment} MXN
-                    </Typography>
-                  </div>
-                  <div style={{backgroundColor: '#f7f7f7'}} className="p-1">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                      sx={{fontWeight: 'bold'}}
-                    >
-                      Mensualidades
-                    </Typography>
-                  </div>
-                  <div className="p-2">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                    >
-                      {selectedTerm} meses
-                    </Typography>
-                  </div>
-                  <div style={{backgroundColor: '#f7f7f7'}} className="p-1">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                      fontweight="bold"
-                      sx={{fontWeight: 'bold'}}
-                    >
-                      Taza
-                    </Typography>
-                  </div>
-                  <div className="p-2">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                    >
-                      {interestRate}%
-                    </Typography>
-                  </div>
-                </div>
-              </Grid>
-              <Grid item sm={6} xs={12}>
-              <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      fontSize={{ xs: 17, md: 20, lg: 24 }}
-                      sx={{fontWeight: 'bold'}}
-                    >
-                      Resumen de pago
-                    </Typography>
-              <div
-                  className="rounded d-flex flex-column justify-content-between border"
-                >
-                  <div className="p-1 px-3">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                      className="d-flex justify-content-between mb-2"
-                    >
-                      <div>
-
-                        Enganche:
-                      </div>
-                      <div>
-
-                      ${downPayment}
-                      </div>
-                    </Typography>
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                      className="d-flex justify-content-between mb-2"
-                    >
-                      <div>
-
-                        Pago Mensualidad:
-                      </div>
-                      <div>
-
-                      ${monthlyPayment}
-                      </div>
-                    </Typography>
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                      className="d-flex justify-content-between mb-2"
-                    >
-                      <div>
-
-                        Entrega:
-                      </div>
-                      <div>
-
-                      ${selectedDeliveryPrice}
-                      </div>
-                    </Typography>
-
-                    <Typography
-                      fontFamily="Lato"
-                      color="#000"
-                      fontSize={{ xs: 13, md: 20, lg: 24 }}
-                      className="d-flex justify-content-between border-top"
-                    >
-                      <div>
-
-                        Total:
-                      </div>
-                      <div>
-
-                      ${parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)}
-                      </div>
-                    </Typography>
-
-                    
-                  </div>
-                  
-                </div>
-                <div className="mt-3 d-flex flex-column">
-
-                            <Button
-                              variant="contained"
-                              disableElevation
-                              size="large"
-                              sx={{
-                                backgroundColor: "#F55C7A",
-                                fontFamily: "lato",
-                                fontWeight: "bold",
-                                ":hover": { backgroundColor: "#BABABA" },
-                              }}
-                              // onClick={() => setDrawerOpen(true)}
-                            >
-                              Proceder con la compra
-                            </Button>
-
-                            <Button
-                              variant="contained"
-                              className="mt-3"
-                              size="large"
-                              disableElevation
-                              sx={{
-                                backgroundColor: "#FFF",
-                                color: "#3A3A3A",
-                                fontFamily: "lato",
-                                fontWeight: "bold",
-                                border: "solid 1px #BABABA",
-                                ":hover": { backgroundColor: "#BABABA" },
-                              }}
-                              onClick={() => setDrawerOpen(false)}
-                            >
-                              Cancelar
-                            </Button>
-                </div>
-              </Grid>
-            </Grid>
+            </div>
           </div>
-</div>
         </TemporaryDrawer>
       </div>
     );

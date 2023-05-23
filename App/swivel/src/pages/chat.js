@@ -36,10 +36,17 @@ export default function Chat() {
           href="https://static.ably.dev/motif-red.svg?nextjs-vercel"
           type="image/svg+xml"
         />
+
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha384-iBBgrCyberBlbChJLlKDcUWP7t8GwgaKI21Jc6CZP97ZvsjFjE9+3YF5nkvP1kj"
+          crossorigin="anonymous"
+        />
       </Head>
 
       <main>
-        <h1 className="title">{username}</h1>
+        <h3 className="title">{username}</h3>
         <AblyChatComponent />
       </main>
 
@@ -48,13 +55,13 @@ export default function Chat() {
           display: grid;
           grid-template-rows: 1fr 100px;
           min-height: 100vh;
-          background-color: #f5f7fa;
+          // background-color: aqua;
         }
 
         main {
           display: grid;
           grid-template-rows: auto 1fr;
-          width: calc(100% - 40px);
+          width: 70%
           max-width: 900px;
           margin: 20px auto;
           border-radius: 10px;
@@ -68,45 +75,10 @@ export default function Chat() {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100px;
+          height: 75px;
           margin: 0;
           color: white;
-          background: #578ffe; // Blue color
-        }
-
-        footer {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-wrap: wrap;
-          width: 100vw;
-          height: 100px;
-        }
-
-        .logo {
-          display: block;
-          height: 20px;
-          margin: 0.5em;
-        }
-
-        .svg {
-          fill: #578ffe; // Blue color
-          color: #fff;
-          position: absolute;
-          top: 0;
-          border: 0;
-          right: 0;
-        }
-
-        @media (min-width: 600px) {
-          .logo {
-            height: 40px;
-            margin: 1em;
-          }
-
-          .ably {
-            height: 60px;
-          }
+          background: #383838; 
         }
       `}</style>
 
@@ -126,11 +98,18 @@ export default function Chat() {
         }
 
         [data-author="me"] {
-          background: #578ffe; // Blue color
+          display: flex;
+          background-color: #f55c7a;
           color: white;
           align-self: flex-end;
-          border-bottom-right-radius: 0 !important;
-          border-bottom-left-radius: 10px !important;
+          flex-grow: 0;
+          border-radius: 20px 5px 20px 20px;
+        }
+
+        [data-author="other"] {
+          color: #383838;
+          align-self: flex-start;
+          border-radius: 5px 20px 20px 20px;
         }
       `}</style>
     </div>
