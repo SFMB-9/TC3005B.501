@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {User, SellerUser} from "../../../models/user";
 import bcrypt from "bcryptjs";
 import dbConnect from "../../../config/dbConnect";
+import { json } from "body-parser";
 
 const { decryptRole } = require("../../../utils/crypto");
 
@@ -29,11 +30,15 @@ export const authOptions = {
           throw new Error("Invalid Email or Password");
         }
 
+        const pass = {...user}._doc.password
+
+        console.log(credentials.password,  pass);
+        
         const isPasswordMatched = await bcrypt.compare(
           credentials.password,
-          user.password
-        );
-
+          pass
+          );
+          
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or Password");
         }
@@ -41,7 +46,7 @@ export const authOptions = {
         return {
           id: user._id.toString(),
           email: user.email,
-          role: decryptRole(user.encrypted_role),
+          role: decryptRole({...user}._doc.encrypted_role),
         };
       },
     }),
