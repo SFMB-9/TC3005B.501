@@ -14,7 +14,9 @@ const Usuario = require('../../../models/usuario');
 
 export default async function handler(req, res) {
 
-    const auto = JSON.stringify(req.body.auto);
+    const parsedBody = JSON.parse(req.body);
+
+    console.log(JSON.parse(req.body).usuario_final_id);
 
     await dbConnect();
 
@@ -40,18 +42,19 @@ export default async function handler(req, res) {
         
         const agenciaVendedor = await Usuario.findById(usuarioVendedor.agencia_id);
 
-        const usuario = await Usuario.findById(req.body.usuario_final_id);
-
+        const usuarioId = parsedBody.usuario_final_id;
+        const usuario = await Usuario.findById(usuarioId);
+        
         const proceso = new Proceso({
             tipo_proceso: "solicitudCompra",
             estatus: "documentosPendientes",
             documentos: [],
             fecha_creacion: Date.now(),
-            auto: auto, //Llega del request
+            auto: parsedBody.auto, //Llega del request
             usuario_final: usuario,
             vendedor: usuarioVendedor,
             agencia: agenciaVendedor,
-            cantidad_a_pagar: req.cantidad_a_pagar, //Llega del request
+            cantidad_a_pagar: parsedBody.cantidad_a_pagar, //Llega del request
         });
 
         await proceso.save()

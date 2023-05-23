@@ -64,7 +64,6 @@ export default function CarDetails() {
     const data = await response.json();
 
     if (!carDetails) {
-
       setCarDetails(data.result);
     }
     setCarPrice(data.result.precio);
@@ -102,19 +101,23 @@ export default function CarDetails() {
   };
 
   async function handleConfirmPurchase() {
-    const body = {
-      usuario_final_id: session.id,
-      auto: {
-        auto_id: car_id,
-        marca: carDetails.marca,
-        modelo: carDetails.modelo,
-        ano: carDetails.año,
-        precio: carDetails.precio,
-        array_fotografias_url: selectedColor.imagenes
-      },
-      cantidad_a_pagar: downPayment + monthlyPayment + selectedDeliveryPrice
+    const auto = {
+      auto_id: car_id,
+      marca: carDetails.marca,
+      modelo: carDetails.modelo,
+      ano: carDetails.año,
+      precio: carDetails.precio.toString(),
+      array_fotografias_url: selectedColor.imagenes
     }
-     
+
+    const payment = parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)
+    const body = {
+      //usuario_final_id: "646af59a93798d0cf9b3cd3c",
+      usuario_final_id: session.id,
+      auto: auto,
+      cantidad_a_pagar: payment
+    }
+
     const result = await fetch('http://localhost:3000/api/saleCreation', {
       method: 'POST',
       body: JSON.stringify(body)

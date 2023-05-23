@@ -36,12 +36,7 @@ const procesoSchema = new mongoose.Schema({
     codigo_postal: String
   },
   auto: {
-    auto_id: String,
-    marca: String,
-    modelo: String,
-    ano: String,
-    precio: String,
-    array_fotografias_url: [String]
+    type: JSON,
   },
   fecha_creacion: {
     type: Date,
