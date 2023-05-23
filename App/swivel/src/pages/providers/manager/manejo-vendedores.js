@@ -1,10 +1,16 @@
+"use client"
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
+
+import SearchBar from '@/components/general/SearchBar';
+import styles from '@/styles/searchbar.module.css';
+import { Margin } from '@mui/icons-material';
 
 export default function SearchResults() {
 
-    const router = useRouter();
+    //const router = useRouter();
 
     const [results, setResults] = useState([]);
 
@@ -19,10 +25,17 @@ export default function SearchResults() {
     const [oldEmail, setOldEmail] = useState('');
     const [agency, setAgency] = useState('');
 
+    const customSearchbarContainer = `${styles.searchbar_container} ${styles.customSearchbarContainer}`;
+
+    const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
+    const router = useRouter ? useRouter() : null;
+    
     const RoutRegistroVendedor = () => {
-        router.push({
-          pathname: "/providers/seller/signup"
-        });
+        if (router) {
+            router.push({
+              pathname: '/providers/seller/signup',
+            });
+          }
       };
   
     // Function to fetch search results from the API endpoint
@@ -127,19 +140,49 @@ export default function SearchResults() {
       };
 
     return (
-
-        <div>
+        <>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                margin: '2rem 5rem', 
+            }}
+        >
             <div>
-                <h1>Buscar</h1>
+                <h1>Administración de Vendedores</h1>
                 <input
-                    type="text"
-                    value={searchValue}
-                    onChange={handleSearchChange}
-                    placeholder="Buscar..."
-                />
-                <a href='/seller/seller_signup'>
-                    <button onClick={RoutRegistroVendedor()}> [+] </button>
-                </a>
+                        type="text"
+                        value={searchValue}
+                        onChange={handleSearchChange}
+                        placeholder="Buscar..."
+                    />
+                <div 
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flex: '100%',
+                        alignItems: 'center',
+                    }}
+                >
+                    <SearchBar 
+                        setState={handleSearchChange}
+                        searchStyle='administrative'
+                    />
+                    <a href='/providers/seller/signup'>
+                        <button 
+                            onClick={RoutRegistroVendedor}
+                            style={{
+                                flex: '25%',
+                                backgroundColor: '#F55C7A',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '6px',
+                                height: '50%',
+                                padding: '0.5rem 1rem',
+                            }}
+                        > Registrar vendedor  + </button>
+                    </a>
+                </div>
             </div>
 
             <div>
@@ -207,5 +250,6 @@ export default function SearchResults() {
                 </div>
             )}
         </div>
+      </>
     );
 };    
