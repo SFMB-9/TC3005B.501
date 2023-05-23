@@ -370,7 +370,12 @@ export default function Catalog() {
                     }`}
                   </div>
                   <ApiDataDisplay apiData={catalogData} /> */}
-                <CatalogPagination catalogData={catalogData} itemsPerPage={30} />
+                <CatalogPagination 
+                  catalogData={catalogData} 
+                  itemsPerPage={30} 
+                  // carCardType="drivingTest"
+                  carCardType="catalog"
+                />
               </div>
             </div>
           </Grid>

@@ -1,18 +1,26 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const dbConnect = () => {
   const { MONGODB_URI } = process.env;
 
-  mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  return new Promise((resolve, reject) => {
+    mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    const db = mongoose.connection;
+
+    db.on("error", (error) => {
+      console.error(error);
+      reject(error);
+    });
+    
+    db.once("open", () => {
+      console.log("Connected to MongoDB");
+      resolve();
+    });
   });
-
-  const db = mongoose.connection;
-
-  db.on("error", (error) => console.error(error));
-  db.once("open", () => console.log("Connected to MongoDB"));
-
 };
 
 export default dbConnect;
