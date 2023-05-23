@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
 import BuyerNavbar from '@/components/buyer/navbar';
-import { TextField, Grid } from '@mui/material';
+import { TextField, Grid, Button } from '@mui/material';
 
 import styles from '@/styles/test_details.module.css';
 import PhaseIndicator from '@/components/general/phase_indicator';
@@ -42,7 +42,8 @@ export default function RequestDetails() {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const { auto_id } = router.query;
   // user_id = session.id;
-  const user_id = "646af4e093798d0cf9b3cd3a";
+  // TODO
+  const user_id = "646af4e093798d0cf9b3cd3a"; 
 
   const fetchDetails = async () => {
     let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -106,164 +107,165 @@ export default function RequestDetails() {
   return (
     <>
       <BuyerNavbar />
-      <h1>Solicitud de prueba de manejo</h1>
+      <h1 className={styles.request}>Solicitud de prueba de manejo</h1>
       <PhaseIndicator
         phases={phases}
         currentPhaseIndex={activeSectionIndex}
+        className
       />
       {activeSectionIndex === 0 && (
         <>
-          <h1>Detalles usuario</h1>
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <span>Nombre: {userData.nombres}</span>
+          <div className={styles.schedule}>
+            <h4>Datos personales</h4>
+            {/* <Grid container>
+              <Grid item xs={12} sm={6}>
+                <span>Nombre: {userData.nombres}</span>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <span>Apellidos: {userData.apellidos}</span>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <span>Apellidos: {userData.apellidos}</span>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <span>Correo: {userData.email}</span>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <span>Celular: {userData.numero_telefonico}</span>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <span>Correo: {userData.email}</span>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <span>Estado de residencia: {userAddress.estado}</span>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <span>CP: {userAddress.codigo_postal}</span>
+              </Grid>
+            </Grid> */}
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  className={styles.input}
+                  value={userData.nombres}
+                  label='Nombre(s)'
+                  size='small'
+                  placeholder='Nombre(s)'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  className={styles.input}
+                  value={userData.apellidos}
+                  label='Apellidos'
+                  size='small'
+                  placeholder='Apellidos'
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <span>Celular: {userData.numero_telefonico}</span>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  className={styles.input}
+                  value={userData.email}
+                  label='Correo electrónico'
+                  size='small'
+                  placeholder='Correo electrónico'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  className={styles.input}
+                  value={userData.numero_telefonico}
+                  label='Número telefónico'
+                  size='small'
+                  placeholder='Número telefónico'
+                />
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <span>Estado de residencia: {userAddress.estado}</span>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  className={styles.input}
+                  value={userAddress.estado}
+                  label='Estado de residencia'
+                  size='small'
+                  placeholder='Estado de residencia'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  className={styles.input}
+                  value={userAddress.codigo_postal}
+                  label='Código postal'
+                  size='small'
+                  placeholder='Código postal'
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <span>CP: {userAddress.codigo_postal}</span>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userData.nombres}
-                label='Nombre(s)'
-                size='small'
-                placeholder='Nombre(s)'
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userData.apellidos}
-                label='Apellidos'
-                size='small'
-                placeholder='Apellidos'
-              />
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userData.email}
-                label='Correo electrónico'
-                size='small'
-                placeholder='Correo electrónico'
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userData.numero_telefonico}
-                label='Número telefónico'
-                size='small'
-                placeholder='Número telefónico'
-              />
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userAddress.estado}
-                label='Estado de residencia'
-                size='small'
-                placeholder='Estado de residencia'
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userAddress.codigo_postal}
-                label='Código postal'
-                size='small'
-                placeholder='Código postal'
-              />
-            </Grid>
-          </Grid>
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Estatus</th>
-                <th>Ultima modificación</th>
-                <th>Comentarios</th>
-              </tr>
-            </thead>
-            <tbody>
-              {documents.map((document, i) => (
-                <tr key={i}>
-                  <td>{document.nombre_documento}</td>
-                  <td>{document.url}</td>
-                  <td>{document.estatus}</td>
-                  <td>{document.fecha_modificacion}</td>
-                  <td>
-                    <p>{document.comentarios}</p>
-                  </td>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Estatus</th>
+                  <th>Ultima modificación</th>
+                  <th>Comentarios</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <button href='/catalog'>Cancelar</button>
-          <button onClick={() => setActiveSectionIndex(1)}>Continuar</button>
+              </thead>
+              <tbody>
+                {documents.map((document, i) => (
+                  <tr key={i}>
+                    <td>{document.nombre_documento}</td>
+                    <td>{document.url}</td>
+                    <td>{document.estatus}</td>
+                    <td>{document.fecha_modificacion}</td>
+                    <td>
+                      <p>{document.comentarios}</p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <Button variant='contained' href='/catalog'>Cancelar</Button>
+            <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
+          </div>
         </>
       )}
       {activeSectionIndex === 1 && (
         <>
           <div className={styles.schedule}>
-            {/* <h1>Mapa a la agencia</h1>
-              <Map coordinates={[40.73, -73.935]}/> */}
             <div className={styles.carView}>
-              <div>
-                <img src={firstImage}
-                  alt="Imagen de auto ejemplo"
-                  width="500"
-                  height="400"
-                />
-              </div>
-              <div>
-                <h1>Detalles auto</h1>
-                <p>Marca: {carData.marca} </p>
-                <p>Modelo: {carData.modelo} </p>
-                <p>Año: {carData.año} </p>
-                <p>Precio: {carData.precio} </p>
-                <p>Direccion: {carData.direccion_agencia}</p>
+              <img src={firstImage} className={styles.imageDiv} />
+              <div className={styles.carInfo}>
+                <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
+                <span className={styles.year}> {carData.año} </span>
+                <p className={styles.address}>{carData.direccion_agencia}</p>
+                <h1 className={styles.priceTag}>${carData.precio}</h1>
               </div>
             </div>
 
-
-
-            <h1>Elegir horario</h1>
-            <DatePicker
-              selected={selectedDate}
-              onChange={date => setSelectedDate(date)}
-              dateFormat='dd/MM/yyyy'
-              minDate={addDays(new Date(), managerData.dias_anticipo)}
-              maxDate={addDays(new Date(), managerData.dias_max)}
-              startDate={addDays(new Date(), managerData.dias_anticipo)}
-            />
-            <DatePicker
-              selected={selectedTime}
-              onChange={time => setSelectedTime(time)}
-              showTimeSelect
-              showTimeSelectOnly
-              timeFormat='hh aa'
-              timeIntervals={60}
-              minTime={setHours(new Date(), managerData.horas_min)}
-              maxTime={setHours(new Date(), managerData.horas_max)}
-              dateFormat='hh:mm aa'
-            />
+            {/* <h1>Mapa a la agencia</h1>
+              <Map coordinates={[40.73, -73.935]}/> */}
+            <div className={styles.schedule}>
+              <h1>Elegir horario*</h1>
+              <DatePicker
+                selected={selectedDate}
+                onChange={date => setSelectedDate(date)}
+                dateFormat='dd/MM/yyyy'
+                minDate={addDays(new Date(), managerData.dias_anticipo)}
+                maxDate={addDays(new Date(), managerData.dias_max)}
+                startDate={addDays(new Date(), managerData.dias_anticipo)}
+              />
+              <DatePicker
+                selected={selectedTime}
+                onChange={time => setSelectedTime(time)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeFormat='hh aa'
+                timeIntervals={60}
+                minTime={setHours(new Date(), managerData.horas_min)}
+                maxTime={setHours(new Date(), managerData.horas_max)}
+                dateFormat='hh:mm aa'
+              />
+            </div>
 
             {selectedDate && (
               <p>
@@ -280,29 +282,37 @@ export default function RequestDetails() {
                 {format(selectedTime, "hh:mm aa")} (Tiempo local)
               </p>
             )}
-
+            <Button variant='contained' onClick={() => setActiveSectionIndex(0)}>Volver</Button>
             {(selectedDate && selectedTime) ? (
               <div>
-                <button onClick={() =>
-                  createDrivingTest()
-                }>Confirmar</button>
+                <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
               </div>
             ) : (
               <div>
-                <p>Selecciona una fecha y horario para confirmar tu cita.</p>
+                <p>*Selecciona una fecha y horario para confirmar tu cita.</p>
               </div>
             )}
           </div>
-          <button onClick={() => setActiveSectionIndex(0)}>Volver</button>
-          <button onClick={() => setActiveSectionIndex(2)}>Continuar</button>
         </>
       )}
       {activeSectionIndex === 2 && (
         <>
           <div className={styles.confirmation}>
+            <p>
+              Fecha:{" "}
+              {format(selectedDate, "dd/MM/yyyy")}
+              Horario:{" "}
+              {format(selectedTime, "hh:mm aa")}
+              Dirección:{" "}
+              {carData.direccion_agencia}
+              Teléfono:{" "}
+              {carData.telefono_agencia}
+              Comentarios:{" "}
+              {carData.comentarios}
+            </p>
           </div>
-          <button onClick={() => setActiveSectionIndex(1)}>Volver</button>
-          <button onClick={() => setActiveSectionIndex(3)}>Confirmar</button>
+          <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+          <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
         </>
       )}
     </>
