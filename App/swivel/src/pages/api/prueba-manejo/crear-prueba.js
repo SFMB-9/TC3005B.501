@@ -19,7 +19,7 @@ export default async (req, res) => {
     dbConnect();
     
     try {
-        const carData = await Auto.findById(req.body.auto_id); 
+        const carData = await Auto.findById(req.body.auto_id);
         const userData = await Usuario.findById(req.body.user_id);
         const agencyData = await Usuario.findById(carData["gerente_id"]);
         
@@ -31,7 +31,7 @@ export default async (req, res) => {
             estado: "Estado de Mexico",
             pais: "Mexico",
             codigo_postal: "01200"
-        } 
+        }
 
         // Create the Process with the defined data
         const proceso = await Proceso.create({ 
