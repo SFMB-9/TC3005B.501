@@ -24,34 +24,6 @@
     background-color: #ececec; 
 }
 
-
-
-/* .textarea {
-    padding: 1em;
-    border: 0;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto, Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue, sans-serif;
-    font-size: 1.2em;
-    color: #333; 
-}
-
-.button {
-    border: 0;
-    color: white;
-    font-weight: bold;
-    font-size: 1.4em;
-    background: #007BFF; 
-}
-
-.button:hover {
-    background: #0069D9; 
-}
-
-.button:disabled, 
-.button:hover:disabled {
-    background: #007BFF; 
-    opacity: 0.5;
-} */
-
 .message {
     display: flex;
     align-items: center;
@@ -66,8 +38,6 @@
     margin-bottom: 13px;
     
 }
-
-
 
 .timestamp_me {
     position: relative;
@@ -84,24 +54,6 @@
     font-size: 0.8em;
     color: #989797;
 } 
-
-
-/* .message_me {
-    background-color: #eef5f8;
-    padding: 1em;
-    border-radius: 10px;
-    flex-grow: 0;
-    border-bottom-left-radius: 0;
-}
-
-.message_other {
-    position: relative;
-    background-color: #ffffff;
-    color: #333;
-    padding: 10px 20px;
-    border-radius: 20px 20px 0px 20px;
-} */
-
 
 .textarea {
   padding: 0.7em;
