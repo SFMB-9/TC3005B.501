@@ -7,9 +7,11 @@ export default function Searchbar({
   setState, 
   placeholderText = "Buscar", 
   transparent = false, 
-  hidden = false 
+  hidden = false, 
+  searchStyle = "default"
 }) {
   const [search, setSearch] = useState("");
+  let containerClasses;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +23,12 @@ export default function Searchbar({
     setSearch(e.target.value);
   };
 
-  const containerClasses = `${styles.searchbar_container} ${transparent ? styles.transparent : ''} ${hidden ? styles.hidden : ''}`;
+  if (searchStyle === "default") {
+    containerClasses = `${styles.searchbar_container} ${transparent ? styles.transparent : ''} ${hidden ? styles.hidden : ''}`;
+  }
+  else if (searchStyle === "administrative") {
+    containerClasses = `${styles.customSearchbarContainer} ${transparent ? styles.transparent : ''} ${hidden ? styles.hidden : ''}`;
+  }
 
   return (
     <div className={containerClasses}>
