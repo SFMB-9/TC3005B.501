@@ -5,7 +5,6 @@ import axios from 'axios';
 //import { useRouter } from "next/router";
 
 import SearchBar from '@/components/general/SearchBar';
-import styles from '@/styles/searchbar.module.css';
 import { Margin } from '@mui/icons-material';
 
 export default function SearchResults() {
