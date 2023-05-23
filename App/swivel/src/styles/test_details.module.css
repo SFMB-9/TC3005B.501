@@ -1,0 +1,14 @@
+.form {
+  display: 'flex';
+  gap: '1vw';
+  flex-direction: 'column';
+  width: '100%';
+}
+
+.form_row {
+  display: 'flex';
+  gap: '1vw';
+  flex-wrap: 'wrap';
+  width: '100%';
+}
+
