@@ -6,8 +6,10 @@ export default function WorkingHoursComponent() {
     const [preDays, setPreDays] = useState(0);
     const [maxDays, setMaxDays] = useState(0);
     const [agency, setAgency] = useState('');
-  
-    // Handle input changes
+
+    const [list, setList] = useState([]);
+    const [newItem, setNewItem] = useState('');
+
     const handleStartTimeChange = (event) => {
       setStartTime(event.target.value);
     };
@@ -23,9 +25,19 @@ export default function WorkingHoursComponent() {
     const handleMaxDaysChange = (event) => {
       setMaxDays(event.target.value);
     };
+
+    const addItem = () => {
+      setList([...list, newItem]);
+      setNewItem('');
+    };
+
+    const removeItem = (index) => {
+      const updatedList = [...list];
+      updatedList.splice(index, 1);
+      setList(updatedList);
+    };
   
-    // Handle form submission
-    const handleSubmit = async () => {
+    const timeSubmit = async () => {
         try {
             await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: agency, horas_min: horas_min, horas_max: horas_max, dias_anticipo: dias_anticipo, dias_max: dias_max });
         } 
@@ -33,6 +45,15 @@ export default function WorkingHoursComponent() {
             console.error('Error fetching search results:', error);
         }
     };
+
+    const docSubmit = async () => {
+      try {
+          await axios.put('/api/agencia/actualizar-documentos-requeridos', { agency: agency, data: list });
+      } 
+      catch (error) {
+          console.error('Error fetching search results:', error);
+      }
+  };
   
     return (
       <div>
@@ -73,11 +94,33 @@ export default function WorkingHoursComponent() {
             onChange={(e) => setAgency(e.target.value)}
             required
           />
-        </div>
-
-        <button onClick={handleSubmit}>
+          
+          <button onClick={timeSubmit}>
             Submit
-        </button>
+          </button>
+        </div>        
+
+        <div>
+          <label htmlFor="doc_field">Documentos</label>
+
+          <input
+            type="text"
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+          />
+          <button onClick={addItem}>Agregar documento</button>
+
+          <ul>
+            {list.map((item, index) => (
+              <li key={index}>
+                {item}
+                <button onClick={() => removeItem(index)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+
+          <button onClick={docSubmit}>Guardar</button>
+        </div>
       </div>
     );
   };

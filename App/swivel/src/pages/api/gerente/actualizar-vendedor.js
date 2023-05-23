@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     const { name, last_name, oldEmail, newEmail, cellphone, agency } = req.body;
 
-    await User.findOneAndUpdate({ email: oldEmail, agencia: agency }, { nombres: name, apellidos: last_name, email: newEmail, telefono: cellphone, agencia: agency });
+    await User.findOneAndUpdate({ email: oldEmail, agencia: agency }, { nombres: name, apellidos: last_name, email: newEmail, numero_telefonico: cellphone, agencia: agency });
     
     res.status(200).json({ message: "User details updated successfully" });    
   }
