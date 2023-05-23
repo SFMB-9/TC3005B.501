@@ -43,120 +43,347 @@ export default function WorkingHoursComponent() {
         <div
           style={{
             display: 'flex',
-            justifyContent: 'start',
-            alignItems: 'center',
-            paddingLeft: '3%',
-            paddingRight: '3%',
-            paddingTop: '2%',
+            flexDirection: 'column',
           }}
         >
-          <Typography variant="h4" 
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'start',
+              alignItems: 'center',
+              paddingLeft: '3%',
+              paddingRight: '3%',
+              paddingTop: '2%',
+            }}
+          >
+            <Typography variant="h4"
               sx={{
                 display: 'flex',
                 justifyContent: 'start',
-                fontWeight: 'bold', 
+                fontWeight: 'bold',
                 fontFamily: 'Raleway',
               }}>
-                Gestionar servicios
-              </Typography>
+              Gestionar servicios
+            </Typography>
+          </div>
+          <Grid container spacing={3} sx={
+            {
+              display: 'flex',
+              padding: "2% 5%"
+              // paddingLeft: '5%',
+              // paddingRight: '5%',
+              // paddingTop: '2%',
+
+            }}>
+            <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CardContent
+                  sx={{
+                    width: '100%',
+                    padding: '5%',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginBottom: '5%',
+                    }}
+                  >
+                    <Typography variant="h4" component="div"
+                      sx={{
+                        marginBottom: '2%',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      Horario de atención
+                    </Typography>
+                    <Typography sx={{
+                      marginBottom: '2%',
+                      textAlign: 'center',
+                    }} color="text.secondary">
+                      Seleccione los horarios en los que opera el servicio, así como los días mínimos y máximos para agendar una prueba de manejo.
+                    </Typography>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: '0% 5%',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: '2%',
+                        marginBottom: '2%',
+                      }}
+                    >
+                      <TextField
+                        id="time"
+                        label="Hora de apertura"
+                        type="time"
+                        defaultValue="07:30"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1800,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginRight: '1rem',
+                        }}
+                        onChange={handleStartTimeChange}
+                      />
+                      <TextField
+                        id="time"
+                        label="Hora de cierre"
+                        type="time"
+                        defaultValue="07:30"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1800, // 5 min
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginLeft: '1rem',
+                        }}
+                        onChange={handleEndTimeChange}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: '4%',
+                      }}
+                    >
+                      <TextField
+                        id="number"
+                        label="Días de antelación"
+                        type="number"
+                        defaultValue="0"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginRight: '1rem',
+                        }}
+                        onChange={handlePreDaysChange}
+                      />
+                      <TextField
+                        id="number"
+                        label="Días máximos"
+                        type="number"
+                        defaultValue="0"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginLeft: '1rem',
+                          marginBottom: '2%',
+                        }}
+                        onChange={handleMaxDaysChange}
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CardContent
+                  sx={{
+                    width: '100%',
+                    padding: '5%',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginBottom: '5%',
+                    }}
+                  >
+                    <Typography variant="h4" component="div"
+                      sx={{
+                        marginBottom: '2%',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      Horario de atención
+                    </Typography>
+                    <Typography sx={{
+                      marginBottom: '2%',
+                      textAlign: 'center',
+                    }} color="text.secondary">
+                      Seleccione los horarios en los que opera el servicio, así como los días mínimos y máximos para agendar una prueba de manejo.
+                    </Typography>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: '2%',
+                        marginBottom: '2%',
+                      }}
+                    >
+                      <TextField
+                        id="time"
+                        label="Hora de apertura"
+                        type="time"
+                        defaultValue="07:30"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1800,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginRight: '0.5rem',
+                        }}
+                      />
+                      <TextField
+                        id="time"
+                        label="Hora de cierre"
+                        type="time"
+                        defaultValue="07:30"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1800, // 5 min
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginLeft: '0.5rem',
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: '4%',
+                      }}
+                    >
+                      <TextField
+                        id="number"
+                        label="Días de antelación"
+                        type="number"
+                        defaultValue="0"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginRight: '0.5rem',
+                        }}
+                      />
+                      <TextField
+                        id="number"
+                        label="Días máximos"
+                        type="number"
+                        defaultValue="0"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginLeft: '0.5rem',
+                          marginBottom: '2%',
+                        }}
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: '2%',
+            }}
+          >
+            <button
+              // onClick={handleSubmit}
+              style={{
+                width: '10rem',
+                backgroundColor: 'gray',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                height: '50%',
+                padding: '0.5rem 1rem',
+                marginRight: '1rem',
+              }}
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={handleSubmit}
+              style={{
+                width: '10rem',
+                backgroundColor: '#F55C7A',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                height: '50%',
+                padding: '0.5rem 1rem',
+                marginLeft: '1rem',
+              }}
+            >
+              Guardar cambios
+            </button>
+          </div>
         </div>
-        <Grid container spacing={3} sx={
-          {
-            display: 'flex',
-            paddingLeft: '5%',
-            paddingRight: '5%',
-            paddingTop: '2%',
-          }}>
-          <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Card
-              sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  Horario de atención
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Ingrese el horario de atención de la agencia
-                </Typography>
-                <TextField
-                  id="time"
-                  label="Hora de apertura"
-                  type="time"
-                  defaultValue="07:30"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300, // 5 min
-                  }}
-                />
-                <TextField
-
-                  id="time"
-                  label="Hora de cierre"
-                  type="time"
-                  defaultValue="07:30"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300, // 5 min
-                  }}
-                />
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Card
-              sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  Horario de atención
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Ingrese el horario de atención de la agencia
-                </Typography>
-                <TextField
-                  id="time"
-                  label="Hora de apertura"
-                  type="time"
-                  defaultValue="07:30"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300, // 5 min
-                  }}
-                />
-                <TextField
-
-                  id="time"
-                  label="Hora de cierre"
-                  type="time"
-                  defaultValue="07:30"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300, // 5 min
-                  }}
-                />
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-        <div>
+        {/* <div>
           
           <label>Hora de apertura</label>
           <input
@@ -200,7 +427,7 @@ export default function WorkingHoursComponent() {
           <button onClick={handleSubmit}>
             Submit
           </button>
-        </div>
+        </div> */}
       </ManagerLayout>
     </>
   );
