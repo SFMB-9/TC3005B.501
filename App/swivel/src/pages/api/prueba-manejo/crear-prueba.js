@@ -9,17 +9,17 @@ NOTE: Replaced by crear-prueba-elastic
 since cars will be stored in elastic.
 */
 
-import Proceso from "../../../models/procesos";
-import Auto from "../../../models/auto";
-import Usuario from "../../../models/usuario";
-import dbConnect from "../../../config/dbConnect";
+import Proceso from "@/models/procesos";
+import Auto from "@/models/auto";
+import Usuario from "@/models/usuario";
+import dbConnect from "@/config/dbConnect";
 import axios from 'axios';
 
 export default async (req, res) => {
     dbConnect();
     
     try {
-        const carData = await Auto.findById(req.body.auto_id); 
+        const carData = await Auto.findById(req.body.auto_id);
         const userData = await Usuario.findById(req.body.user_id);
         const agencyData = await Usuario.findById(carData["gerente_id"]);
         
@@ -31,7 +31,7 @@ export default async (req, res) => {
             estado: "Estado de Mexico",
             pais: "Mexico",
             codigo_postal: "01200"
-        } 
+        }
 
         // Create the Process with the defined data
         const proceso = await Proceso.create({ 

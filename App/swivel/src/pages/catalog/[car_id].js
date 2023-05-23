@@ -221,7 +221,7 @@ export default function CarDetails() {
     const viewDrivingRequestDetails = (auto_id) => {
       // Navigate to a new page to view the details of the request
       router.push({
-        pathname: '/buyer/test-detail',
+        pathname: './test-detail',
         query: { auto_id },
       })
     };
@@ -348,7 +348,6 @@ export default function CarDetails() {
                           >
                             Elegir color
                           </Typography>
-
                           <div className="d-flex">
                             {carDetails.colores?.map((color, index) => (
                               <div className="pt-1" key={index}>
@@ -367,7 +366,6 @@ export default function CarDetails() {
                               </div>
                             ))}
                           </div>
-
                           <div className="pt-3 text-center">
                             <Button
                               variant="contained"
@@ -385,7 +383,6 @@ export default function CarDetails() {
                             >
                               Prueba de manejo
                             </Button>
-
                             <Button
                               variant="contained"
                               disableElevation
@@ -408,7 +405,6 @@ export default function CarDetails() {
               </div>
             </div>
           </Container>
-
           <StickyDiv>
             <div id="nav">
               <div style={{ backgroundColor: "#1F1F1F" }}>
@@ -431,7 +427,6 @@ export default function CarDetails() {
                           width: "177px",
                         }}
                       />
-
                       <div>
                         <Typography
                           fontFamily="Lato"
@@ -442,7 +437,6 @@ export default function CarDetails() {
                         >
                           {carDetails.marca} {carDetails.modelo}
                         </Typography>
-
                         <Typography
                           fontFamily="Lato"
                           color="#fff"
@@ -453,7 +447,6 @@ export default function CarDetails() {
                         </Typography>
                       </div>
                     </div>
-
                     <div className="d-flex flex-column align-items-center justify-content-center">
                       <Typography
                         fontFamily="Lato"
@@ -491,7 +484,6 @@ export default function CarDetails() {
                   </div>
                 </Container>
               </div>
-
               <div
                 style={{
                   borderBottom: "solid 1px #5B5B5B",
@@ -596,7 +588,6 @@ export default function CarDetails() {
               </div>
             </div>
           </StickyDiv>
-
           <Container maxWidth="xl" id="resumen">
             <div className="section p-5">
               <Typography
@@ -607,7 +598,6 @@ export default function CarDetails() {
               >
                 Resumen del Auto
               </Typography>
-
               <Grid container className="mt-1" direction="row" spacing={4}>
                 <Grid item md={6} xs={12}>
                   <div className="d-flex flex-column">
@@ -682,7 +672,6 @@ export default function CarDetails() {
               </Grid>
             </div>
           </Container>
-
           <div style={{ backgroundColor: "#F7F7F7" }} id="caracteristicas">
             <Container maxWidth="xl">
               <div className="section p-5">
@@ -716,7 +705,6 @@ export default function CarDetails() {
               </div>
             </Container>
           </div>
-
           <div id="extras">
             <Container maxWidth="xl">
               <div className="section p-5">
@@ -728,7 +716,6 @@ export default function CarDetails() {
                 >
                   Extras
                 </Typography>
-
                 <div className="row my-4">
                   {carDetails.extras?.map((extra) => (
                     <div className="col-md-6 mb-3" key={extra.titulo}>
@@ -772,7 +759,6 @@ export default function CarDetails() {
                               {extra.titulo}
                             </Typography>
                           </div>
-
                           <Typography
                             fontFamily="Lato"
                             color="#8A8A8A"
@@ -788,7 +774,6 @@ export default function CarDetails() {
               </div>
             </Container>
           </div>
-
           <Container maxWidth="xl" id="financiamiento">
             <div className="section p-5 pt-0">
               <Typography
@@ -798,7 +783,6 @@ export default function CarDetails() {
               >
                 Financiamiento
               </Typography>
-
               <div className="row my-5">
                 <div className="col-md-6">
                   <div className="text-center mb-4">
@@ -811,7 +795,6 @@ export default function CarDetails() {
                       Calcula tus mensualidades
                     </Typography>
                   </div>
-
                   <div style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}>
                     <div
                       style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}
@@ -825,7 +808,6 @@ export default function CarDetails() {
                       >
                         Enganche
                       </Typography>
-
                       <CustomSlider
                         marks={enganche}
                         max={enganche[enganche.length - 1].value}
@@ -844,7 +826,6 @@ export default function CarDetails() {
                         >
                           Enganche de <strong>{selectedDownPayment}%</strong>
                         </Typography>
-
                         <Typography
                           fontFamily="Lato"
                           color="#1F1F1F"
@@ -854,7 +835,6 @@ export default function CarDetails() {
                         </Typography>
                       </div>
                     </div>
-
                     <div
                       style={{ backgroundColor: "#f7f7f7", borderRadius: 10 }}
                       className="p-4 px-5"
@@ -867,7 +847,6 @@ export default function CarDetails() {
                       >
                         Plazo (meses)
                       </Typography>
-
                       <CustomSlider
                         marks={plazo}
                         max={plazo[plazo.length - 1].value}
@@ -887,7 +866,6 @@ export default function CarDetails() {
                         >
                           Plazo de <strong>{selectedTerm} meses</strong>
                         </Typography>
-
                         <Typography
                           fontFamily="Lato"
                           color="#1F1F1F"
@@ -989,7 +967,6 @@ export default function CarDetails() {
             </div>
           </Container>
         </LandingPageLayout>
-
         <TemporaryDrawer
           open={drawerOpen}
           setState={setDrawerOpen}

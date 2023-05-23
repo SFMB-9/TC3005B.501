@@ -16,6 +16,9 @@ import ManagerLayout from "@/components/providers/manager/layout";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from 'next/router';
 import { useSession } from "next-auth/react";
+import FilterListIcon from '@mui/icons-material/FilterList';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -141,25 +144,37 @@ export default function Catalog() {
     // Navigate to the page to create cars
     router.push({
       pathname: '/providers/manager/editar-auto',
-      query: {auto_id},
+      query: { auto_id },
     })
   };
 
   const deleteCar = async (auto_id) => {
     setDeletingCarIds([...deletingCarIds, auto_id]);
     // Delete car from elastic
-    await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`, 
-    {method: 'DELETE'});
+    await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`,
+      { method: 'DELETE' });
   };
 
   return (
     <>
       <ManagerLayout>
-        <Grid container>
-          <Grid item xs={12} sm={2}>
+        <Grid container sx={
+          {
+            paddingLeft: "3%",
+            paddingRight: "1%"
+          }}>
+          <Grid item xs={12} md={3} sm={4}>
             <div className={styles.filterContainer}>
-              <div className={styles.filterTitle}>Filtros</div>
-              {/* {selectedChips.map((chip, index) => (
+              <div className={styles.filterHeader}>
+                <div
+                  className={styles.filterTitle}
+                >
+                  <div className={styles.iconWrapper}>
+                    <FilterListIcon className={styles.filterListIcon} />
+                  </div>
+                  <span>Filtros</span></div>
+                </div>
+                {/* {selectedChips.map((chip, index) => (
                 <Chip
                   key={`${chip.category}-${chip.value}-${index}`}
                   label={`${filterHeaders[chip.category]}: ${chip.value}`}
@@ -171,25 +186,30 @@ export default function Catalog() {
                   className={styles.filterChip}
                 />
               ))} */}
-              {filters && (
-                <ul className={styles.filterList}>
-                  {Object.entries(filters).map(([category, subMenuItems]) => (
-                    <li key={category} className={styles.filterItem}>
-                      <button
-                        className={styles.filterButton}
-                        onClick={() => handleMenuItemClick(category, null)}
-                      >
-                        {filterHeaders[category]}
-                      </button>
-                      {expandedMenuItems[category]?.[null] &&
-                        renderSubMenu(category, subMenuItems)}
-                    </li>
-                  ))}
-                </ul>
-              )}
+                {filters && (
+                  <ul className={styles.filterList}>
+                    {Object.entries(filters).map(([category, subMenuItems]) => (
+                      <li key={category} className={styles.filterItem}>
+                        <button
+                          className={styles.filterButton}
+                          onClick={() => handleMenuItemClick(category, null)}
+                        >
+                          <div >
+                          {filterHeaders[category]}
+                          <div className={styles.arrow}>
+                            {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+                          </div>
+                        </div>
+                        </button>
+                        {expandedMenuItems[category]?.[null] &&
+                          renderSubMenu(category, subMenuItems)}
+                      </li>
+                    ))}
+                  </ul>
+                )}
             </div>
           </Grid>
-          <Grid item xs={12} sm={10}>
+          <Grid item xs={12} md={9} sm={8}>
             {/*
               Pasar la función fetchSearch como prop al componente Searchbar
               // para que se ejecute cuando se presione el botón de búsqueda
@@ -213,42 +233,42 @@ export default function Catalog() {
               {/* <CatalogGrid carListing={catalogData} /> */}
               {/* Display listing of cars */}
               {catalogData ? (
-                    <div>
-                      <div>
-                        <table style={{width: "100%"}}>
-                        <thead>
-                            <tr>
-                            <th></th>
-                            <th>Modelo</th>
-                            <th>Año</th>
-                            <th>Marca</th>
-                            <th>ID</th>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {catalogData.map((car, i) => (
-                            <tr key={i}>
-                                <td><img src={car._source.fotos_3d[0]} height="50" width="60"/></td>
-                                <td>{car._source.modelo}</td>
-                                <td>{car._source.año}</td>
-                                <td>{car._source.marca}</td>
-                                <td>{car._id}</td>
-                                <td><button onClick={() => viewEditCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Editar </button></td>
-                                <td><button onClick={() => deleteCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Borrar </button></td>
-                            </tr>
-                            ))}
-                        </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <h2>No se econtraron autos.</h2>
-                    </div>
-                  )}
-            <button onClick={() => viewCreateCar()}> Agregar auto </button>
+                <div>
+                  <div>
+                    <table style={{ width: "100%" }}>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Modelo</th>
+                          <th>Año</th>
+                          <th>Marca</th>
+                          <th>ID</th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {catalogData.map((car, i) => (
+                          <tr key={i}>
+                            <td><img src={car._source.fotos_3d[0]} height="50" width="60" /></td>
+                            <td>{car._source.modelo}</td>
+                            <td>{car._source.año}</td>
+                            <td>{car._source.marca}</td>
+                            <td>{car._id}</td>
+                            <td><button onClick={() => viewEditCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Editar </button></td>
+                            <td><button onClick={() => deleteCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Borrar </button></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <h2>No se econtraron autos.</h2>
+                </div>
+              )}
+              <button onClick={() => viewCreateCar()}> Agregar auto </button>
             </div>
           </Grid>
         </Grid>
