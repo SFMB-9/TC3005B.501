@@ -23,7 +23,7 @@ const procesoSchema = new mongoose.Schema({
   estatus: {
     type: String,
   },
-  documentos_url: {
+  documentos: {
     type: Array,
   },
   direccion: {

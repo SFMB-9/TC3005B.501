@@ -44,11 +44,26 @@ export default async function handler(req, res) {
 
         const usuarioId = parsedBody.usuario_final_id;
         const usuario = await Usuario.findById(usuarioId);
+
+        const agenciaJSON = JSON.stringify(agenciaVendedor);
+        const documentsPurchase = JSON.parse(agenciaJSON).documentos_requeridos_compra;
+
+        const documentosProceso = []
+
+        documentsPurchase.forEach(documento => {
+            documentosProceso.push({
+                nombre_documento: documento,
+                url: "",
+                fecha_modificacion: null,
+                estatus: "Pendiente",
+                comentarios: ""
+
+        })});
         
         const proceso = new Proceso({
             tipo_proceso: "solicitudCompra",
             estatus: "documentosPendientes",
-            documentos: [],
+            documentos: documentosProceso,
             fecha_creacion: Date.now(),
             auto: parsedBody.auto, //Llega del request
             usuario_final: usuario,
