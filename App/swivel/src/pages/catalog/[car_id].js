@@ -17,7 +17,6 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
 import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
-import { set } from "mongoose";
 
 import { useSession } from "next-auth/react";
 
@@ -102,7 +101,7 @@ export default function CarDetails() {
     }
   };
 
-  const handleConfirmPurchase = () => {
+  async function handleConfirmPurchase() {
     const body = {
       usuario_final_id: session.id,
       auto: {
@@ -116,14 +115,14 @@ export default function CarDetails() {
       cantidad_a_pagar: downPayment + monthlyPayment + selectedDeliveryPrice
     }
      
-    fetch('http://localhost:3000/api/saleCreation', {
+    const result = await fetch('http://localhost:3000/api/saleCreation', {
       method: 'POST',
       body: JSON.stringify(body)
-    }).then(response => {
-      console.log(response.json());
     })
 
-    
+    const data = await result.json()
+
+    router.push(`/purchase/${data.id}`);
   }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {

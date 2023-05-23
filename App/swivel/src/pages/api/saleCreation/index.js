@@ -24,6 +24,7 @@ export default async function handler(req, res) {
             .find({ "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
             .sort({ "contar_ventas_en_proceso": 1 })
             .limit(1, { _id: 0, _id: 1 })
+            .select("_id")
             .lean()
             .exec();
 
@@ -31,7 +32,7 @@ export default async function handler(req, res) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const id_vendedor = resultVendedor[0]._id;
+        const id_vendedor = resultVendedor;
 
         await Usuario.updateOne({ "_id": id_vendedor }, { $inc: { "contar_ventas_en_proceso": 1 } });
 
@@ -41,7 +42,7 @@ export default async function handler(req, res) {
 
         const usuario = await Usuario.findById(req.body.usuario_final_id);
 
-        await Proceso.create({
+        const proceso = new Proceso({
             tipo_proceso: "solicitudCompra",
             estatus: "documentosPendientes",
             documentos: [],
@@ -53,10 +54,14 @@ export default async function handler(req, res) {
             cantidad_a_pagar: req.cantidad_a_pagar, //Llega del request
         });
 
-        res.status(200).json({ message: 'Compra creada' });
+        await proceso.save()
+
+        const id = proceso._id;
+
+        return res.status(200).json({ message: 'Compra creada', id: id });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
+        return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
     } finally {
         await mongoose.disconnect();
         console.log("Desconectado de MongoDB");
