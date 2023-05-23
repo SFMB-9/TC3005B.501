@@ -33,6 +33,7 @@ const RequestDetails = () => {
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
   const [changedDocuments, setChangedDocuments] = useState([]);
+  const [uploadedDocument, setUploadedDocument] = useState([]);
   const [userAddress, setUserAddress] = useState({});
   const [carData, setCarData] = useState({});
   const [firstImage, setFirstImage] = useState("");
@@ -41,7 +42,7 @@ const RequestDetails = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
   const [managerData, setManagerData] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState([]);
   const { auto_id } = router.query;
   // user_id = session.id;
   const user_id = "64586ff82cd17fbeb63aa3d0";
@@ -93,31 +94,43 @@ const RequestDetails = () => {
   };
 
   // Save the indices that were changed
-  const handleDocumentEdit = (event, i) => {
+  const handleDocumentEdit = (event, indx) => {    
     const documentIndices = [...changedDocumentIndices];
-    documentIndices.push(i);
+    documentIndices.push(indx);
     setChangedDocumentIndices(documentIndices);
 
     const currentChangedDocuments = [...changedDocuments];
     currentChangedDocuments.push(event);
     setChangedDocuments(currentChangedDocuments);
+
+    const isOpenWithoutIndx = isOpen.filter(function (i) {
+      return i !== indx;
+    });
+
+    setIsOpen(isOpenWithoutIndx);
   };
 
   const handleSubmit = async () => {
-    setIsOpen(false)
-    console.log("Changed Indicies: " + changedDocumentIndices);
-    console.log("Documents: " + currentDocs);
     let documentUrl = "";
     const currentDocs = documents;
+
     // Store the changed documents inside firebase
     for(const [i, doc] of changedDocuments.entries()) {
       // Upload to firebase
       documentUrl = await FileUpload(doc);
       // Assign new URL
       currentDocs[changedDocumentIndices[i]].url = documentUrl;
+      // Change modification date
+      currentDocs[changedDocumentIndices[i]].fecha_modificacion = new Date().toISOString();
     }
-
+    console.log("Documents: " + JSON.stringify(currentDocs));
     setDocuments(currentDocs);
+  }
+
+  const addToIsOpen = async (newKey) => {
+    let currentOpen = [...isOpen];
+    currentOpen.push(newKey);
+    setIsOpen(currentOpen);
   }
 
   // Execute viewRequest only when processId changes
@@ -157,7 +170,9 @@ const RequestDetails = () => {
                     <th>Estatus</th>
                     <th>Ultima modificación</th>
                     <th>Comentarios</th>
-                    <th>Edit</th>
+                    <th>Editar</th>
+                    <th></th>
+                    <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -168,15 +183,15 @@ const RequestDetails = () => {
                         <td>{document.estatus}</td>
                         <td>{document.fecha_modificacion}</td>
                         <td>{document.comentarios}</td>
-                        <td><button onClick={() => setIsOpen(true)}> Editar </button></td>
-                        <ReactModal
-                          isOpen={isOpen}
-                          contentLabel='Document edit'
-                          >
-                            Changing your documents will not apply changes to the documents in your profile.
-                              <input type="file" name="documents" onChange={(e) => handleDocumentEdit(e.target.files[0], i - 1)}/>
-                              <button type="submit" onClick={handleSubmit}>Confirm</button>
-                        </ReactModal>
+                        <td><button onClick={() => addToIsOpen(i)}> Editar </button></td>
+                        {isOpen.includes(i) && (
+                          <td>
+                          <div>
+                            <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
+                            <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                          </div>
+                          </td>
+                        )}
                     </tr>
                     ))}
                 </tbody>
