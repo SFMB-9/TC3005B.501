@@ -83,17 +83,30 @@ const AblyChatComponent = () => {
 
   const messages = receivedMessages.map((message, index) => {
     const author =
-      (message.clientId == session.id)|| (message.connectionId == ably.connection.id && message.connectionId && ably.connection.id)
+      message.clientId == session.id ||
+      (message.connectionId == ably.connection.id &&
+        message.connectionId &&
+        ably.connection.id)
         ? "me"
         : "other";
-    console.log(message.clientId, session.id, message.connectionId, ably.connection.id);
+    console.log(
+      message.clientId,
+      session.id,
+      message.connectionId,
+      ably.connection.id
+    );
     const date = new Date(message.timestamp);
-    const formattedDate = `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+    const formattedDate = `${date.getHours()}:${date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}`;
     return (
-        <span key={index} className={styles.message} data-author={author}>
-          {message.data}
-          <span className={styles.timestamp}>{formattedDate}</span>
+      <span key={index} className={styles.message} data-author={author}>
+        {message.data}
+        <span className={`${ author === "me" ? styles.timestamp_me : styles.timestamp_other}`} data-timestamp={author}>
+          {formattedDate}
         </span>
+      </span>
     );
   });
 
@@ -128,7 +141,16 @@ const AblyChatComponent = () => {
             className={styles.button}
             disabled={messageTextIsEmpty}
           >
-            Send
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-send-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+            </svg>
           </button>
         </form>
       </div>
