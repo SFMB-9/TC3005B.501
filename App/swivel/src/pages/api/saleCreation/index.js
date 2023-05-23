@@ -14,7 +14,9 @@ const Usuario = require('../../../models/usuario');
 
 export default async function handler(req, res) {
 
-    const auto = JSON.stringify(req.body.auto);
+    const parsedBody = JSON.parse(req.body);
+
+    console.log(JSON.parse(req.body).usuario_final_id);
 
     await dbConnect();
 
@@ -24,6 +26,7 @@ export default async function handler(req, res) {
             .find({ "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
             .sort({ "contar_ventas_en_proceso": 1 })
             .limit(1, { _id: 0, _id: 1 })
+            .select("_id")
             .lean()
             .exec();
 
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const id_vendedor = resultVendedor[0]._id;
+        const id_vendedor = resultVendedor;
 
         await Usuario.updateOne({ "_id": id_vendedor }, { $inc: { "contar_ventas_en_proceso": 1 } });
 
@@ -39,24 +42,44 @@ export default async function handler(req, res) {
         
         const agenciaVendedor = await Usuario.findById(usuarioVendedor.agencia_id);
 
-        const usuario = await Usuario.findById(req.body.usuario_final_id);
+        const usuarioId = parsedBody.usuario_final_id;
+        const usuario = await Usuario.findById(usuarioId);
 
-        await Proceso.create({
+        const agenciaJSON = JSON.stringify(agenciaVendedor);
+        const documentsPurchase = JSON.parse(agenciaJSON).documentos_requeridos_compra;
+
+        const documentosProceso = []
+
+        documentsPurchase.forEach(documento => {
+            documentosProceso.push({
+                nombre_documento: documento,
+                url: "",
+                fecha_modificacion: null,
+                estatus: "Pendiente",
+                comentarios: ""
+
+        })});
+        
+        const proceso = new Proceso({
             tipo_proceso: "solicitudCompra",
             estatus: "documentosPendientes",
-            documentos: [],
+            documentos: documentosProceso,
             fecha_creacion: Date.now(),
-            auto: auto, //Llega del request
+            auto: parsedBody.auto, //Llega del request
             usuario_final: usuario,
             vendedor: usuarioVendedor,
             agencia: agenciaVendedor,
-            cantidad_a_pagar: req.cantidad_a_pagar, //Llega del request
+            cantidad_a_pagar: parsedBody.cantidad_a_pagar, //Llega del request
         });
 
-        res.status(200).json({ message: 'Compra creada' });
+        await proceso.save()
+
+        const id = proceso._id;
+
+        return res.status(200).json({ message: 'Compra creada', id: id });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
+        return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
     } finally {
         await mongoose.disconnect();
         console.log("Desconectado de MongoDB");
