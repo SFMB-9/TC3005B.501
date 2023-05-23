@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import AuthComponent from "@/components/login/auth_component";
 import { Typography } from "@mui/material";
 
+import styles from "@/styles/login.module.css";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,9 +28,7 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
-        if (session.role === "user") {
-          callbackUrl = `${window.location.origin}/`;
-        } else if (session.role === "seller") {
+        if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else if (session.role === "GA") {
           callbackUrl = `${window.location.origin}/providers/GA`;
@@ -90,7 +90,8 @@ export default function Login() {
               />
             </div>
             <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-              <button type="submit" className="btn btn-primary btn-block mb-2">
+              <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
+              >
                 <Typography
                   wrap
                   sx={{
@@ -102,31 +103,14 @@ export default function Login() {
                   Ingresar{" "}
                 </Typography>
               </button>
-
-              <button type="submit" className="btn btn-secondary btn-block mb-2">
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontFamily: "lato",
-                  }}
-                >
-                  {" "}
-                  <img alt="logo de google" src="/google_logo.svg" /> Ingresar con
-                  Google{" "}
-                </Typography>
-              </button>
-            </div>
-            <div className="text-center">
-              <p>
-                No tienes cuenta? <a href="/auth/signup">Regístrate aquí</a>
-              </p>
             </div>
           </form>}
-        cardImage="/card_welcome.png"
-        backColor="black"
-        bodyText="Compra el auto de tus sueños en un solo click"
-        titleText="Bienvenidx"
-        textColor="white"
+        title="Iniciar sesión como proveedor"
+        cardImage="/providers_login_image.png"
+        backColor="white"
+        titleText="Portal Swivel"
+        bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
+        textColor="black"
       />
     </>
   );
