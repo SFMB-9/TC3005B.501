@@ -19,6 +19,8 @@ import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
+import ReactModal from 'react-modal';
+import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 
 //import Map from '@/pages/Map';
 
@@ -27,6 +29,8 @@ const RequestDetails = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [documents, setDocuments] = useState([]);
+  const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
+  const [changedDocuments, setChangedDocuments] = useState([]);
   const [userAddress, setUserAddress] = useState({});
   const [carData, setCarData] = useState({});
   const [firstImage, setFirstImage] = useState("");
@@ -35,6 +39,7 @@ const RequestDetails = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
   const [managerData, setManagerData] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
   const { auto_id } = router.query;
   // user_id = session.id;
   const user_id = "64586ff82cd17fbeb63aa3d0";
@@ -71,7 +76,7 @@ const RequestDetails = () => {
   const createDrivingTest = async () => {
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-    {auto_id: auto_id, user_id: user_id});
+    {auto_id: auto_id, user_id: user_id, documents: documents});
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
     await axios.post('/api/prueba-manejo/agregar-proceso-usuario', 
@@ -80,6 +85,34 @@ const RequestDetails = () => {
     await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
   };
+
+  // Save the indices that were changed
+  const handleDocumentEdit = (event, i) => {
+    const documentIndices = [...changedDocumentIndices];
+    documentIndices.push(i);
+    setChangedDocumentIndices(documentIndices);
+
+    const currentChangedDocuments = [...changedDocuments];
+    currentChangedDocuments.push(event);
+    setChangedDocuments(currentChangedDocuments);
+  };
+
+  const handleSubmit = async () => {
+    setIsOpen(false)
+    console.log("Changed Indicies: " + changedDocumentIndices);
+    console.log("Documents: " + currentDocs);
+    let documentUrl = "";
+    const currentDocs = documents;
+    // Store the changed documents inside firebase
+    for(const [i, doc] of changedDocuments.entries()) {
+      // Upload to firebase
+      documentUrl = await FileUpload(doc);
+      // Assign new URL
+      currentDocs[changedDocumentIndices[i]].url = documentUrl;
+    }
+
+    setDocuments(currentDocs);
+  }
 
   // Execute viewRequest only when processId changes
   useEffect(() => {
@@ -117,6 +150,7 @@ const RequestDetails = () => {
                     <th>Estatus</th>
                     <th>Ultima modificación</th>
                     <th>Comentarios</th>
+                    <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,9 +160,16 @@ const RequestDetails = () => {
                         <td>{document.url}</td>
                         <td>{document.estatus}</td>
                         <td>{document.fecha_modificacion}</td>
-                        <td>
-                        <p>{document.comentarios}</p>
-                        </td>
+                        <td>{document.comentarios}</td>
+                        <td><button onClick={() => setIsOpen(true)}> Editar </button></td>
+                        <ReactModal
+                          isOpen={isOpen}
+                          contentLabel='Document edit'
+                          >
+                            Changing your documents will not apply changes to the documents in your profile.
+                              <input type="file" name="documents" onChange={(e) => handleDocumentEdit(e.target.files[0], i - 1)}/>
+                              <button type="submit" onClick={handleSubmit}>Confirm</button>
+                        </ReactModal>
                     </tr>
                     ))}
                 </tbody>
