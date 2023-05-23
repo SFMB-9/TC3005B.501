@@ -1,7 +1,18 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Switch, Select, MenuItem } from "@mui/material";
+import {
+  Container,
+  Typography,
+  TextField,
+  Switch,
+  Select,
+  MenuItem,
+  IconButton,
+  Button,
+} from "@mui/material";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
+import CloseIcon from "@mui/icons-material/Close";
+import ImageFileDrop from "@/components/general/FileDrop";
 //import uploadCar from '@/pages/api/elasticSearch/elasticCarRegister';
 //create car object
 const CarRegistrationForm = () => {
@@ -39,15 +50,15 @@ const CarRegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (
-    //   car.colores.length === 0 ||
-    //   car.enganche.length === 0 ||
-    //   car.entrega.length === 0 ||
-    //   car.plazo.length === 0
-    // ) {
-    //   setOpen(true);
-    //   return;
-    // }
+    if (
+      car.colores.length === 0 ||
+      car.enganche.length === 0 ||
+      car.entrega.length === 0 ||
+      car.plazo.length === 0
+    ) {
+      setOpen(true);
+      return;
+    }
     const updatedCar = {
       ...car,
       colores: color,
@@ -57,14 +68,14 @@ const CarRegistrationForm = () => {
       plazo: plazo,
       entrega: entrega,
     };
-    // // Upload images to bucket
-    // for(let i = 0; i < fotos.length; i++){
-    //   for(let j = 0; j < fotos[i].length; j++){
-    //     const foto = await FileUpload(fotos[i][j]);
-    //     updatedCar.colores[i].imagenes.push(foto);
-    //     console.log(updatedCar.colores[i].imagenes)
-    //   }
-    // }
+    // Upload images to bucket
+    for(let i = 0; i < fotos.length; i++){
+      for(let j = 0; j < fotos[i].length; j++){
+        const foto = await FileUpload(fotos[i][j]);
+        updatedCar.colores[i].imagenes.push(foto);
+        console.log(updatedCar.colores[i].imagenes)
+      }
+    }
 
     /*
     For future reference, this is how you upload a car to elastic
@@ -149,9 +160,10 @@ const CarRegistrationForm = () => {
     });
   };
 
-  const handleFotosChange = (index, i, event) => {
+  const handleFotosChange = (index, event) => {
     const updatedFotos = [...fotos];
-    updatedFotos[index][i] = event;
+    console.log(updatedFotos);
+    updatedFotos[index].push(...event);
     setFotos(updatedFotos);
   };
 
@@ -292,6 +304,7 @@ const CarRegistrationForm = () => {
           fontFamily="Lato"
           color="#1F1F1F"
           className="pb-3"
+          fontWeight="bold"
           fontSize={{ xs: 16, md: 17, lg: 19 }}
         >
           Inventario
@@ -362,6 +375,7 @@ const CarRegistrationForm = () => {
               fontFamily="Lato"
               color="#1F1F1F"
               className="pb-3"
+              fontWeight="bold"
               fontSize={{ xs: 16, md: 17, lg: 19 }}
             >
               Información general
@@ -457,10 +471,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="combustible"
-              id="combustible"
-              value={car.combustible}
-              onChange={handleChange}
+                  name="combustible"
+                  id="combustible"
+                  value={car.combustible}
+                  onChange={handleChange}
                   label="Combustible"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -482,10 +496,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="motor"
-              id="motor"
-              value={car.motor}
-              onChange={handleChange}
+                  name="motor"
+                  id="motor"
+                  value={car.motor}
+                  onChange={handleChange}
                   label="Motor"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -512,7 +526,11 @@ const CarRegistrationForm = () => {
                   value={car.ano}
                   onChange={handleChange}
                   label="Año"
-                  inputProps={{min:"1900", max:"9999", style: { fontFamily: "Lato" } }}
+                  inputProps={{
+                    min: "1900",
+                    max: "9999",
+                    style: { fontFamily: "Lato" },
+                  }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
                   className="mb-3 w-100"
                 />
@@ -532,10 +550,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="transmision"
-              id="transmision"
-              value={car.transmision}
-              onChange={handleChange}
+                  name="transmision"
+                  id="transmision"
+                  value={car.transmision}
+                  onChange={handleChange}
                   label="Transmisión"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -557,10 +575,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="rendimiento"
-              id="rendimiento"
-              value={car.rendimiento}
-              onChange={handleChange}
+                  name="rendimiento"
+                  id="rendimiento"
+                  value={car.rendimiento}
+                  onChange={handleChange}
                   label="Rendimiento"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -582,12 +600,12 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="number"
-              name="pasajeros"
-              id="pasajeros"
-              value={car.pasajeros}
-              onChange={handleChange}
+                  name="pasajeros"
+                  id="pasajeros"
+                  value={car.pasajeros}
+                  onChange={handleChange}
                   label="Pasajeros"
-                  inputProps={{min:"0", style: { fontFamily: "Lato" } }}
+                  inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
                   className="mb-3 w-100"
                 />
@@ -612,7 +630,7 @@ const CarRegistrationForm = () => {
                   value={car.precio}
                   onChange={handleChange}
                   label="Precio"
-                  inputProps={{min:"0", style: { fontFamily: "Lato" } }}
+                  inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
                   className="mb-3 w-100"
                 />
@@ -629,49 +647,47 @@ const CarRegistrationForm = () => {
                 </Typography>
 
                 <Select
-          name="tipo_vehiculo"
-          id="tipo_vehiculo"
-          value={car.tipo_vehiculo}
-          onChange={handleChange}
-          MenuProps={{fontFamily: "Lato"}}
-          className="w-100 mb-3"
-          size="small"
-          required
-        >
-          <MenuItem value="sedan">Sedán</MenuItem>
-            <MenuItem value="coupe">Coupé</MenuItem>
-            <MenuItem value="convertible">Convertible</MenuItem>
-            <MenuItem value="deportivo">Deportivo</MenuItem>
-            <MenuItem value="familiar">Familiar</MenuItem>
-            <MenuItem value="hatchback">Hatchback</MenuItem>
-            <MenuItem value="pickup">Pickup</MenuItem>
-        </Select>
+                  name="tipo_vehiculo"
+                  id="tipo_vehiculo"
+                  value={car.tipo_vehiculo}
+                  onChange={handleChange}
+                  MenuProps={{ fontFamily: "Lato" }}
+                  className="w-100 mb-3"
+                  size="small"
+                  required
+                >
+                  <MenuItem value="sedan">Sedán</MenuItem>
+                  <MenuItem value="coupe">Coupé</MenuItem>
+                  <MenuItem value="convertible">Convertible</MenuItem>
+                  <MenuItem value="deportivo">Deportivo</MenuItem>
+                  <MenuItem value="familiar">Familiar</MenuItem>
+                  <MenuItem value="hatchback">Hatchback</MenuItem>
+                  <MenuItem value="pickup">Pickup</MenuItem>
+                </Select>
               </div>
 
               <Typography
-                  fontFamily="Lato"
-                  color="#8A8A8A"
-                  className="pb-3"
-                  fontSize={{ xs: 15, md: 16, lg: 18 }}
-                >
-                  Descripción
-                </Typography>
+                fontFamily="Lato"
+                color="#8A8A8A"
+                className="pb-3"
+                fontSize={{ xs: 15, md: 16, lg: 18 }}
+              >
+                Descripción
+              </Typography>
               <TextField
-          name="descripcion"
-          id="descripcion"
-          value={car.descripcion}
-          onChange={handleChange}
-          multiline
-        />
-
-              
+                name="descripcion"
+                id="descripcion"
+                value={car.descripcion}
+                onChange={handleChange}
+                multiline
+              />
             </div>
-            
 
             <Typography
               fontFamily="Lato"
               color="#1F1F1F"
               className="py-3 mt-3"
+              fontWeight={"bold"}
               fontSize={{ xs: 16, md: 17, lg: 19 }}
             >
               Información de la agencia
@@ -692,10 +708,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="nombre_agencia"
-              id="nombre_agencia"
-              value={car.nombre_agencia}
-              onChange={handleChange}
+                  name="nombre_agencia"
+                  id="nombre_agencia"
+                  value={car.nombre_agencia}
+                  onChange={handleChange}
                   label="Nombre Agencia"
                   inputProps={{ style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -717,10 +733,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="estado_agencia"
-              id="estado_agencia"
-              value={car.estado_agencia}
-              onChange={handleChange}
+                  name="estado_agencia"
+                  id="estado_agencia"
+                  value={car.estado_agencia}
+                  onChange={handleChange}
                   label="Estado"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -742,10 +758,10 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="municipio_agencia"
-              id="municipio_agencia"
-              value={car.municipio_agencia}
-              onChange={handleChange}
+                  name="municipio_agencia"
+                  id="municipio_agencia"
+                  value={car.municipio_agencia}
+                  onChange={handleChange}
                   label="Municipio"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -767,308 +783,669 @@ const CarRegistrationForm = () => {
                   required
                   size="small"
                   type="text"
-              name="direccion_agencia"
-              id="direccion_agencia"
-              value={car.direccion_agencia}
-              onChange={handleChange}
+                  name="direccion_agencia"
+                  id="direccion_agencia"
+                  value={car.direccion_agencia}
+                  onChange={handleChange}
                   label="Dirección"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
-                  className="mb-3 w-100 mb-5"
+                  className="w-100"
                 />
               </div>
-              
             </div>
           </div>
 
           <div>
-          <Typography
+            <Typography
               fontFamily="Lato"
               color="#1F1F1F"
-              className="pb-3"
+              className="py-3 mt-3"
+              fontWeight={"bold"}
               fontSize={{ xs: 16, md: 17, lg: 19 }}
             >
-              Colores
+              Colores *
             </Typography>
 
             {color.map((object, index) => (
-              <div key={index}>
-                <label>
-                  Nombre:
-                  <input
-                    type="text"
-                    name="nombre"
-                    value={object.nombre}
-                    onChange={(event) => handleColorChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <label>
-                  Hex:
-                  <input
-                    type="text"
-                    name="hex"
-                    value={object.hex}
-                    onChange={(event) => handleColorChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                {fotos[index].map((foto, i) => (
-                  <div key={i}>
-                    <label>
-                      Foto:
-                      <input
-                        type="file"
-                        name="foto"
-                        onChange={(event) =>
-                          handleFotosChange(index, i, event.target.files[0])
-                        }
-                      />
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveFotos(index, i)}
-                    >
-                      X
-                    </button>
-                  </div>
-                ))}
-                <span> | </span>
-                <button type="button" onClick={() => handleFotoAddRow(index)}>
-                  Añadir Foto
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleRemoveColor(index);
-                    handleRemoveCarFotos(index);
+              <div key={index} className="mb-4">
+                <div
+                  className="p-3 py-2 shadow-sm"
+                  style={{
+                    backgroundColor: "#f5f5f5",
+                    borderRadius: 10,
+                    borderBottomLeftRadius: 0,
+                    borderBottomRightRadius: 0,
                   }}
                 >
-                  X
-                </button>
-                <hr />
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={() => {
-                handleAddRow(setFotos, createEmptyCarFoto);
-                handleAddRow(setColor, createEmptyColor);
-              }}
-            >
-              Add Row
-            </button>
-          </div>
-          <br />
-          <div>
-            <h3>Características:</h3>
-            {caracteristicas.map((value, index) => (
-              <div key={index}>
-                <label>
-                  Caract:
-                  <input
-                    type="text"
-                    name="nombre"
-                    value={value}
-                    onChange={(event) =>
-                      handleCaracteristicaChange(index, event.target.value)
-                    }
-                  />
-                </label>
-                <span> | </span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveCaracteristica(index)}
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#1f1f1f"
+                      className="pb-2"
+                      fontSize={{ xs: 15, md: 16, lg: 18 }}
+                    >
+                      Información del color
+                    </Typography>
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      onClick={() => {
+                        handleRemoveColor(index);
+                        handleRemoveCarFotos(index);
+                      }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md">
+                      <TextField
+                        required
+                        size="small"
+                        type="text"
+                        name="nombre"
+                        value={object.nombre}
+                        onChange={(event) => handleColorChange(index, event)}
+                        label="Nombre del color"
+                        inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                        InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                        className="mb-2 w-100 col-md"
+                      />
+                    </div>
+
+                    <div className="col-md">
+                      <TextField
+                        required
+                        size="small"
+                        type="text"
+                        name="hex"
+                        value={object.hex}
+                        onChange={(event) => handleColorChange(index, event)}
+                        label="Codigo Hexadecimal"
+                        inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                        InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                        className="mb-2 w-100 col-md"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="p-3 py-3 shadow-sm"
+                  style={{
+                    borderRadius: 10,
+                    borderTopLeftRadius: 0,
+                    borderTopRightRadius: 0,
+                  }}
                 >
-                  X
-                </button>
-                <hr />
+                  <Typography
+                    fontFamily="Lato"
+                    color="#1f1f1f"
+                    className="pb-2"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Imágenes del coche
+                  </Typography>
+
+                  <div className="row">
+                    <div className="col-md-5">
+                      <div className="border rounded h-100">
+                        <ImageFileDrop
+                          onDrop={handleFotosChange}
+                          index={index}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-7 mt-md-0 mt-3">
+                      <div
+                        className="border rounded"
+                        style={{ height: "250px", overflowY: "scroll" }}
+                      >
+                        {fotos[index].map((foto, i) => (
+                          <div
+                            key={i}
+                            className="d-flex p-1 px-3 justify-content-between border-bottom"
+                          >
+                            <Typography
+                              fontFamily="Lato"
+                              color="#8a8a8a"
+                              fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                              {foto.name}
+                            </Typography>
+                            <IconButton
+                              aria-label="delete"
+                              size="small"
+                              onClick={() => handleRemoveFotos(index, i)}
+                            >
+                              <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
-            <button
-              type="button"
-              onClick={() =>
-                handleAddRow(setCaracteristicas, createEmptyCaracteristica)
-              }
-            >
-              Add Row
-            </button>
+
+            <div className="text-end mt-3">
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "red",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() => {
+                  handleAddRow(setFotos, createEmptyCarFoto);
+                  handleAddRow(setColor, createEmptyColor);
+                }}
+              >
+                Agregar Color
+              </Button>
+            </div>
           </div>
-          <br />
+
           <div>
-            <h3>Extras:</h3>
+            <Typography
+              fontFamily="Lato"
+              color="#1F1F1F"
+              className="py-3 mt-3"
+              fontWeight={"bold"}
+              fontSize={{ xs: 16, md: 17, lg: 19 }}
+            >
+              Características *
+            </Typography>
+
+            <div className="row">
+              {caracteristicas.map((value, index) => (
+                <div key={index} className="col-xl-4 col-md-6">
+                  <div className="d-flex justify-content-between">
+                    <TextField
+                      required
+                      size="small"
+                      type="text"
+                      name="nombre"
+                      value={value}
+                      onChange={(event) =>
+                        handleCaracteristicaChange(index, event.target.value)
+                      }
+                      label="Característica"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      className="mb-3"
+                      onClick={() => handleRemoveCaracteristica(index)}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="text-end mt-3">
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "red",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() =>
+                  handleAddRow(setCaracteristicas, createEmptyCaracteristica)
+                }
+              >
+                Agregar Característica
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <Typography
+              fontFamily="Lato"
+              color="#1F1F1F"
+              className="py-3 mt-3"
+              fontWeight={"bold"}
+              fontSize={{ xs: 16, md: 17, lg: 19 }}
+            >
+              Extras
+            </Typography>
+
             {extras.map((object, index) => (
-              <div key={index}>
-                <label>
-                  Nombre:
-                  <input
-                    type="text"
-                    name="nombre"
-                    value={object.nombre}
-                    onChange={(event) => handleExtraChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <label>
-                  Precio:
-                  <input
-                    type="number"
-                    name="precio"
-                    value={object.precio}
-                    onChange={(event) => handleExtraChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <label>
-                  Descripción:
-                  <input
-                    type="text"
-                    name="descripcion"
-                    value={object.descripcion}
-                    onChange={(event) => handleExtraChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <button type="button" onClick={() => handleRemoveExtra(index)}>
-                  X
-                </button>
-                <hr />
+              <div
+                className="p-3 py-2 shadow-sm mb-3"
+                style={{
+                  borderRadius: 10,
+                }}
+                key={index}
+              >
+                <div className="text-end">
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={() => handleRemoveExtra(index)}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-6">
+                    <TextField
+                      required
+                      size="small"
+                      type="text"
+                      name="nombre"
+                      value={object.nombre}
+                      onChange={(event) => handleExtraChange(index, event)}
+                      label="Nombre"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                  </div>
+
+                  <div className="col-md-6">
+                    <TextField
+                      required
+                      size="small"
+                      type="number"
+                      name="precio"
+                      value={object.precio}
+                      onChange={(event) => handleExtraChange(index, event)}
+                      label="Precio"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                  </div>
+
+                  <div className="col">
+                    <TextField
+                      required
+                      size="small"
+                      type="text"
+                      name="descripcion"
+                      value={object.descripcion}
+                      onChange={(event) => handleExtraChange(index, event)}
+                      label="Descripción"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                  </div>
+                </div>
               </div>
             ))}
-            <button
-              type="button"
-              onClick={() => handleAddRow(setExtras, createEmptyExtra)}
+
+            <div className="text-end mt-3">
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "red",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() => handleAddRow(setExtras, createEmptyExtra)}
+              >
+                Agregar Extra
+              </Button>
+            </div>
+          </div>
+          <div>
+            <Typography
+              fontFamily="Lato"
+              color="#1F1F1F"
+              className="py-3 mt-3"
+              fontWeight={"bold"}
+              fontSize={{ xs: 16, md: 17, lg: 19 }}
             >
-              Add Row
-            </button>
-          </div>
-          <br />
-          <div>
-            <h3>%Enganche:</h3>
-            {enganche.map((value, index) => (
-              <div key={index}>
-                <label>
-                  %:
-                  <input
-                    type="number"
-                    name="porcentaje"
-                    value={value}
-                    onChange={(event) =>
-                      handleEngancheChange(index, event.target.value)
+              Financiamiento *
+            </Typography>
+
+            <div className="row">
+              <div className="col-md-4">
+                <div className="mb-4">
+                  <div
+                    className="p-3 py-2 shadow-sm"
+                    style={{
+                      backgroundColor: "#f5f5f5",
+                      borderRadius: 10,
+                      borderBottomLeftRadius: 0,
+                      borderBottomRightRadius: 0,
+                    }}
+                  >
+                    <div className="w-100">
+                      <Typography
+                        fontFamily="Lato"
+                        color="#1f1f1f"
+                        fontSize={{ xs: 15, md: 16, lg: 18 }}
+                      >
+                        Enganche (%)
+                      </Typography>
+                    </div>
+                  </div>
+
+                  <div
+                    className="p-3 py-3 shadow-sm"
+                    style={{
+                      borderRadius: 10,
+                      borderTopLeftRadius: 0,
+                      borderTopRightRadius: 0,
+                    }}
+                  >
+                    {enganche.map((value, index) => (
+                      <div key={index}>
+                        <div className="d-flex justify-content-between">
+                          <TextField
+                            required
+                            size="small"
+                            type="number"
+                            name="porcentaje"
+                            value={value}
+                            onChange={(event) =>
+                              handleEngancheChange(index, event.target.value)
+                            }
+                            label="%"
+                            inputProps={{
+                              min: "0",
+                              style: { fontFamily: "Lato" },
+                            }}
+                            InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                            className="mb-2 w-100"
+                          />
+                          <IconButton
+                            aria-label="delete"
+                            size="small"
+                            className="mb-2"
+                            onClick={() => handleRemoveEnganche(index)}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="text-end my-3">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      fontFamily: "Lato",
+                      ":hover": {
+                        backgroundColor: "red",
+                      },
+                    }}
+                    disableElevation
+                    type="button"
+                    onClick={() =>
+                      handleAddRow(setEnganche, createEmptyEnganche)
                     }
-                  />
-                </label>
-                <span> | </span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveEnganche(index)}
-                >
-                  X
-                </button>
-                <hr />
+                  >
+                    Agregar Enganche
+                  </Button>
+                </div>
               </div>
-            ))}
-            <button
-              type="button"
-              onClick={() => handleAddRow(setEnganche, createEmptyEnganche)}
+
+              <div className="col-md">
+                <div>
+                  <div className="mb-4">
+                    <div
+                      className="p-3 py-2 shadow-sm"
+                      style={{
+                        backgroundColor: "#f5f5f5",
+                        borderRadius: 10,
+                        borderBottomLeftRadius: 0,
+                        borderBottomRightRadius: 0,
+                      }}
+                    >
+                      <div className="w-100 row">
+                        <div className="col">
+                          <Typography
+                            fontFamily="Lato"
+                            color="#1f1f1f"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                          >
+                            Plazo (meses)
+                          </Typography>
+                        </div>
+
+                        <div className="col">
+                          <Typography
+                            fontFamily="Lato"
+                            color="#1f1f1f"
+                            fontSize={{ xs: 15, md: 16, lg: 18 }}
+                          >
+                            Tasa (%)
+                          </Typography>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      className="p-3 py-3 shadow-sm"
+                      style={{
+                        borderRadius: 10,
+                        borderTopLeftRadius: 0,
+                        borderTopRightRadius: 0,
+                      }}
+                    >
+                      {Object.entries(plazo).map(([index, item]) => (
+                        <div className="row" key={index}>
+                          <div className="col">
+                            <TextField
+                              required
+                              size="small"
+                              type="text"
+                              name="key"
+                              value={item.key}
+                              onChange={(event) =>
+                                handleKeyChange(index, event.target.value)
+                              }
+                              label="Meses"
+                              inputProps={{
+                                min: "0",
+                                style: { fontFamily: "Lato" },
+                              }}
+                              InputLabelProps={{
+                                style: { fontFamily: "Lato" },
+                              }}
+                              className="mb-2 w-100"
+                            />
+                          </div>
+                          <div className="col d-flex">
+                            <TextField
+                              required
+                              size="small"
+                              type="text"
+                              name="value"
+                              value={item.value}
+                              onChange={(event) =>
+                                handleValueChange(index, event.target.value)
+                              }
+                              label="%"
+                              inputProps={{
+                                min: "0",
+                                style: { fontFamily: "Lato" },
+                              }}
+                              InputLabelProps={{
+                                style: { fontFamily: "Lato" },
+                              }}
+                              className="mb-2 w-100"
+                            />
+                            <IconButton
+                              aria-label="delete"
+                              size="small"
+                              className="mb-2"
+                              onClick={() => handleRemovePlazo(index)}
+                            >
+                              <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="text-end mt-3">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      sx={{
+                        fontFamily: "Lato",
+                        ":hover": {
+                          backgroundColor: "red",
+                        },
+                      }}
+                      disableElevation
+                      type="button"
+                      onClick={handlePlazoAddRow}
+                    >
+                      Agregar Plazo
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+
+          <div>
+            <Typography
+              fontFamily="Lato"
+              color="#1F1F1F"
+              className="py-3 mt-3"
+              fontWeight={"bold"}
+              fontSize={{ xs: 16, md: 17, lg: 19 }}
             >
-              Add Row
-            </button>
-          </div>
-          <br />
-          <div>
-            <h3>Plazo:</h3>
-            {Object.entries(plazo).map(([index, item]) => (
-              <div key={index}>
-                <label>
-                  Key:
-                  <input
-                    type="text"
-                    name="key"
-                    value={item.key}
-                    onChange={(event) =>
-                      handleKeyChange(index, event.target.value)
-                    }
-                    required
-                  />
-                </label>
-                <label>
-                  Value:
-                  <input
-                    type="text"
-                    name="value"
-                    value={item.value}
-                    onChange={(event) =>
-                      handleValueChange(index, event.target.value)
-                    }
-                  />
-                </label>
-                <button type="button" onClick={() => handleRemovePlazo(index)}>
-                  X
-                </button>
-                <hr />
-              </div>
-            ))}
-            <button type="button" onClick={handlePlazoAddRow}>
-              Add Row
-            </button>
-          </div>
-          <br />
-          <div>
-            <h3>Entrega:</h3>
+              Entrega*
+            </Typography>
+
             {entrega.map((object, index) => (
-              <div key={index}>
-                <label>
-                  Nombre:
-                  <input
-                    type="text"
-                    name="nombre"
-                    value={object.nombre}
-                    onChange={(event) => handleEntregaChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <label>
-                  Precio:
-                  <input
-                    type="number"
+              <div
+                className="p-3 py-2 shadow-sm mb-3"
+                style={{
+                  borderRadius: 10,
+                }}
+                key={index}
+              >
+                <div className="text-end">
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={() => handleRemoveEntrega(index)}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-6">
+                    <TextField
+                      required
+                      size="small"
+                      type="text"
+                      name="nombre"
+                      value={object.nombre}
+                      onChange={(event) => handleEntregaChange(index, event)}
+                      label="Nombre"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                  </div>
+
+                  <div className="col-md-6">
+                    <TextField
+                      required
+                      size="small"
+                      type="number"
                     name="precio"
                     value={object.precio}
                     onChange={(event) => handleEntregaChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <label>
-                  Descripción:
-                  <input
-                    type="text"
-                    name="descripcion"
-                    value={object.descripcion}
-                    onChange={(event) => handleEntregaChange(index, event)}
-                  />
-                </label>
-                <span> | </span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveEntrega(index)}
-                >
-                  X
-                </button>
-                <hr />
+                      label="Precio"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                  </div>
+
+                  <div className="col">
+                    <TextField
+                      required
+                      size="small"
+                      type="text"
+                      name="descripcion"
+                      value={object.descripcion}
+                      onChange={(event) => handleEntregaChange(index, event)}
+                      label="Descripción"
+                      inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                      InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                      className="mb-3 w-100"
+                    />
+                  </div>
+                </div>
               </div>
             ))}
-            <button
-              type="button"
-              onClick={() => handleAddRow(setEntrega, createEmptyEntrega)}
-            >
-              Add Row
-            </button>
+
+            <div className="text-end mt-3">
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "red",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() => handleAddRow(setEntrega, createEmptyEntrega)}
+              >
+                Agregar Entrega
+              </Button>
+            </div>
+          </div>
           </div>
 
-          <br />
-
-          <button type="submit">Register Car</button>
+          <div className="text-center mt-3">
+              <Button
+                variant="contained"
+                type="submit"
+                className="w-50"
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "red",
+                  },
+                }}
+              >
+                Subir Auto
+              </Button>
+            </div>
+          
           <CustomizedSnackbars
             setOpen={setOpen}
             message="Llena todos los campos necesarios"
