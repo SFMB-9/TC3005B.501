@@ -42,14 +42,6 @@ baseSchema.pre("save", async function (next) {
   this.contraseña = await bcrypt.hash(this.contraseña, 10);
 });
 
-baseSchema.pre("save", async function (next) {
-  if (!this.isModified("tipo_usuario")) {
-    next();
-  }
-
-  this.tipo_usuario = encryptRole(this.tipo_usuario);
-});
-
 const User = mongoose.models.User || mongoose.model("User", baseSchema);
 
 const sellerSchema = new mongoose.Schema({
