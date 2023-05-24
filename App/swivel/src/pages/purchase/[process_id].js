@@ -9,9 +9,9 @@ export default function Process() {
     console.log("process_id: " + process_id);
     const [process, setProcess] = useState(null);
     const [documents, setDocuments] = useState([]);
-    const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
-    const [changedDocuments, setChangedDocuments] = useState([]);
-    const [uploadedDocument, setUploadedDocument] = useState([]);
+    const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
+    const [changedDocument, setChangedDocument] = useState(null);
+    const [uploadedDocument, setUploadedDocument] = useState(null);
     const [isOpen, setIsOpen] = useState([]);
 
     const fetchProcess = async () => {
@@ -35,41 +35,45 @@ export default function Process() {
     }
 
     // Save the indices that were changed
-  const handleDocumentEdit = (event, indx) => {    
-    const documentIndices = [...changedDocumentIndices];
-    documentIndices.push(indx);
-    setChangedDocumentIndices(documentIndices);
+  const handleDocumentEdit = async (file, indx) => {    
 
-    const currentChangedDocuments = [...changedDocuments];
-    currentChangedDocuments.push(event);
-    setChangedDocuments(currentChangedDocuments);
+    console.log("event: " + file);
+    setChangedDocumentIndex(indx);
+    setChangedDocument(file);
 
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
 
     setIsOpen(isOpenWithoutIndx);
-    handleSubmit();
+    await handleSubmit();
   };
 
   const handleSubmit = async () => {
     let documentUrl = "";
     const currentDocs = documents;
+    
+    console.log("changedDocument: " + changedDocument);
+    const i = changedDocumentIndex;
+    const doc = changedDocument;    
 
-    // Store the changed documents inside firebase
-    for(const [i, doc] of changedDocuments.entries()) {
-      // Upload to firebase
-      documentUrl = await FileUpload(doc);
-      // Assign new URL
-      currentDocs[changedDocumentIndices[i]].url = documentUrl;
-      // Change modification date
-      currentDocs[changedDocumentIndices[i]].fecha_modificacion = new Date().toISOString();
-    }
-    console.log("Documents: " + JSON.stringify(currentDocs));
-    setDocuments(currentDocs);
+    documentUrl = await FileUpload(doc);
+    console.log(documentUrl)
+
+    currentDocs[i].url = documentUrl;
+    currentDocs[i].fecha_modificacion = new Date().toISOString();
+
+    console.log("process_id: " + process_id);
+    console.log("doc_index: " + i);
+    console.log("file_url: " + documentUrl);
+    console.log("update_date: " + currentDocs[i].fecha_modificacion);
+
+    const result = await fetch(`http://localhost:3000/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`, {
+        method: "PUT",
+    })
+
+    console.log(result)
   }
-
-  
 
     useEffect(() => {
         if (!process_id) {
@@ -124,11 +128,18 @@ export default function Process() {
                                 <td>{document.estatus}</td>
                                 <td>{document.fecha_modificacion}</td>
                                 <td>{document.comentarios}</td>
-                                <td><button onClick={() => addToIsOpen(i)}> Editar </button></td>
+                                <td><button onClick={(e) => {
+                                    e.preventDefault();
+                                    addToIsOpen(i)}
+                                    }> Editar </button></td>
                                 {isOpen.includes(i) && (
                                     <td>
                                         <div>
-                                            <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])} />
+                                            <input type="file" name="documents" onChange={(e) => {
+                                                e.preventDefault();
+                                                const file = e.target.files[0];
+                                                setUploadedDocument(file)
+                                                console.log(uploadedDocument)}} />
                                             <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
                                         </div>
                                     </td>
@@ -137,6 +148,8 @@ export default function Process() {
                         ))}
                     </tbody>
                 </table>
+
+                <button></button>
 
             </div>
         );
