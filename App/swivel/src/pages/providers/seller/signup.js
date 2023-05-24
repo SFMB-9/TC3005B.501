@@ -6,12 +6,10 @@ import {
   Container,
   Typography,
   TextField,
-  Switch,
-  Select,
-  MenuItem,
-  IconButton,
   Button,
 } from "@mui/material";
+
+import ManagerLayout from "@/components/providers/manager/layout";
 
 export default function SellerSignup() {
   const [name, setName] = useState("");
@@ -43,8 +41,9 @@ export default function SellerSignup() {
 
   return (
     <>
+    <ManagerLayout>
       <Container maxWidth="xl"> 
-      <div className="section p-5">
+      <div className="section pt-3 p-5">
           <Typography
             fontFamily="Lato"
             color="#1F1F1F"
@@ -240,7 +239,7 @@ export default function SellerSignup() {
                       Agencia
                     </Typography>
                   <TextField
-                    required
+                    disabled
                     size="small"
                     type="text"
                     name="agencia"
@@ -248,7 +247,7 @@ export default function SellerSignup() {
                     value={agency}
                     pattern="[a-zA-Z]+"
                     onChange={(e) => setAgency(e.target.value)}
-                    label="Agencia"
+                    label="Nombre de agencia (automático)"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
@@ -266,7 +265,7 @@ export default function SellerSignup() {
                   </Typography>
 
                   <TextField
-                    required
+                    disabled
                     size="small"
                     type="text"
                     name="location"
@@ -274,7 +273,7 @@ export default function SellerSignup() {
                     value=""
                     pattern="[a-zA-Z]+"
                     onChange=""
-                    label="Ubicación"
+                    label="Ubicación (automático)"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
@@ -295,14 +294,13 @@ export default function SellerSignup() {
                   >
                     Crear vendedor
                   </Button>
-                </div>
-                             
-                
+                </div> 
               </div>
             </div>
           </form>
         </div>
       </Container>
+    </ManagerLayout>
     </>
   );
 }
