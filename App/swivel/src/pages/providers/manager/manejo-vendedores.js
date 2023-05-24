@@ -124,7 +124,7 @@ export default function SearchResults() {
 
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
-      };
+    };
 
     return (
 
@@ -138,7 +138,7 @@ export default function SearchResults() {
                     placeholder="Buscar..."
                 />
                 <a href='/seller/seller_signup'>
-                    <button onClick={RoutRegistroVendedor()}> [+] </button>
+                    <button onClick={RoutRegistroVendedor}> [+] </button>
                 </a>
             </div>
 
