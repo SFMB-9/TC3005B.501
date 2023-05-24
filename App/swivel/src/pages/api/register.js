@@ -14,8 +14,6 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    console.log(req.body);
-
     const name = req.body.nombres;
     const surname = req.body.apellidos;
     const email = req.body.email;
@@ -77,17 +75,20 @@ export default async function handler(req, res) {
         });
         res.status(200).json({ message: "Seller registered successfully" });
       } else if (role === "manager") {
-        const agency = req.body.agency;
-        const phone = req.body.phone;
+        
+        const agency = req.body.agencia;
+        const GA = req.body.grupo_automotriz;
+        const phone = req.body.numerqo_telefonico;
 
         await ManagerUser.create({
           nombres: name,
           apellidos: surname,
           email: email,
-          contraseña: password,
+          password: password,
           tipo_usuario: encrypted_role,
           agencia: agency,
-          telefono: phone,
+          grupo_automotriz: GA,
+          numero_telefonico: phone,
         });
         res.status(200).json({ message: "Manager registered successfully" });
       }

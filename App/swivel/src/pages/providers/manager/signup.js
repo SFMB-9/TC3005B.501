@@ -12,18 +12,21 @@ export default function ManagerSignup() {
   const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
 
+  const GA = "GA_default";	
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const { data } = await axios.post("/api/register", {
-        name,
-        surname,
-        email,
-        password,
-        role: "manager",
-        agency,
-        phone,
+        nombres: name,
+        apellidos: surname,
+        email: email,
+        password: password,
+        tipo_usuario: "manager",
+        agencia: agency,
+        grupo_automotriz: GA,
+        numero_telefonico: phone,
       });
 
       console.log(data);
