@@ -1,16 +1,17 @@
 import Proceso from "../../../models/procesos";
 import Usuario from "../../../models/usuario";
 import dbConnect from "../../../config/dbConnect";
+const mongoose = require('mongoose');
 
 export default async (req, res) => {
-    dbConnect();
+    await dbConnect();
     
     try {
         // Create the Process with the defined data
         const agencia = await Usuario.create({ 
             rol_encriptado: "Rol",
             tipo_usuario: "agencia",
-            nombres: "Kia Cuajimalpa",
+            nombres: "Mazda Santa Fe",
             apellidos: "",
             email: "zoomzoom@gmail.com",
             contrasena: "password",
@@ -43,7 +44,7 @@ export default async (req, res) => {
             .json({ message: 'Agencia dummy creada exitosamente', result: result });
     } catch(error) {
         console.log(error)
-        return res.status(400).json({ message: 'Error al crear proceso de prueba de manejo', error: error.message});
+        return res.status(400).json({ message: 'Error al crear agencia dummy', error: error.message});
     } finally {
         await mongoose.disconnect();
     }

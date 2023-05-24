@@ -18,6 +18,7 @@ import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
+import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 import BuyerNavbar from '@/components/buyer/navbar';
 import { TextField, Grid, Button } from '@mui/material';
 
@@ -31,6 +32,9 @@ export default function RequestDetails() {
   const { data: session } = useSession();
   const router = useRouter();
   const [documents, setDocuments] = useState([]);
+  const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
+  const [changedDocuments, setChangedDocuments] = useState([]);
+  const [uploadedDocument, setUploadedDocument] = useState([]);
   const [userAddress, setUserAddress] = useState({});
   const [carData, setCarData] = useState(null);
   const [firstImage, setFirstImage] = useState('');
@@ -39,11 +43,12 @@ export default function RequestDetails() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
   const [managerData, setManagerData] = useState({});
+  const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const { auto_id } = router.query;
   // user_id = session.id;
   // TODO
-  const user_id = "646af59a93798d0cf9b3cd3c"; 
+  const user_id = "646e7555cfb24b65a4f5d1b7"; 
 
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -70,14 +75,13 @@ export default function RequestDetails() {
     setManagerData(retrievedManager);
   }
 
-  useEffect(() => {  
-    fetchDetails();
-  }, []);
-
   const createDrivingTest = async () => {
+    // Save the changed documents to firebase
+    await handleSubmit();
+    
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-      { auto_id: auto_id, user_id: user_id });
+      { auto_id: auto_id, user_id: user_id, documents: documents });
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
     await axios.post('/api/prueba-manejo/agregar-proceso-usuario',
@@ -86,6 +90,51 @@ export default function RequestDetails() {
     await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
   };
+
+  const handleDocumentEdit = (doc, indx) => {
+    const documentIndices = [...changedDocumentIndices];
+    documentIndices.push(indx);
+    setChangedDocumentIndices(documentIndices);
+
+    const currentChangedDocuments = [...changedDocuments];
+    currentChangedDocuments.push(doc);
+    setChangedDocuments(currentChangedDocuments);
+
+    const isOpenWithoutIndx = isOpen.filter(function (i) {
+      return i !== indx;
+    });
+
+    setIsOpen(isOpenWithoutIndx);
+  };
+
+  const handleSubmit = async () => {
+    let documentUrl = "";
+    const currentDocs = documents;
+
+    // Store the changed documents inside firebase
+    for(const [i, doc] of changedDocuments.entries()) {
+      // Upload to firebase
+      documentUrl = await FileUpload(doc);
+      // Assign new URL
+      currentDocs[changedDocumentIndices[i]].url = documentUrl;
+      // Change modification date, status and comments
+      currentDocs[changedDocumentIndices[i]].fecha_modificacion = new Date().toISOString();
+      currentDocs[changedDocumentIndices[i]].estatus = "En revision";
+      currentDocs[changedDocumentIndices[i]].comentarios = "";
+
+      setDocuments(currentDocs);
+    }
+  };
+
+  const addToIsOpen = async (newKey) => {
+    let currentOpen = [...isOpen];
+    currentOpen.push(newKey);
+    setIsOpen(currentOpen);
+  }
+
+  useEffect(() => {  
+    fetchDetails();
+  }, []);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -194,9 +243,13 @@ export default function RequestDetails() {
               <thead>
                 <tr>
                   <th>Nombre</th>
+                  <th>URL</th>
                   <th>Estatus</th>
                   <th>Ultima modificación</th>
                   <th>Comentarios</th>
+                  <th>Editar</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -206,9 +259,16 @@ export default function RequestDetails() {
                     <td>{document.url}</td>
                     <td>{document.estatus}</td>
                     <td>{document.fecha_modificacion}</td>
-                    <td>
-                      <p>{document.comentarios}</p>
-                    </td>
+                    <td>{document.comentarios}</td>
+                    <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
+                    {isOpen.includes(i) && (
+                      <td>
+                        <div>
+                          <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
+                          <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -295,7 +355,7 @@ export default function RequestDetails() {
               Dirección:{" "}
               {carData.direccion_agencia}
               Teléfono:{" "}
-              {carData.telefono_agencia}
+              {managerData.numero_telefonico}
               Comentarios:{" "}
               {carData.comentarios}
             </p>

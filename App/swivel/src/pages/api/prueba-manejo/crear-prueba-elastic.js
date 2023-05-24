@@ -27,7 +27,7 @@ export default async (req, res) => {
         const proceso = await Proceso.create({ 
             tipo_proceso: "pruebaManejo",
             estatus_validacion: "En proceso",
-            documentos_url: req.body.documents,
+            documentos: req.body.documents,
             grupo_automotriz_id: agencyData["grupo_automotriz_id"],
             nombre_agencia: carData.nombre_agencia,
             direccion: userData["direccion"],
