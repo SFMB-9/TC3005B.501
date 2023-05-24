@@ -9,7 +9,7 @@ const baseSchema = new mongoose.Schema(
     nombres: String,
     apellidos: String,
     email: String,
-    contraseña: String,
+    password: String,
     account_provider: String,
     numero_telefonico: String,
     is_account_verified: Boolean,

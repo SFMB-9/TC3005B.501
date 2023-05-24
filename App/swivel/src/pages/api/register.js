@@ -1,4 +1,4 @@
-import { User, SellerUser, ManagerUser} from "../../models/user";
+import { User, SellerUser, ManagerUser } from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
 /* 
@@ -14,7 +14,14 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, surname, email, password, role } = req.body;
+    console.log(req.body);
+
+    const name = req.body.nombres;
+    const surname = req.body.apellidos;
+    const email = req.body.email;
+    const password = req.body.password;
+    const role = req.body.tipo_usuario;
+
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -44,37 +51,32 @@ export default async function handler(req, res) {
 
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
-      
       if (role === "user") {
-        await User.create({ 
-          nombres: name, 
-          apellidos: surname, 
-          email: email, 
-          contraseña: password, 
-          tipo_usuario: encrypted_role 
-        });
-        res.status(200).json({ message: "User registered successfully" });
-      } 
-      
-      else if (role === "seller") {
-
-        const agency = req.body.agency;
-        const phone = req.body.phone;
-
-        await SellerUser.create({
+        await User.create({
           nombres: name,
           apellidos: surname,
           email: email,
           contraseña: password,
           tipo_usuario: encrypted_role,
+        });
+        res.status(200).json({ message: "User registered successfully" });
+      } else if (role === "seller") {
+        const agency = req.body.agencia;
+        const GA = req.body.grupo_automotriz;
+        const phone = req.body.numero_telefonico;
+
+        await SellerUser.create({
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          tipo_usuario: encrypted_role,
           agencia: agency,
-          telefono: phone,
+          grupo_automotriz: GA,
+          numero_telefonico: phone,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      }
-
-      else if (role === "manager") {
-
+      } else if (role === "manager") {
         const agency = req.body.agency;
         const phone = req.body.phone;
 
@@ -92,21 +94,6 @@ export default async function handler(req, res) {
     } else {
       res.status(400).json({ message: "Account already exists" });
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     /* 
     base code for email verification, must be implemented above

@@ -10,19 +10,21 @@ export default function SellerSignup() {
   const [phone, setPhone] = useState("");
   const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
+  const [GA, setGA] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const { data } = await axios.post("/api/register", {
-        name: name,
-        surname: surname,
+        nombres: name,
+        apellidos: surname,
         email: email,
         password: password,
-        role: "seller",
-        agency: agency,
-        cellphone: phone,
+        tipo_usuario: "seller",
+        agencia: agency,
+        grupo_automotriz: GA,
+        numero_telefonico: phone,
       });
 
       console.log(data);
@@ -86,6 +88,17 @@ export default function SellerSignup() {
           />
         </div>
 
+        <div>
+          <label htmlFor="GA_field">GA</label>
+          <input
+            type="text"
+            id="agency_field"
+            className="form-control"
+            value={GA}
+            onChange={(e) => setGA(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label htmlFor="phone_field">Phone Number</label>
           <input
