@@ -42,7 +42,7 @@ export default function WorkingHoursComponent() {
     const timeSubmit = async () => {
         try {
             await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: agency, horas_min: horas_min, horas_max: horas_max, dias_anticipo: dias_anticipo, dias_max: dias_max });
-            
+
             fetchResults();
         } 
         catch (error) {
@@ -84,29 +84,31 @@ export default function WorkingHoursComponent() {
       <div>
         <label>Hora de apertura</label>
         <input
-          type="time"
+          type="number"
           value={startTime}
           onChange={handleStartTimeChange}
+          inputProps={{ min: 0 }}
         />
         <label>Hora de cierre</label>
         <input
-          type="time"
+          type="number"
           value={endTime}
           onChange={handleEndTimeChange}
+          inputProps={{ min: 0 }}
         />
         <label>Días de antelación</label>
         <input
-            type="number"
-            value={preDays}
-            onChange={handlePreDaysChange}
-            inputProps={{ min: 0 }}
+          type="number"
+          value={preDays}
+          onChange={handlePreDaysChange}
+          inputProps={{ min: 0 }}
         />
         <label>Número de días disponible</label>
         <input
-            type="number"
-            value={maxDays}
-            onChange={handleMaxDaysChange}
-            inputProps={{ min: 0 }}
+          type="number"
+          value={maxDays}
+          onChange={handleMaxDaysChange}
+          inputProps={{ min: 0 }}
         />
 
         <div>

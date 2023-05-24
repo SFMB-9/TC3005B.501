@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         const { agency } = req.query;
 
         try {
-            const result = await SellerUser.find({ agencia: agency }, "horas_min horas_max dias_anticipo dias_max documentos_requeridos_compra");
+            const result = await SellerUser.findOne({ agencia: agency }, "horas_min horas_max dias_anticipo dias_max documentos_requeridos_compra");
             res.status(200).json(result);
         } 
         catch (error) {
