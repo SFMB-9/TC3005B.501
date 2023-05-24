@@ -92,6 +92,21 @@ export default async function handler(req, res) {
     } else {
       res.status(400).json({ message: "Account already exists" });
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     /* 
     base code for email verification, must be implemented above
