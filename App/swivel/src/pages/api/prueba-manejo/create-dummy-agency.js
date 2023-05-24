@@ -44,5 +44,7 @@ export default async (req, res) => {
     } catch(error) {
         console.log(error)
         return res.status(400).json({ message: 'Error al crear proceso de prueba de manejo', error: error.message});
+    } finally {
+        await mongoose.disconnect();
     }
 }

@@ -32,7 +32,7 @@ export default function RequestDetails() {
   const router = useRouter();
   const [documents, setDocuments] = useState([]);
   const [userAddress, setUserAddress] = useState({});
-  const [carData, setCarData] = useState({});
+  const [carData, setCarData] = useState(null);
   const [firstImage, setFirstImage] = useState('');
   const [userData, setUserData] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
@@ -43,21 +43,25 @@ export default function RequestDetails() {
   const { auto_id } = router.query;
   // user_id = session.id;
   // TODO
-  const user_id = "646af4e093798d0cf9b3cd3a"; 
+  const user_id = "646af59a93798d0cf9b3cd3c"; 
 
   const fetchDetails = async () => {
-    let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
-    const res = await rawResult.json();
+    const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
-    const resUser = await axios.get('/api/prueba-manejo/get-user-info'
-      , { params: { _id: user_id } });
-    const retrievedUser = resUser.data.user;
-    const retrievedDocuments = resUser.data.user.documentos_url;
-    const retrievedAddress = resUser.data.user.direccion;
-    const resManager = await axios.get('/api/prueba-manejo/get-manager-info'
-      , { params: { agency_name: retrievedAuto.nombre_agencia } });
-    const retrievedManager = resManager.data.user;
+    let rawUser = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-info?_id=${user_id}`,
+      { method: 'GET' });
+    // const resUser = await axios.get('/api/prueba-manejo/get-user-info'
+    //   , { params: { _id: user_id } });
+    const resUser = await rawUser.json();
+    const retrievedUser = resUser.user;
+    const retrievedDocuments = resUser.user.documentos_url;
+    const retrievedAddress = resUser.user.direccion;
+    let rawManager = await fetch(`http://localhost:3000/api/prueba-manejo/get-manager-info?agency_name=${retrievedAuto.nombre_agencia}`,
+      { method: 'GET' });
+    const resManager = await rawManager.json();
+    const retrievedManager = resManager.user;
     setCarData(retrievedAuto);
     setFirstImage(retrievedAuto.fotos_3d[0]);
     setUserData(retrievedUser);
@@ -66,13 +70,9 @@ export default function RequestDetails() {
     setManagerData(retrievedManager);
   }
 
-  const viewRequest = (id) => {
-    // Navigate to a new page to view the details of the request
-    router.push({
-      pathname: '/buyer/test-confirm',
-      query: { id },
-    })
-  };
+  useEffect(() => {  
+    fetchDetails();
+  }, []);
 
   const createDrivingTest = async () => {
     // Create driving test request
@@ -86,17 +86,6 @@ export default function RequestDetails() {
     await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
   };
-
-  // Execute viewRequest only when processId changes
-  useEffect(() => {
-    if (processId !== "") {
-      viewRequest(processId);
-    }
-  }, [processId]);
-
-  useEffect(() => {
-    fetchDetails();
-  }, []);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
