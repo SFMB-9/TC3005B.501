@@ -8,7 +8,14 @@ export default function AccountLayout({children}) {
       <BuyerNavbar/>
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <BuyerSidebar/>
-        {children}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          
+        }}>
+          {children}
+        </div>
       </div>
       <Footer/>
     </>

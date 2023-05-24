@@ -1,3 +1,4 @@
+const { Decimal128 } = require('mongodb');
 const mongoose = require('mongoose');
 
 const procesoSchema = new mongoose.Schema({
@@ -19,10 +20,10 @@ const procesoSchema = new mongoose.Schema({
   estatus_validacion: {
     type: String,
   },
-  tipo_proceso: {
+  estatus: {
     type: String,
   },
-  documentos_url: {
+  documentos: {
     type: Array,
   },
   direccion: {
@@ -35,15 +36,22 @@ const procesoSchema = new mongoose.Schema({
     codigo_postal: String
   },
   auto: {
-    auto_id: String,
-    marca: String,
-    modelo: String,
-    ano: String,
-    precio: String,
-    array_fotografias_url: [String]
+    type: JSON,
   },
-  fecha_inicio: {
+  fecha_creacion: {
     type: Date,
+  },
+  usuario_final: {
+    type: JSON,
+  },
+  vendedor: {
+    type: JSON,
+  },
+  agencia: {
+    type: JSON,
+  },
+  cantidad_a_pagar: {
+    type: Number,
   },
   fecha_agendada: {
     type: Date,

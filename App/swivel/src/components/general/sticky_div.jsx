@@ -18,22 +18,24 @@ const StickyDiv = (props) => {
 
     const handleIntersect = (entries) => {
       entries.forEach((entry) => {
-        const isScrollingUp = entry.boundingClientRect.y < entry.rootBounds.y;
+        if (entry && entry.boundingClientRect.y) {
+          const isScrollingUp = entry.boundingClientRect.y < entry.rootBounds.y;
 
-        if (!entry.isIntersecting && isScrollingUp) {
-          isStickyRef.current = true;
-          setIsSticky(true);
-          ref.current.style.position = 'fixed';
-          ref.current.style.top = '0';
-          ref.current.style.zIndex = '100';
-          ref.current.style.width = '100%';
-        } else {
-          setHeight(ref.current.getBoundingClientRect().height)
-          isStickyRef.current = false;
-          ref.current.style.position = '';
-          ref.current.style.top = '';
-          ref.current.style.width = '';
-          setIsSticky(false);
+          if (!entry.isIntersecting && isScrollingUp) {
+            isStickyRef.current = true;
+            setIsSticky(true);
+            ref.current.style.position = 'fixed';
+            ref.current.style.top = '0';
+            ref.current.style.zIndex = '100';
+            ref.current.style.width = '100%';
+          } else {
+            setHeight(ref.current.getBoundingClientRect().height)
+            isStickyRef.current = false;
+            ref.current.style.position = '';
+            ref.current.style.top = '';
+            ref.current.style.width = '';
+            setIsSticky(false);
+          }
         }
       });
     };
