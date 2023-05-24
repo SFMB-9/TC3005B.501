@@ -11,8 +11,10 @@ export default async function handler(req, res) {
     if(req.method === 'GET'){
         dbConnect();
 
+        const e_role = encryptRole("seller")
+
         try {
-            let result = await SellerUser.find({ tipo_usuario: encryptRole("seller") }).exec();
+            const result = await SellerUser.find({ tipo_usuario: e_role });
             res.status(200).json(result);
         } 
         catch (error) {
