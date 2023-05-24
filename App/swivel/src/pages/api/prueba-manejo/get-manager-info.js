@@ -11,21 +11,22 @@ import dbConnect from "../../../config/dbConnect";
 import Usuario from '../../../models/usuario';
 
 export default async (req, res) => {
-        const nombre_agencia = req.query.agency_name;
+    const nombre_agencia = req.query.agency_name;
+``
+    try {
+      await dbConnect();
 
-        await dbConnect();
-      
-        console.log("Nombre: " + nombre_agencia);
+      // Find the user specific to the given agency name
+      const user = await Usuario.findOne({ nombres: nombre_agencia, tipo_usuario: "agencia" }).exec();
+      // console.log("Manager data: " + JSON.stringify(user));
 
-        try {
-        // Find the car specific to the given id
-        const user = await Usuario.findOne({ "nombres": nombre_agencia, "tipo_usuario": "agencia" });
-
-      res.status(200).json({ user }, { status: 'Se ha encontrado el usuario gerente'});
+      res.status(200).json({ user }, { status: 'Se ha encontrado la info de la agencia'});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
-    } 
-  };
+    } finally {
+      await mongoose.disconnect();
+    }
+};
 
 
