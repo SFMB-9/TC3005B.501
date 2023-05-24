@@ -2,6 +2,16 @@
 
 import axios from "axios";
 import React, { useState } from "react";
+import {
+  Container,
+  Typography,
+  TextField,
+  Switch,
+  Select,
+  MenuItem,
+  IconButton,
+  Button,
+} from "@mui/material";
 
 export default function SellerSignup() {
   const [name, setName] = useState("");
@@ -33,85 +43,266 @@ export default function SellerSignup() {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <h1>Seller Register</h1>
+      <Container maxWidth="xl"> 
+      <div className="section p-5">
+          <Typography
+            fontFamily="Lato"
+            color="#1F1F1F"
+            fontSize={{ xs: 25, md: 28, lg: 33 }}
+            className="pt-2 pb-4"
+          >
+            Registra un vendedor
+          </Typography>
 
-        <div>
-          <label htmlFor="name_field">Name</label>
-          <input
-            type="text"
-            id="name_field"
-            className="form-control"
-            value={name}
-            pattern="[a-zA-Z]+"
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
+          <Typography
+            fontFamily="Lato"
+            color="#1F1F1F"
+            className="pb-3"
+            fontWeight="bold"
+            fontSize={{ xs: 16, md: 17, lg: 19 }}
+          >
+            Datos Personales
+          </Typography>
 
-        <div>
-          <label htmlFor="name_field">Surname</label>
-          <input
-            type="text"
-            id="name_field"
-            className="form-control"
-            value={surname}
-            pattern="[a-zA-Z]+"
-            onChange={(e) => setSurname(e.target.value)}
-            required
-          />
-        </div>
+          <form onSubmit={submitHandler}>
+          <div className="d-sm-flex justify-content-between mb-4">
+            <div className="row">
+              
+                <div className="col-xl-6 col-md-8">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      className="pb-3"
+                      fontSize={{ xs: 15, md: 16, lg: 18 }}
+                    >
+                      Nombre(s)
+                    </Typography>
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={name}
+                    pattern="[a-zA-Z]+"
+                    onChange={(e) => setName(e.target.value)}
+                    label="Nombre(s)"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
 
-        <div>
-          <label htmlFor="email_field">Email address</label>
-          <input
-            type="email"
-            id="email_field"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+                <div className="col-xl-6 col-md-8">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      className="pb-3"
+                      fontSize={{ xs: 15, md: 16, lg: 18 }}
+                    >
+                      Apellidos
+                    </Typography>
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="surname"
+                    id="surname"
+                    value={surname}
+                    pattern="[a-zA-Z]+"
+                    onChange={(e) => setSurname(e.target.value)}
+                    label="Apellidos"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+              
+                <div className="col-xl-6 col-md-8">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Correo electrónico
+                  </Typography>
+                  <TextField
+                    required
+                    size="small"
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    pattern="[a-zA-Z]+"
+                    onChange={(e) => setEmail(e.target.value)}
+                    label="Correo electrónico"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+                <div className="col-xl-6 col-md-8">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Celular
+                  </Typography>
 
-        <div>
-          <label htmlFor="agency_field">Agency</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={agency}
-            onChange={(e) => setAgency(e.target.value)}
-            required
-          />
-        </div>
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    value={phone}
+                    pattern="[a-zA-Z]+"
+                    onChange={(e) => setPhone(e.target.value)}
+                    label="Celular"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+              
+                <div className="col-xl-6 col-md-8">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      className="pb-3"
+                      fontSize={{ xs: 15, md: 16, lg: 18 }}
+                    >
+                      Contraseña
+                    </Typography>
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="paswword"
+                    id="password"
+                    value={password}
+                    pattern="[a-zA-Z]+"
+                    onChange={(e) => setPassword(e.target.value)}
+                    label="Contraseña"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
 
-        <div>
-          <label htmlFor="phone_field">Phone Number</label>
-          <input
-            type="text"
-            id="phone_field"
-            className="form-control"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-        </div>
+                <div className="col-xl-6 col-md-8">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Confirmar contraseña
+                  </Typography>
 
-        <div>
-          <label htmlFor="password_field">Password</label>
-          <input
-            type="password"
-            id="password_field"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="passwordConfirmation"
+                    id="passwordConfirmation"
+                    value={phone}
+                    pattern="[a-zA-Z]+"
+                    onChange=""
+                    label="Confirmar contraseña"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+              
+
+              <Typography
+                fontFamily="Lato"
+                color="#1F1F1F"
+                className="pt-5 pb-3"
+                fontWeight="bold"
+                fontSize={{ xs: 16, md: 17, lg: 19 }}
+              >
+                Datos Administrativos
+              </Typography>
+              
+                <div className="col-xl-6 col-md-8">
+                    <Typography
+                      fontFamily="Lato"
+                      color="#8A8A8A"
+                      className="pb-3"
+                      fontSize={{ xs: 15, md: 16, lg: 18 }}
+                    >
+                      Agencia
+                    </Typography>
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="agencia"
+                    id="agencia"
+                    value={agency}
+                    pattern="[a-zA-Z]+"
+                    onChange={(e) => setAgency(e.target.value)}
+                    label="Agencia"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+
+                <div className="col-xl-6 col-md-8">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Ubicación
+                  </Typography>
+
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="location"
+                    id="location"
+                    value=""
+                    pattern="[a-zA-Z]+"
+                    onChange=""
+                    label="Ubicación"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+
+                <div className="text-center mt-5">
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="w-50"
+                    sx={{
+                      fontFamily: "Lato",
+                      ":hover": {
+                        backgroundColor: "red",
+                      },
+                    }}
+                  >
+                    Crear vendedor
+                  </Button>
+                </div>
+                             
+                
+              </div>
+            </div>
+          </form>
         </div>
-        
-        <button type="submit">Register</button>
-      </form>
+      </Container>
     </>
   );
 }
