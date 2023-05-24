@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {User, SellerUser} from "../../../models/user";
 import bcrypt from "bcryptjs";
 import dbConnect from "../../../config/dbConnect";
-import { json } from "body-parser";
 
 const { decryptRole } = require("../../../utils/crypto");
 
