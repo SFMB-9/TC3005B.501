@@ -30,8 +30,6 @@ export const authOptions = {
         }
 
         const pass = {...user}._doc.password
-
-        console.log(credentials.password,  pass);
         
         const isPasswordMatched = await bcrypt.compare(
           credentials.password,
