@@ -9,6 +9,7 @@ NOTE: Replaced by crear-prueba-elastic
 since cars will be stored in elastic.
 */
 
+const mongoose = require('mongoose');
 import Proceso from "@/models/procesos";
 import Auto from "@/models/auto";
 import Usuario from "@/models/usuario";
@@ -69,5 +70,7 @@ export default async (req, res) => {
     } catch(error) {
         console.log(error)
         return res.status(400).json({ message: 'Error al crear proceso de prueba de manejo', error: error.message});
+    } finally {
+        await mongoose.disconnect();
     }
 }
