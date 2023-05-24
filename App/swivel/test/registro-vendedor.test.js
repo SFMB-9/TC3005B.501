@@ -1,14 +1,14 @@
 import handler from '../src/pages/api/registro/registro-vendedor';
 import dbConnect from '../src/config/dbConnect';
-import User from '../src/models/user'
+import { SellerUser } from '../src/models/user'
 
 require('dotenv').config({ path: '.env.local' });
 const mongoose = require('mongoose');
 
 describe('POST /api/registro/registro-vendedor', () => {
     afterAll(async () => {
-        await User.deleteOne({ email: "test@registro.com" });
-        await User.deleteOne({ email: "registro@vendedores.com" });
+        await SellerUser.deleteOne({ email: "test@registro.com" });
+        await SellerUser.deleteOne({ email: "registro@vendedores.com" });
 
         await mongoose.connection.close();
     });
@@ -16,7 +16,7 @@ describe('POST /api/registro/registro-vendedor', () => {
     beforeAll(async () => {
         dbConnect();
 
-        await User.create({
+        await SellerUser.create({
             nombres: "Test",
             apellidos: "Test",
             email: "registro@vendedores.com",

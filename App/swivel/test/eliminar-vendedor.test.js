@@ -1,20 +1,20 @@
 import handler from '../src/pages/api/gerente/eliminar-vendedor';
 import dbConnect from '../src/config/dbConnect';
-import User from '../src/models/user'
+import { SellerUser } from '../src/models/user'
 
 require('dotenv').config({ path: '.env.local' });
 const mongoose = require('mongoose');
 
 describe('DELETE /api/gerente/eliminar-vendedor', () => {
     afterAll(async () => {
-        await User.deleteOne({ email: "eliminar@vendedor.com" });
+        await SellerUser.deleteOne({ email: "eliminar@vendedor.com" });
 
         await mongoose.connection.close();
     });
 
     beforeAll(async () => {
         dbConnect();
-        await User.create({
+        await SellerUser.create({
             nombres: "Test",
             apellidos: "Test",
             email: "eliminar@vendedor.com",

@@ -1,4 +1,4 @@
-import SellerUser from "../../../models/user";
+import { SellerUser } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (req.method === "DELETE") {
     dbConnect();
 
-    const { email, agency } = req.body;
+    const { email, agency } = req.query;
     
     const result = await SellerUser.deleteOne({ email: email, agencia: agency });
 
