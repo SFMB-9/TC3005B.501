@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
-import CheckoutPage from "@/components/general/checkout";
 
 export default function Process() {
     const router = useRouter();
@@ -151,21 +150,6 @@ export default function Process() {
                 </table>
 
                 <button></button>
-                <CheckoutPage
-                  id={process_id}
-                  items={[
-                    {
-                      price_data: {
-                        currency: 'mxn',
-                        product_data: {
-                          name: `${process.auto.marca} ${process.auto.modelo} ${process.auto.ano}`,
-                        },
-                        unit_amount: parseFloat(process.cantidad_a_pagar)*100,
-                      },
-                      quantity: 1,
-                    },
-                  ]}
-                />
 
             </div>
         );
