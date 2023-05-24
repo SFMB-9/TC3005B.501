@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function WorkingHoursComponent() {
+    const [results, setResults] = useState([]);
+
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [preDays, setPreDays] = useState(0);
@@ -40,6 +42,8 @@ export default function WorkingHoursComponent() {
     const timeSubmit = async () => {
         try {
             await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: agency, horas_min: horas_min, horas_max: horas_max, dias_anticipo: dias_anticipo, dias_max: dias_max });
+            
+            fetchResults();
         } 
         catch (error) {
             console.error('Error fetching search results:', error);
@@ -49,15 +53,36 @@ export default function WorkingHoursComponent() {
     const docSubmit = async () => {
       try {
           await axios.put('/api/agencia/actualizar-documentos-requeridos', { agency: agency, data: list });
+
+          fetchResults();
       } 
       catch (error) {
           console.error('Error fetching search results:', error);
       }
-  };
+    };
+
+    const fetchResults = async () => {
+      try {
+          const response = await axios.get('/api/agencia/pull-detalles-agencia', { params: { agency: agency }});
+          setStartTime(response.data.horas_min)
+          setEndTime(response.data.horas_max)
+          setPreDays(response.data.dias_anticipo)
+          setMaxDays(response.data.dias_max)
+          setList(response.data.documentos_requeridos_compra)
+      } 
+      catch (error) {
+          console.error('Error fetching search results:', error);
+      }
+    };
+
+    // Fetch results when the component mounts
+    useEffect(() => {
+        fetchResults();
+    }, []);
   
     return (
       <div>
-      <label>Hora de apertura</label>
+        <label>Hora de apertura</label>
         <input
           type="time"
           value={startTime}
