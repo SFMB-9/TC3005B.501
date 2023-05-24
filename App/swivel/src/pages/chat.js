@@ -10,22 +10,29 @@ const AblyChatComponent = dynamic(
 
 export default function Chat() {
   const [username, setUsername] = useState("");
+  const [isChatOpen, setChatOpen] = useState(false);
   const id = "645fcc679477b1b285dbc7a4";
 
-  const getContact = async () => {
-    try {
-      const { data } = await axios.get("/api/chat/getContactName", {
-        params: {
-          id: id,
-        },
-      });
-      setUsername(data.name + " " + data.surname);
-    } catch (error) {
-      console.log(error);
-      console.log(error.response.data);
-    }
+  useEffect(() => {
+    const getContact = async () => {
+      try {
+        const { data } = await axios.get("/api/chat/getContactName", {
+          params: {
+            id: id,
+          },
+        });
+        setUsername(data.name + " " + data.surname);
+      } catch (error) {
+        console.log(error);
+        console.log(error.response.data);
+      }
+    };
+    getContact();
+  }, []);
+
+  const toggleChat = () => {
+    setChatOpen(!isChatOpen);
   };
-  getContact();
 
   return (
     <div className="container">
@@ -45,13 +52,20 @@ export default function Chat() {
         />
       </Head>
 
-      <main>
-        <h3 className="title">{username}</h3>
-        <AblyChatComponent />
-      </main>
+      <button className="chat-toggle-btn" onClick={toggleChat}>
+        Chat
+      </button>
+
+      {isChatOpen && (
+        <main className="chat-popup">
+          <h3 className="title">{username}</h3>
+          <AblyChatComponent />
+        </main>
+      )}
 
       <style jsx>{`
         .container {
+          position: relative;
           display: grid;
           grid-template-rows: 1fr 100px;
           min-height: 100vh;
@@ -69,6 +83,21 @@ export default function Chat() {
           box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
             0px 1px 2px rgba(0, 0, 0, 0.24);
           background-color: white;
+          position: fixed; 
+          bottom: 2px; 
+          right: 110px; 
+          z-index: 1000; 
+        }
+
+        chat-popup {
+          position: fixed;
+          bottom: 0;
+          transform: translateY(100%);
+          transition: transform 1s ease-in-out;  // Increased from 0.3s to 0.5s
+        }
+
+        .chat-popup.open {
+          transform: translateY(0);
         }
 
         .title {
@@ -80,6 +109,31 @@ export default function Chat() {
           color: white;
           background: #383838; 
         }
+        
+        .chat-toggle-btn {
+          position: fixed; 
+          bottom: 20px; 
+          right: 20px; 
+          z-index: 1000; 
+          font-size: 1em;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 50px;
+          color: #fff;
+          background-color: #f55c7a;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .chat-toggle-btn:hover {
+          background-color: #f77a92; 
+        }
+
+        .chat-toggle-btn:focus {
+          outline: none; 
+        }
+
+
       `}</style>
 
       <style jsx global>{`
