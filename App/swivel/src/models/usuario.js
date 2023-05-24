@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { STRING_LITERAL_DROP_BUNDLE } = require('next/dist/shared/lib/constants');
 
 const documentSchema = new mongoose.Schema({
     nombre_documento: String,
