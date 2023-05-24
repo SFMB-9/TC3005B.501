@@ -1,4 +1,4 @@
-import User from "../../../models/user";
+import SellerUser from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 import { encryptRole } from "../../../utils/crypto";
 
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         dbConnect();
 
         try {
-            let result = await User.find({ tipo_usuario: encryptRole("seller") }).exec();
+            let result = await SellerUser.find({ tipo_usuario: encryptRole("seller") }).exec();
             res.status(200).json(result);
         } 
         catch (error) {

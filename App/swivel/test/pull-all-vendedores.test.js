@@ -21,13 +21,13 @@ describe('GET /api/gerente/pull-all-vendedores', () => {
 
         await User.create([
             {
-                tipo_usuario: "seller",
+                tipo_usuario: e_role,
                 nombres: "Test",
                 apellidos: "Test",
                 email: "number@one.com"
             },
             {
-                tipo_usuario: "seller",
+                tipo_usuario: e_role,
                 nombres: "Test",
                 apellidos: "Test",
                 email: "number@two.com"
