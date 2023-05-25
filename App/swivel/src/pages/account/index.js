@@ -268,8 +268,8 @@ export default function Account() {
                   </Typography>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-xl-6 col-md-6">
+              <div className="row mt-3">
+                <div className="align-self-center col-xl-6 col-md-6">
                   {/* <MyComponent
                       title = "Editar datos"
                       popUpContent = {<EditAccount/>}
@@ -304,7 +304,7 @@ export default function Account() {
                   
                   
                 </div>
-                <div className="col-xl-6 col-md-6">
+                <div className=" align-self-center col-xl-6 col-md-6">
                   <MyComponent
                     title = "Eliminar cuenta"
                     popUpContent = {
@@ -325,7 +325,7 @@ export default function Account() {
                       </Button>
                     </div>}
                     btnOpen = {
-                      <div className="text-center mt-3">
+                      <div className="text-center">
                         <Button
                           variant="contained"
                           type="submit"
@@ -341,18 +341,6 @@ export default function Account() {
                         </Button>
                       </div>} 
                   />
-                {/*<button
-                  // onClick={handleEditMode}
-                  style={{
-                    backgroundColor: 'lightgray',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '6px',
-                    height: '100%',
-                    padding: '0.1rem 1rem',
-                    marginTop: '1rem'
-                  }}
-                > Eliminar cuenta</button>*/}
                 </div>
             </div>
             
