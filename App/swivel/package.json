@@ -50,8 +50,8 @@
     "react-pro-sidebar": "^1.0.0",
     "react-router-dom": "^6.10.0",
     "react-sidebar-pro": "^3.1.1",
-    "reactjs-popup": "^2.0.5",
-    "sass-loader": "^13.2.2"
+    "sass-loader": "^13.2.2",
+    "tesseract.js":"^4.0.6"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.21.5",

@@ -32,5 +32,7 @@ export default async (req, res) => {
     
   } catch (error) {
     res.status(500).json({ error: 'Error encontrando auto' , message: error.message});
+  } finally {
+    client.close();
   }
 };
