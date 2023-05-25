@@ -26,7 +26,6 @@ export default function BuyerNavbar() {
 
   useEffect(() => {
     if (session) {
-      console.log("sess1on: ", session)
       fetchData();
     }
     else{
