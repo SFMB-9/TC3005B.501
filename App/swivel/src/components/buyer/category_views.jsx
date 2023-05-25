@@ -108,9 +108,6 @@ export default function CategoryViews() {
       name: 'Años', component: () =>
         <>
           <div className={styles.yearsArray}>
-            <span className={styles.yearName}>2007</span>
-            <span className={styles.yearName}>2008</span>
-            <span className={styles.yearName}>2009</span>
             <span className={styles.yearName}>2010</span>
             <span className={styles.yearName}>2011</span>
             <span className={styles.yearName}>2012</span>
@@ -125,8 +122,6 @@ export default function CategoryViews() {
             <span className={styles.yearName}>2021</span>
             <span className={styles.yearName}>2022</span>
             <span className={styles.yearName}>2023</span>
-            <span className={styles.yearName}>2024</span>
-            <span className={styles.yearName}>2025</span>
           </div>
 
         </>
