@@ -25,7 +25,9 @@ import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import LocationsMap from '@/components/general/locations_map';
 
+
 import styles from '@/styles/test_details.module.css';
+import DataTable from '@/components/general/Table';
 
 export default function RequestDetails() {
 
@@ -174,6 +176,32 @@ export default function RequestDetails() {
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
 
+  const car_dealerships = [
+    { brand: 'Toyota', position: { lat: 19.4226, lng: -99.1676 } },
+    { brand: 'Honda', position: { lat: 19.4124, lng: -99.1546 } },
+    { brand: 'Ford', position: { lat: 19.4294, lng: -99.1409 } },
+    { brand: 'Chevrolet', position: { lat: 19.4257, lng: -99.1710 } },
+    { brand: 'Nissan', position: { lat: 19.4191, lng: -99.1539 } },
+    { brand: 'Volkswagen', position: { lat: 19.4269, lng: -99.1483 } },
+    { brand: 'BMW', position: { lat: 19.4208, lng: -99.1913 } },
+    { brand: 'Mercedes-Benz', position: { lat: 19.4106, lng: -99.1782 } },
+    { brand: 'Audi', position: { lat: 19.4216, lng: -99.2039 } },
+    { brand: 'Mazda', position: { lat: 19.4324, lng: -99.1367 } },
+  ];
+
+  const columns = [
+    {
+      field: 'Documento',
+      headerName: 'Documento',
+      headerAlign: 'center',
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.
+      }
+    }
+  ]
+
   if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && managerData != null) {
     return (
       <>
@@ -231,6 +259,10 @@ export default function RequestDetails() {
                   ))}
                 </tbody>
               </table>
+              <DataTable
+                columns={columns}
+                rows={rows}
+              />
               <Button variant='contained' href='/catalog'>Cancelar</Button>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
             </div>
@@ -272,7 +304,7 @@ export default function RequestDetails() {
                   />
                 </div>
                 <LocationsMap
-                  locationsData = {[{brand: 'Toyota', position: { lat: 40.7127837, lng: -74.0059413 }}]}
+                  locationsData = {[{brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 }}]}
                 />
               </div>
               {selectedDate && (
