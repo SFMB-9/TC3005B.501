@@ -28,7 +28,7 @@ describe('GET /api/gerente/pull-detalles-agencia', () => {
         ]);
     });
 
-    test("test to get all sellers' data", async () => {
+    test("test to get all of the agency's data", async () => {
         const req = { method: "GET" , body: { agency: "AgencyA" }};
 
         const json = jest.fn();
@@ -55,7 +55,7 @@ describe('GET /api/gerente/pull-detalles-agencia', () => {
         expect(responseData.documentos_requeridos_compra).toEqual(["ine", "licencia", "acta de nacimiento"]);
     });
 
-    test("test to get all sellers' data with a wrong method", async () => {
+    test("test to get all the agency's data with a wrong method", async () => {
 
         const req = { method: "POST" };
 
