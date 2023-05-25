@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const e_role = encryptRole("seller")
 
         try {
-            const result = await SellerUser.find({ tipo_usuario: e_role, agencia: agency });
+            const result = await SellerUser.find({ tipo_usuario: e_role, agencia_id: agency });
             res.status(200).json(result);
         } 
         catch (error) {

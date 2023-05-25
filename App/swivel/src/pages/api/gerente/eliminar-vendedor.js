@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     const { email, agency } = req.query;
     
-    const result = await SellerUser.deleteOne({ email: email, agencia: agency });
+    const result = await SellerUser.deleteOne({ email: email, agencia_id: agency });
 
     if(result.deletedCount > 0) {
         res.status(200).json({ message: "User deleted successfully" });    
