@@ -14,7 +14,7 @@ import {
   useProSidebar,
 } from "react-pro-sidebar";
 
-import styles from "@/styles/custom_sidebar.module.css";
+import styles from "@/styles/old_sidebar.module.css";
 
 const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const { collapseSidebar } = useProSidebar();
@@ -86,12 +86,23 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
           <div style={{ flexGrow: 1, overflowY: "auto" }}>
             <Menu iconShape="circle">
               <MenuItem
-                // icon={<img src="/sidebar_profile_icon_2.svg" />}
+                style={{ justifyContent: "space-between" }}
+                icon={<img src="/sidebar_hamburger_icon.svg" />}
+                onClick={() => {
+                  collapseSidebar();
+                }}
+              >
+                <div>
+                  <img src="/appbar_swivel_logo.svg" width="100%" />
+                </div>
+              </MenuItem>
+              <MenuItem
+                disabled
+                icon={<img src="/sidebar_profile_icon_2.svg" />}
               >
                 <div id={styles.profile}>
-                  {/* <b className={styles.name}>Nombre Apellido</b> */}
-                  <img src="/sidebar_profile_icon_2.svg" />
-                  <span className={styles.name}>Nombre Apellido</span>
+                  <b className={styles.name}>Grupo A.</b>
+                  <span className={styles.name}>grupo.a@demo.com</span>
                 </div>
               </MenuItem>
               {children}

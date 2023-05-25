@@ -1,8 +1,6 @@
-
 import CustomTogglerBar from "../general/custom_toggler_bar";
-import Catalog from "@/pages/catalog";
 import Link from "next/link";
-import LocationsMap from "@/components/buyer/locations_map";
+import LocationsMap from "@/components/general/locations_map";
 import { useRouter } from 'next/router'
 import styles from '@/styles/category_views.module.css'
 
@@ -63,15 +61,8 @@ export default function CategoryViews() {
                 <span className={styles.brandName}>Suzuki</span>
               </div>
               <div className={styles.brand}>
-                <Link href={{
-                  pathname: '/catalogo',
-                  query: {
-                    marca: 'Volkswagen'
-                  }
-                }}>
-                  <img src='/buyer/brands/volkswagen.png' />
-                  <span className={styles.brandName}>Volkswagen</span>
-                </Link>
+                <img src='/buyer/brands/volkswagen.png' />
+                <span className={styles.brandName}>Volkswagen</span>
               </div>
             </div>
             <div className={styles.moreBtn}>
