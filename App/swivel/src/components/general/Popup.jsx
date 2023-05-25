@@ -1,52 +1,61 @@
 //Author: Regina Rodriguez
 //Description: Popup component for the Swivel app
 
-import Popup from 'reactjs-popup';
+/* EXAMPLE OF HOW TO USE COMPONENT:
+
+    <PopUpComponent
+        title = "Titulo"
+        popUpContent = {<div> Contenido del popup </div>}
+        btnOpen = {<button> Haz click aquí </button>} 
+    />
+*/
+
 import React, { useState } from "react";
+import Modal from 'react-modal'
 import CloseIcon from '@mui/icons-material/Close';
-//import 'reactjs-popup/dist/index.css';
-import {
-    Typography,
-    Container
-  } from "@mui/material";
+import {Typography} from "@mui/material";
 import styles from "@/styles/popup.module.css";
 
-export default function PopUpComponent({btn, title})
-{
-    return(
-        <>
-        
-            <Container maxWidth="xl">
-                
-                <Popup trigger={btn} 
-                    position="right center">
-                    <div id={styles.popupBody}>
-                        <button 
-                        className="d-flex justify-content-end" 
-                        id={styles.closeBtn}> 
-                            <CloseIcon></CloseIcon>
-                        </button>
-                        <Typography
+const PopUpComponent = ({title, popUpContent, btnOpen, btnClose}) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const customStyles = {
+        overlay: {
+            zIndex: '10',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)'
+       },
+        content: {
+            background: "none",
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            border: "none",
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)'
+       }
+    }
+    return (
+       <div>
+          <button className={styles.btnPopup} onClick={() => setIsOpen(true)}>{btnOpen}</button>
+          <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
+            <div id={styles.popupBody}>
+                <div id={styles.flexboxTitle}>
+                    <Typography
                         id={styles.title}>
-                            {title = "Prueba"}
-                        </Typography>
-                        <div id={styles.content}>
-                            content
-                        </div>
-                    </div>
-                </Popup>
-            </Container>
-        
-
-        
-        {/*<div>
-            <h4>NextJs Popup - GeeksforGeeks</h4>
-            <Popup trigger={<button> Click to open popup </button>} 
-            position="right center">
-            <div>GeeksforGeeks</div>
-            <button>Click here</button>
-            </Popup>
-    </div> */}
-    </>
+                            {title}
+                    </Typography>
+                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}><CloseIcon/></button>                   
+                </div>
+                <div id={styles.content}>
+                    {popUpContent}
+                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}> {btnClose} </button>
+  
+                </div>
+            </div>
+             
+          </Modal>
+       </div>
     )
-};
+ }
+export default PopUpComponent
+
