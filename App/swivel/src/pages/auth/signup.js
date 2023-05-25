@@ -9,7 +9,7 @@ Código utilizado para el formulario de registro de usuario comprador, para la i
 import axios from "axios";
 import React, { useState } from "react";
 import AuthComponent from "@/components/login/auth_component";
-
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Typography from "@mui/material/Typography";
 
@@ -29,6 +29,7 @@ export default function SignupBuyerData() {
     const [phone, setPhone] = useState("");
     const [country, setCountry] = useState("");
     const { encryptRole } = require("@/utils/crypto");
+    
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -53,6 +54,8 @@ export default function SignupBuyerData() {
                 },
             });
             console.log(data);
+            window.location.href = "/auth/login";
+
 
         } catch (error) {
             console.log(error.response.data);
