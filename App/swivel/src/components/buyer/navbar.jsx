@@ -45,7 +45,8 @@ export default function BuyerNavbar() {
         name: "Mi cuenta",
         href: "",
         popup: [
-          { name: `${apiData.nombres} ${apiData.apellidos}`, href: "/account" },
+          // { name: `${apiData.nombres} ${apiData.apellidos}`, href: "/account" },
+          { name: "Mi perfil", href: "/account" },
           { name: "Cambiar contraseña", href: "/account/change_password" },
           { name: "Cerrar sesión", href: "#", signoutComponent: '/' },
         ],
