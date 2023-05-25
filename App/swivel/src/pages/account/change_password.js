@@ -4,7 +4,8 @@ import AccountLayout from "@/components/buyer/account_layout"
 export default function BuyerChangePassword() {
   return(
     <AccountLayout>
-      <ChangePassword/>
+      <ChangePassword/> 
     </AccountLayout>
+    
   )
 }
