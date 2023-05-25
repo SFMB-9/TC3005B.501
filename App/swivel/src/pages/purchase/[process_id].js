@@ -356,7 +356,7 @@ export default function Process() {
           <Fade in={true} timeout={1500}>
             <div className="section">
               <div className="pt-4">
-                <DataTable
+                {/* <DataTable
                   columns={columns}
                   rows={documents}
                   rowSelection={false}
@@ -388,10 +388,54 @@ export default function Process() {
                       color: "#333333",
                     },
                   }}
-                />
+                /> */}
               </div>
             </div>
           </Fade>
+          <h1>Documentos</h1>
+          <table style={{ width: "100%" }}>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>URL</th>
+                <th>Estatus</th>
+                <th>Ultima modificación</th>
+                <th>Comentarios</th>
+                <th>Editar</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {documents.map((document, i) => (
+                <tr key={i}>
+                  <td>{document.nombre_documento}</td>
+                  <td>{document.url}</td>
+                  <td>{document.estatus}</td>
+                  <td>{document.fecha_modificacion}</td>
+                  <td>{document.comentarios}</td>
+                  <td><button onClick={(e) => {
+                    e.preventDefault();
+                    addToIsOpen(i)
+                  }
+                  }> Editar </button></td>
+                  {isOpen.includes(i) && (
+                    <td>
+                      <div>
+                        <input type="file" name="documents" onChange={(e) => {
+                          e.preventDefault();
+                          const file = e.target.files[0];
+                          setUploadedDocument(file)
+                          console.log(uploadedDocument)
+                        }} />
+                        <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                      </div>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           <Fade in={true} timeout={1500}>
             <div className="text-center mt-4">
