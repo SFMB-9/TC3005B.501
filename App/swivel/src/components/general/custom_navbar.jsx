@@ -6,7 +6,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { signOut } from "next-auth/react";
 import styles from '@/styles/custom_navbar.module.css';
-import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomNavbar({
   home = '/',
