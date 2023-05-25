@@ -31,18 +31,18 @@ export default function RequestDetails() {
 
   const { data: session } = useSession();
   const router = useRouter();
-  const [documents, setDocuments] = useState([]);
+  const [documents, setDocuments] = useState(null);
   const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
   const [changedDocuments, setChangedDocuments] = useState([]);
   const [uploadedDocument, setUploadedDocument] = useState([]);
-  const [userAddress, setUserAddress] = useState({});
+  const [userAddress, setUserAddress] = useState(null);
   const [carData, setCarData] = useState(null);
-  const [firstImage, setFirstImage] = useState('');
-  const [userData, setUserData] = useState({});
+  const [firstImage, setFirstImage] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
-  const [managerData, setManagerData] = useState({});
+  const [managerData, setManagerData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const { auto_id } = router.query;
@@ -50,29 +50,38 @@ export default function RequestDetails() {
   // TODO
   const user_id = "646e7555cfb24b65a4f5d1b7"; 
 
-  const fetchDetails = async () => {
+  const fetchCarDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
-    let rawUser = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-info?_id=${user_id}`,
-      { method: 'GET' });
-    // const resUser = await axios.get('/api/prueba-manejo/get-user-info'
-    //   , { params: { _id: user_id } });
-    const resUser = await rawUser.json();
-    const retrievedUser = resUser.user;
-    const retrievedDocuments = resUser.user.documentos_url;
-    const retrievedAddress = resUser.user.direccion;
+
     let rawManager = await fetch(`http://localhost:3000/api/prueba-manejo/get-manager-info?agency_name=${retrievedAuto.nombre_agencia}`,
       { method: 'GET' });
     const resManager = await rawManager.json();
     const retrievedManager = resManager.user;
+
     setCarData(retrievedAuto);
     setFirstImage(retrievedAuto.fotos_3d[0]);
+    setManagerData(retrievedManager);
+  }
+
+  const fetchUserDetails = async () => {
+    let rawUser = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-info?_id=${user_id}`,
+      { method: 'GET' });
+    const resUser = await rawUser.json();
+    const retrievedUser = resUser.user;
+    const retrievedDocuments = resUser.user.documentos_url;
+    const retrievedAddress = resUser.user.direccion;
+
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
     setUserAddress(retrievedAddress);
-    setManagerData(retrievedManager);
+  }
+
+  const fetchDetails = async () => {
+    fetchCarDetails();
+    fetchUserDetails();
   }
 
   const createDrivingTest = async () => {
@@ -142,228 +151,236 @@ export default function RequestDetails() {
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
 
-  return (
-    <>
-      <BuyerNavbar />
-      <h1 className={styles.request}>Solicitud de prueba de manejo</h1>
-      <PhaseIndicator
-        phases={phases}
-        currentPhaseIndex={activeSectionIndex}
-        className
-      />
-      {activeSectionIndex === 0 && (
-        <>
-          <div className={styles.schedule}>
-            <h4>Datos personales</h4>
-            {/* <Grid container>
-              <Grid item xs={12} sm={6}>
-                <span>Nombre: {userData.nombres}</span>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <span>Apellidos: {userData.apellidos}</span>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <span>Correo: {userData.email}</span>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <span>Celular: {userData.numero_telefonico}</span>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <span>Estado de residencia: {userAddress.estado}</span>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <span>CP: {userAddress.codigo_postal}</span>
-              </Grid>
-            </Grid> */}
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.nombres}
-                  label='Nombre(s)'
-                  size='small'
-                  placeholder='Nombre(s)'
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.apellidos}
-                  label='Apellidos'
-                  size='small'
-                  placeholder='Apellidos'
-                />
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.email}
-                  label='Correo electrónico'
-                  size='small'
-                  placeholder='Correo electrónico'
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.numero_telefonico}
-                  label='Número telefónico'
-                  size='small'
-                  placeholder='Número telefónico'
-                />
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userAddress.estado}
-                  label='Estado de residencia'
-                  size='small'
-                  placeholder='Estado de residencia'
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userAddress.codigo_postal}
-                  label='Código postal'
-                  size='small'
-                  placeholder='Código postal'
-                />
-              </Grid>
-            </Grid>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>URL</th>
-                  <th>Estatus</th>
-                  <th>Ultima modificación</th>
-                  <th>Comentarios</th>
-                  <th>Editar</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {documents.map((document, i) => (
-                  <tr key={i}>
-                    <td>{document.nombre_documento}</td>
-                    <td>{document.url}</td>
-                    <td>{document.estatus}</td>
-                    <td>{document.fecha_modificacion}</td>
-                    <td>{document.comentarios}</td>
-                    <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
-                    {isOpen.includes(i) && (
-                      <td>
-                        <div>
-                          <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
-                          <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
-                        </div>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <Button variant='contained' href='/catalog'>Cancelar</Button>
-            <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
-          </div>
-        </>
-      )}
-      {activeSectionIndex === 1 && (
-        <>
-          <div className={styles.schedule}>
-            <div className={styles.carView}>
-              <img src={firstImage} className={styles.imageDiv} />
-              <div className={styles.carInfo}>
-                <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
-                <span className={styles.year}> {carData.año} </span>
-                <p className={styles.address}>{carData.direccion_agencia}</p>
-                <h1 className={styles.priceTag}>${carData.precio}</h1>
-              </div>
-            </div>
-
-            {/* <h1>Mapa a la agencia</h1>
-              <Map coordinates={[40.73, -73.935]}/> */}
+  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && managerData != null) {
+    return (
+      <>
+        <BuyerNavbar />
+        <h1 className={styles.request}>Solicitud de prueba de manejo</h1>
+        <PhaseIndicator
+          phases={phases}
+          currentPhaseIndex={activeSectionIndex}
+          className
+        />
+        {activeSectionIndex === 0 && (
+          <>
             <div className={styles.schedule}>
-              <h1>Elegir horario*</h1>
-              <DatePicker
-                selected={selectedDate}
-                onChange={date => setSelectedDate(date)}
-                dateFormat='dd/MM/yyyy'
-                minDate={addDays(new Date(), managerData.dias_anticipo)}
-                maxDate={addDays(new Date(), managerData.dias_max)}
-                startDate={addDays(new Date(), managerData.dias_anticipo)}
-              />
-              <DatePicker
-                selected={selectedTime}
-                onChange={time => setSelectedTime(time)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeFormat='hh aa'
-                timeIntervals={60}
-                minTime={setHours(new Date(), managerData.horas_min)}
-                maxTime={setHours(new Date(), managerData.horas_max)}
-                dateFormat='hh:mm aa'
-              />
+              <h4>Datos personales</h4>
+              {/* <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <span>Nombre: {userData.nombres}</span>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <span>Apellidos: {userData.apellidos}</span>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <span>Correo: {userData.email}</span>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <span>Celular: {userData.numero_telefonico}</span>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <span>Estado de residencia: {userAddress.estado}</span>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <span>CP: {userAddress.codigo_postal}</span>
+                </Grid>
+              </Grid> */}
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    className={styles.input}
+                    value={userData.nombres}
+                    label='Nombre(s)'
+                    size='small'
+                    placeholder='Nombre(s)'
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    className={styles.input}
+                    value={userData.apellidos}
+                    label='Apellidos'
+                    size='small'
+                    placeholder='Apellidos'
+                  />
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    className={styles.input}
+                    value={userData.email}
+                    label='Correo electrónico'
+                    size='small'
+                    placeholder='Correo electrónico'
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    className={styles.input}
+                    value={userData.numero_telefonico}
+                    label='Número telefónico'
+                    size='small'
+                    placeholder='Número telefónico'
+                  />
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    className={styles.input}
+                    value={userAddress.estado}
+                    label='Estado de residencia'
+                    size='small'
+                    placeholder='Estado de residencia'
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    className={styles.input}
+                    value={userAddress.codigo_postal}
+                    label='Código postal'
+                    size='small'
+                    placeholder='Código postal'
+                  />
+                </Grid>
+              </Grid>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>URL</th>
+                    <th>Estatus</th>
+                    <th>Ultima modificación</th>
+                    <th>Comentarios</th>
+                    <th>Editar</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {documents.map((document, i) => (
+                    <tr key={i}>
+                      <td>{document.nombre_documento}</td>
+                      <td>{document.url}</td>
+                      <td>{document.estatus}</td>
+                      <td>{document.fecha_modificacion}</td>
+                      <td>{document.comentarios}</td>
+                      <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
+                      {isOpen.includes(i) && (
+                        <td>
+                          <div>
+                            <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
+                            <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Button variant='contained' href='/catalog'>Cancelar</Button>
+              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
             </div>
-
-            {selectedDate && (
-              <p>
-                Fecha actualmente agendada:{" "}
-                {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
-                {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
-              </p>
-            )}
-
-            {selectedTime && (
-              <p>
-                Hora actualmente agendada:{" "}
-                {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
-                {format(selectedTime, "hh:mm aa")} (Tiempo local)
-              </p>
-            )}
-            <Button variant='contained' onClick={() => setActiveSectionIndex(0)}>Volver</Button>
-            {(selectedDate && selectedTime) ? (
-              <div>
-                <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
+          </>
+        )}
+        {activeSectionIndex === 1 && (
+          <>
+            <div className={styles.schedule}>
+              <div className={styles.carView}>
+                <img src={firstImage} className={styles.imageDiv} />
+                <div className={styles.carInfo}>
+                  <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
+                  <span className={styles.year}> {carData.año} </span>
+                  <p className={styles.address}>{carData.direccion_agencia}</p>
+                  <h1 className={styles.priceTag}>${carData.precio}</h1>
+                </div>
               </div>
-            ) : (
-              <div>
-                <p>*Selecciona una fecha y horario para confirmar tu cita.</p>
+
+              {/* <h1>Mapa a la agencia</h1>
+                <Map coordinates={[40.73, -73.935]}/> */}
+              <div className={styles.schedule}>
+                <h1>Elegir horario*</h1>
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={date => setSelectedDate(date)}
+                  dateFormat='dd/MM/yyyy'
+                  minDate={addDays(new Date(), managerData.dias_anticipo)}
+                  maxDate={addDays(new Date(), managerData.dias_max)}
+                  startDate={addDays(new Date(), managerData.dias_anticipo)}
+                />
+                <DatePicker
+                  selected={selectedTime}
+                  onChange={time => setSelectedTime(time)}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeFormat='hh aa'
+                  timeIntervals={60}
+                  minTime={setHours(new Date(), managerData.horas_min)}
+                  maxTime={setHours(new Date(), managerData.horas_max)}
+                  dateFormat='hh:mm aa'
+                />
               </div>
-            )}
-          </div>
-        </>
-      )}
-      {activeSectionIndex === 2 && (
-        <>
-          <div className={styles.confirmation}>
-            <p>
-              Fecha:{" "}
-              {format(selectedDate, "dd/MM/yyyy")}
-              Horario:{" "}
-              {format(selectedTime, "hh:mm aa")}
-              Dirección:{" "}
-              {carData.direccion_agencia}
-              Teléfono:{" "}
-              {managerData.numero_telefonico}
-              Comentarios:{" "}
-              {carData.comentarios}
-            </p>
-          </div>
-          <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-          <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
-        </>
-      )}
-    </>
-  );
+
+              {selectedDate && (
+                <p>
+                  Fecha actualmente agendada:{" "}
+                  {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
+                  {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
+                </p>
+              )}
+
+              {selectedTime && (
+                <p>
+                  Hora actualmente agendada:{" "}
+                  {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
+                  {format(selectedTime, "hh:mm aa")} (Tiempo local)
+                </p>
+              )}
+              <Button variant='contained' onClick={() => setActiveSectionIndex(0)}>Volver</Button>
+              {(selectedDate && selectedTime) ? (
+                <div>
+                  <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
+                </div>
+              ) : (
+                <div>
+                  <p>*Selecciona una fecha y horario para confirmar tu cita.</p>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+        {activeSectionIndex === 2 && (
+          <>
+            <div className={styles.confirmation}>
+              <p>
+                Fecha:{" "}
+                {format(selectedDate, "dd/MM/yyyy")}
+                Horario:{" "}
+                {format(selectedTime, "hh:mm aa")}
+                Dirección:{" "}
+                {carData.direccion_agencia}
+                Teléfono:{" "}
+                {managerData.numero_telefonico}
+                Comentarios:{" "}
+                {carData.comentarios}
+              </p>
+            </div>
+            <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+            <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
+          </>
+        )}
+      </>
+    );
+    } else {
+      return (
+        <div>
+          <p>Loading request details ...</p>
+        </div>
+      );
+    }
 };
