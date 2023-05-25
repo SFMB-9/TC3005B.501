@@ -1,33 +1,32 @@
-#flexboxTitle{
-    display: flex;
-    justify-content: right;
-    align-self: center;
-}
-
-.btnPopup{
-    background: none;
-    border: none;
-    
+#background{
+    height: 100%;
+    width: 100%;
+    background: #333333;
+    opacity: 0.2;
 }
 
 #closeBtn{
+    background: none;
+    border: none;
     color: white;
+    width: 100%;
     align-items: right;
-    padding: 0 1vw 0 0;
+    padding: 1vw 1vw 0 0;
 }
 
+
 #popupBody{
-    height: auto;
-    width: 50.5vw;
-    padding-bottom: 0.2vw;
+    min-height: auto;
+    max-height: 45vw;
+    min-width: 50.5vw;
+    max-width: 70vw;
     background-color: #333333;
     border-radius: 5px;
 }
 
 #title{
-    width: 95%;
-    padding-top: 1vw;
-    padding-bottom: 1vw;
+    width: 100%;
+    padding-bottom: 2vw;
     text-align: center;
     font-family: Lato, Helvetica, sans-serif;
     color: white;
@@ -35,9 +34,7 @@
 
 #content{
     height: auto;
-    width: 99%;
+    width: 100%;
     margin: auto;
     background-color: white;
-    padding: 2vw;
-    padding-top: 0.5vw;
 }

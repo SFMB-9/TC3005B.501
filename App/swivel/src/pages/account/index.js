@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import PopUpComponent from "@/components/general/Popup"
+import EditAccount from "../../components/buyer/editData"
+import { useRouter } from 'next/router';
 import {
   Container,
   Typography,
@@ -13,6 +16,39 @@ import {
 } from "@mui/material";
 
 import AccountLayout from "@/components/buyer/account_layout";
+
+function EditProfileBtn() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/account/edit_data');
+  };
+
+  return (
+    <button 
+      onClick={handleClick}
+      style={{
+        backgroundColor:"none",
+        border:"none"
+      }}
+      >
+      <Button
+        variant="contained"
+        type="submit"
+        className="w-80"
+        
+        sx={{
+          fontFamily: "Lato",
+          ":hover": {
+            backgroundColor: "#333333",
+          },
+        }}
+        >
+        Editar cuenta
+      </Button>
+    </button>
+  );
+}
 
 export default function Account() {
   const [apiData, setApiData] = useState(null);
@@ -266,34 +302,89 @@ export default function Account() {
                   </Typography>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-xl-6 col-md-6">
-                  <button
-                    // onClick={handleEditMode}
-                    style={{
-                      backgroundColor: '#F55C7A',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '6px',
-                      height: '100%',
-                      padding: '0.1rem 1rem',
-                      marginTop: '1rem'
-                    }}
-                  > Editar datos </button>
+              <div className="row mt-3">
+                <div className="align-self-center col-xl-6 col-md-6">
+                   <PopUpComponent
+                      title = "Editar datos"
+                      popUpContent = {<EditAccount/>}
+                      btnOpen = {
+                        <Button
+                        variant="contained"
+                        type="submit"
+                        className="w-80"
+                        sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                            backgroundColor: "#333333",
+                          },
+                        }}
+                        >
+                        Editar datos
+                      </Button>
+                    }
+                    btnClose = {
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        className="w-80"
+                        style={{
+                          marginTop: "-6.7vw",
+                          marginLeft: "2.8vw",
+                          backgroundColor: "#D9D9D9"}}
+                        sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                            backgroundColor: "red",
+                          }
+                        }}
+                        >
+                        Cancelar
+                      </Button>
+
+                      } 
+                  /> 
+                  
+                  {/* <EditProfileBtn/> */}
+                  
+                  
                 </div>
-                <div className="col-xl-6 col-md-6">
-                <button
-                  // onClick={handleEditMode}
-                  style={{
-                    backgroundColor: 'lightgray',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '6px',
-                    height: '100%',
-                    padding: '0.1rem 1rem',
-                    marginTop: '1rem'
-                  }}
-                > Eliminar cuenta</button>
+                <div className=" align-self-center col-xl-6 col-md-6">
+                  <PopUpComponent
+                    title = "Eliminar cuenta"
+                    popUpContent = {
+                    <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
+                    <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        className="w-80"
+                        sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                            backgroundColor: "red",
+                          },
+                        }}
+                        >
+                        Eliminar cuenta
+                      </Button>
+                    </div>}
+                    btnOpen = {
+                      <div className="text-center">
+                        <Button
+                          variant="contained"
+                          type="submit"
+                          className="w-80"
+                          sx={{
+                            fontFamily: "Lato",
+                            ":hover": {
+                              backgroundColor: "red",
+                            },
+                          }}
+                        >
+                          Eliminar cuenta
+                        </Button>
+                      </div>}
+                  />
                 </div>
             </div>
             

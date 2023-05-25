@@ -17,7 +17,6 @@ export default function CatalogGrid({ carListing, cardType }) {
   let cardProps;
   if (carListing !== undefined) {
     carList = carListing.map((car) => {
-      console.log("car", car);
       if (cardType === "catalog") {
         cardProps = {
           catalog: {
