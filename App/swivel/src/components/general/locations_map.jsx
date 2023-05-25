@@ -1,17 +1,17 @@
 import React from 'react';
 import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
 
-const containerStyle = {
+const default_style = {
   width: '100%',
-  height: '400px',
+  height: '60vh',
 };
 
-const center = {
+const default_center = {
   lat: 19.4326,
   lng: -99.1332,
 };
 
-const carDealerships = [
+const car_dealerships = [
   { brand: 'Toyota', position: { lat: 19.4226, lng: -99.1676 } },
   { brand: 'Honda', position: { lat: 19.4124, lng: -99.1546 } },
   { brand: 'Ford', position: { lat: 19.4294, lng: -99.1409 } },
@@ -26,7 +26,7 @@ const carDealerships = [
 
 const apiKey = 'AIzaSyC4tSvdFzVxcWXJj_c3SNrH8cE9SYml7xc'; // Replace with your actual Google Maps API key
 
-const LocationsMap = () => {
+const LocationsMap = ({center = default_center, locationsData = car_dealerships, containerStyle = default_style}) => {
   const mapOptions = {
     disableDefaultUI: true, // Disable default map controls
   };
@@ -39,11 +39,11 @@ const LocationsMap = () => {
         zoom={12}
         options={mapOptions}
       >
-        {carDealerships.map((dealership, index) => (
+        {locationsData.map((dealership, index) => (
           <Marker
             key={index}
             position={dealership.position}
-            title={`Agencia ${dealership.brand}`}
+            title={`${dealership.brand}`}
           />
         ))}
       </GoogleMap>
