@@ -75,10 +75,14 @@ export default function RequestDetails() {
   const createDrivingTest = async () => {
     // Save the changed documents to firebase
     await handleSubmit();
+
+    const filteredDocuments = documents.filter(json => {
+      return json.nombre_documento === "licencia" || json.nombre_documento === "identificacion";
+    });
     
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-      { auto_id: auto_id, user_id: user_id, documents: documents });
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments });
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
     await axios.post('/api/prueba-manejo/agregar-proceso-usuario',
@@ -133,6 +137,30 @@ export default function RequestDetails() {
     currentOpen.push(newKey);
     setIsOpen(currentOpen);
   }
+
+  const documentInfo = (document, i) => {
+    if (document.nombre_documento === "licencia" || document.nombre_documento === "identificacion") {
+      return (
+        <tr key={i}>
+          <td>{document.nombre_documento}</td>
+          {/* <td>{document.url}</td> */}
+          <td>{document.fecha_modificacion}</td>
+          <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
+          {isOpen.includes(i) && (
+            <td>
+              <div>
+                <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
+                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+              </div>
+            </td>
+          )}
+          <td>{document.estatus}</td>
+          <td>{document.comentarios}</td>
+        </tr>
+      );
+    }
+    return;
+  };
 
   useEffect(() => {  
     if (auto_id) {
@@ -198,23 +226,8 @@ export default function RequestDetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  {documents.map((document, i) => (
-                    <tr key={i}>
-                      <td>{document.nombre_documento}</td>
-                      {/* <td>{document.url}</td> */}
-                      <td>{document.fecha_modificacion}</td>
-                      <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
-                      {isOpen.includes(i) && (
-                        <td>
-                          <div>
-                            <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
-                            <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
-                          </div>
-                        </td>
-                      )}
-                      <td>{document.estatus}</td>
-                      <td>{document.comentarios}</td>
-                    </tr>
+                  {documents.map((document, i) => (              
+                    documentInfo(document, i)
                   ))}
                 </tbody>
               </table>
