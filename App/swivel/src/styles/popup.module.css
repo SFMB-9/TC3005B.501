@@ -1,17 +1,19 @@
-#background{
-    height: 100%;
-    width: 100%;
-    background: #333333;
-    opacity: 0.2;
+#flexboxTitle{
+    display: flex;
+    justify-content: right;
+    align-self: center;
+}
+
+.btnPopup{
+    background: none;
+    border: none;
+    
 }
 
 #closeBtn{
-    background: none;
-    border: none;
     color: white;
-    width: 100%;
     align-items: right;
-    padding: 1vw 1vw 0 0;
+    padding: 0 1vw 0 0;
 }
 
 #popupBody{
@@ -23,8 +25,9 @@
 }
 
 #title{
-    width: 100%;
-    padding-bottom: 2vw;
+    width: 95%;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
     text-align: center;
     font-family: Lato, Helvetica, sans-serif;
     color: white;
@@ -35,4 +38,6 @@
     width: 99%;
     margin: auto;
     background-color: white;
+    padding: 2vw;
+    padding-top: 0.5vw;
 }
