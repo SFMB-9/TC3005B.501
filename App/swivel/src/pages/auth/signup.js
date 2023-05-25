@@ -77,7 +77,7 @@ export default function SignupBuyerData() {
                                             className="form-control"
                                             placeholder="Nombre(s)"
                                             value={name}
-                                            pattern="[a-zA-Z]+"
+                                            pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
                                             onChange={(e) => setName(e.target.value)}
                                             required
                                         />
@@ -86,7 +86,7 @@ export default function SignupBuyerData() {
                                             className="form-control"
                                             placeholder="Apellidos"
                                             value={surname}
-                                            pattern="[a-zA-Z]+"
+                                            pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
                                             onChange={(e) => setSurname(e.target.value)}
                                             required
                                         />
