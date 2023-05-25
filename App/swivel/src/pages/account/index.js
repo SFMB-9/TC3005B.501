@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import MyComponent from "@/components/general/Popup"
+import EditAccount from "./edit_data"
 import {
   Container,
   Typography,
@@ -268,21 +270,78 @@ export default function Account() {
               </div>
               <div className="row">
                 <div className="col-xl-6 col-md-6">
-                  <button
-                    // onClick={handleEditMode}
-                    style={{
-                      backgroundColor: '#F55C7A',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '6px',
-                      height: '100%',
-                      padding: '0.1rem 1rem',
-                      marginTop: '1rem'
+                  {/* <MyComponent
+                      title = "Editar datos"
+                      popUpContent = {<EditAccount/>}
+                      btnOpen = {
+                        <button
+                        // onClick={handleEditMode}
+                        style={{
+                          backgroundColor: '#F55C7A',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '6px',
+                          height: '100%',
+                          padding: '0.1rem 1rem',
+                          marginTop: '1rem'
+                        }}
+                      > Editar datos </button>
+                    } 
+                  /> */}
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="w-80"
+                    sx={{
+                      fontFamily: "Lato",
+                      ":hover": {
+                        backgroundColor: "#333333",
+                      },
                     }}
-                  > Editar datos </button>
+                    >
+                    Editar cuenta
+                  </Button>
+                  
+                  
                 </div>
                 <div className="col-xl-6 col-md-6">
-                <button
+                  <MyComponent
+                    title = "Eliminar cuenta"
+                    popUpContent = {
+                    <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
+                    <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        className="w-80"
+                        sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                            backgroundColor: "red",
+                          },
+                        }}
+                        >
+                        Eliminar cuenta
+                      </Button>
+                    </div>}
+                    btnOpen = {
+                      <div className="text-center mt-3">
+                        <Button
+                          variant="contained"
+                          type="submit"
+                          className="w-80"
+                          sx={{
+                            fontFamily: "Lato",
+                            ":hover": {
+                              backgroundColor: "red",
+                            },
+                          }}
+                        >
+                          Eliminar cuenta
+                        </Button>
+                      </div>} 
+                  />
+                {/*<button
                   // onClick={handleEditMode}
                   style={{
                     backgroundColor: 'lightgray',
@@ -293,7 +352,7 @@ export default function Account() {
                     padding: '0.1rem 1rem',
                     marginTop: '1rem'
                   }}
-                > Eliminar cuenta</button>
+                > Eliminar cuenta</button>*/}
                 </div>
             </div>
             
