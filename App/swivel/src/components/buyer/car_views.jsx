@@ -4,7 +4,7 @@ import CarCard from './car_card'
 
 export default function CarViews() {
   const components = [
-    {name: 'Revisados recientemente', component: () => 
+    {name: 'Accede al Catálogo', component: () => 
       <>
         <div className={styles.cards}>
           <CarCard/>
@@ -12,24 +12,24 @@ export default function CarViews() {
           <CarCard/>
         </div>
       </>
-    },
-    {name: 'Populares', component: () => 
-    <>
-      <div className={styles.cards}>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
-      </div>
-    </>
-    },
-    {name: 'Recomendaciónes', component: () => 
-    <>
-      <div className={styles.cards}>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
-      </div>
-    </>},
+    }
+    // {name: 'Populares', component: () => 
+    // <>
+    //   <div className={styles.cards}>
+    //     <CarCard/>
+    //     <CarCard/>
+    //     <CarCard/>
+    //   </div>
+    // </>
+    // },
+    // {name: 'Recomendaciónes', component: () => 
+    // <>
+    //   <div className={styles.cards}>
+    //     <CarCard/>
+    //     <CarCard/>
+    //     <CarCard/>
+    //   </div>
+    // </>},
   ]
   return(
     <>

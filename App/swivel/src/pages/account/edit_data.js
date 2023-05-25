@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
 import {
   Container,
   Typography,
@@ -13,6 +14,30 @@ import {
 } from "@mui/material";
 
 import AccountLayout from "@/components/buyer/account_layout";
+
+function CancelBtn() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/account');
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className="w-80"
+      style={{
+        backgroundColor: '#D9D9D9',
+        color: 'white',
+        border: 'none',
+        borderRadius: '6px',
+        height: '2.5vw',
+        padding: '0.1rem 1rem',
+        marginTop: '1rem'
+      }}
+    > Cancelar </button>
+  );
+}
 
 export default function Account() {
   const [apiData, setApiData] = useState(null);
@@ -344,7 +369,7 @@ export default function Account() {
                     }}
                   >
                     <button
-                      onClick={handleEditMode}
+                      // onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -394,20 +419,11 @@ export default function Account() {
                         height: '50%',
                         padding: '0.5rem 1rem',
                       }}
-                    > Editar datos </button>
-                    <button
-                      // onClick={handleEditMode}
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        backgroundColor: 'lightgray',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        height: '50%',
-                        padding: '0.5rem 1rem',
-                      }}
-                    > Eliminar cuenta</button>
+                      >
+                      Guardar datos
+                    </button>
+              
+                    
                   </div>
                   )
               }
