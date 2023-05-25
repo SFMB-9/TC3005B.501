@@ -1,6 +1,6 @@
 import { Typography, Button } from "@mui/material"
 import Link from "next/link"
-import Searchbar from "@/components/general/searchbar"
+import Searchbar from "@/components/general/searchbar_landing"
 
 import styles from "@/styles/custom_hero.module.css"
 

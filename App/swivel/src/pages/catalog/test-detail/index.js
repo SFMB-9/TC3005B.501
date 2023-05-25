@@ -25,7 +25,9 @@ import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import LocationsMap from '@/components/general/locations_map';
 
+
 import styles from '@/styles/test_details.module.css';
+import DataTable from '@/components/general/Table';
 
 export default function RequestDetails() {
 
@@ -50,47 +52,39 @@ export default function RequestDetails() {
   // user_id = session.id;
   const user_id = "646e7555cfb24b65a4f5d1b7"; 
 
-  const fetchCarDetails = async () => {
-    console.log("AUTO ID: " + auto_id);
+  const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
-    let rawManager = await fetch(`http://localhost:3000/api/prueba-manejo/get-manager-info?agency_name=${retrievedAuto.nombre_agencia}`,
+
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
       { method: 'GET' });
-    const resManager = await rawManager.json();
-    const retrievedManager = resManager.user;
-    
+    const resData = await rawData.json();
+    const retrievedManager = resData.manager;
+    const retrievedUser = resData.user;
+    const retrievedDocuments = resData.user.documentos_url;
+    const retrievedAddress = resData.user.direccion;
+
     setCarData(retrievedAuto);
     setFirstImage(retrievedAuto.fotos_3d[0]);
     setManagerData(retrievedManager);
-  }
-
-  const fetchUserDetails = async () => {
-    let rawUser = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-info?_id=${user_id}`,
-      { method: 'GET' });
-    const resUser = await rawUser.json();
-    const retrievedUser = resUser.user;
-    const retrievedDocuments = resUser.user.documentos_url;
-    const retrievedAddress = resUser.user.direccion;
-
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
-    setUserAddress(retrievedAddress);    
-  }
-
-  const fetchDetails = async () => {
-    await fetchCarDetails();
-    fetchUserDetails();
+    setUserAddress(retrievedAddress);  
   }
 
   const createDrivingTest = async () => {
     // Save the changed documents to firebase
     await handleSubmit();
+
+    const filteredDocuments = documents.filter(json => {
+      return json.nombre_documento === "licencia" || json.nombre_documento === "identificacion";
+    });
     
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-      { auto_id: auto_id, user_id: user_id, documents: documents });
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments });
     const proceso_id = res.data.result.proceso_id;
     // Add the driving test request to the list of processes of the user
     await axios.post('/api/prueba-manejo/agregar-proceso-usuario',
@@ -146,6 +140,30 @@ export default function RequestDetails() {
     setIsOpen(currentOpen);
   }
 
+  const documentInfo = (document, i) => {
+    if (document.nombre_documento === "licencia" || document.nombre_documento === "identificacion") {
+      return (
+        <tr key={i}>
+          <td>{document.nombre_documento}</td>
+          {/* <td>{document.url}</td> */}
+          <td>{document.fecha_modificacion}</td>
+          <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
+          {isOpen.includes(i) && (
+            <td>
+              <div>
+                <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
+                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+              </div>
+            </td>
+          )}
+          <td>{document.estatus}</td>
+          <td>{document.comentarios}</td>
+        </tr>
+      );
+    }
+    return;
+  };
+
   useEffect(() => {  
     if (auto_id) {
       fetchDetails();
@@ -157,6 +175,32 @@ export default function RequestDetails() {
   }
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
+
+  const car_dealerships = [
+    { brand: 'Toyota', position: { lat: 19.4226, lng: -99.1676 } },
+    { brand: 'Honda', position: { lat: 19.4124, lng: -99.1546 } },
+    { brand: 'Ford', position: { lat: 19.4294, lng: -99.1409 } },
+    { brand: 'Chevrolet', position: { lat: 19.4257, lng: -99.1710 } },
+    { brand: 'Nissan', position: { lat: 19.4191, lng: -99.1539 } },
+    { brand: 'Volkswagen', position: { lat: 19.4269, lng: -99.1483 } },
+    { brand: 'BMW', position: { lat: 19.4208, lng: -99.1913 } },
+    { brand: 'Mercedes-Benz', position: { lat: 19.4106, lng: -99.1782 } },
+    { brand: 'Audi', position: { lat: 19.4216, lng: -99.2039 } },
+    { brand: 'Mazda', position: { lat: 19.4324, lng: -99.1367 } },
+  ];
+
+  const columns = [
+    {
+      field: 'Documento',
+      headerName: 'Documento',
+      headerAlign: 'center',
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.
+      }
+    }
+  ]
 
   if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && managerData != null) {
     return (
@@ -210,26 +254,15 @@ export default function RequestDetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  {documents.map((document, i) => (
-                    <tr key={i}>
-                      <td>{document.nombre_documento}</td>
-                      {/* <td>{document.url}</td> */}
-                      <td>{document.fecha_modificacion}</td>
-                      <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
-                      {isOpen.includes(i) && (
-                        <td>
-                          <div>
-                            <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
-                            <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
-                          </div>
-                        </td>
-                      )}
-                      <td>{document.estatus}</td>
-                      <td>{document.comentarios}</td>
-                    </tr>
+                  {documents.map((document, i) => (              
+                    documentInfo(document, i)
                   ))}
                 </tbody>
               </table>
+              <DataTable
+                columns={columns}
+                rows={rows}
+              />
               <Button variant='contained' href='/catalog'>Cancelar</Button>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
             </div>
@@ -271,7 +304,7 @@ export default function RequestDetails() {
                   />
                 </div>
                 <LocationsMap
-                  locationsData = {[{brand: 'Toyota', position: { lat: 40.7127837, lng: -74.0059413 }}]}
+                  locationsData = {[{brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 }}]}
                 />
               </div>
               {selectedDate && (
