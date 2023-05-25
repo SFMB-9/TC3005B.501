@@ -1250,7 +1250,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <p>Loading Car Details...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
