@@ -89,6 +89,11 @@ export default function RequestDetails() {
     // Add the selected date and time to the driving test request
     await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
+
+    // Go back to catalog page
+    router.push({
+      pathname: '/catalog',
+    })
   };
 
   const handleDocumentEdit = (doc, indx) => {
