@@ -50,38 +50,26 @@ export default function RequestDetails() {
   // user_id = session.id;
   const user_id = "646e7555cfb24b65a4f5d1b7"; 
 
-  const fetchCarDetails = async () => {
-    console.log("AUTO ID: " + auto_id);
+  const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
-    let rawManager = await fetch(`http://localhost:3000/api/prueba-manejo/get-manager-info?agency_name=${retrievedAuto.nombre_agencia}`,
+
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
       { method: 'GET' });
-    const resManager = await rawManager.json();
-    const retrievedManager = resManager.user;
-    
+    const resData = await rawData.json();
+    const retrievedManager = resData.manager;
+    const retrievedUser = resData.user;
+    const retrievedDocuments = resData.user.documentos_url;
+    const retrievedAddress = resData.user.direccion;
+
     setCarData(retrievedAuto);
     setFirstImage(retrievedAuto.fotos_3d[0]);
     setManagerData(retrievedManager);
-  }
-
-  const fetchUserDetails = async () => {
-    let rawUser = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-info?_id=${user_id}`,
-      { method: 'GET' });
-    const resUser = await rawUser.json();
-    const retrievedUser = resUser.user;
-    const retrievedDocuments = resUser.user.documentos_url;
-    const retrievedAddress = resUser.user.direccion;
-
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
-    setUserAddress(retrievedAddress);    
-  }
-
-  const fetchDetails = async () => {
-    await fetchCarDetails();
-    fetchUserDetails();
+    setUserAddress(retrievedAddress);  
   }
 
   const createDrivingTest = async () => {
