@@ -36,6 +36,7 @@ function EditProfileBtn() {
         variant="contained"
         type="submit"
         className="w-80"
+        
         sx={{
           fontFamily: "Lato",
           ":hover": {
