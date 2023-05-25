@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/router';
+
 import {
   Container,
   Typography,
@@ -13,33 +13,7 @@ import {
   Grid,
 } from "@mui/material";
 
-import AccountLayout from "@/components/buyer/account_layout";
-
-function CancelBtn() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/account');
-  };
-
-  return (
-    <button
-      onClick={handleClick}
-      className="w-80"
-      style={{
-        backgroundColor: '#D9D9D9',
-        color: 'white',
-        border: 'none',
-        borderRadius: '6px',
-        height: '2.5vw',
-        padding: '0.1rem 1rem',
-        marginTop: '1rem'
-      }}
-    > Cancelar </button>
-  );
-}
-
-export default function Account() {
+export default function EditAccount() {
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
   const [editMode, setEditMode] = useState(false);
@@ -64,9 +38,8 @@ export default function Account() {
 
   if (apiData) {
     return (
-      <AccountLayout>
         <Container maxWidth="xl">
-          <div className="section p-5">
+          <div className="section p-3">
             <Typography
               fontFamily="Raleway"
               color="#1F1F1F"
@@ -369,7 +342,7 @@ export default function Account() {
                     }}
                   >
                     <button
-                      // onClick={handleEditMode}
+                      onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -407,21 +380,36 @@ export default function Account() {
                       width: "100%",
                     }}
                   >
-                    <button
-                      onClick={handleEditMode}
+                    
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      className="w-80"
                       style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        backgroundColor: '#F55C7A',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        height: '50%',
-                        padding: '0.5rem 1rem',
+                        background: "none",
+                        border: "none",
+                      }}
+                      sx={{
+                        fontFamily: "Lato",
+                        
+                      }}
+                      >
+                      
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      className="w-80"
+                      sx={{
+                        fontFamily: "Lato",
+                        ":hover": {
+                          backgroundColor: "#333333",
+                        },
                       }}
                       >
                       Guardar datos
-                    </button>
+                    </Button>
               
                     
                   </div>
@@ -430,308 +418,6 @@ export default function Account() {
             </div>
           </div>
         </Container>
-        {/* <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "2rem",
-            width: "100%",
-          }}
-        >
-          <div>
-            <h1 
-            style={{ 
-              display: 'flex', 
-              flexDirection: "row", 
-              justifyContent: 'flex-start', 
-              alignItems: 'center',
-              paddingLeft: '2rem',
-              fontFamily: 'Raleway',
-            }}>
-              Mi cuenta
-            </h1>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              padding: "1rem 2rem 0rem 2rem", 
-              fontFamily: 'Lato',
-              fontSize: '1.2rem',
-            }}
-          >
-            <h3>Datos personales</h3>
-          </div>
-          <Grid container
-            sx={{
-              padding: '2% 5%',
-              display: 'flex',
-              flexDirection: 'row',
-            }}
-          >
-            <Grid item xs={12} sm={12}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                // marginRight: '1rem',
-                // fontFamily: 'Lato',
-              }}
-  
-            >
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Nombre(s)</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  {apiData.name}
-                </p>
-              </div>
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Apellido(s)</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  {apiData.surname}
-                </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={12}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                // marginRight: '1rem',
-                // fontFamily: 'Lato',
-              }}
-  
-            >
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Correo electrónico</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  {apiData.email}
-                </p>
-              </div>
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Teléfono</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-            </Grid>
-          </Grid>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              padding: "1rem 2rem 0rem 2rem", 
-              fontFamily: 'Lato',
-              fontSize: '1.2rem',
-            }}
-          >
-            <h3>Dirección</h3>
-          </div>
-          <Grid container
-            sx={{
-              padding: '2% 5%',
-              display: 'flex',
-              flexDirection: 'row',
-            }}
-          >
-            <Grid item xs={12} sm={12}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                // marginRight: '1rem',
-                // fontFamily: 'Lato',
-              }}
-  
-            >
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Calle</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Número</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={12}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                // marginRight: '1rem',
-                // fontFamily: 'Lato',
-              }}
-  
-            >
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Código postal</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Colonia</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={12}
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                // marginRight: '1rem',
-                // fontFamily: 'Lato',
-              }}
-  
-            >
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Ciudad</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-              <div 
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'start',
-                  flex: '50%'
-                }}
-              >
-                <h5>Estado</h5>
-                <p
-                  style={{
-                    color: '#5E5E5E',
-                    marginLeft: '1.5rem',
-                  }}
-                >
-                  placeholder
-                </p>
-              </div>
-            </Grid>
-          </Grid>
-        </div> */}
-      </AccountLayout>
     )
   }
   else {
