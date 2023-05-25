@@ -1,0 +1,43 @@
+#flexboxTitle{
+    display: flex;
+    justify-content: right;
+    align-self: center;
+}
+
+.btnPopup{
+    background: none;
+    border: none;
+    
+}
+
+#closeBtn{
+    color: white;
+    align-items: right;
+    padding: 0 1vw 0 0;
+}
+
+#popupBody{
+    height: auto;
+    width: 50.5vw;
+    padding-bottom: 0.2vw;
+    background-color: #333333;
+    border-radius: 5px;
+}
+
+#title{
+    width: 95%;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    text-align: center;
+    font-family: Lato, Helvetica, sans-serif;
+    color: white;
+}
+
+#content{
+    height: auto;
+    width: 99%;
+    margin: auto;
+    background-color: white;
+    padding: 2vw;
+    padding-top: 0.5vw;
+}
