@@ -9,7 +9,6 @@ export default function ManagerSignup() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
 
   const GA = "GA_default";	
@@ -24,8 +23,7 @@ export default function ManagerSignup() {
         email: email,
         password: password,
         tipo_usuario: "manager",
-        agencia: agency,
-        grupo_automotriz: GA,
+        grupo_automotriz_id: GA,
         numero_telefonico: phone,
       });
 
@@ -74,18 +72,6 @@ export default function ManagerSignup() {
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="agency_field">Agency</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={agency}
-            onChange={(e) => setAgency(e.target.value)}
             required
           />
         </div>

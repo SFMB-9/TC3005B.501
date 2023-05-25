@@ -79,8 +79,7 @@ export default async function handler(req, res) {
       
       else if (role === "manager") {
         
-        const agency = req.body.agencia;
-        const GA = req.body.grupo_automotriz;
+        const GA = req.body.grupo_automotriz_id;
         const phone = req.body.numerqo_telefonico;
 
         await ManagerUser.create({
@@ -89,8 +88,7 @@ export default async function handler(req, res) {
           email: email,
           password: password,
           tipo_usuario: encrypted_role,
-          agencia: agency,
-          grupo_automotriz: GA,
+          grupo_automotriz_id: GA,
           numero_telefonico: phone,
         });
         res.status(200).json({ message: "Manager registered successfully" });
