@@ -142,12 +142,12 @@ export default function CarDetails() {
   };
 
   const calculateMonthlyPayment = () => {
-    const carPriceWithDownPayment = carPrice + totalPriceExtras - downPayment;
-    console.log(carPriceWithDownPayment, carPrice, totalPriceExtras, downPayment);
-    const monthlyPayment = carPriceWithDownPayment / selectedTerm;
-    const monthlyPaymentTotal =
-      monthlyPayment + monthlyPayment * (interestRate / 100);
-
+    
+    const initialLoan = (carPrice + totalPriceExtras) - downPayment;
+    const capitalPayment = initialLoan / selectedTerm;
+    const interestPayment = (initialLoan * (interestRate / 100)) / selectedTerm;
+   
+    const monthlyPaymentTotal = capitalPayment + interestPayment;
     setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
   };
 
