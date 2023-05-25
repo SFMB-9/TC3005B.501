@@ -3,7 +3,7 @@
 
 /* EXAMPLE OF HOW TO USE COMPONENT:
 
-    <MyComponent
+    <PopUpComponent
         title = "Titulo"
         popUpContent = {<div> Contenido del popup </div>}
         btnOpen = {<button> Haz click aquí </button>} 
@@ -16,7 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import {Typography} from "@mui/material";
 import styles from "@/styles/popup.module.css";
 
-const MyComponent = ({title, popUpContent, btnOpen}) => {
+const PopUpComponent = ({title, popUpContent, btnOpen, btnClose}) => {
     const [isOpen, setIsOpen] = useState(false)
     const customStyles = {
         overlay: {
@@ -24,10 +24,12 @@ const MyComponent = ({title, popUpContent, btnOpen}) => {
             backgroundColor: 'rgba(0, 0, 0, 0.6)'
        },
         content: {
+            background: "none",
             top: '50%',
             left: '50%',
             right: 'auto',
             bottom: 'auto',
+            border: "none",
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)'
        }
@@ -46,6 +48,7 @@ const MyComponent = ({title, popUpContent, btnOpen}) => {
                 </div>
                 <div id={styles.content}>
                     {popUpContent}
+  
                 </div>
             </div>
              
@@ -53,5 +56,5 @@ const MyComponent = ({title, popUpContent, btnOpen}) => {
        </div>
     )
  }
-export default MyComponent
+export default PopUpComponent
 

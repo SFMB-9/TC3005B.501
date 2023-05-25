@@ -16,10 +16,12 @@
     padding: 0 1vw 0 0;
 }
 
+
 #popupBody{
-    height: auto;
-    width: 50.5vw;
-    padding-bottom: 0.2vw;
+    min-height: auto;
+    max-height: 45vw;
+    min-width: 50.5vw;
+    max-width: 70vw;
     background-color: #333333;
     border-radius: 5px;
 }
@@ -35,7 +37,7 @@
 
 #content{
     height: auto;
-    width: 99%;
+    width: 100%;
     margin: auto;
     background-color: white;
     padding: 2vw;

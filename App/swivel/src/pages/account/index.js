@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import MyComponent from "@/components/general/Popup"
-import EditAccount from "./edit_data"
+import PopUpComponent from "@/components/general/Popup"
+import EditAccount from "./editData"
 import { useRouter } from 'next/router';
 import {
   Container,
@@ -304,43 +304,47 @@ export default function Account() {
               </div>
               <div className="row mt-3">
                 <div className="align-self-center col-xl-6 col-md-6">
-                  {/* <MyComponent
+                   <PopUpComponent
                       title = "Editar datos"
                       popUpContent = {<EditAccount/>}
                       btnOpen = {
-                        <button
-                        // onClick={handleEditMode}
+                        <Button
+                        variant="contained"
+                        type="submit"
+                        className="w-80"
+                        sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                            backgroundColor: "#333333",
+                          },
+                        }}
+                        >
+                        Editar datos
+                      </Button>
+                    }
+                    btnClose = {
+                      <button
+                        className="w-80"
                         style={{
-                          backgroundColor: '#F55C7A',
+                          backgroundColor: '#D9D9D9',
                           color: 'white',
                           border: 'none',
                           borderRadius: '6px',
-                          height: '100%',
+                          height: '2.5vw',
                           padding: '0.1rem 1rem',
                           marginTop: '1rem'
                         }}
-                      > Editar datos </button>
-                    } 
-                  /> */}
-                  {/* <Button
-                    variant="contained"
-                    type="submit"
-                    className="w-80"
-                    sx={{
-                      fontFamily: "Lato",
-                      ":hover": {
-                        backgroundColor: "#333333",
-                      },
-                    }}
-                    >
-                    Editar cuenta
-                  </Button> */}
-                  <EditProfileBtn/>
+                      > Cancelar </button>
+
+                      } 
+                  /> 
+                  
+                  {/* <EditProfileBtn/> */}
                   
                   
                 </div>
                 <div className=" align-self-center col-xl-6 col-md-6">
-                  <MyComponent
+                  <PopUpComponent
                     title = "Eliminar cuenta"
                     popUpContent = {
                     <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
@@ -374,7 +378,7 @@ export default function Account() {
                         >
                           Eliminar cuenta
                         </Button>
-                      </div>} 
+                      </div>}
                   />
                 </div>
             </div>
