@@ -17,7 +17,7 @@ export default function Purchases() {
 
   console.log("session", session);
 
-  const fetchDrivingData = async () => {
+  const fetchData = async () => {
     const resCurrentPurchases = await fetch(
       `http://localhost:3000/api/buyerProfile/getPurchaseReq?user_id=${session.id}`
     );
@@ -32,7 +32,7 @@ export default function Purchases() {
 
   useEffect(() => {
     if (session) {
-      fetchDrivingData();
+      fetchData();
     }
   }, [session]);
 

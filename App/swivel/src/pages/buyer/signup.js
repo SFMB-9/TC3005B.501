@@ -19,13 +19,15 @@ export default function SignupBuyerData() {
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [exterior_num, setExteriorNum] = useState("");
+    const [interior_num, setInteriorNum] = useState("");
     const [street, setStreet] = useState("");
-    const [number, setNumber] = useState("");
     const [postalCode, setPC] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-
+    const [phone, setPhone] = useState("");	
+    const [country, setCountry] = useState("");
     const { encryptRole } = require("@/utils/crypto");
 
     const submitHandler = async (e) => {
@@ -33,16 +35,22 @@ export default function SignupBuyerData() {
 
     try {
       const { data } = await axios.post("/api/register", {
-        name,
-        surname,
-        email,
-        password,
-        street,
-        number,
-        postalCode,
-        city, 
-        state,
-        role: "user",
+        tipo_usuario: 'user',
+        nombres: name,
+        apellidos: surname,
+        email: email,
+        password: password,
+        numero_telefonico: phone,
+
+        direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+        },    
       });
       console.log(data);
 
@@ -88,6 +96,17 @@ export default function SignupBuyerData() {
                             placeholder="Correo Electrónico"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-outline mb-2">
+                        <input
+                            type="phone"
+                            className="form-control"
+                            placeholder="Teléfono"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                             required
                         />
                     </div>
@@ -164,9 +183,17 @@ export default function SignupBuyerData() {
                             <input
                                 type="number"
                                 className="form-control"
-                                placeholder="Número"
-                                value={number}
-                                onChange={(e) => setNumber(e.target.value)}
+                                placeholder="Número Exterior"
+                                value={exterior_num}
+                                onChange={(e) => setExteriorNum(e.target.value)}
+                                required
+                            />
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Número Interior"
+                                value={interior_num}
+                                onChange={(e) => setInteriorNum(e.target.value)}
                                 required
                             />
                         </div>
@@ -198,6 +225,14 @@ export default function SignupBuyerData() {
                             placeholder="Estado"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="País"
+                            value={country}
+                            onChange={(e) => setCountry(e.target.value)}
                             required
                         />
                     </div>
