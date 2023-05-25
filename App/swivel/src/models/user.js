@@ -88,30 +88,26 @@ const managerSchema = new mongoose.Schema({
   grupo_automotriz_id: String, //si-auto
 });
 
-const BuyerUser =
-  User.discriminators && User.discriminators.Type
-    ? User.discriminators.Type
-    : User.discriminator("Type", buyerSchema);
+const BuyerUser = User.discriminators && User.discriminators.BuyerUser 
+                  ? User.discriminators.BuyerUser 
+                  : User.discriminator("BuyerUser", buyerSchema);
 
-const SellerUser =
-  User.discriminators && User.discriminators.Type
-    ? User.discriminators.Type
-    : User.discriminator("Type", sellerSchema);
+const SellerUser = User.discriminators && User.discriminators.SellerUser 
+                  ? User.discriminators.SellerUser 
+                  : User.discriminator("SellerUser", sellerSchema);
 
-const ManagerUser =
-  User.discriminators && User.discriminators.Type
-    ? User.discriminators.Type
-    : User.discriminator("Type", managerSchema);
+const ManagerUser = User.discriminators && User.discriminators.ManagerUser 
+                  ? User.discriminators.ManagerUser 
+                  : User.discriminator("ManagerUser", managerSchema);
 
-const AgencyEntity =
-  User.discriminators && User.discriminators.Type
-    ? User.discriminators.Type
-    : User.discriminator("Type", agencySchema);
+const AgencyEntity = User.discriminators && User.discriminators.AgencyEntity 
+                  ? User.discriminators.AgencyEntity 
+                  : User.discriminator("AgencyEntity", agencySchema);
 
-const GaEntity =
-  User.discriminators && User.discriminators.Type
-    ? User.discriminators.Type
-    : User.discriminator("Type", gaSchema);
+const GaEntity = User.discriminators && User.discriminators.GaEntity 
+                  ? User.discriminators.GaEntity 
+                  : User.discriminator("GaEntity", gaSchema);
+
 
 export { User, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity };
 

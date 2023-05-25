@@ -8,9 +8,9 @@ export default function SellerSignup() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
-  const [GA, setGA] = useState("");
+  
+  const agency = "agency_default";
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -22,8 +22,7 @@ export default function SellerSignup() {
         email: email,
         password: password,
         tipo_usuario: "seller",
-        agencia: agency,
-        grupo_automotriz: GA,
+        agencia_id: agency,
         numero_telefonico: phone,
       });
 
@@ -76,29 +75,6 @@ export default function SellerSignup() {
           />
         </div>
 
-        <div>
-          <label htmlFor="agency_field">Agency</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={agency}
-            onChange={(e) => setAgency(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="GA_field">GA</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={GA}
-            onChange={(e) => setGA(e.target.value)}
-            required
-          />
-        </div>
         <div>
           <label htmlFor="phone_field">Phone Number</label>
           <input

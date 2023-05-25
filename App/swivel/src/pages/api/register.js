@@ -58,9 +58,10 @@ export default async function handler(req, res) {
           tipo_usuario: encrypted_role,
         });
         res.status(200).json({ message: "User registered successfully" });
-      } else if (role === "seller") {
-        const agency = req.body.agencia;
-        const GA = req.body.grupo_automotriz;
+      } 
+      
+      else if (role === "seller") {
+        const agency = req.body.agencia_id;
         const phone = req.body.numero_telefonico;
 
         await SellerUser.create({
@@ -69,12 +70,14 @@ export default async function handler(req, res) {
           email: email,
           password: password,
           tipo_usuario: encrypted_role,
-          agencia: agency,
-          grupo_automotriz: GA,
+          agencia_id: agency,
           numero_telefonico: phone,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      } else if (role === "manager") {
+      } 
+      
+      
+      else if (role === "manager") {
         
         const agency = req.body.agencia;
         const GA = req.body.grupo_automotriz;
