@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import DataTable from "@/components/general/Table";
-import { Select, MenuItem, Button, Typography } from "@mui/material";
+import { Select, MenuItem, Typography } from "@mui/material";
 import SimpleToggleButton from "@/components/general/SimpleToggleMenu";
 import SellerNavbar from "@/components/providers/seller/navbar";
 

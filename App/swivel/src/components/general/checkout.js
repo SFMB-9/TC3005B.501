@@ -31,6 +31,7 @@ const CheckoutPage = (props) => {
     variant="contained"
     sx={{
       fontFamily: "Lato",
+      width: 150,
       ":hover": {
         backgroundColor: "#F68E70",
       },
