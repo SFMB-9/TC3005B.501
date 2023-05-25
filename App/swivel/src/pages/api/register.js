@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
       if (role === "user") {
-
+        console.log("HOOOLA", req.body);
         const street = req.body.direccion.calle;
         const phone = req.body.numero_telefonico;
         const exterior_num = req.body.direccion.numero_exterior;
