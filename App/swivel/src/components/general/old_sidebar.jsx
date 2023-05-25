@@ -8,6 +8,7 @@ Es abstracto, lo que permite reutilizarlo en diferentes partes de la aplicación
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useMediaQuery } from "@mui/material";
+import Link from 'next/link';
 import {
   Sidebar as ReactProSidebar,
   Menu,
@@ -142,54 +143,63 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                  
                 </div>
               </MenuItem>
-              <a href={`${root}/`}>
+
                 <MenuItem
                   icon={<ManageAccountsIcon />}
                   style={{ color: '#333333' }}
                 >
-                  Mi cuenta
+                  <Link href={`${root}/`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
+                    
+                      Mi cuenta
+                
+                  </Link>
+
                 </MenuItem>
-              </a>
-              <a href={`${root}/change_password`}>
+
                 <MenuItem
                   icon={<KeyIcon />}
                   style={{ color: '#333333' }}
                 >
+                  <Link href={`${root}/change_password`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Contraseña
+                  </Link>
                 </MenuItem>
-              </a>
-              <a href={`${root}/purchases`}>
+
                 <MenuItem
                   icon={<ShoppingBagIcon />}
                   style={{ color: '#333333' }}
                 >
+                  <Link href={`${root}/purchases`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis compras
+                  </Link>
                 </MenuItem>
-              </a>
-              <a href={`${root}/tests`}>
+
                 <MenuItem
                   icon={<DirectionsCarIcon />}
                   style={{ color: '#333333' }}
                 >
+                  <Link href={`${root}/tests`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis pruebas de manejo
+                  </Link>
                 </MenuItem>
-              </a>
-              <a href={`${root}/favorites`}>
+              
                 <MenuItem
                   icon={<FavoriteIcon />}
                   style={{ color: '#333333' }}
                 >
+                  <Link href={`${root}/favorites`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis favoritos
+                  </Link>
                 </MenuItem>
-              </a>
-              <a href={`${root}/documents`}>
+             
                 <MenuItem
                   icon={<FolderIcon />}
                   style={{ color: '#333333' }}
                 >
+                  <Link href={`${root}/documents`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis documentos
+                  </Link>
                 </MenuItem>
-              </a>
               {/* {children} */}
             </Menu>
           </div>
