@@ -19,13 +19,13 @@ import { format } from "date-fns";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
 import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
+import { Grid, Button } from '@mui/material';
+
 import BuyerNavbar from '@/components/buyer/navbar';
-import { TextField, Grid, Button } from '@mui/material';
+import PhaseIndicator from '@/components/general/phase_indicator';
+import LocationsMap from '@/components/general/locations_map';
 
 import styles from '@/styles/test_details.module.css';
-import PhaseIndicator from '@/components/general/phase_indicator';
-
-//import Map from '@/pages/Map';
 
 export default function RequestDetails() {
 
@@ -46,8 +46,8 @@ export default function RequestDetails() {
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const { auto_id } = router.query;
-  // user_id = session.id;
   // TODO
+  // user_id = session.id;
   const user_id = "646e7555cfb24b65a4f5d1b7"; 
 
   const fetchDetails = async () => {
@@ -155,9 +155,9 @@ export default function RequestDetails() {
         <>
           <div className={styles.schedule}>
             <h4>Datos personales</h4>
-            {/* <Grid container>
+            <Grid container>
               <Grid item xs={12} sm={6}>
-                <span>Nombre: {userData.nombres}</span>
+                <span>Nombre(s):  {userData.nombres}</span>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <span>Apellidos: {userData.apellidos}</span>
@@ -178,76 +178,16 @@ export default function RequestDetails() {
               <Grid item xs={12} sm={6}>
                 <span>CP: {userAddress.codigo_postal}</span>
               </Grid>
-            </Grid> */}
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.nombres}
-                  label='Nombre(s)'
-                  size='small'
-                  placeholder='Nombre(s)'
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.apellidos}
-                  label='Apellidos'
-                  size='small'
-                  placeholder='Apellidos'
-                />
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.email}
-                  label='Correo electrónico'
-                  size='small'
-                  placeholder='Correo electrónico'
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userData.numero_telefonico}
-                  label='Número telefónico'
-                  size='small'
-                  placeholder='Número telefónico'
-                />
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userAddress.estado}
-                  label='Estado de residencia'
-                  size='small'
-                  placeholder='Estado de residencia'
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  className={styles.input}
-                  value={userAddress.codigo_postal}
-                  label='Código postal'
-                  size='small'
-                  placeholder='Código postal'
-                />
-              </Grid>
             </Grid>
             <table>
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>URL</th>
+                  <th>Documento</th>
+                  {/* <th>URL</th> */}
+                  <th>Fecha de entrega</th>
+                  <th>Subir</th>
                   <th>Estatus</th>
-                  <th>Ultima modificación</th>
                   <th>Comentarios</th>
-                  <th>Editar</th>
                   <th></th>
                   <th></th>
                 </tr>
@@ -256,10 +196,8 @@ export default function RequestDetails() {
                 {documents.map((document, i) => (
                   <tr key={i}>
                     <td>{document.nombre_documento}</td>
-                    <td>{document.url}</td>
-                    <td>{document.estatus}</td>
+                    {/* <td>{document.url}</td> */}
                     <td>{document.fecha_modificacion}</td>
-                    <td>{document.comentarios}</td>
                     <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
                     {isOpen.includes(i) && (
                       <td>
@@ -269,6 +207,8 @@ export default function RequestDetails() {
                         </div>
                       </td>
                     )}
+                    <td>{document.estatus}</td>
+                    <td>{document.comentarios}</td>
                   </tr>
                 ))}
               </tbody>
@@ -290,32 +230,33 @@ export default function RequestDetails() {
                 <h1 className={styles.priceTag}>${carData.precio}</h1>
               </div>
             </div>
-
-            {/* <h1>Mapa a la agencia</h1>
-              <Map coordinates={[40.73, -73.935]}/> */}
-            <div className={styles.schedule}>
-              <h1>Elegir horario*</h1>
-              <DatePicker
-                selected={selectedDate}
-                onChange={date => setSelectedDate(date)}
-                dateFormat='dd/MM/yyyy'
-                minDate={addDays(new Date(), managerData.dias_anticipo)}
-                maxDate={addDays(new Date(), managerData.dias_max)}
-                startDate={addDays(new Date(), managerData.dias_anticipo)}
-              />
-              <DatePicker
-                selected={selectedTime}
-                onChange={time => setSelectedTime(time)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeFormat='hh aa'
-                timeIntervals={60}
-                minTime={setHours(new Date(), managerData.horas_min)}
-                maxTime={setHours(new Date(), managerData.horas_max)}
-                dateFormat='hh:mm aa'
+            <div className={styles.testInfo}>
+              <div className={styles.schedule}>
+                <h2 className={styles.schedule_header}>Elegir horario*</h2>
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={date => setSelectedDate(date)}
+                  dateFormat='dd/MM/yyyy'
+                  minDate={addDays(new Date(), managerData.dias_anticipo)}
+                  maxDate={addDays(new Date(), managerData.dias_max)}
+                  startDate={addDays(new Date(), managerData.dias_anticipo)}
+                />
+                <DatePicker
+                  selected={selectedTime}
+                  onChange={time => setSelectedTime(time)}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeFormat='hh aa'
+                  timeIntervals={60}
+                  minTime={setHours(new Date(), managerData.horas_min)}
+                  maxTime={setHours(new Date(), managerData.horas_max)}
+                  dateFormat='hh:mm aa'
+                />
+              </div>
+              <LocationsMap
+                locationsData = {[{brand: 'Toyota', position: { lat: 40.7127837, lng: -74.0059413 }}]}
               />
             </div>
-
             {selectedDate && (
               <p>
                 Fecha actualmente agendada:{" "}
@@ -323,7 +264,6 @@ export default function RequestDetails() {
                 {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
               </p>
             )}
-
             {selectedTime && (
               <p>
                 Hora actualmente agendada:{" "}
