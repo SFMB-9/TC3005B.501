@@ -1,4 +1,4 @@
-import { User, SellerUser, ManagerUser} from "../../models/user";
+import { User, SellerUser, ManagerUser } from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
 /* 
@@ -14,7 +14,12 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, surname, email, password, street, number, postalCode, city, state, role } = req.body;
+    const name = req.body.nombres;
+    const surname = req.body.apellidos;
+    const email = req.body.email;
+    const password = req.body.password;
+    const role = req.body.tipo_usuario;
+
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -43,55 +48,47 @@ export default async function handler(req, res) {
     let usedEmail = await User.findOne({ email: email });
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
-      
       if (role === "user") {
-        await User.create({ 
-          nombres: name, 
-          apellidos: surname, 
-          email: email, 
-          contraseña: password, 
-          direccion: {
-            calle: street, 
-            numero_exterior: number,
-            ciudad: city,
-            estado: state, 
-            codigo_postal: postalCode
-          },
-          tipo_usuario: encrypted_role 
+        await User.create({
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          contraseña: password,
+          tipo_usuario: encrypted_role,
         });
         res.status(200).json({ message: "User registered successfully" });
       } 
       
       else if (role === "seller") {
-
-        const agency = req.body.agency;
-        const phone = req.body.phone;
+        const agency = req.body.agencia_id;
+        const phone = req.body.numero_telefonico;
 
         await SellerUser.create({
           nombres: name,
           apellidos: surname,
           email: email,
-          contraseña: password,
+          password: password,
           tipo_usuario: encrypted_role,
-          agencia: agency,
-          telefono: phone,
+          agencia_id: agency,
+          numero_telefonico: phone,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      }
-
+      } 
+      
+      
       else if (role === "manager") {
-
-        const agency = req.body.agency;
-        const phone = req.body.phone;
+        
+        const GA = req.body.grupo_automotriz_id;
+        const phone = req.body.numerqo_telefonico;
 
         await ManagerUser.create({
           nombres: name,
           apellidos: surname,
           email: email,
-          contraseña: password,
+          password: password,
           tipo_usuario: encrypted_role,
-          agencia: agency,
-          telefono: phone,
+          grupo_automotriz_id: GA,
+          numero_telefonico: phone,
         });
         res.status(200).json({ message: "Manager registered successfully" });
       }
