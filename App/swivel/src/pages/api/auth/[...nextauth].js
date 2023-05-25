@@ -29,23 +29,19 @@ export const authOptions = {
           throw new Error("Invalid Email or Password");
         }
 
-        const pass = {...user}._doc.password
-
-        console.log(credentials.password,  pass);
-        
         const isPasswordMatched = await bcrypt.compare(
           credentials.password,
-          pass
-          );
-          
+          user.password
+        );
+
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or Password");
         }
-
+        
         return {
           id: user._id.toString(),
           email: user.email,
-          role: decryptRole({...user}._doc.encrypted_role),
+          role: decryptRole(user.tipo_usuario),
         };
       },
     }),
