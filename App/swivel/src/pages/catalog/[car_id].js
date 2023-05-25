@@ -145,7 +145,9 @@ export default function CarDetails() {
     
     const initialLoan = (carPrice + totalPriceExtras) - downPayment;
     const capitalPayment = initialLoan / selectedTerm;
-    const interestPayment = (initialLoan * (interestRate / 100)) / selectedTerm;
+    
+    const totalInterest = ((interestRate / 12) / 100) * selectedTerm
+    const interestPayment = (initialLoan * totalInterest) / selectedTerm;
    
     const monthlyPaymentTotal = capitalPayment + interestPayment;
     setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
