@@ -7,13 +7,13 @@ Used when clicking the "Request driving test"
 button in the test-detail page.
 */
 
+const mongoose = require('mongoose');
 import Proceso from "../../../models/procesos";
 import Usuario from "../../../models/usuario";
 import dbConnect from "../../../config/dbConnect";
 
 export default async (req, res) => {
-    dbConnect();
-    
+    await dbConnect();
     try {
         let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${req.body.auto_id}`, 
         {method: 'GET'});
@@ -27,7 +27,7 @@ export default async (req, res) => {
         const proceso = await Proceso.create({ 
             tipo_proceso: "pruebaManejo",
             estatus_validacion: "En proceso",
-            documentos_url: req.body.documents,
+            documentos: req.body.documents,
             grupo_automotriz_id: agencyData["grupo_automotriz_id"],
             nombre_agencia: carData.nombre_agencia,
             direccion: userData["direccion"],
@@ -60,5 +60,7 @@ export default async (req, res) => {
     } catch(error) {
         console.log(error)
         return res.status(400).json({ message: 'Error al crear proceso de prueba de manejo', error: error.message});
+    } finally {
+        await mongoose.disconnect();
     }
 }

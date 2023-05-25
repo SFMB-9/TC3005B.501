@@ -46,7 +46,6 @@ export default async function handler(req, res) {
     });
 
     let usedEmail = await User.findOne({ email: email });
-
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
       if (role === "user") {
