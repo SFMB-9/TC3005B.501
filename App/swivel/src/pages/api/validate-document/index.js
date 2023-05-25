@@ -1,11 +1,16 @@
-const { createWorker } = require('tesseract.js');
 
+const { createWorker } = require('tesseract.js');
 
 export default async function handler(req, res) {
 
+  const data = JSON.parse(req.body);
+  const FILE_LOC = data.idURL;
 
-  const FILE_LOC = req.body.idURL;
-
+  if(!FILE_LOC){
+    return res.status(500).json({msg: "No se ha recibido la imagen"})
+  }else{
+    console.log("Recibiendo imagen" + data.idURL);
+  }
 
   let rec = {};
 
@@ -59,6 +64,7 @@ export default async function handler(req, res) {
 
   }
 
+  console.log("Calling INE API")
   const URL = "https://ine2.p.rapidapi.com/validate-ine";
   const request = {
 
