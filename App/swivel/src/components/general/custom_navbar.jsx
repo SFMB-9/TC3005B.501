@@ -78,9 +78,9 @@ export default function CustomNavbar({
             {elems_left.map((element, index) => (
               <Link key={index} href={element.href}>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography color="white" fontFamily="Raleway" fontSize={13}>
+                  <div style={{ color: 'white', fontFamily: 'Raleway', fontSize:'13'}}>
                     {element.name}
-                  </Typography>
+                  </div>
                 </MenuItem>
               </Link>
             ))}
@@ -109,9 +109,9 @@ export default function CustomNavbar({
               {elems_left.map((element, index) => (
                 <Link key={index} href={element.href}>
                   <MenuItem key={index} onClick={handleCloseNavMenu}>
-                    <Typography className={styles.submenu_item}>
+                    <div className={styles.submenu_item}>
                       {element.name}
-                    </Typography>
+                    </div>
                   </MenuItem>
                 </Link>
               ))}
@@ -147,9 +147,9 @@ export default function CustomNavbar({
               element.popup ? (
                 <div key={index}>
                   <MenuItem onClick={(event) => handleOpenUserMenu(event, index)}>
-                    <Typography className={styles.popup_item}>
+                    <div className={styles.popup_item}>
                       {element.name}
-                    </Typography>
+                    </div>
                   </MenuItem>
                   <Menu
                     id="menu-appbar"
@@ -180,9 +180,9 @@ export default function CustomNavbar({
               ) : (
                 <Link key={index} href={element.href}>
                   <MenuItem onClick={handleClose}>
-                    <Typography color="white" fontFamily="Raleway" fontSize={13}>
+                  <div style={{ color: 'white', fontFamily: 'Raleway', fontSize:'13'}}>
                       {element.name}
-                    </Typography>
+                  </div>
                   </MenuItem>
                 </Link>
               )
