@@ -12,7 +12,7 @@ import Usuario from '../../../models/usuario';
 
 export default async (req, res) => {
     const nombre_agencia = req.query.agency_name;
-``
+
     try {
       await dbConnect();
 
