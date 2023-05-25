@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import MyComponent from "@/components/general/Popup"
 import EditAccount from "./edit_data"
+import { useRouter } from 'next/router';
 import {
   Container,
   Typography,
@@ -15,6 +16,38 @@ import {
 } from "@mui/material";
 
 import AccountLayout from "@/components/buyer/account_layout";
+
+function EditProfileBtn() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/account/edit_data');
+  };
+
+  return (
+    <button 
+      onClick={handleClick}
+      style={{
+        backgroundColor:"none",
+        border:"none"
+      }}
+      >
+      <Button
+        variant="contained"
+        type="submit"
+        className="w-80"
+        sx={{
+          fontFamily: "Lato",
+          ":hover": {
+            backgroundColor: "#333333",
+          },
+        }}
+        >
+        Editar cuenta
+      </Button>
+    </button>
+  );
+}
 
 export default function Account() {
   const [apiData, setApiData] = useState(null);
@@ -288,7 +321,7 @@ export default function Account() {
                       > Editar datos </button>
                     } 
                   /> */}
-                  <Button
+                  {/* <Button
                     variant="contained"
                     type="submit"
                     className="w-80"
@@ -300,7 +333,8 @@ export default function Account() {
                     }}
                     >
                     Editar cuenta
-                  </Button>
+                  </Button> */}
+                  <EditProfileBtn/>
                   
                   
                 </div>

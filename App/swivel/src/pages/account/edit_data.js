@@ -383,7 +383,7 @@ export default function Account() {
                     }}
                   >
                     <button
-                      onClick={handleEditMode}
+                      //onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -394,20 +394,8 @@ export default function Account() {
                         height: '50%',
                         padding: '0.5rem 1rem',
                       }}
-                    > Editar datos </button>
-                    <button
-                      // onClick={handleEditMode}
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        backgroundColor: 'lightgray',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        height: '50%',
-                        padding: '0.5rem 1rem',
-                      }}
-                    > Eliminar cuenta</button>
+                    > Guardar datos </button>
+                    
                   </div>
                   )
               }
