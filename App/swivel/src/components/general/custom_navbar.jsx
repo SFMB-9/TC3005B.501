@@ -6,13 +6,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { signOut } from "next-auth/react";
 import styles from '@/styles/custom_navbar.module.css';
-import Searchbar from "./searchbar";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomNavbar({
   home = '/',
   elems_left = [],
-  searchbar = false,
   elems_right = [],
   black = false
 }) {
@@ -20,7 +18,6 @@ export default function CustomNavbar({
   const [anchorEls, setAnchorEls] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [showSearchbar, setShowSearchbar] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleOpenNavMenu = (event) => {
@@ -51,10 +48,6 @@ export default function CustomNavbar({
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleToggleSearchbar = () => {
-    setShowSearchbar(!showSearchbar);
   };
 
   const handleMouseEnter = () => {
@@ -149,15 +142,7 @@ export default function CustomNavbar({
             marginRight: "16px"
           }}
         >
-          {/* If searchbar present */}
-          {searchbar && (
-          <div
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <Searchbar transparent hidden={isHovered||showSearchbar} />
-          </div>
-        )}
+         
           <div style={{ display: "flex", gap: "60px" }}>
             {elems_right.map((element, index) => (
               element.popup ? (

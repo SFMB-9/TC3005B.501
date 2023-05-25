@@ -6,7 +6,6 @@ export default function BuyerNavbar() {
   
   const elemsRight = session
     ? [
-      // { name: "Búsqueda", href: "/requests" },
       { name: "Mis favoritos", href: "/requests" },
       {
         name: "Mi cuenta",
