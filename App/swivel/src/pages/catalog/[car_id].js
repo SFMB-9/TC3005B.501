@@ -236,7 +236,7 @@ export default function CarDetails() {
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
                 <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
-                  Regresar al catalogo
+                  Regresar al catálogo
                 </span>
               </a>
               <div className="pt-4">
@@ -337,12 +337,12 @@ export default function CarDetails() {
                           fontWeight="bold"
                           className="pt-3"
                         >
-                          ${carDetails.precio} MXN
+                          ${Intl.NumberFormat().format(carDetails.precio)} MXN
                         </Typography>
                         <div>
                           <Typography
                             fontFamily="Lato"
-                            color="#BABABA"
+                            color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                             className="pt-1"
                           >
@@ -454,7 +454,7 @@ export default function CarDetails() {
                         fontWeight={"bold"}
                         fontSize={{ xs: 20, md: 28, lg: 28 }}
                       >
-                        ${carPrice + totalPriceExtras} MXN
+                        ${Intl.NumberFormat().format(carPrice + totalPriceExtras)} MXN
                       </Typography>
                       <Typography
                         fontFamily="Lato"
@@ -463,7 +463,7 @@ export default function CarDetails() {
                         fontSize={{ xs: 10, md: 18, lg: 18 }}
                         className="text-end w-100 pb-1"
                       >
-                        +${selectedDeliveryPrice} MXN
+                        +${Intl.NumberFormat().format(selectedDeliveryPrice)} MXN
                       </Typography>
                       <Button
                         variant="contained"
@@ -596,7 +596,7 @@ export default function CarDetails() {
                 fontSize={{ xs: 25, md: 28, lg: 33 }}
                 className="pt-2"
               >
-                Resumen del Auto
+                Resumen del auto
               </Typography>
               <Grid container className="mt-1" direction="row" spacing={4}>
                 <Grid item md={6} xs={12}>
@@ -690,14 +690,13 @@ export default function CarDetails() {
                       className="col-lg-3 col-md-4 col-sm-6 p-5 py-3"
                       key={index}
                     >
-                      <li>
-                        <Typography
-                          fontFamily="Lato"
-                          color="#1F1F1F"
-                          fontSize={{ xs: 15, md: 16, lg: 18 }}
-                        >
+                      <li 
+                        style={{
+                          fontFamily: "Lato",
+                          fontSize: "1.1rem",
+                        }}
+                      >
                           {caracteristica}
-                        </Typography>
                       </li>
                     </div>
                   ))}
@@ -764,7 +763,8 @@ export default function CarDetails() {
                             color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                           >
-                            (+${extra.precio})
+                            
+                            (+${Intl.NumberFormat().format(extra.precio)} MXN)
                           </Typography>
                         </div>
                       </SimpleAccordion>
@@ -831,7 +831,7 @@ export default function CarDetails() {
                           color="#1F1F1F"
                           fontSize={{ xs: 15, md: 16, lg: 18 }}
                         >
-                          <strong>${downPayment} MXN</strong>
+                          <strong>${Intl.NumberFormat().format(downPayment)} MXN</strong>
                         </Typography>
                       </div>
                     </div>
@@ -893,8 +893,8 @@ export default function CarDetails() {
                         fontSize={{ xs: 17, md: 18, lg: 20 }}
                       >
                         <strong>
-                          ${monthlyPayment !== "NaN" ? monthlyPayment : 0} MXN
-                        </strong>{" "}
+                          ${Intl.NumberFormat().format(monthlyPayment !== "NaN" ? monthlyPayment : 0)}
+                        </strong>{" MXN "}
                         al mes
                       </Typography>
                     </div>
@@ -956,7 +956,7 @@ export default function CarDetails() {
                             color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                           >
-                            (+${entrega.precio})
+                            (+${Intl.NumberFormat().format(entrega.precio)} MXN)
                           </Typography>
                         </div>
                       </SimpleAccordion>
@@ -982,7 +982,7 @@ export default function CarDetails() {
                 sx={{ fontWeight: 'bold' }}
                 className="text-center mb-2"
               >
-                Confirma tu seleccion
+                Confirma tu selección
               </Typography>
               <Typography
                 fontFamily="Lato"
@@ -990,7 +990,7 @@ export default function CarDetails() {
                 fontSize={{ xs: 17, md: 20, lg: 24 }}
                 sx={{ fontWeight: 'bold' }}
               >
-                Tu automovil
+                Tu automóvil
               </Typography>
               <Grid container spacing={2}>
 
@@ -1082,7 +1082,7 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 15, md: 20, lg: 24 }}
                       >
-                        ${downPayment} MXN
+                        ${Intl.NumberFormat().format(downPayment)} MXN
                       </Typography>
                     </div>
                     <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
@@ -1112,7 +1112,7 @@ export default function CarDetails() {
                         fontweight="bold"
                         sx={{ fontWeight: 'bold' }}
                       >
-                        Taza
+                        Tasa
                       </Typography>
                     </div>
                     <div className="p-2">
@@ -1150,8 +1150,7 @@ export default function CarDetails() {
                           Enganche:
                         </div>
                         <div>
-
-                          ${downPayment}
+                          ${Intl.NumberFormat().format(downPayment)} MXN
                         </div>
                       </Typography>
                       <Typography
@@ -1165,8 +1164,7 @@ export default function CarDetails() {
                           Pago Mensualidad:
                         </div>
                         <div>
-
-                          ${monthlyPayment}
+                          ${Intl.NumberFormat().format(monthlyPayment)} MXN
                         </div>
                       </Typography>
                       <Typography
@@ -1180,8 +1178,7 @@ export default function CarDetails() {
                           Entrega:
                         </div>
                         <div>
-
-                          ${selectedDeliveryPrice}
+                          ${Intl.NumberFormat().format(selectedDeliveryPrice)} MXN
                         </div>
                       </Typography>
 
@@ -1196,8 +1193,7 @@ export default function CarDetails() {
                           Total:
                         </div>
                         <div>
-
-                          ${parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)}
+                          ${Intl.NumberFormat().format(parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice))} MXN
                         </div>
                       </Typography>
 
@@ -1250,7 +1246,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <p>Loading Car Details...</p>
+        <p>Leyendo detalles del auto</p>
       </div>
     );
   }
