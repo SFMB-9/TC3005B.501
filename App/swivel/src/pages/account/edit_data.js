@@ -369,7 +369,7 @@ export default function Account() {
                     }}
                   >
                     <button
-                      onClick={handleEditMode}
+                      // onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -407,20 +407,21 @@ export default function Account() {
                       width: "100%",
                     }}
                   >
-                    <CancelBtn/>
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      className="w-80"
-                      sx={{
-                        fontFamily: "Lato",
-                        ":hover": {
-                          backgroundColor: "#333333",
-                        },
+                    <button
+                      onClick={handleEditMode}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        backgroundColor: '#F55C7A',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '6px',
+                        height: '50%',
+                        padding: '0.5rem 1rem',
                       }}
                       >
                       Guardar datos
-                    </Button>
+                    </button>
               
                     
                   </div>
