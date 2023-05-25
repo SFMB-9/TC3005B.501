@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import PopUpComponent from "@/components/general/Popup"
-import EditAccount from "./editData"
+import EditAccount from "../../components/buyer/editData"
 import { useRouter } from 'next/router';
 import {
   Container,
@@ -323,18 +323,23 @@ export default function Account() {
                       </Button>
                     }
                     btnClose = {
-                      <button
+                      <Button
+                        variant="contained"
+                        type="submit"
                         className="w-80"
                         style={{
-                          backgroundColor: '#D9D9D9',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '6px',
-                          height: '2.5vw',
-                          padding: '0.1rem 1rem',
-                          marginTop: '1rem'
+                          marginTop: "-6.7vw",
+                          marginLeft: "2.8vw",
+                          backgroundColor: "#D9D9D9"}}
+                        sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                            backgroundColor: "red",
+                          }
                         }}
-                      > Cancelar </button>
+                        >
+                        Cancelar
+                      </Button>
 
                       } 
                   /> 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/router';
-import PopUpComponent from "@/components/general/Popup"
+
 import {
   Container,
   Typography,
@@ -14,31 +13,7 @@ import {
   Grid,
 } from "@mui/material";
 
-function CancelBtn() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/account');
-  };
-
-  return (
-    <button
-      onClick={handleClick}
-      className="w-80"
-      style={{
-        backgroundColor: '#D9D9D9',
-        color: 'white',
-        border: 'none',
-        borderRadius: '6px',
-        height: '2.5vw',
-        padding: '0.1rem 1rem',
-        marginTop: '1rem'
-      }}
-    > Cancelar </button>
-  );
-}
-
-export default function Account() {
+export default function EditAccount() {
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
   const [editMode, setEditMode] = useState(false);
@@ -410,15 +385,16 @@ export default function Account() {
                       variant="contained"
                       type="submit"
                       className="w-80"
-                      style={{backgroundColor: "#D9D9D9"}}
+                      style={{
+                        background: "none",
+                        border: "none",
+                      }}
                       sx={{
                         fontFamily: "Lato",
-                        ":hover": {
-                          backgroundColor: "red",
-                        }
+                        
                       }}
                       >
-                      Cancelar
+                      
                     </Button>
 
                     <Button

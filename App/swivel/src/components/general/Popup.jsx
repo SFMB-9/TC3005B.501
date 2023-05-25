@@ -48,6 +48,7 @@ const PopUpComponent = ({title, popUpContent, btnOpen, btnClose}) => {
                 </div>
                 <div id={styles.content}>
                     {popUpContent}
+                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}> {btnClose} </button>
   
                 </div>
             </div>
