@@ -6,7 +6,7 @@
     <MyComponent
         title = "Titulo"
         popUpContent = {<div> Contenido del popup </div>}
-        btnOpen = {<button> Haz click aquí </button>}
+        btnOpen = {<button> Haz click aquí </button>} 
     />
 */
 
