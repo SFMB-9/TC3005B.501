@@ -82,6 +82,65 @@ export default function Catalog() {
       }
     }
 
+    if (router.query.tipo) {
+      removeQueryParam("tipo");
+      if (!selectedFilters.includes(`tipo_vehiculo:${router.query.tipo}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`tipo_vehiculo:${router.query.tipo}`);
+          setSelectedChips((prevSelectedChips) => {
+            const newChip = { category: "tipo_vehiculo", value: router.query.tipo };
+            const isChipDuplicate = prevSelectedChips.find(
+              (chip) =>
+                chip.category === newChip.category &&
+                chip.value === newChip.value
+            );
+            if (isChipDuplicate) {
+              return prevSelectedChips;
+            } else {
+              return [...prevSelectedChips, newChip];
+            }
+          });
+          return newSelectedFilters;
+        });
+      }
+    }
+
+    if (router.query.year) {
+      removeQueryParam("year");
+      if (!selectedFilters.includes(`ano:${router.query.year}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`ano:${router.query.year}`);
+          setSelectedChips((prevSelectedChips) => {
+            const newChip = { category: "ano", value: router.query.year };
+            const isChipDuplicate = prevSelectedChips.find(
+              (chip) =>
+                chip.category === newChip.category &&
+                chip.value === newChip.value
+            );
+            if (isChipDuplicate) {
+              return prevSelectedChips;
+            } else {
+              return [...prevSelectedChips, newChip];
+            }
+          });
+          return newSelectedFilters;
+        });
+      }
+    }
+
+    if (router.query.searchQuery) {
+      removeQueryParam("searchQuery");
+      if (!selectedFilters.includes(`search=${router.query.searchQuery}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`search=${router.query.searchQuery}`);
+          return newSelectedFilters;
+        });
+      }
+    }
+
     console.log(selectedFilters);
     let queryString = buildQuery(selectedFilters);
 
@@ -98,7 +157,7 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    if(router.isReady){
+    if (router.isReady) {
       fetchFilters();
     }
   }, [selectedFilters, router.isReady]);

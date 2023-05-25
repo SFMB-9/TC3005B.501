@@ -70,7 +70,6 @@ export default function Process() {
 
     const result = await fetch(`http://localhost:3000/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`, {
         method: "PUT",
-        body
     })
 
     console.log(result)

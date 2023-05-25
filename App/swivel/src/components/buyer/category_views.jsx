@@ -12,6 +12,8 @@ export default function CategoryViews() {
   const router = useRouter()
 
   const [brands, setBrands] = useState([])
+  const [types, setTypes] = useState([])
+  const [years, setYears] = useState([])
 
   const fetchBrands = async () => {
     const response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas')
@@ -21,9 +23,26 @@ export default function CategoryViews() {
     setBrands(data.result)
   }
 
+  const fetchTypes = async () => {
+    const response = await fetch('http://localhost:3000/api/catalogoNuevo/tipos')
+    const data = await response.json()
+    console.log(data)
+
+    setTypes(data.result)
+  }
+
+  const fetchYears = async () => {
+    const response = await fetch('http://localhost:3000/api/catalogoNuevo/years')
+    const data = await response.json()
+    console.log(data)
+
+    setYears(data.result)
+  }
   
   useEffect(() => {
     fetchBrands()
+    fetchTypes()
+    fetchYears()
   }, [])
 
 
@@ -53,30 +72,14 @@ export default function CategoryViews() {
         <>
           <div className={styles.types}>
             <div className={styles.typesArray}>
-              <div className={styles.type}>
-                <img src='/buyer/types/micro.png' />
-                <span className={styles.typeName}>Micro</span>
-              </div>
-              <div className={styles.type}>
-                <img src='/buyer/types/sedan.png' />
-                <span className={styles.typeName}>Sedán</span>
-              </div>
-              <div className={styles.type}>
-                <img src='/buyer/types/suv.png' />
-                <span className={styles.typeName}>SUV</span>
-              </div>
-              <div className={styles.type}>
-                <img src='/buyer/types/convertible.png' />
-                <span className={styles.typeName}>Convertible</span>
-              </div>
-              <div className={styles.type}>
-                <img src='/buyer/types/hybrid.png' />
-                <span className={styles.typeName}>Híbrido</span>
-              </div>
-              <div className={styles.type}>
-                <img src='/buyer/types/sport.png' />
-                <span className={styles.typeName}>Deportivo</span>
-              </div>
+              {types.map((type) => (
+                <Link href={`/catalog?tipo=${type}`}>
+                <div className={styles.type}>
+                  <img src={`/buyer/types/${type}.png?`} />
+                  <span className={styles.typeName}>{type}</span>
+                </div>
+                </Link>
+              ))}
             </div>
           </div>
         </>
@@ -85,25 +88,11 @@ export default function CategoryViews() {
       name: 'Años', component: () =>
         <>
           <div className={styles.yearsArray}>
-            <span className={styles.yearName}>2007</span>
-            <span className={styles.yearName}>2008</span>
-            <span className={styles.yearName}>2009</span>
-            <span className={styles.yearName}>2010</span>
-            <span className={styles.yearName}>2011</span>
-            <span className={styles.yearName}>2012</span>
-            <span className={styles.yearName}>2013</span>
-            <span className={styles.yearName}>2014</span>
-            <span className={styles.yearName}>2015</span>
-            <span className={styles.yearName}>2016</span>
-            <span className={styles.yearName}>2017</span>
-            <span className={styles.yearName}>2018</span>
-            <span className={styles.yearName}>2019</span>
-            <span className={styles.yearName}>2020</span>
-            <span className={styles.yearName}>2021</span>
-            <span className={styles.yearName}>2022</span>
-            <span className={styles.yearName}>2023</span>
-            <span className={styles.yearName}>2024</span>
-            <span className={styles.yearName}>2025</span>
+            {years.map((year) => (
+              <Link href={`/catalog?year=${year}`}>
+                <span className={styles.yearName}>{year}</span>
+              </Link>
+            ))}
           </div>
 
         </>
