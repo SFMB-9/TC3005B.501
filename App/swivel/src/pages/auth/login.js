@@ -68,7 +68,6 @@ export default function Login() {
   };
 
   return (
-    session && (
     <>
       <AuthComponent
         backImage=""
@@ -191,6 +190,5 @@ export default function Login() {
         textColor="white"
       />
     </>
-    )
   );
 }
