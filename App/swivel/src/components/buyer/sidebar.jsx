@@ -1,4 +1,4 @@
-import CustomSidebar from '../general/custom_sidebar'
+import CustomSidebar from '../general/old_sidebar'
 import { ProSidebarProvider } from "react-pro-sidebar";
 import { MenuItem } from "@mui/material";
 
