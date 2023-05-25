@@ -191,16 +191,18 @@ export default function RequestDetails() {
 
   const columns = [
     {
-      field: 'Documento',
-      headerName: 'Documento',
-      headerAlign: 'center',
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (params) => {
-        let cell = params.row.
-      }
+      // field: 'Documento',
+      // headerName: 'Documento',
+      // headerAlign: 'center',
+      // minWidth: 150,
+      // flex: 1,
+      // valueGetter: (params) => {
+      //   let cell = params.row.
+      // }
     }
   ]
+
+  const rows = []
 
   if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && managerData != null) {
     return (
