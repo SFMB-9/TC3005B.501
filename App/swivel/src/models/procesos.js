@@ -67,7 +67,7 @@ const procesoSchema = new mongoose.Schema({
   comentarios: {
     type: String,
   },
-  tipo_proceso: {
+  tipo_proceso:{
     type: String,
   }
   //_id: mongoose.Schema.Types.ObjectId,
