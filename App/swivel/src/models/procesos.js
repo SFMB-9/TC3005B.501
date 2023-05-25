@@ -1,4 +1,3 @@
-const { Decimal128 } = require('mongodb');
 const mongoose = require('mongoose');
 
 const procesoSchema = new mongoose.Schema({
@@ -66,6 +65,9 @@ const procesoSchema = new mongoose.Schema({
     type: String,
   },
   comentarios: {
+    type: String,
+  },
+  tipo_proceso: {
     type: String,
   }
   //_id: mongoose.Schema.Types.ObjectId,
