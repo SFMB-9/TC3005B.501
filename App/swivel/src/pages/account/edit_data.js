@@ -344,7 +344,7 @@ export default function Account() {
                     }}
                   >
                     <button
-                      onClick={handleEditMode}
+                      // onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -383,7 +383,7 @@ export default function Account() {
                     }}
                   >
                     <button
-                      onClick={handleEditMode}
+                      // onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',

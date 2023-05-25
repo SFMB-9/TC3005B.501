@@ -1246,7 +1246,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <p>Leyendo detalles del auto</p>
+        <p>Leyendo detalles del auto...</p>
       </div>
     );
   }
