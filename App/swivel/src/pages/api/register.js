@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, surname, email, password, role } = req.body;
+    const { name, surname, email, password, street, number, postalCode, city, state, role } = req.body;
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -41,7 +41,6 @@ export default async function handler(req, res) {
     });
 
     let usedEmail = await User.findOne({ email: email });
-
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
       
@@ -51,6 +50,13 @@ export default async function handler(req, res) {
           apellidos: surname, 
           email: email, 
           contraseña: password, 
+          direccion: {
+            calle: street, 
+            numero_exterior: number,
+            ciudad: city,
+            estado: state, 
+            codigo_postal: postalCode
+          },
           tipo_usuario: encrypted_role 
         });
         res.status(200).json({ message: "User registered successfully" });
