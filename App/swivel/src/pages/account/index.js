@@ -124,7 +124,6 @@ export default function Account() {
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
                     {apiData.nombres}
-                    {/* Andreína */}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -142,8 +141,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    {/* {apiData.surname} */}
-                    Sananez
+                    {apiData.apellidos}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
