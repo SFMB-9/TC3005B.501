@@ -351,9 +351,9 @@ export default function RequestDetails() {
                 Comentarios:{" "}
                 {carData.comentarios}
               </p>
+              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+              <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
             </div>
-            <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-            <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
           </>
         )}
       </>
