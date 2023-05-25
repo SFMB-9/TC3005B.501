@@ -19,13 +19,13 @@ import { format } from "date-fns";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
 import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
+import { Grid, Button } from '@mui/material';
+
 import BuyerNavbar from '@/components/buyer/navbar';
-import { TextField, Grid, Button } from '@mui/material';
+import PhaseIndicator from '@/components/general/phase_indicator';
+import LocationsMap from '@/components/general/locations_map';
 
 import styles from '@/styles/test_details.module.css';
-import PhaseIndicator from '@/components/general/phase_indicator';
-
-//import Map from '@/pages/Map';
 
 export default function RequestDetails() {
 
@@ -46,8 +46,8 @@ export default function RequestDetails() {
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const { auto_id } = router.query;
-  // user_id = session.id;
   // TODO
+  // user_id = session.id;
   const user_id = "646e7555cfb24b65a4f5d1b7"; 
 
   const fetchCarDetails = async () => {
@@ -98,6 +98,11 @@ export default function RequestDetails() {
     // Add the selected date and time to the driving test request
     await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
     setProcessId(proceso_id);
+
+    // Go back to catalog page
+    router.push({
+      pathname: '/catalog',
+    })
   };
 
   const handleDocumentEdit = (doc, indx) => {

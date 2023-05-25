@@ -9,21 +9,22 @@ export default function ManagerSignup() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
+
+  const GA = "GA_default";	
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const { data } = await axios.post("/api/register", {
-        name,
-        surname,
-        email,
-        password,
-        role: "manager",
-        agency,
-        phone,
+        nombres: name,
+        apellidos: surname,
+        email: email,
+        password: password,
+        tipo_usuario: "manager",
+        grupo_automotriz_id: GA,
+        numero_telefonico: phone,
       });
 
       console.log(data);
@@ -71,18 +72,6 @@ export default function ManagerSignup() {
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="agency_field">Agency</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={agency}
-            onChange={(e) => setAgency(e.target.value)}
             required
           />
         </div>

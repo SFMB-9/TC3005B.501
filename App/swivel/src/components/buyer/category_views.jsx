@@ -1,6 +1,6 @@
 import CustomTogglerBar from "../general/custom_toggler_bar";
 import Link from "next/link";
-import LocationsMap from "@/components/buyer/locations_map";
+import LocationsMap from "@/components/general/locations_map";
 import { useRouter } from 'next/router'
 import styles from '@/styles/category_views.module.css'
 
