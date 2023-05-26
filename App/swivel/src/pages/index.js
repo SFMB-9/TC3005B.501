@@ -1,26 +1,29 @@
 /*
-Mateo Herrera Lavalle
+Mateo Herrera Lavalle, Salvador Federico Milanés Braniff
 
 Pagina principal (landing)
 Incluye el hero, testimonials y process
 */
-import { Inter } from 'next/font/google'
-
-import Hero from '@/components/hero'
-import Testimonials from '@/components/testimonials'
-import Process from '@/components/process'
-import LandingPageLayout from '@/components/landing_page_layout'
-
-const inter = Inter({ subsets: ['latin'] });
+// import CustomHero from "@/components/general/custom_hero";
+import BuyerLayout from "@/components/buyer/layout";
+import RotatingHeader from "@/components/buyer/rotating_header";
+import Process from "@/components/buyer/process";
+import CategoryViews from "@/components/buyer/category_views";
+import CarViews from "@/components/buyer/car_views";
+import SwivelExperience from "@/components/buyer/swivel_experience";
+import Testimonials from "@/components/buyer/testimonials";
 
 export default function Home() {
   return (
     <>
-      <LandingPageLayout>
-        <Hero />
-        <Testimonials />
+      <BuyerLayout>
+        <RotatingHeader/>
+        <CategoryViews/>
+        {/* <CarViews/> */}
+        <SwivelExperience/>
         <Process />
-      </LandingPageLayout>
+        <Testimonials />
+      </BuyerLayout>
     </>
-  )
+  );
 }

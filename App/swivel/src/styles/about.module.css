@@ -1,0 +1,109 @@
+.about_container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+  
+.about_background img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.about_background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(14, 17, 25, 0.65);
+    mix-blend-mode: multiply;
+    z-index: 1;
+}
+
+.about_title, .about_message {
+    text-align: center;
+  }
+  
+.about_title {
+    font-family: 'Raleway';
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.1rem;
+    max-width: 40vw;
+}
+  
+.about_message {
+    font-family: 'Lato';
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.about_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2rem; /* Add padding to create space for the text */
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* Resize title on small screens */
+@media screen and (max-width: 600px) {
+    .hero_title {
+      font-size: 1.5rem;
+      max-width: 70vw; 
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    gap: 18vh;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+}
+  
+.section img {
+    width: 42vw;
+    border-radius: 3%;
+}
+  
+.content1 h1, .content2 h1 {
+    font-family: 'Raleway';
+    margin-bottom: 4vh;
+}
+  
+.content1 span, .content2 span {
+    font-family: 'Lato';
+    font-size: 1.5vw;
+}
+  
+.content1 {
+    padding-left: 5vw;
+}
+  
+.content2 {
+    padding-right: 5vw;
+}

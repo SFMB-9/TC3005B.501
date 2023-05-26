@@ -1,0 +1,88 @@
+.request {
+  font-family: 'Raleway';
+  padding-top: 4vh;
+  padding-left: 12vw;
+  padding-right: 12vw;
+  padding-bottom: 6vh;
+}
+
+.input {
+  width: 100%;
+  padding: 1vw;
+  padding-bottom: 5vh;
+}
+
+.form {
+  display: flex;
+  gap: 1vw;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form_row {
+  display: flex;
+  gap: 1vw;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.imageDiv {
+  width: 60%;
+  border-radius: 10px;
+}
+
+.schedule, .confirmation {
+  padding: 8vw;
+}
+
+.carView, .testInfo {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 3vw;
+  margin-top: -8vh;
+}
+
+.carInfo {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  /* Black box shadow */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 10px solid #979797;
+}
+
+.carName {
+  text-align: center;
+  padding-top: 3vh;
+}
+
+.year {
+  font-family: 'Lato';
+  font-size: 1.5vw;
+  font-weight: bold;
+  color: #979797;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.address {
+  padding: 1vw;
+  color: #979797;
+  margin-bottom: 2px solid #979797;
+}
+
+.priceTag {
+  /* Align at bottom */
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-bottom: 2vh;
+  text-align: center;
+  font-family: 'Lato';
+}
+
+.testInfo {
+  padding-top: 20vh;
+}

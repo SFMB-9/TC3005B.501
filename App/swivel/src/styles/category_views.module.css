@@ -1,0 +1,55 @@
+.brands, .types {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Adjust the gap size as needed */
+}
+
+.brandsArray, .typesArray, .yearsArray {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  justify-items: center;
+  width: 100%;
+  max-width: 1200px; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Center the grid horizontally */
+  padding: 10vh 8vw;
+}
+
+.brand, .type, .year {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust the margin size as needed */
+}
+
+.brand:hover, .type:hover, .yearName:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.brand img, .type img {
+  width: auto;
+  height: 100px; /* Adjust the height as needed */
+  max-width: 80%;
+  object-fit: contain;
+  margin-bottom: -12px
+}
+
+.brandName, .typeName, .yearName {
+  font-family: 'Lato';
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.yearName {
+  font-family: 'Raleway';
+  font-size: 1.2rem;
+}
+
+.moreBtn {
+  text-decoration: underline;
+  margin-top: -10vh;
+  margin-bottom: 10vh;
+}
