@@ -39,16 +39,16 @@ const PopUpComponent = ({title, popUpContent, btnOpen, btnClose}) => {
           <button className={styles.btnPopup} onClick={() => setIsOpen(true)}>{btnOpen}</button>
           <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
             <div id={styles.popupBody}>
-                <div id={styles.flexboxTitle}>
+                <div>                    
+                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}><CloseIcon/></button>                   
                     <Typography
                         id={styles.title}>
                             {title}
                     </Typography>
-                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}><CloseIcon/></button>                   
                 </div>
                 <div id={styles.content}>
                     {popUpContent}
-                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}> {btnClose} </button>
+                    <button onClick={() => setIsOpen(false)} className={styles.btnPopup}> {btnClose} </button>
   
                 </div>
             </div>

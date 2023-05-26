@@ -40,14 +40,7 @@ export default function EditAccount() {
     return (
         <Container maxWidth="xl">
           <div className="section p-3">
-            <Typography
-              fontFamily="Raleway"
-              color="#1F1F1F"
-              fontSize={{ xs: 25, md: 28, lg: 33 }}
-              className="pt-2 pb-4"
-            >
-              Mi cuenta
-            </Typography>
+            
             <div>
               <Typography
                 fontFamily="Lato"
