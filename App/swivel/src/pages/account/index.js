@@ -374,6 +374,9 @@ export default function Account() {
                           variant="contained"
                           type="submit"
                           className="w-80"
+                          style={{
+                            backgroundColor: "#D9D9D9"
+                          }}
                           sx={{
                             fontFamily: "Lato",
                             ":hover": {
