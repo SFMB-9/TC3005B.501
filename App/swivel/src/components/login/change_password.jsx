@@ -40,10 +40,9 @@ export default function ChangePassword() {
   // useEffect(() => {}, [session]);
 
   // if (session) setEmail(session.user.email);
-  const viewRequest = {
-    status: 0,
-    message: "",
-  };
+  const [errmessage, setErrmessage] = useState("");
+  let passStatus = null;
+
   const submitHandler = async (e) => {
     e.preventDefault();
     
@@ -56,17 +55,25 @@ export default function ChangePassword() {
           oldPassword,
         });
         console.log(data);
-        viewRequest.status = 200;
-        viewRequest.message = data;
+        passStatus = true;
+        setErrmessage("Contraseña cambiada exitosamente");
         
       } catch (error) {
-        console.log(error);
-        console.log(error.response.data);
-        viewRequest.status = error
-        viewRequest.message = error.response.data;
+        //console.log(error);
+        console.log(error.response.data.message);
+        passStatus = false;
+        if (error.response.data.message === "Wrong Current Password") {
+          setErrmessage("Contraseña actual incorrecta");
+        } else if (error.response.data.message === "New password must be different") {
+          setErrmessage("La nueva contraseña debe ser diferente a la actual");
+        } else {
+          setErrmessage("Error al cambiar la contraseña");
+        }
       }
     }else{
       console.log("Passwords do not match");
+      passStatus = false;
+      errmessage = "Las contraseñas no coinciden";
     }
 
   };
@@ -104,7 +111,7 @@ export default function ChangePassword() {
                 const v = e.target.value;
                 setOldPassword(v);
                 if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                  setErrors({ ...errors, oldPassword: true })
+                  setErrors({ ...errors, oldPassword: false })
                 } else {
                   setErrors({ ...errors, oldPassword: false })
                 }
@@ -129,7 +136,7 @@ export default function ChangePassword() {
                 const v = e.target.value;
                 setPassword(v);
                 if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                  setErrors({ ...errors, password: true })
+                  setErrors({ ...errors, password: false })
                 } else {
                   setErrors({ ...errors, password: false })
                 }
@@ -150,12 +157,15 @@ export default function ChangePassword() {
                 const v = e.target.value;
                 setConfPassword(v);
                 if (v !== password) {
-                  setErrors({ ...errors, confPassword: true })
+                  setErrors({ ...errors, confPassword: false })
                 } else {
                   setErrors({ ...errors, confPassword: false })
                 }
               }}
             /><br/>
+            <div className="text-center">
+            {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px",}}>{errmessage}</Typography>}
+            </div>
             <div className="text-center">
               <Button
                 variant="contained"
@@ -180,12 +190,14 @@ export default function ChangePassword() {
                 disabled={disabled()}
                 onClick={() => {
                   setLoading(true);
-                  if (viewRequest.status === 200) {
+                  if (!passStatus) {
                     setLoading(false);
                     setError(false);
+                    passStatus = null;
                   } else {
                     setLoading(false);
                     setError(true);
+                    passStatus = null;
                   }
                 }}
                 sx={{
@@ -197,7 +209,7 @@ export default function ChangePassword() {
                   },
                 }}
               >
-                {loading ? <CircularProgress size={25}/> : "Cambiar Contraseña"}
+                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : "Cambiar Contraseña"}
               </Button>
             </div>
           </form>
