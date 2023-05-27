@@ -4,6 +4,10 @@ export default function GALandingPage() {
   return (
     <>
       <GANavbar/>
+
+      <div>
+        
+      </div>
     </>
   )
 }
