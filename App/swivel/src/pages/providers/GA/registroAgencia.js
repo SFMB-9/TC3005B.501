@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from 'next/router';
+import createGA from "@/pages/api/GA/createGA";
 
 const registroAgencia = () => {
 
@@ -16,17 +16,13 @@ const registroAgencia = () => {
         telefono_representante: "",
     });
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(agencia);
-        /*
-        axios.post("http://localhost:3000/api/agencia/create", agencia)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            });
-            */
-           setAgencia({
+        
+        const _id = await createGA(agencia);
+
+        setAgencia({
             nombre_GA: "",
             direccion_GA: "",
             telefono_GA1: "",
@@ -37,11 +33,13 @@ const registroAgencia = () => {
             email_representante: "",
             telefono_representante: "",
         });
-        documentosGA();
+
+        documentosGA(_id);
     };    
 
-    const documentosGA = () => {
+    const documentosGA = (_id) => {
         const router = useRouter();
+        router.query = { _id: _id};
         router.push('/providers/GA/documentosGA');
     }
 
