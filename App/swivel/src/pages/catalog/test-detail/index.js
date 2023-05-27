@@ -83,15 +83,8 @@ export default function RequestDetails() {
     });
     
     // Create driving test request
-    const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments });
-    const proceso_id = res.data.result.proceso_id;
-    // Add the driving test request to the list of processes of the user
-    await axios.post('/api/prueba-manejo/agregar-proceso-usuario',
-      { user_id: user_id, proceso_id: proceso_id });
-    // Add the selected date and time to the driving test request
-    await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
-    setProcessId(proceso_id);
+    const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime });
 
     // Go back to catalog page
     router.push({
@@ -152,7 +145,7 @@ export default function RequestDetails() {
             <td>
               <div>
                 <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
-                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirmar</button>
               </div>
             </td>
           )}

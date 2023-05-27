@@ -25,7 +25,7 @@ export default async (req, res) => {
       const user = await userCollection.findOne({_id : new ObjectId(user_id)});
 
       // Find the agency specific to the given name
-      const manager = await userCollection.findOne({ nombres: nombre_agencia, tipo_usuario: encryptRole("agencia") });
+      const manager = await userCollection.findOne({ nombres: nombre_agencia, tipo_usuario: "agencia" });
 
       res.status(200).json({ user, manager }, { status: 'Se ha encontrado el usuario'});
     } catch (error) {
