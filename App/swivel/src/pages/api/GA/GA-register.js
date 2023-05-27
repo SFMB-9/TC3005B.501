@@ -51,6 +51,11 @@ export default async function handler(req, res) {
       const country = req.body.direccion.pais;
       const postalCode = req.body.direccion.codigo_postal;
 
+      const legalName = req.body.legal.lNombres
+      const legalSurname = req.body.legal.lApellidos
+      const legalEmail = req.body.legal.lEmail
+      const legalPhone = req.body.legal.lPhone
+
       const GA = await GaEntity.create({
         tipo_usuario: encrypted_GA,
         nombres: agency,
@@ -65,12 +70,19 @@ export default async function handler(req, res) {
         },
         is_account_verified: false,
         url_grupo_automotriz: url,
-        rfc_grupo_automotriz: rfc
+        rfc_grupo_automotriz: rfc,
+
+        legal: {
+          nombres: legalName,
+          apellidos: legalSurname,
+          email: legalEmail,
+          numero_telefonico: legalPhone
+      }
       });
 
       const GA_id = GA._id.toString();
 
-      const GAdmin = await GaEntity.create({
+      const GAdmin = await AdminUser.create({
         tipo_usuario: encrypted_admin,
         nombres: name,
         apellido: surname,

@@ -92,6 +92,13 @@ const gaSchema = new mongoose.Schema({
     codigo_postal: String,
   },
 
+  legal: {
+    nombres: String,
+    apellidos: String,
+    email: String,
+    numero_telefonico: String
+  },
+
   url_grupo_automotriz: String,
   rfc_grupo_automotriz: String,
 });
