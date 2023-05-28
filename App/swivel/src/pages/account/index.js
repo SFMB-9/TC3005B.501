@@ -82,7 +82,7 @@ export default function Account() {
               fontSize={{ xs: 25, md: 28, lg: 33 }}
               className="pt-2 pb-4"
             >
-              Mi cuenta
+              Mi cuentas
             </Typography>
             <div>
               <Typography
