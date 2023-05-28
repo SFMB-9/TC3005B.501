@@ -110,6 +110,7 @@ const sellerSchema = new mongoose.Schema({
 });
 
 const managerSchema = new mongoose.Schema({
+  agencia_id: String,
   grupo_automotriz_id: String, //si-auto
 });
 

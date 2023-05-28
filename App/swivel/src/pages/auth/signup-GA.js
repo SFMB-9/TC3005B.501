@@ -37,8 +37,8 @@ export default function SignupBuyerData() {
 
         try {
             const { data } = await axios.post("/api/GA/GA-register", {
-                tipo_agencia: 'GA',
-                tipo_usuario: 'GAdmin',
+                tipo_usuario: 'GA',
+                tipo_entidad: 'GAEntity',
                 nombre_agencia: agencyName,
                 nombres: name,
                 last_name: surname,

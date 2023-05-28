@@ -10,7 +10,7 @@ export default function SellerSignup() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   
-  const agency = "agency_default";
+  const agency = router.query.id;
 
   const submitHandler = async (e) => {
     e.preventDefault();

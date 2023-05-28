@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const password = req.body.password;
     const phone = req.body.numero_telefonico;
     const roleAdmin = req.body.tipo_usuario;
-    const roleGA = req.body.tipo_usuario;
+    const roleGA = req.body.tipo_entidad;
     const rfc = req.body.rfc;
     const url = req.body.url
 
