@@ -59,7 +59,7 @@ export default function SignupBuyerData() {
         tipo_usuario: 'user',
         nombres: name,
         apellidos: surname,
-        email: email,
+        email: email.toLocaleLowerCase(),
         password: password,
         numero_telefonico: phone,
 
