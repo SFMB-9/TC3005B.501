@@ -39,7 +39,7 @@ const PopUpComponent = ({title, popUpContent, btnOpen, btnClose}) => {
           <button className={styles.btnPopup} onClick={() => setIsOpen(true)}>{btnOpen}</button>
           <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
             <div id={styles.popupBody}>
-                <div>                    
+                <div id={styles.headerPopup}>                    
                     <button onClick={() => setIsOpen(false)} className={styles.btnPopup} id={styles.closeBtn}><CloseIcon/></button>                   
                     <Typography
                         id={styles.title}>

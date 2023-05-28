@@ -335,16 +335,12 @@ export default function EditAccount() {
                     }}
                   >
                     <button
-                      onClick={handleEditMode}
+                      //onClick={handleEditMode}
                       style={{
                         display: 'flex',
                         justifyContent: 'center',
-                        backgroundColor: 'lightgray',
-                        color: 'white',
+                        background:'none',
                         border: 'none',
-                        borderRadius: '6px',
-                        height: '50%',
-                        padding: '0.5rem 1rem',
                         marginRight: '1rem'
                       }}
                     > Cancelar </button>
