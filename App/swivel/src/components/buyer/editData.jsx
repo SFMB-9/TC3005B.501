@@ -343,7 +343,7 @@ export default function EditAccount() {
                         border: 'none',
                         marginRight: '1rem'
                       }}
-                    > Cancelar </button>
+                    >  </button>
                     <button
                       // onClick={handleSave}
                       style={{
@@ -370,21 +370,8 @@ export default function EditAccount() {
                     }}
                   >
                     
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      className="w-80"
-                      style={{
-                        background: "none",
-                        border: "none",
-                      }}
-                      sx={{
-                        fontFamily: "Lato",
-                        
-                      }}
-                      >
-                      
-                    </Button>
+                    
+                    <div> </div>
 
                     <Button
                       variant="contained"
