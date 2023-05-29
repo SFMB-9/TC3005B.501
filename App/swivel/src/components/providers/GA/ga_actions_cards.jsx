@@ -8,7 +8,7 @@ export default function GActionsCards() {
         imageSource="/manager/catalog_action.jpg"
         icon="/manager/catalog_icon.svg"
         text="Administración del catálogo"
-        href="/providers/seller/purchase_req"
+        href="/providers/new_GA/" //<-- there are still no route to add
         light={false}
         header=''
         fiftyFifty={false}
@@ -17,7 +17,7 @@ export default function GActionsCards() {
         imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
         text="Administración de gerentes"
-        href="/providers/seller/driving_req"
+        href="/providers/new_GA/" //<-- there are still no route to add
         light={false}
         header=''
         fiftyFifty={false}
@@ -26,7 +26,7 @@ export default function GActionsCards() {
         imageSource="/manager/branch_action.jpg"
         icon="/manager/branch_icon.svg"
         text="Administración de agencias"
-        href="/providers/seller/driving_req"
+        href="/providers/new_GA/" //<-- there are still no route to add
         light={false}
         header=''
         fiftyFifty={false}
@@ -35,7 +35,7 @@ export default function GActionsCards() {
         imageSource="/manager/statistics_action.png"
         icon="/manager/statistics_icon.svg"
         text="Estadísticas de ventas"
-        href="/providers/seller/driving_req"
+        href="/providers/new_GA/" //<-- there are still no route to add
         light={false}
         header=''
         fiftyFifty={false}
