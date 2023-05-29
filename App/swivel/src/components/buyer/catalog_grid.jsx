@@ -10,297 +10,102 @@ import { Grid } from "@mui/material";
 
 import CarCard from "@/components/buyer/car_card";
 
-// Datos que se consumirán para mostrar el catálogo de autos.
-const carTest1 = [
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Toyota",
-    carModel: "Sienna",
-    carYear: "2023",
-    carLocation: "Interlomas",
-    carAgency: "Toyota Interlomas",
-    carPrice: "$ 1,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Honda",
-    carModel: "Civic",
-    carYear: "2022",
-    carLocation: "Santa Fe",
-    carAgency: "Honda Santa Fe",
-    carPrice: "$ 13,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Nissan",
-    carModel: "Versa",
-    carYear: "2021",
-    carLocation: "Santa Fe",
-    carAgency: "Nissan Santa Fe",
-    carPrice: "$ 10,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Ford",
-    carModel: "Fusion",
-    carYear: "2020",
-    carLocation: "Azcapotzalco",
-    carAgency: "Ford Azcapotzalco",
-    carPrice: "$ 15,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Chevrolet",
-    carModel: "Camaro",
-    carYear: "2021",
-    carLocation: "Santa Fe",
-    carAgency: "Chevrolet Santa Fe",
-    carPrice: "$ 20,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Toyota",
-    carModel: "Sienna",
-    carYear: "2023",
-    carLocation: "Interlomas",
-    carAgency: "Toyota Interlomas",
-    carPrice: "$ 12,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "BMW",
-    carModel: "M3",
-    carYear: "2021",
-    carLocation: "Polanco",
-    carAgency: "BMW Polanco",
-    carPrice: "$ 30,000 MXN",
-  },
-  {
-    carUrl: "https://www.truecar.com/new-cars-for-sale/listings/",
-    carImages: [
-      {
-        id: 1,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_1.png",
-        alt: "car",
-      },
-      {
-        id: 2,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_2.png",
-        alt: "car",
-      },
-      {
-        id: 3,
-        url: "https://www.truecar.com/new-cars-for-sale/listings/",
-        image: "/info_card_photo_3.png",
-        alt: "car",
-      },
-    ],
-    carBrand: "Kia",
-    carModel: "Soul",
-    carYear: "2021",
-    carLocation: "Santa Fe",
-    carAgency: "Kia Santa Fe",
-    carPrice: "$ 15,000 MXN",
-  },
-];
-
-const dummyImages = [
-  '/dummy_car_image1.png',
-  '/dummy_car_image2.png',
-  '/dummy_car_image3.png',
-  '/dummy_car_image4.png',
-  '/dummy_car_image5.png',
-]
-
-function selectImage() {
-  return dummyImages[Math.floor(Math.random() * dummyImages.length)];
-}
-
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
-export default function CatalogGrid({ carListing }) {
+export default function CatalogGrid({ carListing, cardType }) {
   let carList;
+  let cardProps;
   if (carListing !== undefined) {
-    carList = carListing.map((car) => (
-      <Grid item xs={12} sm={6} md={4}>
-        <CarCard
-          carUrl={`/catalogo/${car._id}`}  //{car.carUrl}
-          carImage={car._source.fotos_3d[0]} //{car.carImages}
-          // carImage=
-          // {<Carousel autoPlay={false} animation='slide' duration={300} indicatorContainerProps={{
-          //     style: {
-          //         position: 'absolute',
-          //         marginTop: '-23px',
-          //         zIndex: 1,
-          //         backgroundColor: 'rgba(217,217,214, 0.3)',
-          //     }
-          // }} indicatorIconButtonProps={{
-          //     style: {
-          //         color: 'white',
-          //     }
-          // }} activeIndicatorIconButtonProps={{
-          //     style: {
-          //         color: 'grey',
-          //     }
-          // }}>
-          //     {car.carImages.map((image) =>
-          //         <a href={image.url}>
-          //             <img src={image.image} alt={image.alt} height='30%' width='100%' />
-          //         </a>
-          //     )}
-          // </Carousel>}
-          carBrand={car._source.marca}
-          carModel={car._source.modelo}
-          carYear={car._source.año}
-          carLocation={car._source.estado_agencia} //{car.carLocation}
-          carAgency={car._source.municipio_agencia}
-          carColor={car._source.color}
-          carPrice={car._source.precio}
-        />
-      </Grid>
-    ));
+    carList = carListing.map((car) => {
+      if (cardType === "catalog") {
+        cardProps = {
+          catalog: {
+            carUrl: `/catalog/${car._id}`,
+            carImage: car._source.fotos_3d[0],
+            carBrand: car._source.marca,
+            carModel: car._source.modelo,
+            carYear: car._source.año,
+            carAgency: car._source.municipio_agencia,
+            carLocation: car._source.estado_agencia,
+            carColor: car._source.colores.length,
+            carPrice: car._source.precio,
+          },
+        };
+      } else {
+        cardProps = {
+          general: {
+            // carUrl: `/catalogo/${car._id}`,
+            carImage: car.auto.array_fotografias_url[0],
+            carBrand: car.auto.marca,
+            carModel: car.auto.modelo,
+            carYear: car.auto.ano,
+            carAgency: car.nombre_agencia,
+            carPrice: car.auto.precio,
+            status: car.estatus_validacion
+          },
+          drivingTest: {
+            date: car.fecha_agendada, 
+            testHour: car.hora_agendada,
+          },
+          purchasesCurrent: {
+            date: car.fecha_inicio,
+          },
+          purchasesCompleted: {
+            date: car.fecha_agendada
+          },
+          // favorites: {
+          //   // Alternate set of props
+          // },
+        };
+      }
+        return (
+          <Grid item xs={12} sm={12} md={6} lg={4}>
+            {
+              cardType === "catalog" ?
+                <CarCard
+                  {...cardProps[cardType]}
+                  cardType={cardType}
+                />
+                :
+                <CarCard
+                  {...cardProps["general"]} {...cardProps[cardType]}
+                  cardType={cardType}
+                />
+            }
+
+          </Grid>
+        );
+        // if (cardType === "catalog") {
+        //   return (
+        //     <Grid item xs={12} sm={12} md={6} lg={4}>
+        //       <CarCard
+        //         {...generalProps} {...cardProps[cardType]} 
+        //         cardType={cardType}
+        //       />
+        //     </Grid>
+        //   );
+        // }
+        // else if (cardType === "drivingTest") {
+        //   return (
+        //     <Grid item xs={12} sm={12} md={6} lg={4}>
+        //       <CarCard
+        //         {...generalProps} {...cardProps[cardType]}
+        //         cardType={cardType}
+        //       />
+        //     </Grid>
+        //   );
+        // }
+        // else if (cardType === "purchasesCurrent") {
+        //   return (
+        //     <Grid item xs={12} sm={12} md={6} lg={4}>
+        //       <CarCard
+        //         {...generalProps} {...cardProps[cardType]}
+        //         cardType={cardType}
+        //       />
+        //     </Grid>
+        //   );
+        // }
+      });
   }
   else {
     carList = <h1 className="d-flex flex-column justify-content-center align-items-center"> No se encontraron autos </h1>

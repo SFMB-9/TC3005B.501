@@ -3,8 +3,15 @@ import Image from "next/image";
 
 import styles from "@/styles/searchbar.module.css";
 
-export default function Searchbar({ setState, placeholderText = "Buscar", transparent = false }) {
+export default function Searchbar({ 
+  setState, 
+  placeholderText = "Buscar", 
+  transparent = false, 
+  hidden = false, 
+  searchStyle = "default"
+}) {
   const [search, setSearch] = useState("");
+  let containerClasses;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +23,16 @@ export default function Searchbar({ setState, placeholderText = "Buscar", transp
     setSearch(e.target.value);
   };
 
-  const containerClasses = `${styles.searchbar_container} ${transparent ? styles.transparent : ""}`;
+  if (searchStyle === "default") {
+    containerClasses = `${styles.searchbar_container} ${transparent ? styles.transparent : ''} ${hidden ? styles.hidden : ''}`;
+  }
+  else if (searchStyle === "administrative") {
+    containerClasses = `${styles.customSearchbarContainer} ${transparent ? styles.transparent : ''} ${hidden ? styles.hidden : ''}`;
+  }
 
   return (
     <div className={containerClasses}>
-      <form onSubmit={handleSubmit} className={styles.searchbar_field}>
+      <form onSubmit={handleSubmit} className={`${styles.searchbar_field} ${transparent ? styles.transparent : ''}`}>
         <input
           size="small"
           type="text"

@@ -37,11 +37,11 @@ export const authOptions = {
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or Password");
         }
-
+        
         return {
           id: user._id.toString(),
           email: user.email,
-          role: decryptRole(user.encrypted_role),
+          role: decryptRole(user.tipo_usuario),
         };
       },
     }),
