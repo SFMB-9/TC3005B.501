@@ -9,6 +9,7 @@ Catalogo de vehiculos de agencia, con sidebar
 de filtros y searchbar que emplearía elastic 
 search.
 */
+
 import React, { useState, useEffect } from "react";
 import { Grid, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
