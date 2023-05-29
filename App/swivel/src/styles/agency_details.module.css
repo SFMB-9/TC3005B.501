@@ -1,0 +1,23 @@
+.mainContainer{
+    padding-left: 50px;
+    padding-top: 30px;
+}
+
+.pageTitle{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.agencyName{
+    font-size: 30px;
+    color: #979797;
+}
+
+.sectionTitle{
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.registrationDate{
+    color: #979797;
+}
