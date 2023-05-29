@@ -86,7 +86,7 @@ export default function RequestDetails() {
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
       { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime });
 
-    // Go back to catalog page
+    // Go to list of user's driving tests
     router.push({
       pathname: '/catalog',
     })
@@ -341,8 +341,6 @@ export default function RequestDetails() {
                 {carData.direccion_agencia}
                 Teléfono:{" "}
                 {managerData.numero_telefonico}
-                Comentarios:{" "}
-                {carData.comentarios}
               </p>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
               <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>

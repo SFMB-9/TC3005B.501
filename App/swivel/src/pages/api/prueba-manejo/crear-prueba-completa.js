@@ -7,26 +7,30 @@ Used when clicking the "Request driving test"
 button in the test-detail page.
 */
 
+const { Client } = require('@elastic/elasticsearch');
 import connectToDatabase from '@/utils/mongodb'
 import { ObjectId } from "mongodb";
-// const mongoose = require('mongoose');
-// import Proceso from "../../../models/procesos";
-// import Usuario from "../../../models/usuario";
-import dbConnect from "../../../config/dbConnect";
 
 export default async (req, res) => {
-    // await dbConnect();
-    
+    if (req.method !== 'POST') {
+        res.status(405).json({ message: 'Method not allowed' });
+    }
+
+    const clientElastic = new Client({ node: 'http://localhost:9200' });
+
     const client = await connectToDatabase;
     const db = client.db("test");
     const userCollection = db.collection('usuarios');
     const processCollection = db.collection('procesos');
 
     try {
-        let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${req.body.auto_id}`, 
-        {method: 'GET'});
-        const jsonResult = await rawResult.json();
-        const carData = jsonResult.auto._source;
+        // Find the car specific to the given id
+        const auto = await clientElastic.get({
+            index: 'autos',
+            id: req.body.auto_id
+        });
+
+        const carData = auto._source;
         
         // Find the user specific to the given id
         const userData = await userCollection.findOne({_id : new ObjectId(req.body.user_id)});
@@ -44,7 +48,7 @@ export default async (req, res) => {
             direccion: userData["direccion"],
             fecha_inicio: new Date().toISOString(),
             grupo_automotriz: agencyData["grupo_automotriz"],
-            superadmin: agencyData["superadmin"],
+            superadmin_id: agencyData["superadmin_id"],
             usuario_final_id: req.body.user_id,
             auto: {
                 "auto_id": req.body.auto_id,
