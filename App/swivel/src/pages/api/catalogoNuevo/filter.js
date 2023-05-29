@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
     // Fetch resluts based on the search query
     let searchResults = await fetch(`http://localhost:3000/api/catalogoNuevo/search?search=${searchQuery}`);
-    
+
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
     const searchIds = searchResultsJson.result;
@@ -99,7 +99,7 @@ async function assembleFilter(result, filters) {
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
     let ano = [...new Set(result.map(item => item._source.año))];
-    let color = [...new Set(result.map(item => item._source.color))];
+    let color = [...new Set(result.map(item => item._source.colores.map(item => item.nombre)).flat())];
     let combustible = [...new Set(result.map(item => item._source.combustible))];
     let motor = [...new Set(result.map(item => item._source.motor))];
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
@@ -169,62 +169,71 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
 
     // Fix filter by color
     if (queryParams.color) {
+        dbQuery.query.bool.must.push({
+            bool: {
+                should:
+                    queryParams.color.split(",").map(color => {
+                        return { "match_phrase": { "colores.nombre": color } }
+                    }
+                    )
+            }
+        });
     }
 
     if (queryParams.combustible) {
-        dbQuery.query.bool.must.push({
-            bool: {
-                should:
-                    queryParams.combustible.split(",").map(combustible => {
-                        return { "match_phrase": { "combustible": combustible } }
-                    })
-            }
-        });
-    }
-
-    if (queryParams.motor) {
-        dbQuery.query.bool.must.push({
-            bool: {
-                should:
-                    queryParams.motor.split(",").map(motor => {
-                        return { "match_phrase": { "motor": motor } }
-                    })
-            }
-        });
-    }
-
-    if (queryParams.tipo_vehiculo) {
-        dbQuery.query.bool.must.push({
-            bool: {
-                should:
-                    queryParams.tipo_vehiculo.split(",").map(tipo_vehiculo => {
-                        return { "match_phrase": { "tipo_vehiculo": tipo_vehiculo } }
-                    })
-            }
-        });
-    }
-
-    if (queryParams.estado_agencia) {
-        dbQuery.query.bool.must.push({
-            bool: {
-                should:
-                    queryParams.estado_agencia.split(",").map(estado_agencia => {
-                        return { "match_phrase": { "estado_agencia": estado_agencia } }
-                    })
-            }
-        });
-    }
-
-    if (queryParams.precio_min && queryParams.precio_max) {
-        dbQuery.query.bool.must.push({
-            range: {
-                precio: {
-                    gte: queryParams.precio_min,
-                    lte: queryParams.precio_max
+            dbQuery.query.bool.must.push({
+                bool: {
+                    should:
+                        queryParams.combustible.split(",").map(combustible => {
+                            return { "match_phrase": { "combustible": combustible } }
+                        })
                 }
-            }
-        });
-    }
+            });
+        }
 
-    return dbQuery;
-}
+        if (queryParams.motor) {
+            dbQuery.query.bool.must.push({
+                bool: {
+                    should:
+                        queryParams.motor.split(",").map(motor => {
+                            return { "match_phrase": { "motor": motor } }
+                        })
+                }
+            });
+        }
+
+        if (queryParams.tipo_vehiculo) {
+            dbQuery.query.bool.must.push({
+                bool: {
+                    should:
+                        queryParams.tipo_vehiculo.split(",").map(tipo_vehiculo => {
+                            return { "match_phrase": { "tipo_vehiculo": tipo_vehiculo } }
+                        })
+                }
+            });
+        }
+
+        if (queryParams.estado_agencia) {
+            dbQuery.query.bool.must.push({
+                bool: {
+                    should:
+                        queryParams.estado_agencia.split(",").map(estado_agencia => {
+                            return { "match_phrase": { "estado_agencia": estado_agencia } }
+                        })
+                }
+            });
+        }
+
+        if (queryParams.precio_min && queryParams.precio_max) {
+            dbQuery.query.bool.must.push({
+                range: {
+                    precio: {
+                        gte: queryParams.precio_min,
+                        lte: queryParams.precio_max
+                    }
+                }
+            });
+        }
+
+        return dbQuery;
+    }

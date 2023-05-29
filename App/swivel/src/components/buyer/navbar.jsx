@@ -13,30 +13,30 @@ export default function BuyerNavbar() {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = async () => {
-    const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
-    );
+  // const fetchData = async () => {
+  //   const resData = await fetch(
+  //     `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+  //   );
 
-    const res = await resData.json();
+  //   const res = await resData.json();
 
-    setApiData(res.userData);
-    setIsLoading(false);
-  };
+  //   setApiData(res.userData);
+  //   setIsLoading(false);
+  // };
 
-  useEffect(() => {
-    if (session) {
-      fetchData();
-    }
-    else{
-      setIsLoading(false);
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session) {
+  //     fetchData();
+  //   }
+  //   else{
+  //     setIsLoading(false);
+  //   }
+  // }, [session]);
 
-  if (isLoading) {
-    return <div style={{fontFamily: 'Raleway', fontSize: '13'
-    }}>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div style={{fontFamily: 'Raleway', fontSize: '13'
+  //   }}>Loading...</div>;
+  // }
 
   const elemsRight = session
     ? [
@@ -45,7 +45,7 @@ export default function BuyerNavbar() {
         name: "Mi cuenta",
         href: "",
         popup: [
-          { name: `${apiData.nombres} ${apiData.apellidos}`, href: "/account" },
+          { name: "Ver mi perfil", href: "/account"}, //`${apiData.nombres} ${apiData.apellidos}`, href: "/account" },
           { name: "Cambiar contraseña", href: "/account/change_password" },
           { name: "Cerrar sesión", href: "#", signoutComponent: '/' },
         ],

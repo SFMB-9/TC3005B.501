@@ -65,24 +65,11 @@ export default function Account() {
     setApiData(res.userData);
   };
 
-  console.log("session", editMode);
-  // const handleEditMode = () => {
-  //   setEditMode((prevEditMode) => {
-  //     const newEditMode = !prevEditMode;
-  //     console.log("editMode", newEditMode);
-  //     return newEditMode;
-  //   });
-  //   // setEditMode((prevEditMode) => !prevEditMode);
-  //   // console.log("editMode", editMode);
-  // };
-
   useEffect(() => {
     if (session) {
       fetchData();
     }
   }, [session]);
-
-  console.log("apiData", apiData);
 
   if (apiData) {
     return (
@@ -123,7 +110,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    {apiData.name}
+                    {apiData.nombres}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -141,7 +128,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    {apiData.surname}
+                    {apiData.apellidos}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -177,7 +164,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    55 5555 5555 (p)
+                    {apiData.numero_telefonico}
                   </Typography>
 
                 </div>
@@ -208,7 +195,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Carlos Lazo (p)
+                    {apiData.direccion.calle}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -226,7 +213,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    137 (p)
+                    {apiData.direccion.numero_exterior} ext. {apiData.direccion.numero_interior} int.
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -244,25 +231,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    14450 (p)
-                  </Typography>
-                </div>
-                <div className="col-xl-6 col-md-6">
-                  <Typography
-                    fontFamily="Lato"
-                    color="#8A8A8A"
-                    className="pb-3"
-                    fontSize={{ xs: 15, md: 16, lg: 18 }}
-                  >
-                    Colonia
-                  </Typography>
-                  <Typography
-                    fontFamily="Lato"
-                    color="#1F1F1F"
-                    className="mb-3 w-100"
-                    fontSize={{ xs: 13, md: 14, lg: 16 }}
-                  >
-                    Colonial (p)
+                    {apiData.direccion.codigo_postal}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -280,7 +249,7 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Ciudad de México (p)
+                    {apiData.direccion.ciudad}
                   </Typography>
                 </div>
                 <div className="col-xl-6 col-md-6">
@@ -298,7 +267,25 @@ export default function Account() {
                     className="mb-3 w-100"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Estado de México (p)
+                    {apiData.direccion.estado}
+                  </Typography>
+                </div>
+                <div className="col-xl-6 col-md-6">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    País
+                  </Typography>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#1F1F1F"
+                    className="mb-3 w-100"
+                    fontSize={{ xs: 13, md: 14, lg: 16 }}
+                  >
+                    {apiData.direccion.pais}
                   </Typography>
                 </div>
               </div>
@@ -317,6 +304,7 @@ export default function Account() {
                           ":hover": {
                             backgroundColor: "#333333",
                           },
+                          border: 'none',
                         }}
                         >
                         Editar datos
@@ -374,6 +362,7 @@ export default function Account() {
                           variant="contained"
                           type="submit"
                           className="w-80"
+                          border='none'
                           sx={{
                             fontFamily: "Lato",
                             ":hover": {
