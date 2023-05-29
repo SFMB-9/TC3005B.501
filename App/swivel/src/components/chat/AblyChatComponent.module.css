@@ -1,0 +1,110 @@
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
+    background-color: white;
+}
+
+.chatHolder {
+    display: grid;
+    grid-template-rows: 1fr 100px;
+    position: relative;
+   
+}
+
+.chatText {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    height: calc(100vh - 40px - 100px - 100px - 70px);
+    overflow-y: auto;
+    background-color: #ececec; 
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.4em;
+    padding-left: 1em;
+    text-align: center;
+    border-radius: 10px;
+    flex-grow: 0;
+    border-radius: 20px 20px 0px 20px;
+    margin-bottom: 13px;
+    
+}
+
+.timestamp_me {
+    position: relative;
+    top: 30px;
+    font-size: 0.8em;
+    color: #989797;
+   
+}
+
+.timestamp_other {
+    position: relative;
+    align-items: left;
+    top: 30px; 
+    font-size: 0.8em;
+    color: #989797;
+} 
+
+.textarea {
+  padding: 0.7em;
+  padding-left: 1em;
+  border: 0;
+  background-color: #f0eded;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 1em;
+  border-radius: 400px;
+  transition: all 0.3s;
+  height: 50px;
+  width: 85%;
+  resize: none;
+  margin: 0.7em;
+}
+
+.textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #f0eded;
+    color: #3b3b3b;
+}
+
+.button {
+  border: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  background: #f55c7a;
+  padding: 10px 30px;
+  margin-right: 10px;
+  border-radius: 30px;
+  transition: all 0.3s;
+  height: 50px;
+}
+
+.button:hover {
+  background: #f55c7a;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:disabled, 
+.button:hover:disabled {
+  opacity: 0.5;
+  background: #f55c7a;
+}
+
+.button svg {
+  margin-right: 1px; 
+  width: 100%;
+}

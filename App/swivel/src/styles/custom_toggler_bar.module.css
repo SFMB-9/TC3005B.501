@@ -1,0 +1,57 @@
+.bar .dark {
+  background: black;
+  color: white;
+}
+
+.tall {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.button {
+  border: none;
+  padding: 0.3rem 5rem;
+  color: black; /* Added default text color */
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+}
+
+.transparent {
+  background: transparent;
+}
+
+.stretched {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  flex-wrap: wrap;
+}
+
+.stretched .button {
+  border: none;
+}
+
+:not(.dark) .selected,
+:not(.dark) .button:hover {
+  border-bottom: 1px solid #F55C7A;
+  box-shadow: 0px 1px 0px #F55C7A;
+
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.dark {
+  background: black; /* Sets the background color to black */
+  color: white; /* Sets the text color to white */
+}
+
+.dark .selected,
+.dark .button:hover {
+  border: none;
+  box-shadow: none;
+  text-decoration: underline;
+}

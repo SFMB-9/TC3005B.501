@@ -1,0 +1,147 @@
+.filterContainer {
+  /* padding: 20px; */
+  /* margin-top: 1.2rem;
+  margin-right: 1rem; */
+  width: 100%;
+  /* border: 1px solid lightgray;
+  border-radius: 0.5rem; */
+  border-right: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  overflow-y: scroll;
+}
+
+.filterTitle {
+  font-weight: bold;
+  /* margin: 15px; */
+  font-family: 'Raleway';
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.filterBody{
+  padding-bottom: 0.8rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.buttonWrapper {
+  justify-self: flex-end;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
+.filterListIcon {
+  width: 100%;
+}
+
+.filterList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.filterItem:first-child {
+  font-family: 'Lato';
+  border-top: 1px solid #959595;
+}
+
+.filterButton {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  padding-left: 0.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  border: none;
+  cursor: pointer;
+  font-family: 'Raleway';
+  font-size: 1.1rem;
+}
+
+.filterButton:first-child {
+  border-bottom: 1px solid #959595;
+}
+
+.filterButton.active {
+  background-color: #c10202;
+}
+
+.filterItem:last-child {
+  border-bottom: 1px solid #959595;
+}
+
+.filterItem:last-child .filterButton:last-child {
+  border: none;
+}
+
+.filters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.item {
+  margin-bottom: 5;
+  
+}
+
+.submenu {
+  margin-left: 1em;
+}
+
+.label {
+  margin-left: 0.001em;
+  margin-bottom: -5px;
+  padding-left: 30px;
+  padding-left: 30px;
+}
+
+.labelText {
+  font-family: 'Lato';
+  margin-left: -0.2em;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  float: right;
+  margin-right: 20px;
+}
+
+.catalogHeader{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.category {
+  padding: 0;
+  margin: 0;
+  margin-bottom: -30px;
+}
