@@ -1,6 +1,6 @@
 import handler from '../src/pages/api/gerente/pull-all-vendedores';
 import dbConnect from '../src/config/dbConnect';
-import User from '../src/models/user'
+import { SellerUser } from '../src/models/user'
 import { encryptRole } from "../src/utils/crypto";
 
 require('dotenv').config({ path: '.env.local' });
@@ -10,7 +10,7 @@ describe('GET /api/gerente/pull-all-vendedores', () => {
     const e_role = encryptRole("seller"); 
 
     afterAll(async () => {
-        await User.deleteMany({ tipo_usuario: e_role });
+        await SellerUser.deleteMany({ tipo_usuario: e_role });
 
         await mongoose.connection.close();
     });
@@ -18,25 +18,26 @@ describe('GET /api/gerente/pull-all-vendedores', () => {
     beforeAll(async () => {
         dbConnect();
 
-
-        await User.create([
+        await SellerUser.create([
             {
-                tipo_usuario: "seller",
+                tipo_usuario: e_role,
                 nombres: "Test",
                 apellidos: "Test",
-                email: "number@one.com"
+                email: "number@one.com",
+                agencia: "AgencyA"
             },
             {
-                tipo_usuario: "seller",
+                tipo_usuario: e_role,
                 nombres: "Test",
                 apellidos: "Test",
-                email: "number@two.com"
+                email: "number@two.com",
+                agencia: "AgencyA"
             }
         ]);
     });
 
     test("test to get all sellers' data", async () => {
-        const req = { method: "GET" };
+        const req = { method: "GET" , body: { agency: "AgencyA" }};
 
         const json = jest.fn();
 
@@ -60,12 +61,12 @@ describe('GET /api/gerente/pull-all-vendedores', () => {
                 expect(entry).toHaveProperty("tipo_usuario", e_role);
                 expect(entry).toHaveProperty("nombres", "Test");
                 expect(entry).toHaveProperty("apellidos", "Test");
-                expect(entry).toHaveProperty("email", "number@one.com");
+                expect(entry).toHaveProperty("agencia", "AgencyA");
             } else if (index === 1) {
                 expect(entry).toHaveProperty("tipo_usuario", e_role);
                 expect(entry).toHaveProperty("nombres", "Test");
                 expect(entry).toHaveProperty("apellidos", "Test");
-                expect(entry).toHaveProperty("email", "number@two.com");
+                expect(entry).toHaveProperty("agencia", "AgencyA");
             }
         });
 
