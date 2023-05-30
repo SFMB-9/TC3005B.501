@@ -6,13 +6,7 @@ import { useRouter } from 'next/router';
 import {
   Container,
   Typography,
-  TextField,
-  Switch,
-  Select,
-  MenuItem,
-  IconButton,
   Button,
-  Grid,
 } from "@mui/material";
 
 import AccountLayout from "@/components/buyer/account_layout";
@@ -332,8 +326,6 @@ export default function Account() {
                       } 
                   /> 
                   
-                  {/* <EditProfileBtn/> */}
-                  
                   
                 </div>
                 <div className=" align-self-center col-xl-6 col-md-6">
@@ -362,7 +354,11 @@ export default function Account() {
                           variant="contained"
                           type="submit"
                           className="w-80"
-                          border='none'
+                          style={{
+                            backgroundColor: "#D9D9D9",
+                            border: "none"
+                            
+                          }}
                           sx={{
                             fontFamily: "Lato",
                             ":hover": {

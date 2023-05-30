@@ -9,7 +9,7 @@ y searchbar que emplearía elastic search.
 */
 
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
+import { Grid, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -70,7 +70,6 @@ console.log("Search text: " + searchText);
   };
 
   const fetchFilters = async () => {
-
     if (router.query.marca) {
       removeQueryParam("marca");
       if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
@@ -197,10 +196,6 @@ console.log("Search text: " + searchText);
             (chip) => chip.category !== category || chip.value !== item
           ));
       } else {
-        // remove any existing filter for this category
-        //newSelectedFilters.filter((f) => { !f.startsWith(`${category}=`) });
-
-
         // add the new filter if it's not null
         if (item) {
 
@@ -344,22 +339,7 @@ console.log("Search text: " + searchText);
                 </div>
               </div>
               <div className={styles.filterBody}>
-                {/* {selectedChips.map((chip, index) => (
-                  <Chip
-                    key={`${chip.category}-${chip.value}-${index}`}
-                    label={`${filterHeaders[chip.category]}: ${chip.value}`}
-                    onDelete={() =>
-                      handleMenuItemClick(chip.category, chip.value)
-                    }
-                    color="primary"
-                    sx={{
-                      marginBottom: "0.2rem",
-                      marginRight: "0.2rem",
-                    }}
-                    variant="outlined"
-                    className={styles.filterChip}
-                  />
-                ))} */}
+                {/* Chips go here */}
               </div>
               {filters && (
                 <ul className={styles.filterList}>
@@ -429,7 +409,6 @@ console.log("Search text: " + searchText);
                 <CatalogPagination
                   catalogData={catalogData}
                   itemsPerPage={30}
-                  // carCardType="drivingTest"
                   carCardType="catalog"
                 />
               </div>
@@ -440,4 +419,3 @@ console.log("Search text: " + searchText);
     </>
   );
 };
-

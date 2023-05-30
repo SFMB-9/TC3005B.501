@@ -1,9 +1,8 @@
 import { SellerUser } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
-import { encryptRole } from "../../../utils/crypto";
 
 /* 
-ALL seller details retrieval function
+agency details retrieval function
 Recieves: request object, response object
 Returns: response status and json 
 */
@@ -13,10 +12,8 @@ export default async function handler(req, res) {
 
         const { agency } = req.query;
 
-        const e_role = encryptRole("seller")
-
         try {
-            const result = await SellerUser.find({ tipo_usuario: e_role, agencia_id: agency });
+            const result = await SellerUser.findOne({ agencia: agency }, "horas_min horas_max dias_anticipo dias_max documentos_requeridos_compra");
             res.status(200).json(result);
         } 
         catch (error) {
