@@ -112,8 +112,8 @@ export default function CarDetails() {
 
     const payment = parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)
     const body = {
-      //usuario_final_id: "646af59a93798d0cf9b3cd3c",
-      usuario_final_id: session.id,
+      usuario_final_id: "646af59a93798d0cf9b3cd3c",
+      //usuario_final_id: session.id,
       auto: auto,
       cantidad_a_pagar: payment
     }
