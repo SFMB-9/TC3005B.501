@@ -1,14 +1,38 @@
-import React from 'react';
+// Author: Luis Javier Karam
+
+import React, { useState } from 'react';
 import BuyerNavbar from '@/components/buyer/navbar';
 import styles from '@/styles/agency_details.module.css';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, FormHelperText } from '@mui/material';
 import DataTable from '@/components/general/Table';
 import { DeleteForever, Edit } from '@mui/icons-material';
 
-export default function agencyDetails() {
+export default function AgencyDetails() {
+    const [formValues, setFormValues] = useState({
+        nombre: '',
+        marca: '',
+        telefono: '',
+        direccion: '',
+        correo: '',
+        grupo: '',
+    });
+
+    const handleChange = (event) => {
+        const { id, value } = event.target;
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [id]: value,
+        }));
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('Form submitted:', formValues);
+    };
+
     return (
         <div>
-            <BuyerNavbar /> {/* TODO cambiar por el navbar de agencia */}
+            <BuyerNavbar /> {/* TODO: cambiar por el navbar de la agencia */}
 
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Detalle de la Agencia</h1>
@@ -18,58 +42,111 @@ export default function agencyDetails() {
                     <h4 className={styles.sectionTitle}>Datos de la Agencia</h4>
                     <Edit className={styles.icon} />
                 </div>
-                <div className={styles.inputFieldContainer}>
-                    <div>
+
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.inputFieldContainer}>
                         <div>
-                            <h5>Nombre</h5>
-                            <TextField className={styles.inputField} id="nombre" label="Current Nombre" variant="outlined" fullWidth />
+                            <div>
+                                <h5>Nombre</h5>
+                                <TextField
+                                    className={styles.inputField}
+                                    id="nombre"
+                                    label="Nombre actual"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formValues.nombre}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div>
+                                <h5>Marca</h5>
+                                <TextField
+                                    className={styles.inputField}
+                                    id="marca"
+                                    label="Marca actual"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formValues.marca}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div>
+                                <h5>Teléfono</h5>
+                                <TextField
+                                    className={styles.inputField}
+                                    id="telefono"
+                                    label="Teléfono actual"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formValues.telefono}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </div>
 
                         <div>
-                            <h5>Marca</h5>
-                            <TextField className={styles.inputField} id="marca" label="Current Marca" variant="outlined" fullWidth />
-                        </div>
+                            <div>
+                                <h5>Correo electrónico</h5>
+                                <TextField
+                                    className={styles.inputField}
+                                    id="correo"
+                                    label="Correo electrónico actual"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formValues.correo}
+                                    onChange={handleChange}
+                                />
+                            </div>
 
-                        <div>
-                            <h5>Telefono</h5>
-                            <TextField className={styles.inputField} id="telefono" label="Current Telefono" variant="outlined" fullWidth />
+                            <div>
+                                <h5>Grupo Automotriz</h5>
+                                <TextField
+                                    className={styles.inputField}
+                                    id="grupo"
+                                    label="Grupo Automotriz actual"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={formValues.grupo}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </div>
-
                     </div>
 
                     <div>
-                        <div>
-                            <h5>Correo electrónico</h5>
-                            <TextField className={styles.inputField} id="correo" label="Current Correo electrónico" variant="outlined" fullWidth />
-                        </div>
-
-                        <div>
-                            <h5>Grupo Automotriz</h5>
-                            <TextField className={styles.inputField} id="grupo" label="Current Grupo Automotriz" variant="outlined" fullWidth />
-                        </div>
+                        <h5>Dirección</h5>
+                        <TextField
+                            className={styles.longInputField}
+                            id="direccion"
+                            label="Dirección actual"
+                            variant="outlined"
+                            fullWidth
+                            value={formValues.direccion}
+                            onChange={handleChange}
+                        />
                     </div>
-                </div>
 
-                <div>
-                    <h5>Dirección</h5>
-                    <TextField className={styles.longInputField} id="direccion" label="Current Direccion" variant="outlined" fullWidth />
-                </div>
+                    <p className={styles.registrationDate}>Registrado el 01/01/2023</p>
 
-                <p className={styles.registrationDate}>Registrado el 01/01/2023</p>
-
-                <Button
-                    variant="contained"
-                    disableElevation
-                    className={styles.button}
-                    sx={{
-                        backgroundColor: '#F55C7A',
-                        fontFamily: 'lato',
-                        fontWeight: 'bold',
-                        ':hover': { backgroundColor: '#BABABA' },
-                    }}
-                >
-                    Guardar Cambios
-                </Button>
+                    <div className={styles.saveButtonContainer}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disableElevation
+                            className={styles.Button}
+                            sx={{
+                                backgroundColor: '#F55C7A',
+                                fontFamily: 'lato',
+                                fontWeight: 'bold',
+                                ':hover': { backgroundColor: '#BABABA' },
+                            }}
+                        >
+                            Guardar Cambios
+                        </Button>
+                    </div>
+                </form>
 
 
                 <div className={styles.tableHeaderContainer}>
@@ -95,7 +172,7 @@ export default function agencyDetails() {
                         save={false}
                         columns={[
                             { field: 'Nombre', headerName: 'Nombre', width: 200 },
-                            { field: 'Mail', headerName: 'Mail', width: 200 },
+                            { field: 'Mail', headerName: 'Correo', width: 200 },
                             {
                                 field: 'delete',
                                 headerName: 'Borrar (PERMANENTE)',
@@ -160,8 +237,8 @@ export default function agencyDetails() {
                         save={false}
                         columns={[
                             { field: 'Nombre', headerName: 'Nombre', width: 200 },
-                            { field: 'Mail', headerName: 'Mail', width: 200 },
-                            { field: 'Telefono', headerName: 'Telefono', width: 200 },
+                            { field: 'Mail', headerName: 'Correo', width: 200 },
+                            { field: 'Telefono', headerName: 'Teléfono', width: 200 },
                         ]}
                         rows={[
                             { _id: 1, Nombre: 'John Doe', Mail: 'john@example.com', Telefono: '1234567890' },

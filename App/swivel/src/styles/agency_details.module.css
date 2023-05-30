@@ -44,6 +44,12 @@
     margin-top: 30px;
 }
 
+.saveButtonContainer {
+    margin-left: 30px;
+    margin-top: 30px;
+    padding-left:  400px;
+}
+
 .firstTableContainer {
     width: 750px;
 }
