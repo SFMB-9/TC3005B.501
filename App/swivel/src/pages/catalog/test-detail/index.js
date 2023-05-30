@@ -237,7 +237,8 @@ export default function RequestDetails() {
             </div>
             <div className={styles.testInfo}>
               <div className={styles.schedule}>
-                <h2 className={styles.schedule_header}>Elegir horario*</h2>
+                <h2 className={styles.schedule_header}> Elegir horario* </h2> 
+                <h3 className={styles.schedule_header}> Seleccione una Fecha </h3>
                 <DatePicker
                   selected={selectedDate}
                   onChange={date => setSelectedDate(date)}
@@ -246,6 +247,7 @@ export default function RequestDetails() {
                   maxDate={addDays(new Date(), managerData.dias_max)}
                   startDate={addDays(new Date(), managerData.dias_anticipo)}
                 />
+                <h3 className={styles.schedule_header}> Seleccione una Horario </h3>
                 <DatePicker
                   selected={selectedTime}
                   onChange={time => setSelectedTime(time)}
