@@ -1,4 +1,9 @@
-// Author: Luis Javier Karam
+/*
+Luis Javier Karam
+30/5/2023
+
+Page to view the details of an agency and edit them as well as add and remove managers and sellers
+*/
 
 import React, { useState } from 'react';
 import BuyerNavbar from '@/components/buyer/navbar';
