@@ -36,7 +36,7 @@ export default async (req, res) => {
         const userData = await userCollection.findOne({_id : new ObjectId(req.body.user_id)});
 
         // Find the agency specific to the given name
-        const agencyData = await userCollection.findOne({ nombres: carData.nombre_agencia, tipo_usuario: "agencia" });
+        const agencyData = await userCollection.findOne({ _id: carData.agencia_id });
 
         // Create the Process with the defined data
         const proceso = { 
