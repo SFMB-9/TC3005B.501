@@ -139,7 +139,7 @@ export default function Catalog() {
   const viewCreateCar = () => {
     // Navigate to the page to create cars
     router.push({
-      pathname: '/providers/manager/carRegister',
+      pathname: '/providers/manager/new_car',
       query: {},
     })
   };
@@ -147,7 +147,7 @@ export default function Catalog() {
   const viewEditCar = (auto_id) => {
     // Navigate to the page to create cars
     router.push({
-      pathname: '/providers/manager/editar-auto',
+      pathname: '/providers/manager/edit_car',
       query: { auto_id },
     })
   };
