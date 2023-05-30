@@ -11,6 +11,7 @@ const CarRegistrationForm = () => {
 
   const router = useRouter();
   const { auto_id } = router.query;
+  const [firstImage, setFirstImage] = useState(null);
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
@@ -19,16 +20,16 @@ const CarRegistrationForm = () => {
     const retrievedAuto = res.auto._source;
 
     setCar(retrievedAuto);
-    setFirstImage(retrievedAuto.fotos_3d[0]); 
+    setFirstImage(retrievedAuto.fotos_3d[0]);
   }
 
-  useEffect(() => {  
+  useEffect(() => {
     if (auto_id) {
       fetchDetails();
     }
   }, [auto_id]);
 
-  
+
   const [car, setCar] = useState({
     cantidad: 0,
     marca: "",
@@ -310,7 +311,7 @@ const CarRegistrationForm = () => {
             color="#1F1F1F"
             fontSize={{ xs: 25, md: 28, lg: 33 }}
             className="pt-2 pb-4"
-          > Modificar un auto del catálogo {auto_id} </Typography>
+          > Modificar datos del auto </Typography>
           <Typography
             fontFamily="Lato"
             color="#1F1F1F"
