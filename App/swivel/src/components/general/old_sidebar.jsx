@@ -37,7 +37,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
 
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
 
     const res = await resData.json();
@@ -92,6 +92,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const handleSidebarClick = (event) => {
     event.stopPropagation();
   };
+
+  if (!apiData) {
+    return null;
+  }
 
   return (
     <div className="sidebar-container" style={{ height: "100vh" }}>

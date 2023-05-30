@@ -161,7 +161,7 @@ console.log("Search text: " + searchText);
     let queryString = buildQuery(selectedFilters);
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/filter?${queryString}`
+      `/api/catalogoNuevo/filter?${queryString}`
     );
 
     const data = await response.json();

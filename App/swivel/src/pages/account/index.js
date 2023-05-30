@@ -57,7 +57,7 @@ export default function Account() {
 
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
 
     const res = await resData.json();
@@ -75,7 +75,7 @@ export default function Account() {
           id: session.id,
         }
       });
-      signOut({ callbackUrl: "http://localhost:3000/auth/login" })
+      signOut({ callbackUrl: "/auth/login" })
     } catch (error) {
       console.log(error);
       console.log(error.response.data);
@@ -100,7 +100,7 @@ export default function Account() {
               fontSize={{ xs: 25, md: 28, lg: 33 }}
               className="pt-2 pb-4"
             >
-              Mi cuentas
+              Mi cuenta
             </Typography>
             <div>
               <Typography

@@ -39,6 +39,7 @@ export default function CarDetails() {
   const [favorite, setFavorite] = useState(false);
   const [interestRate, setInterestRate] = useState(0);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
+  const [isAvailable, setIsAvailable] = useState(true);
 
   const [carPrice, setCarPrice] = useState(0);
 
@@ -58,7 +59,7 @@ export default function CarDetails() {
 
   const fetchCarDetails = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
+      `/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
     );
 
     const data = await response.json();
@@ -68,6 +69,7 @@ export default function CarDetails() {
     }
     setCarPrice(data.result.precio);
     setSelectedColor(data.result.colores[0]);
+    setIsAvailable(data.result.disponible_prueba);
   };
 
   useEffect(() => {
@@ -117,8 +119,8 @@ export default function CarDetails() {
       auto: auto,
       cantidad_a_pagar: payment
     }
-
-    const result = await fetch('http://localhost:3000/api/saleCreation', {
+    console.log(body)
+    const result = await fetch('/api/saleCreation/with-mongo', {
       method: 'POST',
       body: JSON.stringify(body)
     })
@@ -221,10 +223,11 @@ export default function CarDetails() {
     }));
 
     const viewDrivingRequestDetails = (auto_id) => {
+      const colorName = selectedColor.nombre;
       // Navigate to a new page to view the details of the request
       router.push({
         pathname: './test-detail',
-        query: { auto_id },
+        query: { auto_id, colorName },
       })
     };
 
@@ -382,6 +385,7 @@ export default function CarDetails() {
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
                               onClick={() => viewDrivingRequestDetails(car_id)}
+                              disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
