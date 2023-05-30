@@ -1,49 +1,45 @@
 /*
 
 Sebastian Gonzalez Villacorta
-21/5/2023
+29/5/2023
 
-Description: Create new entry of proceso de venta with Mongoose
+Description: Create new entry of proceso de venta in MongoDB
 
 */
 
-import mongoose from "mongoose";
-import dbConnect from "../../../config/dbConnect";
-const Proceso = require('../../../models/procesos');
-const Usuario = require('../../../models/usuario');
+import connectToDatabase from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
+    const client = await connectToDatabase;
+    const db = client.db("test");
+    const usuarios = await db.collection("usuarios")
 
-    const parsedBody = JSON.parse(req.body);
+    const parsedBody = req.body;
 
-    console.log(JSON.parse(req.body).usuario_final_id);
-
-    await dbConnect();
+    //console.log(JSON.parse(req.body).usuario_final_id);
 
     try {
-
-        const resultVendedor = await Usuario
+        const resultVendedor = await usuarios
             .find({ "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
             .sort({ "contar_ventas_en_proceso": 1 })
             .limit(1, { _id: 0, _id: 1 })
-            .select("_id")
-            .lean()
-            .exec();
+            .toArray();
 
         if (resultVendedor.length === 0) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const id_vendedor = resultVendedor;
+        const id_vendedor = resultVendedor[0]._id;
 
-        await Usuario.updateOne({ "_id": id_vendedor }, { $inc: { "contar_ventas_en_proceso": 1 } });
+        await usuarios.updateOne({ "_id": new ObjectId(id_vendedor) }, { $inc: { "contar_ventas_en_proceso": 1 } });
 
-        const usuarioVendedor = await Usuario.findById(id_vendedor);
-        
-        const agenciaVendedor = await Usuario.findById(usuarioVendedor.agencia_id);
+        const usuarioVendedor = await usuarios.findOne({ "_id": new ObjectId(id_vendedor) });
+
+        const agenciaVendedor = await usuarios.findOne({ "_id": new ObjectId(usuarioVendedor.agencia_id) });
 
         const usuarioId = parsedBody.usuario_final_id;
-        const usuario = await Usuario.findById(usuarioId);
+        const usuario = await usuarios.findOne({ "_id": new ObjectId(usuarioId) });
 
         const agenciaJSON = JSON.stringify(agenciaVendedor);
         const documentsPurchase = JSON.parse(agenciaJSON).documentos_requeridos_compra;
@@ -57,33 +53,29 @@ export default async function handler(req, res) {
                 fecha_modificacion: null,
                 estatus: "Pendiente",
                 comentarios: ""
+            })
+        });
 
-        })});
-        
-        const proceso = new Proceso({
+        const proceso = {
             tipo_proceso: "solicitudCompra",
             estatus: "documentosPendientes",
             documentos: documentosProceso,
-            fecha_creacion: Date.now(),
+            fecha_creacion: new Date().toISOString(),
             auto: parsedBody.auto, //Llega del request
             usuario_final: usuario,
             vendedor: usuarioVendedor,
             agencia: agenciaVendedor,
-            cantidad_a_pagar: parsedBody.cantidad_a_pagar, //Llega del request
-        });
+            cantidad_a_pagar: parsedBody.cantidad_a_pagar
+        };
 
-        await proceso.save()
+        const result = await db.collection("procesos").insertOne(proceso);
 
-        const id = proceso._id;
+        const id_proceso = result.insertedId;
 
-        return res.status(200).json({ message: 'Compra creada', id: id });
+        return res.status(200).json({ message: 'Compra creada', id: id_proceso });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
-    } finally {
-        await mongoose.disconnect();
-        console.log("Desconectado de MongoDB");
     }
 
 }
-
