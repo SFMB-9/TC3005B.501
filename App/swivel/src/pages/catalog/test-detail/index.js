@@ -481,7 +481,7 @@ export default function RequestDetails() {
                   <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
                   <span className={styles.year}> {carData.año} </span>
                   <p className={styles.address}>{carData.direccion_agencia}</p>
-                  <h1 className={styles.priceTag}>${carData.precio}</h1>
+                  <h1 className={styles.priceTag}>$ {Intl.NumberFormat().format(carData.precio)} MXN</h1>
                 </div>
               </div>
               <div className={styles.testInfo}>
