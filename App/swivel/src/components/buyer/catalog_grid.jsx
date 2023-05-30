@@ -60,7 +60,7 @@ export default function CatalogGrid({ carListing, cardType }) {
         };
       }
         return (
-          <Grid item xs={12} sm={12} md={6} lg={4}>
+          <Grid item xs={12} sm={12} md={6} lg={4} key={car._id}>
             {
               cardType === "catalog" ?
                 <CarCard
@@ -76,36 +76,6 @@ export default function CatalogGrid({ carListing, cardType }) {
 
           </Grid>
         );
-        // if (cardType === "catalog") {
-        //   return (
-        //     <Grid item xs={12} sm={12} md={6} lg={4}>
-        //       <CarCard
-        //         {...generalProps} {...cardProps[cardType]} 
-        //         cardType={cardType}
-        //       />
-        //     </Grid>
-        //   );
-        // }
-        // else if (cardType === "drivingTest") {
-        //   return (
-        //     <Grid item xs={12} sm={12} md={6} lg={4}>
-        //       <CarCard
-        //         {...generalProps} {...cardProps[cardType]}
-        //         cardType={cardType}
-        //       />
-        //     </Grid>
-        //   );
-        // }
-        // else if (cardType === "purchasesCurrent") {
-        //   return (
-        //     <Grid item xs={12} sm={12} md={6} lg={4}>
-        //       <CarCard
-        //         {...generalProps} {...cardProps[cardType]}
-        //         cardType={cardType}
-        //       />
-        //     </Grid>
-        //   );
-        // }
       });
   }
   else {
