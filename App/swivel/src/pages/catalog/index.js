@@ -7,25 +7,23 @@ Sebastián González Villacorta
 Catalogo de vehiculos, con sidebar de filtros
 y searchbar que emplearía elastic search.
 */
+
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
+import { Grid, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-import Searchbar from "@/components/general/searchbar";
 import BuyerLayout from "@/components/buyer/layout";
 import CatalogPagination from "@/components/buyer/catalog_pagination";
 import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from "next/router";
-import ApiDataDisplay from "@/components/buyer/api_data_display";
-import { set } from "mongoose";
+import Searchbar from "@/components/general/searchbar";
 
 export default function Catalog() {
 
   const router = useRouter();
-
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
@@ -36,9 +34,6 @@ export default function Catalog() {
   // Data variables
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
-  const [catalogColors, setCatalogColors] = useState([]);
-
-  const [sortOption, setSortOption] = useState('');
 
   const buildQuery = (selectedFilters) => {
     let query = {};
@@ -61,21 +56,6 @@ export default function Catalog() {
   };
 
   const fetchFilters = async () => {
-    // let queryString = selectedFilters.length
-    //   ? `?${selectedFilters
-    //     .map((filter) => filter.replace("modelos", "modelo"))
-    //     .join("&")}`
-    //   : "";
-
-
-    let queryString = buildQuery(selectedFilters);
-
-    const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/filter?${queryString}`
-    );
-
-    const data = await response.json();
-
     if (router.query.marca) {
       removeQueryParam("marca");
       if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
@@ -100,21 +80,85 @@ export default function Catalog() {
       }
     }
 
+    if (router.query.tipo) {
+      removeQueryParam("tipo");
+      if (!selectedFilters.includes(`tipo_vehiculo:${router.query.tipo}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`tipo_vehiculo:${router.query.tipo}`);
+          setSelectedChips((prevSelectedChips) => {
+            const newChip = { category: "tipo_vehiculo", value: router.query.tipo };
+            const isChipDuplicate = prevSelectedChips.find(
+              (chip) =>
+                chip.category === newChip.category &&
+                chip.value === newChip.value
+            );
+            if (isChipDuplicate) {
+              return prevSelectedChips;
+            } else {
+              return [...prevSelectedChips, newChip];
+            }
+          });
+          return newSelectedFilters;
+        });
+      }
+    }
+
+    if (router.query.year) {
+      removeQueryParam("year");
+      if (!selectedFilters.includes(`ano:${router.query.year}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`ano:${router.query.year}`);
+          setSelectedChips((prevSelectedChips) => {
+            const newChip = { category: "ano", value: router.query.year };
+            const isChipDuplicate = prevSelectedChips.find(
+              (chip) =>
+                chip.category === newChip.category &&
+                chip.value === newChip.value
+            );
+            if (isChipDuplicate) {
+              return prevSelectedChips;
+            } else {
+              return [...prevSelectedChips, newChip];
+            }
+          });
+          return newSelectedFilters;
+        });
+      }
+    }
+
+    if (router.query.searchQuery) {
+      removeQueryParam("searchQuery");
+      if (!selectedFilters.includes(`search=${router.query.searchQuery}`)) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newSelectedFilters = [...prevSelectedFilters];
+          newSelectedFilters.push(`search=${router.query.searchQuery}`);
+          return newSelectedFilters;
+        });
+      }
+    }
+
+    console.log(selectedFilters);
+    let queryString = buildQuery(selectedFilters);
+
+    const response = await fetch(
+      `http://localhost:3000/api/catalogoNuevo/filter?${queryString}`
+    );
+
+    const data = await response.json();
+
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setApiData(data);
     setCatalogData(data.result);
-    if (data.result !== undefined) {
-      setCatalogColors(data.result.colors);
-    }
-    else {
-      setCatalogColors([]);
-    }
   };
 
   useEffect(() => {
-    fetchFilters();
-  }, [selectedFilters]);
+    if (router.isReady) {
+      fetchFilters();
+    }
+  }, [selectedFilters, router.isReady]);
 
   const handleMenuItemClick = (category, item) => {
     event.stopPropagation();
@@ -136,13 +180,8 @@ export default function Catalog() {
         setSelectedChips((prevSelectedChips) =>
           prevSelectedChips.filter(
             (chip) => chip.category !== category || chip.value !== item
-          )
-        );
+          ));
       } else {
-        // remove any existing filter for this category
-        //newSelectedFilters.filter((f) => { !f.startsWith(`${category}=`) });
-
-
         // add the new filter if it's not null
         if (item) {
 
@@ -209,7 +248,6 @@ export default function Catalog() {
 
   const handleNoSort = () => {
     setCatalogData(apiData.result);
-    console.log("No sort", catalogData);
   };
 
   const handleSortByAscPrice = () => {
@@ -217,7 +255,6 @@ export default function Catalog() {
       return a._source.precio - b._source.precio; // Sort in ascending order
     });
     setCatalogData(sortedData);
-    console.log("Precio asc", catalogData);
   };
 
   const handleSortByDescPrice = () => {
@@ -225,7 +262,6 @@ export default function Catalog() {
       return b._source.precio - a._source.precio; // Sort in descending order
     });
     setCatalogData(sortedData);
-    console.log("Precio des", catalogData);
   };
 
   const handleSortByAscModel = () => {
@@ -233,7 +269,6 @@ export default function Catalog() {
       return a._source.modelo.localeCompare(b._source.modelo); // Sort in ascending order
     });
     setCatalogData(sortedData);
-    console.log("Modelo asc", catalogData);
   };
 
   const handleSortByDescModel = () => {
@@ -241,11 +276,9 @@ export default function Catalog() {
       return b._source.modelo.localeCompare(a._source.modelo); // Sort in descending order
     });
     setCatalogData(sortedData);
-    console.log("Modelo des", catalogData);
   };
 
   const handleSelectedSortOption = (selectedOption) => {
-    setSortOption(selectedOption);
     if (selectedOption === "price-asc") {
       handleSortByAscPrice();
     } else if (selectedOption === "price-des") {
@@ -292,22 +325,7 @@ export default function Catalog() {
                 </div>
               </div>
               <div className={styles.filterBody}>
-              {selectedChips.map((chip, index) => (
-                <Chip
-                  key={`${chip.category}-${chip.value}-${index}`}
-                  label={`${filterHeaders[chip.category]}: ${chip.value}`}
-                  onDelete={() =>
-                    handleMenuItemClick(chip.category, chip.value)
-                  }
-                  color="primary"
-                  sx={{
-                    marginBottom: "0.2rem",
-                    marginRight: "0.2rem",
-                  }}
-                  // variant="outlined"
-                  className={styles.filterChip}
-                />
-              ))}
+                {/* Chips go here */}
               </div>
               {filters && (
                 <ul className={styles.filterList}>
@@ -337,9 +355,9 @@ export default function Catalog() {
                 Pasar la función fetchSearch como prop al componente Searchbar
                 // para que se ejecute cuando se presione el botón de búsqueda
               */}
-            {/* <Searchbar
-                setState={setSelectedFilters}
-              > </Searchbar> */}
+            <Searchbar
+              setState={setSelectedFilters}
+            />
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
@@ -372,10 +390,9 @@ export default function Catalog() {
                     }`}
                   </div>
                   <ApiDataDisplay apiData={catalogData} /> */}
-                <CatalogPagination 
-                  catalogData={catalogData} 
-                  itemsPerPage={30} 
-                  // carCardType="drivingTest"
+                <CatalogPagination
+                  catalogData={catalogData}
+                  itemsPerPage={30}
                   carCardType="catalog"
                 />
               </div>
@@ -386,4 +403,3 @@ export default function Catalog() {
     </>
   );
 };
-

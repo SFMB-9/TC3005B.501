@@ -16,21 +16,22 @@ export default function SellerSignup() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
+  
+  const agency = "agency_default";
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const { data } = await axios.post("/api/register", {
-        name: name,
-        surname: surname,
+        nombres: name,
+        apellidos: surname,
         email: email,
         password: password,
-        role: "seller",
-        agency: agency,
-        cellphone: phone,
+        tipo_usuario: "seller",
+        agencia_id: agency,
+        numero_telefonico: phone,
       });
 
       console.log(data);
