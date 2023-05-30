@@ -10,8 +10,8 @@ de filtros y searchbar que emplearía elastic
 search.
 */
 
-import React, { useState, useEffect } from "react";
-import { Grid, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import React, { useState, useEffect, useMemo } from "react";
+import { Grid, Checkbox, FormControlLabel, Typography, IconButton, Button } from "@mui/material";
 import Searchbar from "@/components/general/searchbar";
 import ManagerLayout from "@/components/providers/manager/layout";
 import styles from "@/styles/catalog.module.css";
@@ -20,6 +20,9 @@ import { useSession } from "next-auth/react";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DataTable from "@/components/general/Table";
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function Catalog() {
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -36,7 +39,7 @@ export default function Catalog() {
   // Get agency name from session
   //const { data: session } = useSession();
   //const agencyName = session.nombre_agencia;
-  const agencyName = "Volkswagen";
+  const agencyName = "Kia";
 
   const fetchFilters = async () => {
     console.log("Fetching...");
@@ -156,6 +159,118 @@ export default function Catalog() {
       { method: 'DELETE' });
   };
 
+  const columns = useMemo( ()=> [
+    {
+      field: "imagen",
+      headerName: "Imagen",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      renderCell: (params) => {
+        let cell = params.row._source.fotos_3d[0]
+          ? <img src={params.row._source.fotos_3d[0]} height="50" width="60" />
+          : "Este proceso no contiene imagen";
+        return cell;
+      },
+    },
+    {
+      field: "modelo",
+      headerName: "Modelo",
+      type: "number",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 2,
+      valueGetter: (params) => {
+        let cell = params.row._source.modelo
+          ? `${params.row._source.modelo}`
+          : "No contiene modelo";
+        return cell;
+      },
+    },
+    {
+      field: "marca",
+      headerName: "Marca",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 2,
+      valueGetter: (params) => {
+        let cell = params.row._source.marca
+          ? `${params.row._source.marca}`
+          : "No contiene marca";
+        return cell;
+      },
+    },
+    {
+      field: "año",
+      headerName: "Año",
+      headerAlign: "center",
+      align: "center",
+      type: "number",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row._source.año
+          ? params.row._source.año
+          : 0;
+        return cell;
+      },
+    },
+    {
+      field: "precio",
+      headerName: "Precio",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      type: "number",
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row._source.precio
+          ? params.row._source.precio
+          : 0;
+        return cell;
+      },
+    },
+    {
+      field: "botones",
+      headerName: "",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      type: "actions",
+      renderCell: (params) => (
+        // <Button
+        //   variant="contained"
+        //   disableElevation
+        //   onClick={() =>
+        //     viewRequest(params.row._id, params.row.usuario_final_id)
+        //   }
+        //   className="py-0"
+        //   sx={{
+        //     fontFamily: "Lato",
+        //     fontSize: "12px",
+        //     backgroundColor: "#111439",
+        //   }}
+        // >
+        //   Ver detalles
+        // </Button>
+        <>
+
+        <IconButton aria-label="delete" size="small" onClick={() => viewEditCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
+          <DriveFileRenameOutlineIcon />
+        </IconButton>
+
+        <IconButton aria-label="delete" size="small" onClick={() => deleteCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
+          <DeleteOutlineIcon />
+        </IconButton>
+        </>
+      ),
+    },
+  ], [catalogData]);
+
   return (
     <>
       <ManagerLayout>
@@ -215,9 +330,37 @@ export default function Catalog() {
               Pasar la función fetchSearch como prop al componente Searchbar
               // para que se ejecute cuando se presione el botón de búsqueda
             */}
-            <Searchbar
-              setState={setSelectedFilters}
-            > </Searchbar>
+
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="w-100">
+
+              <Searchbar
+                setState={setSelectedFilters}
+              > </Searchbar>
+              </div>
+
+              <div>
+<Button
+                variant="contained"
+                size="small"
+                style={{minWidth: '110px'}}
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "palevioletred",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() => viewCreateCar()}
+              >
+                Agregar Auto
+              </Button>
+
+              </div>
+
+            </div>
+
             <div
               style={{
                 padding: "3%",
@@ -234,42 +377,49 @@ export default function Catalog() {
               {/* <CatalogGrid carListing={catalogData} /> */}
               {/* Display listing of cars */}
               {catalogData ? (
-                <div>
-                  <div>
-                    <table style={{ width: "100%" }}>
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Modelo</th>
-                          <th>Año</th>
-                          <th>Marca</th>
-                          <th>ID</th>
-                          <th></th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {catalogData.map((car, i) => (
-                          <tr key={i}>
-                            <td><img src={car._source.fotos_3d[0]} height="50" width="60" /></td>
-                            <td>{car._source.modelo}</td>
-                            <td>{car._source.año}</td>
-                            <td>{car._source.marca}</td>
-                            <td>{car._id}</td>
-                            <td><button onClick={() => viewEditCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Editar </button></td>
-                            <td><button onClick={() => deleteCar(car._id)} disabled={deletingCarIds.includes(car._id)}> Borrar </button></td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                <div className="section">
+                <div className="pt-4">
+                  <DataTable
+                    columns={columns}
+                    rows={catalogData}
+                    rowSelection={false}
+                    sx={{
+                      border: 1,
+                      borderColor: "#D9D9D9",
+                      "& .MuiDataGrid-cell": {
+                        border: 1,
+                        borderRight: 0,
+                        borderTop: 0,
+                        borderLeft: 0,
+                        borderColor: "#D9D9D9",
+                        fontFamily: "Lato",
+                        fontWeight: 500,
+                        fontSize: "12px",
+                        color: "#333333",
+                      },
+                      "& .MuiDataGrid-columnHeaders": {
+                        fontFamily: "Lato",
+                        fontSize: "16px",
+                        color: "#333333",
+                        borderBottom: 0,
+                      },
+                      "& .MuiDataGrid-columnHeaderTitle": {
+                        fontWeight: 800,
+                      },
+                      "& .MuiPaginationItem-text": {
+                        fontFamily: "Lato",
+                        color: "#333333",
+                      },
+                    }}
+                  />
                 </div>
+              </div>
               ) : (
                 <div>
                   <h2>No se econtraron autos.</h2>
                 </div>
               )}
-              <button onClick={() => viewCreateCar()}> Agregar auto </button>
+              
             </div>
           </Grid>
         </Grid>
