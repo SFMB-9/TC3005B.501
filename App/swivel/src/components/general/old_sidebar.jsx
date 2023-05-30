@@ -148,8 +148,8 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ManageAccountsIcon />}
                   style={{ color: '#333333' }}
-                  // component={Link} 
-                  // href={`${root}/`}
+                // component={Link} 
+                // href={`${root}/`}
                 >
                   Mi cuenta
                 </MenuItem>
@@ -158,8 +158,8 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<KeyIcon />}
                   style={{ color: '#333333' }}
-                  // component={Link} 
-                  // href={`${root}/change_password`}
+                // component={Link} 
+                // href={`${root}/change_password`}
                 >
                   Contraseña
                 </MenuItem>
@@ -168,41 +168,41 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ShoppingBagIcon />}
                   style={{ color: '#333333' }}
-                  // component={Link} 
-                  // href={`${root}/purchases`}
+                // component={Link} 
+                // href={`${root}/purchases`}
                 >
-                Mis compras
+                  Mis compras
                 </MenuItem>
               </Link>
               <Link href={`${root}/tests`}>
-              <MenuItem
-                icon={<DirectionsCarIcon />}
-                style={{ color: '#333333' }}
+                <MenuItem
+                  icon={<DirectionsCarIcon />}
+                  style={{ color: '#333333' }}
                 // component={Link} 
                 // href={`${root}/tests`}
-              >
-                Mis pruebas de manejo
-              </MenuItem>
+                >
+                  Mis pruebas de manejo
+                </MenuItem>
               </Link>
               <Link href={`${root}/favorites`}>
-              <MenuItem
-                icon={<FavoriteIcon />}
-                style={{ color: '#333333' }}
+                <MenuItem
+                  icon={<FavoriteIcon />}
+                  style={{ color: '#333333' }}
                 // component={Link} 
                 // href={`${root}/favorites`}
-              >
-                Mis favoritos
-              </MenuItem>
+                >
+                  Mis favoritos
+                </MenuItem>
               </Link>
               <Link href={`${root}/documents`}>
-              <MenuItem
-                icon={<FolderIcon />}
-                style={{ color: '#333333' }}
+                <MenuItem
+                  icon={<FolderIcon />}
+                  style={{ color: '#333333' }}
                 // component={Link} 
                 // href={`${root}/documents`}
-              >
-                Mis documentos
-              </MenuItem>
+                >
+                  Mis documentos
+                </MenuItem>
               </Link>
               {/* {children} */}
             </Menu>
