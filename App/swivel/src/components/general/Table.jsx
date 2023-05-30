@@ -5,7 +5,7 @@ Author: Mateo Herrera
 
 import { DataGrid } from '@mui/x-data-grid';
 import UsersActions from './UserActions';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 export default function DataTable(props) {
   const [rowId, setRowId] = useState(null);

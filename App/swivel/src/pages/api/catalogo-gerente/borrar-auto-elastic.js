@@ -2,7 +2,7 @@ const { Client } = require('@elastic/elasticsearch');
 
 export default async (req, res) => {
   if (req.method !== 'DELETE') {
-    res.status(400).json({ message: 'Method not allowed' });
+    res.status(405).json({ message: 'Method not allowed' });
   }
   
   const client = new Client({ node: 'http://localhost:9200' });
@@ -14,10 +14,6 @@ export default async (req, res) => {
       index: 'autos',
       id: auto_id
     });
-
-    // res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    // res.setHeader('Pragma', 'no-cache');
-    // res.setHeader('Expires', '0');
 
     return res
       .status(200)

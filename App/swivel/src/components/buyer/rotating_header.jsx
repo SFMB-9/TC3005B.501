@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import 'animate.css';
+//import 'animate.css';
+import 'animate.css/animate.min.css'
 import TrackVisibility from 'react-on-screen';
 import { toRotate } from "./queries";
 import CustomHero from "../general/custom_hero";
@@ -10,6 +11,7 @@ export default function RotatingHeader() {
   const [text, setText] = useState('');
   const [image, setImage] = useState('/dummy_car_image2.png');
   const [delta, setDelta] = useState(100);
+  const [imageVisible, setImageVisible] = useState(false);
 
 
   useEffect(() => {
@@ -37,10 +39,11 @@ export default function RotatingHeader() {
       // Update the image state with the corresponding image URL
       setTimeout(() => {
         setImage(toRotate[i].image);
+        setImageVisible(true); // Set the image visibility to true
       }, 3000);
 
-      setDelta(100);
-    };
+        setDelta(100);
+      };
 
     let ticker = setInterval(() => {
       tick();
@@ -54,16 +57,15 @@ export default function RotatingHeader() {
   return (
     <section>
       <TrackVisibility>
-      {({ isVisible }) =>
-        <div className={isVisible ? "animated__animated animate__fadeIn" : ""}>
+        <div className={`animate__animated ${imageVisible ? "animate__fadeIn" : ""}`}>
           <CustomHero
-            title = {text}
+            title={text}
             backgroundImage={image}
-            message = ''
+            message=''
             searchbar
             containerSize={90}
           />
-        </div>}
+        </div>
       </TrackVisibility>
     </section>
   )

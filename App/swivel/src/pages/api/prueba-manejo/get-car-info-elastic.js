@@ -10,7 +10,7 @@ const { Client } = require('@elastic/elasticsearch');
 
 export default async (req, res) => {
   if (req.method !== 'GET') {
-    res.status(400).json({ message: 'Method not allowed' });
+    res.status(405).json({ message: 'Method not allowed' });
   }
   
   const client = new Client({ node: 'http://localhost:9200' });
@@ -32,5 +32,7 @@ export default async (req, res) => {
     
   } catch (error) {
     res.status(500).json({ error: 'Error encontrando auto' , message: error.message});
+  } finally {
+    client.close();
   }
 };

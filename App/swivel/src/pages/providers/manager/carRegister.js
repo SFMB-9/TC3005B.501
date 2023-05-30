@@ -13,6 +13,7 @@ import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageFileDrop from "@/components/general/FileDrop";
+import ManagerLayout from "@/components/providers/Manager/layout";
 //import uploadCar from '@/pages/api/elasticSearch/elasticCarRegister';
 //create car object
 const CarRegistrationForm = () => {
@@ -289,6 +290,8 @@ const CarRegistrationForm = () => {
   };
 
   return (
+    <ManagerLayout>
+
     <Container maxWidth="xl">
       <div className="section p-5">
         <Typography
@@ -1455,6 +1458,7 @@ const CarRegistrationForm = () => {
         </form>
       </div>
     </Container>
+    </ManagerLayout>
   );
 };
 
