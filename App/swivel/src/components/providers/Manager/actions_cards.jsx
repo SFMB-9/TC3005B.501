@@ -8,7 +8,7 @@ export default function ActionsCards() {
         imageSource="/manager/catalog_action.jpg"
         icon="/manager/catalog_icon.svg"
         text="Administración del catálogo"
-        href="/providers/seller/purchase_req"
+        href="/providers/manager/catalog"
         light={false}
         header=''
         fiftyFifty={false}
