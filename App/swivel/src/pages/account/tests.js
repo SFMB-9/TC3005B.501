@@ -15,7 +15,7 @@ export default function Tests() {
   
   const fetchDrivingData = async () => {
       const res = await fetch(
-        `http://localhost:3000/api/buyerProfile/getDrivingReq?user_id=${session.id}`
+        `/api/buyerProfile/getDrivingReq?user_id=${session.id}`
       );
       const data = await res.json();
       setApiData(data);

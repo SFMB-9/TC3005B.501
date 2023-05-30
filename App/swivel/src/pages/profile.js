@@ -6,7 +6,7 @@ export default function profileInfo()
     const [profileInfo, setProfileInfo] = useState([])
 
     const getProfile = async () => {
-        const response = await fetch('http://localhost:3000/api/profileInfo')
+        const response = await fetch('/api/profileInfo')
         const data = await response.json()
         setProfileInfo(response.data)
     }

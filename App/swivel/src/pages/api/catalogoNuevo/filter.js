@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     let searchQuery = req.query.search === undefined ? "" : req.query.search;
 
     // Fetch resluts based on the search query
-    let searchResults = await fetch(`http://localhost:3000/api/catalogoNuevo/search?search=${searchQuery}`);
+    let searchResults = await fetch(`/api/catalogoNuevo/search?search=${searchQuery}`);
 
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
@@ -100,7 +100,7 @@ export default async function handler(req, res) {
 // Function to assemble the filters from the catalog results
 async function assembleFilter(result, filters) {
 
-    let response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas');
+    let response = await fetch('/api/catalogoNuevo/marcas');
 
     let marcaResponse = await response.json();
     let marca = marcaResponse.result;

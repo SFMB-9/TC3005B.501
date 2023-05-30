@@ -22,7 +22,7 @@ export default function Process() {
 
   const fetchProcess = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/purchase-docs/with-mongo?process_id=${process_id}`,
+      `/api/purchase-docs/with-mongo?process_id=${process_id}`,
       { method: "GET" }
     );
 
@@ -80,7 +80,7 @@ export default function Process() {
     console.log("update_date: " + currentDocs[i].fecha_modificacion);
 
     const result = await fetch(
-      `http://localhost:3000/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
+      `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
       {
         method: "PUT",
       }
