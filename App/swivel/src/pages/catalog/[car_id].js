@@ -59,7 +59,7 @@ export default function CarDetails() {
 
   const fetchCarDetails = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
+      `/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
     );
 
     const data = await response.json();
@@ -120,7 +120,7 @@ export default function CarDetails() {
       cantidad_a_pagar: payment
     }
     console.log(body)
-    const result = await fetch('http://localhost:3000/api/saleCreation/with-mongo', {
+    const result = await fetch('/api/saleCreation/with-mongo', {
       method: 'POST',
       body: JSON.stringify(body)
     })

@@ -50,7 +50,7 @@ export default function Catalog() {
       : "";
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
+      `/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
     );
 
     const data = await response.json();
@@ -155,7 +155,7 @@ export default function Catalog() {
   const deleteCar = async (auto_id) => {
     setDeletingCarIds([...deletingCarIds, auto_id]);
     // Delete car from elastic
-    await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`,
+    await fetch(`/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`,
       { method: 'DELETE' });
   };
 
