@@ -240,6 +240,7 @@ export default function RequestDetails() {
                 <h2 className={styles.schedule_header}> Elegir horario* </h2> 
                 <h3 className={styles.schedule_header}> Seleccione una Fecha </h3>
                 <DatePicker
+                  placeholderText='Fecha'
                   selected={selectedDate}
                   onChange={date => setSelectedDate(date)}
                   dateFormat='dd/MM/yyyy'
@@ -249,6 +250,7 @@ export default function RequestDetails() {
                 />
                 <h3 className={styles.schedule_header}> Seleccione una Horario </h3>
                 <DatePicker
+                  placeholderText='Hora'
                   selected={selectedTime}
                   onChange={time => setSelectedTime(time)}
                   showTimeSelect
