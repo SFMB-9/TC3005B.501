@@ -354,7 +354,7 @@ export default function Catalog() {
                 type="button"
                 onClick={() => viewCreateCar()}
               >
-                Agregar Color
+                Agregar Auto
               </Button>
 
               </div>
