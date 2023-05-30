@@ -142,7 +142,7 @@ export default function Process() {
       },
       {
         field: "fecha_modificacion",
-        headerName: "Ultima modificación",
+        headerName: "Última modificación",
         headerAlign: "center",
         align: "center",
         minWidth: 150,
@@ -286,9 +286,9 @@ export default function Process() {
                     color="#1F1F1F"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    <strong>Cantidad a Pagar:</strong>{" "}
+                    <strong>Cantidad a pagar:</strong>{" "}
                     <span style={{ color: "#333333" }}>
-                      ${process.cantidad_a_pagar}
+                      $ {Intl.NumberFormat().format(process.cantidad_a_pagar)} MXN
                     </span>
                   </Typography>
                 </div>
@@ -319,7 +319,6 @@ export default function Process() {
                   >
                     Hola! Soy {process.vendedor.nombres} <br />
                     Yo voy a estar revisando tus documentos <br />
-                    Email: {process.vendedor.email}
                   </Typography>
                 </div>
                 <div className="col-12 col-sm-6 ">
@@ -338,14 +337,14 @@ export default function Process() {
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
                     Nombre: {process.agencia.nombres} <br />
-                    Direccion: {process.agencia.direccion.calle}{" "}
+                    Dirección: {process.agencia.direccion.calle}{" "}
                     {process.agencia.direccion.numero_exterior}{" "}
                     {process.agencia.direccion.ciudad}{" "}
                     {process.agencia.direccion.estado}{" "}
                     {process.agencia.direccion.pais}{" "}
                     {process.agencia.direccion.codigo_postal}
                     <br />
-                    Telefono: {process.agencia.numero_telefonico} <br />
+                    Teléfono: {process.agencia.numero_telefonico} <br />
                     Email: {process.agencia.email}
                   </Typography>
                 </div>
