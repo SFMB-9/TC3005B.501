@@ -1,3 +1,10 @@
+/*
+Luis Javier Karam
+30/5/2023
+
+Page to edit the GA profile
+*/
+
 import React, { useState } from 'react';
 import { Button, TextField, FormHelperText } from '@mui/material';
 import styles from '@/styles/edit_GA.module.css';
