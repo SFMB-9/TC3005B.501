@@ -24,7 +24,6 @@ export default function SearchResults() {
     const [editedCellphone, setEditedCellphone] = useState('');
     const [oldEmail, setOldEmail] = useState('');
     const [agency, setAgency] = useState('');
-
     const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
     const router = useRouter ? useRouter() : null;
     
@@ -39,7 +38,7 @@ export default function SearchResults() {
     // Function to fetch search results from the API endpoint
     const fetchResults = async () => {
         try {
-            const response = await axios.get('/api/gerente/pull-all-vendedores');
+            const response = await axios.get('/api/gerente/pull-all-vendedores', { params: { agency: agency }});
             setResults(response.data);
         } 
         catch (error) {
@@ -50,7 +49,7 @@ export default function SearchResults() {
     // Fetch results when the component mounts
     useEffect(() => {
         fetchResults();
-    }, []);
+    }, [agency]);
 
     useEffect(() => {
         setFilteredResults(
@@ -63,7 +62,7 @@ export default function SearchResults() {
     // Function to delete an entry
     const deleteEntry = async (entry) => {
         try {
-            await axios.delete('/api/gerente/eliminar-vendedor', { email: entry, agency: agency });
+            await axios.delete('/api/gerente/eliminar-vendedor', { params: { email: entry, agency: agency }});
             // Refresh the results after deletion
             fetchResults();
         } 
@@ -79,7 +78,7 @@ export default function SearchResults() {
         setEditedLastName(entry.apellidos);
         setEditedEmail(entry.email);
         setOldEmail(entry.email);
-        setEditedCellphone(entry.telefono);
+        setEditedCellphone(entry.numero_telefonico);
     };
 
     const handleNameChange = (event) => {
@@ -103,16 +102,14 @@ export default function SearchResults() {
         event.preventDefault();
       
         try {
-            const updatedEntry = {
-                ...editingEntry,
-                name: editedName,
+            await axios.put('/api/gerente/actualizar-vendedor', { 
+                name: editedName, 
                 last_name: editedLastName,
                 newEmail: editedEmail,
                 oldEmail: oldEmail,
                 cellphone: editedCellphone,
-            };
-
-            await axios.put('/api/gerente/actualizar-vendedor', updatedEntry);
+                agency: agency
+            });
             // Refresh the results after updating
             fetchResults();
             // Close the overlay after updating
@@ -135,7 +132,7 @@ export default function SearchResults() {
 
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
-      };
+    };
 
     return (
         <>
@@ -212,7 +209,7 @@ export default function SearchResults() {
                     </div>
 
                     <div>
-                        <strong>Cellphone:</strong> {entry.telefono}
+                        <strong>Cellphone:</strong> {entry.numero_telefonico}
                     </div>
 
                     <button onClick={() => deleteEntry(entry.email)}>Delete</button>

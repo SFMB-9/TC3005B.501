@@ -1,4 +1,4 @@
-import User from "../../../models/user";
+import { SellerUser } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -10,9 +10,9 @@ export default async function handler(req, res) {
   if (req.method === "DELETE") {
     dbConnect();
 
-    const { email, agency } = req.body;
+    const { email, agency } = req.query;
     
-    const result = await User.deleteOne({ email: email, agencia: agency });
+    const result = await SellerUser.deleteOne({ email: email, agencia_id: agency });
 
     if(result.deletedCount > 0) {
         res.status(200).json({ message: "User deleted successfully" });    

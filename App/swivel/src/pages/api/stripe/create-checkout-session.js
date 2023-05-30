@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         payment_method_types: ['card'],
         line_items: JSON.parse(req.body.items),
         mode: 'payment',
-        metadata: {a: 'aaa', b: 'bbb'},
+        metadata: {process_id: req.body.id},
         success_url: `${req.headers.origin}/success/${req.body.id}/{CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/purchase/${req.body.id}`,
       });
