@@ -71,13 +71,14 @@ console.log("Search text: " + searchText);
 
   const fetchFilters = async () => {
     if (router.query.marca) {
+      const query = router.query.marca;
       removeQueryParam("marca");
-      if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
+      if (!selectedFilters.includes(`marca:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`marca:${router.query.marca}`);
+          newSelectedFilters.push(`marca:${query}`);
           setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "marca", value: router.query.marca };
+            const newChip = { category: "marca", value: query };
             const isChipDuplicate = prevSelectedChips.find(
               (chip) =>
                 chip.category === newChip.category &&
@@ -95,13 +96,14 @@ console.log("Search text: " + searchText);
     }
 
     if (router.query.tipo) {
+      const query = router.query.tipo;
       removeQueryParam("tipo");
-      if (!selectedFilters.includes(`tipo_vehiculo:${router.query.tipo}`)) {
+      if (!selectedFilters.includes(`tipo_vehiculo:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`tipo_vehiculo:${router.query.tipo}`);
+          newSelectedFilters.push(`tipo_vehiculo:${query}`);
           setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "tipo_vehiculo", value: router.query.tipo };
+            const newChip = { category: "tipo_vehiculo", value: query };
             const isChipDuplicate = prevSelectedChips.find(
               (chip) =>
                 chip.category === newChip.category &&
@@ -119,13 +121,14 @@ console.log("Search text: " + searchText);
     }
 
     if (router.query.year) {
+      const query = router.query.year;
       removeQueryParam("year");
-      if (!selectedFilters.includes(`ano:${router.query.year}`)) {
+      if (!selectedFilters.includes(`ano:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`ano:${router.query.year}`);
+          newSelectedFilters.push(`ano:${query}`);
           setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "ano", value: router.query.year };
+            const newChip = { category: "ano", value: query };
             const isChipDuplicate = prevSelectedChips.find(
               (chip) =>
                 chip.category === newChip.category &&
@@ -143,17 +146,18 @@ console.log("Search text: " + searchText);
     }
 
     if (router.query.searchQuery) {
+      const query = router.query.searchQuery;
       removeQueryParam("searchQuery");
-      if (!selectedFilters.includes(`search=${router.query.searchQuery}`)) {
+      if (!selectedFilters.includes(`search=${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`search=${router.query.searchQuery}`);
+          newSelectedFilters.push(`search=${query}`);
           return newSelectedFilters;
         });
       }
     }
 
-    console.log(selectedFilters);
+    console.log("Selected Filters:" + selectedFilters);
     let queryString = buildQuery(selectedFilters);
 
     const response = await fetch(
@@ -164,7 +168,7 @@ console.log("Search text: " + searchText);
 
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
-    setApiData(data);
+    console.log(data);
     setCatalogData(data.result);
   };
 
