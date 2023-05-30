@@ -9,21 +9,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 
 import CarCard from "@/components/buyer/car_card";
-import { format } from "date-fns";
-import { es } from 'date-fns/locale';
-
-function formatDate(inputDate) {
-  const date = new Date(inputDate);
-  
-  const day = format(date, 'dd', {locale: es});
-  const month = format(date, 'MMMM', {locale: es});
-  const year = format(date, 'yyyy', {locale: es});
-
-  const formattedDate = `${day} de ${month} del ${year}`;
-  const formattedTime = format(date, 'HH:mm');
-
-  return { formattedDate, formattedTime };
-}
+import {formatDate} from "@/components/general/date_utils";
 
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
