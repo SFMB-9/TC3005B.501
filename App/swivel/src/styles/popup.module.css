@@ -1,8 +1,6 @@
-#background{
-    height: 100%;
-    width: 100%;
-    background: #333333;
-    opacity: 0.2;
+.btnPopup{
+    background: none;
+    border: none;
 }
 
 #closeBtn{
@@ -10,7 +8,8 @@
     border: none;
     color: white;
     width: 100%;
-    align-items: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 1vw 1vw 0 0;
 }
 
@@ -24,6 +23,15 @@
     border-radius: 5px;
 }
 
+#headerPopup{
+    position: sticky;
+    top: -1.5vw;
+    z-index: 8;
+    height: auto;
+    background-color: #333333;
+    
+}
+
 #title{
     width: 100%;
     padding-bottom: 2vw;
@@ -35,6 +43,6 @@
 #content{
     height: auto;
     width: 100%;
-    margin: auto;
+    padding: 2vw;
     background-color: white;
 }

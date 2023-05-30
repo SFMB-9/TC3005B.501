@@ -22,9 +22,11 @@ export default async function handler(req, res) {
   
       // Check the payment status
       const paymentStatus = checkoutSession.payment_status;
+
+      const check_id = checkoutSession.metadata.process_id;
   
       // Do something based on the payment status
-      if (paymentStatus === "paid") {
+      if (paymentStatus === "paid" && check_id === process_id) {
   
         await dbConnect();
   
