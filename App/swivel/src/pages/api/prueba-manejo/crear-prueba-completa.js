@@ -56,7 +56,7 @@ export default async (req, res) => {
                 "modelo": carData.modelo,
                 "ano": carData.año,
                 "precio": carData.precio,
-                "array_fotografias_url": carData.fotos_3d
+                "array_fotografias_url": carData.colores[req.body.image_index].imagenes
             },
             direccion_agencia: carData.direccion_agencia,
             numero_telefonico: agencyData["numero_telefonico"],

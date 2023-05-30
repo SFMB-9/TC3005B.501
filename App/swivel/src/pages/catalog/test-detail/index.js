@@ -40,6 +40,7 @@ export default function RequestDetails() {
   const [userAddress, setUserAddress] = useState(null);
   const [carData, setCarData] = useState(null);
   const [firstImage, setFirstImage] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
   const [userData, setUserData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -47,7 +48,7 @@ export default function RequestDetails() {
   const [managerData, setManagerData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const { auto_id } = router.query;
+  const { auto_id, colorName } = router.query;
   // TODO
   // user_id = session.id;
   const user_id = "646e7555cfb24b65a4f5d1b7"; 
@@ -66,12 +67,18 @@ export default function RequestDetails() {
     const retrievedDocuments = resData.user.documentos_url;
     const retrievedAddress = resData.user.direccion;
 
+    for (var i = 0; i < retrievedAuto.colores.length; i++) {
+      if (retrievedAuto.colores[i].nombre === colorName) {
+        setFirstImage(retrievedAuto.colores[i].imagenes[0]);
+        setImageIndex(i);
+      }
+    }
+
     setCarData(retrievedAuto);
-    setFirstImage(retrievedAuto.fotos_3d[0]);
     setManagerData(retrievedManager);
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
-    setUserAddress(retrievedAddress);  
+    setUserAddress(retrievedAddress); 
   }
 
   const createDrivingTest = async () => {
@@ -84,7 +91,7 @@ export default function RequestDetails() {
     
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
-      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime });
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
 
     // Go to list of user's driving tests
     router.push({
