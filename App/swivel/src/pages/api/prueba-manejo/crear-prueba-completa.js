@@ -16,7 +16,12 @@ export default async (req, res) => {
         res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const clientElastic = new Client({ node: 'http://localhost:9200' });
+    const clientElastic = new Client({
+        node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+        auth: {
+            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+        }
+    })
 
     const client = await connectToDatabase;
     const db = client.db("test");

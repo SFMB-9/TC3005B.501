@@ -69,7 +69,7 @@ export default function CarDetails() {
     }
     setCarPrice(data.result.precio);
     setSelectedColor(data.result.colores[0]);
-    setIsAvailable("true" == data.result.disponible_prueba);
+    setIsAvailable(data.result.disponible_prueba);
   };
 
   useEffect(() => {
