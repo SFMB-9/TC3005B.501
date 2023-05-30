@@ -39,7 +39,7 @@ export default function Catalog() {
   // Get agency name from session
   //const { data: session } = useSession();
   //const agencyName = session.nombre_agencia;
-  const agencyName = "Volkswagen";
+  const agencyName = "Kia";
 
   const fetchFilters = async () => {
     console.log("Fetching...");

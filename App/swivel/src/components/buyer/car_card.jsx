@@ -172,7 +172,7 @@ export default function CarCard(props) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#F55C7A'
+                      color: props.status === "Aprobado" ? "#4CAF50" : "#F55C7A" //"#F55C7A" : "#4CAF50"
                     }}>
                       {props.status}
                     </Typography>

@@ -3,6 +3,9 @@ import { useSession } from "next-auth/react";
 import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
 import { useRouter } from 'next/router';
+import { signOut } from "next-auth/react";
+import axios from "axios";
+
 import {
   Container,
   Typography,
@@ -12,11 +15,14 @@ import {
 import AccountLayout from "@/components/buyer/account_layout";
 
 function EditProfileBtn() {
+
   const router = useRouter();
 
   const handleClick = () => {
     router.push('/account/edit_data');
   };
+
+
 
   return (
     <button 
@@ -59,13 +65,31 @@ export default function Account() {
     setApiData(res.userData);
   };
 
+
+  const deleteAccount = async (e) => {
+    e.preventDefault();
+
+    try{
+      axios.delete("../api/buyerProfile/deleteUser", {
+        params: {
+          id: session.id,
+        }
+      });
+      signOut({ callbackUrl: "http://localhost:3000/auth/login" })
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+
+    }
+  };
+
   useEffect(() => {
     if (session) {
       fetchData();
     }
   }, [session]);
 
-  if (apiData) {
+  if (apiData && session) {
     return (
       <AccountLayout>
         <Container maxWidth="xl">
@@ -76,7 +100,7 @@ export default function Account() {
               fontSize={{ xs: 25, md: 28, lg: 33 }}
               className="pt-2 pb-4"
             >
-              Mi cuenta
+              Mi cuentas
             </Typography>
             <div>
               <Typography
@@ -336,6 +360,7 @@ export default function Account() {
                     <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
                       <Button
                         variant="contained"
+                        onClick={deleteAccount}
                         type="submit"
                         className="w-80"
                         sx={{
@@ -345,7 +370,7 @@ export default function Account() {
                           },
                         }}
                         >
-                        Eliminar cuenta
+                        Eliminar Cuenta
                       </Button>
                     </div>}
                     btnOpen = {

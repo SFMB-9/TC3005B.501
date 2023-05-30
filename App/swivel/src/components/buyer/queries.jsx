@@ -13,7 +13,7 @@ export const toRotate = [
   },
   {
     text: "Necesito un coche compacto para moverme en la ciudad",
-    image: "https://car-images.bauersecure.com/pagefiles/67639/zmini-004.jpg"
+    image: "https://img.remediosdigitales.com/46b89d/fiat-500s-2017-1600-07/1366_2000.jpg"
   },
   {
     text: "Muestrame los modelos más nuevos de Volvo",

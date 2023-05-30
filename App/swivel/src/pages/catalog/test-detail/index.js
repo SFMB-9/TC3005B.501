@@ -184,15 +184,46 @@ export default function RequestDetails() {
 
   const columns = [
     {
-      // field: 'Documento',
-      // headerName: 'Documento',
-      // headerAlign: 'center',
-      // minWidth: 150,
-      // flex: 1,
-      // valueGetter: (params) => {
-      //   let cell = params.row.
-      // }
-    }
+      field: 'Documento',
+      headerName: 'Documento',
+      headerAlign: 'center',
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.nombre_documento
+          ? `${params.row.nombre_documento}`
+          : 'No existe fecha de entrega';
+        return cell;
+      },
+    },
+    {
+      field: "FechaEntrega",
+      headerName: "Fecha de entrega",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.fecha_modificacion
+          ? `${params.row.fecha_modificacion}`
+          : "No existe fecha de entrega";
+        return cell;
+      },
+    },
+    {
+      field: "subir",
+      headerName: "Fecha de entrega",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.fecha_modificacion
+          ? `${params.row.fecha_modificacion}`
+          : "Este proceso no contiene auto";
+        return cell;
+      },
+    },
   ]
 
   const rows = []
@@ -257,6 +288,35 @@ export default function RequestDetails() {
               <DataTable
                 columns={columns}
                 rows={rows}
+                rowSelection={false}
+            sx={{
+              border: 1,
+              borderColor: "#D9D9D9",
+              "& .MuiDataGrid-cell": {
+                border: 1,
+                borderRight: 0,
+                borderTop: 0,
+                borderLeft: 0,
+                borderColor: "#D9D9D9",
+                fontFamily: "Lato",
+                fontWeight: 500,
+                fontSize: "12px",
+                color: "#333333",
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                fontFamily: "Lato",
+                fontSize: "16px",
+                color: "#333333",
+                borderBottom: 0,
+              },
+              "& .MuiDataGrid-columnHeaderTitle": {
+                fontWeight: 800,
+              },
+              "& .MuiPaginationItem-text": {
+                fontFamily: "Lato",
+                color: "#333333",
+              },
+            }}
               />
               <Button variant='contained' href='/catalog'>Cancelar</Button>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>

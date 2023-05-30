@@ -22,8 +22,22 @@ import { useRouter } from "next/router";
 import Searchbar from "@/components/general/searchbar";
 
 export default function Catalog() {
-
   const router = useRouter();
+  const [searchText, setSearchText] = useState('');
+
+  let isFirstLoad = true;
+
+console.log("Search text: " + searchText);
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      if (JSON.stringify(router.query.searchQuery)) {
+        setSearchText(router.query.searchQuery);
+      }
+      isFirstLoad = false;
+    }
+  }, []);
+
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
@@ -360,6 +374,8 @@ export default function Catalog() {
                 // para que se ejecute cuando se presione el botón de búsqueda
               */}
             <Searchbar
+              firstValue={searchText}
+              placeholderText={'Buscar...'}
               setState={setSelectedFilters}
             />
             <div>
