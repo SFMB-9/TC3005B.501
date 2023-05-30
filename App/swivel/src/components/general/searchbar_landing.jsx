@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import styles from "@/styles/searchbar.module.css";
 
 export default function Searchbar({  
-  placeholderText = "Buscar", 
+  placeholderText = "Buscar...", 
   transparent = false, 
   hidden = false, 
-  searchStyle = "default"
+  searchStyle = "default",
 }) {
   const router = useRouter();
   const [search, setSearch] = useState("");

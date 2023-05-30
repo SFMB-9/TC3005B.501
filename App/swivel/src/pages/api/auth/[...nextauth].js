@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import {User, SellerUser} from "../../../models/user";
+import {User, SellerUser} from "@/models/user";
 import bcrypt from "bcryptjs";
-import dbConnect from "../../../config/dbConnect";
+import dbConnect from "@/config/dbConnect";
 
-const { decryptRole } = require("../../../utils/crypto");
+const { decryptRole } = require("@/utils/crypto");
 
 export const authOptions = {
   session: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 import styles from "@/styles/searchbar.module.css";
@@ -8,10 +8,15 @@ export default function Searchbar({
   placeholderText = "Buscar", 
   transparent = false, 
   hidden = false, 
-  searchStyle = "default"
+  searchStyle = "default",
+  firstValue=""
 }) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(firstValue);
   let containerClasses;
+
+  useEffect(() => {
+    setSearch(firstValue)
+  }, [firstValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
