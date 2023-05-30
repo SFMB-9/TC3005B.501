@@ -54,12 +54,12 @@ export default function RequestDetails() {
   const user_id = "646e7555cfb24b65a4f5d1b7";
 
   const fetchDetails = async () => {
-    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+    let rawCar = await fetch(`/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
+    let rawData = await fetch(`/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
       { method: 'GET' });
     const resData = await rawData.json();
     const retrievedManager = resData.manager;
