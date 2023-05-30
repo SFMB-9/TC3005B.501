@@ -93,6 +93,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
     event.stopPropagation();
   };
 
+  if (!apiData) {
+    return null;
+  }
+
   return (
     <div className="sidebar-container" style={{ height: "100vh" }}>
       {/* Sidebar */}
