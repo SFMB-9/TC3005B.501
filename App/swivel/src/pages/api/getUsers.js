@@ -13,10 +13,21 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "GET") {
-    dbConnect();
+    try {
+      await dbConnect();
+    } catch (error) {
+      console.error(`Failed to connect to the database: ${error}`);
+      return res.status(500).json({ error: "Server error" });
+    }
 
-    const users = await User.find({}).select("-password -__v");
+    let users;
+    try {
+      users = await User.find({}).select("-password -__v");
+    } catch (error) {
+      console.error(`Failed to fetch users: ${error}`);
+      return res.status(500).json({ error: "Failed to fetch users" });
+    }
 
-    res.status(200).json({ users });
+    return res.status(200).json({ users });
   }
 }

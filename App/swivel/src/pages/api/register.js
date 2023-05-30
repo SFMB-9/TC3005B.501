@@ -1,4 +1,4 @@
-import { User, SellerUser, ManagerUser } from "../../models/user";
+import { User, SellerUser, ManagerUser, BuyerUser } from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
 /* 
@@ -49,17 +49,35 @@ export default async function handler(req, res) {
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
       if (role === "user") {
-        await User.create({
+        console.log("HOOOLA", req.body);
+        const street = req.body.direccion.calle;
+        const phone = req.body.numero_telefonico;
+        const exterior_num = req.body.direccion.numero_exterior;
+        const interior_num = req.body.direccion.numero_interior;
+        const city = req.body.direccion.ciudad;
+        const state = req.body.direccion.estado;
+        const country = req.body.direccion.pais;
+        const postalCode = req.body.direccion.codigo_postal;
+
+        await BuyerUser.create({
+          tipo_usuario: encrypted_role,
           nombres: name,
           apellidos: surname,
           email: email,
-          contraseña: password,
-          tipo_usuario: encrypted_role,
+          password: password,
+          numero_telefonico: phone,
+          direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+          }
         });
         res.status(200).json({ message: "User registered successfully" });
-      } 
-      
-      else if (role === "seller") {
+      } else if (role === "seller") {
         const agency = req.body.agencia_id;
         const phone = req.body.numero_telefonico;
 
@@ -73,11 +91,7 @@ export default async function handler(req, res) {
           numero_telefonico: phone,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      } 
-      
-      
-      else if (role === "manager") {
-        
+      } else if (role === "manager") {
         const GA = req.body.grupo_automotriz_id;
         const phone = req.body.numerqo_telefonico;
 

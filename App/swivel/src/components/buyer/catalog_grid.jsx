@@ -9,6 +9,21 @@ import React from "react";
 import { Grid } from "@mui/material";
 
 import CarCard from "@/components/buyer/car_card";
+import { format } from "date-fns";
+import { es } from 'date-fns/locale';
+
+function formatDate(inputDate) {
+  const date = new Date(inputDate);
+  
+  const day = format(date, 'dd', {locale: es});
+  const month = format(date, 'MMMM', {locale: es});
+  const year = format(date, 'yyyy', {locale: es});
+
+  const formattedDate = `${day} de ${month} del ${year}`;
+  const formattedTime = format(date, 'HH:mm');
+
+  return { formattedDate, formattedTime };
+}
 
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
@@ -17,7 +32,6 @@ export default function CatalogGrid({ carListing, cardType }) {
   let cardProps;
   if (carListing !== undefined) {
     carList = carListing.map((car) => {
-      console.log("car", car);
       if (cardType === "catalog") {
         cardProps = {
           catalog: {
@@ -35,7 +49,7 @@ export default function CatalogGrid({ carListing, cardType }) {
       } else {
         cardProps = {
           general: {
-            // carUrl: `/catalogo/${car._id}`,
+            carUrl: `/purchase/${car._id}`,
             carImage: car.auto.array_fotografias_url[0],
             carBrand: car.auto.marca,
             carModel: car.auto.modelo,
@@ -45,8 +59,8 @@ export default function CatalogGrid({ carListing, cardType }) {
             status: car.estatus_validacion
           },
           drivingTest: {
-            date: car.fecha_agendada, 
-            testHour: car.hora_agendada,
+            date: "Fecha de la cita: " + formatDate(car.fecha_agendada).formattedDate,//car.fecha_agendada, 
+            testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,//car.hora_agendada,
           },
           purchasesCurrent: {
             date: car.fecha_inicio,
