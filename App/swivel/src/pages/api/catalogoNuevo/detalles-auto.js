@@ -29,13 +29,7 @@ export default async function CarDetails(req, res) {
         let elasticResponse = await client.get({
             index: 'autos',
             id: car_id
-        }, { meta: true })
-        // .then((res) => {
-        //     console.log(res);
-        // })
-        // .catch((err) => {
-        //     console.log(err);
-        // });
+        }, { meta: true });
 
         let result = elasticResponse.body._source;
 
