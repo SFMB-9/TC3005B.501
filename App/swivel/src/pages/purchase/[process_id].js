@@ -6,6 +6,7 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import { Upload } from "@mui/icons-material";
 
 export default function Process() {
   const router = useRouter();
@@ -43,11 +44,10 @@ export default function Process() {
   };
 
   // Save the indices that were changed
-  const handleDocumentEdit = async (file, indx) => {
-    console.log("event: " + file);
-    setChangedDocumentIndex(indx);
-    setChangedDocument(file);
+  const handleDocumentEdit = async (indx) => {
 
+    console.log("uploadedDocument: " + uploadedDocument);
+    console.log("changedDocumentIndex: " + changedDocumentIndex);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
@@ -60,9 +60,9 @@ export default function Process() {
     let documentUrl = "";
     const currentDocs = documents;
 
-    console.log("changedDocument: " + changedDocument);
+    console.log("changedDocument: " + uploadedDocument);
     const i = changedDocumentIndex;
-    const doc = changedDocument;
+    const doc = uploadedDocument;
 
     if (!doc) {
       return;
@@ -86,7 +86,7 @@ export default function Process() {
       }
     );
 
-    console.log(result);
+    fetchProcess();
   };
 
   useEffect(() => {
@@ -94,7 +94,7 @@ export default function Process() {
       return;
     }
     fetchProcess();
-  }, [process_id]);
+  }, [process_id, uploadedDocument]);
 
   const columns = useMemo(
     () => [
@@ -142,7 +142,7 @@ export default function Process() {
       },
       {
         field: "fecha_modificacion",
-        headerName: "Ultima modificación",
+        headerName: "Última modificación",
         headerAlign: "center",
         align: "center",
         minWidth: 150,
@@ -193,8 +193,8 @@ export default function Process() {
                   onChange={(e) => {
                     e.preventDefault();
                     const file = e.target.files[0];
-                    setUploadedDocument(file);
-                    console.log(uploadedDocument);
+                    setUploadedDocument(file)
+                    setChangedDocumentIndex(params.row._id)
                   }}
                 />
 
@@ -204,7 +204,7 @@ export default function Process() {
                   component="span"
                   type="submit"
                   onClick={() =>
-                    handleDocumentEdit(uploadedDocument, params.row._id)
+                    handleDocumentEdit(params.row._id)
                   }
                 >
                   <CheckIcon />
@@ -219,7 +219,7 @@ export default function Process() {
                   addToIsOpen(params.row._id);
                 }}
               >
-                <uploadIcon />
+                <UploadIcon />
               </IconButton>
             )}
           </>
@@ -286,9 +286,9 @@ export default function Process() {
                     color="#1F1F1F"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    <strong>Cantidad a Pagar:</strong>{" "}
+                    <strong>Cantidad a pagar:</strong>{" "}
                     <span style={{ color: "#333333" }}>
-                      ${process.cantidad_a_pagar}
+                      $ {Intl.NumberFormat().format(process.cantidad_a_pagar)} MXN
                     </span>
                   </Typography>
                 </div>
@@ -319,7 +319,6 @@ export default function Process() {
                   >
                     Hola! Soy {process.vendedor.nombres} <br />
                     Yo voy a estar revisando tus documentos <br />
-                    Email: {process.vendedor.email}
                   </Typography>
                 </div>
                 <div className="col-12 col-sm-6 ">
@@ -338,14 +337,14 @@ export default function Process() {
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
                     Nombre: {process.agencia.nombres} <br />
-                    Direccion: {process.agencia.direccion.calle}{" "}
+                    Dirección: {process.agencia.direccion.calle}{" "}
                     {process.agencia.direccion.numero_exterior}{" "}
                     {process.agencia.direccion.ciudad}{" "}
                     {process.agencia.direccion.estado}{" "}
                     {process.agencia.direccion.pais}{" "}
                     {process.agencia.direccion.codigo_postal}
                     <br />
-                    Telefono: {process.agencia.numero_telefonico} <br />
+                    Teléfono: {process.agencia.numero_telefonico} <br />
                     Email: {process.agencia.email}
                   </Typography>
                 </div>
@@ -356,7 +355,7 @@ export default function Process() {
           <Fade in={true} timeout={1500}>
             <div className="section">
               <div className="pt-4">
-                {/* <DataTable
+                <DataTable
                   columns={columns}
                   rows={documents}
                   rowSelection={false}
@@ -388,11 +387,11 @@ export default function Process() {
                       color: "#333333",
                     },
                   }}
-                /> */}
+                />
               </div>
             </div>
           </Fade>
-          <h1>Documentos</h1>
+          {/* <h1>Documentos</h1>
           <table style={{ width: "100%" }}>
             <thead>
               <tr>
@@ -426,16 +425,17 @@ export default function Process() {
                           e.preventDefault();
                           const file = e.target.files[0];
                           setUploadedDocument(file)
-                          console.log(uploadedDocument)
+                          setChangedDocumentIndex(i)
+                          //console.log(uploadedDocument)
                         }} />
-                        <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                        <button type="submit" onClick={() => handleDocumentEdit(i)}>Confirm</button>
                       </div>
                     </td>
                   )}
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
 
           <Fade in={true} timeout={1500}>
             <div className="text-center mt-4">

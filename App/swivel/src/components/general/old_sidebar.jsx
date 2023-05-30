@@ -22,6 +22,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FolderIcon from '@mui/icons-material/Folder';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from "next-auth/react";
 
 import styles from "@/styles/old_sidebar.module.css";
 
@@ -91,6 +92,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const handleSidebarClick = (event) => {
     event.stopPropagation();
   };
+
+  if (!apiData) {
+    return null;
+  }
 
   return (
     <div className="sidebar-container" style={{ height: "100vh" }}>
@@ -213,6 +218,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
               <MenuItem
                 icon={<LogoutIcon
                 />}
+                onClick={() => signOut({ callbackUrl: '/auth/login' })}
               >
                 <span>Cerrar sesión</span>
               </MenuItem>

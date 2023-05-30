@@ -119,8 +119,8 @@ export default function CarDetails() {
       auto: auto,
       cantidad_a_pagar: payment
     }
-
-    const result = await fetch('http://localhost:3000/api/saleCreation', {
+    console.log(body)
+    const result = await fetch('http://localhost:3000/api/saleCreation/with-mongo', {
       method: 'POST',
       body: JSON.stringify(body)
     })
