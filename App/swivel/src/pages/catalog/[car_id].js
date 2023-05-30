@@ -17,6 +17,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
 import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
+import Image from "next/image";
+import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 
@@ -56,29 +58,56 @@ export default function CarDetails() {
 
   const { data: session } = useSession();
 
-  const fetchCarDetails = async () => {
-    const response = await fetch(
-      `/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
-    );
-
-    const data = await response.json();
-
-    if (!carDetails) {
-      setCarDetails(data.result);
-    }
-    setCarPrice(data.result.precio);
-    setSelectedColor(data.result.colores[0]);
-  };
-
   useEffect(() => {
+    const fetchCarDetails = async () => {
+      const response = await fetch(
+        `/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
+      );
+
+      const data = await response.json();
+
+      if (!carDetails) {
+        setCarDetails(data.result);
+      }
+      setCarPrice(data.result.precio);
+      setSelectedColor(data.result.colores[0]);
+    };
+
+    const calculateDownPaymentAmount = () => {
+      let downPaymentAmmount = carPrice * (selectedDownPayment / 100);
+      setDownPayment(downPaymentAmmount);
+    };
+
+    const calculateMonthlyPayment = () => {
+
+      const initialLoan = (carPrice + totalPriceExtras) - downPayment;
+      const capitalPayment = initialLoan / selectedTerm;
+
+      const totalInterest = ((interestRate / 12) / 100) * selectedTerm
+      const interestPayment = (initialLoan * totalInterest) / selectedTerm;
+
+      const monthlyPaymentTotal = capitalPayment + interestPayment;
+      setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
+    };
+
+    // Calculate the total price based on selected extras
+    const calculateTotalPriceExtras = () => {
+      const extrasPrice = selectedExtras.reduce(
+        (total, extra) => total + extra.precio,
+        0
+      );
+      setTotalPriceExtras(extrasPrice);
+    };
+
     if (!car_id) {
       return;
     }
+
     fetchCarDetails();
     calculateTotalPriceExtras();
     calculateDownPaymentAmount();
     calculateMonthlyPayment();
-  }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate, downPayment]);
+  }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate, downPayment, carDetails, carPrice, totalPriceExtras]);
 
   useEffect(() => {
     if (carDetails) {
@@ -127,32 +156,6 @@ export default function CarDetails() {
 
     router.push(`/purchase/${data.id}`);
   }
-  // Calculate the total price based on selected extras
-  const calculateTotalPriceExtras = () => {
-    const extrasPrice = selectedExtras.reduce(
-      (total, extra) => total + extra.precio,
-      0
-    );
-    setTotalPriceExtras(extrasPrice);
-  };
-
-  const calculateDownPaymentAmount = () => {
-    let downPaymentAmmount = carPrice * (selectedDownPayment / 100);
-    setDownPayment(downPaymentAmmount);
-  };
-
-  const calculateMonthlyPayment = () => {
-    
-    const initialLoan = (carPrice + totalPriceExtras) - downPayment;
-    const capitalPayment = initialLoan / selectedTerm;
-    
-    const totalInterest = ((interestRate / 12) / 100) * selectedTerm
-    const interestPayment = (initialLoan * totalInterest) / selectedTerm;
-   
-    const monthlyPaymentTotal = capitalPayment + interestPayment;
-    setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
-  };
-
 
   // Function to handle checkbox change of
   const handleCheckboxChange = (event) => {
@@ -233,14 +236,14 @@ export default function CarDetails() {
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalog">
+              <Link href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
                 <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
                   Regresar al catálogo
                 </span>
-              </a>
+              </Link>
               <div className="pt-4">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>
@@ -251,7 +254,7 @@ export default function CarDetails() {
                       />
                       <div className="pt-2 text-end">
                         <IconButton aria-label="360">
-                          <img
+                          <Image
                             src="/buyer/360_symbol.png"
                             height="15px"
                             alt="360"
@@ -275,7 +278,7 @@ export default function CarDetails() {
                             onClick={() => setFavorite(!favorite)}
                             className="p-0"
                           >
-                            <img
+                            <Image
                               src={
                                 favorite
                                   ? "/buyer/heart_filled.png"
@@ -302,7 +305,7 @@ export default function CarDetails() {
                           {carDetails.marca} {carDetails.modelo}
                         </Typography>
                         <div className="d-flex pt-3 align-items-start">
-                          <img
+                          <Image
                             src="/buyer/ubicacion.png"
                             height="18px"
                             className="mt-1"
@@ -318,7 +321,7 @@ export default function CarDetails() {
                           </Typography>
                         </div>
                         <div className="d-flex pt-2 align-items-center">
-                          <img
+                          <Image
                             src="/buyer/agencia.png"
                             height="17px"
                             alt="agencia"
@@ -413,7 +416,7 @@ export default function CarDetails() {
                 <Container maxWidth="xl">
                   <div className="section p-5 py-3 d-flex justify-content-between">
                     <div className="d-flex align-items-center">
-                      <img
+                      <Image
                         src={
                           selectedColor.imagenes
                             ? selectedColor.imagenes[0]
@@ -609,7 +612,7 @@ export default function CarDetails() {
                         key={index}
                       >
                         <div className="d-flex align-items-center">
-                          <img
+                          <Image
                             src={detail.icon}
                             height="18px"
                             width={"18px"}
@@ -644,7 +647,7 @@ export default function CarDetails() {
                         key={index}
                       >
                         <div className="d-flex align-items-center">
-                          <img
+                          <Image
                             src={detail.icon}
                             height="18px"
                             width={"18px"}
@@ -692,13 +695,13 @@ export default function CarDetails() {
                       className="col-lg-3 col-md-4 col-sm-6 p-5 py-3"
                       key={index}
                     >
-                      <li 
+                      <li
                         style={{
                           fontFamily: "Lato",
                           fontSize: "1.1rem",
                         }}
                       >
-                          {caracteristica}
+                        {caracteristica}
                       </li>
                     </div>
                   ))}
@@ -765,7 +768,7 @@ export default function CarDetails() {
                             color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                           >
-                            
+
                             (+${Intl.NumberFormat().format(extra.precio)} MXN)
                           </Typography>
                         </div>
@@ -997,7 +1000,7 @@ export default function CarDetails() {
               <Grid container spacing={2}>
 
                 <Grid item sm={7} xs={12}>
-                  <img
+                  <Image
                     src={selectedColor.imagenes[0]}
                     className="d-block w-100 h-100 rounded"
                     alt={"imagen carousel"}

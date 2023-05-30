@@ -23,7 +23,7 @@ export default function MediaCard(props) {
         title="card image"
       >
         <div style={{ position: "relative", height: "100%" }}>
-          <Image src={props.img} fill={true} style={{ objectFit: "cover" }} />
+          <Image alt="Image" src={props.img} fill={true} style={{ objectFit: "cover" }} />
         </div>
       </CardMedia>
       <CardContent>

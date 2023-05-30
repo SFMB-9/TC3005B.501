@@ -34,8 +34,8 @@ console.log("Search text: " + searchText);
       if (JSON.stringify(router.query.searchQuery)) {
         setSearchText(router.query.searchQuery);
       }
-      isFirstLoad = false;
     }
+    isFirstLoad = false;
   }, []);
 
   // Filter variables
