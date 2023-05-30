@@ -44,8 +44,6 @@ export default async function handler(req, res) {
 				tipo_usuario: encrypted_SA,
 			})
 
-			const SA_id = SA._id.toString()
-
 			const SAdmin = await SaEntity.create({
 				tipo_usuario: encrypted_admin,
 				nombres: name,
@@ -53,7 +51,6 @@ export default async function handler(req, res) {
 				email: email,
 				password: password,
 				numero_telefonico: phone,
-				grupo_automotriz_id: SA_id,
 			})
 
 			res.status(200).json({
