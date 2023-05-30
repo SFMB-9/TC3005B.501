@@ -14,7 +14,7 @@ export default function BuyerSidebar() {
           <>
             <a href={`${root}/`}>
               <MenuItem
-                icon={<ManageAccountsIcon/>}
+                icon={<ManageAccountsIcon />}
               >
                 Mi cuenta
               </MenuItem>
@@ -44,11 +44,6 @@ export default function BuyerSidebar() {
                 Mis documentos
               </MenuItem>
             </a>
-          </>
-        }
-        footer={
-          <>
-            Logout
           </>
         }
       />

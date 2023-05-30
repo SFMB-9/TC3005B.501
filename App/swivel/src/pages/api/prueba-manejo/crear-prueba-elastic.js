@@ -15,7 +15,7 @@ import dbConnect from "../../../config/dbConnect";
 export default async (req, res) => {
     await dbConnect();
     try {
-        let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${req.body.auto_id}`, 
+        let rawResult = await fetch(`/api/prueba-manejo/get-car-info-elastic?auto_id=${req.body.auto_id}`, 
         {method: 'GET'});
         const jsonResult = await rawResult.json();
         const carData = jsonResult.auto._source;

@@ -11,7 +11,13 @@ const { Client } = require('@elastic/elasticsearch')
 
 
 export default async function handler(req, res) {
-    const client = new Client({ node: 'http://localhost:9200' });
+    //const client = new Client({ node: 'http://localhost:9200' });
+    const client = new Client({
+        node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+        auth: {
+            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+        }
+    })
 
     let query = {};
 
@@ -19,7 +25,7 @@ export default async function handler(req, res) {
     let searchQuery = req.query.search === undefined ? "" : req.query.search;
 
     // Fetch resluts based on the search query
-    let searchResults = await fetch(`http://localhost:3000/api/catalogoNuevo/search?search=${searchQuery}`);
+    let searchResults = await fetch(`/api/catalogoNuevo/search?search=${searchQuery}`);
 
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
@@ -30,9 +36,11 @@ export default async function handler(req, res) {
         if (searchIds.length > 0) {
             query = buildQuery(req.query, searchIds, {});
         } else {
+            console.log("No se encontraron autos")
             return res.status(404).json({ message: "No se encontraron autos" });
         }
     } else {
+        console.log("No se encontraron autos")
         return res.status(404).json({ message: "No se encontraron autos" });
     }
 
@@ -92,7 +100,7 @@ export default async function handler(req, res) {
 // Function to assemble the filters from the catalog results
 async function assembleFilter(result, filters) {
 
-    let response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas');
+    let response = await fetch('/api/catalogoNuevo/marcas');
 
     let marcaResponse = await response.json();
     let marca = marcaResponse.result;
