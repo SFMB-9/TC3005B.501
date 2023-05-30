@@ -49,7 +49,6 @@ export default function Login() {
 
   return (
     <>
-   {session && (
       <AuthComponent
         backImage=""
         fields={
@@ -113,7 +112,6 @@ export default function Login() {
         bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
         textColor="black"
       />
-  )}
   </>
   );
 }
