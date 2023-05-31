@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
-import ManagerNavbar from '@/components/providers/Manager/navbar';
 import { TextField, Button, Typography, Container } from '@mui/material';
-import styles from "@/styles/edit_gerente.module.css"
+import GANavbar from '@/components/providers/GA/navbar';
 
 export default function SearchResults() {
 
@@ -46,14 +45,14 @@ export default function SearchResults() {
 
     return (
         <>
-            <ManagerNavbar/>
-            <Container sx={{ flexDirection: 'column' }}>
-                <Typography variant="h1">Agregar Gerente</Typography>
-                <Container sx={{ flexDirection: 'column', padding: 2}}>
+            <GANavbar/>
+            <Container sx={{ flexDirection: 'column', display: 'flex', justifyContent: 'flex-start', gap: '25px' }}>
+                <Typography variant="h2">Agregar Gerente</Typography>
+                <Container sx={{  flexDirection: 'column', display: 'flex', justifyContent: 'flex-start', gap: '25px' }}>
                     <Typography variant='h3'>Ingresa los datos del gerente</Typography>
-                    <Container >
+                    <Container sx={{ display: 'grid', gridTemplateColumns: 'repeat(2 , 1fr)', gridTemplateRows: 'repeat(3 , 1fr)', gridColumnGap: '10px', gridRowGap: '5px'}}>
                         <TextField
-                            sx={{width: 578}}
+                            sx={{width: 570, gridArea: '1/1/2/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -65,7 +64,7 @@ export default function SearchResults() {
                             onChange={(e) => setName(e.target.value)}
                         />
                         <TextField
-                            
+                            sx={{width: 570, gridArea: '1/2/2/3'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -78,7 +77,7 @@ export default function SearchResults() {
                         />
                         <TextField
                             
-                            sx={{width: 620.8864135742188}}
+                            sx={{width: 570, gridArea: '2/1/3/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -91,7 +90,7 @@ export default function SearchResults() {
                         />
                         <TextField
                             
-                            sx={{width: 578}}
+                            sx={{width: 570, gridArea: '3/1/4/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -102,12 +101,12 @@ export default function SearchResults() {
                         />
                     </Container>
                 </Container>
-                <Container sx={{ flexDirection: 'column', }}>
+                <Container sx={{  flexDirection: 'column', display: 'flex', justifyContent: 'flex-start', gap: '10px'  }}>
                     <Typography variant='h3'>Credenciales</Typography>
-                    <Container>
+                    <Container sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1f)', gridTemplateRows: 'repeat(5, 1f)', gridColumnGap: '10px', gridRowGap: '5px'}}>
                         <TextField
                             
-                            sx={{width: 578}}
+                            sx={{width: 578, gridArea: '1/1/2/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -120,7 +119,7 @@ export default function SearchResults() {
                         ></TextField>
                         <TextField
                             
-                            sx={{width: 578}}
+                            sx={{width: 578, gridArea: '2/1/3/2'}}
                             color="primary"
                             variant="outlined"
                             type="password"
@@ -131,7 +130,7 @@ export default function SearchResults() {
                         ></TextField>
                         <TextField
                             
-                            sx={{width: 621.8864135742188}}
+                            sx={{width: 578, gridArea: '2/2/3/2'}}
                             color="primary"
                             variant="outlined"
                             type="password"
@@ -142,7 +141,7 @@ export default function SearchResults() {
                         ></TextField>
                     </Container>
                 </Container>
-                <Container sx={{ flexDirection: 'column', alignSelf: "center"}}>
+                <Container sx={{  flexDirection: 'row', display: 'flex', justifyContent: 'center', gap: '25px' }}>
                     <Button
                         
                         sx={{width: 153}}
@@ -154,10 +153,11 @@ export default function SearchResults() {
                         
                         sx={{width: 153}}
                         variant="contained"
-                        color="secondary"
+                        color="custom"
                         onClick={cancelHandler}
                     >Cancelar</Button>
                 </Container>
+                <Container sx={{display: 'flex'}}></Container>
             </Container>
         </>
     );
