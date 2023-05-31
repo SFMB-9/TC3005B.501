@@ -167,6 +167,26 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
+
+                <Typography
+                  fontFamily="Lato"
+                  color="#1F1F1F"
+                  className="pt-5 pb-1"
+                  fontWeight="bold"
+                  fontSize={{ xs: 16, md: 17, lg: 19 }}
+                >
+                  Contraseña
+                </Typography>
+
+                <Typography
+                  fontFamily="Lato"
+                  color="#8A8A8A"
+                  className="pb-3"
+                  fontSize={{ xs: 14, md: 15, lg: 16 }}
+                >
+                  La contraseña debe tener al menos seis caracteres, e incluir una combinación de números, letras y caracteres especiales (!$@%).
+                </Typography>
+
               
                 <div className="col-xl-6 col-md-8">
                     <Typography
@@ -180,7 +200,7 @@ export default function SellerSignup() {
                   <TextField
                     required
                     size="small"
-                    type="text"
+                    type="password"
                     name="paswword_field"
                     id="password"
                     value={password}
@@ -206,7 +226,7 @@ export default function SellerSignup() {
                   <TextField
                     required
                     size="small"
-                    type="text"
+                    type="password"
                     name="passwordConfirmation"
                     id="passwordConfirmation"
                     value=""
@@ -248,7 +268,7 @@ export default function SellerSignup() {
                     value={agency}
                     pattern="[a-zA-Z]+"
                     onChange={(e) => setAgency(e.target.value)}
-                    label="Nombre de agencia (automático)"
+                    //label="Nombre de agencia (automático)"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
