@@ -82,7 +82,7 @@ export default function SellerSignup() {
                     size="small"
                     type="text"
                     name="name"
-                    id="name"
+                    id="name_field"
                     value={name}
                     pattern="[a-zA-Z]+"
                     onChange={(e) => setName(e.target.value)}
@@ -107,7 +107,7 @@ export default function SellerSignup() {
                     size="small"
                     type="text"
                     name="surname"
-                    id="surname"
+                    id="name_field"
                     value={surname}
                     pattern="[a-zA-Z]+"
                     onChange={(e) => setSurname(e.target.value)}
@@ -132,7 +132,7 @@ export default function SellerSignup() {
                     size="small"
                     type="email"
                     name="email"
-                    id="email"
+                    id="email_field"
                     value={email}
                     pattern="[a-zA-Z]+"
                     onChange={(e) => setEmail(e.target.value)}
@@ -156,7 +156,7 @@ export default function SellerSignup() {
                     required
                     size="small"
                     type="text"
-                    name="phone"
+                    name="phone_field"
                     id="phone"
                     value={phone}
                     pattern="[a-zA-Z]+"
@@ -181,7 +181,7 @@ export default function SellerSignup() {
                     required
                     size="small"
                     type="text"
-                    name="paswword"
+                    name="paswword_field"
                     id="password"
                     value={password}
                     pattern="[a-zA-Z]+"
@@ -209,7 +209,7 @@ export default function SellerSignup() {
                     type="text"
                     name="passwordConfirmation"
                     id="passwordConfirmation"
-                    value={phone}
+                    value=""
                     pattern="[a-zA-Z]+"
                     onChange=""
                     label="Confirmar contraseña"
@@ -271,7 +271,7 @@ export default function SellerSignup() {
                     type="text"
                     name="location"
                     id="location"
-                    value=""
+                    //value=""
                     pattern="[a-zA-Z]+"
                     onChange=""
                     label="Ubicación (automático)"
