@@ -22,7 +22,7 @@ export default function Chat() {
       setUsername(data.name + " " + data.surname);
     } catch (error) {
       console.log(error);
-      console.log(error.response.data);
+     
     }
   };
   getContact();

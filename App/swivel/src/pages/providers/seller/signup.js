@@ -8,21 +8,22 @@ export default function SellerSignup() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [agency, setAgency] = useState("");
   const [password, setPassword] = useState("");
+  
+  const agency = router.query.id;
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const { data } = await axios.post("/api/register", {
-        name: name,
-        surname: surname,
+        nombres: name,
+        apellidos: surname,
         email: email,
         password: password,
-        role: "seller",
-        agency: agency,
-        cellphone: phone,
+        tipo_usuario: "seller",
+        agencia_id: agency,
+        numero_telefonico: phone,
       });
 
       console.log(data);
@@ -70,18 +71,6 @@ export default function SellerSignup() {
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="agency_field">Agency</label>
-          <input
-            type="text"
-            id="agency_field"
-            className="form-control"
-            value={agency}
-            onChange={(e) => setAgency(e.target.value)}
             required
           />
         </div>

@@ -14,7 +14,7 @@ import {
   useProSidebar,
 } from "react-pro-sidebar";
 
-import styles from "@/styles/sidebar.module.css";
+import styles from "@/styles/custom_sidebar.module.css";
 
 const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const { collapseSidebar } = useProSidebar();
