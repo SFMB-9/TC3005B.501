@@ -1,0 +1,119 @@
+.addManager{
+    position: absolute;
+    top: 134px;
+    left: 98px;
+    font-size: 50px;
+    font-family: var(--font-raleway);
+}
+
+.credentials,
+.getData {
+    position: absolute;
+    top: 239px;
+    left: 98px;
+    display: inline-block;
+    width: 494px;
+}
+
+.credentials {
+    top: 583px;
+    left: 96px;
+}
+
+.phone,
+.id2 {
+    border: 0;
+    background-color: transparent;
+    position: absolute;
+    top: 81px;
+    left: 2px;
+}
+
+.id2 {
+    top: 433px;
+    left: 636px;
+}
+
+.name,
+.agency {
+    position: absolute;
+    left: 2px;
+}
+
+.name {
+    border: 0;
+    background-color: transparent;
+    top: 0;
+}
+
+.agency {
+    top: 162px;
+}
+.surname,
+.agency,
+.email {
+    border: 0;
+    background-color: transparent;
+}
+
+.surname {
+    position: absolute;
+    top: 0;
+    left: 636px;
+}
+
+.email {
+    top: 344px;
+    left: 0;
+}
+.dataInfo,
+.email{
+    position: absolute;
+}
+
+.id {
+    border: 0;
+    background-color: transparent;
+    top: 433px;
+    left: 2px;
+    position: absolute;
+}
+
+.dataInfo {
+    top: 300px;
+    left: 96px;
+    width: 1257.89px;
+    height: 489px;
+}
+
+.btnSave {
+    position: absolute;
+    top: 0;
+    left: 216px;
+}
+
+.btnCancel{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.btnEdit {
+    position: absolute;
+    top: 550px;
+    left: 536px;
+    width: 369px;
+    height: 55px;
+}
+
+.gAddManager {
+    position: relative;
+    background-color: var(--blanco);
+    width: 100%;
+    height: 1121px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-11xl);
+    color: var(--gris-fuerte);
+    font-family: var(--font-lato);
+}
