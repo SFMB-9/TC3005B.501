@@ -16,7 +16,7 @@ export default async (req, res) => {
     }
   
     const user_id = req.query._id;
-    const nombre_agencia = req.query.agency_name;
+    const agencia_id = req.query.agency_id;
 
     const client = await connectToDatabase;
     const db = client.db("test");
@@ -27,9 +27,9 @@ export default async (req, res) => {
       const user = await userCollection.findOne({_id : new ObjectId(user_id)});
 
       // Find the agency specific to the given name
-      const manager = await userCollection.findOne({ nombres: nombre_agencia, tipo_usuario: "agencia" });
+      const agency = await userCollection.findOne({ _id: agencia_id });
 
-      res.status(200).json({ user, manager }, { status: 'Se han encontrado los usuarios'});
+      res.status(200).json({ user, agency }, { status: 'Se han encontrado los usuarios'});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
