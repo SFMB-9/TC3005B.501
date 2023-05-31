@@ -52,7 +52,7 @@ export default function SearchResults() {
                     <Typography variant='h3'>Ingresa los datos del gerente</Typography>
                     <Container sx={{ display: 'grid', gridTemplateColumns: 'repeat(2 , 1fr)', gridTemplateRows: 'repeat(3 , 1fr)', gridColumnGap: '10px', gridRowGap: '5px'}}>
                         <TextField
-                            sx={{width: 570, gridArea: '1/1/2/2'}}
+                            sx={{ minWidth:150, maxWidth: 570, gridArea: '1/1/2/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -64,7 +64,7 @@ export default function SearchResults() {
                             onChange={(e) => setName(e.target.value)}
                         />
                         <TextField
-                            sx={{width: 570, gridArea: '1/2/2/3'}}
+                            sx={{minWidth:150, maxWidth: 570, gridArea: '1/2/2/3'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -77,7 +77,7 @@ export default function SearchResults() {
                         />
                         <TextField
                             
-                            sx={{width: 570, gridArea: '2/1/3/2'}}
+                            sx={{minWidth:150, maxWidth: 570, gridArea: '2/1/3/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -90,7 +90,7 @@ export default function SearchResults() {
                         />
                         <TextField
                             
-                            sx={{width: 570, gridArea: '3/1/4/2'}}
+                            sx={{minWidth:150, maxWidth: 570, gridArea: '3/1/4/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -106,7 +106,7 @@ export default function SearchResults() {
                     <Container sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1f)', gridTemplateRows: 'repeat(5, 1f)', gridColumnGap: '10px', gridRowGap: '5px'}}>
                         <TextField
                             
-                            sx={{width: 578, gridArea: '1/1/2/2'}}
+                            sx={{minWidth:150, maxWidth: 570, gridArea: '1/1/2/2'}}
                             color="primary"
                             variant="outlined"
                             type="text"
@@ -119,7 +119,7 @@ export default function SearchResults() {
                         ></TextField>
                         <TextField
                             
-                            sx={{width: 578, gridArea: '2/1/3/2'}}
+                            sx={{minWidth:150, maxWidth: 570, gridArea: '2/1/3/2'}}
                             color="primary"
                             variant="outlined"
                             type="password"
@@ -130,7 +130,7 @@ export default function SearchResults() {
                         ></TextField>
                         <TextField
                             
-                            sx={{width: 578, gridArea: '2/2/3/2'}}
+                            sx={{minWidth:150, maxWidth: 570, gridArea: '2/2/3/2'}}
                             color="primary"
                             variant="outlined"
                             type="password"
