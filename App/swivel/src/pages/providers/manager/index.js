@@ -6,7 +6,7 @@ import ActionsCards from "@/components/providers/Manager/actions_cards";
 export default function Manager() {
   return (
     <>
-      <ManagerNavbar />
+      <ManagerNavbar/>
       <CustomHero
         title="Bienvenidx, nombre"
         message="Administra tus solicitudes pendientes"

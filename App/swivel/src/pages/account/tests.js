@@ -1,5 +1,6 @@
 import {
   Grid,
+  Typography,
 } from "@mui/material";
 import AccountLayout from "@/components/buyer/account_layout";
 import React, { useState, useEffect } from "react";
@@ -12,8 +13,6 @@ export default function Tests() {
   const router = useRouter();
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
-
-  console.log("session", session);
   
   const fetchDrivingData = async () => {
       const res = await fetch(
@@ -33,6 +32,17 @@ export default function Tests() {
     <AccountLayout>
       <Grid item xs={12} md={9} sm={8}>
             <div>
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              className="pb-2"
+              sx={{ fontFamily: "Raleway", color: "#333333",
+                paddingTop: "1rem",
+                paddingLeft: "2rem",
+              }}
+            >
+              Mis pruebas de manejo
+          </Typography>
               <div
                 style={{
                   padding: "3%",
