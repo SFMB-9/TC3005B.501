@@ -164,7 +164,7 @@ export default function Login() {
                 
               </Button>
 
-              <button type="submit" className="btn btn-secondary btn-block mb-2">
+              <button type="submit" className="btn btn-secondary btn-block mb-2" onClick={() => signIn("google")}>
                 <Typography
                   sx={{
                     color: "white",

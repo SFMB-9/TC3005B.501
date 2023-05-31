@@ -14,6 +14,10 @@ const { Client } = require('@elastic/elasticsearch')
 let requestAgencyName = "";
 
 export default async function handler(req, res){
+    if(req.method !== 'GET'){
+      res.status(405).json({message: 'Method not allowed'});
+    }
+  
     const client = new Client({ node: 'http://localhost:9200' });
     console.log("Query: " + JSON.stringify(req.query));
 
@@ -55,10 +59,6 @@ export default async function handler(req, res){
         municipio_agencia: "Municipio de la agencia",
         tipo_vehiculo: "Tipo de vehículo"
       };
-    
-    if(req.method !== 'GET'){
-        res.status(400).json({message: 'Method not allowed'});
-    }
 
     try{
         let elasticResponse = await client.search({
@@ -88,18 +88,12 @@ export default async function handler(req, res){
                 filterHeaders: filterHeaders
         });
     } catch (err) {
-        return res.status(400).json({ message: "Error al buscar autos", error: err.message });
+        return res.status(500).json({ message: "Error al buscar autos", error: err.message });
     }
 }
 
 // Function to assemble the filters from the catalog results
 async function assembleFilter(result, filters) {
-
-    let response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas');
-
-    let marcaResponse = await response.json();
-    let marca = marcaResponse.result;
-
     let modelo = [...new Set(result.map(item => item._source.modelo))];
     let ano = [...new Set(result.map(item => item._source.año))];
     let color = [...new Set(result.map(item => item._source.color))];
@@ -108,7 +102,7 @@ async function assembleFilter(result, filters) {
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
     let estado_agencia = [...new Set(result.map(item => item._source.estado_agencia))];
 
-    filters.marca = marca;
+    // filters.marca = marca;
     filters.modelo = modelo;
     filters.ano = ano;
     filters.color = color;

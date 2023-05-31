@@ -10,10 +10,15 @@ const { Client } = require('@elastic/elasticsearch');
 
 export default async (req, res) => {
   if (req.method !== 'GET') {
-    res.status(400).json({ message: 'Method not allowed' });
+    res.status(405).json({ message: 'Method not allowed' });
   }
   
-  const client = new Client({ node: 'http://localhost:9200' });
+  const client = new Client({
+    node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+    auth: {
+        apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+    }
+  });
 
   const auto_id = req.query.auto_id;
 
