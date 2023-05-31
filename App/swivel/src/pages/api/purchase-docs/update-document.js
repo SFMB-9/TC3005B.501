@@ -65,7 +65,7 @@ export default async function handler(req, res) {
         proc.markModified('documentos');
         //save the changes
         await proc.save();
-        return res.status(200).json({ message: 'Updated file in request: ' + process_id + ' at document: ' + doc[doc_index].nombre });
+        return res.status(200).json({ message: 'Updated file in request: ' + process_id + ' at document: ' + doc[doc_index].nombre_documento });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: error.message });

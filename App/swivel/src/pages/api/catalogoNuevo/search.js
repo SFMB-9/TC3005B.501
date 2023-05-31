@@ -9,13 +9,14 @@ Description: Search for cars in elasticsearch using only natural language
 
 // Connecting to ElasticSearch with security disabled
 const { Client } = require('@elastic/elasticsearch')
+const { ELASTIC_API_KEY } = process.env
 
 export default async function handler(req, res) {
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
         auth: {
-            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+            apiKey: ELASTIC_API_KEY
         }
     })
 
@@ -49,7 +50,7 @@ export default async function handler(req, res) {
 
     try{
         let elasticResponse = await client.search({
-            index: 'autos',
+            index: 'autos_dev',
             body: query
         }, {meta: true});
         
