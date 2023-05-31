@@ -41,7 +41,7 @@ export default async (req, res) => {
         const userData = await userCollection.findOne({_id : new ObjectId(req.body.user_id)});
 
         // Find the agency specific to the given name
-        const agencyData = await userCollection.findOne({ _id: carData.agencia_id });
+        const agencyData = await userCollection.findOne({ _id: new ObjectId(carData.agencia_id) });
 
         // Create the Process with the defined data
         const proceso = { 
@@ -75,7 +75,7 @@ export default async (req, res) => {
         const process_id = result.insertedId;
 
         // Add the created process to the list of processes the user has
-        await userCollection.updateOne({ _id: userData._id }, { $push: { procesos: process_id } });
+        await userCollection.updateOne({ _id: new ObjectId(userData._id) }, { $push: { procesos: process_id } });
 
         return res
             .status(200)

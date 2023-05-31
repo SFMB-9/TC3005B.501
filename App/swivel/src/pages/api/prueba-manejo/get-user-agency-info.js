@@ -18,6 +18,8 @@ export default async (req, res) => {
     const user_id = req.query._id;
     const agencia_id = req.query.agency_id;
 
+    console.log("Agencia ID inside ep: " + agencia_id);
+
     const client = await connectToDatabase;
     const db = client.db("test");
     const userCollection = db.collection('usuarios');
@@ -27,7 +29,7 @@ export default async (req, res) => {
       const user = await userCollection.findOne({_id : new ObjectId(user_id)});
 
       // Find the agency specific to the given name
-      const agency = await userCollection.findOne({ _id: agencia_id });
+      const agency = await userCollection.findOne({ _id: new ObjectId(agencia_id) });
 
       res.status(200).json({ user, agency }, { status: 'Se han encontrado los usuarios'});
     } catch (error) {
