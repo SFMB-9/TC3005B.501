@@ -31,11 +31,11 @@
   border-radius: 10px;
 }
 
-.schedule {
+.schedule, .confirmation {
   padding: 8vw;
 }
 
-.carView {
+.carView, .testInfo {
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -81,4 +81,8 @@
   padding-bottom: 2vh;
   text-align: center;
   font-family: 'Lato';
+}
+
+.testInfo {
+  padding-top: 20vh;
 }
