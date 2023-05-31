@@ -13,7 +13,7 @@ export default async (req, res) => {
     }
     
     // Connect to the MongoDB database using Mongoose
-    await dbConnect();
+    dbConnect();
 
     try {
         // Add GA data to user
