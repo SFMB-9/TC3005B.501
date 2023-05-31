@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
+
 import {
   Container,
   Typography,
@@ -18,14 +19,61 @@ export default function EditAccount() {
   const { data: session } = useSession();
   const [editMode, setEditMode] = useState(false);
 
+  const [newName, setNewName] = useState("");
+  const [newSurname, setNewSurname] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+
+  const [newStreet, setNewStreet] = useState("");
+  const [newExtNum, setNewExtNum] = useState("");
+  const [newIntNum, setNewIntNum] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newState, setNewState] = useState("");
+  const [newCountry, setNewCountry] = useState("");
+  const [newZip, setNewZip] = useState("");
+
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
 
     const res = await resData.json();
 
     setApiData(res.userData);
+  };
+
+
+  const editProfile = async (e) => {
+    e.preventDefault();
+
+    try{
+      const { data } = await axios.put("/api/buyerProfile/updateBuyerProfile", {
+        id: session.id,
+        nombres: newName,
+        apellidos: newSurname,
+        email: newEmail,
+        numero_telefonico: newPhone,
+
+        direccion: {
+          calle: newStreet,
+          numero_exterior: newExtNum,
+          numero_interior: newIntNum,
+          ciudad: newCity,
+          estado: newState,
+          pais: newCountry,
+          codigo_postal: newZip,
+        }
+
+      });
+      console.log(data);
+      window.location.href = "/account";
+
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+
+    }
+
   };
 
   useEffect(() => {
@@ -34,7 +82,6 @@ export default function EditAccount() {
     }
   }, [session]);
 
-  console.log("apiData", apiData);
 
   if (apiData) {
     return (
@@ -68,8 +115,8 @@ export default function EditAccount() {
                     name="nombre"
                     id="nombre"
                     defaultValue={apiData.name}
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
                     label="Nombre(s)"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -92,8 +139,8 @@ export default function EditAccount() {
                     name="apellidos"
                     id="apellidos"
                     defaultValue={apiData.surname}
-                    // value={apiData.surname}
-                    // onChange={handleChange}
+                    value={newSurname}
+                    onChange={(e) => setNewSurname(e.target.value)}
                     label="Apellido(s)"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -117,8 +164,8 @@ export default function EditAccount() {
                     name="mail"
                     id="mail"
                     defaultValue={apiData.email}
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
                     label="Correo electrónico"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -142,8 +189,8 @@ export default function EditAccount() {
                     name="telefono"
                     id="telefono"
                     defaultValue="5511223344 (placeholder)"
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newPhone}
+                    onChange={(e) => setNewPhone(e.target.value)}
                     label="Teléfono"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -179,8 +226,8 @@ export default function EditAccount() {
                     name="calle"
                     id="calle"
                     defaultValue="Carlos Lazo (placeholder)"
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newStreet}
+                    onChange={(e) => setNewStreet(e.target.value)}
                     label="Calle"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -194,18 +241,43 @@ export default function EditAccount() {
                     className="pb-3"
                     fontSize={{ xs: 15, md: 16, lg: 18 }}
                   >
-                    Número
+                    Número Exterior
                   </Typography>
 
                   <TextField
                     required
                     size="small"
                     type="text"
-                    name="numero"
+                    name="numero ext"
                     id="numero"
                     defaultValue="123 (placeholder)"
-                    // value={apiData.surname}
-                    // onChange={handleChange}
+                    value={newExtNum}
+                    onChange={(e) => setNewExtNum(e.target.value)}
+                    label="Número"
+                    inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+                <div className="col-xl-6 col-md-12">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Número Interior
+                  </Typography>
+
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="numero int"
+                    id="numero"
+                    defaultValue="123 (placeholder)"
+                    value={newIntNum}
+                    onChange={(e) => setNewIntNum(e.target.value)}
                     label="Número"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -229,34 +301,9 @@ export default function EditAccount() {
                     name="cp"
                     id="cp"
                     defaultValue="12345 (placeholder)"
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newZip}
+                    onChange={(e) => setNewZip(e.target.value)}
                     label="Código postal"
-                    inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
-                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
-                    className="mb-3 w-100"
-                  />
-                </div>
-                <div className="col-xl-6 col-md-12">
-                  <Typography
-                    fontFamily="Lato"
-                    color="#8A8A8A"
-                    className="pb-3"
-                    fontSize={{ xs: 15, md: 16, lg: 18 }}
-                  >
-                    Colonia
-                  </Typography>
-
-                  <TextField
-                    required
-                    size="small"
-                    type="text"
-                    name="colonia"
-                    id="colonia"
-                    defaultValue="Colonia (placeholder)"
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
-                    label="Colonia"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
@@ -279,8 +326,8 @@ export default function EditAccount() {
                     name="ciudad"
                     id="ciudad"
                     defaultValue="Ciudad (placeholder)"
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newCity}
+                    onChange={(e) => setNewCity(e.target.value)}
                     label="Ciudad"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -304,8 +351,33 @@ export default function EditAccount() {
                     name="estado"
                     id="estado"
                     defaultValue="Estado de México (placeholder)"
-                    // value={apiData.nombre}
-                    // onChange={handleChange}
+                    value={newState}
+                    onChange={(e) => setNewState(e.target.value)}
+                    label="Estado"
+                    inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="mb-3 w-100"
+                  />
+                </div>
+                <div className="col-xl-6 col-md-12">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    País
+                  </Typography>
+
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="estado"
+                    id="estado"
+                    defaultValue="Estado de México (placeholder)"
+                    value={newCountry}
+                    onChange={(e) => setNewCountry(e.target.value)}
                     label="Estado"
                     inputProps={{ readOnly: editMode, min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -374,6 +446,7 @@ export default function EditAccount() {
                     <div> </div>
 
                     <Button
+                      onClick={editProfile}
                       variant="contained"
                       type="submit"
                       className="w-80"

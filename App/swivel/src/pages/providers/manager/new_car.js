@@ -8,6 +8,7 @@ import {
   MenuItem,
   IconButton,
   Button,
+  Fade
 } from "@mui/material";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
@@ -811,7 +812,9 @@ const CarRegistrationForm = () => {
             </Typography>
 
             {color.map((object, index) => (
-              <div key={index} className="mb-4">
+              <Fade in={true} key={index}>
+
+              <div className="mb-4">
                 <div
                   className="p-3 py-2 shadow-sm"
                   style={{
@@ -932,6 +935,7 @@ const CarRegistrationForm = () => {
                   </div>
                 </div>
               </div>
+              </Fade>
             ))}
 
             <div className="text-end mt-3">
@@ -969,7 +973,9 @@ const CarRegistrationForm = () => {
 
             <div className="row">
               {caracteristicas.map((value, index) => (
-                <div key={index} className="col-xl-4 col-md-6">
+                <Fade in={true} key={index}>
+
+                <div className="col-xl-4 col-md-6">
                   <div className="d-flex justify-content-between">
                     <TextField
                       required
@@ -995,6 +1001,7 @@ const CarRegistrationForm = () => {
                     </IconButton>
                   </div>
                 </div>
+                </Fade>
               ))}
             </div>
             <div className="text-end mt-3">
@@ -1030,6 +1037,8 @@ const CarRegistrationForm = () => {
             </Typography>
 
             {extras.map((object, index) => (
+              <Fade in={true} key={index}>
+
               <div
                 className="p-3 py-2 shadow-sm mb-3"
                 style={{
@@ -1094,6 +1103,7 @@ const CarRegistrationForm = () => {
                   </div>
                 </div>
               </div>
+              </Fade>
             ))}
 
             <div className="text-end mt-3">
@@ -1157,7 +1167,9 @@ const CarRegistrationForm = () => {
                     }}
                   >
                     {enganche.map((value, index) => (
-                      <div key={index}>
+                      <Fade in={true} key={index}>
+
+                      <div>
                         <div className="d-flex justify-content-between">
                           <TextField
                             required
@@ -1186,6 +1198,7 @@ const CarRegistrationForm = () => {
                           </IconButton>
                         </div>
                       </div>
+                      </Fade>
                     ))}
                   </div>
                 </div>
@@ -1255,7 +1268,9 @@ const CarRegistrationForm = () => {
                       }}
                     >
                       {Object.entries(plazo).map(([index, item]) => (
-                        <div className="row" key={index}>
+                        <Fade in={true} key={index}>
+                          
+                        <div className="row">
                           <div className="col">
                             <TextField
                               required
@@ -1307,6 +1322,7 @@ const CarRegistrationForm = () => {
                             </IconButton>
                           </div>
                         </div>
+                        </Fade>
                       ))}
                     </div>
                   </div>
@@ -1347,6 +1363,8 @@ const CarRegistrationForm = () => {
             </Typography>
 
             {entrega.map((object, index) => (
+              <Fade in={true} key={index}>
+
               <div
                 className="p-3 py-2 shadow-sm mb-3"
                 style={{
@@ -1411,6 +1429,7 @@ const CarRegistrationForm = () => {
                   </div>
                 </div>
               </div>
+              </Fade>
             ))}
 
             <div className="text-end mt-3">

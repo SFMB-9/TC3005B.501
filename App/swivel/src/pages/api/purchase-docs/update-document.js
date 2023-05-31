@@ -35,7 +35,10 @@ export default async function handler(req, res) {
         // Update status of the document using validation API only if it is an INE
         if (doc[doc_index].nombre_documento === "INE" && doc[doc_index].estatus === "Pendiente") {
             console.log("Validating INE" + `${encodedURL}`);
-            const response = await fetch(`http://localhost:3000/api/validate-document?idURL=${encodedURL}`, {
+            let url = new URL('/api/validate-document', `http://${req.headers.host}`);
+            url.searchParams.append('idURL', encodedURL);
+            
+            const response = await fetch(url.toString(), {
                 method: "PUT",
                 body: JSON.stringify({
                     idURL: encodedURL,
