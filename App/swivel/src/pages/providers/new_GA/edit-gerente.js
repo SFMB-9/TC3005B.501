@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import ManagerNavbar from '@/components/providers/Manager/navbar';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Typography, Container } from '@mui/material';
 import styles from "@/styles/edit_gerente.module.css"
 
 export default function SearchResults() {
@@ -47,115 +47,118 @@ export default function SearchResults() {
     return (
         <>
             <ManagerNavbar/>
-            <div className={styles.gAddManager}>
-                <b className={styles.addManager}>Agregar Gerente</b>
-                <b className={styles.getData}>Ingresa los datos del gerente</b>
-                <b className={styles.credentials}>Credenciales</b>
-                <div className={styles.dataInfo}>
-                    <TextField
-                        className={styles.name}
-                        sx={{width: 578}}
-                        color="primary"
-                        variant="outlined"
-                        type="text"
-                        label="Nombre(s)"
-                        placeholder="Nombre(s)"
-                        size="medium"
-                        margin="none"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <TextField
-                        className={styles.surname}
-                        color="primary"
-                        variant="outlined"
-                        type="text"
-                        label="Apellidos"
-                        placeholder="Apellidos"
-                        size="medium"
-                        margin="none"
-                        value={surname}
-                        onChange={(e) => setSurname(e.target.value)}
-                    ></TextField>
-                    <TextField
-                        className={styles.phone}
-                        sx={{width: 620.8864135742188}}
-                        color="primary"
-                        variant="outlined"
-                        type="text"
-                        label= "Teléfono"
-                        placeholder="Teléfono"
-                        size="medium"
-                        margin="none"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}>
-                    </TextField>
-                    <TextField
-                        className={styles.agency}
-                        sx={{width: 578}}
-                        color="primary"
-                        variant="outlined"
-                        type="text"
-                        label="Agencia (automático)"
-                        placeholder="Agencia"
-                        size="medium"
-                        margin="none"
-                    ></TextField>
-                </div>
-                <div className={styles.dataInfo}>
-                    <TextField
-                        className={styles.email}
-                        sx={{width: 578}}
-                        color="primary"
-                        variant="outlined"
-                        type="text"
-                        label="Correo electrónico"
-                        placeholder="Correo electrónico"
-                        size="medium"
-                        margin="none"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    ></TextField>
-                    <TextField
-                        className={styles.id}
-                        sx={{width: 578}}
-                        color="primary"
-                        variant="outlined"
-                        type="password"
-                        label="Contraseña"
-                        placeholder="Contraseña"
-                        size="medium"
-                        margin="none"
-                    ></TextField>
-                    <TextField
-                        className={styles.id2}
-                        sx={{width: 621.8864135742188}}
-                        color="primary"
-                        variant="outlined"
-                        type="password"
-                        label="Confirmar contraseña"
-                        placeholder="Confirmar contraseña"
-                        size="medium"
-                        margin="none"
-                    ></TextField>
-                    <div className={styles.btnEdit}>
-                        <Button
-                            className={styles.btnSave}
-                            sx={{width: 153}}
-                            variant="contained"
+            <Container sx={{ flexDirection: 'column' }}>
+                <Typography variant="h1">Agregar Gerente</Typography>
+                <Container sx={{ flexDirection: 'column', padding: 2}}>
+                    <Typography variant='h3'>Ingresa los datos del gerente</Typography>
+                    <Container >
+                        <TextField
+                            sx={{width: 578}}
                             color="primary"
-                            onClick={submitHandler}
-                        >Agregar</Button>
-                        <Button
-                            className={styles.bntCancel}
-                            sx={{width: 153}}
-                            variant="contained"
-                            color="secondary"
-                            onClick={cancelHandler}
-                        >Cancelar</Button>
-                    </div>
-                </div>
-            </div>
+                            variant="outlined"
+                            type="text"
+                            label="Nombre(s)"
+                            placeholder="Nombre(s)"
+                            size="medium"
+                            margin="none"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <TextField
+                            
+                            color="primary"
+                            variant="outlined"
+                            type="text"
+                            label="Apellidos"
+                            placeholder="Apellidos"
+                            size="medium"
+                            margin="none"
+                            value={surname}
+                            onChange={(e) => setSurname(e.target.value)}
+                        />
+                        <TextField
+                            
+                            sx={{width: 620.8864135742188}}
+                            color="primary"
+                            variant="outlined"
+                            type="text"
+                            label= "Teléfono"
+                            placeholder="Teléfono"
+                            size="medium"
+                            margin="none"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}    
+                        />
+                        <TextField
+                            
+                            sx={{width: 578}}
+                            color="primary"
+                            variant="outlined"
+                            type="text"
+                            label="Agencia (automático)"
+                            placeholder="Agencia"
+                            size="medium"
+                            margin="none"
+                        />
+                    </Container>
+                </Container>
+                <Container sx={{ flexDirection: 'column', }}>
+                    <Typography variant='h3'>Credenciales</Typography>
+                    <Container>
+                        <TextField
+                            
+                            sx={{width: 578}}
+                            color="primary"
+                            variant="outlined"
+                            type="text"
+                            label="Correo electrónico"
+                            placeholder="Correo electrónico"
+                            size="medium"
+                            margin="none"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        ></TextField>
+                        <TextField
+                            
+                            sx={{width: 578}}
+                            color="primary"
+                            variant="outlined"
+                            type="password"
+                            label="Contraseña"
+                            placeholder="Contraseña"
+                            size="medium"
+                            margin="none"
+                        ></TextField>
+                        <TextField
+                            
+                            sx={{width: 621.8864135742188}}
+                            color="primary"
+                            variant="outlined"
+                            type="password"
+                            label="Confirmar contraseña"
+                            placeholder="Confirmar contraseña"
+                            size="medium"
+                            margin="none"
+                        ></TextField>
+                    </Container>
+                </Container>
+                <Container sx={{ flexDirection: 'column', alignSelf: "center"}}>
+                    <Button
+                        
+                        sx={{width: 153}}
+                        variant="contained"
+                        color="primary"
+                        onClick={submitHandler}
+                    >Agregar</Button>
+                    <Button
+                        
+                        sx={{width: 153}}
+                        variant="contained"
+                        color="secondary"
+                        onClick={cancelHandler}
+                    >Cancelar</Button>
+                </Container>
+            </Container>
         </>
     );
 };    
