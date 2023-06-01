@@ -238,8 +238,9 @@ export default function SignupBuyerData() {
                   />
                 </div>
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                  <Button
-                    className="btn btn-primary btn-block mb-2" onSubmit={submitHandler}
+                  <button
+                    className="btn btn-primary btn-block mb-2" 
+                    onSubmit={submitHandler}
                   >
                     <Typography
                       wrap
@@ -251,7 +252,7 @@ export default function SignupBuyerData() {
                       {" "}
                       Continuar el Registro{" "}
                     </Typography>
-                  </Button>
+                  </button>
                   {/*<button
                     type="submit"
                     className="btn btn-secondary btn-block mb-2"
