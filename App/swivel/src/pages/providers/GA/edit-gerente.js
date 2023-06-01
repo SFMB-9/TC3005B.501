@@ -38,7 +38,7 @@ export default function SearchResults() {
     };
 
     const cancelHandler = () => {
-        router.push(`providers/new_GA/detalles-agencia`);
+        router.push(`/providers/GA/detalles-agencia`);
     };
 
     return (
