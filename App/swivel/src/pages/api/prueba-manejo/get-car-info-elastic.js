@@ -23,16 +23,11 @@ export default async (req, res) => {
 
   const auto_id = req.query.auto_id;
 
-  console.log("API KEY: " + ELASTIC_API_KEY);
-  console.log("Car ID: " + auto_id);
-
   try {
     const auto = await client.get({
       index: 'autos_dev',
       id: auto_id
     });
-
-    console.log("Car info: " + JSON.stringify(auto));
 
     return res
       .status(200)

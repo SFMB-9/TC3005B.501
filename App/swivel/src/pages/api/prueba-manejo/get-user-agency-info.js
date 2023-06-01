@@ -18,8 +18,6 @@ export default async (req, res) => {
     const user_id = req.query._id;
     const agencia_id = req.query.agency_id;
 
-    console.log("Agencia ID inside ep: " + agencia_id);
-
     const client = await connectToDatabase;
     const db = client.db("test");
     const userCollection = db.collection('usuarios');
