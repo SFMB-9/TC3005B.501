@@ -68,7 +68,9 @@ export default function CarDetails() {
       setCarDetails(data.result);
     }
     setCarPrice(data.result.precio);
-    setSelectedColor(data.result.colores[0]);
+    if (selectedColor === null) {
+      setSelectedColor(data.result.colores[0]);
+    }
     setIsAvailable(data.result.disponible_prueba);
   };
 
