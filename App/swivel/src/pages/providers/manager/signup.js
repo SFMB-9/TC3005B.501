@@ -145,21 +145,6 @@ export default function MergedSignup() {
           />
         </div>
 
-        <div className={styles.inputContainer}>
-          <h5>Agencia</h5>
-          <TextField
-            className={styles.longInputField}
-            id="agencia"
-            label="Agencia"
-            variant="outlined"
-            fullWidth
-            value={formValues.agencia}
-            onChange={handleChange}
-            error={!!errors.agencia}
-            helperText={errors.agencia}
-          />
-        </div>
-
         <h3 className={styles.boldText}>Credenciales</h3>
         <div className={styles.inputContainer}>
           <h5>Correo Electrónico</h5>
