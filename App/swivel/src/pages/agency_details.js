@@ -202,7 +202,7 @@ export default function AgencyDetails() {
                                         popUpContent={<div className={styles.popupText}>
                                             <h4>¿Estás seguro de que deseas eliminar este gerente?</h4>
                                             <p className={styles.warningText}>Esta acción no se puede deshacer.</p>
-                                            </div>}
+                                        </div>}
                                         btnOpen={
                                             <Button>
                                                 <DeleteForever />
