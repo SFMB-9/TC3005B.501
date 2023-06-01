@@ -3,7 +3,7 @@
 Sebastian Gonzalez Villacorta
 21/5/2023
 
-Description: Create new entry of proceso de venta in MongoDB
+Description: Create new entry of proceso de venta with Mongoose
 
 */
 

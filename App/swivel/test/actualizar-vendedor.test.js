@@ -1,21 +1,21 @@
 import handler from '../src/pages/api/gerente/actualizar-vendedor';
 import dbConnect from '../src/config/dbConnect';
-import User from '../src/models/user'
+import { SellerUser } from '../src/models/user'
 
 require('dotenv').config({ path: '.env.local' });
 const mongoose = require('mongoose');
 
 describe('PUT /api/gerente/actualizar-vendedor', () => {
     afterAll(async () => {
-        await User.deleteOne({ email: "actualizar@vendedor.com" });
-        await User.deleteOne({ email: "hakita@florp.com" });
+        await SellerUser.deleteOne({ email: "actualizar@vendedor.com" });
+        await SellerUser.deleteOne({ email: "hakita@florp.com" });
 
         await mongoose.connection.close();
     });
 
     beforeAll(async () => {
         dbConnect();
-        await User.create({
+        await SellerUser.create({
             nombres: "Test",
             apellidos: "Test",
             email: "actualizar@vendedor.com",
