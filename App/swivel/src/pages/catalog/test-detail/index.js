@@ -9,6 +9,7 @@ the user has selected the "confirm" button.
 Here the user is able to choose a date and
 time for their driving test.
 */
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import DatePicker from 'react-datepicker';
@@ -53,17 +54,19 @@ export default function RequestDetails() {
   const user_id = session.id;
 
   const fetchDetails = async () => {
-    let rawCar = await fetch(`/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
+    console.log("ID de agencia: " + retrievedAuto.agencia_id);
+
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${user_id}`,
       { method: 'GET' });
     const resData = await rawData.json();
     const retrievedAgency = resData.agency;
     const retrievedUser = resData.user;
-    const retrievedDocuments = resData.user.documentos_url;
+    const retrievedDocuments = resData.user.documentos;
     const retrievedAddress = resData.user.direccion;
 
     for (var i = 0; i < retrievedAuto.colores.length; i++) {
@@ -77,7 +80,7 @@ export default function RequestDetails() {
     setAgencyData(retrievedAgency);
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
-    setUserAddress(retrievedAddress); 
+    setUserAddress(retrievedAddress);
   }
 
   const createDrivingTest = async () => {

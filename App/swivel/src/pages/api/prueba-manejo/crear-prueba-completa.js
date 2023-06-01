@@ -10,6 +10,7 @@ button in the test-detail page.
 const { Client } = require('@elastic/elasticsearch');
 import connectToDatabase from '@/utils/mongodb'
 import { ObjectId } from "mongodb";
+const { ELASTIC_API_KEY } = process.env
 
 export default async (req, res) => {
     if (req.method !== 'POST') {
@@ -19,7 +20,7 @@ export default async (req, res) => {
     const clientElastic = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
         auth: {
-            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+            apiKey: ELASTIC_API_KEY
         }
     })
 
@@ -31,7 +32,7 @@ export default async (req, res) => {
     try {
         // Find the car specific to the given id
         const auto = await clientElastic.get({
-            index: 'autos',
+            index: 'autos_dev',
             id: req.body.auto_id
         });
 
@@ -41,7 +42,7 @@ export default async (req, res) => {
         const userData = await userCollection.findOne({_id : new ObjectId(req.body.user_id)});
 
         // Find the agency specific to the given name
-        const agencyData = await userCollection.findOne({ _id: carData.agencia_id });
+        const agencyData = await userCollection.findOne({ _id: new ObjectId(carData.agencia_id) });
 
         // Create the Process with the defined data
         const proceso = { 
@@ -75,7 +76,7 @@ export default async (req, res) => {
         const process_id = result.insertedId;
 
         // Add the created process to the list of processes the user has
-        await userCollection.updateOne({ _id: userData._id }, { $push: { procesos: process_id } });
+        await userCollection.updateOne({ _id: new ObjectId(userData._id) }, { $push: { procesos: process_id } });
 
         return res
             .status(200)
