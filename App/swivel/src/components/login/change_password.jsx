@@ -223,12 +223,12 @@ export default function ChangePassword() {
                     setLoading(false);
                     setError(true);
                     passStatus = null;
-                  }
+                  }/*
                   setTimeout(() => {
                     setOldPassword("");
                     setPassword("");
                     setConfPassword("");
-                  }, 500);
+                  }, 500);*/
                 }}
                 sx={{
                   fontFamily: "Lato",
