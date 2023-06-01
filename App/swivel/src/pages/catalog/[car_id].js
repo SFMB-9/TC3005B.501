@@ -375,7 +375,7 @@ export default function CarDetails() {
                                     width: "22px",
                                     border: "none",
                                   }}
-                                  className="me-1"
+                                  className="me-1 border"
                                 />
                               </div>
                             ))}
