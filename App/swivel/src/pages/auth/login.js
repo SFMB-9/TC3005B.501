@@ -161,7 +161,7 @@ export default function Login() {
                   </Typography>
                 }  
               </Button>
-              <button type="submit" className="btn btn-secondary btn-block mb-2" onClick={() => signIn("google")}>
+              {/*<button type="submit" className="btn btn-secondary btn-block mb-2" onClick={() => signIn("google")}>
                 <Typography
                   sx={{
                     color: "white",
@@ -172,7 +172,7 @@ export default function Login() {
                   <img alt="logo de google" src="/google_logo.svg" /> Ingresar con
                   Google{" "}
                 </Typography>
-              </button>
+              </button>*/}
             </div>
             <div className="text-center">
               <p>
