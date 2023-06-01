@@ -15,7 +15,8 @@
   | 1.0.0   | 5/7/2023   | Andrew Dunkerley   | Creación del Documento  |
   | 1.0.1   | 5/14/2023  | Andrew Dunkerley   | Redacción de Secciones  |
   | 1.1.0   | 5/23/2023  | Andrew Dunkerley   | Traspaso a Markdown     |
-  | 1.2.0   | 5/26/2029  | Emiliano Cabrera   | Adición de modulos      |
+  | 1.2.0   | 5/26/2023  | Emiliano Cabrera   | Adición de módulos      |
+  | 1.3.0   | 5/31/2023  | Diego Corrales     | Adición de módulos      |
 
 </div>
 
@@ -42,3 +43,9 @@
 - [APIs](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/APIs%20059691d154ad421abbf7f195cee48c5c.md)
 
 - [Pruebas](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Pruebas%20b2896060cbea4a73b56f84c3fc288dcd.md)
+
+- [Catálogo de Autos del Gerente](SDD%20A01781631%202d18d24397e646f9b940386130104832/Cata%CC%81logo%20de%20Autos%20Gerente%20e22ac2ca51284d049de39820656786f9.md)
+
+- [Creación de Solicitudes para Pruebas de Manejo](SDD%20A01781631%202d18d24397e646f9b940386130104832/Creacio%CC%81n%20de%20Solicitudes%20para%20Pruebas%20de%20Manejo%2080c5e17b06dd44d8937d46f26c0b38e8.md)
+
+- [APIs](SDD%20A01781631%202d18d24397e646f9b940386130104832/APIs%20e10aff3c50d44cea902a66f24d4a02bf.md)
