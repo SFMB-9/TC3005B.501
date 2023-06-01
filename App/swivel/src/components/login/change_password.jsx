@@ -46,36 +46,28 @@ export default function ChangePassword() {
   const submitHandler = async (e) => {
     e.preventDefault();
     
-    if (password === confPassword) {
-      try {
-        console.log(session.user.email);
-        const { data } = await axios.put("/api/changePassword", {
-          email: session.user.email,
-          password,
-          oldPassword,
-        });
-        console.log(data);
-        passStatus = true;
-        setErrmessage("Contraseña cambiada exitosamente");
-        
-      } catch (error) {
-        //console.log(error);
-        console.log(error.response.data.message);
-        passStatus = false;
-        if (error.response.data.message === "Wrong Current Password") {
-          setErrmessage("Contraseña actual incorrecta");
-        } else if (error.response.data.message === "New password must be different") {
-          setErrmessage("La nueva contraseña debe ser diferente a la actual");
-        } else {
-          setErrmessage("Error al cambiar la contraseña");
-        }
-      }
-    }else{
-      console.log("Passwords do not match");
+    try {
+      console.log(session.user.email);
+      const { data } = await axios.put("/api/changePassword", {
+        email: session.user.email,
+        password,
+        oldPassword,
+      });
+      console.log(data);
+      passStatus = true;
+      setErrmessage("Contraseña cambiada exitosamente");        
+    } catch (error) {
+      //console.log(error);
+      console.log(error.response.data.message);
       passStatus = false;
-      errmessage = "Las contraseñas no coinciden";
+      if (error.response.data.message === "Wrong Current Password") {
+        setErrmessage("Contraseña actual incorrecta");
+      } else if (error.response.data.message === "New password must be different") {
+        setErrmessage("La nueva contraseña debe ser diferente a la actual");
+      } else {
+        setErrmessage("Error al cambiar la contraseña");
+      }
     }
-
   };
 
 
