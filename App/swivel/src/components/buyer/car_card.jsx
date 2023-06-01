@@ -37,18 +37,22 @@ export default function CarCard(props) {
   if (props.cardType !== "catalog") {
     cardMaxHeight = 500;
   }
-
   return (
     <Card sx={{ maxWidth: cardMaxWidth, maxHeight: cardMaxHeight }}>
       <div style={{ position: 'relative' }}>
-        <CardMedia
-          component="img"
-          height="160"
-          image={props.carImage}
-          alt="car"
-        />
+        <a href={props.carUrl}>
+          <CardMedia
+            component="img"
+            height="160"
+            image={props.carImage}
+            alt="car"
+          />
+        </a>
         <IconButton
-          onClick={() => setFavorite(!favorite)}
+          onClick={(event) => {
+            event.stopPropagation(); 
+            setFavorite(!favorite);
+          }}
           sx={{
             position: 'absolute',
             top: 3.5,
