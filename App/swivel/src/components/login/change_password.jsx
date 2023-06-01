@@ -182,7 +182,7 @@ export default function ChangePassword() {
               }}
             /><br/>
             <div className="text-center">
-              {error ? null : <a><Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px",}}>{errmessage}</Typography></a>}
+              {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errmessage}</Typography>}
             </div>
             <div className="text-center">
               <Button

@@ -25,6 +25,7 @@ export default function Login() {
     return !(password && email);
   }
 
+  const [errMessage, setErrMessage] = useState("");
   let passStatus = null;
 
   useEffect(() => { }, [session]);
@@ -42,6 +43,7 @@ export default function Login() {
       if (data.error) {
         console.log("Error:", data.error);
         passStatus = false;
+        setErrMessage("Correo o contraseña incorrectos");
       } else {
         passStatus = true;
         let callbackUrl;
@@ -64,6 +66,7 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       passStatus = false;
+      setErrMessage("Hubo un error al iniciar sesión");
     }
   };
 
@@ -129,7 +132,7 @@ export default function Login() {
               />
             </div>
             <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-              {error ? <Typography sx={{ color: "red" }}>Correo o contraseña incorrectos</Typography> : null}
+              {error ? <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> : null}
               <Button 
                 type="submit" 
                 className="btn btn-primary btn-block mb-2"
