@@ -5,14 +5,24 @@ import axios from "axios";
 const manageGA = () => {
     const router = useRouter();
 
-    const [grupo, setGA] = useState();
+    const [GA, setGA] = useState();
+    const [admin, setAdmin] = useState();
     const [admins, setAdmins] = useState();
+    const [admin_id, setA_id] = useState();
 
-    const getGA = async () => {
+    const getAdmin = async (id) => {
         const response = await axios.get("/api/managerProfile/managerP", {
             params: {
-                //this id is for testing purposes only
-                id: "6448b23e9b381e63ff823f7f"
+                id: id
+            }
+        });
+        setAdmin(response.data.userData);
+    };
+
+    const getGA = async (id) => {
+        const response = await axios.get("/api/managerProfile/managerP", {
+            params: {
+                id: id
             }
         });
         setGA(response.data.userData);
@@ -21,56 +31,85 @@ const manageGA = () => {
     const getAdmins = async () => {
         const response = await axios.get("/api/GA/getAdmins", {
             params: {    
-                GA: GA.nombre_GA
+                id: GA._id
             }
+            
         });
-        console.log(response.data);
-        setAdmins(response.data.admins);
+        setAdmins(response.data.userData);
     } 
 
+    useEffect(() => {
+        setA_id("6477e6faae27e558e56c3c1f");
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
-            await getGA();
-        }
+            console.log(admin_id); 
+            if (admin_id) 
+                await getAdmin(admin_id);
+            
+        };
         fetchData();
-    }
-        , []);
+    }, [admin_id]);
 
-  
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log(admin);
+            if (admin) 
+                await getGA(admin.grupo_automotriz_id);
+            };
+        fetchData();
+    }, [admin]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log(GA);
+            if (GA)
+                await getAdmins();
+        };
+        
+        fetchData();
+    }, [GA]);
 
     return (
         <div>
             <div>
                 <h1>Información General</h1>
-                {console.log(grupo)}
-                <h2>Nombre: {grupo?.nombre_GA}</h2>
-                <h2>Telefono: {grupo?.telefono_GA1}</h2>
-                <h2>Email: {grupo?.email_GA}</h2>
-                <h2>Dirección: {grupo?.direccion_GA}</h2>
+                <h2>Nombre: {GA?.nombres}</h2>
+                <h2>Telefono: {admin?.numero_telefonico}</h2>
+                <h2>Email: {GA?.legal.email}</h2>
+                <h2>Dirección: {GA?.direccion.calle + GA?.direccion.numero_exterior + GA?.direccion.numero_interior + GA?.direccion.ciudad + GA?.direccion.estado + GA?.direccion.pais + GA?.direccion.codigo_postal}</h2>
             </div>
             <div>
                 <h1>Administradores</h1>
                 <button onClick={() => router.push(`/providers/GA/registroAdmin?GA=${GA?.nombre}`)}>+</button>
                 <table>
-                {admins?.map((admin) => (
+                    {console.log(admins)}
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
+                        </tr>
+
+                    </thead>
+
+                {admins?.map((object) => (
                     <tr>
-                        <td>{admin.nombre}</td>
-                        <td>{admin.email}</td>
-                        <td>{admin.telefono}</td>
+                        <td>{object.nombres}</td>
+                        <td>{object.numero_telefonico}</td>
+                        <td>{object.email}</td>
                     </tr>
+                    
                 ))}
                 </table>
     
             </div>
         </div>
+    );   
+};
 
-    )   
-}
 export default manageGA;
-
-
-
 
 
 

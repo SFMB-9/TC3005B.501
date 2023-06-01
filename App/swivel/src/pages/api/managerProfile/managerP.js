@@ -9,7 +9,9 @@ export default async (req, res) => {
 
   const { id } = req.query;
   dbConnect();
+
   try {
+
     const userData = await User.findById(id);
 
     if (!userData) {
