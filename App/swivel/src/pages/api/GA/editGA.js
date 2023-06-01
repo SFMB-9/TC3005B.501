@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     dbConnect();
 
     try {
-        await AdminUser.findOneAndUpdate({ _id: id }, { nombres: name + " " + surname, email: email, numero_telefonico: phone }).exec()
+        await AdminUser.findOneAndUpdate({ _id: id }, { nombres: name, apellidos: surname, email: email, numero_telefonico: phone }).exec()
         res.status(200).json({ message: "Gerente actualizado" });
     }
     catch (error) {
