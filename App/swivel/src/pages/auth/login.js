@@ -133,8 +133,8 @@ export default function Login() {
                 }}
               />
             </div>
-            {error ? <Typography sx={{ color: "red" }}>Correo o contraseña incorrectos</Typography> : null}
             <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+              {error ? <Typography sx={{ color: "red" }}>Correo o contraseña incorrectos</Typography> : null}
               <Button 
                 type="submit" 
                 className="btn btn-primary btn-block mb-2"
@@ -146,24 +146,23 @@ export default function Login() {
                     setLoading(false);
                   } else {
                     setError(false);
-                    setLoading(false);
                     passStatus = null;
                   }
                 }}
               >
-                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : <Typography
-                  wrap
-                  sx={{
-                    color: "white",
-                    fontFamily: "lato",
-                  }}
-                >
-                  {" "}
-                  Ingresar{" "}
-                </Typography>}
-                
+                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
+                  <Typography
+                    wrap
+                    sx={{
+                      color: "white",
+                      fontFamily: "lato",
+                    }}
+                  >
+                    {" "}
+                    Ingresar{" "}
+                  </Typography>
+                }  
               </Button>
-
               <button type="submit" className="btn btn-secondary btn-block mb-2" onClick={() => signIn("google")}>
                 <Typography
                   sx={{

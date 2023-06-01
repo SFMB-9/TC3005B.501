@@ -51,11 +51,11 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
         setIsArrowVisible(true);
       }
     };
-
+  
     if (isSidebarVisible) {
       document.addEventListener("click", handleClickOutside);
     }
-
+  
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };

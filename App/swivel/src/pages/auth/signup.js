@@ -33,14 +33,14 @@ export default function SignupBuyerData() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = await axios.post("/api/register", {
-        tipo_usuario: "user",
-        nombres: name,
-        apellidos: surname,
-        email: email,
-        password: password,
-        numero_telefonico: phone,
+        try {
+            const { data } = await axios.post("/api/register", {
+                tipo_usuario: 'user',
+                nombres: name,
+                apellidos: surname,
+                email: email.toLocaleLowerCase(),
+                password: password,
+                numero_telefonico: phone,
 
         direccion: {
           calle: street,
