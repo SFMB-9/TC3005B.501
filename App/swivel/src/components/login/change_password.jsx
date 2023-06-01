@@ -188,7 +188,6 @@ export default function ChangePassword() {
               <Button
                 variant="contained"
                 disableElevation
-                href="/providers/seller"
                 className="me-3"
                 sx={{
                   fontFamily: "Lato",
@@ -197,6 +196,14 @@ export default function ChangePassword() {
                     backgroundColor: "#b3b3b3",
                     color: "#fff",
                   },
+                }}
+                onClick={() => {
+                  setOldPassword("");
+                  setPassword("");
+                  setConfPassword("");
+                  setErrors({ oldPassword: false, password: false, confPassword: false });
+                  setError(false);
+                  setErrmessage("");
                 }}
               >
                 Cancelar
@@ -217,6 +224,11 @@ export default function ChangePassword() {
                     setError(true);
                     passStatus = null;
                   }
+                  setTimeout(() => {
+                    setOldPassword("");
+                    setPassword("");
+                    setConfPassword("");
+                  }, 500);
                 }}
                 sx={{
                   fontFamily: "Lato",
