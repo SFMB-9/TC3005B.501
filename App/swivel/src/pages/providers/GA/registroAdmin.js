@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import AuthComponent from "@/components/login/auth_component";
 
 
-const registroAdmin = (req, res) => {
+const registroAdmin = () => {
 
     const router = useRouter();
 
@@ -17,35 +17,40 @@ const registroAdmin = (req, res) => {
     const [phone, setPhone] = useState("");
     const [GA, setGA] = useState();
 
-    const fetchData = async () => {
-        const response = await axios.get("/api/managerProfile/managerP", {
-            params: {
-                id: router.query.id
-            }
-        });
-        setGA(response.data.userData);
-    };
+    useEffect(() => {
+        const fetchGA = async () => {
+            const response = await axios.get("/api/managerProfile/managerP", {
+                params: {
+                    id: "6477e6e3ae27e558e56c3c18"
+                }
+            });
+            setGA(response.data.userData);
+        };
+
+        fetchGA();
+    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
+        console.log(GA);
         try {
-            const { data } = await axios.post("/api/GA/GA-register", {
+            const response = await axios.post("/api/GA/Admin-register", {
                 tipo_usuario: 'AdminUser',
-                nombre_agencia: GA.nombre,
+                nombre_agencia: GA.nombres,
                 nombres: name,
                 last_name: surname,
                 email: email,
                 password: password,
                 numero_telefonico: phone,
             });
-            
-            routDocs(data);
-        } 
-        catch (error) {
-            console.log(error.response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
         }
     };
+
+    
+
 
     return (
         <div>
@@ -101,10 +106,12 @@ const registroAdmin = (req, res) => {
                     placeholder="Confirmar contraseña"
                     required
                 />
-
-                <button onClick={secondSection}>
-                    Siguiente
-                </button>
+            <button type="submit" className="btn btn-primary" onClick={submitHandler}>
+                Registrar
+            </button>    
             </div>
+            
     )
 }
+
+export default registroAdmin;
