@@ -38,7 +38,7 @@ export default function Documents() {
       setDocuments(newDocuments);
     }
   };
-  // console.log("es un reaultado", apiData);
+
   const addToIsOpen = async (newKey) => {
     let currentOpen = [...isOpen];
     currentOpen.push(newKey);
@@ -47,7 +47,7 @@ export default function Documents() {
 
   const handleDocumentEdit = async (indx) => {
 
-    console.log("uploadedDocument: " + uploadedDocument);
+    // console.log("uploadedDocument: " + uploadedDocument);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
@@ -60,7 +60,7 @@ export default function Documents() {
     let documentUrl = "";
     const currentDocs = documents;
 
-    console.log("changedDocument: " + uploadedDocument);
+    // console.log("changedDocument: " + uploadedDocument);
     const i = changedDocumentIndex;
     const doc = uploadedDocument;
 
@@ -69,16 +69,16 @@ export default function Documents() {
     }
 
     documentUrl = await FileUpload(doc);
-    console.log(documentUrl);
+    // console.log(documentUrl);
 
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
     
 
-    console.log("process_id: " + session.id);
-    console.log("doc_index: " + i);
-    console.log("file_url: " + documentUrl);
-    console.log("update_date: " + currentDocs[i].fecha_modificacion);
+    // console.log("process_id: " + session.id);
+    // console.log("doc_index: " + i);
+    // console.log("file_url: " + documentUrl);
+    // console.log("update_date: " + currentDocs[i].fecha_modificacion);
     try {
       const result = await fetch(
         `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=Subido`,
@@ -91,16 +91,7 @@ export default function Documents() {
     } catch (error) {
       console.error("Error occurred during the API request:", error);
     }
-    // const result = await fetch(
-    //   `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
-    //   {
-    //     method: "PUT",
-    //   }
-    // );
-    // console.log("aquí están los datos", result);
-    // fetchData();
   };
-
 
   useEffect(() => {
     if (!session) {
@@ -120,6 +111,25 @@ export default function Documents() {
         flex: 1,
       },
       {
+        field: "ver_archivo",
+        headerName: "Archivo",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        renderCell: (params) => (
+          <>
+            {params.row.url && params.row.url !== "" ? (
+              <a href={params.row.url}> 
+                <u>Ver archivo</u>
+              </a>
+            ) : (
+              <p>No hay archivo</p>
+            )}
+          </>
+        ),
+      },
+      {
         field: "estatus",
         headerName: "Estatus",
         headerAlign: "center",
@@ -135,7 +145,7 @@ export default function Documents() {
         minWidth: 150,
         flex: 1,
         valueGetter: (params) => {
-          const cell = params.row.fecha_modificacion !== "" ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
           return cell;
         },
       },
