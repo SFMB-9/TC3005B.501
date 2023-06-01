@@ -58,6 +58,10 @@
     width: 550px;
 }
 
+.boldText {
+    font-weight: bold;
+}	
+
 .divider {
     border-bottom: 0.5px solid #979797;
     width: 80%;
