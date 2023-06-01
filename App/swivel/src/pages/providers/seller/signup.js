@@ -18,7 +18,7 @@ export default function SellerSignup() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   
-  const agency = "agency_default";
+  const agency = "6475ce431870c4941b667158";
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -47,8 +47,6 @@ export default async function CarDetails(req, res) {
         result.fotos_3d = json5.parse(result.fotos_3d);
         result.entrega = json5.parse(result.entrega);
 
-        console.log(result)
-
         return res
             .status(200)
             .json({

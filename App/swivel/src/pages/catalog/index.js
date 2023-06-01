@@ -168,7 +168,6 @@ console.log("Search text: " + searchText);
 
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
-    console.log(data);
     setCatalogData(data.result);
   };
 

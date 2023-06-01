@@ -76,10 +76,16 @@ export default async function handler(req, res) {
           },
           documentos: [
             {
-
+              nombre_documento: "INE",
+              url: "",
+              fecha_modificacion: null,
+              estatus: "Pendiente"
             },
             {
-              
+              nombre_documento: "Licencia de conducir",
+              url: "",
+              fecha_modificacion: null,
+              estatus: "Pendiente"
             }
           ],
         });
@@ -96,6 +102,7 @@ export default async function handler(req, res) {
           tipo_usuario: encrypted_role,
           agencia_id: agency,
           numero_telefonico: phone,
+          contar_ventas_en_proceso: 0
         });
         res.status(200).json({ message: "Seller registered successfully" });
       } else if (role === "manager") {
