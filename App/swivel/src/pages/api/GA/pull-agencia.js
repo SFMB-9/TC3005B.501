@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const sellerRole = encryptRole("seller");
 
     const agency = await AgencyEntity.findOne({ _id: id, tipo_usuario: agencyRole }).exec();
-    const GA = await GaEntity. findOne({ _id: agency.grupo_automotriz_id }, "nombres").exec();
+    const GA = await GaEntity.findOne({ _id: agency.grupo_automotriz_id }, "nombres").exec();
     const managers = await ManagerUser.find({ agencia_id: id, tipo_usuario: managerRole }, "_id nombres apellidos email numero_telefonico").exec()
     const sellers = await SellerUser.find({ agencia_id: id, tipo_usuario: sellerRole }, "-_id nombres apellidos email numero_telefonico").exec()
 
