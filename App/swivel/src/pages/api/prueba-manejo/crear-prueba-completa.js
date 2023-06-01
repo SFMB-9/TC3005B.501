@@ -32,7 +32,7 @@ export default async (req, res) => {
     try {
         // Find the car specific to the given id
         const auto = await clientElastic.get({
-            index: 'autos_dev',
+            index: 'autos',
             id: req.body.auto_id
         });
 

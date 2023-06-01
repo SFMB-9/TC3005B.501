@@ -21,6 +21,7 @@ import axios from 'axios';
 import { useSession } from "next-auth/react";
 import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 import { Grid, Button } from '@mui/material';
+import json5 from 'json5';
 
 import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
@@ -35,7 +36,21 @@ export default function RequestDetails() {
 
   const { data: session } = useSession();
   const router = useRouter();
-  const [documents, setDocuments] = useState(null);
+  const [documents, setDocuments] = useState([
+    {
+      nombre_documento: "licencia",
+      url: "www.sample.com",
+      fecha_modificacion: new Date().toISOString(),
+      estatus: "Aceptado",
+      comentarios: ""
+    },
+    {
+      nombre_documento: "identificacion",
+      url: "www.sample.com",
+      fecha_modificacion: new Date().toISOString(),
+      estatus: "Aceptado",
+      comentarios: ""
+    }]);
   const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
   const [changedDocuments, setChangedDocuments] = useState([]);
   const [uploadedDocument, setUploadedDocument] = useState([]);
@@ -63,21 +78,39 @@ export default function RequestDetails() {
     const resData = await rawData.json();
     const retrievedAgency = resData.agency;
     const retrievedUser = resData.user;
-    const retrievedDocuments = resData.user.documentos;
     const retrievedAddress = resData.user.direccion;
 
-    for (var i = 0; i < retrievedAuto.colores.length; i++) {
-      if (retrievedAuto.colores[i].nombre === colorName) {
-        setFirstImage(retrievedAuto.colores[i].imagenes[0]);
+    // Replace single quotes with double quotes
+    const validJSONString = retrievedAuto.colores.replace(/'/g, '"');
+
+    // Parse the modified string as JSON
+    const carColors = JSON.parse(validJSONString);
+
+    for (var i = 0; i < carColors.length; i++) {
+      if (carColors[i].nombre === colorName) {
+        setFirstImage(carColors[i].imagenes[0]);
+        console.log("Image: " + carColors[i].imagenes[0]);
         setImageIndex(i);
       }
+    }
+
+    let retrievedDocuments = documents;
+
+    if (resData.user.documentos != undefined) {
+      retrievedDocuments = resData.user.documentos;
     }
 
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
     setUserData(retrievedUser);
-    setDocuments(retrievedDocuments);
+    // setDocuments(retrievedDocuments);
     setUserAddress(retrievedAddress);
+
+    console.log("Auto: " + JSON.stringify(retrievedAuto));
+    console.log("Agencia: " + JSON.stringify(retrievedAgency));
+    console.log("User: " + JSON.stringify(retrievedUser));
+    console.log("User address: " + JSON.stringify(retrievedAddress));
+    console.log("Documentos: " + JSON.stringify(documents));
   }
 
   const createDrivingTest = async () => {
@@ -402,7 +435,7 @@ export default function RequestDetails() {
                   marginBottom: "1rem",
                 }}
               >
-                {
+                { /*
                   documents ? (
                     <div>
                       <h4
@@ -452,7 +485,7 @@ export default function RequestDetails() {
                       <p>No hay documentos</p>
                     </div>
                   )
-                }
+                  */}
               </div>
               <div
                 style={{
