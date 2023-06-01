@@ -1,65 +1,34 @@
-import { AgencyEntity } from "@/models/user";
-import dbConnect from "@/config/dbConnect";
+import connectToDatabase from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
 
-/* 
-Creates agency
-@Recieves: request object, response object
-    Recieves following fields in request body:
-    {
-        is_account_verified: Boolean,
-        documentos_requeridos_compra: Array,
-        horas_min: Number,
-        dias_anticipo: Number,
-        dias_max: Number,
-        grupo_automotriz_id: String,
-        horas_max: Number,
-
-        //registro-direccion
-        direccion: {
-        calle: String,
-        numero_exterior: String,
-            numero_interior: String,
-            ciudad: String,
-            estado: String,
-            pais: String,
-            codigo_postal: String,
-        },
-    
-        url_agencia: String,
-        coordenadas_agencia: {
-            location: {
-                type: {
-                    type: String, // Don't do `{ location: { type: String } }`
-                    enum: ['Point'], // 'location.type' must be 'Point'
-                    required: true
-                },
-                coordinates: {
-                    type: [Number],
-                    required: true
-                }
-            }
-        },
-    }
-@Returns: response status and json
-*/
+/**
+ * Creates agency from GA page, only for GA users
+ * @param {*} req
+ * @param {*} res
+ * 
+ * By @catlikeflyer
+ */
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    dbConnect();
+  if (req.method == "POST") {
+    const { db } = await connectToDatabase();
+    const agency = req.body.agencia;
+    const { GAId } = req.query;
 
-    const { agency } = req.body;
+    const result = await db
+      .collection("usuarios")
+      .insertOne({
+        ...agency,
+        grupo_automotriz_id: GAId,
+        agencia_id: new ObjectId(),
+      });
 
-    const newAgency = new AgencyEntity(agency);
+    if (!result) {
+      res.status(404).json({ message: "Error creating agency" });
+      return;
+    }
 
-    newAgency.save((err, agency) => {
-      if (err) {
-        res.status(500).json({ message: "Error al crear la agencia" });
-      } else {
-        res
-          .status(200)
-          .json({ message: "Agencia creada exitosamente", agency: agency });
-      }
-    });
+    res.status(200).json({ message: "Agency created successfully" });
   } else {
     res.status(405).json({ message: "Wrong request method" });
   }
