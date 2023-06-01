@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from '@mui/icons-material/Edit';
 
 import AccountLayout from '@/components/buyer/account_layout';
 import DataTable from "@/components/general/Table";
@@ -124,7 +125,9 @@ export default function Documents() {
                 <u>Ver archivo</u>
               </a>
             ) : (
-              <p>No hay archivo</p>
+              <div>
+                 No hay archivo
+              </div>
             )}
           </>
         ),
@@ -193,16 +196,33 @@ export default function Documents() {
                 </IconButton>
               </div>
             ) : (
-              <IconButton
-                aria-label="delete"
-                size="small"
-                onClick={(e) => {
-                  e.preventDefault();
-                  addToIsOpen(params.row._id);
-                }}
-              >
-                <UploadIcon />
-              </IconButton>
+              <div>
+              {
+                params.row.url && params.row.url !== "" ? (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <UploadIcon />
+                  </IconButton>
+                )
+              }
+              </div>
             )}
           </>
         ),
