@@ -10,6 +10,8 @@ import DataTable from "@/components/general/Table";
 import { Select, MenuItem, Button, Typography } from "@mui/material";
 import SellerNavbar from "@/components/providers/seller/navbar";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import { formatDate } from "@/components/general/date_utils";
+import { Link } from "react-router-dom";
 
 const RequestDetails = () => {
   const router = useRouter();
@@ -26,12 +28,14 @@ const RequestDetails = () => {
       "/api/DrivingRequestsSeller/getDrivingRequest",
       { params: { _id: id } }
     );
-    const r = res.data.proceso;
+    const r = res.data.proceso[0];
+    console.log(r);
     const d = r.documentos.map((doc, index) => ({
       ...doc,
       comment: "",
       _id: index,
     }));
+    //const d = r.documentos
     setRequests(r);
     setDocuments(d);
   };
@@ -86,24 +90,39 @@ const RequestDetails = () => {
   const columns = [
     {
       field: "descarga",
-      headerName: "",
+      headerName: "Archivo",
       headerAlign: "center",
       align: "center",
       type: "actions",
       renderCell: (params) => (
-        <DownloadRoundedIcon
-          className="m-0"
-          onClick={() => console.log("clicked")}
-          sx={{
-            color: "#F55C7A",
-            "&:hover": { cursor: "pointer", color: "#F59C7A" },
-            width: 18,
-          }}
-        />
+        <>
+          {params.row.url && params.row.url !== "" ? (
+            <a href={params.row.url}> 
+              <u>Ver archivo</u>
+            </a>
+          ) : (
+            <div>
+               No hay archivo
+            </div>
+          )}
+        </>
       ),
+      // renderCell: (params) => (
+      //   <DownloadRoundedIcon
+      //     className="m-0"
+      //     onClick={() => {
+      //       <Link to={params.row.url} target="_blank" download />;
+      //     }}
+      //     sx={{
+      //       color: "#F55C7A",
+      //       "&:hover": { cursor: "pointer", color: "#F59C7A" },
+      //       width: 18,
+      //     }}
+      //   />
+      // ),
     },
     {
-      field: "nombre",
+      field: "nombre_documento",
       headerName: "Nombre",
       headerAlign: "center",
       align: "center",
@@ -112,21 +131,18 @@ const RequestDetails = () => {
     },
     {
       field: "fecha_modificacion",
-      type: "date",
       headerName: "Ultima modificación",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
-      valueFormatter: (params) =>
-        new Date(params.value).toLocaleDateString("es-ES", {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        }),
+      valueGetter: (params) => {
+        const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+        return cell;
+      },
     },
     {
-      field: "status",
+      field: "estatus",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -134,7 +150,6 @@ const RequestDetails = () => {
       flex: 1,
       type: "actions",
       renderCell: (params) => (
-        console.log(params),
         (
           <Select
             value={params.value}
@@ -151,7 +166,7 @@ const RequestDetails = () => {
               sx={{ fontFamily: "Lato", fontSize: "12px" }}
               value="En_Revision"
             >
-              En Proceso
+              Pendiente
             </MenuItem>
             <MenuItem
               sx={{ fontFamily: "Lato", fontSize: "12px" }}
@@ -236,7 +251,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        {request.auto.precio}
+                        ${request.auto.precio}
                       </li>
                     </>
                   ) : (
@@ -266,13 +281,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        {user._id}
-                      </li>
-                      <li
-                        className="list-group-item"
-                        style={{ fontFamily: "Lato", fontSize: 11 }}
-                      >
-                        {user.name}
+                        {user.nombres} {user.apellidos}
                       </li>
                       <li
                         className="list-group-item"
@@ -284,7 +293,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        {user.phone} Phone
+                        {user.numero_telefonico}
                       </li>
                     </>
                   ) : (

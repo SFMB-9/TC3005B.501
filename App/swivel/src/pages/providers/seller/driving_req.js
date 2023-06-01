@@ -25,6 +25,7 @@ const SellerDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(session.id)
       try {
         // Get all requests
         const requestRes = await axios.get(
@@ -110,8 +111,8 @@ const SellerDashboard = () => {
       flex: 1,
       valueGetter: (params) => {
         let cell = user[params.row.usuario_final_id]
-          ? `${user[params.row.usuario_final_id].name} ${
-              user[params.row.usuario_final_id].surname
+          ? `${user[params.row.usuario_final_id].nombres} ${
+              user[params.row.usuario_final_id].apellidos
             }`
           : "Usuario no encontrado";
         return cell;

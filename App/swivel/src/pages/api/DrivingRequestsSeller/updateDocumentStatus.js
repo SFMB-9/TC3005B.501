@@ -31,7 +31,7 @@ export default async (req, res) => {
         //get the documents of the process
         const doc = proc.documentos;
         //change the status of the document
-        doc[doc_id].status = new_status;
+        doc[doc_id].estatus = new_status;
         proc.documentos = doc;
         console.log(proc);
         proc.markModified(`documentos.${doc_id}.status`); 
