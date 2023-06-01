@@ -23,7 +23,7 @@ import Searchbar from "@/components/general/searchbar";
 
 export default function Catalog() {
   const router = useRouter();
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState(null);
 
   let isFirstLoad = true;
 
@@ -60,12 +60,17 @@ console.log("Search text: " + searchText);
     });
 
     let queryString = "";
+    if (JSON.stringify(router.query.searchQuery) && searchText === null) {
+      setSearchText(router.query.searchQuery);
+      queryString = "search=" + router.query.searchQuery + "="
+    }
     Object.entries(query).forEach(([category, items]) => {
       if (items.length) {
         queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
       }
     });
 
+    console.log('qst',queryString)
     return queryString;
   };
 
@@ -159,6 +164,7 @@ console.log("Search text: " + searchText);
 
     console.log("Selected Filters:" + selectedFilters);
     let queryString = buildQuery(selectedFilters);
+    console.log('yooo', queryString)
 
     const response = await fetch(
       `/api/catalogoNuevo/filter?${queryString}`

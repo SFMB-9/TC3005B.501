@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from '@mui/icons-material/Edit';
 
 import AccountLayout from '@/components/buyer/account_layout';
 import DataTable from "@/components/general/Table";
@@ -38,7 +39,7 @@ export default function Documents() {
       setDocuments(newDocuments);
     }
   };
-  // console.log("es un reaultado", apiData);
+
   const addToIsOpen = async (newKey) => {
     let currentOpen = [...isOpen];
     currentOpen.push(newKey);
@@ -47,7 +48,7 @@ export default function Documents() {
 
   const handleDocumentEdit = async (indx) => {
 
-    console.log("uploadedDocument: " + uploadedDocument);
+    // console.log("uploadedDocument: " + uploadedDocument);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
@@ -60,7 +61,7 @@ export default function Documents() {
     let documentUrl = "";
     const currentDocs = documents;
 
-    console.log("changedDocument: " + uploadedDocument);
+    // console.log("changedDocument: " + uploadedDocument);
     const i = changedDocumentIndex;
     const doc = uploadedDocument;
 
@@ -69,16 +70,16 @@ export default function Documents() {
     }
 
     documentUrl = await FileUpload(doc);
-    console.log(documentUrl);
+    // console.log(documentUrl);
 
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
     
 
-    console.log("process_id: " + session.id);
-    console.log("doc_index: " + i);
-    console.log("file_url: " + documentUrl);
-    console.log("update_date: " + currentDocs[i].fecha_modificacion);
+    // console.log("process_id: " + session.id);
+    // console.log("doc_index: " + i);
+    // console.log("file_url: " + documentUrl);
+    // console.log("update_date: " + currentDocs[i].fecha_modificacion);
     try {
       const result = await fetch(
         `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=Subido`,
@@ -91,16 +92,7 @@ export default function Documents() {
     } catch (error) {
       console.error("Error occurred during the API request:", error);
     }
-    // const result = await fetch(
-    //   `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
-    //   {
-    //     method: "PUT",
-    //   }
-    // );
-    // console.log("aquí están los datos", result);
-    // fetchData();
   };
-
 
   useEffect(() => {
     if (!session) {
@@ -120,6 +112,27 @@ export default function Documents() {
         flex: 1,
       },
       {
+        field: "ver_archivo",
+        headerName: "Archivo",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        renderCell: (params) => (
+          <>
+            {params.row.url && params.row.url !== "" ? (
+              <a href={params.row.url}> 
+                <u>Ver archivo</u>
+              </a>
+            ) : (
+              <div>
+                 No hay archivo
+              </div>
+            )}
+          </>
+        ),
+      },
+      {
         field: "estatus",
         headerName: "Estatus",
         headerAlign: "center",
@@ -135,7 +148,7 @@ export default function Documents() {
         minWidth: 150,
         flex: 1,
         valueGetter: (params) => {
-          const cell = params.row.fecha_modificacion !== "" ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
           return cell;
         },
       },
@@ -183,16 +196,33 @@ export default function Documents() {
                 </IconButton>
               </div>
             ) : (
-              <IconButton
-                aria-label="delete"
-                size="small"
-                onClick={(e) => {
-                  e.preventDefault();
-                  addToIsOpen(params.row._id);
-                }}
-              >
-                <UploadIcon />
-              </IconButton>
+              <div>
+              {
+                params.row.url && params.row.url !== "" ? (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <UploadIcon />
+                  </IconButton>
+                )
+              }
+              </div>
             )}
           </>
         ),

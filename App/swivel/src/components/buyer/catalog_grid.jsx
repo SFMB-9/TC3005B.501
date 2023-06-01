@@ -17,6 +17,7 @@ un carousel de imágenes de cada auto */
 export default function CatalogGrid({ carListing, cardType }) {
   let carList;
   let cardProps;
+  console.log("listing", carListing);
   if (carListing !== undefined) {
     carList = carListing.map((car) => {
       if (cardType === "catalog") {
@@ -29,14 +30,14 @@ export default function CatalogGrid({ carListing, cardType }) {
             carYear: car._source.año,
             carAgency: car._source.municipio_agencia,
             carLocation: car._source.estado_agencia,
-            carColor: car._source.colores.length,
+            carColor: json5.parse(car._source.colores).length,
             carPrice: car._source.precio,
           },
         };
       } else {
         cardProps = {
           general: {
-            carUrl: `/purchase/${car._id}`,
+            carUrl: cardType == 'drivingTest' ? `/pruebademanejo/${car._id}` : `/purchase/${car._id}`,
             carImage: car.auto.array_fotografias_url[0],
             carBrand: car.auto.marca,
             carModel: car.auto.modelo,
@@ -46,8 +47,8 @@ export default function CatalogGrid({ carListing, cardType }) {
             status: car.estatus_validacion
           },
           drivingTest: {
-            date: "Fecha de la cita: " + formatDate(car.fecha_agendada).formattedDate,//car.fecha_agendada, 
-            testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,//car.hora_agendada,
+            date: "Fecha de la cita: " + formatDate(car.fecha_agendada).formattedDate,
+            testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,
           },
           purchasesCurrent: {
             date: car.fecha_inicio,

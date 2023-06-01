@@ -9,7 +9,7 @@ export default function Searchbar({
   transparent = false, 
   hidden = false, 
   searchStyle = "default",
-  firstValue=""
+  firstValue = ''
 }) {
   const [search, setSearch] = useState(firstValue);
   let containerClasses;
