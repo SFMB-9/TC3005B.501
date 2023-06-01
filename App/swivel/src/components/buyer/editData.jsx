@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-
+import axios from "axios";
 
 import {
   Container,
@@ -70,7 +70,7 @@ export default function EditAccount() {
 
     } catch (error) {
       console.log(error);
-      console.log(error.response.data);
+      //console.log(error.response.data);
 
     }
 
