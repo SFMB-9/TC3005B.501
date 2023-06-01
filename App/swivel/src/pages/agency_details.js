@@ -11,6 +11,7 @@ import styles from '@/styles/agency_details.module.css';
 import { Button, TextField, FormHelperText } from '@mui/material';
 import DataTable from '@/components/general/Table';
 import { DeleteForever, Edit } from '@mui/icons-material';
+import PopUpComponent from '@/components/general/Popup';
 
 export default function AgencyDetails() {
     const [formValues, setFormValues] = useState({
@@ -34,6 +35,18 @@ export default function AgencyDetails() {
         event.preventDefault();
         console.log('Form submitted:', formValues);
     };
+
+    const handleDelete = (id) => {
+        // Handle delete logic here
+        console.log('Deleting item with ID:', id);
+    };
+
+    const handleClosePopup = () => {
+        setIsOpen(false);
+    };
+
+    const [isOpen, setIsOpen] = useState(false); // Define isOpen state
+
 
     return (
         <div>
@@ -183,10 +196,52 @@ export default function AgencyDetails() {
                                 headerName: 'Borrar (PERMANENTE)',
                                 type: 'delete',
                                 width: 200,
-                                renderCell: () => (
-                                    <Button>
-                                        <DeleteForever />
-                                    </Button>
+                                renderCell: (params) => (
+                                    <PopUpComponent
+                                        title="Confirmar Eliminación"
+                                        popUpContent={<div className={styles.popupText}>
+                                            <h4>¿Estás seguro de que deseas eliminar este gerente?</h4>
+                                            <p className={styles.warningText}>Esta acción no se puede deshacer.</p>
+                                            </div>}
+                                        btnOpen={
+                                            <Button>
+                                                <DeleteForever />
+                                            </Button>
+                                        }
+                                        btnClose={
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    disableElevation
+                                                    className={styles.popupButton}
+                                                    sx={{
+                                                        backgroundColor: '#F55C7A',
+                                                        fontFamily: 'lato',
+                                                        fontWeight: 'bold',
+                                                        ':hover': { backgroundColor: '#BABABA' },
+                                                    }}
+                                                    onClick={() => handleDelete(params.row._id)}
+                                                >
+                                                    Eliminar
+                                                </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    disableElevation
+                                                    className={styles.popupButton}
+                                                    sx={{
+                                                        backgroundColor: '#E0E0E0',
+                                                        fontFamily: 'lato',
+                                                        fontWeight: 'bold',
+                                                        ':hover': { backgroundColor: '#BABABA' },
+                                                    }}
+                                                    onClick={() => setIsOpen(false)} // Use setIsOpen from useState
+                                                >
+                                                    Cancelar
+                                                </Button>
+                                            </div>
+                                        }
+                                        setIsOpen={setIsOpen} // Pass setIsOpen function as a prop
+                                    />
                                 ),
                             },
                             {
@@ -218,7 +273,6 @@ export default function AgencyDetails() {
                         ]}
                     />
                 </div>
-
                 <div className={styles.tableHeaderContainer}>
                     <h4 className={styles.sectionTitle}>Vendedores</h4>
                     <Button

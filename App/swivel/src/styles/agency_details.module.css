@@ -82,6 +82,19 @@
     justify-content: le;
 }
 
+.popupButton {
+    margin-left: 10px;
+}
+
+.popupText {
+    margin-bottom: 20px;
+}
+
+.warningText {
+    font-weight: bold;
+    color: #ff1c1c;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
 
