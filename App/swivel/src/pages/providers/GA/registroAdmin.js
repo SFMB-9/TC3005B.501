@@ -35,7 +35,7 @@ const registroAdmin = () => {
         console.log(GA);
         try {
             const response = await axios.post("/api/GA/Admin-register", {
-                tipo_usuario: 'AdminUser',
+                tipo_usuario: 'GA',
                 nombre_agencia: GA.nombres,
                 nombres: name,
                 last_name: surname,

@@ -34,11 +34,11 @@ export default async function handler(req, res) {
           };
     });
 
-    let usedEmail = await GaEntity.findOne({ email: email });
+    let usedEmail = await AdminUser.findOne({ email: email });
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
       
-      const GA_id = GA._id.toString();
+      //const GA_id = GA._id.toString(); <-- no estas pasando GA
 
       await AdminUser.create({
         tipo_usuario: encrypted_admin,
@@ -47,10 +47,10 @@ export default async function handler(req, res) {
         email: email,
         password: password,
         numero_telefonico: phone,
-        grupo_automotriz_id: GA_id
+        //grupo_automotriz_id: GA_id <-- pasa GA primero
       });
 
-      res.status(200).json(GAProc._id.toString());      
+      res.status(200).json({ message: "Account created" });      
     } 
     else {
       res.status(400).json({ message: "Account already exists" });
