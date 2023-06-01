@@ -1,7 +1,12 @@
 import SANavbar from '@/components/SA/navbar'
+import { useState } from 'react'
 import axios from 'axios'
 
 export default function SAChangePasswordPage() {
+	const [newPassword, setNewPassword] = useState('')
+	const [oldPassword, setOldPassword] = useState('')
+	const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
 	const submitHandler = async (event) => {
 		event.preventDefault()
 		if (newPassword === passwordConfirmation) {
