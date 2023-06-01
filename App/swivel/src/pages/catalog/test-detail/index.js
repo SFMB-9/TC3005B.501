@@ -46,7 +46,6 @@ export default function RequestDetails() {
   const [userData, setUserData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [processId, setProcessId] = useState('');
   const [agencyData, setAgencyData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
@@ -58,8 +57,6 @@ export default function RequestDetails() {
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
-
-    console.log("ID de agencia: " + retrievedAuto.agencia_id);
 
     let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${user_id}`,
       { method: 'GET' });
@@ -97,7 +94,7 @@ export default function RequestDetails() {
 
     // Go to list of user's driving tests
     router.push({
-      pathname: '/catalog',
+      pathname: '/account/tests',
     })
   };
 
