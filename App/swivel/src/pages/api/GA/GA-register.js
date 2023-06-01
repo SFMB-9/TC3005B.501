@@ -1,8 +1,8 @@
-import { AdminUser, GaEntity } from "../../models/user";
-import { GaProceso } from "../../models/procesos";
-import dbConnect from "../../config/dbConnect";
+import { AdminUser, GaEntity } from "../../../models/user";
+import Proceso from "../../../models/procesos";
+import dbConnect from "../../../config/dbConnect";
 
-import { encryptRole } from "../../utils/crypto";
+import { encryptRole } from "../../../utils/crypto";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -93,8 +93,26 @@ export default async function handler(req, res) {
       });
 
       const GAdmin_id = GAdmin._id.toString();
+      const list = ["licencia", "ine", "comprobante_domicilio"];
+      const documentos = [];
 
-      await GaProceso.create({
+      for (let i = 0; i < list.length; i++) {
+        const nombre_documento = list[i];
+        const url = "";
+        const estatus = "";
+        const comentarios = "";
+        const fecha_modificacion = new Date();
+
+        documentos.push({
+          nombre_documento,
+          url,
+          estatus,
+          comentarios,
+          fecha_modificacion,
+        });
+      }
+
+      const GAProc = await Proceso.create({
         tipo_proceso: "peticionGA",
         estatus: "pendiente",
 
@@ -108,16 +126,17 @@ export default async function handler(req, res) {
           codigo_postal: postalCode,
         },
 
+        documentos: documentos,
+
         fecha_inicio: new Date(),
         solicitud_cancelada: false,
 
-        //superadmin_id: String, <-- how do we define this, from here or does it get assigned after the process id greenlit (by a SA)?
         grupo_automotriz_id: GA_id,
         grupo_automotriz: agency,
         usuario_final_id: GAdmin_id
       });
 
-      res.status(200).json({ message: "User registered successfully" });      
+      res.status(200).json(GAProc._id.toString());      
     } 
     else {
       res.status(400).json({ message: "Account already exists" });

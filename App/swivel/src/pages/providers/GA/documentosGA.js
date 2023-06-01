@@ -13,7 +13,7 @@ const RegistroAgencia = () => {
 
   const uploadDocs = async () => {
     const response = await axios.put(
-      "http://localhost:3000/api/GA/uploadDocsGA",
+      "/api/GA/uploadDocsGA",
       {
         _id: _id,
         documentos: docs.documentos,
@@ -39,12 +39,18 @@ const RegistroAgencia = () => {
       setDocs(updatedDocs);
     }
     await uploadDocs();
+
+    routLP();
   };
+
+  const routLP = () => {
+    router.push(`/providers/GA`);
+  }
  
   useEffect( () => {
     const getDocs = async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/DrivingRequestsSeller/getDrivingRequest",
+        "/api/DrivingRequestsSeller/getDrivingRequest",
         {
           params: { _id: _id },
         }
@@ -52,6 +58,7 @@ const RegistroAgencia = () => {
       setDocs(response.data.proceso);
       
     };
+    console.log(docs)
     getDocs();
     
   }, []);

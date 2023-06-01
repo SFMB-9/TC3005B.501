@@ -2,10 +2,13 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import AuthComponent from "@/components/login/auth_component";
 
 /* Función que retorna el formulario de registro de GA con su dirección, junto con los botones de ingreso  */
-export default function SignupBuyerData() {
+export default function SignupGAData() {
+    const router = useRouter();
+
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
@@ -65,8 +68,8 @@ export default function SignupBuyerData() {
                     lNumero_telefonico: legalPhone
                 }
             });
-            console.log(data);
-            window.location.href = "/auth/login";
+            
+            routDocs(data);
         } 
         catch (error) {
             console.log(error.response.data);
@@ -75,6 +78,10 @@ export default function SignupBuyerData() {
 
     useEffect(() => {
     }, [first, second, third]);
+
+    const routDocs = (data) => {
+        router.push(`/providers/GA/documentosGA?_id=${data}`);
+    }
 
     const firstSection = () => {
         setFirst(true);
@@ -97,6 +104,7 @@ export default function SignupBuyerData() {
     return (
         <div> 
             {first && <div>
+                <h1>Registro de GA Admin</h1>
                 <input
                     type="text"
                     className="form-control"
@@ -148,6 +156,7 @@ export default function SignupBuyerData() {
             </div>}
 
             {second && <div>
+                <h1>Registro de GA</h1>
                 <input
                     type="text"
                     className="form-control"
@@ -230,7 +239,7 @@ export default function SignupBuyerData() {
                 />
 
                 <input
-                    type="password"
+                    type="text"
                     className="form-control"
                     placeholder="Número telefónico"
                     value={phone}
@@ -239,7 +248,7 @@ export default function SignupBuyerData() {
                 />                
 
                 <input
-                    type="password"
+                    type="text"
                     className="form-control"
                     placeholder="URL Sitio web"
                     value={url}
@@ -256,7 +265,9 @@ export default function SignupBuyerData() {
                 </button>
             </div>}
 
-            {third && <div><input
+            {third && <div>
+                <h1>Registro de GA Legal</h1>
+                <input
                     type="text"
                     className="form-control"
                     placeholder="Nombre(s)"

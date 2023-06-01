@@ -5,16 +5,16 @@ export default function GALandingPage() {
   const router = useRouter();
 
   const routToCatalogue = () => {
-    router.push('/providers/new_GA/'); // <-- add your route
-  };
-  const routToManagers = () => {
-    router.push('/providers/new_GA/manejo-gerentes');
+    router.push('/providers/GA/'); // <-- add your route
   };
   const routToAgencies = () => {
-    router.push('/providers/new_GA/administracion-agencias');
+    router.push('/providers/GA/administracion-agencias');
   };
   const routToStatistics = () => {
-    router.push('/providers/new_GA/'); // <-- add your route
+    router.push('/providers/GA/'); // <-- add your route
+  };  
+  const routToGA = () => {
+    router.push('/providers/GA/'); // <-- add your route
   };
 
 
@@ -26,14 +26,14 @@ export default function GALandingPage() {
         <button onClick={routToCatalogue}>
           Manejo de catalogo
         </button>
-        <button onClick={routToManagers}>
-          Manejo de gerentes
-        </button>
         <button onClick={routToAgencies}>
           Administración de agencias
         </button>
         <button onClick={routToStatistics}>
           Estadísticas
+        </button>
+        <button onClick={routToGA}>
+          Gestión deGA
         </button>
       </div>
     </>

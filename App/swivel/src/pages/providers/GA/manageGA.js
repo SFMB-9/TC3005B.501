@@ -9,7 +9,7 @@ const manageGA = () => {
     const [admins, setAdmins] = useState();
 
     const getGA = async () => {
-        const response = await axios.get("http://localhost:3000/api/managerProfile/managerP", {
+        const response = await axios.get("/api/managerProfile/managerP", {
             params: {
                 //this id is for testing purposes only
                 id: "6448b23e9b381e63ff823f7f"
@@ -19,7 +19,7 @@ const manageGA = () => {
     };
 
     const getAdmins = async () => {
-        const response = await axios.get("http://localhost:3000/api/GA/getAdmins", {
+        const response = await axios.get("/api/GA/getAdmins", {
             params: {    
                 GA: GA.nombre_GA
             }
