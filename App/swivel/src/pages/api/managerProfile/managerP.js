@@ -8,6 +8,7 @@ export default async (req, res) => {
   }
 
   const { id } = req.query;
+  console.log(id);
   dbConnect();
 
   try {
