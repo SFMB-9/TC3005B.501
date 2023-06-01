@@ -9,6 +9,7 @@ Description: Search for cars in elasticsearch using filters or matches in each f
 // Connecting to ElasticSearch with security disabled
 //import fetch from 'node-fetch';
 const { Client } = require('@elastic/elasticsearch')
+const json5 = require('json5');
 const { ELASTIC_API_KEY } = process.env
 
 
@@ -72,7 +73,7 @@ export default async function handler(req, res) {
 
     try {
         let elasticResponse = await client.search({
-            index: 'autos_dev',
+            index: 'autos',
             body: query
         }, { meta: true });
 
@@ -114,7 +115,7 @@ async function assembleFilter(result, filters, req) {
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
     let ano = [...new Set(result.map(item => item._source.año))];
-    let color = [...new Set(result.map(item => item._source.colores.map(item => item.nombre)).flat())];
+    let color = [...new Set(result.map(item => json5.parse(item._source.colores).map(item => item.nombre)).flat())];
     let combustible = [...new Set(result.map(item => item._source.combustible))];
     let motor = [...new Set(result.map(item => item._source.motor))];
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
@@ -134,7 +135,7 @@ async function assembleFilter(result, filters, req) {
 
 // Function to build elasticsearch search body
 function buildQuery(queryParams, searchResultsIds, dbQuery) {
-
+    dbQuery.size = 100;
     dbQuery.query = {
         bool: {
             must: []
