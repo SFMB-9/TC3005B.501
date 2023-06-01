@@ -1,9 +1,4 @@
-import {
-  GaEntity,
-  AgencyEntity,
-  ManagerUser,
-  SellerUser,
-} from "../../../models/user";
+import { AgencyEntity } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 import { encryptRole } from "../../../utils/crypto";
 
@@ -17,13 +12,14 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     dbConnect();
 
-    const { id } = req.query; // In queries add the desired filters
+    const filters = req.query; // In queries add the desired filters
 
     const agencyRole = encryptRole("agencia");
 
     const agency = await AgencyEntity.findAll({
       _id: id,
       tipo_usuario: agencyRole,
+      ...filters,
     }).exec();
 
     res.status(200).json({ agency: agency });
