@@ -63,7 +63,7 @@ export default function CarDetails() {
     );
 
     const data = await response.json();
-
+  
     if (!carDetails) {
       setCarDetails(data.result);
     }
@@ -92,8 +92,8 @@ export default function CarDetails() {
   useEffect(() => {
     if (carDetails) {
       setSelectedDownPayment(carDetails.enganche[0]);
-      setSelectedTerm(parseInt(Object.keys(carDetails.plazo)[0]));
-      setInterestRate(carDetails.plazo[Object.keys(carDetails.plazo)[0]]);
+      setSelectedTerm(parseInt(Object.keys(carDetails.plazos)[0]));
+      setInterestRate(carDetails.plazos[Object.keys(carDetails.plazos)[0]]);
     }
   }, [carDetails]);
 
@@ -224,7 +224,7 @@ export default function CarDetails() {
       value: enganche,
       label: `${enganche}%`,
     }));
-    const plazo = Object.keys(carDetails.plazo)?.map((plazo) => ({
+    const plazo = Object.keys(carDetails.plazos)?.map((plazo) => ({
       value: parseInt(plazo),
       label: `${plazo}`,
     }));
@@ -879,7 +879,7 @@ export default function CarDetails() {
                         max={plazo[plazo.length - 1].value}
                         onChange={(e) => {
                           setSelectedTerm(e.target.value);
-                          setInterestRate(carDetails.plazo[e.target.value]);
+                          setInterestRate(carDetails.plazos[e.target.value]);
                         }}
                         defaultValue={plazo[0]?.value}
                       />
@@ -901,8 +901,8 @@ export default function CarDetails() {
                           Tasa de{" "}
                           <strong>
                             {" "}
-                            {carDetails.plazo[selectedTerm]
-                              ? carDetails.plazo[selectedTerm]
+                            {carDetails.plazos[selectedTerm]
+                              ? carDetails.plazos[selectedTerm]
                               : 0}
                             %
                           </strong>
