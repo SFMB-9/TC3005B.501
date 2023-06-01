@@ -18,7 +18,7 @@ export default function SearchResults() {
       console.log(response.data.userData);
       const userData = response.data.userData;
       setName(userData.nombres || ''); // Provide an empty string as the initial value
-      setSurname(userData.nombres || ''); // Provide an empty string as the initial value
+      setSurname(userData.surname || ''); // Provide an empty string as the initial value
       setEmail(userData.email || ''); // Provide an empty string as the initial value
       setPhone(userData.numero_telefonico || ''); // Provide an empty string as the initial value
     } 
