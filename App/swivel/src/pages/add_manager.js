@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
-import styles from '@/styles/edit_GA.module.css';
+import styles from '@/styles/add_manager.module.css';
 import BuyerNavbar from '@/components/buyer/navbar';
 
 export default function AddManager() {
