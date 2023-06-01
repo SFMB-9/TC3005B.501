@@ -312,7 +312,7 @@ export default function SignupBuyerData() {
                         placeholder="Número Interior"
                         value={interior_num}
                         onChange={(e) => setInteriorNum(e.target.value)}
-                        required
+                        
                       />
                     </div>
                   </div>
