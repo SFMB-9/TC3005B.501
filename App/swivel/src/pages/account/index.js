@@ -14,46 +14,9 @@ import {
 
 import AccountLayout from "@/components/buyer/account_layout";
 
-function EditProfileBtn() {
-
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/account/edit_data');
-  };
-
-
-
-  return (
-    <button 
-      onClick={handleClick}
-      style={{
-        backgroundColor:"none",
-        border:"none"
-      }}
-      >
-      <Button
-        variant="contained"
-        type="submit"
-        className="w-80"
-        
-        sx={{
-          fontFamily: "Lato",
-          ":hover": {
-            backgroundColor: "#333333",
-          },
-        }}
-        >
-        Editar cuenta
-      </Button>
-    </button>
-  );
-}
-
 export default function Account() {
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
-  const [editMode, setEditMode] = useState(false);
 
   const fetchData = async () => {
     const resData = await fetch(
@@ -311,7 +274,7 @@ export default function Account() {
                 <div className="align-self-center col-xl-6 col-md-6">
                    <PopUpComponent
                       title = "Editar datos"
-                      popUpContent = {<EditAccount/>}
+                      popUpContent = {<EditAccount data={apiData}/>}
                       btnOpen = {
                         <Button
                         variant="contained"
