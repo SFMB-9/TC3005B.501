@@ -20,10 +20,10 @@ export default function Purchases() {
 
   const fetchData = async () => {
     const resCurrentPurchases = await fetch(
-      `http://localhost:3000/api/buyerProfile/getPurchaseReq?user_id=${session.id}`
+      `/api/buyerProfile/getPurchaseReq?user_id=${session.id}`
     );
     const resCompletedPurchases = await fetch(
-      `http://localhost:3000/api/buyerProfile/getPurchase?user_id=${session.id}`
+      `/api/buyerProfile/getPurchase?user_id=${session.id}`
     );
     const currentData = await resCurrentPurchases.json();
     const completedData = await resCompletedPurchases.json();

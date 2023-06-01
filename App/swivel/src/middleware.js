@@ -22,7 +22,7 @@ export default withAuth(
     if (
       !isAuthorizedRole(req.nextauth.token.user?.role, req.nextUrl.pathname)
     ) {
-      return NextResponse.redirect("http://localhost:3000/auth/login");
+      return NextResponse.redirect("/auth/login");
     }
   },
 

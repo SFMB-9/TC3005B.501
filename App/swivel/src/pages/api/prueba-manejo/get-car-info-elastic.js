@@ -7,6 +7,7 @@ of a given car in the elastic db.
 */
 
 const { Client } = require('@elastic/elasticsearch');
+const { ELASTIC_API_KEY } = process.env
 
 export default async (req, res) => {
   if (req.method !== 'GET') {
@@ -16,17 +17,22 @@ export default async (req, res) => {
   const client = new Client({
     node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
     auth: {
-        apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+        apiKey: ELASTIC_API_KEY
     }
   });
 
   const auto_id = req.query.auto_id;
 
+  console.log("API KEY: " + ELASTIC_API_KEY);
+  console.log("Car ID: " + auto_id);
+
   try {
     const auto = await client.get({
-      index: 'autos',
+      index: 'autos_dev',
       id: auto_id
     });
+
+    console.log("Car info: " + JSON.stringify(auto));
 
     return res
       .status(200)

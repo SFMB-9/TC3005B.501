@@ -9,6 +9,7 @@ the user has selected the "confirm" button.
 Here the user is able to choose a date and
 time for their driving test.
 */
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import DatePicker from 'react-datepicker';
@@ -41,17 +42,16 @@ export default function RequestDetails() {
   const [userAddress, setUserAddress] = useState(null);
   const [carData, setCarData] = useState(null);
   const [firstImage, setFirstImage] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
   const [userData, setUserData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
-  const [managerData, setManagerData] = useState(null);
+  const [agencyData, setAgencyData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const { auto_id } = router.query;
-  // TODO
-  // user_id = session.id;
-  const user_id = "646e7555cfb24b65a4f5d1b7";
+  const { auto_id, colorName } = router.query;
+  const user_id = session.id;
 
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -59,17 +59,25 @@ export default function RequestDetails() {
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
+    console.log("ID de agencia: " + retrievedAuto.agencia_id);
+
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${user_id}`,
       { method: 'GET' });
     const resData = await rawData.json();
-    const retrievedManager = resData.manager;
+    const retrievedAgency = resData.agency;
     const retrievedUser = resData.user;
-    const retrievedDocuments = resData.user.documentos_url;
+    const retrievedDocuments = resData.user.documentos;
     const retrievedAddress = resData.user.direccion;
 
+    for (var i = 0; i < retrievedAuto.colores.length; i++) {
+      if (retrievedAuto.colores[i].nombre === colorName) {
+        setFirstImage(retrievedAuto.colores[i].imagenes[0]);
+        setImageIndex(i);
+      }
+    }
+
     setCarData(retrievedAuto);
-    setFirstImage(retrievedAuto.fotos_3d[0]);
-    setManagerData(retrievedManager);
+    setAgencyData(retrievedAgency);
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
     setUserAddress(retrievedAddress);
@@ -85,7 +93,7 @@ export default function RequestDetails() {
 
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
-      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime });
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
 
     // Go to list of user's driving tests
     router.push({
@@ -298,7 +306,8 @@ export default function RequestDetails() {
       },
     },
   ]
-  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && managerData != null) {
+
+  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && agencyData != null) {
     return (
       <>
         <BuyerNavbar />
@@ -491,9 +500,9 @@ export default function RequestDetails() {
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
                     dateFormat='dd/MM/yyyy'
-                    minDate={addDays(new Date(), managerData.dias_anticipo)}
-                    maxDate={addDays(new Date(), managerData.dias_max)}
-                    startDate={addDays(new Date(), managerData.dias_anticipo)}
+                    minDate={addDays(new Date(), agencyData.dias_anticipo)}
+                    maxDate={addDays(new Date(), agencyData.dias_max)}
+                    startDate={addDays(new Date(), agencyData.dias_anticipo)}
                   />
                   <DatePicker
                     selected={selectedTime}
@@ -502,8 +511,8 @@ export default function RequestDetails() {
                     showTimeSelectOnly
                     timeFormat='hh aa'
                     timeIntervals={60}
-                    minTime={setHours(new Date(), managerData.horas_min)}
-                    maxTime={setHours(new Date(), managerData.horas_max)}
+                    minTime={setHours(new Date(), agencyData.horas_min)}
+                    maxTime={setHours(new Date(), agencyData.horas_max)}
                     dateFormat='hh:mm aa'
                   />
                 </div>
@@ -549,7 +558,7 @@ export default function RequestDetails() {
                 Dirección:{" "}
                 {carData.direccion_agencia}
                 Teléfono:{" "}
-                {managerData.numero_telefonico}
+                {agencyData.numero_telefonico}
               </p>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
               <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>

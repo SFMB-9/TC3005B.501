@@ -50,7 +50,7 @@ export default function Catalog() {
       : "";
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
+      `/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
     );
 
     const data = await response.json();
@@ -139,7 +139,7 @@ export default function Catalog() {
   const viewCreateCar = () => {
     // Navigate to the page to create cars
     router.push({
-      pathname: '/providers/manager/carRegister',
+      pathname: '/providers/manager/new_car',
       query: {},
     })
   };
@@ -147,7 +147,7 @@ export default function Catalog() {
   const viewEditCar = (auto_id) => {
     // Navigate to the page to create cars
     router.push({
-      pathname: '/providers/manager/editar-auto',
+      pathname: '/providers/manager/edit_car',
       query: { auto_id },
     })
   };
@@ -155,7 +155,7 @@ export default function Catalog() {
   const deleteCar = async (auto_id) => {
     setDeletingCarIds([...deletingCarIds, auto_id]);
     // Delete car from elastic
-    await fetch(`http://localhost:3000/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`,
+    await fetch(`/api/catalogo-gerente/borrar-auto-elastic?auto_id=${auto_id}`,
       { method: 'DELETE' });
   };
 

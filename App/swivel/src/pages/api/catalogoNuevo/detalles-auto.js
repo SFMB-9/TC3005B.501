@@ -9,13 +9,14 @@ Description: Endpoint para obtener el detalle de un auto con su id
 
 // Connecting to ElasticSearch with security disabled
 const { Client } = require('@elastic/elasticsearch')
+const { ELASTIC_API_KEY } = process.env
 
 export default async function CarDetails(req, res) {
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
         auth: {
-            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+            apiKey: ELASTIC_API_KEY
         }
     })
 
@@ -27,15 +28,9 @@ export default async function CarDetails(req, res) {
 
     try {
         let elasticResponse = await client.get({
-            index: 'autos',
+            index: 'autos_dev',
             id: car_id
-        }, { meta: true })
-        // .then((res) => {
-        //     console.log(res);
-        // })
-        // .catch((err) => {
-        //     console.log(err);
-        // });
+        }, { meta: true });
 
         let result = elasticResponse.body._source;
 

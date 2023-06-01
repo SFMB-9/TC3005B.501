@@ -49,30 +49,28 @@ export default function Login() {
 
   return (
     <>
-      {session && (
-        <AuthComponent
-          backImage=""
-          fields={
-            <form className="d-flex flex-column " onSubmit={submitHandler}>
-              <div className="form-outline mb-2">
-                <label className="form-label">
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontFamily: "lato",
-                    }}
-                  >
-                    {" "}
-                    Correo electrónico{" "}
-                  </Typography>
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
+      <AuthComponent
+        backImage=""
+        fields={
+          <form className="d-flex flex-column " onSubmit={submitHandler}>
+            <div className="form-outline mb-2">
+              <label className="form-label">
+                <Typography
+                  sx={{
+                    color: "black",
+                    fontFamily: "lato",
+                  }}
+                >
+                  {" "}
+                  Correo electrónico{" "}
+                </Typography>
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               </div>
               <div className="form-outline mb-2">
                 <label className="form-label">
@@ -93,27 +91,20 @@ export default function Login() {
               <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
                 <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
                 >
-                  <Typography
-                    wrap
-                    sx={{
-                      color: "white",
-                      fontFamily: "lato",
-                    }}
-                  >
-                    {" "}
-                    Ingresar{" "}
-                  </Typography>
-                </button>
-              </div>
-            </form>}
-          title="Iniciar sesión como proveedor"
-          cardImage="/providers_login_image.png"
-          backColor="white"
-          titleText="Portal Swivel"
-          bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
-          textColor="black"
-        />
-      )}
-    </>
+                  {" "}
+                  Ingresar{" "}
+                </Typography>
+              </button>
+            </div>
+          </form>}
+        title="Iniciar sesión como proveedor"
+        cardImage="/providers_login_image.png"
+        backColor="white"
+        titleText="Portal Swivel"
+        bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
+        textColor="black"
+      />
+  </>
+
   );
 }

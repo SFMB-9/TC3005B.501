@@ -5,7 +5,7 @@ export default function Purchase() {
   const [uncompletedPurchases, setUncompletedPurchases] = useState([])
   
   const getPurchases = async () => {
-    const response = await fetch('http://localhost:3000/api/detalle-compra/purchases')
+    const response = await fetch('/api/detalle-compra/purchases')
     const data = await response.json()
     const retrievedPurchases = await data.result
     setCompletedPurchases(retrievedPurchases.filter((purchase) => {
