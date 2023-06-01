@@ -120,16 +120,11 @@ export default function Login() {
                 required
                 disabled={loading}
                 error={errors.password}
-                helperText={errors.password ? "Debe tener más de 6 carácteres y al menos una letra, un digito y un carácter especial" : null}
+                helperText={errors.password ? "Contraseña incorrecta" : null}
                 value={password}
                 onChange={(e) => {
                   const v = e.target.value;
                   setPassword(v);
-                  if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                    setErrors({ ...errors, password: false})
-                  } else {
-                    setErrors({ ...errors, password: false })
-                  }
                 }}
               />
             </div>
