@@ -32,6 +32,8 @@ export default async function handler(req, res) {
         doc[doc_index].url = encodedURL;
         doc[doc_index].fecha_modificacion = update_date;
 
+        console.log()
+
         // Update status of the document using validation API only if it is an INE
         if (doc[doc_index].nombre_documento === "INE" && doc[doc_index].estatus === "Pendiente") {
             console.log("Validating INE" + `${encodedURL}`);
