@@ -43,7 +43,7 @@ export default async function handler(req, res) {
       await AdminUser.create({
         tipo_usuario: encrypted_admin,
         nombres: name,
-        apellido: surname,
+        apellidos: surname,
         email: email,
         password: password,
         numero_telefonico: phone,
