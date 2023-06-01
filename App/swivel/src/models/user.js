@@ -11,7 +11,7 @@ const baseSchema = new mongoose.Schema(
     email: String,
     password: String,
     numero_telefonico: String,
-  },
+  }, 
   { collection: "users" }
 );
 
