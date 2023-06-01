@@ -83,17 +83,10 @@ export default function RequestDetails() {
     });
     
     // Create driving test request
-    const res = await axios.post('/api/prueba-manejo/crear-prueba-elastic',
-      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments });
-    const proceso_id = res.data.result.proceso_id;
-    // Add the driving test request to the list of processes of the user
-    await axios.post('/api/prueba-manejo/agregar-proceso-usuario',
-      { user_id: user_id, proceso_id: proceso_id });
-    // Add the selected date and time to the driving test request
-    await axios.put('/api/prueba-manejo/actualizar-fecha-hora-prueba', { proceso_id: proceso_id, selected_date: selectedDate, selected_time: selectedTime });
-    setProcessId(proceso_id);
+    const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime });
 
-    // Go back to catalog page
+    // Go to list of user's driving tests
     router.push({
       pathname: '/catalog',
     })
@@ -152,7 +145,7 @@ export default function RequestDetails() {
             <td>
               <div>
                 <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
-                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirmar</button>
               </div>
             </td>
           )}
@@ -191,15 +184,46 @@ export default function RequestDetails() {
 
   const columns = [
     {
-      // field: 'Documento',
-      // headerName: 'Documento',
-      // headerAlign: 'center',
-      // minWidth: 150,
-      // flex: 1,
-      // valueGetter: (params) => {
-      //   let cell = params.row.
-      // }
-    }
+      field: 'Documento',
+      headerName: 'Documento',
+      headerAlign: 'center',
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.nombre_documento
+          ? `${params.row.nombre_documento}`
+          : 'No existe fecha de entrega';
+        return cell;
+      },
+    },
+    {
+      field: "FechaEntrega",
+      headerName: "Fecha de entrega",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.fecha_modificacion
+          ? `${params.row.fecha_modificacion}`
+          : "No existe fecha de entrega";
+        return cell;
+      },
+    },
+    {
+      field: "subir",
+      headerName: "Fecha de entrega",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row.fecha_modificacion
+          ? `${params.row.fecha_modificacion}`
+          : "Este proceso no contiene auto";
+        return cell;
+      },
+    },
   ]
 
   const rows = []
@@ -264,6 +288,35 @@ export default function RequestDetails() {
               <DataTable
                 columns={columns}
                 rows={rows}
+                rowSelection={false}
+            sx={{
+              border: 1,
+              borderColor: "#D9D9D9",
+              "& .MuiDataGrid-cell": {
+                border: 1,
+                borderRight: 0,
+                borderTop: 0,
+                borderLeft: 0,
+                borderColor: "#D9D9D9",
+                fontFamily: "Lato",
+                fontWeight: 500,
+                fontSize: "12px",
+                color: "#333333",
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                fontFamily: "Lato",
+                fontSize: "16px",
+                color: "#333333",
+                borderBottom: 0,
+              },
+              "& .MuiDataGrid-columnHeaderTitle": {
+                fontWeight: 800,
+              },
+              "& .MuiPaginationItem-text": {
+                fontFamily: "Lato",
+                color: "#333333",
+              },
+            }}
               />
               <Button variant='contained' href='/catalog'>Cancelar</Button>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
@@ -348,8 +401,6 @@ export default function RequestDetails() {
                 {carData.direccion_agencia}
                 Teléfono:{" "}
                 {managerData.numero_telefonico}
-                Comentarios:{" "}
-                {carData.comentarios}
               </p>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
               <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>

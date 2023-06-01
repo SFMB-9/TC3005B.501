@@ -10,7 +10,6 @@ export default function Process() {
 
     console.log("process_id: " + process_id);
     const [process, setProcess] = useState(null);
-    const [updated, setUpdated] = useState(false);
 
     const fetchProcess = async () => {
         const response = await fetch(
@@ -25,25 +24,11 @@ export default function Process() {
         }
     };
 
-    const updateProcess = async () => {
-      const response = await fetch(
-          `http://localhost:3000/api/success/update-document?process_id=${process_id}`,
-          { method: "PUT" }
-      );
-
-      const data = await response.json();
-
-      if (data.message) {
-          setUpdated(true);
-      }
-  };
-
     useEffect(() => {
         if (!process_id) {
             return;
         }
         fetchProcess();
-        updateProcess();
     }, [process_id]);
 
     if (process != null) {
@@ -200,7 +185,6 @@ export default function Process() {
     }}
     disableElevation
     type="button"
-    disabled={!updated}
     href="/"
   >
     Finalizar
