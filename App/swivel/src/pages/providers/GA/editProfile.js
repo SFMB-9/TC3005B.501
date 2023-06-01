@@ -37,7 +37,7 @@ export default function SearchResults() {
   };
 
   const cancelHandler = () => {
-    router.push(`providers/GA`);
+    router.push(`/providers/GA`);
   };
 
   return (
