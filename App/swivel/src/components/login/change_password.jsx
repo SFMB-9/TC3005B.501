@@ -16,8 +16,8 @@ import { trusted } from "mongoose";
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
-
-  const [email, setEmail] = useState("");
+  const [oldPasswordHelper, setOldPasswordHelper] = useState("");	
+  const [confPasswordHelper, setConfPasswordHelper] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
 
@@ -110,16 +110,29 @@ export default function ChangePassword() {
               onChange={(e) => {
                 const v = e.target.value;
                 setOldPassword(v);
-                if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                  setErrors({ ...errors, oldPassword: false })
+                if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                  setErrors({ ...errors, oldPassword: true })
+                  if (v.length < 6) {
+                    setOldPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                  }
+                  else if (!/[a-zA-Z]/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos una letra")
+                  }
+                  else if (!/\d/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos un digito")
+                  }
+                  else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                  }
                 } else {
                   setErrors({ ...errors, oldPassword: false })
+                  setOldPasswordHelper("");
                 }
               }}
               required
               disabled={loading}
               error={errors.oldPassword}
-              helperText={errors.oldPassword ? "Contraseña incorrecta (Incluye más de 6 caracteres y al menos una letra, digito y caracter especial" : null}
+              helperText={errors.oldPassword ? oldPasswordHelper : null}
             /> <br/>
             <TextField
               id="password_field"
@@ -131,14 +144,27 @@ export default function ChangePassword() {
               required
               disabled={loading}
               error={errors.password}
-              helperText={errors.password ? "Contraseña incorrecta (Incluye más de 6 caracteres y al menos una letra, un digito y un caracter especial)" : null}
+              helperText={errors.password ? confPasswordHelper : null}
               onChange={(e) => {
                 const v = e.target.value;
                 setPassword(v);
-                if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                  setErrors({ ...errors, password: false })
+                if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                  setErrors({ ...errors, password: true })
+                  if (v.length < 6) {
+                    setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                  }
+                  else if (!/[a-zA-Z]/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos una letra")
+                  }
+                  else if (!/\d/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos un digito")
+                  }
+                  else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                  }
                 } else {
                   setErrors({ ...errors, password: false })
+                  setConfPasswordHelper("");
                 }
               }}
             /><br/>
@@ -157,7 +183,7 @@ export default function ChangePassword() {
                 const v = e.target.value;
                 setConfPassword(v);
                 if (v !== password) {
-                  setErrors({ ...errors, confPassword: false })
+                  setErrors({ ...errors, confPassword: true })
                 } else {
                   setErrors({ ...errors, confPassword: false })
                 }
