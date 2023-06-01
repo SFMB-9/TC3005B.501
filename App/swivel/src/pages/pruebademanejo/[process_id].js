@@ -342,7 +342,7 @@ export default function Process() {
             }}
             disableElevation
             type="button"
-            href="/"
+            href="/account/tests"
           >
             Ok
           </Button>
