@@ -37,7 +37,7 @@ export default function CatalogGrid({ carListing, cardType }) {
       } else {
         cardProps = {
           general: {
-            carUrl: `/purchase/${car._id}`,
+            carUrl: cardType == 'drivingTest' ? `/pruebademanejo/${car._id}` : `/purchase/${car._id}`,
             carImage: car.auto.array_fotografias_url[0],
             carBrand: car.auto.marca,
             carModel: car.auto.modelo,
