@@ -38,7 +38,7 @@ export default function CategoryViews() {
 
     setYears(data.result)
   }
-  
+
   useEffect(() => {
     fetchBrands()
     fetchTypes()
@@ -48,16 +48,16 @@ export default function CategoryViews() {
 
   const components = [
     {
-      name: 'Marcas', component: () =>
+      name: 'Marcas', component: () => (brands ?
         <>
           <div className={styles.brands}>
             <div className={styles.brandsArray}>
               {brands.map((brand) => (
                 <Link href={`/catalog?marca=${brand}`}>
-                <div className={styles.brand}>
-                  <img src={`/buyer/brands/${brand}.png?`} />
-                  <span className={styles.brandName}>{brand}</span>
-                </div>
+                  <div className={styles.brand}>
+                    <img src={`/buyer/brands/${brand}.png?`} />
+                    <span className={styles.brandName}>{brand}</span>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -65,7 +65,9 @@ export default function CategoryViews() {
               <Link href='/catalogo'>Ver más</Link>
             </div>
           </div>
-        </>
+        </> : <p>
+          Cargando marcas...
+        </p>)
     },
     {
       name: 'Tipos', component: () =>
@@ -74,10 +76,10 @@ export default function CategoryViews() {
             <div className={styles.typesArray}>
               {types.map((type) => (
                 <Link href={`/catalog?tipo=${type}`}>
-                <div className={styles.type}>
-                  <img src={`/buyer/types/${type}.png?`} />
-                  <span className={styles.typeName}>{type}</span>
-                </div>
+                  <div className={styles.type}>
+                    <img src={`/buyer/types/${type}.png?`} />
+                    <span className={styles.typeName}>{type}</span>
+                  </div>
                 </Link>
               ))}
             </div>
