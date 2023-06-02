@@ -164,7 +164,6 @@ export default function CategoryViews() {
     itemsToShowType = [];
   }
 
-  console.log("itemsToShowType", itemsToShowType)
   let itemsToShowYear;
   if (years)
   {
