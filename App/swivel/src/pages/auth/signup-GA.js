@@ -8,7 +8,6 @@ import AuthComponent from "@/components/login/auth_component";
 /* Función que retorna el formulario de registro de GA con su dirección, junto con los botones de ingreso  */
 export default function SignupGAData() {
     const router = useRouter();
-
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
@@ -31,6 +30,8 @@ export default function SignupGAData() {
     const [legalEmail, setLegalEmail] = useState("");
     const [legalPhone, setLegalPhone] = useState("");
 
+
+    const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [first, setFirst] = useState(true);
     const [second, setSecond] = useState(false);
     const [third, setThird] = useState(false);
@@ -70,6 +71,9 @@ export default function SignupGAData() {
             });
             
             routDocs(data);
+
+            console.log(data);
+            window.location.href = "/auth/login";
         } 
         catch (error) {
             console.log(error.response.data);
@@ -82,6 +86,285 @@ export default function SignupGAData() {
     const routDocs = (data) => {
         router.push(`/providers/GA/documentosGA?_id=${data}`);
     }
+
+    return (
+        <>
+            {activeSectionIndex === 0 && (
+                <>
+                    <AuthComponent
+                        title="Crea tu cuenta"
+                        fields={
+                            <form className="d-flex flex-column" onSubmit={() => { setActiveSectionIndex(1) }}>
+                                <div className="form-outline mb-2">
+                                    <div className="d-flex flex-row ">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Nombre(s)"
+                                            value={name}
+                                            pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
+                                            onChange={(e) => setName(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Apellidos"
+                                            value={surname}
+                                            pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
+                                            onChange={(e) => setSurname(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        placeholder="Correo Electrónico"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        placeholder="Contraseña"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        placeholder="Confirmar Contraseña"
+                                        required
+                                    />
+                                </div>
+                                <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+                                    <button className="btn btn-primary btn-block mb-2"  onSubmit={() => setActiveSectionIndex(1)}>
+                                        <Typography
+                                            wrap sx={{
+                                                color: "white",
+                                                fontFamily: "lato",
+                                            }}
+                                        >
+                                            {" "}
+                                            Continuar el Registro{" "}
+                                        </Typography>
+                                    </button>
+                                </div>
+                                <div className="text-center">
+                                    <p>
+                                        ¿Ya tienes una cuenta?<a href="./login"> Inicia sesión</a> 
+                                    </p>
+                                </div>
+                            </form>
+                        }
+                    />
+                </>
+            )}
+
+            {activeSectionIndex === 1 && (
+                <>
+                    <AuthComponent
+                        title="Información del grupo automotriz"
+                        fields={
+                            <form className="d-flex flex-column" onSubmit={submitHandler}>
+                                <div className="form-outline mb-2">
+                                    <div className="d-flex flex-row ">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Nombre del G.A."
+                                            value={agencyName}
+                                            onChange={(e) => setAgencyName(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="RFC"
+                                            value={rfc}
+                                            onChange={(e) => setRfc(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <div className="d-flex flex-row ">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Calle"
+                                            value={street}
+                                            onChange={(e) => setStreet(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="No. exterior"
+                                            value={exterior_num}
+                                            onChange={(e) => setExteriorNum(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="No. interior"
+                                            value={interior_num}
+                                            onChange={(e) => setInteriorNum(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <div className="d-flex flex-row "> 
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Ciudad"
+                                            value={city}
+                                            onChange={(e) => setCity(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Estado"
+                                            value={state}
+                                            onChange={(e) => setState(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="País"
+                                            value={country}
+                                            onChange={(e) => setCountry(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <div className="d-flex flex-row ">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Código postal"
+                                            value={postalCode}
+                                            onChange={(e) => setPC(e.target.value)}
+                                            required
+                                        />
+
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            placeholder="Número telefónico"
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-outline mb-2">
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        placeholder="URL Sitio web"
+                                        value={url}
+                                        onChange={(e) => setUrl(e.target.value)}
+                                        required
+                                    />
+                                    
+                                </div>
+                                <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+                                    <button className="btn btn-primary btn-block mb-2">
+                                        <Typography
+                                            wrap sx={{ color: "white", fontFamily: "lato" }}>
+                                            {" "}
+                                            Continuar el registro{" "}
+                                        </Typography>
+                                    </button>
+                                    <button type="submit" className="btn btn-secondary btn-block mb-2">
+                                        <Typography
+                                            sx={{ color: "white", fontFamily: "lato" }}>
+                                            {" "}
+                                            Atrás{" "}
+                                        </Typography>
+                                    </button>
+                                </div>
+                            </form>
+                        }
+                    />
+                </>
+            )}
+
+            {activeSectionIndex === 2 && (
+                <>
+                    <AuthComponent
+                        title="Representante legal"
+                        fields={
+                            <form className="d-flex flex-column" onSubmit={submitHandler}>
+                                <div className="form-outline mb-2">
+                                    <div className="d-flex flex-row ">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Nombre(s)"
+                                            value={legalName}
+                                            pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
+                                            onChange={(e) => setLegalName(e.target.value)}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Apellido(s)"
+                                            value={legalSurname}
+                                            pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
+                                            onChange={(e) => setLegalSurname(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-outline mb-2">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Email"
+                                    value={legalEmail}
+                                    onChange={(e) => setLegalEmail(e.target.value)}
+                                    required
+                                /> 
+                                </div>
+                                <div className="form-outline mb-2">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Teléfono"
+                                    value={legalPhone}
+                                    onChange={(e) => setLegalPhone(e.target.value)}
+                                    required
+                                /> 
+                                </div>
+                            </form>
+                        }
+
+                    />
+                </>
+            )}
+        </>
+    );
+/*
+    useEffect(() => {
+    }, [first, second, third]);
+
 
     const firstSection = () => {
         setFirst(true);
@@ -105,6 +388,14 @@ export default function SignupGAData() {
         <div> 
             {first && <div>
                 <h1>Registro de GA Admin</h1>
+*/
+
+
+    /*
+    return (
+        
+        <div> 
+            {first && <div>
                 <input
                     type="text"
                     className="form-control"
@@ -240,6 +531,9 @@ export default function SignupGAData() {
 
                 <input
                     type="text"
+
+                    type="password"
+
                     className="form-control"
                     placeholder="Número telefónico"
                     value={phone}
@@ -249,6 +543,8 @@ export default function SignupGAData() {
 
                 <input
                     type="text"
+
+                    type="password"
                     className="form-control"
                     placeholder="URL Sitio web"
                     value={url}
@@ -268,6 +564,8 @@ export default function SignupGAData() {
             {third && <div>
                 <h1>Registro de GA Legal</h1>
                 <input
+
+            {third && <div><input
                     type="text"
                     className="form-control"
                     placeholder="Nombre(s)"
@@ -316,3 +614,6 @@ export default function SignupGAData() {
         </div>
     );
 }
+    );*/
+}
+

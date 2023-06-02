@@ -37,9 +37,13 @@ export default function MergedSignup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     let isValid = true;
     const newErrors = { ...errors };
+    
+  const router = useRouter();  
+
+  const GA = router.query.GA_id;	
+  const agency = router.query.agency_id;
 
     // Check if any of the fields are empty
     for (const key in formValues) {
@@ -76,9 +80,9 @@ export default function MergedSignup() {
         email: formValues.correo,
         password: formValues.contraseña,
         tipo_usuario: "manager",
-        agencia_id: formValues.agencia,
-        grupo_automotriz_id: router.query.GA,
-        numero_telefonico: formValues.telefono,
+        agencia_id: agency,
+        grupo_automotriz_id: GA,
+        numero_telefonico: phone,
       });
 
       console.log(data);
