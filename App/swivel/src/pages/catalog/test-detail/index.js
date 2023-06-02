@@ -402,7 +402,7 @@ export default function RequestDetails() {
                   marginBottom: "1rem",
                 }}
               >
-                {
+                {/* {
                   documents ? (
                     <div>
                       <h4
@@ -452,7 +452,7 @@ export default function RequestDetails() {
                       <p>No hay documentos</p>
                     </div>
                   )
-                }
+                } */}
               </div>
               <div
                 style={{
@@ -549,11 +549,11 @@ export default function RequestDetails() {
             <div className={styles.confirmation}>
               <p>
                 Fecha:{" "}
-                {format(selectedDate, "dd/MM/yyyy")}
+                {format(selectedDate, "dd/MM/yyyy")}<br/>
                 Horario:{" "}
-                {format(selectedTime, "hh:mm aa")}
+                {format(selectedTime, "hh:mm aa")}<br/>
                 Dirección:{" "}
-                {carData.direccion_agencia}
+                {carData.direccion_agencia}<br/>
                 Teléfono:{" "}
                 {agencyData.numero_telefonico}
               </p>
