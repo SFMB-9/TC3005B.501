@@ -331,11 +331,18 @@ export default function RequestDetails() {
                 className='d-flex flex-column justify-content-center'
               >
                 <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <h4>Datos personales</h4>
-                  </div>
+                  <Typography
+                    variant="h4"
+                    fontWeight="bold"
+                    className="pb-2"
+                    sx={{
+                      fontFamily: "Raleway", color: "#333333",
+                      paddingTop: "0rem",
+                      paddingLeft: "2rem",
+                    }}
+                  >
+                    Datos Personales
+                  </Typography>
                   <div className='col-12 col-md-5'>
                   </div>
                   <div className='col-12 col-md-1'>
@@ -452,9 +459,14 @@ export default function RequestDetails() {
                 }}
               >
                 <Button
-                  style={{
-                    marginRight: "2.5rem",
-                    backgroundColor: "#333333",
+                  sx={{
+                    fontFamily: "Lato",
+                    color: '#626262',
+                    backgroundColor: "#D9D9D9",
+                    "&:hover": {
+                      backgroundColor: "#b3b3b3",
+                      color: "#fff",
+                    },
                   }}
                   variant='contained' href='/catalog'>Cancelar</Button>
                 <Button
@@ -484,8 +496,8 @@ export default function RequestDetails() {
               </div>
               <div className={styles.testInfo}>
                 <div className={styles.schedule}>
-                  <h2 className={styles.schedule_header}>Elegir un horario:</h2>
-                  <h3 className={styles.schedule_header}> Elegir Fecha* </h3>
+                  <h2 className="mb-3">Elegir un horario:</h2>
+                  <h3> Elegir Fecha* </h3>
                   <DatePicker
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
@@ -493,8 +505,9 @@ export default function RequestDetails() {
                     minDate={addDays(new Date(), agencyData.dias_anticipo)}
                     maxDate={addDays(new Date(), agencyData.dias_max)}
                     startDate={addDays(new Date(), agencyData.dias_anticipo)}
+                    className="p-2"
                   />
-                  <h3 className={styles.schedule_header}> Elegir Hora* </h3>
+                  <h3 className="mt-3"> Elegir Hora* </h3>
                   <DatePicker
                     selected={selectedTime}
                     onChange={time => setSelectedTime(time)}
@@ -505,12 +518,14 @@ export default function RequestDetails() {
                     minTime={setHours(new Date(), agencyData.horas_min)}
                     maxTime={setHours(new Date(), agencyData.horas_max)}
                     dateFormat='hh:mm aa'
+                    className="p-2"
                   />
                 </div>
                 <LocationsMap
                   locationsData={[{ brand: carData.marca, position: agencyCoords }]}
                 />
               </div>
+              <div className={styles.containerNavButtons}>
               {selectedDate && (
                 <p>
                   Fecha actualmente agendada:{" "}
@@ -525,37 +540,49 @@ export default function RequestDetails() {
                   {format(selectedTime, "hh:mm aa")} (Tiempo local)
                 </p>
               )}
-              <Button variant='contained' onClick={() => setActiveSectionIndex(0)}>Volver</Button>
-              {(selectedDate && selectedTime) ? (
-                <div>
-                  <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
+              
+                <div className={styles.navButtons}>
+                  <Button variant='contained' onClick={() => setActiveSectionIndex(0)}
+                    sx={{
+                      marginRight:"3vw",
+                    }}
+                  >Volver</Button>
+                  {(selectedDate && selectedTime) ? (
+                    <div>
+                      <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
+                    </div>
+                  ) : (
+                    <div>
+                      <div>*Selecciona una fecha y horario para confirmar tu cita.</div>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div>
-                  <p>*Selecciona una fecha y horario para confirmar tu cita.</p>
-                </div>
-              )}
+              </div>
             </div>
           </>
         )}
         {activeSectionIndex === 2 && (
           <>
             <div className={styles.confirmation}>
-              <p>
-                Fecha:{" "}
-                {format(selectedDate, "dd/MM/yyyy")}<br/>
-                Horario:{" "}
-                {format(selectedTime, "hh:mm aa")}<br/>
-                Dirección:{" "}
-                {carData.direccion_agencia}<br/>
-                Teléfono:{" "}
-                {agencyData.numero_telefonico}
-              </p>
-              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-              <Button 
-                variant='contained' 
-                onClick={() => createDrivingTest()}
-                >Confirmar</Button>
+              <div className='col-12 col-md-5'>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span>
+                </div>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span>
+                </div>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span>
+                </div>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span>  
+                </div>
+                <div className='col-12 col-md-5'></div>
+                <div className='col-12 col-md-5'>
+                  <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+                  <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
+                </div>
+              </div>
             </div>
           </>
         )}

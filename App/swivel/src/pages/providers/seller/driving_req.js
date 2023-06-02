@@ -77,6 +77,7 @@ const SellerDashboard = () => {
       _id,
       status,
     });
+
     const updatedRequests = requests.map((request) => {
       if (request._id === _id) {
         return { ...request, status };
@@ -107,16 +108,34 @@ const SellerDashboard = () => {
       headerName: "Cliente",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 130,
       flex: 1,
       valueGetter: (params) => {
         let cell = user[params.row.usuario_final_id]
-          ? `${user[params.row.usuario_final_id].nombres} ${
-              user[params.row.usuario_final_id].apellidos
-            }`
+          ? `${user[params.row.usuario_final_id].nombres} ${user[params.row.usuario_final_id].apellidos
+          }`
           : "Usuario no encontrado";
         return cell;
       },
+    },
+    {
+      field: "archivo_id",
+      headerName: "Identificación",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      renderCell: (params) => (
+        <div>
+          <a href={params.row.documentos[0].url} target="_blank">
+            <u>Ver ID</u>
+          </a>
+          <br />
+          <a href={params.row.documentos[1].url} target="_blank">
+            <u>Ver Licencia</u>
+          </a>
+        </div>
+      )
     },
     {
       field: "fecha_agendada",
@@ -124,7 +143,7 @@ const SellerDashboard = () => {
       headerName: "Fecha",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 110,
       flex: 1,
       valueFormatter: (params) =>
         new Date(params.value).toLocaleDateString("es-ES", {
@@ -138,7 +157,7 @@ const SellerDashboard = () => {
       headerName: "Horario",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 75,
       flex: 1,
       valueGetter: (params) =>
         new Date(params.row.hora_agendada).toLocaleTimeString("es-ES", {
@@ -147,7 +166,7 @@ const SellerDashboard = () => {
         }),
     },
     {
-      field: "estatus",
+      field: "estatus_validacion",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -156,7 +175,7 @@ const SellerDashboard = () => {
       type: "actions",
       renderCell: (params) => (
         <Select
-          value={params.row.estatus}
+          value={params.row.estatus_validacion}
           onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
           label="Status"
           variant="standard"
@@ -166,7 +185,7 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En Proceso"
+            value="En proceso"
           >
             En Proceso
           </MenuItem>
@@ -191,7 +210,7 @@ const SellerDashboard = () => {
     if (statusFilter === "all") {
       return true;
     } else {
-      return request.status === statusFilter;
+      return request.estatus_validacion === statusFilter;
     }
   });
 
@@ -212,7 +231,7 @@ const SellerDashboard = () => {
           <div className="text-center pt-3">
             <SimpleToggleButton
               filters={[
-                { value: "En Proceso", name: "En Proceso" },
+                { value: "En proceso", name: "En Proceso" },
                 { value: "Finalizada", name: "Finalizada" },
                 { value: "Cancelada", name: "Cancelada" },
               ]}
