@@ -17,7 +17,6 @@ export default async function handler(req, res) {
     //const agencyRole = encryptRole("agencia");
 
     const agency = await AgencyEntity.findAll({
-      _id: id,
       tipo_usuario: "agencia", //change to tipo_usuario: agencyRole
       ...filters,
     }).exec();
