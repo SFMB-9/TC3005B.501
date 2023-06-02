@@ -51,10 +51,10 @@ export default function CatalogGrid({ carListing, cardType }) {
             testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,
           },
           purchasesCurrent: {
-            date: car.fecha_inicio,
+            date: car.fecha_creacion,
           },
           purchasesCompleted: {
-            date: car.fecha_agendada
+            date: car.fecha_creacion
           },
           // favorites: {
           //   // Alternate set of props
