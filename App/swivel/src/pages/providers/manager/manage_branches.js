@@ -12,7 +12,8 @@ export default function WorkingHoursComponent() {
   const [endTime, setEndTime] = useState('');
   const [preDays, setPreDays] = useState(0);
   const [maxDays, setMaxDays] = useState(0);
-  const [agency, setAgency] = useState("Kia Cuajimalpa");
+  const [agency, setAgency] = useState("Kia Cuajimalpa"); // <-- this needs to come from a session, its agencia from ManagerUser and correspond to nombres in AgencyEntity
+  const [id, setId] = useState(""); // <-- this needs to come from a session, it's agencia_id from ManagerUser
   const { data: session } = useSession();
   const [documents, setDocuments] = useState([]);
   const [name, setName] = useState('');
@@ -76,7 +77,7 @@ export default function WorkingHoursComponent() {
     console.log(data);
     try {
       // await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: agency, horas_min: horas_min, horas_max: horas_max, dias_anticipo: dias_anticipo, dias_max: dias_max });
-      await axios.put('/api/agencia/actualizar-documentos-requeridos', { agency: agency,  data: data});
+      await axios.put('/api/agencia/actualizar-documentos-requeridos', { agency: agency, data: data });
       setLoading(false);
     }
     catch (error) {
@@ -87,7 +88,7 @@ export default function WorkingHoursComponent() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('/api/agencia/pull-detalles-agencia', { params: { agency: agency } });
+        const result = await axios.get('/api/agencia/pull-detalles-agencia', { params: { agency: agency }});
         const docs = result.data.documentos_requeridos_compra;
         console.log(docs);
         const newDocs = docs.map((doc, i) => {
