@@ -1,5 +1,4 @@
-import { AgencyEntity } from "../../../models/user";
-import dbConnect from "../../../config/dbConnect";
+import connectToDatabase from "@/utils/mongodb";
 import { encryptRole } from "../../../utils/crypto";
 
 /* 
@@ -10,18 +9,16 @@ Returns: response status and json
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    dbConnect();
+    const { db } = await connectToDatabase();
+    const { role, GAId } = req.query;
+    
+    const encryptedRole = encryptRole(role);
 
-    const filters = req.query; // In queries add the desired filters
-
-    //const agencyRole = encryptRole("agencia");
-
-    const agency = await AgencyEntity.findAll({
-      tipo_usuario: "agencia", //change to tipo_usuario: agencyRole
-      ...filters,
-    }).exec();
-
-    res.status(200).json({ agency: agency });
+    const agencies = await db
+      .collection("usuarios")
+      .find({ role: role }) // change to role: encryptedRole
+      .toArray();
+    res.status(200).json(agencies);
   } else {
     res.status(405).json({ message: "Wrong request method" });
   }
