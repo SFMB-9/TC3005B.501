@@ -16,7 +16,7 @@ export default function CategoryViews() {
   const [years, setYears] = useState([])
 
   const fetchBrands = async () => {
-    const response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas')
+    const response = await fetch('/api/catalogoNuevo/marcas')
     const data = await response.json()
     console.log(data)
 
@@ -24,7 +24,7 @@ export default function CategoryViews() {
   }
 
   const fetchTypes = async () => {
-    const response = await fetch('http://localhost:3000/api/catalogoNuevo/tipos')
+    const response = await fetch('/api/catalogoNuevo/tipos')
     const data = await response.json()
     console.log(data)
 
@@ -32,7 +32,7 @@ export default function CategoryViews() {
   }
 
   const fetchYears = async () => {
-    const response = await fetch('http://localhost:3000/api/catalogoNuevo/years')
+    const response = await fetch('/api/catalogoNuevo/years')
     const data = await response.json()
     console.log(data)
 

@@ -9,7 +9,7 @@ y searchbar que emplearía elastic search.
 */
 
 import React, { useState, useEffect } from "react";
-import { Grid, Chip, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
+import { Grid, Checkbox, FormControlLabel, Typography, Button } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -22,8 +22,21 @@ import { useRouter } from "next/router";
 import Searchbar from "@/components/general/searchbar";
 
 export default function Catalog() {
-
   const router = useRouter();
+  const [searchText, setSearchText] = useState(null);
+
+  let isFirstLoad = true;
+
+console.log("Search text: " + searchText);
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      if (JSON.stringify(router.query.searchQuery)) {
+        setSearchText(router.query.searchQuery);
+      }
+      isFirstLoad = false;
+    }
+  }, []);
 
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -47,25 +60,30 @@ export default function Catalog() {
     });
 
     let queryString = "";
+    if (JSON.stringify(router.query.searchQuery) && searchText === null) {
+      setSearchText(router.query.searchQuery);
+      queryString = "search=" + router.query.searchQuery + "="
+    }
     Object.entries(query).forEach(([category, items]) => {
       if (items.length) {
         queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
       }
     });
 
+    console.log('qst',queryString)
     return queryString;
   };
 
   const fetchFilters = async () => {
-
     if (router.query.marca) {
+      const query = router.query.marca;
       removeQueryParam("marca");
-      if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
+      if (!selectedFilters.includes(`marca:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`marca:${router.query.marca}`);
+          newSelectedFilters.push(`marca:${query}`);
           setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "marca", value: router.query.marca };
+            const newChip = { category: "marca", value: query };
             const isChipDuplicate = prevSelectedChips.find(
               (chip) =>
                 chip.category === newChip.category &&
@@ -83,13 +101,14 @@ export default function Catalog() {
     }
 
     if (router.query.tipo) {
+      const query = router.query.tipo;
       removeQueryParam("tipo");
-      if (!selectedFilters.includes(`tipo_vehiculo:${router.query.tipo}`)) {
+      if (!selectedFilters.includes(`tipo_vehiculo:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`tipo_vehiculo:${router.query.tipo}`);
+          newSelectedFilters.push(`tipo_vehiculo:${query}`);
           setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "tipo_vehiculo", value: router.query.tipo };
+            const newChip = { category: "tipo_vehiculo", value: query };
             const isChipDuplicate = prevSelectedChips.find(
               (chip) =>
                 chip.category === newChip.category &&
@@ -107,13 +126,14 @@ export default function Catalog() {
     }
 
     if (router.query.year) {
+      const query = router.query.year;
       removeQueryParam("year");
-      if (!selectedFilters.includes(`ano:${router.query.year}`)) {
+      if (!selectedFilters.includes(`ano:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`ano:${router.query.year}`);
+          newSelectedFilters.push(`ano:${query}`);
           setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "ano", value: router.query.year };
+            const newChip = { category: "ano", value: query };
             const isChipDuplicate = prevSelectedChips.find(
               (chip) =>
                 chip.category === newChip.category &&
@@ -131,28 +151,29 @@ export default function Catalog() {
     }
 
     if (router.query.searchQuery) {
+      const query = router.query.searchQuery;
       removeQueryParam("searchQuery");
-      if (!selectedFilters.includes(`search=${router.query.searchQuery}`)) {
+      if (!selectedFilters.includes(`search=${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`search=${router.query.searchQuery}`);
+          newSelectedFilters.push(`search=${query}`);
           return newSelectedFilters;
         });
       }
     }
 
-    console.log(selectedFilters);
+    console.log("Selected Filters:" + selectedFilters);
     let queryString = buildQuery(selectedFilters);
+    console.log('yooo', queryString)
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/filter?${queryString}`
+      `/api/catalogoNuevo/filter?${queryString}`
     );
 
     const data = await response.json();
 
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
-    setApiData(data);
     setCatalogData(data.result);
   };
 
@@ -184,10 +205,6 @@ export default function Catalog() {
             (chip) => chip.category !== category || chip.value !== item
           ));
       } else {
-        // remove any existing filter for this category
-        //newSelectedFilters.filter((f) => { !f.startsWith(`${category}=`) });
-
-
         // add the new filter if it's not null
         if (item) {
 
@@ -331,22 +348,7 @@ export default function Catalog() {
                 </div>
               </div>
               <div className={styles.filterBody}>
-                {/* {selectedChips.map((chip, index) => (
-                  <Chip
-                    key={`${chip.category}-${chip.value}-${index}`}
-                    label={`${filterHeaders[chip.category]}: ${chip.value}`}
-                    onDelete={() =>
-                      handleMenuItemClick(chip.category, chip.value)
-                    }
-                    color="primary"
-                    sx={{
-                      marginBottom: "0.2rem",
-                      marginRight: "0.2rem",
-                    }}
-                    variant="outlined"
-                    className={styles.filterChip}
-                  />
-                ))} */}
+                {/* Chips go here */}
               </div>
               {filters && (
                 <ul className={styles.filterList}>
@@ -377,8 +379,10 @@ export default function Catalog() {
                 // para que se ejecute cuando se presione el botón de búsqueda
               */}
             <Searchbar
+              firstValue={searchText}
+              placeholderText={'Buscar...'}
               setState={setSelectedFilters}
-            > </Searchbar>
+            />
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
@@ -414,7 +418,6 @@ export default function Catalog() {
                 <CatalogPagination
                   catalogData={catalogData}
                   itemsPerPage={30}
-                  // carCardType="drivingTest"
                   carCardType="catalog"
                 />
               </div>
@@ -425,4 +428,3 @@ export default function Catalog() {
     </>
   );
 };
-

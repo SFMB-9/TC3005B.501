@@ -1,7 +1,6 @@
 import Proceso from "../../../models/procesos";
 import Usuario from "../../../models/usuario";
 import dbConnect from "../../../config/dbConnect";
-const mongoose = require('mongoose');
 
 export default async (req, res) => {
     await dbConnect();
@@ -11,9 +10,9 @@ export default async (req, res) => {
         const agencia = await Usuario.create({ 
             rol_encriptado: "Rol",
             tipo_usuario: "agencia",
-            nombres: "Mazda Santa Fe",
+            nombres: "Kia Cuajimalpa",
             apellidos: "",
-            email: "zoomzoom@gmail.com",
+            email: "kia@gmail.com",
             contrasena: "password",
             direccion: {
                 calle: "Av. Santa Fe",
@@ -25,7 +24,7 @@ export default async (req, res) => {
                 codigo_postal: "01800"
             },
             numero_telefonico: "5512345678",
-            grupo_automotriz: "Mazda Co.",
+            grupo_automotriz: "Kia Co.",
             gerente_id: "ID del Gerente",
             horas_min: 4,
             horas_max: 20,
@@ -44,8 +43,6 @@ export default async (req, res) => {
             .json({ message: 'Agencia dummy creada exitosamente', result: result });
     } catch(error) {
         console.log(error)
-        return res.status(400).json({ message: 'Error al crear agencia dummy', error: error.message});
-    } finally {
-        await mongoose.disconnect();
+        return res.status(400).json({ message: 'Error al crear prueba de manejo', error: error.message});
     }
 }

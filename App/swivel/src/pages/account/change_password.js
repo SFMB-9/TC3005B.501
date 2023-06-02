@@ -8,9 +8,6 @@ export default function BuyerChangePassword() {
   return(
     <AccountLayout>
       <ChangePassword/>
-      <PopUpComponent
-        btn = {<button> Click to open popup </button>}
-      /> 
     </AccountLayout>
     
   )

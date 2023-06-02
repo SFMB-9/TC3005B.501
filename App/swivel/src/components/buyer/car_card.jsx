@@ -37,18 +37,22 @@ export default function CarCard(props) {
   if (props.cardType !== "catalog") {
     cardMaxHeight = 500;
   }
-
   return (
     <Card sx={{ maxWidth: cardMaxWidth, maxHeight: cardMaxHeight }}>
       <div style={{ position: 'relative' }}>
-        <CardMedia
-          component="img"
-          height="160"
-          image={props.carImage}
-          alt="car"
-        />
+        <a href={props.carUrl}>
+          <CardMedia
+            component="img"
+            height="160"
+            image={props.carImage}
+            alt="car"
+          />
+        </a>
         <IconButton
-          onClick={() => setFavorite(!favorite)}
+          onClick={(event) => {
+            event.stopPropagation(); 
+            setFavorite(!favorite);
+          }}
           sx={{
             position: 'absolute',
             top: 3.5,
@@ -172,7 +176,16 @@ export default function CarCard(props) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#F55C7A'
+                      color: 
+                        props.status === "Aprobado" 
+                          ? "#4CAF50" 
+                          : props.status === "En proceso"
+                          ? "#FF9243"
+                          : props.status === "Rechazado"
+                          ? "#E30000"
+                          : props.status === "Finalizada"
+                          ? "#F55C7A" //"#F55C7A" : "#4CAF50"
+                          : inherit
                     }}>
                       {props.status}
                     </Typography>

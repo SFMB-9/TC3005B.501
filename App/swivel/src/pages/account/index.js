@@ -3,66 +3,47 @@ import { useSession } from "next-auth/react";
 import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
 import { useRouter } from 'next/router';
+import { signOut } from "next-auth/react";
+import axios from "axios";
+
 import {
   Container,
   Typography,
-  TextField,
-  Switch,
-  Select,
-  MenuItem,
-  IconButton,
   Button,
-  Grid,
 } from "@mui/material";
 
 import AccountLayout from "@/components/buyer/account_layout";
 
-function EditProfileBtn() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/account/edit_data');
-  };
-
-  return (
-    <button 
-      onClick={handleClick}
-      style={{
-        backgroundColor:"none",
-        border:"none"
-      }}
-      >
-      <Button
-        variant="contained"
-        type="submit"
-        className="w-80"
-        
-        sx={{
-          fontFamily: "Lato",
-          ":hover": {
-            backgroundColor: "#333333",
-          },
-        }}
-        >
-        Editar cuenta
-      </Button>
-    </button>
-  );
-}
-
 export default function Account() {
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
-  const [editMode, setEditMode] = useState(false);
 
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
 
     const res = await resData.json();
 
     setApiData(res.userData);
+  };
+
+
+  const deleteAccount = async (e) => {
+    e.preventDefault();
+
+    try{
+      axios.delete("../api/buyerProfile/deleteUser", {
+        params: {
+          id: session.id,
+        }
+      });
+      signOut({ callbackUrl: "/auth/login" })
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+
+    }
   };
 
   useEffect(() => {
@@ -71,7 +52,7 @@ export default function Account() {
     }
   }, [session]);
 
-  if (apiData) {
+  if (apiData && session) {
     return (
       <AccountLayout>
         <Container maxWidth="xl">
@@ -293,7 +274,7 @@ export default function Account() {
                 <div className="align-self-center col-xl-6 col-md-6">
                    <PopUpComponent
                       title = "Editar datos"
-                      popUpContent = {<EditAccount/>}
+                      popUpContent = {<EditAccount data={apiData}/>}
                       btnOpen = {
                         <Button
                         variant="contained"
@@ -332,8 +313,6 @@ export default function Account() {
                       } 
                   /> 
                   
-                  {/* <EditProfileBtn/> */}
-                  
                   
                 </div>
                 <div className=" align-self-center col-xl-6 col-md-6">
@@ -344,6 +323,7 @@ export default function Account() {
                     <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
                       <Button
                         variant="contained"
+                        onClick={deleteAccount}
                         type="submit"
                         className="w-80"
                         sx={{
@@ -353,7 +333,7 @@ export default function Account() {
                           },
                         }}
                         >
-                        Eliminar cuenta
+                        Eliminar Cuenta
                       </Button>
                     </div>}
                     btnOpen = {
@@ -362,7 +342,11 @@ export default function Account() {
                           variant="contained"
                           type="submit"
                           className="w-80"
-                          border='none'
+                          style={{
+                            backgroundColor: "#D9D9D9",
+                            border: "none"
+                            
+                          }}
                           sx={{
                             fontFamily: "Lato",
                             ":hover": {
