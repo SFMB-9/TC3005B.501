@@ -10,7 +10,7 @@ de filtros y searchbar que emplearía elastic
 search.
 */
 
-import React, { useState, useEffect,useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Grid, Checkbox, FormControlLabel, Typography, IconButton, Button } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -77,7 +77,7 @@ export default function Catalog() {
       }
     });
 
-    console.log('qst',queryString)
+    console.log('qst', queryString)
     return queryString;
   };
 
@@ -345,7 +345,7 @@ export default function Catalog() {
       { method: 'DELETE' });
   };
 
-  const columns = useMemo( ()=> [
+  const columns = useMemo(() => [
     {
       field: "imagen",
       headerName: "Imagen",
@@ -445,13 +445,13 @@ export default function Catalog() {
         // </Button>
         <>
 
-        <IconButton aria-label="delete" size="small" onClick={() => viewEditCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
-          <DriveFileRenameOutlineIcon />
-        </IconButton>
+          <IconButton aria-label="delete" size="small" onClick={() => viewEditCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
+            <DriveFileRenameOutlineIcon />
+          </IconButton>
 
-        <IconButton aria-label="delete" size="small" onClick={() => deleteCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
-          <DeleteOutlineIcon />
-        </IconButton>
+          <IconButton aria-label="delete" size="small" onClick={() => deleteCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
+            <DeleteOutlineIcon />
+          </IconButton>
         </>
       ),
     },
@@ -525,6 +525,22 @@ export default function Catalog() {
               placeholderText={'Buscar...'}
               setState={setSelectedFilters}
             />
+            <Button
+              variant="contained"
+              size="small"
+              style={{ minWidth: '110px' }}
+              sx={{
+                fontFamily: "Lato",
+                ":hover": {
+                  backgroundColor: "palevioletred",
+                },
+              }}
+              disableElevation
+              type="button"
+              onClick={() => viewCreateCar()}
+            >
+              Agregar Auto
+            </Button>
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
