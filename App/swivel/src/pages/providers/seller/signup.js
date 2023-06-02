@@ -35,6 +35,7 @@ export default function SellerSignup() {
         numero_telefonico: phone,
       });
 
+      window.location.href = `${window.location.origin}/providers/manager/manage_sellers`;
       console.log(data);
     } catch (error) {
       console.log(error.response.data);
