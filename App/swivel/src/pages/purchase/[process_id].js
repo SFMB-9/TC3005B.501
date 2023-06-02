@@ -73,6 +73,7 @@ export default function Process() {
 
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
+    currentDocs[i].estatus = "En_Revision";
 
     console.log("process_id: " + process_id);
     console.log("doc_index: " + i);
@@ -105,12 +106,6 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 1,
-        // renderCell: (params) => {
-        //   let cell = params.row._source.fotos_3d[0]
-        //     ? <img src={params.row._source.fotos_3d[0]} height="50" width="60" />
-        //     : "Este proceso no contiene imagen";
-        //   return cell;
-        // },
       },
       {
         field: "url",
@@ -119,12 +114,6 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 2,
-        // valueGetter: (params) => {
-        //   let cell = params.row._source.modelo
-        //     ? `${params.row._source.modelo}`
-        //     : "No contiene modelo";
-        //   return cell;
-        // },
       },
       {
         field: "estatus",
@@ -133,12 +122,6 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 1,
-        // valueGetter: (params) => {
-        //   let cell = params.row._source.marca
-        //     ? `${params.row._source.marca}`
-        //     : "No contiene marca";
-        //   return cell;
-        // },
       },
       {
         field: "fecha_modificacion",
@@ -147,12 +130,6 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 1,
-        // valueGetter: (params) => {
-        //   let cell = params.row._source.año
-        //     ? params.row._source.año
-        //     : 0;
-        //   return cell;
-        // },
       },
       {
         field: "comentarios",
@@ -161,12 +138,6 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 1,
-        // valueGetter: (params) => {
-        //   let cell = params.row._source.precio
-        //     ? params.row._source.precio
-        //     : 0;
-        //   return cell;
-        // },
       },
       {
         field: "botones",

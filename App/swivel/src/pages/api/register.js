@@ -78,13 +78,13 @@ export default async function handler(req, res) {
             {
               nombre_documento: "INE",
               url: "",
-              fecha_modificacion: null,
+              fecha_modificacion: "",
               estatus: "Pendiente"
             },
             {
               nombre_documento: "Licencia de conducir",
               url: "",
-              fecha_modificacion: null,
+              fecha_modificacion: "",
               estatus: "Pendiente"
             }
           ],
