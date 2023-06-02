@@ -48,7 +48,7 @@ export default function SearchResults() {
         <div>
             <GANavbar />
             <div className={styles.mainContainer}>
-                <h1 className={styles.pageTitle}>Editar Perfil</h1>
+                <h1 className={styles.pageTitle}>Editar perfil de gerente</h1>
                 <div className={styles.row}>
                     <div className={styles.inputContainer}>
                         <h5>Nombre(s)</h5>
@@ -77,7 +77,9 @@ export default function SearchResults() {
                             onChange={(e) => setSurname(e.target.value)}
                         />
                     </div>
-                    <div className={styles.inputContainer}>
+                </div>
+
+                <div className={styles.inputContainer}>
                     <h5>Correo</h5>
                     <TextField
                         className={styles.longInputField}
@@ -104,6 +106,7 @@ export default function SearchResults() {
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
+
                 <div className={styles.buttonContainer}>
                     <Button
                         variant="contained"
@@ -135,8 +138,6 @@ export default function SearchResults() {
                     >
                         Guardar
                     </Button>
-                </div>
-
                 </div>
              </div>
 
