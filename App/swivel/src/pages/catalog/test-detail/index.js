@@ -319,11 +319,18 @@ export default function RequestDetails() {
                 className='d-flex flex-column justify-content-center'
               >
                 <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <h4>Datos personales</h4>
-                  </div>
+                  <Typography
+                    variant="h4"
+                    fontWeight="bold"
+                    className="pb-2"
+                    sx={{
+                      fontFamily: "Raleway", color: "#333333",
+                      paddingTop: "0rem",
+                      paddingLeft: "2rem",
+                    }}
+                  >
+                    Datos Personales
+                  </Typography>
                   <div className='col-12 col-md-5'>
                   </div>
                   <div className='col-12 col-md-1'>
@@ -542,26 +549,25 @@ export default function RequestDetails() {
         {activeSectionIndex === 2 && (
           <>
             <div className={styles.confirmation}>
-              <p>
-                Fecha:{" "}
-                {format(selectedDate, "dd/MM/yyyy")}<br/>
-                Horario:{" "}
-                {format(selectedTime, "hh:mm aa")}<br/>
-                Dirección:{" "}
-                {carData.direccion_agencia}<br/>
-                Teléfono:{" "}
-                {agencyData.numero_telefonico}
-              </p>
- 
-                <Button 
-                  variant='contained' 
-                  onClick={() => setActiveSectionIndex(1)}
-                  sx={{
-                    marginRight:"3vw",
-                  }}
-                >Volver</Button>
-                <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
-
+              <div className='col-12 col-md-5'>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span>
+                </div>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span>
+                </div>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span>
+                </div>
+                <div className='col-12 col-md-5'>
+                  <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span>  
+                </div>
+                <div className='col-12 col-md-5'></div>
+                <div className='col-12 col-md-5'>
+                  <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+                  <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
+                </div>
+              </div>
             </div>
           </>
         )}
