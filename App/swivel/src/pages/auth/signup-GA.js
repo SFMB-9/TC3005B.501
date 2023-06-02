@@ -4,6 +4,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AuthComponent from "@/components/login/auth_component";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Typography from "@mui/material/Typography";
 
 /* Función que retorna el formulario de registro de GA con su dirección, junto con los botones de ingreso  */
 export default function SignupGAData() {
@@ -29,12 +31,14 @@ export default function SignupGAData() {
     const [legalSurname, setLegalSurname] = useState("");
     const [legalEmail, setLegalEmail] = useState("");
     const [legalPhone, setLegalPhone] = useState("");
+    const { encryptRole } = require("@/utils/crypto");
 
 
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+    /*
     const [first, setFirst] = useState(true);
     const [second, setSecond] = useState(false);
-    const [third, setThird] = useState(false);
+    const [third, setThird] = useState(false);*/
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -79,10 +83,10 @@ export default function SignupGAData() {
             console.log(error.response.data);
         }
     };
-
+/*
     useEffect(() => {
     }, [first, second, third]);
-
+*/
     const routDocs = (data) => {
         router.push(`/providers/GA/documentosGA?_id=${data}`);
     }
@@ -284,7 +288,7 @@ export default function SignupGAData() {
                                     
                                 </div>
                                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                                    <button className="btn btn-primary btn-block mb-2">
+                                    <button className="btn btn-primary btn-block mb-2" onSubmit={submitHandler}>
                                         <Typography
                                             wrap sx={{ color: "white", fontFamily: "lato" }}>
                                             {" "}
