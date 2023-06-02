@@ -63,7 +63,7 @@ export default function CarDetails() {
     );
 
     const data = await response.json();
-  
+
     if (!carDetails) {
       setCarDetails(data.result);
     }
@@ -392,12 +392,12 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() => 
+                              onClick={() =>
                                 session
                                   ? viewDrivingRequestDetails(car_id)
                                   : (window.location.href = "/auth/login")
-                                }
-                              disabled={!isAvailable}
+                              }
+                            // disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
@@ -1216,8 +1216,8 @@ export default function CarDetails() {
                           $
                           {Intl.NumberFormat().format(
                             parseFloat(downPayment) +
-                              parseFloat(monthlyPayment) +
-                              parseFloat(selectedDeliveryPrice)
+                            parseFloat(monthlyPayment) +
+                            parseFloat(selectedDeliveryPrice)
                           )}{" "}
                           MXN
                         </div>
