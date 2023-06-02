@@ -6,95 +6,79 @@ import styles from "@/styles/add_manager.module.css";
 import GANavbar from "@/components/providers/GA/navbar";
 
 export default function MergedSignup() {
-    const [formValues, setFormValues] = useState({
-        nombres: "",
-        apellidos: "",
-        telefono: "",
-        agencia: "",
-        correo: "",
-        contraseña: "",
-        confirmarContraseña: "",
-    });
-
-    const [errors, setErrors] = useState({
-        nombres: "",
-        apellidos: "",
-        telefono: "",
-        agencia: "",
-        correo: "",
-        contraseña: "",
-        confirmarContraseña: "",
-    });
+    const [name, setName] = useState("");
+    const [surname, setSurname] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({});
 
     const router = useRouter();
+    const GA = router.query.GA_id;
+    const agency = router.query.agency_id;
 
-    const handleChange = (event) => {
-        const { id, value } = event.target;
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [id]: value,
-        }));
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const validateForm = () => {
         let isValid = true;
-        const newErrors = { ...errors };
+        const newErrors = {};
 
-        const router = useRouter();
-
-        const GA = router.query.GA_id;
-        const agency = router.query.agency_id;
-
-        // Check if any of the fields are empty
-        for (const key in formValues) {
-            if (formValues[key] === "") {
-                newErrors[key] = "This field is required";
-                isValid = false;
-            } else {
-                newErrors[key] = "";
-            }
-        }
-
-        // Check if the email is valid
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formValues.correo)) {
-            newErrors.correo = "Please enter a valid email";
+        if (!name) {
+            newErrors.nombres = "Please enter your name";
             isValid = false;
         }
 
-        // Check if the passwords match
-        if (formValues.contraseña !== formValues.confirmarContraseña) {
+        if (!surname) {
+            newErrors.apellidos = "Please enter your surname";
+            isValid = false;
+        }
+
+        if (!phone) {
+            newErrors.telefono = "Please enter your phone number";
+            isValid = false;
+        }
+
+        if (!email) {
+            newErrors.correo = "Please enter your email";
+            isValid = false;
+        }
+
+        if (!password) {
+            newErrors.contraseña = "Please enter your password";
+            isValid = false;
+        }
+
+        if (password !== confirmPassword) {
             newErrors.confirmarContraseña = "Passwords do not match";
             isValid = false;
         }
 
-        if (!isValid) {
-            setErrors(newErrors);
-            return; // Exit the function if any validation fails
-        }
+        setErrors(newErrors);
+        return isValid;
+    };
 
-        try {
-            const { data } = await axios.post("/api/register", {
-                nombres: formValues.nombres,
-                apellidos: formValues.apellidos,
-                email: formValues.correo,
-                password: formValues.contraseña,
-                tipo_usuario: "manager",
-                agencia_id: agency,
-                grupo_automotriz_id: GA,
-                numero_telefonico: phone,
-            });
+    const submitHandler = async (e) => {
+        e.preventDefault();
 
-            console.log(data);
-        } catch (error) {
-            console.log(error.response.data);
+        if (validateForm()) {
+            try {
+                const { data } = await axios.post("/api/register", {
+                    nombres: name,
+                    apellidos: surname,
+                    email: email,
+                    password: password,
+                    tipo_usuario: "manager",
+                    agencia_id: agency,
+                    grupo_automotriz_id: GA,
+                    numero_telefonico: phone,
+                });
+
+                console.log(data);
+            } catch (error) {
+                console.log(error.response.data);
+            }
         }
     };
 
     const handleCancel = () => {
-        // Handle cancel logic here
-        console.log("Cancel");
     };
 
     return (
@@ -103,7 +87,7 @@ export default function MergedSignup() {
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Agregar Gerente</h1>
                 <h3 className={styles.boldText}>Ingresa los datos del gerente</h3>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={submitHandler}>
                     <div className={styles.inputContainer}>
                         <div className={styles.row}>
                             <div className={styles.inputFieldContainer}>
@@ -114,8 +98,8 @@ export default function MergedSignup() {
                                     label="Nombre(s)"
                                     variant="outlined"
                                     fullWidth
-                                    value={formValues.nombres}
-                                    onChange={handleChange}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                     error={!!errors.nombres}
                                     helperText={errors.nombres}
                                 />
@@ -128,8 +112,8 @@ export default function MergedSignup() {
                                     label="Apellido(s)"
                                     variant="outlined"
                                     fullWidth
-                                    value={formValues.apellidos}
-                                    onChange={handleChange}
+                                    value={surname}
+                                    onChange={(e) => setSurname(e.target.value)}
                                     error={!!errors.apellidos}
                                     helperText={errors.apellidos}
                                 />
@@ -145,8 +129,8 @@ export default function MergedSignup() {
                             label="Teléfono"
                             variant="outlined"
                             fullWidth
-                            value={formValues.telefono}
-                            onChange={handleChange}
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                             error={!!errors.telefono}
                             helperText={errors.telefono}
                         />
@@ -161,8 +145,8 @@ export default function MergedSignup() {
                             label="Correo Electrónico"
                             variant="outlined"
                             fullWidth
-                            value={formValues.correo}
-                            onChange={handleChange}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             error={!!errors.correo}
                             helperText={errors.correo}
                         />
@@ -178,8 +162,8 @@ export default function MergedSignup() {
                                     label="Contraseña"
                                     variant="outlined"
                                     fullWidth
-                                    value={formValues.contraseña}
-                                    onChange={handleChange}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     error={!!errors.contraseña}
                                     helperText={errors.contraseña}
                                     type="password"
@@ -193,8 +177,6 @@ export default function MergedSignup() {
                                     label="Confirmar Contraseña"
                                     variant="outlined"
                                     fullWidth
-                                    value={formValues.confirmarContraseña}
-                                    onChange={handleChange}
                                     error={!!errors.confirmarContraseña}
                                     helperText={errors.confirmarContraseña}
                                     type="password"
