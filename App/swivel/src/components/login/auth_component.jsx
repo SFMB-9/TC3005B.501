@@ -55,7 +55,15 @@ export default function AuthComponent({
             }}
             style={{ height: "100%" }}
           >
-            <CardContent style={{ backgroundColor: "white", width: "65%" }}>
+            <CardContent style={{ 
+              backgroundColor: "white", 
+              width: "65%", 
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center", 
+              flex: 1,
+              overflowY: "auto",
+            }}>
               <div className="d-flex flex-column justify-content-center align-items-center">
                 <img
                   src="/swivel_logo_login.png"
