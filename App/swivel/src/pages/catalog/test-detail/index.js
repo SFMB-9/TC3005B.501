@@ -89,7 +89,6 @@ export default function RequestDetails() {
     for (var i = 0; i < carColors.length; i++) {
       if (carColors[i].nombre === colorName) {
         setFirstImage(carColors[i].imagenes[0]);
-        console.log("Image: " + carColors[i].imagenes[0]);
         setImageIndex(i);
       }
     }
@@ -105,12 +104,6 @@ export default function RequestDetails() {
     setUserData(retrievedUser);
     // setDocuments(retrievedDocuments);
     setUserAddress(retrievedAddress);
-
-    console.log("Auto: " + JSON.stringify(retrievedAuto));
-    console.log("Agencia: " + JSON.stringify(retrievedAgency));
-    console.log("User: " + JSON.stringify(retrievedUser));
-    console.log("User address: " + JSON.stringify(retrievedAddress));
-    console.log("Documentos: " + JSON.stringify(documents));
   }
 
   const createDrivingTest = async () => {
