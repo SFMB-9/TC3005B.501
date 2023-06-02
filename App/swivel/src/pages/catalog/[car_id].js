@@ -401,8 +401,8 @@ export default function CarDetails() {
                                 session
                                   ? viewDrivingRequestDetails(car_id)
                                   : (window.location.href = "/auth/login")
-                              }
-                            // disabled={!isAvailable}
+                                }
+                              // disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
