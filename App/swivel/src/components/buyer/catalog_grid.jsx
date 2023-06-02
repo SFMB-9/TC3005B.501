@@ -11,24 +11,26 @@ import { Grid } from "@mui/material";
 import CarCard from "@/components/buyer/car_card";
 import {formatDate} from "@/components/general/date_utils";
 
+const json5 = require('json5');
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
 export default function CatalogGrid({ carListing, cardType }) {
   let carList;
   let cardProps;
+  console.log("listing", carListing);
   if (carListing !== undefined) {
     carList = carListing.map((car) => {
       if (cardType === "catalog") {
         cardProps = {
           catalog: {
             carUrl: `/catalog/${car._id}`,
-            carImage: car._source.fotos_3d[0],
+            carImage: json5.parse(car._source.fotos_3d)[0],
             carBrand: car._source.marca,
             carModel: car._source.modelo,
             carYear: car._source.año,
             carAgency: car._source.municipio_agencia,
             carLocation: car._source.estado_agencia,
-            carColor: car._source.colores.length,
+            carColor: json5.parse(car._source.colores).length,
             carPrice: car._source.precio,
           },
         };
@@ -45,8 +47,8 @@ export default function CatalogGrid({ carListing, cardType }) {
             status: car.estatus_validacion
           },
           drivingTest: {
-            date: "Fecha de la cita: " + formatDate(car.fecha_agendada).formattedDate,//car.fecha_agendada, 
-            testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,//car.hora_agendada,
+            date: "Fecha de la cita: " + formatDate(car.fecha_agendada).formattedDate,
+            testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,
           },
           purchasesCurrent: {
             date: car.fecha_inicio,

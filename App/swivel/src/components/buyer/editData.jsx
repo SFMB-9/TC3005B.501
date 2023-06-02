@@ -30,6 +30,7 @@ export default function EditAccount(props) {
   const [newCountry, setNewCountry] = useState(props.data.direccion.pais);
   const [newZip, setNewZip] = useState(props.data.direccion.codigo_postal);
 
+
   const editProfile = async (e) => {
     e.preventDefault();
 
@@ -52,16 +53,16 @@ export default function EditAccount(props) {
         }
 
       });
-      // console.log(data);
       window.location.href = "/account";
 
     } catch (error) {
       console.log(error);
-      // console.log(error.response.data);
+      //console.log(error.response.data);
 
     }
 
   };
+
 
   if (props.data) {
     return (

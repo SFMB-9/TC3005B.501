@@ -18,8 +18,6 @@ export default async function handler(req, res) {
     const parsedBody = JSON.parse(req.body);
     const auto = parsedBody.auto;
 
-    //console.log(JSON.parse(req.body).usuario_final_id);
-
     try {
         const resultVendedor = await usuarios
             .find({ "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })

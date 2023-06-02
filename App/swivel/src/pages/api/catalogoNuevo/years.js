@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
     try {
         let elasticResponse = await client.search({
-            index: 'autos_dev',
+            index: 'autos',
             body: {},
         }, { meta: true });
 

@@ -5,6 +5,7 @@ import axios from "axios";
 import ManagerLayout from "@/components/providers/manager/layout";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DataTable from "@/components/general/Table";
+import CheckIcon from '@mui/icons-material/Check';
 
 export default function WorkingHoursComponent() {
   const [startTime, setStartTime] = useState('');
@@ -451,7 +452,7 @@ export default function WorkingHoursComponent() {
                       </IconButton>
 
                       <IconButton aria-label="delete" size="small" onClick={handleAddFile}>
-                        <DeleteOutlineIcon />
+                        <CheckIcon />
                       </IconButton>
 
                       </div>

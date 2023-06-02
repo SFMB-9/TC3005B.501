@@ -17,8 +17,9 @@ export default function SellerSignup() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
   
-  const agency = "agency_default";
+  const agency = "6475ce431870c4941b667158";
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -229,9 +230,9 @@ export default function SellerSignup() {
                     type="password"
                     name="passwordConfirmation"
                     id="passwordConfirmation"
-                    value=""
+                    value={confPassword}
                     pattern="[a-zA-Z]+"
-                    onChange=""
+                    onChange={(e) => setConfPassword(e.target.value)}
                     label="Confirmar contraseña"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
