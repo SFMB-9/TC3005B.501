@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     try {
         let elasticResponse = await client.search({
             index: 'autos',
-            body: {size: 500, query: {match_all: {}}},
+            body: {size: 999, query: {match_all: {}}},
         }, { meta: true });
 
         let result = elasticResponse.body.hits.hits;
