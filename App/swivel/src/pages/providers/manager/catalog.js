@@ -24,8 +24,10 @@ import { useRouter } from "next/router";
 import Searchbar from "@/components/general/searchbar";
 
 import DataTable from "@/components/general/Table";
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+const json5 = require('json5');
 
 export default function Catalog() {
   const router = useRouter();
@@ -354,8 +356,9 @@ export default function Catalog() {
       minWidth: 150,
       flex: 1,
       renderCell: (params) => {
-        let cell = params.row._source.fotos_3d[0]
-          ? <img src={params.row._source.fotos_3d[0]} height="50" width="60" />
+        let data = params.row;
+        let cell = data
+          ? <img src={json5.parse(data._source.fotos_3d)[0]} height="50" width="60" />
           : "Este proceso no contiene imagen";
         return cell;
       },
@@ -399,7 +402,7 @@ export default function Catalog() {
       flex: 1,
       valueGetter: (params) => {
         let cell = params.row._source.año
-          ? params.row._source.año
+          ? params.row._source.año.toString()
           : 0;
         return cell;
       },
@@ -414,7 +417,7 @@ export default function Catalog() {
       flex: 1,
       valueGetter: (params) => {
         let cell = params.row._source.precio
-          ? params.row._source.precio
+          ? `$${params.row._source.precio.toLocaleString()} MXN`
           : 0;
         return cell;
       },
@@ -446,11 +449,11 @@ export default function Catalog() {
         <>
 
           <IconButton aria-label="delete" size="small" onClick={() => viewEditCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
-            <DriveFileRenameOutlineIcon />
+            <EditIcon />
           </IconButton>
 
           <IconButton aria-label="delete" size="small" onClick={() => deleteCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
-            <DeleteOutlineIcon />
+            <DeleteIcon />
           </IconButton>
         </>
       ),
