@@ -37,7 +37,7 @@ export default async function handler(req, res) {
         doc[doc_index].estatus = update_status;
 
         // Update status of the document using validation API only if it is an INE
-        if (doc[doc_index].nombre_documento === "INE" && doc[doc_index].estatus === "Pendiente") {
+        if (doc[doc_index].nombre_documento === "INE" && doc[doc_index].estatus === "En Revisión") {
             console.log("Validating INE" + `${encodedURL}`);
             let url = new URL('/api/validate-document', `http://${req.headers.host}`);
             url.searchParams.append('idURL', encodedURL);
@@ -51,7 +51,7 @@ export default async function handler(req, res) {
             const data = await response.json();
 
             if (data.validated) {
-                doc[doc_index].estatus = "Verificado por INE API";
+                doc[doc_index].estatus = "ID Validada";
             } else {
                 if (data.msg === "Su identificación no es valida; revise con su agente.") {
                     doc[doc_index].comentarios = "Identificación no válida, consulte con su agente ";

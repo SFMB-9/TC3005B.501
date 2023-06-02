@@ -66,15 +66,15 @@ export default function Process() {
     }
 
     documentUrl = await FileUpload(doc);
-
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
-    currentDocs[i].estatus = "En_Revision";
+    currentDocs[i].estatus = "En Revisión";
 
     console.log("process_id: " + process_id);
     console.log("doc_index: " + i);
     console.log("file_url: " + documentUrl);
     console.log("update_date: " + currentDocs[i].fecha_modificacion);
+
     try{
       const result = await fetch(
         `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,

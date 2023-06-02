@@ -71,7 +71,7 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ message: 'Compra creada', id: id_proceso });
     } catch (error) {
-        return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
+        return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error.message });
     }
 
 }
