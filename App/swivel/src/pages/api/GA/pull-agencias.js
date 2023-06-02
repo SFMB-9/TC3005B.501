@@ -1,29 +1,29 @@
-import { AgencyEntity } from "../../../models/user";
-import dbConnect from "../../../config/dbConnect";
+import connectToDatabase from "@/utils/mongodb";
 import { encryptRole } from "../../../utils/crypto";
 
 /* 
 Pulls all agencies depending on filters
 Recieves: request object, response object
 Returns: response status and json 
+
+Pending filters
 */
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    dbConnect();
+    const { db } = await connectToDatabase();
+    const { role } = req.query;
+    const encryptedRole = encryptRole(role);
+    const agencies = await db
+      .collection("usuarios")
+      .find({ role: encryptedRole })
+      .toArray();
+    res.status(200).json(agencies);
 
-    const filters = req.query; // In queries add the desired filters
-
-    const agencyRole = encryptRole("agencia");
-
-    const agency = await AgencyEntity.findAll({
-      _id: id,
-      tipo_usuario: agencyRole,
-      ...filters,
-    }).exec();
-
-    res.status(200).json({ agency: agency });
+    if (!agencies) {
+      res.status(404).json({ message: "No agencies found" });
+    }
   } else {
-    res.status(405).json({ message: "Wrong request method" });
+    res.status(400).json({ message: "Wrong request method" });
   }
 }
