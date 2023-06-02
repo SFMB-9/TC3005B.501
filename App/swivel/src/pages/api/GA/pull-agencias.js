@@ -10,13 +10,13 @@ Returns: response status and json
 export default async function handler(req, res) {
   if (req.method === "GET") {
     const { db } = await connectToDatabase();
-    const { role, GAId } = req.query;
-    
+    const { role, GA } = req.query;
+
     const encryptedRole = encryptRole(role);
 
     const agencies = await db
       .collection("usuarios")
-      .find({ role: role }) // change to role: encryptedRole
+      .find({ role: role, grupo_automotriz: GA }) // change to role: encryptedRole
       .toArray();
     res.status(200).json(agencies);
   } else {
