@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
-import { useRouter } from 'next/router';
 import { signOut } from "next-auth/react";
 import axios from "axios";
 
@@ -27,7 +26,6 @@ export default function Account() {
 
     setApiData(res.userData);
   };
-
 
   const deleteAccount = async (e) => {
     e.preventDefault();
