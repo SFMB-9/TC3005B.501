@@ -1,5 +1,6 @@
 /*
-Diego Corrales Pinedo
+Diego Corrales Pinedo,
+Salvador Milanes Braniff
 15/5/2023
 
 Page to visualize the details of a driving
