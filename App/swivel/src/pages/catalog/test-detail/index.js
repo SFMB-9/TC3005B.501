@@ -331,13 +331,15 @@ export default function RequestDetails() {
                 <div className={styles.carInfo}>
                   <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
                   <span className={styles.year}> {carData.año} </span>
+                  <h4 className={styles.priceTag}> Dirección de la Agencia: </h4>
                   <p className={styles.address}>{carData.direccion_agencia}</p>
                   <h1 className={styles.priceTag}>${carData.precio}</h1>
                 </div>
               </div>
               <div className={styles.testInfo}>
                 <div className={styles.schedule}>
-                  <h2 className={styles.schedule_header}>Elegir horario*</h2>
+                  <h2 className={styles.schedule_header}>Elegir un horario:</h2>
+                  <h3 className={styles.schedule_header}> Elegir Fecha* </h3>
                   <DatePicker
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
@@ -346,6 +348,7 @@ export default function RequestDetails() {
                     maxDate={addDays(new Date(), managerData.dias_max)}
                     startDate={addDays(new Date(), managerData.dias_anticipo)}
                   />
+                  <h3 className={styles.schedule_header}> Elegir Hora* </h3>
                   <DatePicker
                     selected={selectedTime}
                     onChange={time => setSelectedTime(time)}
