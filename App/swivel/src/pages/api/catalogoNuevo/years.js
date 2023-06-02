@@ -25,6 +25,7 @@ export default async function handler(req, res) {
 
         let años = [...new Set(result.map(item => item._source.año))];
 
+        años.sort((a, b) => b - a);
         return res
             .status(200)
             .json({
