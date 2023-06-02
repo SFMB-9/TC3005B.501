@@ -463,7 +463,7 @@ export default function RequestDetails() {
                   }}
                   variant='contained' 
                   onClick={() => setActiveSectionIndex(1)}
-                  // disabled={!validatedDocs}
+                  disabled={!validatedDocs}
                   >Continuar</Button>
               </div>
             </div>
@@ -508,7 +508,6 @@ export default function RequestDetails() {
                   />
                 </div>
                 <LocationsMap
-                  // locationsData={[{ brand: carData.marca, position: { lat: 40.7128, lng: -74.0059 } }]}
                   locationsData={[{ brand: carData.marca, position: agencyCoords }]}
                 />
               </div>
