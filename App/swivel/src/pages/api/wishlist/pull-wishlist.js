@@ -10,7 +10,12 @@ Recieves: request object, response object
 Returns: response status and json 
 */
 export default async function handler(req, res) {
-    const client = new Client({ node: 'http://localhost:9200' });
+    const client = new Client({
+        node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+        auth: {
+            apiKey: ELASTIC_API_KEY
+        }
+    })
 
     if(req.method === 'GET'){
         dbConnect();
