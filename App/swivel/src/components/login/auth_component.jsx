@@ -70,7 +70,9 @@ export default function AuthComponent({
                   // Scale the logo according to the screen size
                   style={{
                     width: isMediumScreen ? "50%" : "40%",
-                    height: isMediumScreen ? "50%" : "40%",
+                    height: 'auto',
+                    paddingTop: "0.5rem",
+                    // height: isMediumScreen ? "50%" : "40%",
                   }}
                 />
               </div>
@@ -90,7 +92,9 @@ export default function AuthComponent({
                   </Typography>
                 </b>
               </div>
-              {fields}
+              <div style={{ flexGrow: 1 }}> {/* This div will take up all available space */}
+                {fields}
+              </div>
             </CardContent>
           </Grid>
           <Grid item md={6} style={{ height: "100%" }}>
