@@ -38,10 +38,8 @@ export default async function handler(req, res) {
         const agenciaVendedor = await usuarios.findOne({ "_id": new ObjectId(usuarioVendedor.agencia_id) });
 
         const usuarioId = parsedBody.usuario_final_id;
-        const usuario = await usuarios.findOne({ "_id": new ObjectId(usuarioId) });
-
-        const agenciaJSON = JSON.stringify(agenciaVendedor);
-        const documentsPurchase = JSON.parse(agenciaJSON).documentos_requeridos_compra;
+        
+        const documentsPurchase = agenciaVendedor.documentos_requeridos_compra;
 
         const documentosProceso = []
 
@@ -61,7 +59,7 @@ export default async function handler(req, res) {
             documentos: documentosProceso,
             fecha_creacion: new Date().toISOString(),
             auto: auto, //Llega del request
-            usuario_final_id: usuario,
+            usuario_final_id: usuarioId,
             vendedor: usuarioVendedor,
             agencia: agenciaVendedor,
             cantidad_a_pagar: parsedBody.cantidad_a_pagar
@@ -73,8 +71,7 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ message: 'Compra creada', id: id_proceso });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error });
+        return res.status(500).json({ message: 'Hubo un error al crear la compra', error: error.message });
     }
 
 }

@@ -44,10 +44,8 @@ const SellerDashboard = () => {
         const requests = requestRes.data.procesos;
 
         // Get all unique user ids
-        const userIds = [
-          ...new Set(requests.map((request) => request.usuario_final_id)),
-        ];
-        console.log(userIds);
+        const userIds = [...new Set(requests.map((request) => request.usuario_final_id))];
+        console.log(JSON.stringify(userIds));
         // Get all users
         const userPromises = userIds.map((id) =>
           axios.get(`/api/managerProfile/managerP?id=${id}`)
