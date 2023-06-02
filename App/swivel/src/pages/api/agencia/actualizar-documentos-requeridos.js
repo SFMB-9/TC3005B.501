@@ -1,4 +1,4 @@
-import AgencyEntity from "../../../models/user";
+import { User } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     const { agency, data } = req.body;
 
-    await AgencyEntity.findOneAndUpdate({ nombres: agency }, { documentos_requeridos_agencia: data });
+    await User.findOneAndUpdate({ nombres: agency }, { documentos_requeridos_agencia: data });
     
     res.status(200).json({ message: "Time constraints updated successfully" });    
   }

@@ -1,4 +1,4 @@
-import { AgencyEntity } from "../../../models/user";
+import { User } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -13,9 +13,7 @@ export default async function handler(req, res) {
         const { agency } = req.query;
 
         try {
-            // searches agencies based on _id or by name, in case one doesn't exist. 
-            // Agency name should be removed later in favor of only _id, to make it cleaner and less error-prone
-            const result = await AgencyEntity.findOne({ nombres: agency }).exec(); 
+            const result = await User.findOne({ nombres: agency }).exec(); 
             res.status(200).json(result);
         } 
         catch (error) {
