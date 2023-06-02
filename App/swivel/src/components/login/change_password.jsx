@@ -75,7 +75,7 @@ export default function ChangePassword() {
     <>
       <div className="section">
         <div className="container">
-          <div className="pt-4">
+          <div className="p-4">
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -191,6 +191,7 @@ export default function ChangePassword() {
                 className="me-3"
                 sx={{
                   fontFamily: "Lato",
+                  color: '#626262',
                   backgroundColor: "#D9D9D9",
                   "&:hover": {
                     backgroundColor: "#b3b3b3",
