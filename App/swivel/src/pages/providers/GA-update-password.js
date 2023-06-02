@@ -1,5 +1,6 @@
 import GANavbar from "@/components/providers/GA/navbar"
 import ChangePassword from "@/components/login/change_password"
+
 import axios from "axios"
 import { useState } from "react"
 //import handler from '../api/GA/GA-change-password'
@@ -25,10 +26,13 @@ export default function GAUpdatePassword() {
     }
   }
 
+  
+//using the same component as the user seller ---> /providers/seller/change_password
   return (
     <>
     <GANavbar/>
     <ChangePassword/>
     </>
   )
+
 }
