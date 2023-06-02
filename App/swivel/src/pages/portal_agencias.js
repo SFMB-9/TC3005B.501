@@ -13,7 +13,7 @@ import DataTable from '@/components/general/Table';
 import GANavbar from '@/components/providers/GA/navbar';
 import { useRouter } from 'next/router';
 import { Button, Grid } from '@mui/material';
-import styles from '@/styles/portal_agencias.module.css';
+import styles from '@/styles/portal_generic.module.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
 
