@@ -90,6 +90,7 @@ const RequestDetails = () => {
   const columns = [
     {
       field: "descarga",
+      minWidth: 150,
       headerName: "Archivo",
       headerAlign: "center",
       align: "center",
@@ -107,19 +108,6 @@ const RequestDetails = () => {
           )}
         </>
       ),
-      // renderCell: (params) => (
-      //   <DownloadRoundedIcon
-      //     className="m-0"
-      //     onClick={() => {
-      //       <Link to={params.row.url} target="_blank" download />;
-      //     }}
-      //     sx={{
-      //       color: "#F55C7A",
-      //       "&:hover": { cursor: "pointer", color: "#F59C7A" },
-      //       width: 18,
-      //     }}
-      //   />
-      // ),
     },
     {
       field: "nombre_documento",
@@ -149,10 +137,10 @@ const RequestDetails = () => {
       minWidth: 150,
       flex: 1,
       type: "actions",
-      renderCell: (params) => (
-        (
+      renderCell: (params) => 
+        (params.row.estatus != "Pendiente" ? (  
           <Select
-            value={params.value}
+            value={params.row.estatus}
             onChange={(e) =>
               updateDocumentStatus(request._id, params.row._id, e.target.value)
             }
@@ -166,7 +154,7 @@ const RequestDetails = () => {
               sx={{ fontFamily: "Lato", fontSize: "12px" }}
               value="En_Revision"
             >
-              Pendiente
+              En Revisión
             </MenuItem>
             <MenuItem
               sx={{ fontFamily: "Lato", fontSize: "12px" }}
@@ -180,7 +168,10 @@ const RequestDetails = () => {
             >
               Rechazado
             </MenuItem>
-          </Select>
+          </Select>) : (
+            <p>
+              Pendiente
+            </p>
         )
       ),
     },
@@ -340,6 +331,14 @@ const RequestDetails = () => {
               sx={{ fontFamily: "Lato", color: "#333333" }}
             >
               Documentos
+            </Typography>
+            <Typography
+              variant="p"
+              fontWeight="light"
+              className="py-3"
+              sx={{ fontFamily: "Lato", color: "#333333" }}
+            >
+              * Para editar los comentarios haga doble click sobre el campo
             </Typography>
             <DataTable
               columns={columns}

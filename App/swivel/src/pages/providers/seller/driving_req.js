@@ -134,20 +134,20 @@ const SellerDashboard = () => {
         }),
     },
     {
-      field: "horario",
+      field: "hora_agendada",
       headerName: "Horario",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
       valueGetter: (params) =>
-        new Date(params.row.fecha_agendada).toLocaleTimeString("es-ES", {
+        new Date(params.row.hora_agendada).toLocaleTimeString("es-ES", {
           hour: "2-digit",
           minute: "2-digit",
         }),
     },
     {
-      field: "status",
+      field: "estatus",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -156,7 +156,7 @@ const SellerDashboard = () => {
       type: "actions",
       renderCell: (params) => (
         <Select
-          value={params.row.status}
+          value={params.row.estatus}
           onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
           label="Status"
           variant="standard"
@@ -166,21 +166,21 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En_Revision"
+            value="En_Proceso"
           >
             En Proceso
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Aceptada"
+            value="Finalizada"
           >
-            Aprobado
+            Finalizada
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Rechazada"
+            value="Cancelada"
           >
-            Rechazado
+            Cancelada
           </MenuItem>
         </Select>
       ),
