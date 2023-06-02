@@ -42,7 +42,7 @@ export default function CategoryViews({brandItems, typeItems, yearItems}) {
 
     setYears(data.result)
   }
-  
+
   useEffect(() => {
     fetchBrands()
     fetchTypes()
@@ -146,16 +146,16 @@ export default function CategoryViews({brandItems, typeItems, yearItems}) {
 
   const components = [
     {
-      name: 'Marcas', component: () =>
+      name: 'Marcas', component: () => (brands ?
         <>
           <div className={styles.brands}>
             <div className={styles.brandsArray}>
               {itemsToShowBrand.map((brand) => (
                 <Link href={`/catalog?marca=${brand}`}>
-                <div className={styles.brand}>
-                  <img src={`/buyer/brands/${brand}.png?`} />
-                  <span className={styles.brandName}>{brand}</span>
-                </div>
+                  <div className={styles.brand}>
+                    <img src={`/buyer/brands/${brand}.png?`} />
+                    <span className={styles.brandName}>{brand}</span>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -166,7 +166,9 @@ export default function CategoryViews({brandItems, typeItems, yearItems}) {
             page={brandCurrentPage}
             onChange={handleBrandPageChange}
           />
-        </>
+        </> : <p>
+          Cargando marcas...
+        </p>)
     },
     {
       name: 'Tipos', component: () =>
@@ -175,10 +177,10 @@ export default function CategoryViews({brandItems, typeItems, yearItems}) {
             <div className={styles.typesArray}>
               {itemsToShowType.map((type) => (
                 <Link href={`/catalog?tipo=${type}`}>
-                <div className={styles.type}>
-                  <img src={`/buyer/types/${type}.png?`} />
-                  <span className={styles.typeName}>{type}</span>
-                </div>
+                  <div className={styles.type}>
+                    <img src={`/buyer/types/${type}.png?`} />
+                    <span className={styles.typeName}>{type}</span>
+                  </div>
                 </Link>
               ))}
             </div>

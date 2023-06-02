@@ -25,7 +25,7 @@ export default async (req, res) => {
 
   try {
     const auto = await client.get({
-      index: 'autos_dev',
+      index: 'autos',
       id: auto_id
     });
 

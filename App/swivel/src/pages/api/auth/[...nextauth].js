@@ -23,7 +23,7 @@ export const authOptions = {
       async authorize(credentials) {
         dbConnect();
         const { email, password } = credentials;
-        const user = await User.findOne({ email: credentials.email });
+        const user = await User.findOne({ email: credentials.email.toLocaleLowerCase() });
 
         if (!user) {
           throw new Error("Invalid Email or Password");

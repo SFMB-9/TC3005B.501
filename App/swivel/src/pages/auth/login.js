@@ -25,6 +25,7 @@ export default function Login() {
     return !(password && email);
   }
 
+  const [errMessage, setErrMessage] = useState("");
   let passStatus = null;
 
   useEffect(() => { }, [session]);
@@ -42,6 +43,7 @@ export default function Login() {
       if (data.error) {
         console.log("Error:", data.error);
         passStatus = false;
+        setErrMessage("Correo o contraseña incorrectos");
       } else {
         passStatus = true;
         let callbackUrl;
@@ -64,6 +66,7 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       passStatus = false;
+      setErrMessage("Hubo un error al iniciar sesión");
     }
   };
 
@@ -120,21 +123,16 @@ export default function Login() {
                 required
                 disabled={loading}
                 error={errors.password}
-                helperText={errors.password ? "Debe tener más de 6 carácteres y al menos una letra, un digito y un carácter especial" : null}
+                helperText={errors.password ? "Contraseña incorrecta" : null}
                 value={password}
                 onChange={(e) => {
                   const v = e.target.value;
                   setPassword(v);
-                  if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                    setErrors({ ...errors, password: false})
-                  } else {
-                    setErrors({ ...errors, password: false })
-                  }
                 }}
               />
             </div>
-            {error ? <Typography sx={{ color: "red" }}>Correo o contraseña incorrectos</Typography> : null}
             <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+              {error ? <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> : null}
               <Button 
                 type="submit" 
                 className="btn btn-primary btn-block mb-2"
@@ -146,25 +144,24 @@ export default function Login() {
                     setLoading(false);
                   } else {
                     setError(false);
-                    setLoading(false);
                     passStatus = null;
                   }
                 }}
               >
-                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : <Typography
-                  wrap
-                  sx={{
-                    color: "white",
-                    fontFamily: "lato",
-                  }}
-                >
-                  {" "}
-                  Ingresar{" "}
-                </Typography>}
-                
+                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
+                  <Typography
+                    wrap
+                    sx={{
+                      color: "white",
+                      fontFamily: "lato",
+                    }}
+                  >
+                    {" "}
+                    Ingresar{" "}
+                  </Typography>
+                }  
               </Button>
-
-              <button type="submit" className="btn btn-secondary btn-block mb-2" onClick={() => signIn("google")}>
+              {/*<button type="submit" className="btn btn-secondary btn-block mb-2" onClick={() => signIn("google")}>
                 <Typography
                   sx={{
                     color: "white",
@@ -175,7 +172,7 @@ export default function Login() {
                   <img alt="logo de google" src="/google_logo.svg" /> Ingresar con
                   Google{" "}
                 </Typography>
-              </button>
+              </button>*/}
             </div>
             <div className="text-center">
               <p>

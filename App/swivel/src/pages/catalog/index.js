@@ -27,7 +27,7 @@ export default function Catalog() {
 
   let isFirstLoad = true;
 
-console.log("Search text: " + searchText);
+  console.log("Search text: " + searchText);
 
   useEffect(() => {
     if (isFirstLoad) {
