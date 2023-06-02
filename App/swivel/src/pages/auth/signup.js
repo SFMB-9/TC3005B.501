@@ -118,6 +118,9 @@ export default function SignupBuyerData() {
                           setErrors({ ...errors, name: false })
                         }
                       }}
+                      sx={{
+                        '& input':{padding:"0.8vw", marginRight: "0.1vw"},
+                      }}
                       required
                     />
                     <TextField
@@ -136,6 +139,9 @@ export default function SignupBuyerData() {
                         } else {
                           setErrors({ ...errors, surname: false })
                         }
+                      }}
+                      sx={{
+                        '& input':{padding:"0.8vw"},
                       }}
                       required
                     />
@@ -159,6 +165,9 @@ export default function SignupBuyerData() {
                         setErrors({ ...errors, email: false });
                       }
                     }}
+                    sx={{
+                      '& input':{padding:"0.8vw"},
+                    }}
                     required
                   />
                 </div>
@@ -179,6 +188,9 @@ export default function SignupBuyerData() {
                       } else {
                         setErrors({ ...errors, phone: false });
                       }
+                    }}
+                    sx={{
+                      '& input':{padding:"0.8vw"},
                     }}
                     required
                   />
@@ -214,6 +226,9 @@ export default function SignupBuyerData() {
                         setConfPasswordHelper("");
                       }
                     }}
+                    sx={{
+                      '& input':{padding:"0.8vw"},
+                    }}
                     required
                   />
                 </div>
@@ -234,6 +249,9 @@ export default function SignupBuyerData() {
                       } else {
                         setErrors({ ...errors, confPassword: false })
                       }
+                    }}
+                    sx={{
+                      '& input':{padding:"0.8vw"},
                     }}
                   />
                 </div>
@@ -301,7 +319,7 @@ export default function SignupBuyerData() {
                       <input
                         type="number"
                         className="form-control"
-                        placeholder="Número Exterior"
+                        placeholder="Num. Ext"
                         value={exterior_num}
                         onChange={(e) => setExteriorNum(e.target.value)}
                         required
@@ -309,7 +327,7 @@ export default function SignupBuyerData() {
                       <input
                         type="number"
                         className="form-control"
-                        placeholder="Número Interior"
+                        placeholder="Num. Int."
                         value={interior_num}
                         onChange={(e) => setInteriorNum(e.target.value)}
                         

@@ -131,7 +131,7 @@ const SellerDashboard = () => {
       },
     },
     {
-      field: "status",
+      field: "estatus",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -140,7 +140,7 @@ const SellerDashboard = () => {
       type: "actions",
       renderCell: (params) => (
         <Select
-          value={params.row.status}
+          value={params.row.estatus}
           onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
           label="Status"
           variant="standard"
@@ -150,21 +150,21 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En_Revision"
+            value="documentosPendientes"
           >
-            En Proceso
+            Documentos Pendientes
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Aceptada"
+            value="pagoPendiente"
           >
-            Aprobado
+            Pago Pendiente
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Rechazada"
+            value="pagado"
           >
-            Rechazado
+            Pagado
           </MenuItem>
         </Select>
       ),
@@ -222,7 +222,7 @@ const SellerDashboard = () => {
         <div className="text-center pt-3">
           <SimpleToggleButton
             filters={[
-              { value: "En_Revision", name: "En Proceso" },
+              { value: "documentosPendientes", name: "En Proceso" },
               { value: "Aceptada", name: "Aprobado" },
               { value: "Rechazada", name: "Rechazado" },
             ]}

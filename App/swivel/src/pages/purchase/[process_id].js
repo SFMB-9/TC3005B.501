@@ -139,7 +139,7 @@ export default function Process() {
         renderCell: (params) => (
           <>
             {params.row.url && params.row.url !== "" ? (
-              <a href={params.row.url}>
+              <a href={params.row.url} target="_blank"> 
                 <u>Ver archivo</u>
               </a>
             ) : (
@@ -444,11 +444,13 @@ export default function Process() {
                 items={[
                   {
                     price_data: {
-                      currency: "mxn",
+                      currency: 'mxn',
                       product_data: {
                         name: `${process.auto.marca} ${process.auto.modelo} ${process.auto.ano}`,
+                        description: "Compra de auto",
+                        images: [process.auto.array_fotografias_url[0]],
                       },
-                      unit_amount: parseFloat(process.cantidad_a_pagar) * 100,
+                      unit_amount: Math.floor(parseFloat(process.cantidad_a_pagar) * 100),
                     },
                     quantity: 1,
                   },
