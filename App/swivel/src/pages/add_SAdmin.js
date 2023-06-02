@@ -5,7 +5,7 @@ import axios from 'axios';
 import GANavbar from '@/components/providers/GA/navbar';
 import { useRouter } from 'next/router';
 
-export default function EditGA() {
+export default function addSAdmin() {
     const router = useRouter();
     const id = "6477e14bae27e558e56c3c13";
 
