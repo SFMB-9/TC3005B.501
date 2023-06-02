@@ -22,44 +22,46 @@ export default function CustomHero({
         />
       </div>
       <div className={styles.hero_body}>
-        <Typography className={styles.hero_title} sx={{ fontSize: titleSize }}>
-          {title}
-        </Typography>
-        <Typography className={styles.hero_message} sx={{ fontSize: messageSize }}>
-          {message}
-        </Typography>
-        {/* If button present */}
-        {button &&
-          (
-            <div className="d-flex justify-content-center mt-5">
-              <Link href="/catalog" style={{ textDecoration: "none" }}>
-                <Button
-                  variant="contained"
-                  disableElevation
-                  color="primary"
-                  size="small"
-                  // className="p-2"
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: '#BC2946'
-                    },
-                    // Rounded corners
-                    borderRadius: 2,
-                  }}
-                >
-                  <Typography
-                    color="White "
-                    fontFamily="Lato"
-                    fontWeight="bolder"
-                    fontSize={17}
+        <div style={{ height:"10vw"}}>
+          <Typography className={styles.hero_title} sx={{fontSize: titleSize }}>
+            {title}
+          </Typography>
+          <Typography className={styles.hero_message} sx={{ fontSize: messageSize }}>
+            {message}
+          </Typography>
+          {/* If button present */}
+          {button &&
+            (
+              <div className="d-flex justify-content-center mt-5">
+                <Link href="/catalog" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    color="primary"
+                    size="small"
+                    // className="p-2"
+                    sx={{
+                      '&:hover': {
+                        backgroundColor: '#BC2946'
+                      },
+                      // Rounded corners
+                      borderRadius: 2,
+                    }}
                   >
-                    Comprar un auto
-                  </Typography>
-                </Button>
-              </Link>
-            </div>
-          )
-        }
+                    <Typography
+                      color="White "
+                      fontFamily="Lato"
+                      fontWeight="bolder"
+                      fontSize={17}
+                    >
+                      Comprar un auto
+                    </Typography>
+                  </Button>
+                </Link>
+              </div>
+            )
+          }
+        </div>
         {/* If searchbar present */}
         {searchbar &&
           (

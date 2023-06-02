@@ -115,6 +115,7 @@ async function assembleFilter(result, filters, req) {
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
     let ano = [...new Set(result.map(item => item._source.año))];
+    ano.sort().reverse();
     let color = [...new Set(result.map(item => json5.parse(item._source.colores).map(item => item.nombre)).flat())];
     let combustible = [...new Set(result.map(item => item._source.combustible))];
     let motor = [...new Set(result.map(item => item._source.motor))];
