@@ -302,30 +302,6 @@ const RequestDetails = () => {
                   ) : (
                     <li className="list-group-item">"No hay cliente</li>
                   )}
-                  <li
-                    className="list-group-item p-0"
-                    style={{ fontFamily: "Lato", fontSize: 11 }}
-                  >
-                    <Button
-                      variant="contained"
-                      disableElevation
-                      onClick={() => console.log("clicked")}
-                      className="py-0"
-                      sx={{
-                        fontFamily: "Lato",
-                        fontWeight: "bold",
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "#111439",
-                        "&:hover": { backgroundColor: "#333333" },
-                        borderRadius: 0,
-                        borderBottomLeftRadius: 4,
-                        borderBottomRightRadius: 4,
-                      }}
-                    >
-                      Iniciar Chat
-                    </Button>
-                  </li>
                 </ul>
               </div>
               {/*User details*/}
