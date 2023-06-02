@@ -111,16 +111,22 @@ async function assembleFilter(result, filters, req) {
     let response = await fetch(url.toString());
 
     let marcaResponse = await response.json();
-    let marca = marcaResponse.result;
+    let marca = marcaResponse.result.sort();
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
+    modelo.sort();
     let ano = [...new Set(result.map(item => item._source.año))];
     ano.sort().reverse();
     let color = [...new Set(result.map(item => json5.parse(item._source.colores).map(item => item.nombre)).flat())];
+    color.sort();
     let combustible = [...new Set(result.map(item => item._source.combustible))];
+    combustible.sort();
     let motor = [...new Set(result.map(item => item._source.motor))];
+    motor.sort();
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
+    tipo_vehiculo.sort();
     let estado_agencia = [...new Set(result.map(item => item._source.estado_agencia))];
+    estado_agencia.sort();
 
     filters.marca = marca;
     filters.modelo = modelo;
