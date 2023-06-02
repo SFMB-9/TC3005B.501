@@ -11,14 +11,15 @@ Pending filters
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const { db } = await connectToDatabase();
+    const client = await connectToDatabase;
+    const db = client.db("test");
     const { role, GA } = req.query;
 
     const encryptedRole = encryptRole(role);
 
     const agencies = await db
-      .collection("usuarios")
-      .find({ role: role, grupo_automotriz: GA }) // change to role: encryptedRole
+      .collection("users")
+      .find({ role: encryptedRole, grupo_automotriz: GA }) // change to role: encryptedRole
       .toArray();
     res.status(200).json(agencies);
 
