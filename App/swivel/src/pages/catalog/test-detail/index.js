@@ -319,11 +319,18 @@ export default function RequestDetails() {
                 className='d-flex flex-column justify-content-center'
               >
                 <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <h4>Datos personales</h4>
-                  </div>
+                  <Typography
+                    variant="h4"
+                    fontWeight="bold"
+                    className="pb-2"
+                    sx={{
+                      fontFamily: "Raleway", color: "#333333",
+                      paddingTop: "0rem",
+                      paddingLeft: "2rem",
+                    }}
+                  >
+                    Datos Personales
+                  </Typography>
                   <div className='col-12 col-md-5'>
                   </div>
                   <div className='col-12 col-md-1'>
