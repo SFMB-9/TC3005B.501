@@ -1,5 +1,6 @@
 import GANavbar from "@/components/providers/GA/navbar"
-import ChangePassword from "@/components/login/change_password";
+import ChangePassword from "@/components/login/change_password"
+
 import axios from "axios"
 import { useState } from "react"
 //import handler from '../api/GA/GA-change-password'
@@ -8,7 +9,7 @@ export default function GAUpdatePassword() {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
-  
+
   const submitHandler = async (event) => {
     event.preventDefault();
     if (newPassword === passwordConfirmation) {
