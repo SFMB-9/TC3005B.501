@@ -103,7 +103,7 @@ const SARequestDashboard = () => {
 
 const columnsGA = [
   {
-    field: "solicitud_grupo_automotriz_id",
+    field: "_id",
     headerName: "Número de Solicitud",
     headerAlign: "center",
     align: "center",
@@ -111,7 +111,7 @@ const columnsGA = [
     flex: 1,
   },
   {
-    field: "nombre",
+    field: "nombres",
     headerName: "Grupo Automotriz",
     headerAlign: "center",
     align: "center",
@@ -234,24 +234,26 @@ console.log(rowsGA)
 
 return (
   <>
-    <SANavbar />
+    <SANavbar/>
 
-    <CollapsibleContainer title="Solicitudes de Grupo Automotriz">
-    	<DataTable
-    		columns={columnsGA}
-    		rows={rowsGA}
-    		rowSelection={false}
-    		> </DataTable>
+    <CollapsibleContainer header="Solicitudes de Grupo Automotriz">
+
+    <DataTable
+      rows={rowsGA}
+      columns={columnsGA}
+      ></DataTable>
+
     </CollapsibleContainer>
 
+    <CollapsibleContainer header="Solicitudes de Agencia">
 
-    <CollapsibleContainer title="Solicitudes de Agencia">
-    	<DataTable
-    		columns={columnsA}
-    		rows={rowsA}
-    		rowSelection={false}
-    		></DataTable>
+    <DataTable
+      rows={rowsGA}
+      columns={columnsGA}
+      ></DataTable>
+
     </CollapsibleContainer>
+
 
   </>
 );

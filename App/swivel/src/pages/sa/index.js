@@ -9,7 +9,7 @@ export default function Manager() {
       <SANavbar />
       <CustomHero
         title="Bienvenidx, nombre"
-        message="Administra tus solicitudes pendientes"
+        message="Facilitemos la compraventa de vehiculos a través de la confianza."
       />
       <ActionsCards/>
     </>
