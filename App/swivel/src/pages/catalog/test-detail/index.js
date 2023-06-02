@@ -491,9 +491,14 @@ export default function RequestDetails() {
                 }}
               >
                 <Button
-                  style={{
-                    marginRight: "2.5rem",
-                    backgroundColor: "#333333",
+                  sx={{
+                    fontFamily: "Lato",
+                    color: '#626262',
+                    backgroundColor: "#D9D9D9",
+                    "&:hover": {
+                      backgroundColor: "#b3b3b3",
+                      color: "#fff",
+                    },
                   }}
                   variant='contained' href='/catalog'>Cancelar</Button>
                 <Button
