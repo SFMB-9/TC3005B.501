@@ -26,21 +26,21 @@ export default function CategoryViews() {
     const response = await fetch('/api/catalogoNuevo/marcas')
     const data = await response.json()
 
-    setBrands(data.result)
+    setBrands(data.result.sort())
   }
 
   const fetchTypes = async () => {
     const response = await fetch('/api/catalogoNuevo/tipos')
     const data = await response.json()
-
-    setTypes(data.result)
+    console.log(data)
+    setTypes(data.result.sort())
   }
 
   const fetchYears = async () => {
     const response = await fetch('/api/catalogoNuevo/years')
     const data = await response.json()
 
-    setYears(data.result)
+    setYears(data.result.sort().reverse())
   }
 
   // Function to update pagination based on window size
