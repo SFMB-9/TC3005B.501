@@ -53,6 +53,8 @@ export default function RequestDetails() {
   const [agencyData, setAgencyData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  const [validatedDocs, setValidatedDocs] = useState(true);
+  const [agencyCoords, setAgencyCoords] = useState({});
   const { auto_id, colorName } = router.query;
 
   const fetchDetails = async () => {
@@ -87,9 +89,14 @@ export default function RequestDetails() {
 
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
+    setAgencyCoords({
+      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]), 
+      lng: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[1])
+    });
     setUserData(retrievedUser);
     setDocuments(newDocuments);
     setUserAddress(retrievedAddress);
+    checkValidatedDocs();
   }
 
   const addToIsOpen = async (newKey) => {
@@ -271,9 +278,6 @@ export default function RequestDetails() {
     // Save the changed documents to firebase
     await handleSubmit();
 
-    // console.log("User ID: " + user_id);
-    console.log("Session ID: " + session.id);
-
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
       { auto_id: auto_id, user_id: session.id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
@@ -282,6 +286,14 @@ export default function RequestDetails() {
     router.push({
       pathname: '/account/tests',
     })
+  };
+
+  const checkValidatedDocs = () => {
+    documents.forEach((doc) => {
+      if (doc.estatus !== "Aceptado") {
+        setValidatedDocs(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -461,7 +473,10 @@ export default function RequestDetails() {
                   style={{
                     marginLeft: "2.5rem",
                   }}
-                  variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
+                  variant='contained' 
+                  onClick={() => setActiveSectionIndex(1)}
+                  disabled={!validatedDocs}
+                  >Continuar</Button>
               </div>
             </div>
           </>
@@ -507,7 +522,7 @@ export default function RequestDetails() {
                   />
                 </div>
                 <LocationsMap
-                  locationsData={[{ brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 } }]}
+                  locationsData={[{ brand: carData.marca, position: agencyCoords }]}
                 />
               </div>
               <div className={styles.containerNavButtons}>

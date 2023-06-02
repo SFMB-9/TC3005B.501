@@ -8,6 +8,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
 import { formatDate } from "@/components/general/date_utils";
 import EditIcon from "@mui/icons-material/Edit";
+import { useSession } from "next-auth/react";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -18,10 +19,11 @@ const AblyChatComponent = dynamic(
 );
 
 export default function Process() {
+  const { data: session } = useSession();
   const router = useRouter();
   const { process_id } = router.query;
 
-  console.log("process_id: " + process_id);
+  // console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
@@ -39,11 +41,22 @@ export default function Process() {
       { method: "GET" }
     );
 
+    const userData = await fetch(
+      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+    );
+
+    const resUser = await userData.json();
+
     const data = await response.json();
 
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
+        if (doc.nombre_documento == "INE") {
+          return { ...resUser.userData.documentos[0], _id: i};
+        } else if (doc.nombre_documento == "Licencia") {
+          return { ...resUser.userData.documentos[1], _id: i};
+        }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
