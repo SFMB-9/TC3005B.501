@@ -3,52 +3,49 @@ import { Button, TextField } from '@mui/material';
 import styles from '@/styles/add_SAdmin.module.css';
 import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
-import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
+
 
 export default function addSAdmin() {
-    const router = useRouter();
-    const id = "6477e14bae27e558e56c3c13";
+
+    const { data: session } = useSession();
+
 
     const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [middleName, setMiddleName] = useState('');
+    const [paternalLN, setpaternalLN] = useState('');
+    const [maternalLN, setmaternalLN] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    // Function to fetch search results from the API endpoint
-    const fetchResults = async () => {
-        try {
-            const response = await axios.get("/api/managerProfile/managerP", { params: { id: id } });
-            console.log(response.data.userData);
-            const userData = response.data.userData;
-            setName(userData.nombre || '');
-            setLastName(userData.apellido_paterno || '');
-            setMiddleName(userData.apellido_materno || '');
-            setEmail(userData.correo || '');
-            setPhone(userData.numero_telefono || '');
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-        }
-    };
 
-    // Fetch results when the component mounts
-    useEffect(() => {
-        fetchResults();
-    }, []);
+
 
     const submitHandler = async () => {
-        await axios.put('/api/GA/editGA', { id, name, lastName, middleName, email, phone, password, confirmPassword });
+
+        if (password != confirmPassword){
+            return
+        }
+
+        await axios.post('/api/register', JSON.stringify({
+            "nombres": name,
+            "apellidos": paternalLN + maternalLN,
+            "email":email,
+            "numero_telefonico":phone,
+            "password":password,
+            "tipo_usuario":"admin"
+        }),{ headers: {"Content-Type": "application/json"}});
     };
 
     const cancelHandler = () => {
-        router.push(`/superadmin/index`);
+        
     };
 
     const inputLabelProps = {
         shrink: true,
     };
+
 
     return (
         <div>
@@ -75,12 +72,12 @@ export default function addSAdmin() {
                         <TextField
                             className={styles.inputFieldLeft}
                             id="apellidoPaterno"
-                            value={lastName}
+                            value={paternalLN}
                             variant="outlined"
                             fullWidth
                             InputLabelProps={inputLabelProps}
                             placeholder="Ingrese su apellido paterno"
-                            onChange={(e) => setLastName(e.target.value)}
+                            onChange={(e) => setpaternalLN(e.target.value)}
                         />
                     </div>
                     <div className={styles.inputContainer}>
@@ -88,12 +85,12 @@ export default function addSAdmin() {
                         <TextField
                             className={styles.inputField}
                             id="apellidoMaterno"
-                            value={middleName}
+                            value={maternalLN}
                             variant="outlined"
                             fullWidth
                             InputLabelProps={inputLabelProps}
                             placeholder="Ingrese su apellido materno"
-                            onChange={(e) => setMiddleName(e.target.value)}
+                            onChange={(e) => setmaternalLN(e.target.value)}
                         />
                     </div>
                 </div>

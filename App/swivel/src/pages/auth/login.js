@@ -54,7 +54,7 @@ export default function Login() {
         } else if (session.role === "manager") {
           callbackUrl = `${window.location.origin}/providers/manager`;
         } else if (session.role === "admin"){
-          callbackUrl = `${window.location.origin}/superadmin/index`;
+          callbackUrl = `${window.location.origin}/superadmin`;
         } else {
           // Log the role to vscode console
           console.log("Role:", session.role);

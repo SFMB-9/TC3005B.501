@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export default function CollapsibleContainer(props){
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
