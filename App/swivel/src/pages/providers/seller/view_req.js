@@ -13,6 +13,9 @@ import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { formatDate } from "@/components/general/date_utils";
 import { Link } from "react-router-dom";
 
+import Head from "next/head";
+import dynamic from "next/dynamic";
+
 const RequestDetails = () => {
   const router = useRouter();
   const [request, setRequests] = useState([]);
@@ -379,6 +382,14 @@ const RequestDetails = () => {
           </div>
         </div>
       </div>
+
+
+
+
+
+
+
+
     </>
   );
 };
