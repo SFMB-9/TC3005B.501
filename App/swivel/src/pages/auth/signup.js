@@ -301,7 +301,7 @@ export default function SignupBuyerData() {
                       <input
                         type="number"
                         className="form-control"
-                        placeholder="Número Exterior"
+                        placeholder="Num. Ext"
                         value={exterior_num}
                         onChange={(e) => setExteriorNum(e.target.value)}
                         required
@@ -309,7 +309,7 @@ export default function SignupBuyerData() {
                       <input
                         type="number"
                         className="form-control"
-                        placeholder="Número Interior"
+                        placeholder="Num. Int."
                         value={interior_num}
                         onChange={(e) => setInteriorNum(e.target.value)}
                         
