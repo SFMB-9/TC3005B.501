@@ -14,11 +14,11 @@ export default async function handler(req, res) {
 
     const filters = req.query; // In queries add the desired filters
 
-    const agencyRole = encryptRole("agencia");
+    //const agencyRole = encryptRole("agencia");
 
     const agency = await AgencyEntity.findAll({
       _id: id,
-      tipo_usuario: agencyRole,
+      tipo_usuario: "agencia", //change to tipo_usuario: agencyRole
       ...filters,
     }).exec();
 
