@@ -22,6 +22,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FolderIcon from '@mui/icons-material/Folder';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from "next-auth/react";
 
 import styles from "@/styles/old_sidebar.module.css";
 
@@ -36,7 +37,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
 
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
 
     const res = await resData.json();
@@ -91,6 +92,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const handleSidebarClick = (event) => {
     event.stopPropagation();
   };
+
+  if (!apiData) {
+    return null;
+  }
 
   return (
     <div className="sidebar-container" style={{ height: "100vh" }}>
@@ -147,8 +152,8 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ManageAccountsIcon />}
                   style={{ color: '#333333' }}
-                  // component={Link} 
-                  // href={`${root}/`}
+                // component={Link} 
+                // href={`${root}/`}
                 >
                   Mi cuenta
                 </MenuItem>
@@ -157,8 +162,8 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<KeyIcon />}
                   style={{ color: '#333333' }}
-                  // component={Link} 
-                  // href={`${root}/change_password`}
+                // component={Link} 
+                // href={`${root}/change_password`}
                 >
                   Contraseña
                 </MenuItem>
@@ -167,41 +172,41 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ShoppingBagIcon />}
                   style={{ color: '#333333' }}
-                  // component={Link} 
-                  // href={`${root}/purchases`}
+                // component={Link} 
+                // href={`${root}/purchases`}
                 >
-                Mis compras
+                  Mis compras
                 </MenuItem>
               </Link>
               <Link href={`${root}/tests`}>
-              <MenuItem
-                icon={<DirectionsCarIcon />}
-                style={{ color: '#333333' }}
+                <MenuItem
+                  icon={<DirectionsCarIcon />}
+                  style={{ color: '#333333' }}
                 // component={Link} 
                 // href={`${root}/tests`}
-              >
-                Mis pruebas de manejo
-              </MenuItem>
+                >
+                  Mis pruebas de manejo
+                </MenuItem>
               </Link>
               <Link href={`${root}/favorites`}>
-              <MenuItem
-                icon={<FavoriteIcon />}
-                style={{ color: '#333333' }}
+                <MenuItem
+                  icon={<FavoriteIcon />}
+                  style={{ color: '#333333' }}
                 // component={Link} 
                 // href={`${root}/favorites`}
-              >
-                Mis favoritos
-              </MenuItem>
+                >
+                  Mis favoritos
+                </MenuItem>
               </Link>
               <Link href={`${root}/documents`}>
-              <MenuItem
-                icon={<FolderIcon />}
-                style={{ color: '#333333' }}
+                <MenuItem
+                  icon={<FolderIcon />}
+                  style={{ color: '#333333' }}
                 // component={Link} 
                 // href={`${root}/documents`}
-              >
-                Mis documentos
-              </MenuItem>
+                >
+                  Mis documentos
+                </MenuItem>
               </Link>
               {/* {children} */}
             </Menu>
@@ -213,6 +218,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
               <MenuItem
                 icon={<LogoutIcon
                 />}
+                onClick={() => signOut({ callbackUrl: '/auth/login' })}
               >
                 <span>Cerrar sesión</span>
               </MenuItem>

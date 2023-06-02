@@ -118,6 +118,10 @@ const adminSchema = new mongoose.Schema({
   grupo_automotriz_id: String, //si-auto
 });
 
+const superadminSchema = new mongoose.Schema({
+  
+})
+
 const BuyerUser = User.discriminators && User.discriminators.BuyerUser 
                   ? User.discriminators.BuyerUser 
                   : User.discriminator("BuyerUser", buyerSchema);
@@ -142,5 +146,7 @@ const GaEntity = User.discriminators && User.discriminators.GaEntity
                   ? User.discriminators.GaEntity 
                   : User.discriminator("GaEntity", gaSchema);
 
+const SaEntity = User.discriminators && User.discriminators.SaEntity ? User.discriminators.SaEntity : User.discriminator('SaEntity', superadminSchema)
 
-export { User, SellerUser, ManagerUser, BuyerUser, AdminUser, AgencyEntity, GaEntity };
+
+export { User, SellerUser, ManagerUser, BuyerUser, AdminUser, AgencyEntity, GaEntity, SaEntity };

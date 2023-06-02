@@ -10,13 +10,19 @@ button in the test-detail page.
 const { Client } = require('@elastic/elasticsearch');
 import connectToDatabase from '@/utils/mongodb'
 import { ObjectId } from "mongodb";
+const { ELASTIC_API_KEY } = process.env
 
 export default async (req, res) => {
     if (req.method !== 'POST') {
         res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const clientElastic = new Client({ node: 'http://localhost:9200' });
+    const clientElastic = new Client({
+        node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+        auth: {
+            apiKey: ELASTIC_API_KEY
+        }
+    })
 
     const client = await connectToDatabase;
     const db = client.db("test");
@@ -26,7 +32,7 @@ export default async (req, res) => {
     try {
         // Find the car specific to the given id
         const auto = await clientElastic.get({
-            index: 'autos',
+            index: 'autos_dev',
             id: req.body.auto_id
         });
 
@@ -36,7 +42,7 @@ export default async (req, res) => {
         const userData = await userCollection.findOne({_id : new ObjectId(req.body.user_id)});
 
         // Find the agency specific to the given name
-        const agencyData = await userCollection.findOne({ nombres: carData.nombre_agencia, tipo_usuario: "agencia" });
+        const agencyData = await userCollection.findOne({ _id: new ObjectId(carData.agencia_id) });
 
         // Create the Process with the defined data
         const proceso = { 
@@ -56,7 +62,7 @@ export default async (req, res) => {
                 "modelo": carData.modelo,
                 "ano": carData.año,
                 "precio": carData.precio,
-                "array_fotografias_url": carData.fotos_3d
+                "array_fotografias_url": carData.colores[req.body.image_index].imagenes
             },
             direccion_agencia: carData.direccion_agencia,
             numero_telefonico: agencyData["numero_telefonico"],
@@ -70,7 +76,7 @@ export default async (req, res) => {
         const process_id = result.insertedId;
 
         // Add the created process to the list of processes the user has
-        await userCollection.updateOne({ _id: userData._id }, { $push: { procesos: process_id } });
+        await userCollection.updateOne({ _id: new ObjectId(userData._id) }, { $push: { procesos: process_id } });
 
         return res
             .status(200)

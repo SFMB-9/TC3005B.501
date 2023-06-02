@@ -172,7 +172,16 @@ export default function CarCard(props) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: props.status === "Aprobado" ? "#4CAF50" : "#F55C7A" //"#F55C7A" : "#4CAF50"
+                      color: 
+                        props.status === "Aprobado" 
+                          ? "#4CAF50" 
+                          : props.status === "En proceso"
+                          ? "#FF9243"
+                          : props.status === "Rechazado"
+                          ? "#E30000"
+                          : props.status === "Finalizada"
+                          ? "#F55C7A" //"#F55C7A" : "#4CAF50"
+                          : inherit
                     }}>
                       {props.status}
                     </Typography>

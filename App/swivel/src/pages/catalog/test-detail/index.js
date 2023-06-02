@@ -9,6 +9,7 @@ the user has selected the "confirm" button.
 Here the user is able to choose a date and
 time for their driving test.
 */
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import DatePicker from 'react-datepicker';
@@ -24,8 +25,9 @@ import { Grid, Button } from '@mui/material';
 import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import LocationsMap from '@/components/general/locations_map';
+import PopUpComponent from '@/components/general/Popup';
 
-
+import { formatDate } from "@/components/general/date_utils";
 import styles from '@/styles/test_details.module.css';
 import DataTable from '@/components/general/Table';
 
@@ -40,17 +42,16 @@ export default function RequestDetails() {
   const [userAddress, setUserAddress] = useState(null);
   const [carData, setCarData] = useState(null);
   const [firstImage, setFirstImage] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
   const [userData, setUserData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [processId, setProcessId] = useState('');
-  const [managerData, setManagerData] = useState(null);
+  const [agencyData, setAgencyData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const { auto_id } = router.query;
-  // TODO
-  // user_id = session.id;
-  const user_id = "646e7555cfb24b65a4f5d1b7"; 
+  const { auto_id, colorName } = router.query;
+  const user_id = session.id;
 
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -58,20 +59,28 @@ export default function RequestDetails() {
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-manager-info?agency_name=${retrievedAuto.nombre_agencia}&_id=${user_id}`,
+    console.log("ID de agencia: " + retrievedAuto.agencia_id);
+
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${user_id}`,
       { method: 'GET' });
     const resData = await rawData.json();
-    const retrievedManager = resData.manager;
+    const retrievedAgency = resData.agency;
     const retrievedUser = resData.user;
-    const retrievedDocuments = resData.user.documentos_url;
+    const retrievedDocuments = resData.user.documentos;
     const retrievedAddress = resData.user.direccion;
 
+    for (var i = 0; i < retrievedAuto.colores.length; i++) {
+      if (retrievedAuto.colores[i].nombre === colorName) {
+        setFirstImage(retrievedAuto.colores[i].imagenes[0]);
+        setImageIndex(i);
+      }
+    }
+
     setCarData(retrievedAuto);
-    setFirstImage(retrievedAuto.fotos_3d[0]);
-    setManagerData(retrievedManager);
+    setAgencyData(retrievedAgency);
     setUserData(retrievedUser);
     setDocuments(retrievedDocuments);
-    setUserAddress(retrievedAddress);  
+    setUserAddress(retrievedAddress);
   }
 
   const createDrivingTest = async () => {
@@ -81,10 +90,10 @@ export default function RequestDetails() {
     const filteredDocuments = documents.filter(json => {
       return json.nombre_documento === "licencia" || json.nombre_documento === "identificacion";
     });
-    
+
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
-      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime });
+      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
 
     // Go to list of user's driving tests
     router.push({
@@ -113,7 +122,7 @@ export default function RequestDetails() {
     const currentDocs = documents;
 
     // Store the changed documents inside firebase
-    for(const [i, doc] of changedDocuments.entries()) {
+    for (const [i, doc] of changedDocuments.entries()) {
       // Upload to firebase
       documentUrl = await FileUpload(doc);
       // Assign new URL
@@ -133,31 +142,31 @@ export default function RequestDetails() {
     setIsOpen(currentOpen);
   }
 
-  const documentInfo = (document, i) => {
-    if (document.nombre_documento === "licencia" || document.nombre_documento === "identificacion") {
-      return (
-        <tr key={i}>
-          <td>{document.nombre_documento}</td>
-          {/* <td>{document.url}</td> */}
-          <td>{document.fecha_modificacion}</td>
-          <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
-          {isOpen.includes(i) && (
-            <td>
-              <div>
-                <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])}/>
-                <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirmar</button>
-              </div>
-            </td>
-          )}
-          <td>{document.estatus}</td>
-          <td>{document.comentarios}</td>
-        </tr>
-      );
-    }
-    return;
-  };
+  // const documentInfo = (document, i) => {
+  //   if (document.nombre_documento === "licencia" || document.nombre_documento === "identificacion") {
+  //     return (
+  //       <tr key={i}>
+  //         <td>{document.nombre_documento}</td>
+  //         {/* <td>{document.url}</td> */}
+  //         <td>{document.fecha_modificacion}</td>
+  //         <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
+  //         {isOpen.includes(i) && (
+  //           <td>
+  //             <div>
+  //               <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])} />
+  //               <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
+  //             </div>
+  //           </td>
+  //         )}
+  //         <td>{document.estatus}</td>
+  //         <td>{document.comentarios}</td>
+  //       </tr>
+  //     );
+  //   }
+  //   return;
+  // };
 
-  useEffect(() => {  
+  useEffect(() => {
     if (auto_id) {
       fetchDetails();
     }
@@ -182,6 +191,15 @@ export default function RequestDetails() {
     { brand: 'Mazda', position: { lat: 19.4324, lng: -99.1367 } },
   ];
 
+  const mapDocumentsToRows = (documents) => {
+    return documents.map((document, i) => {
+      return {
+        index: i,
+        ...document
+      }
+    });
+  }
+
   const columns = [
     {
       field: 'Documento',
@@ -190,7 +208,7 @@ export default function RequestDetails() {
       minWidth: 150,
       flex: 1,
       valueGetter: (params) => {
-        let cell = params.row.nombre_documento
+        let cell = params.row
           ? `${params.row.nombre_documento}`
           : 'No existe fecha de entrega';
         return cell;
@@ -204,31 +222,92 @@ export default function RequestDetails() {
       minWidth: 150,
       flex: 1,
       valueGetter: (params) => {
-        let cell = params.row.fecha_modificacion
-          ? `${params.row.fecha_modificacion}`
+        let cell = params.row
+          ? `${formatDate(params.row.fecha_modificacion).formattedShortDate}`
           : "No existe fecha de entrega";
         return cell;
       },
     },
     {
       field: "subir",
-      headerName: "Fecha de entrega",
+      headerName: "Subir",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      renderCell: (params) => (
+        <>
+          <PopUpComponent
+            title="Subir documento"
+            popUpContent={
+              <>
+                {isOpen.includes(params.row.index) && (
+                  <div>
+                    <input
+                      type="file"
+                      name="documents"
+                      onChange={(e) => setUploadedDocument(e.target.files[0])}
+                    />
+                    <button
+                      type="submit"
+                      onClick={() => handleDocumentEdit(uploadedDocument, params.row.index)}
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                )}
+              </>
+            }
+            btnOpen={
+              <Button
+                variant="contained"
+                disableElevation
+                onClick={() => addToIsOpen(params.row.index)}
+                className="py-0"
+                sx={{
+                  fontFamily: "Lato",
+                  fontSize: "12px",
+                  backgroundColor: "#111439",
+                }}
+              >
+                Editar
+              </Button>
+            }
+          />
+        </>
+      ),
+    },
+    {
+      field: "estatus",
+      headerName: "Estatus",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
       valueGetter: (params) => {
-        let cell = params.row.fecha_modificacion
-          ? `${params.row.fecha_modificacion}`
+        let cell = params.row
+          ? `${params.row.estatus}`
+          : "Este proceso no contiene auto";
+        return cell;
+      },
+    },
+    {
+      field: "comentarios",
+      headerName: "Comentarios",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (params) => {
+        let cell = params.row
+          ? `${params.row.comentarios}`
           : "Este proceso no contiene auto";
         return cell;
       },
     },
   ]
 
-  const rows = []
-
-  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && managerData != null) {
+  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && agencyData != null) {
     return (
       <>
         <BuyerNavbar />
@@ -241,36 +320,69 @@ export default function RequestDetails() {
         {activeSectionIndex === 0 && (
           <>
             <div className={styles.schedule}>
-              <h4>Datos personales</h4>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <span>Nombre(s):  {userData.nombres}</span>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <span>Apellidos: {userData.apellidos}</span>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <span>Correo: {userData.email}</span>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <span>Celular: {userData.numero_telefonico}</span>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <span>Estado de residencia: {userAddress.estado}</span>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <span>CP: {userAddress.codigo_postal}</span>
-                </Grid>
-              </Grid>
-              <table>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+                className='d-flex flex-column justify-content-center'
+              >
+                <div className='row p-3'>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <h4>Datos personales</h4>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                  </div>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                </div>
+                <div className='row p-3'>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <span style={{ color: "#8A8A8A" }}>Nombre(s): <span style={{ color: "#333333" }}>{userData.nombres}</span></span>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <span style={{ color: "#8A8A8A" }}>Apellidos: <span style={{ color: "#333333" }}>{userData.apellidos}</span></span>
+                  </div>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                </div>
+                <div className='row p-3'>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <span style={{ color: "#8A8A8A" }}>Correo: <span style={{ color: "#333333" }}>{userData.email}</span></span>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <span style={{ color: "#8A8A8A" }}>Celular: <span style={{ color: "#333333" }}>{userData.numero_telefonico}</span></span>
+                  </div>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                </div>
+                <div className='row p-3'>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <span style={{ color: "#8A8A8A" }}>Estado de residencia: <span style={{ color: "#333333" }}>{userAddress.estado}</span></span>
+                  </div>
+                  <div className='col-12 col-md-5'>
+                    <span style={{ color: "#8A8A8A" }}>Código postal: <span style={{ color: "#333333" }}>{userAddress.codigo_postal}</span></span>
+                  </div>
+                  <div className='col-12 col-md-1'>
+                  </div>
+                </div>
+              </div>
+
+              {/* <table>
                 <thead>
                   <tr>
                     <th>Documento</th>
-                    {/* <th>URL</th> */}
+                    
                     <th>Fecha de entrega</th>
                     <th>Subir</th>
                     <th>Estatus</th>
@@ -280,46 +392,92 @@ export default function RequestDetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  {documents.map((document, i) => (              
+                  {documents.map((document, i) => (
                     documentInfo(document, i)
                   ))}
                 </tbody>
-              </table>
-              <DataTable
-                columns={columns}
-                rows={rows}
-                rowSelection={false}
-            sx={{
-              border: 1,
-              borderColor: "#D9D9D9",
-              "& .MuiDataGrid-cell": {
-                border: 1,
-                borderRight: 0,
-                borderTop: 0,
-                borderLeft: 0,
-                borderColor: "#D9D9D9",
-                fontFamily: "Lato",
-                fontWeight: 500,
-                fontSize: "12px",
-                color: "#333333",
-              },
-              "& .MuiDataGrid-columnHeaders": {
-                fontFamily: "Lato",
-                fontSize: "16px",
-                color: "#333333",
-                borderBottom: 0,
-              },
-              "& .MuiDataGrid-columnHeaderTitle": {
-                fontWeight: 800,
-              },
-              "& .MuiPaginationItem-text": {
-                fontFamily: "Lato",
-                color: "#333333",
-              },
-            }}
-              />
-              <Button variant='contained' href='/catalog'>Cancelar</Button>
-              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
+              </table> */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                {
+                  documents ? (
+                    <div>
+                      <h4
+                        style={{
+                          fontFamily: "Lato",
+                          marginTop: "2rem",
+                        }}
+                      >Documentos</h4>
+
+                      <DataTable
+                        columns={columns}
+                        rows={mapDocumentsToRows(documents)}
+                        // rowSelection={false}
+                        sx={{
+                          border: 1,
+                          borderColor: "#D9D9D9",
+                          "& .MuiDataGrid-cell": {
+                            border: 1,
+                            borderRight: 0,
+                            borderTop: 0,
+                            borderLeft: 0,
+                            borderColor: "#D9D9D9",
+                            fontFamily: "Lato",
+                            fontWeight: 500,
+                            fontSize: "12px",
+                            color: "#333333",
+                          },
+                          "& .MuiDataGrid-columnHeaders": {
+                            fontFamily: "Lato",
+                            fontSize: "16px",
+                            color: "#333333",
+                            borderBottom: 0,
+                          },
+                          "& .MuiDataGrid-columnHeaderTitle": {
+                            fontWeight: 800,
+                          },
+                          "& .MuiPaginationItem-text": {
+                            fontFamily: "Lato",
+                            color: "#333333",
+                          },
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <h4>Documentos</h4>
+                      <p>No hay documentos</p>
+                    </div>
+                  )
+                }
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                <Button
+                  style={{
+                    marginRight: "2.5rem",
+                    backgroundColor: "#333333",
+                  }}
+                  variant='contained' href='/catalog'>Cancelar</Button>
+                <Button
+                  style={{
+                    marginLeft: "2.5rem",
+                  }}
+                  variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
+              </div>
             </div>
           </>
         )}
@@ -332,7 +490,7 @@ export default function RequestDetails() {
                   <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
                   <span className={styles.year}> {carData.año} </span>
                   <p className={styles.address}>{carData.direccion_agencia}</p>
-                  <h1 className={styles.priceTag}>${carData.precio}</h1>
+                  <h1 className={styles.priceTag}>$ {Intl.NumberFormat().format(carData.precio)} MXN</h1>
                 </div>
               </div>
               <div className={styles.testInfo}>
@@ -342,9 +500,9 @@ export default function RequestDetails() {
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
                     dateFormat='dd/MM/yyyy'
-                    minDate={addDays(new Date(), managerData.dias_anticipo)}
-                    maxDate={addDays(new Date(), managerData.dias_max)}
-                    startDate={addDays(new Date(), managerData.dias_anticipo)}
+                    minDate={addDays(new Date(), agencyData.dias_anticipo)}
+                    maxDate={addDays(new Date(), agencyData.dias_max)}
+                    startDate={addDays(new Date(), agencyData.dias_anticipo)}
                   />
                   <DatePicker
                     selected={selectedTime}
@@ -353,13 +511,13 @@ export default function RequestDetails() {
                     showTimeSelectOnly
                     timeFormat='hh aa'
                     timeIntervals={60}
-                    minTime={setHours(new Date(), managerData.horas_min)}
-                    maxTime={setHours(new Date(), managerData.horas_max)}
+                    minTime={setHours(new Date(), agencyData.horas_min)}
+                    maxTime={setHours(new Date(), agencyData.horas_max)}
                     dateFormat='hh:mm aa'
                   />
                 </div>
                 <LocationsMap
-                  locationsData = {[{brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 }}]}
+                  locationsData={[{ brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 } }]}
                 />
               </div>
               {selectedDate && (
@@ -400,7 +558,7 @@ export default function RequestDetails() {
                 Dirección:{" "}
                 {carData.direccion_agencia}
                 Teléfono:{" "}
-                {managerData.numero_telefonico}
+                {agencyData.numero_telefonico}
               </p>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
               <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
@@ -408,7 +566,7 @@ export default function RequestDetails() {
           </>
         )}
       </>
-    ); 
+    );
   } else {
     return (
       <div>

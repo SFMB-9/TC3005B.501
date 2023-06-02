@@ -52,7 +52,7 @@ function FileUpload({ body }) {
   const fetchData = async () => {
     try {
       await fetch(
-        `http://localhost:3000/api/resumen-compra/update-file?procesoId=${body.procesoId}&docId=${body.docId}&url=${selectedFile}`,
+        `/api/resumen-compra/update-file?procesoId=${body.procesoId}&docId=${body.docId}&url=${selectedFile}`,
         {
           method: "UPDATE",
           headers: {
