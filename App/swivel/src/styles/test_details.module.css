@@ -35,6 +35,12 @@
   padding: 8vw;
 }
 
+.confirmation {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
 .carView, .testInfo {
   display: flex;
   width: 100%;
