@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from '@/styles/edit_GA.module.css';
-import BuyerNavbar from '@/components/buyer/navbar'; //TODO CHANGE TO GA NAVBAR
 import axios from 'axios';
+import GANavbar from '@/components/providers/GA/navbar';
 import { useRouter } from 'next/router';
 
 export default function EditGA() {
@@ -75,7 +75,7 @@ export default function EditGA() {
 
     return (
         <div>
-            <BuyerNavbar />
+            <GANavbar />
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Editar Perfil</h1>
                 <div className={styles.row}>

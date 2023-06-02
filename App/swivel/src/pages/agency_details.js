@@ -6,7 +6,7 @@ Page to view the details of an agency and edit them as well as add and remove ma
 */
 
 import React, { useState } from 'react';
-import BuyerNavbar from '@/components/buyer/navbar';
+import GANavbar from '@/components/providers/GA/navbar';
 import styles from '@/styles/agency_details.module.css';
 import { Button, TextField, FormHelperText } from '@mui/material';
 import DataTable from '@/components/general/Table';
@@ -274,7 +274,7 @@ export default function AgencyDetails() {
 
     return (
         <div>
-            <BuyerNavbar /> {/* TODO: cambiar por el navbar de la agencia */}
+            <GANavbar />
 
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Detalle de la Agencia</h1>

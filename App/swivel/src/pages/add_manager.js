@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from '@/styles/add_manager.module.css';
-import BuyerNavbar from '@/components/buyer/navbar';
+import GANavbar from '@/components/providers/GA/navbar';
 
 export default function AddManager() {
     const [formValues, setFormValues] = useState({
@@ -77,7 +77,7 @@ export default function AddManager() {
 
     return (
         <div>
-            <BuyerNavbar />
+            <GANavbar />
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Agregar Gerente</h1>
                 <h3 className={styles.boldText}>Ingresa los datos del gerente</h3>
