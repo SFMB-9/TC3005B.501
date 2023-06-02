@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <BuyerLayout>
         <RotatingHeader/>
-        <CategoryViews/>
+        <CategoryViews brandItems={10} typeItems={10} yearItems={30}/>
         {/* <CarViews/> */}
         <SwivelExperience/>
         <Process />
