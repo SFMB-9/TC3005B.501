@@ -6,6 +6,7 @@ Page to view a list of all the automotive groups related to the SA user that is 
 to edit and delete them.
 */
 
+
 import React from 'react';
 import { useState } from 'react';
 import Searchbar from '@/components/general/searchbar';
