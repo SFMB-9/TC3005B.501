@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 
 export default function SASignup() {
+
 	const [name, setName] = useState('')
 	const [surname, setSurname] = useState('')
 	const [email, setEmail] = useState('')
@@ -14,7 +15,7 @@ export default function SASignup() {
 		e.preventDefault()
 
 		try {
-			const { data } = await axios.post('/api/register', {
+			const { data } = await axios.post('/api/superadmin/register', {
 				nombres: name,
 				apellidos: surname,
 				email: email,
@@ -100,3 +101,5 @@ export default function SASignup() {
 		</>
 	)
 }
+
+

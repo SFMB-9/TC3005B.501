@@ -7,24 +7,25 @@ export default async function handler(req, res){
 
 	if(req.method == "GET"){
 
-		const allRequests;
-
-		await dbConnect();
+		dbConnect();
 
 		try{
-			allRequests = await Proceso.find(
+			const allRequests = await Proceso.find(
 			{
-				$or:[{tipo_proceso: "solicitud_agencia"}, {tipo_proceso:"solicitud_grupo_automotriz"}]
+				$or:[{tipo_proceso: "registroGA"}, {tipo_proceso:"registroAgencia"}]
 			}
 			)
-		
-
+			
+			return res.status(200).json({allRequests, message: "Success" });
+			
 		} catch (err){
 			console.log(err);
 		}
  
 
-	res.status(200).json({ allRequests, message: "Success" });
+	
 	} else {
 		return res.status(400).json({ msg: "Method not permitted" })
 	}}
+
+

@@ -43,7 +43,7 @@ export default function addSAdmin() {
     };
 
     const cancelHandler = () => {
-        router.push(`/providers/GA`);
+        router.push(`/superadmin/index`);
     };
 
     const inputLabelProps = {

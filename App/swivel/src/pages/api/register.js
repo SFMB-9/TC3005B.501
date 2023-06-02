@@ -1,4 +1,4 @@
-import { User, SellerUser, ManagerUser, BuyerUser } from "../../models/user";
+import { User, SellerUser, ManagerUser, BuyerUser, SaEntity} from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
 /* 
@@ -13,6 +13,8 @@ import { encryptRole } from "../../utils/crypto";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
+
+    console.log(req.body)
 
     const name = req.body.nombres;
     const surname = req.body.apellidos;
@@ -47,6 +49,7 @@ export default async function handler(req, res) {
 
     let usedEmail = await User.findOne({ email: email });
     // email existence check within the db, returns if there is already an account with the email
+
     if (!usedEmail) {
       if (role === "user") {
         console.log("HOOOLA", req.body);
@@ -93,7 +96,7 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "Seller registered successfully" });
       } else if (role === "manager") {
         const GA = req.body.grupo_automotriz_id;
-        const phone = req.body.numerqo_telefonico;
+        const phone = req.body.numero_telefonico;
 
         await ManagerUser.create({
           nombres: name,
@@ -105,6 +108,21 @@ export default async function handler(req, res) {
           numero_telefonico: phone,
         });
         res.status(200).json({ message: "Manager registered successfully" });
+      } else if (role === "admin"){
+        const phone = req.body.numero_telefonico;
+
+        await SaEntity.create({
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          tipo_usuario: encrypted_role,
+          numero_telefonico: phone,
+          foo: "testSchema"
+        });
+        res.status(200).json({ message: "Admin registered successfully" })
+
+
       }
     } else {
       res.status(400).json({ message: "Account already exists" });

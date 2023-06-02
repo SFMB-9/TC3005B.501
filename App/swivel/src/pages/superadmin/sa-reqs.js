@@ -16,7 +16,7 @@ import DataTable from "@/components/general/Table";
 
 import { Select, MenuItem} from "@mui/material";
 import SANavbar from '@/components/SA/navbar';
-import CollapsibleContainer from '@/components/SA/collapsing_div';
+import CollapsibleContainer from '@/components/general/collapsing_div';
 
 
 const SARequestDashboard = () => {
@@ -47,10 +47,10 @@ const SARequestDashboard = () => {
 
 
 				const requestsGA = allRequests.filter((r) => {
-          r.tipo_proceso = "solicitud_grupo_automotriz"
+          r.tipo_proceso = "registroGA"
         })
         const requestsA = allRequests.filter((r) => {
-          r.tipo_proceso = "solicitud_agencia"
+          r.tipo_proceso = "registroAgencia"
         })
 
 				setRequestsGA(requestsGA)
@@ -237,7 +237,7 @@ return (
     		columns={columnsGA}
     		rows={rowsGA}
     		rowSelection={false}
-    		>
+    		> </DataTable>
     </CollapsibleContainer>
 
 
@@ -246,7 +246,7 @@ return (
     		columns={columnsA}
     		rows={rowsA}
     		rowSelection={false}
-    		>
+    		></DataTable>
     </CollapsibleContainer>
 
   </>
