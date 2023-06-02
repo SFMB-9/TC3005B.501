@@ -166,7 +166,7 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En_Proceso"
+            value="En Proceso"
           >
             En Proceso
           </MenuItem>
@@ -212,9 +212,9 @@ const SellerDashboard = () => {
           <div className="text-center pt-3">
             <SimpleToggleButton
               filters={[
-                { value: "En_Revision", name: "En Proceso" },
-                { value: "Aceptada", name: "Aprobado" },
-                { value: "Rechazada", name: "Rechazado" },
+                { value: "En Proceso", name: "En Proceso" },
+                { value: "Finalizada", name: "Finalizada" },
+                { value: "Cancelada", name: "Cancelada" },
               ]}
               onChange={setStatusFilter}
               sx={{

@@ -6,7 +6,8 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
-import { Upload } from "@mui/icons-material";
+import { formatDate } from "@/components/general/date_utils";
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function Process() {
   const router = useRouter();
@@ -16,7 +17,6 @@ export default function Process() {
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
-  const [changedDocument, setChangedDocument] = useState(null);
   const [uploadedDocument, setUploadedDocument] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
 
@@ -46,8 +46,6 @@ export default function Process() {
   // Save the indices that were changed
   const handleDocumentEdit = async (indx) => {
 
-    console.log("uploadedDocument: " + uploadedDocument);
-    console.log("changedDocumentIndex: " + changedDocumentIndex);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
@@ -60,7 +58,6 @@ export default function Process() {
     let documentUrl = "";
     const currentDocs = documents;
 
-    console.log("changedDocument: " + uploadedDocument);
     const i = changedDocumentIndex;
     const doc = uploadedDocument;
 
@@ -69,7 +66,6 @@ export default function Process() {
     }
 
     documentUrl = await FileUpload(doc);
-    console.log(documentUrl);
 
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
@@ -79,15 +75,28 @@ export default function Process() {
     console.log("doc_index: " + i);
     console.log("file_url: " + documentUrl);
     console.log("update_date: " + currentDocs[i].fecha_modificacion);
+    try{
+      const result = await fetch(
+        `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
+        {
+          method: "PUT",
+        }
+      );
 
-    const result = await fetch(
-      `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
-      {
-        method: "PUT",
+      fetchProcess();
+    } catch (error) {
+      console.error("Error occurred during the document upload:", error);
+    }
+  };
+
+  const checkValidatedDocs = () => {
+    let validatedDocs = true;
+    documents.forEach((doc) => {
+      if (doc.estatus !== "Aceptado") {
+        validatedDocs = false;
       }
-    );
-
-    fetchProcess();
+    });
+    return validatedDocs;
   };
 
   useEffect(() => {
@@ -95,6 +104,7 @@ export default function Process() {
       return;
     }
     fetchProcess();
+    checkValidatedDocs();
   }, [process_id, uploadedDocument]);
 
   const columns = useMemo(
@@ -108,12 +118,25 @@ export default function Process() {
         flex: 1,
       },
       {
-        field: "url",
-        headerName: "URL",
+        field: "ver_archivo",
+        headerName: "Archivo",
         headerAlign: "center",
         align: "center",
         minWidth: 150,
-        flex: 2,
+        flex: 1,
+        renderCell: (params) => (
+          <>
+            {params.row.url && params.row.url !== "" ? (
+              <a href={params.row.url}> 
+                <u>Ver archivo</u>
+              </a>
+            ) : (
+              <div>
+                 No hay archivo
+              </div>
+            )}
+          </>
+        ),
       },
       {
         field: "estatus",
@@ -130,6 +153,10 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 1,
+        valueGetter: (params) => {
+          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+          return cell;
+        },
       },
       {
         field: "comentarios",
@@ -182,16 +209,33 @@ export default function Process() {
                 </IconButton>
               </div>
             ) : (
-              <IconButton
-                aria-label="delete"
-                size="small"
-                onClick={(e) => {
-                  e.preventDefault();
-                  addToIsOpen(params.row._id);
-                }}
-              >
-                <UploadIcon />
-              </IconButton>
+              <div>
+              {
+                params.row.url && params.row.url !== "" ? (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <UploadIcon />
+                  </IconButton>
+                )
+              }
+              </div>
             )}
           </>
         ),
@@ -362,52 +406,7 @@ export default function Process() {
               </div>
             </div>
           </Fade>
-          {/* <h1>Documentos</h1>
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>URL</th>
-                <th>Estatus</th>
-                <th>Ultima modificación</th>
-                <th>Comentarios</th>
-                <th>Editar</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {documents.map((document, i) => (
-                <tr key={i}>
-                  <td>{document.nombre_documento}</td>
-                  <td>{document.url}</td>
-                  <td>{document.estatus}</td>
-                  <td>{document.fecha_modificacion}</td>
-                  <td>{document.comentarios}</td>
-                  <td><button onClick={(e) => {
-                    e.preventDefault();
-                    addToIsOpen(i)
-                  }
-                  }> Editar </button></td>
-                  {isOpen.includes(i) && (
-                    <td>
-                      <div>
-                        <input type="file" name="documents" onChange={(e) => {
-                          e.preventDefault();
-                          const file = e.target.files[0];
-                          setUploadedDocument(file)
-                          setChangedDocumentIndex(i)
-                          //console.log(uploadedDocument)
-                        }} />
-                        <button type="submit" onClick={() => handleDocumentEdit(i)}>Confirm</button>
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table> */}
-
+        
           <Fade in={true} timeout={1500}>
             <div className="text-center mt-4">
               <Button
@@ -430,6 +429,7 @@ export default function Process() {
 
               <CheckoutPage
                 id={process_id}
+                validatedDocs={checkValidatedDocs()}
                 items={[
                   {
                     price_data: {
