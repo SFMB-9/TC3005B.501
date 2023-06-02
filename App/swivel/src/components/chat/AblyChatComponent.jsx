@@ -6,12 +6,12 @@ import axios from "axios";
 import Ably from "ably/promises";
 
 
-const AblyChatComponent = () => {
+const AblyChatComponent = ( props ) => {
   const { data: session } = useSession();
 
   let inputBox = null;
   let messageEnd = null;
-  let channel_name = "id1-id2";
+  let channel_name = props.id_purchase;
 
   const [messageText, setMessageText] = useState("");
   const [receivedMessages, setMessages] = useState([]);

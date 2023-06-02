@@ -481,7 +481,7 @@ export default function Process() {
           {isChatOpen && (
             <main className="chat-popup">
               <h3 className="title">Vendedor</h3>
-              <AblyChatComponent />
+              <AblyChatComponent id_purchase={process_id} />
             </main>
           )}
 

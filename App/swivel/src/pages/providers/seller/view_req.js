@@ -415,7 +415,7 @@ const RequestDetails = () => {
         {isChatOpen && (
           <main className="chat-popup">
             <h4 className="title">{user.nombres + " " + user.apellidos}</h4>
-            <AblyChatComponent />
+            <AblyChatComponent id_purchase={id}/>
           </main>
         )}
 
