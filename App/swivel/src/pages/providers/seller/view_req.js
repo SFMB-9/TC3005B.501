@@ -98,7 +98,7 @@ const RequestDetails = () => {
       renderCell: (params) => (
         <>
           {params.row.url && params.row.url !== "" ? (
-            <a href={params.row.url}>
+            <a href={params.row.url} target="_blank">
               <u>Ver archivo</u>
             </a>
           ) : (
