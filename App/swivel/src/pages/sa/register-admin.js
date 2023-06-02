@@ -51,8 +51,8 @@ export default function addSAdmin() {
         <div>
             <SANavbar />
             <div className={styles.mainContainer}>
-                <h1 className={styles.pageTitle}>Agregar administrador</h1>
-                <h3 className={styles.sectionTitle}>Ingresa los datos del administrador</h3>
+                <h2 className={styles.pageTitle}>Agregar administrador</h2>
+                <h4 className={styles.sectionTitle}>Ingresa los datos del administrador</h4>
                 <div className={styles.inputContainer}>
                     <h5>Nombre(s)</h5>
                     <TextField
@@ -64,6 +64,7 @@ export default function addSAdmin() {
                         InputLabelProps={inputLabelProps}
                         placeholder="Ingrese su nombre"
                         onChange={(e) => setName(e.target.value)}
+                        
                     />
                 </div>
                 <div className={styles.row}>
