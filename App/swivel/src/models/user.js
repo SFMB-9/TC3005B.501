@@ -12,7 +12,7 @@ const baseSchema = new mongoose.Schema(
     password: String,
     numero_telefonico: String,
   },
-  { collection: "usuarios" }
+  { collection: "users" }
 );
 
 baseSchema.pre("save", async function (next) {
@@ -61,6 +61,21 @@ const agencySchema = new mongoose.Schema({
     pais: String,
     codigo_postal: String,
   },
+
+  url_agencia: String,
+  coordenadas_agencia: {
+    location: {
+      type: {
+        type: String, // Don't do `{ location: { type: String } }`
+        enum: ['Point'], // 'location.type' must be 'Point'
+        required: true
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      }
+    }
+  },
 });
 
 const gaSchema = new mongoose.Schema({
@@ -76,6 +91,16 @@ const gaSchema = new mongoose.Schema({
     pais: String,
     codigo_postal: String,
   },
+
+  legal: {
+    nombres: String,
+    apellidos: String,
+    email: String,
+    numero_telefonico: String
+  },
+
+  url_grupo_automotriz: String,
+  rfc_grupo_automotriz: String,
 });
 
 const sellerSchema = new mongoose.Schema({
@@ -85,6 +110,11 @@ const sellerSchema = new mongoose.Schema({
 });
 
 const managerSchema = new mongoose.Schema({
+  agencia_id: String,
+  grupo_automotriz_id: String, //si-auto
+});
+
+const adminSchema = new mongoose.Schema({
   grupo_automotriz_id: String, //si-auto
 });
 
@@ -104,6 +134,10 @@ const ManagerUser = User.discriminators && User.discriminators.ManagerUser
                   ? User.discriminators.ManagerUser 
                   : User.discriminator("ManagerUser", managerSchema);
 
+const AdminUser = User.discriminators && User.discriminators.AdminUser 
+                  ? User.discriminators.AdminUser 
+                  : User.discriminator("AdminUser", adminSchema);
+
 const AgencyEntity = User.discriminators && User.discriminators.AgencyEntity 
                   ? User.discriminators.AgencyEntity 
                   : User.discriminator("AgencyEntity", agencySchema);
@@ -114,4 +148,5 @@ const GaEntity = User.discriminators && User.discriminators.GaEntity
 
 const SaEntity = User.discriminators && User.discriminators.SaEntity ? User.discriminators.SaEntity : User.discriminator('SaEntity', superadminSchema)
 
-export { User, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };
+
+export { User, SellerUser, ManagerUser, BuyerUser, AdminUser, AgencyEntity, GaEntity, SaEntity };
