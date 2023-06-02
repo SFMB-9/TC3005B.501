@@ -393,13 +393,6 @@ const RequestDetails = () => {
       </div>
       <div className="container">
         <Head>
-          <title>Realtime Chat App with Ably, NextJS and Vercel</title>
-          <link
-            rel="icon"
-            href="https://static.ably.dev/motif-red.svg?nextjs-vercel"
-            type="image/svg+xml"
-          />
-
           <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"

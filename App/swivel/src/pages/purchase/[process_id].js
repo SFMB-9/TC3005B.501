@@ -459,13 +459,6 @@ export default function Process() {
         </Container>
         <div className="container">
           <Head>
-            <title>Realtime Chat App with Ably, NextJS and Vercel</title>
-            <link
-              rel="icon"
-              href="https://static.ably.dev/motif-red.svg?nextjs-vercel"
-              type="image/svg+xml"
-            />
-
             <link
               rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -480,7 +473,7 @@ export default function Process() {
 
           {isChatOpen && (
             <main className="chat-popup">
-              <h3 className="title">Vendedor</h3>
+              <h4 className="title">Vendedor</h4>
               <AblyChatComponent id_purchase={process_id} />
             </main>
           )}
