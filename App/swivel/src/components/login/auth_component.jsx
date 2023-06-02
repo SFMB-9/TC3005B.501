@@ -61,7 +61,6 @@ export default function AuthComponent({
               display: "flex",
               flexDirection: "column",
               justifyContent: "center", 
-              flex: 1,
               overflowY: "auto",
             }}>
               <div className="d-flex flex-column justify-content-center align-items-center">
