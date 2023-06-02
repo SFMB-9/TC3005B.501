@@ -15,9 +15,8 @@ export default async function handler(req, res) {
     const db = client.db("test");
     const usuarios = await db.collection("usuarios")
 
-    const parsedBody = req.body;
-
-    //console.log(JSON.parse(req.body).usuario_final_id);
+    const parsedBody = JSON.parse(req.body);
+    const auto = parsedBody.auto;
 
     try {
         const resultVendedor = await usuarios
@@ -61,8 +60,8 @@ export default async function handler(req, res) {
             estatus: "documentosPendientes",
             documentos: documentosProceso,
             fecha_creacion: new Date().toISOString(),
-            auto: parsedBody.auto, //Llega del request
-            usuario_final: usuario,
+            auto: auto, //Llega del request
+            usuario_final_id: usuario,
             vendedor: usuarioVendedor,
             agencia: agenciaVendedor,
             cantidad_a_pagar: parsedBody.cantidad_a_pagar

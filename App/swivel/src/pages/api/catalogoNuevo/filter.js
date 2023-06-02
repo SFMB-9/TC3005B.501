@@ -7,7 +7,10 @@ Description: Search for cars in elasticsearch using filters or matches in each f
 */
 
 // Connecting to ElasticSearch with security disabled
+//import fetch from 'node-fetch';
 const { Client } = require('@elastic/elasticsearch')
+const json5 = require('json5');
+const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
@@ -15,17 +18,21 @@ export default async function handler(req, res) {
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
         auth: {
-            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+            apiKey: ELASTIC_API_KEY
         }
     })
 
     let query = {};
 
     // Asigns an empty string to searchQuery if it is undefined
-    let searchQuery = req.query.search === undefined ? "" : req.query.search;
+    let searchQuery = req.query.search || '';
+
+    // Construct the URL object
+    let url = new URL('/api/catalogoNuevo/search', `http://${req.headers.host}`);
+    url.searchParams.append('search', searchQuery);
 
     // Fetch resluts based on the search query
-    let searchResults = await fetch(`http://localhost:3000/api/catalogoNuevo/search?search=${searchQuery}`);
+    let searchResults = await fetch(url.toString());
 
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
@@ -73,7 +80,7 @@ export default async function handler(req, res) {
         let result = elasticResponse.body.hits.hits;
 
         let filters = {};
-        await assembleFilter(result, filters);
+        await assembleFilter(result, filters, req);
 
         if (result.length === 0) {
             return res.status(404).json({ message: "No se encontraron autos", filterHeaders: filterHeaders });
@@ -98,16 +105,17 @@ export default async function handler(req, res) {
 }
 
 // Function to assemble the filters from the catalog results
-async function assembleFilter(result, filters) {
-
-    let response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas');
+async function assembleFilter(result, filters, req) {
+    // Construct the URL object
+    let url = new URL('/api/catalogoNuevo/marcas', `http://${req.headers.host}`);
+    let response = await fetch(url.toString());
 
     let marcaResponse = await response.json();
     let marca = marcaResponse.result;
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
     let ano = [...new Set(result.map(item => item._source.año))];
-    let color = [...new Set(result.map(item => item._source.colores.map(item => item.nombre)).flat())];
+    let color = [...new Set(result.map(item => json5.parse(item._source.colores).map(item => item.nombre)).flat())];
     let combustible = [...new Set(result.map(item => item._source.combustible))];
     let motor = [...new Set(result.map(item => item._source.motor))];
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
@@ -127,7 +135,7 @@ async function assembleFilter(result, filters) {
 
 // Function to build elasticsearch search body
 function buildQuery(queryParams, searchResultsIds, dbQuery) {
-
+    dbQuery.size = 100;
     dbQuery.query = {
         bool: {
             must: []
@@ -189,59 +197,59 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
     }
 
     if (queryParams.combustible) {
-            dbQuery.query.bool.must.push({
-                bool: {
-                    should:
-                        queryParams.combustible.split(",").map(combustible => {
-                            return { "match_phrase": { "combustible": combustible } }
-                        })
-                }
-            });
-        }
-
-        if (queryParams.motor) {
-            dbQuery.query.bool.must.push({
-                bool: {
-                    should:
-                        queryParams.motor.split(",").map(motor => {
-                            return { "match_phrase": { "motor": motor } }
-                        })
-                }
-            });
-        }
-
-        if (queryParams.tipo_vehiculo) {
-            dbQuery.query.bool.must.push({
-                bool: {
-                    should:
-                        queryParams.tipo_vehiculo.split(",").map(tipo_vehiculo => {
-                            return { "match_phrase": { "tipo_vehiculo": tipo_vehiculo } }
-                        })
-                }
-            });
-        }
-
-        if (queryParams.estado_agencia) {
-            dbQuery.query.bool.must.push({
-                bool: {
-                    should:
-                        queryParams.estado_agencia.split(",").map(estado_agencia => {
-                            return { "match_phrase": { "estado_agencia": estado_agencia } }
-                        })
-                }
-            });
-        }
-
-        if (queryParams.precio_min && queryParams.precio_max) {
-            dbQuery.query.bool.must.push({
-                range: {
-                    precio: {
-                        gte: queryParams.precio_min,
-                        lte: queryParams.precio_max
-                    }
-                }
-            });
-        }
-
-        return dbQuery;
+        dbQuery.query.bool.must.push({
+            bool: {
+                should:
+                    queryParams.combustible.split(",").map(combustible => {
+                        return { "match_phrase": { "combustible": combustible } }
+                    })
+            }
+        });
     }
+
+    if (queryParams.motor) {
+        dbQuery.query.bool.must.push({
+            bool: {
+                should:
+                    queryParams.motor.split(",").map(motor => {
+                        return { "match_phrase": { "motor": motor } }
+                    })
+            }
+        });
+    }
+
+    if (queryParams.tipo_vehiculo) {
+        dbQuery.query.bool.must.push({
+            bool: {
+                should:
+                    queryParams.tipo_vehiculo.split(",").map(tipo_vehiculo => {
+                        return { "match_phrase": { "tipo_vehiculo": tipo_vehiculo } }
+                    })
+            }
+        });
+    }
+
+    if (queryParams.estado_agencia) {
+        dbQuery.query.bool.must.push({
+            bool: {
+                should:
+                    queryParams.estado_agencia.split(",").map(estado_agencia => {
+                        return { "match_phrase": { "estado_agencia": estado_agencia } }
+                    })
+            }
+        });
+    }
+
+    if (queryParams.precio_min && queryParams.precio_max) {
+        dbQuery.query.bool.must.push({
+            range: {
+                precio: {
+                    gte: queryParams.precio_min,
+                    lte: queryParams.precio_max
+                }
+            }
+        });
+    }
+
+    return dbQuery;
+}
