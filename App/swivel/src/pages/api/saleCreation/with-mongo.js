@@ -61,7 +61,7 @@ export default async function handler(req, res) {
             documentos: documentosProceso,
             fecha_creacion: new Date().toISOString(),
             auto: auto, //Llega del request
-            usuario_final: usuario,
+            usuario_final_id: usuario,
             vendedor: usuarioVendedor,
             agencia: agenciaVendedor,
             cantidad_a_pagar: parsedBody.cantidad_a_pagar

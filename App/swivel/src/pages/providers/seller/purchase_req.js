@@ -36,16 +36,18 @@ const SellerDashboard = () => {
           {
             params: {
               vendedor_id: session.id,
-              tipo_proceso: "pruebaManejo",
+              tipo_proceso: "solicitudCompra",
             },
           }
         );
 
         const requests = requestRes.data.procesos;
+
         // Get all unique user ids
         const userIds = [
           ...new Set(requests.map((request) => request.usuario_final_id)),
         ];
+        console.log(userIds);
         // Get all users
         const userPromises = userIds.map((id) =>
           axios.get(`/api/managerProfile/managerP?id=${id}`)
@@ -60,6 +62,7 @@ const SellerDashboard = () => {
             [userData._id]: userData,
           };
         }, {});
+        console.log(users);
 
         // Set the requests and users state
         setRequests(requests);
@@ -100,7 +103,7 @@ const SellerDashboard = () => {
 
   const columns = [
     {
-      field: "auto ",
+      field: "auto",
       headerName: "Vehículo",
       headerAlign: "center",
       align: "center",
@@ -122,8 +125,8 @@ const SellerDashboard = () => {
       flex: 1,
       valueGetter: (params) => {
         let cell = user[params.row.usuario_final_id]
-          ? `${user[params.row.usuario_final_id].name} ${
-              user[params.row.usuario_final_id].surname
+          ? `${user[params.row.usuario_final_id].nombres} ${
+              user[params.row.usuario_final_id].apellidos
             }`
           : "Usuario no encontrado";
         return cell;

@@ -68,7 +68,9 @@ export default function CarDetails() {
       setCarDetails(data.result);
     }
     setCarPrice(data.result.precio);
-    setSelectedColor(data.result.colores[0]);
+    if (selectedColor === null) {
+      setSelectedColor(data.result.colores[0]);
+    }
     setIsAvailable(data.result.disponible_prueba);
   };
 
@@ -123,8 +125,7 @@ export default function CarDetails() {
       parseFloat(monthlyPayment) +
       parseFloat(selectedDeliveryPrice);
     const body = {
-      usuario_final_id: "646af59a93798d0cf9b3cd3c",
-      //usuario_final_id: session.id,
+      usuario_final_id: session.id,
       auto: auto,
       cantidad_a_pagar: payment,
     };
@@ -373,7 +374,7 @@ export default function CarDetails() {
                                     width: "22px",
                                     border: "none",
                                   }}
-                                  className="me-1"
+                                  className="me-1 border"
                                 />
                               </div>
                             ))}
