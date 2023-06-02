@@ -1,5 +1,6 @@
 /*
 Luis Javier Karam
+Francisco Salcedo
 30/5/2023
 
 Page to view a list of all the automotive groups related to the SA user that is logged in and the ability 
@@ -8,7 +9,7 @@ to edit and delete them.
 
 
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Searchbar from '@/components/general/searchbar';
 import DataTable from '@/components/general/Table';
 import SANavbar from '@/components/SA/navbar';
@@ -19,7 +20,33 @@ import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
 
 export default function SA_automotiveGroups() {
+
+
     const router = useRouter();
+    const [users, setUsers] = useState([]);
+    const { data: session } = useSession();
+
+    useEffect( () => {
+
+        const getUsersData = async () => {
+
+            try{
+                const resp = await.get(
+                    "/api/superadmin/getGAUsers",
+                    {})
+
+                setUsers(resp.data.gaUsers)
+            } catch(err){
+                console.log(err)
+            }
+        };
+
+        if(session){
+            getUsersData()
+        }
+
+    }, [session]);
+
 
     const columns = [
         { field: 'GrupoAutomotriz', headerName: 'Grupo Automotriz', width: 250 },
@@ -101,14 +128,8 @@ export default function SA_automotiveGroups() {
             ),
         },
     ]
-    const rows = [
-        { _id: 1, GrupoAutomotriz: 'GA 1', Email: 'ejemplo1@gmail.com', Estado: 'Estado 1', Telefono: '1234567890' },
-        { _id: 2, GrupoAutomotriz: 'GA 2', Email: 'ejemplo2@gmail.com', Estado: 'Estado 2', Telefono: '0987654321' },
-        { _id: 3, GrupoAutomotriz: 'GA 3', Email: 'ejemplo3@gmail.com', Estado: 'Estado 3', Telefono: '9876543210' },
-        { _id: 4, GrupoAutomotriz: 'GA 4', Email: 'ejemplo4@gmail.com', Estado: 'Estado 4', Telefono: '5678901234' },
-        { _id: 5, GrupoAutomotriz: 'GA 5', Email: 'ejemplo5@gmail.com', Estado: 'Estado 5', Telefono: '4321098765' },
-        // Add more dummy rows here if needed
-    ];
+
+    const rows = users;
 
 
     const [isOpen, setIsOpen] = useState(false); // Define isOpen state
@@ -127,7 +148,7 @@ export default function SA_automotiveGroups() {
                     <DataTable
                         rows={rows}
                         columns={columns}
-                        title="Agencias"
+                        title="Usuarios"
                         getRowId={(row) => row.id} // Provide a unique identifier for each row
                     />
                 </div>
