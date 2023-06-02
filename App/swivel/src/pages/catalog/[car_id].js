@@ -392,8 +392,12 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() => viewDrivingRequestDetails(car_id)}
-                              // disabled={!isAvailable}
+                              onClick={() => 
+                                session
+                                  ? viewDrivingRequestDetails(car_id)
+                                  : (window.location.href = "/auth/login")
+                                }
+                              disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
