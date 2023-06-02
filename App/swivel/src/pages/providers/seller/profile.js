@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import PopUpComponent from "@/components/general/Popup"
-import EditAccount from "../../components/buyer/editData"
 import { signOut } from "next-auth/react";
 import axios from "axios";
 
@@ -11,9 +9,11 @@ import {
   Button,
 } from "@mui/material";
 
-import AccountLayout from "@/components/buyer/account_layout";
 
-export default function Account() {
+import PopUpComponent from "@/components/general/Popup"
+import SellerNavbar from "@/components/providers/seller/navbar";
+
+export default function Profile() {
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
 
@@ -30,7 +30,7 @@ export default function Account() {
   const deleteAccount = async (e) => {
     e.preventDefault();
 
-    try{
+    try {
       axios.delete("../api/buyerProfile/deleteUser", {
         params: {
           id: session.id,
@@ -52,7 +52,8 @@ export default function Account() {
 
   if (apiData && session) {
     return (
-      <AccountLayout>
+      <>
+        <SellerNavbar/>
         <Container maxWidth="xl">
           <div className="section p-5">
             <Typography
@@ -148,7 +149,7 @@ export default function Account() {
 
                 </div>
               </div>
-              <Typography
+              {/* <Typography
                 fontFamily="Lato"
                 color="#1F1F1F"
                 className="pb-3"
@@ -267,14 +268,14 @@ export default function Account() {
                     {apiData.direccion.pais}
                   </Typography>
                 </div>
-              </div>
+              </div> */}
               <div className="row mt-3">
                 <div className="align-self-center col-xl-6 col-md-6">
-                   <PopUpComponent
-                      title = "Editar datos"
-                      popUpContent = {<EditAccount data={apiData}/>}
-                      btnOpen = {
-                        <Button
+                  <PopUpComponent
+                    title="Editar datos"
+                    // popUpContent = {<EditAccount data={apiData}/>}
+                    btnOpen={
+                      <Button
                         variant="contained"
                         type="submit"
                         className="w-80"
@@ -285,11 +286,11 @@ export default function Account() {
                           },
                           border: 'none',
                         }}
-                        >
+                      >
                         Editar datos
                       </Button>
                     }
-                    btnClose = {
+                    btnClose={
                       <Button
                         variant="contained"
                         type="submit"
@@ -297,44 +298,42 @@ export default function Account() {
                         style={{
                           marginTop: "-6.7vw",
                           marginLeft: "2.8vw",
-                          backgroundColor: "#D9D9D9"}}
+                          backgroundColor: "#D9D9D9"
+                        }}
                         sx={{
                           fontFamily: "Lato",
                           ":hover": {
                             backgroundColor: "red",
                           }
                         }}
-                        >
+                      >
                         Cancelar
                       </Button>
-
-                      } 
-                  /> 
-                  
-                  
+                    }
+                  />
                 </div>
                 <div className=" align-self-center col-xl-6 col-md-6">
                   <PopUpComponent
-                    title = "Eliminar cuenta"
-                    popUpContent = {
-                    <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                    <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
-                      <Button
-                        variant="contained"
-                        onClick={deleteAccount}
-                        type="submit"
-                        className="w-80"
-                        sx={{
-                          fontFamily: "Lato",
-                          ":hover": {
-                            backgroundColor: "red",
-                          },
-                        }}
+                    title="Eliminar cuenta"
+                    popUpContent={
+                      <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
+                        <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
+                        <Button
+                          variant="contained"
+                          onClick={deleteAccount}
+                          type="submit"
+                          className="w-80"
+                          sx={{
+                            fontFamily: "Lato",
+                            ":hover": {
+                              backgroundColor: "red",
+                            },
+                          }}
                         >
-                        Eliminar Cuenta
-                      </Button>
-                    </div>}
-                    btnOpen = {
+                          Eliminar Cuenta
+                        </Button>
+                      </div>}
+                    btnOpen={
                       <div className="text-center">
                         <Button
                           variant="contained"
@@ -343,7 +342,7 @@ export default function Account() {
                           style={{
                             backgroundColor: "#D9D9D9",
                             border: "none"
-                            
+
                           }}
                           sx={{
                             fontFamily: "Lato",
@@ -357,12 +356,12 @@ export default function Account() {
                       </div>}
                   />
                 </div>
+              </div>
+
             </div>
-            
-          </div>
           </div>
         </Container>
-      </AccountLayout>
+      </>
     )
   }
   else {

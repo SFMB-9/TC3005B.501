@@ -12,16 +12,16 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   justify-items: center;
   width: 100%;
-  max-width: 1200px; /* Adjust the max-width as needed */
-  margin: 0 auto; /* Center the grid horizontally */
-  padding: 10vh 8vw;
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 6vh 8vw 3vh 8vw;
 }
 
 .brand, .type, .year {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px; /* Adjust the margin size as needed */
+  margin-bottom: 1rem; 
 }
 
 .brand:hover, .type:hover, .yearName:hover {
@@ -31,7 +31,7 @@
 
 .brand img, .type img {
   width: auto;
-  height: 100px; /* Adjust the height as needed */
+  height: 100px; 
   max-width: 80%;
   object-fit: contain;
   margin-bottom: -12px
