@@ -22,7 +22,7 @@ export default function CustomHero({
         />
       </div>
       <div className={styles.hero_body}>
-        <div style={{ height:"10vw"}}>
+        <div >
           <Typography className={styles.hero_title} sx={{fontSize: titleSize }}>
             {title}
           </Typography>
