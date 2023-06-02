@@ -906,8 +906,8 @@ export default function CarDetails() {
                           Tasa de{" "}
                           <strong>
                             {" "}
-                            {carDetails.plazos[selectedTerm]
-                              ? carDetails.plazos[selectedTerm]
+                            {(Math.round((carDetails.plazos[selectedTerm] + Number.EPSILON) * 100)/100)
+                              ? (Math.round((carDetails.plazos[selectedTerm]+ Number.EPSILON) * 100)/100)
                               : 0}
                             %
                           </strong>
@@ -1154,7 +1154,8 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                       >
-                        {interestRate}%
+                        {(Math.round((interestRate + Number.EPSILON) * 100)/100)}%
+                        
                       </Typography>
                     </div>
                   </div>
