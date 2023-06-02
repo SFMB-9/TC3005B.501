@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from "next/router";
+
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
-import CloseIcon from "@mui/icons-material/Close";
 import ImageFileDrop from "@/components/general/FileDrop";
 import ManagerLayout from "@/components/providers/Manager/layout";
-import { useRouter } from "next/router";
 
 const CarRegistrationForm = () => {
 
