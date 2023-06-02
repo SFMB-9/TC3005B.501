@@ -44,18 +44,16 @@ export default function CatalogGrid({ carListing, cardType }) {
             carYear: car.auto.ano,
             carAgency: car.nombre_agencia,
             carPrice: car.auto.precio,
-            status: car.estatus_validacion
           },
           drivingTest: {
-            date: "Fecha de la cita: " + formatDate(car.fecha_agendada).formattedDate,
-            testHour: "Horario de la cita: " + formatDate(car.hora_agendada).formattedTime,
+            date: "Fecha de la cita: " + (car.fecha_agendada ? formatDate(car.fecha_agendada).formattedDate : "No hay fecha agendada"),
+            testHour: "Horario de la cita: " + (car.hora_agendada ? formatDate(car.hora_agendada).formattedTime : "No hay hora agendada"),
+            status: car.estatus_validacion
           },
-          purchasesCurrent: {
-            date: car.fecha_inicio,
-          },
-          purchasesCompleted: {
-            date: car.fecha_agendada
-          },
+          purchases: {
+            date: "Fecha de inicio: " + (car.fecha_creacion ? formatDate(car.fecha_creacion).formattedDate : "No hay fecha de inicio"),
+            status: car.estatus
+          }
           // favorites: {
           //   // Alternate set of props
           // },
