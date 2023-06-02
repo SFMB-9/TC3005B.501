@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 // Selecting any item will actually 
 // instance a filter in the catalog
 // page and take you there.
-export default function CategoryViews({brandItems, typeItems, yearItems}) {
+export default function CategoryViews() {
   const router = useRouter()
 
   const [brands, setBrands] = useState([])
@@ -18,6 +18,9 @@ export default function CategoryViews({brandItems, typeItems, yearItems}) {
   const [brandCurrentPage, setBrandCurrentPage] = useState(1);
   const [typeCurrentPage, setTypeCurrentPage] = useState(1);
   const [yearCurrentPage, setYearCurrentPage] = useState(1);
+  const [brandItems, setBrandItems] = useState(12);
+  const [typeItems, setTypeItems] = useState(12);
+  const [yearItems, setYearItems] = useState(36);
 
   const fetchBrands = async () => {
     const response = await fetch('/api/catalogoNuevo/marcas')
@@ -43,10 +46,41 @@ export default function CategoryViews({brandItems, typeItems, yearItems}) {
     setYears(data.result)
   }
 
+  // Function to update pagination based on window size
+  const updatePaginationItems = () => {
+    const width = window.innerWidth;
+    
+    if (width <= 535) {
+      setBrandItems(4);
+      setTypeItems(4);
+      setYearItems(12);
+    } else if (width <= 714) { // For mobile devices
+      setBrandItems(6);
+      setTypeItems(6);
+      setYearItems(15);
+    } else if (width <= 894) { // For tablet devices
+      setBrandItems(8);
+      setTypeItems(8);
+      setYearItems(20);
+    } else if (width <= 1070) { // For tablet devices
+      setBrandItems(10);
+      setTypeItems(10);
+      setYearItems(25);
+    } else { 
+      setBrandItems(12);
+      setTypeItems(12);
+      setYearItems(36);
+    }
+  }
+
   useEffect(() => {
     fetchBrands()
     fetchTypes()
     fetchYears()
+    updatePaginationItems(); // Call on initial render
+    window.addEventListener('resize', updatePaginationItems); // Update items on resize
+
+    return () => window.removeEventListener('resize', updatePaginationItems); 
   }, [])
 
   let totalPagesBrands;
