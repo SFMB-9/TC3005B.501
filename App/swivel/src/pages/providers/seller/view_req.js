@@ -98,12 +98,12 @@ const RequestDetails = () => {
       renderCell: (params) => (
         <>
           {params.row.url && params.row.url !== "" ? (
-            <a href={params.row.url}> 
+            <a href={params.row.url}>
               <u>Ver archivo</u>
             </a>
           ) : (
             <div>
-               No hay archivo
+              No hay archivo
             </div>
           )}
         </>
@@ -137,42 +137,42 @@ const RequestDetails = () => {
       minWidth: 150,
       flex: 1,
       type: "actions",
-      renderCell: (params) => 
-        (params.row.estatus != "Pendiente" ? (  
-          <Select
-            value={params.row.estatus}
-            onChange={(e) =>
-              updateDocumentStatus(request._id, params.row._id, e.target.value)
-            }
-            label="Status"
-            variant="standard"
-            size="small"
-            color="primary"
+      renderCell: (params) =>
+      (params.row.estatus != "Pendiente" ? (
+        <Select
+          value={params.row.estatus}
+          onChange={(e) =>
+            updateDocumentStatus(request._id, params.row._id, e.target.value)
+          }
+          label="Status"
+          variant="standard"
+          size="small"
+          color="primary"
+          sx={{ fontFamily: "Lato", fontSize: "12px" }}
+        >
+          <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
+            value="En_Revision"
           >
-            <MenuItem
-              sx={{ fontFamily: "Lato", fontSize: "12px" }}
-              value="En_Revision"
-            >
-              En Revisión
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: "Lato", fontSize: "12px" }}
-              value="Aceptado"
-            >
-              Aprobado
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: "Lato", fontSize: "12px" }}
-              value="Rechazado"
-            >
-              Rechazado
-            </MenuItem>
-          </Select>) : (
-            <p>
-              Pendiente
-            </p>
-        )
+            En Revisión
+          </MenuItem>
+          <MenuItem
+            sx={{ fontFamily: "Lato", fontSize: "12px" }}
+            value="Aceptado"
+          >
+            Aprobado
+          </MenuItem>
+          <MenuItem
+            sx={{ fontFamily: "Lato", fontSize: "12px" }}
+            value="Rechazado"
+          >
+            Rechazado
+          </MenuItem>
+        </Select>) : (
+        <p>
+          {params.row.estatus}
+        </p>
+      )
       ),
     },
     {
