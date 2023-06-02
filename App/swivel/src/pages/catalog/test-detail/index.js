@@ -54,8 +54,6 @@ export default function RequestDetails() {
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const { auto_id, colorName } = router.query;
-  console.log("Session info: " + JSON.stringify(session));
-  const user_id = session.id;
 
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -63,7 +61,7 @@ export default function RequestDetails() {
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${user_id}`,
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${session.id}`,
       { method: 'GET' });
     const resData = await rawData.json();
     const retrievedAgency = resData.agency;
@@ -273,9 +271,12 @@ export default function RequestDetails() {
     // Save the changed documents to firebase
     await handleSubmit();
 
+    // console.log("User ID: " + user_id);
+    console.log("Session ID: " + session.id);
+
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
-      { auto_id: auto_id, user_id: user_id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
+      { auto_id: auto_id, user_id: session.id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
 
     // Go to list of user's driving tests
     router.push({
@@ -284,10 +285,10 @@ export default function RequestDetails() {
   };
 
   useEffect(() => {
-    if (auto_id) {
+    if (session) {
       fetchDetails();
     }
-  }, [auto_id, documents]);
+  }, [session, documents]);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -295,7 +296,7 @@ export default function RequestDetails() {
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
 
-  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && agencyData != null) {
+  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && agencyData != null && session) {
     return (
       <>
         <BuyerNavbar />
