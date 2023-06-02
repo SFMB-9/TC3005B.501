@@ -129,6 +129,11 @@ export default function SA_automotiveGroups() {
                         getRowId={(row) => row.id} // Provide a unique identifier for each row
                     />
                 </div>
+                <div className={styles.addButtonContainer}>
+                    <Button variant="contained" color="primary" className={styles.button}>
+                        Agregar SA
+                    </Button>
+                </div>
             </div>
         </div>
     );
