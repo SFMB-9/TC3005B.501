@@ -10,6 +10,11 @@
     padding-bottom: 60px;
 }
 
+.sectionTitle{
+    font-weight: bold;
+    padding-bottom: 30px;
+}
+
 .inputFieldLeft {
     margin-right: 190px;
     padding-right: 10px ;
