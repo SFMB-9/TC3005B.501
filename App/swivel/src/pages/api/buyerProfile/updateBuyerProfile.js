@@ -6,15 +6,15 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     dbConnect();
 
-    const { id, name, surname, email, phone, address } = req.body;
+    const { id, nombres, apellidos, email, numero_telefonico, direccion } = req.body;
 
     await BuyerUser.updateOne(
         { _id: id },
-        { $set: { nombres: name, 
-                  apellidos: surname, 
+        { $set: { nombres: nombres, 
+                  apellidos: apellidos, 
                   email: email, 
-                  numero_telefonico: phone, 
-                  address: address } 
+                  numero_telefonico: numero_telefonico, 
+                  direccion: direccion } 
         }
 
     );

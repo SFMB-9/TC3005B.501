@@ -11,13 +11,14 @@ export default async (req, res) => {
 
   const { id } = req.query;
   dbConnect();
+ 
   try {
-    const userData = await User.findById(id);
+    const userData = await User.find({ grupo_automotriz_id: id });
 
     if (!userData) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+      return res.status(404).json({ message: "Usuarios no encontrados" });
     }
-    res.status(200).json({ message: "Usuario encontrado", userData });
+    res.status(200).json({ message: "Usuarios encontrados", userData });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

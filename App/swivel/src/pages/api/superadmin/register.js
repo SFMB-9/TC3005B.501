@@ -1,7 +1,7 @@
-import { SaEntity } from '../../models/user'
-import dbConnect from '../../config/dbConnect'
+import { SaEntity } from '../../../models/user'
+import dbConnect from '../../../config/dbConnect'
 
-import { encryptRole } from '../../utils/crypto'
+import { encryptRole } from '../../../utils/crypto'
 
 export default async function handler(req, res) {
 	if (req.method === 'POST') {
