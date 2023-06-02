@@ -129,15 +129,20 @@ export default function CarDetails() {
       auto: auto,
       cantidad_a_pagar: payment,
     };
-    console.log(body);
-    const result = await fetch("/api/saleCreation/with-mongo", {
-      method: "POST",
-      body: JSON.stringify(body),
-    });
 
-    const data = await result.json();
-
-    router.push(`/purchase/${data.id}`);
+    try{
+      const result = await fetch("/api/saleCreation/with-mongo", {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+  
+      const data = await result.json();
+  
+      router.push(`/purchase/${data.id}`);
+    }catch(error){
+      console.log(error);
+    }
+    
   }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
