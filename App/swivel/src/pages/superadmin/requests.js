@@ -1,5 +1,5 @@
 import SANavbar from '@/components/SA/navbar'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function SARequestsPage() {
