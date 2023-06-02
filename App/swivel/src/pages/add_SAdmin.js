@@ -52,23 +52,23 @@ export default function addSAdmin() {
             <GANavbar />
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Editar Perfil</h1>
+                <div className={styles.inputContainer}>
+                    <h5>Nombre(s)</h5>
+                    <TextField
+                        className={styles.inputField}
+                        id="nombre"
+                        value={name}
+                        variant="outlined"
+                        fullWidth
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </div>
                 <div className={styles.row}>
-                    <div className={styles.inputContainer}>
-                        <h5>Nombre(s)</h5>
-                        <TextField
-                            className={styles.inputFieldLeft}
-                            id="nombre"
-                            value={name}
-                            variant="outlined"
-                            fullWidth
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
 
                     <div className={styles.inputContainer}>
                         <h5>Apellido Paterno</h5>
                         <TextField
-                            className={styles.inputField}
+                            className={styles.inputFieldLeft}
                             id="apellidoPaterno"
                             value={lastName}
                             variant="outlined"
