@@ -37,6 +37,7 @@ const CheckoutPage = (props) => {
       },
     }}
     disableElevation
+    disabled={!props.validatedDocs}
     type="button"
     onClick={handleClick}
   >

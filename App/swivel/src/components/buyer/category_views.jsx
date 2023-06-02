@@ -25,7 +25,6 @@ export default function CategoryViews() {
   const fetchBrands = async () => {
     const response = await fetch('/api/catalogoNuevo/marcas')
     const data = await response.json()
-    console.log("data", data)
 
     setBrands(data.result.sort())
   }
@@ -40,7 +39,6 @@ export default function CategoryViews() {
   const fetchYears = async () => {
     const response = await fetch('/api/catalogoNuevo/years')
     const data = await response.json()
-    console.log(data)
 
     setYears(data.result.sort().reverse())
   }
@@ -166,7 +164,6 @@ export default function CategoryViews() {
     itemsToShowType = [];
   }
 
-  console.log("itemsToShowType", itemsToShowType)
   let itemsToShowYear;
   if (years)
   {

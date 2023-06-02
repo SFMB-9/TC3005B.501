@@ -20,6 +20,8 @@ export default async (req, res) => {
 
   const vendedor_id = req.query.vendedor_id;
   const tipo_proceso = req.query.tipo_proceso;
+  console.log(vendedor_id);
+  console.log(tipo_proceso);
   //seller id and type are passed as query parameters
 
   try {

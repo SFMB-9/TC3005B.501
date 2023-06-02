@@ -71,7 +71,7 @@ export default async function handler(req, res) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-RapidAPI-Key': '0f48920e65msh7a1f10b6195a072p147c3djsn41fc7b160675',
+      'X-RapidAPI-Key': process.env.INE_API_KEY,
       'X-RapidAPI-Host': 'ine2.p.rapidapi.com'
     },
     body: JSON.stringify(rec)
