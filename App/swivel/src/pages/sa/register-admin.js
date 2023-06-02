@@ -4,9 +4,12 @@ import styles from '@/styles/add_SAdmin.module.css';
 import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 
 export default function addSAdmin() {
+
+    const router = useRouter();
 
     const { data: session } = useSession();
 
@@ -18,6 +21,7 @@ export default function addSAdmin() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
 
 
 
@@ -39,6 +43,7 @@ export default function addSAdmin() {
     };
 
     const cancelHandler = () => {
+        router.back();
         
     };
 

@@ -118,7 +118,7 @@ export default function SA_automotiveGroups() {
         <div>
             <SANavbar />
             <div className={styles.mainContainer}>
-                <h4 className={styles.pageTitle}>Administracion de grupos automotrices</h4>
+                <h4 className={styles.pageTitle}>Gestión de Grupos Automotrices</h4>
                 <Grid item xs={12} md={9} sm={8}>
                     <Searchbar className={styles.searchbar} />
                 </Grid>

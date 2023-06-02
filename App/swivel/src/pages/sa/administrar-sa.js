@@ -20,6 +20,10 @@ import PopUpComponent from '@/components/general/Popup';
 export default function SA_automotiveGroups() {
     const router = useRouter();
 
+    const createUserHandler = async () => {
+        router.push(`/sa/register-admin`);
+    }
+
     const columns = [
         { field: 'SuperAdmin', headerName: 'Super Admin', width: 300 },
         { field: 'Email', headerName: 'Email', width: 250 },
@@ -116,7 +120,7 @@ export default function SA_automotiveGroups() {
         <div>
             <SANavbar />
             <div className={styles.mainContainer}>
-                <h4 className={styles.pageTitle}>Administracion de grupos automotrices</h4>
+                <h4 className={styles.pageTitle}>Gestión de Administradores</h4>
                 <Grid item xs={12} md={9} sm={8}>
                     <Searchbar className={styles.searchbar} />
                 </Grid>
@@ -130,7 +134,7 @@ export default function SA_automotiveGroups() {
                     />
                 </div>
                 <div className={styles.addButtonContainer}>
-                    <Button variant="contained" color="primary" className={styles.button}>
+                    <Button variant="contained" color="primary" onClick={createUserHandler} className={styles.button}>
                         Agregar SA
                     </Button>
                 </div>

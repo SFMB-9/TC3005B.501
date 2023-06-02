@@ -43,7 +43,7 @@ export default function informacionUsuarioSA() {
     };
 
     const cancelHandler = () => {
-        router.push(`/sa`);
+        router.back();
     };
 
     const inputLabelProps = {
