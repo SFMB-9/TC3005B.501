@@ -1,6 +1,9 @@
 /*
 
-This is a simple container that collapses on itself once its header is clicked.
+
+
+
+Author: 
 
 */
 
@@ -30,3 +33,5 @@ const CollapsibleContainer = (props) => {
 };
 
 export default CollapsibleContainer;
+
+

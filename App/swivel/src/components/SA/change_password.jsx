@@ -160,7 +160,7 @@ export default function ChangePassword() {
               <Button
                 variant="contained"
                 disableElevation
-                href="/sa"
+                href="javascript:history.back();"
                 className="me-3"
                 sx={{
                   fontFamily: "Lato",
