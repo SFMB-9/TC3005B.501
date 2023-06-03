@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from '@/styles/edit_GA.module.css';
-import BuyerNavbar from '@/components/buyer/navbar'; //TODO CHANGE TO GA NAVBAR
+import BuyerNavbar from '@/components/providers/GA/navbar'; //TODO CHANGE TO GA NAVBAR
 import axios from 'axios';
 import { useRouter } from 'next/router';
 

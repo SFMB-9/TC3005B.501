@@ -178,7 +178,7 @@ export default function SignupGAData() {
                     <AuthComponent
                         title="Información del grupo automotriz"
                         fields={
-                            <form className="d-flex flex-column" onSubmit={submitHandler}>
+                            <form className="d-flex flex-column" onSubmit={() => { setActiveSectionIndex(2) }}>
                                 <div className="form-outline mb-2">
                                     <div className="d-flex flex-row ">
                                         <input
@@ -353,6 +353,20 @@ export default function SignupGAData() {
                                     onChange={(e) => setLegalPhone(e.target.value)}
                                     required
                                 /> 
+                                </div>
+                                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+                                    <button
+                                    className="btn btn-primary btn-block mb-2"
+                                    onSubmit={() => setActiveSectionIndex(3)}
+                                    >
+                                    <Typography
+                                        wrap
+                                        sx={{ color: "white", fontFamily: "lato" }}
+                                    >
+                                        {" "}
+                                        Crear Cuenta{" "}
+                                    </Typography>
+                                    </button>
                                 </div>
                             </form>
                         }
