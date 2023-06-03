@@ -1,4 +1,4 @@
-import User from "../../../models/user";
+import { User } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -12,9 +12,9 @@ export default async function handler(req, res) {
 
     const { agency, data } = req.body;
 
-    await User.findOneAndUpdate({ agencia: agency }, { documentos_requeridos_agencia: data });
+    await User.findOneAndUpdate({ nombres: agency }, { documentos_requeridos_agencia: data });
     
-    res.status(200).json({ message: "Time constraints updated successfully" });    
+    res.status(200).json({ message: "Documents updated successfully" });    
   }
   else{
     res.status(405).json({ message: "Wrong request method" });
