@@ -8,27 +8,15 @@ import CustomizedSnackbars from "@/components/general/Alert";
 import ImageFileDrop from "@/components/general/FileDrop";
 import ManagerLayout from "@/components/providers/Manager/layout";
 
-const CarRegistrationForm = () => {
+const json5 = require('json5');
 
+
+const CarRegistrationForm = () => {
+  const [colorsArray, setColorsArray] = useState();
+  console.log("heeey", colorsArray);
   const router = useRouter();
   const { auto_id } = router.query;
-  const fetchDetails = async () => {
-    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
-      { method: 'GET' });
-    const res = await rawCar.json();
-    console.log(JSON.stringify(res));
-    const retrievedAuto = res.auto._source;
-
-    setCar(retrievedAuto);
-    setArrays(retrievedAuto);
-  }
-
-  useEffect(() => {
-    if (auto_id) {
-      fetchDetails();
-    }
-  }, [auto_id]);
-
+   // [ {nombre: "", hex: "", imagenes: []}, ...
 
   const [car, setCar] = useState({
     cantidad: 0,
@@ -59,6 +47,42 @@ const CarRegistrationForm = () => {
     ficha_tecnica: "",
     fotos_3d: [],
   });
+  
+  const fetchDetails = async () => {
+    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+      { method: 'GET' });
+    const res = await rawCar.json();
+    // console.log(JSON.stringify(res));
+    const retrievedAuto = res.auto._source;
+    const retrievedColorsString = res.auto._source.colores;
+    const retrievedColors = json5.parse(retrievedColorsString);
+
+    let tempColors = [];
+
+    for (let i = 0; i < retrievedColors.length; i++) {
+      // Append color to colorsArray
+      tempColors.push(retrievedColors[i]);
+    }
+    setCar(retrievedAuto);
+    setColorsArray(tempColors);
+
+    for (let i = 0; i < retrievedColors.length; i++) {
+      //handleAddRow(setFotos, createEmptyCarFoto);
+      //handleAddRow(setColor, createEmptyColor);
+    }
+  }
+
+
+
+  // colorsArray.forEach((color) => {
+  //   console.log(color);
+  // });
+
+  useEffect(() => {
+    if (auto_id) {
+      fetchDetails(); 
+    }
+  }, [auto_id]);
 
   //handle submit
   const handleSubmit = async (e) => {
