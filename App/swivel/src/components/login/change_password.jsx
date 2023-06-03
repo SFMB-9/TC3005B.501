@@ -20,15 +20,14 @@ export default function ChangePassword() {
   const [confPasswordHelper, setConfPasswordHelper] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
-
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
   const [errors, setErrors] = useState({
     password: false,
     confPassword: false,
     oldPassword: false,
   });
-
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const disabled = () => {
     for (const k in errors) {
@@ -40,26 +39,29 @@ export default function ChangePassword() {
   // useEffect(() => {}, [session]);
 
   // if (session) setEmail(session.user.email);
-  const [errMessage, setErrMessage] = useState("");
-  let passStatus = null;
-
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     
     try {
-      console.log(session.user.email);
+      //console.log(session.user.email);
       const { data } = await axios.put("/api/changePassword", {
         email: session.user.email,
         password,
         oldPassword,
       });
-      console.log(data);
-      passStatus = true;
-      setErrMessage("Contraseña cambiada exitosamente");        
+      //console.log(data);
+      setLoading(false);
+      setError(false);
+      setErrMessage("Contraseña cambiada exitosamente");
+      setTimeout(() => {
+        setOldPassword("");
+        setPassword("");
+        setConfPassword("");
+        setErrMessage("");}, 1500);
     } catch (error) {
       //console.log(error);
       console.log(error.response.data.message);
-      passStatus = false;
       if (error.response.data.message === "Wrong Current Password") {
         setErrMessage("Contraseña actual incorrecta");
       } else if (error.response.data.message === "New password must be different") {
@@ -67,9 +69,10 @@ export default function ChangePassword() {
       } else {
         setErrMessage("Error al cambiar la contraseña");
       }
+      setLoading(false);
+      setError(false);
     }
   };
-
 
   return (
     <>
@@ -202,8 +205,6 @@ export default function ChangePassword() {
                   setOldPassword("");
                   setPassword("");
                   setConfPassword("");
-                  setErrors({ oldPassword: false, password: false, confPassword: false });
-                  setError(false);
                   setErrMessage("");
                 }}
               >
@@ -216,20 +217,6 @@ export default function ChangePassword() {
                 disabled={disabled()}
                 onClick={() => {
                   setLoading(true);
-                  if (!passStatus) {
-                    setLoading(false);
-                    setError(false);
-                    passStatus = null;
-                  } else {
-                    setLoading(false);
-                    setError(true);
-                    passStatus = null;
-                  }/*
-                  setTimeout(() => {
-                    setOldPassword("");
-                    setPassword("");
-                    setConfPassword("");
-                  }, 500);*/
                 }}
                 sx={{
                   fontFamily: "Lato",
