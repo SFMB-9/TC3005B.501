@@ -1,4 +1,4 @@
-import { BuyerUser } from "../../../models/user";
+import { User } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 import { encryptRole } from "../../../utils/crypto";
 
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const e_role = encryptRole("user")
 
         try {
-            await BuyerUser.findOneAndUpdate({ tipo_usuario: e_role, _id: id }, { lista_deseos: lst });
+            await User.findOneAndUpdate({ tipo_usuario: e_role, _id: id }, { lista_deseos: lst });
             res.status(200).json({ message: "Wishlist updated successfully" });
         } 
         catch (error) {

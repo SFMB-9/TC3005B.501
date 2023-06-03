@@ -1,4 +1,4 @@
-import { BuyerUser } from "../../../models/user";
+import { User } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 import { encryptRole } from "../../../utils/crypto";
 import { Client } from '@elastic/elasticsearch';
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
         auth: {
-            apiKey: ELASTIC_API_KEY
+            apiKey: process.env.ELASTIC_API_KEY
         }
     })
 
@@ -24,16 +24,18 @@ export default async function handler(req, res) {
 
         const e_role = encryptRole("user")
 
+        console.log(id)
+
         try {
-            const result = await BuyerUser.findOne({ tipo_usuario: e_role, _id: id }, "lista_deseos");
+            const result = await User.findOne({ tipo_usuario: e_role, _id: id }, "lista_deseos").lean().exec();
             const wishlist = result.lista_deseos;
 
-            const { body } = await client.search({
+            const body = await client.search({
                 index: 'autos',
                 body: {
                   query: {
-                    ids: {
-                      values: wishlist
+                    terms: {
+                      _id: wishlist
                     }
                   }
                 }
