@@ -12,7 +12,6 @@ const CarRegistrationForm = () => {
 
   const router = useRouter();
   const { auto_id } = router.query;
-  const [firstImage, setFirstImage] = useState(null);
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
@@ -21,7 +20,7 @@ const CarRegistrationForm = () => {
     const retrievedAuto = res.auto._source;
 
     setCar(retrievedAuto);
-    setFirstImage(retrievedAuto.fotos_3d[0]);
+    setArrays(retrievedAuto);
   }
 
   useEffect(() => {
@@ -130,6 +129,8 @@ const CarRegistrationForm = () => {
     });
   };
 
+  const [arrays, setArrays] = useState({});
+
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [extras, setExtras] = useState([]);
   const [enganche, setEnganche] = useState([]);
@@ -138,6 +139,7 @@ const CarRegistrationForm = () => {
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
   const [open, setOpen] = useState(false);
+  
 
   //create empty objects
   const createEmptyColor = () => ({ nombre: "", hex: "", imagenes: [] });
