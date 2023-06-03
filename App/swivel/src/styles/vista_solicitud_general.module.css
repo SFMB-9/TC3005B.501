@@ -1,0 +1,57 @@
+.mainContainer{
+    padding-top: 2vw;
+    padding-left: 4vw;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.boldText{
+    font-weight: bold;
+    margin-right: .5vw;
+}
+
+.cardContainer{
+    margin-right: 5vw;
+    display: flex;
+    align-items: center;
+}
+
+.cardInfoContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1vw;
+    min-height: 10vw;
+}
+
+.leftContainer{
+    margin-right: 4vw;
+}
+
+.cardTitle{
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 1.5vw;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.card{
+    padding: 1vw;
+    margin-bottom: 1vw;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    min-height: 20vw;
+}
+
+.status{
+    color: #a0a0a0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
