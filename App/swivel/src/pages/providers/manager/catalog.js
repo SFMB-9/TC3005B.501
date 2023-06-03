@@ -523,27 +523,42 @@ export default function Catalog() {
                 Pasar la función fetchSearch como prop al componente Searchbar
                 // para que se ejecute cuando se presione el botón de búsqueda
               */}
-            <Searchbar
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flex: '100%',
+                alignItems: 'center',
+                paddingTop: "2rem",
+                paddingBottom: "1rem",
+                paddingRight: "1rem",
+                paddingLeft: "1rem"
+              }}
+            >
+              <Searchbar
               firstValue={searchText}
               placeholderText={'Buscar...'}
               setState={setSelectedFilters}
-            />
-            <Button
-              variant="contained"
-              size="small"
-              style={{ minWidth: '110px' }}
-              sx={{
-                fontFamily: "Lato",
-                ":hover": {
-                  backgroundColor: "palevioletred",
-                },
-              }}
-              disableElevation
-              type="button"
-              onClick={() => viewCreateCar()}
-            >
-              Agregar Auto
-            </Button>
+              searchStyle="administrative"
+              />
+              <Button
+                variant="contained"
+                size="small"
+                style={{ minWidth: '110px' }}
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "palevioletred",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() => viewCreateCar()}
+              >
+                Agregar Auto
+              </Button>
+            </div>
+            
             <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
