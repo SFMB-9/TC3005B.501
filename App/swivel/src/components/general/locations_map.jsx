@@ -31,12 +31,34 @@ const LocationsMap = ({center = default_center, locationsData = car_dealerships,
     disableDefaultUI: true, // Disable default map controls
   };
 
+  let newCenter = center;
+
+  let minLat = locationsData[0].position.lat;
+  let maxLat = locationsData[0].position.lat;
+  let minLng = locationsData[0].position.lng;
+  let maxLng = locationsData[0].position.lng;
+
+  for (let i = 1; i < locationsData.length; i++) {
+    const marker = locationsData[i];
+    const position = marker.position;
+
+    minLat = Math.min(minLat, position.lat);
+    maxLat = Math.max(maxLat, position.lat);
+    minLng = Math.min(minLng, position.lng);
+    maxLng = Math.max(maxLng, position.lng);
+  }
+
+  const centerLat = (minLat + maxLat) / 2;
+  const centerLng = (minLng + maxLng) / 2;
+
+  newCenter = { lat: centerLat, lng: centerLng };
+
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
-        zoom={12}
+        center={newCenter}
+        zoom={10}
         options={mapOptions}
       >
         {locationsData.map((dealership, index) => (

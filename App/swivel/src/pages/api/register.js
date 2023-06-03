@@ -1,13 +1,6 @@
 import { User, SellerUser, ManagerUser, BuyerUser } from "../../models/user";
 import dbConnect from "../../config/dbConnect";
 
-/* 
-Required imports for email verification (to be finalized...)
-
-import nodemailer from 'nodemailer';
-import EmailVerification from "../../models/emailVerification"; 
-*/
-
 import { encryptRole } from "../../utils/crypto";
 
 export default async function handler(req, res) {
@@ -22,7 +15,7 @@ export default async function handler(req, res) {
 
     const encrypted_role = encryptRole(role);
 
-    if (!/[a-zA-Z]+/.test(name)) {
+    if (!/[a-zA-Z]+ /.test(name)) {
       // regex to check name format validity, returns if non-compliant
       return res.status(400).json({ message: "wrong name format" });
     }
@@ -107,6 +100,7 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "Seller registered successfully" });
       } else if (role === "manager") {
         const GA = req.body.grupo_automotriz_id;
+        const agency = req.body.agencia_id;
         const phone = req.body.numerqo_telefonico;
 
         await ManagerUser.create({
@@ -115,6 +109,7 @@ export default async function handler(req, res) {
           email: email,
           password: password,
           tipo_usuario: encrypted_role,
+          agencia_id: agency,
           grupo_automotriz_id: GA,
           numero_telefonico: phone,
         });
@@ -123,39 +118,8 @@ export default async function handler(req, res) {
     } else {
       res.status(400).json({ message: "Account already exists" });
     }
-
-    /* 
-    base code for email verification, must be implemented above
-    requires a functional email provider such as Mailgun in order to be finalized
-    
-    const newToken = function(length = 32) {
-      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let token = '';
-    
-      for (let i = 0; i < length; i++) {
-        token += chars[Math.floor(Math.random() * chars.length)];
-      }
-    
-      return token;
-    };
-
-    let token = newToken();
-
-    const verificationLink = `https://localhost:3000/verify-email?token=${token}`; // dunno if this link can work, must be tested. Also requires an endpoint
-
-    await emailVerification.create({email: email, token: token});
-
-    const transporter = nodemailer.createTransport({
-      // Configure your SMTP server or email provider here
-    });
-
-    await transporter.sendMail({
-      from: 'noreply@swivel.com', // valid email? have to check this as well
-      to: email,
-      subject: 'Verify your email address',
-      text: `Please click on the following link to verify your email address: ${verificationLink}`,
-      html: `<p>Please click on the following link to verify your email address:</p><a href="${verificationLink}">${verificationLink}</a>`,
-    }); 
-    */
   }
+  else {
+    res.status(405).json({ message: "Incorrect request method" });
+  }  
 }

@@ -3,6 +3,7 @@
 
 import axios from "axios";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function ManagerSignup() {
   const [name, setName] = useState("");
@@ -11,7 +12,10 @@ export default function ManagerSignup() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
-  const GA = "GA_default";	
+  const router = useRouter();  
+
+  const GA = router.query.GA_id;	
+  const agency = router.query.agency_id;
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -23,6 +27,7 @@ export default function ManagerSignup() {
         email: email,
         password: password,
         tipo_usuario: "manager",
+        agencia_id: agency,
         grupo_automotriz_id: GA,
         numero_telefonico: phone,
       });
