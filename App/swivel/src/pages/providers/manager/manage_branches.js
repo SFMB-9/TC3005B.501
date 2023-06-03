@@ -437,7 +437,7 @@ export default function WorkingHoursComponent() {
                     <div className='d-flex justify-content-around align-items-center'>
 
                       <TextField
-                        label="Nommbre del documento"
+                        label="Nombre del documento"
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                         InputLabelProps={{
