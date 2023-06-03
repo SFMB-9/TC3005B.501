@@ -17,9 +17,12 @@ export default async function handler(req, res) {
     if(req.method === 'GET'){
         dbConnect();
 
-        const { lst } = req.query;
+        const lst = req.query.lst;
+        const arr = lst.split(',')
 
-        if(lst.length < 2 || lst.length > 3){
+        console.log(arr)
+
+        if(arr.length < 2 || arr.length > 3){
             return res.status(401).json({ message: 'Unsupported amount of cars' }); // <-- handle this part in front
         };
 
@@ -29,7 +32,7 @@ export default async function handler(req, res) {
                 body: {
                   query: {
                     terms: {
-                      _id: lst
+                      _id: arr
                     }
                   }
                 }
