@@ -12,7 +12,7 @@ const baseSchema = new mongoose.Schema(
     password: String,
     numero_telefonico: String,
   }, 
-  { collection: "users" }
+  { collection: "usuarios" }
 );
 
 baseSchema.pre("save", async function (next) {
@@ -63,7 +63,10 @@ const agencySchema = new mongoose.Schema({
   },
 
   url_agencia: String,
+  /*
   coordenadas_agencia: {
+
+
     location: {
       type: {
         type: String, // Don't do `{ location: { type: String } }`
@@ -76,6 +79,7 @@ const agencySchema = new mongoose.Schema({
       }
     }
   },
+  */
 });
 
 const gaSchema = new mongoose.Schema({
@@ -104,13 +108,15 @@ const gaSchema = new mongoose.Schema({
 });
 
 const sellerSchema = new mongoose.Schema({
-  agencia_id: String, //si-auto  
+  agencia_id: String, // <-- AgencyEntity _id.toString() 
+  agencia: String, // <-- AgencyEntity nombres
   contar_ventas_en_proceso: Number,
   contar_ventas_completas: Number,
 });
 
 const managerSchema = new mongoose.Schema({
-  agencia_id: String,
+  agencia_id: String, // <-- AgencyEntity _id.toString()
+  agencia: String, // <-- AgencyEntity nombres
   grupo_automotriz_id: String, //si-auto
 });
 
@@ -119,9 +125,7 @@ const adminSchema = new mongoose.Schema({
 });
 
 const superadminSchema = new mongoose.Schema({
-
-  foo: String
-  
+  tag:String
 })
 
 const BuyerUser = User.discriminators && User.discriminators.BuyerUser 
@@ -136,7 +140,7 @@ const ManagerUser = User.discriminators && User.discriminators.ManagerUser
                   ? User.discriminators.ManagerUser 
                   : User.discriminator("ManagerUser", managerSchema);
 
-const AdminUser = User.discriminators && User.discriminators.AdminUser 
+const AdminUser = User.discriminators && User.discriminators.AdminUser // <-- GA Admin =/= GA
                   ? User.discriminators.AdminUser 
                   : User.discriminator("AdminUser", adminSchema);
 
@@ -144,12 +148,12 @@ const AgencyEntity = User.discriminators && User.discriminators.AgencyEntity
                   ? User.discriminators.AgencyEntity 
                   : User.discriminator("AgencyEntity", agencySchema);
 
-const GaEntity = User.discriminators && User.discriminators.GaEntity 
+const GaEntity = User.discriminators && User.discriminators.GaEntity // <-- GA =/= GA Admin
                   ? User.discriminators.GaEntity 
                   : User.discriminator("GaEntity", gaSchema);
 
 const SaEntity = User.discriminators && User.discriminators.SaEntity
-                 ? User.discriminators.SaEntity
-                : User.discriminator('SaEntity', superadminSchema);
+                  ? User.discriminators.SaEntity 
+                  : User.discriminator('SaEntity', superadminSchema)
 
 export { User, AdminUser, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };

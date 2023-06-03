@@ -70,10 +70,10 @@ const CarRegistrationForm = () => {
       }
     }
 
-    /*
-    For future reference, this is how you upload a car to elastic
+    
+    // For future reference, this is how you upload a car to elastic
     await elasticCarRegister(updatedCar);
-    */
+    
 
     console.log(updatedCar);
     // Reset the form
