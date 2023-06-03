@@ -1,7 +1,6 @@
-const Usuario = require("../../../models/usuario");
 const { User } = require("../../../models/user");
-import mongoose from "mongoose";
 import dbConnect from "../../../config/dbConnect";
+import { ObjectId } from "mongodb";
 //will change this when sessions are implemented
 //import {getSession} from 'next-auth/client'
 
@@ -11,8 +10,12 @@ export default async (req, res) => {
   }
 
   const { id } = req.query;
+
+  console.log("ID: "+id);
   dbConnect();
+
   try {
+
     const userData = await User.findById(id);
 
     if (!userData) {

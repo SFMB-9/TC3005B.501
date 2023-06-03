@@ -32,7 +32,7 @@ export default async (req, res) => {
     try {
         // Find the car specific to the given id
         const auto = await clientElastic.get({
-            index: 'autos_dev',
+            index: 'autos',
             id: req.body.auto_id
         });
 
@@ -43,6 +43,14 @@ export default async (req, res) => {
 
         // Find the agency specific to the given name
         const agencyData = await userCollection.findOne({ _id: new ObjectId(carData.agencia_id) });
+
+        console.log("Colores: " + carData.colores);
+
+        // Replace single quotes with double quotes
+        const validJSONString = carData.colores.replace(/'/g, '"');
+
+        // Parse the modified string as JSON
+        const carColors = JSON.parse(validJSONString);
 
         // Create the Process with the defined data
         const proceso = { 
@@ -62,7 +70,7 @@ export default async (req, res) => {
                 "modelo": carData.modelo,
                 "ano": carData.año,
                 "precio": carData.precio,
-                "array_fotografias_url": carData.colores[req.body.image_index].imagenes
+                "array_fotografias_url": carColors[req.body.image_index].imagenes
             },
             direccion_agencia: carData.direccion_agencia,
             numero_telefonico: agencyData["numero_telefonico"],

@@ -6,12 +6,7 @@ import {
   Container,
   Typography,
   TextField,
-  Switch,
-  Select,
-  MenuItem,
-  IconButton,
   Button,
-  Grid,
 } from "@mui/material";
 
 export default function EditAccount(props) {

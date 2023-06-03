@@ -1,5 +1,5 @@
-import { GaEntity } from '../../models/user'
-import dbConnect from '../../config/dbConnect'
+import { GaEntity } from '../../../models/user'
+import dbConnect from '../../../config/dbConnect'
 import bcrypt from 'bcryptjs'
 
 export default async function handler(req, res) {

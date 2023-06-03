@@ -9,6 +9,7 @@ Código utilizado para el formulario de registro de usuario comprador, para la i
 import axios from "axios";
 import React, { useState } from "react";
 import AuthComponent from "@/components/login/auth_component";
+import mexicanStates from "@/components/general/states";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
@@ -137,6 +138,9 @@ export default function SignupBuyerData() {
                       } else {
                         setErrors({ ...errors, surname: false })
                       }
+                    }}
+                    sx={{
+                      '& input': { padding: "0.8vw" },
                     }}
                   />
                 </div>

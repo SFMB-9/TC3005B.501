@@ -36,16 +36,16 @@ const SellerDashboard = () => {
           {
             params: {
               vendedor_id: session.id,
-              tipo_proceso: "pruebaManejo",
+              tipo_proceso: "solicitudCompra",
             },
           }
         );
 
         const requests = requestRes.data.procesos;
+
         // Get all unique user ids
-        const userIds = [
-          ...new Set(requests.map((request) => request.usuario_final_id)),
-        ];
+        const userIds = [...new Set(requests.map((request) => request.usuario_final_id))];
+        console.log(JSON.stringify(userIds));
         // Get all users
         const userPromises = userIds.map((id) =>
           axios.get(`/api/managerProfile/managerP?id=${id}`)
@@ -60,6 +60,7 @@ const SellerDashboard = () => {
             [userData._id]: userData,
           };
         }, {});
+        console.log(users);
 
         // Set the requests and users state
         setRequests(requests);
@@ -100,7 +101,7 @@ const SellerDashboard = () => {
 
   const columns = [
     {
-      field: "auto ",
+      field: "auto",
       headerName: "Vehículo",
       headerAlign: "center",
       align: "center",
@@ -122,15 +123,15 @@ const SellerDashboard = () => {
       flex: 1,
       valueGetter: (params) => {
         let cell = user[params.row.usuario_final_id]
-          ? `${user[params.row.usuario_final_id].name} ${
-              user[params.row.usuario_final_id].surname
+          ? `${user[params.row.usuario_final_id].nombres} ${
+              user[params.row.usuario_final_id].apellidos
             }`
           : "Usuario no encontrado";
         return cell;
       },
     },
     {
-      field: "status",
+      field: "estatus",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -139,7 +140,7 @@ const SellerDashboard = () => {
       type: "actions",
       renderCell: (params) => (
         <Select
-          value={params.row.status}
+          value={params.row.estatus}
           onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
           label="Status"
           variant="standard"
@@ -149,21 +150,21 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En_Revision"
+            value="documentosPendientes"
           >
-            En Proceso
+            Documentos Pendientes
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Aceptada"
+            value="pagoPendiente"
           >
-            Aprobado
+            Pago Pendiente
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Rechazada"
+            value="pagado"
           >
-            Rechazado
+            Pagado
           </MenuItem>
         </Select>
       ),
@@ -221,7 +222,7 @@ const SellerDashboard = () => {
         <div className="text-center pt-3">
           <SimpleToggleButton
             filters={[
-              { value: "En_Revision", name: "En Proceso" },
+              { value: "documentosPendientes", name: "En Proceso" },
               { value: "Aceptada", name: "Aprobado" },
               { value: "Rechazada", name: "Rechazado" },
             ]}

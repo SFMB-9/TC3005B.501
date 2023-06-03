@@ -1,34 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button } from "@mui/material";
-import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
-import CustomizedSnackbars from "@/components/general/Alert";
 import CloseIcon from "@mui/icons-material/Close";
-import ImageFileDrop from "@/components/general/FileDrop";
-import ManagerLayout from "@/components/providers/Manager/layout";
 import { useRouter } from "next/router";
 
-const CarRegistrationForm = () => {
+import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
+import CustomizedSnackbars from "@/components/general/Alert";
+import ImageFileDrop from "@/components/general/FileDrop";
+import ManagerLayout from "@/components/providers/Manager/layout";
 
+const json5 = require('json5');
+
+
+const CarRegistrationForm = () => {
+  const [colorsArray, setColorsArray] = useState();
+  console.log("heeey", colorsArray);
   const router = useRouter();
   const { auto_id } = router.query;
-  const [firstImage, setFirstImage] = useState(null);
-  const fetchDetails = async () => {
-    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
-      { method: 'GET' });
-    const res = await rawCar.json();
-    console.log(JSON.stringify(res));
-    const retrievedAuto = res.auto._source;
-
-    setCar(retrievedAuto);
-    setFirstImage(retrievedAuto.fotos_3d[0]);
-  }
-
-  useEffect(() => {
-    if (auto_id) {
-      fetchDetails();
-    }
-  }, [auto_id]);
-
+   // [ {nombre: "", hex: "", imagenes: []}, ...
 
   const [car, setCar] = useState({
     cantidad: 0,
@@ -59,6 +47,42 @@ const CarRegistrationForm = () => {
     ficha_tecnica: "",
     fotos_3d: [],
   });
+  
+  const fetchDetails = async () => {
+    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+      { method: 'GET' });
+    const res = await rawCar.json();
+    // console.log(JSON.stringify(res));
+    const retrievedAuto = res.auto._source;
+    const retrievedColorsString = res.auto._source.colores;
+    const retrievedColors = json5.parse(retrievedColorsString);
+
+    let tempColors = [];
+
+    for (let i = 0; i < retrievedColors.length; i++) {
+      // Append color to colorsArray
+      tempColors.push(retrievedColors[i]);
+    }
+    setCar(retrievedAuto);
+    setColorsArray(tempColors);
+
+    for (let i = 0; i < retrievedColors.length; i++) {
+      //handleAddRow(setFotos, createEmptyCarFoto);
+      //handleAddRow(setColor, createEmptyColor);
+    }
+  }
+
+
+
+  // colorsArray.forEach((color) => {
+  //   console.log(color);
+  // });
+
+  useEffect(() => {
+    if (auto_id) {
+      fetchDetails(); 
+    }
+  }, [auto_id]);
 
   //handle submit
   const handleSubmit = async (e) => {
@@ -129,6 +153,8 @@ const CarRegistrationForm = () => {
     });
   };
 
+  const [arrays, setArrays] = useState({});
+
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [extras, setExtras] = useState([]);
   const [enganche, setEnganche] = useState([]);
@@ -137,6 +163,7 @@ const CarRegistrationForm = () => {
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
   const [open, setOpen] = useState(false);
+  
 
   //create empty objects
   const createEmptyColor = () => ({ nombre: "", hex: "", imagenes: [] });

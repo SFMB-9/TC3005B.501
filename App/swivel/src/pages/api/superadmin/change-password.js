@@ -1,8 +1,9 @@
-import { SaEntity } from '../../models/user'
-import dbConnect from '../../config/dbConnect'
+import { SaEntity } from '../../../models/user'
+import dbConnect from '../../../config/dbConnect'
 import bcrypt from 'bcryptjs'
 
 export default async function handler(req, res) {
+	
 	if (req.method === 'PUT') {
 		dbConnect()
 
