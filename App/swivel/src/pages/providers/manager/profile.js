@@ -36,7 +36,7 @@ export default function Profile() {
     if (apiData && session) {
         return (
         <>
-            <SellerNavbar/>
+            <ManagerNavbar/>
             <Container maxWidth="xl">
                 <div className="section p-5">
                     <Typography
@@ -133,90 +133,8 @@ export default function Profile() {
                 </div>
                 <div className="row mt-3">
                     <div className="align-self-center col-xl-6 col-md-6">
-                      <PopUpComponent
-                        title="Editar datos"
-                        // popUpContent = {<EditAccount data={apiData}/>}
-                        btnOpen={
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                className="w-80"
-                                sx={{
-                                fontFamily: "Lato",
-                                ":hover": {
-                                    backgroundColor: "#333333",
-                                },
-                                border: 'none',
-                                }}
-                            >
-                                Editar datos
-                            </Button>
-                        }
-                        btnClose={
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                className="w-80"
-                                style={{
-                                marginTop: "-6.7vw",
-                                marginLeft: "2.8vw",
-                                backgroundColor: "#D9D9D9"
-                                }}
-                                sx={{
-                                fontFamily: "Lato",
-                                ":hover": {
-                                    backgroundColor: "red",
-                                }
-                                }}
-                            >
-                                Cancelar
-                            </Button>
-                        }
-                      />
                     </div>
                     <div className=" align-self-center col-xl-6 col-md-6">
-                        <PopUpComponent
-                            title="Eliminar cuenta"
-                            popUpContent= {
-                            <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                                <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
-                            <Button
-                                variant="contained"
-                                onClick={deleteAccount}
-                                type="submit"
-                                className="w-80"
-                                sx={{
-                                    fontFamily: "Lato",
-                                    ":hover": {
-                                    backgroundColor: "red",
-                                    },
-                                }}
-                                >
-                                Eliminar Cuenta
-                            </Button>
-                            </div>}
-                            btnOpen={
-                            <div className="text-center">
-                                <Button
-                                variant="contained"
-                                type="submit"
-                                className="w-80"
-                                style={{
-                                    backgroundColor: "#D9D9D9",
-                                    border: "none"
-        
-                                }}
-                                sx={{
-                                    fontFamily: "Lato",
-                                    ":hover": {
-                                    backgroundColor: "red",
-                                    },
-                                }}
-                                >
-                                Eliminar cuenta
-                                </Button>
-                            </div>}
-                        />
                     </div>
                   </div>
                 </div>
