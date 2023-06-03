@@ -119,6 +119,8 @@ const adminSchema = new mongoose.Schema({
 });
 
 const superadminSchema = new mongoose.Schema({
+
+  foo: String
   
 })
 
@@ -146,6 +148,8 @@ const GaEntity = User.discriminators && User.discriminators.GaEntity
                   ? User.discriminators.GaEntity 
                   : User.discriminator("GaEntity", gaSchema);
 
-const SaEntity = User.discriminators && User.discriminators.SaEntity ? User.discriminators.SaEntity : User.discriminator('SaEntity', superadminSchema)
+const SaEntity = User.discriminators && User.discriminators.SaEntity
+                 ? User.discriminators.SaEntity
+                : User.discriminator('SaEntity', superadminSchema);
 
 export { User, AdminUser, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };
