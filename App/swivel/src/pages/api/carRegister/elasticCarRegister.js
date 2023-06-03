@@ -1,17 +1,28 @@
-const { Client } = require('@elastic/elasticsearch');
-const client = new Client({ node: 'http://localhost:9200' });
+// Connecting to ElasticSearch with security disabled
+const { Client } = require('@elastic/elasticsearch')
+const { ELASTIC_API_KEY } = process.env
 
-//uploads a car to elastic
-async function uploadCar(car) {
+export default async function handler(req, res) {
+    //const client = new Client({ node: 'http://localhost:9200' });
+    if(req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
+    
+    const car = req.body.car;
+
+    const client = new Client({
+        node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+        auth: {
+            apiKey: ELASTIC_API_KEY
+        }
+    })
+
     try {
-      const response = await client.index({
-        index: 'cars',
+      await client.index({
+        index: 'autos',
         body: car
       });
-      console.log('Car uploaded successfully:', response);
+
+      res.status(200).json({ message: 'Car uploaded successfully' });
     } catch (error) {
-      console.error('Error uploading car:', error);
+      res.status(500).json({ message: 'Error uploading car' });
     }
   };
-  
-  export default uploadCar;
