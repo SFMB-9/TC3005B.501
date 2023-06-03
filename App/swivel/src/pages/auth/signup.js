@@ -2,17 +2,20 @@
 Autores: Karla Mondragón, Andreína Sananez
 
 Código utilizado para el formulario de registro de usuario comprador, para la información de su dirección
+
+01/06/23:
+Tonatiuh Reyes:
+-Mensajes de errores y validaciones en front. Simplificación de código. Limitaciones de caracteres en campos de texto.
 */
 
 "use client";
 
 import axios from "axios";
 import React, { useState } from "react";
-import AuthComponent from "@/components/login/auth_component";
-import mexicanStates from "@/components/general/states";
-import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
+
+import AuthComponent from "@/components/login/auth_component";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Función que retorna el formulario de registro de comprador con su dirección, junto con los botones de ingreso  */
 export default function SignupBuyerData() {
