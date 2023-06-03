@@ -332,8 +332,8 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Hola! Soy {process.vendedor.nombres} <br />
-                    Yo voy a estar revisando tus documentos <br />
+                    Hola! Soy tu agente,<br />
+                    estaré revisando tus documentos y contestando las dudas que tengas. <br />
                   </Typography>
                 </div>
                 <div className="col-12 col-sm-6 ">
