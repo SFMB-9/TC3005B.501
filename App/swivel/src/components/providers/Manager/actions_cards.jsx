@@ -17,7 +17,7 @@ export default function ActionsCards() {
         imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
         text="Administración de vendedores"
-        href="/providers/manager/manejo-vendedores"
+        href="/providers/manager/manage_sellers"
         light={false}
         header=''
         fiftyFifty={false}
