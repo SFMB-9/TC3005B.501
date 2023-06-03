@@ -1,3 +1,20 @@
+/*
+
+Single Endpoint for all User Register operations across platforms.
+
+
+Authors:
+
+- Francisco Salcedo
+- Ana Paula Katsuda
+- Andreina Sananez
+- Emiliano Cabrera
+- Salvador Milanes 
+- Sebastian Gonzalez
+- Andrew Dunkerley
+
+*/
+
 import { User, SellerUser, ManagerUser, BuyerUser, AdminUser, GaEntity, AgencyEntity, SaEntity } from "../../models/user";
 import Proceso from "../../models/procesos";
 
@@ -95,7 +112,7 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "User registered successfully" });
       } else if (role === "seller") {
 
-        const agencia_id = req.body.a_id;
+        const agencia_id = req.body.agencia_id;
         
 
         await SellerUser.create({
@@ -110,9 +127,9 @@ export default async function handler(req, res) {
           contar_ventas_completas: 0
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      } else if (role === "agencyManager") {
+      } else if (role === "manager") {
 
-        const GA =  req.body.ga_id;
+        const GA =  req.body.grupo_id;
 
          if(entity){
 
@@ -227,7 +244,7 @@ export default async function handler(req, res) {
 
       } else {
 
-        const A_id = req.body.a_id;
+        const A_id = req.body.agencia_id;
 
         await ManagerUser.create({
         tipo_usuario: encrypted_role,
@@ -271,7 +288,7 @@ export default async function handler(req, res) {
 
         if(entity){
 
-      const agency = req.body.nombre_agencia;
+      const agency = req.body.nombre_GA;
       const name = req.body.nombres;
       
       

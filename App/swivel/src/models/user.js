@@ -125,7 +125,7 @@ const adminSchema = new mongoose.Schema({
 });
 
 const superadminSchema = new mongoose.Schema({
-  foo: String,
+  tag:String
 })
 
 const BuyerUser = User.discriminators && User.discriminators.BuyerUser 
