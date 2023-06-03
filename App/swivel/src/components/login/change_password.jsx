@@ -40,7 +40,7 @@ export default function ChangePassword() {
   // useEffect(() => {}, [session]);
 
   // if (session) setEmail(session.user.email);
-  const [errmessage, setErrmessage] = useState("");
+  const [errMessage, setErrMessage] = useState("");
   let passStatus = null;
 
   const submitHandler = async (e) => {
@@ -55,17 +55,17 @@ export default function ChangePassword() {
       });
       console.log(data);
       passStatus = true;
-      setErrmessage("Contraseña cambiada exitosamente");        
+      setErrMessage("Contraseña cambiada exitosamente");        
     } catch (error) {
       //console.log(error);
       console.log(error.response.data.message);
       passStatus = false;
       if (error.response.data.message === "Wrong Current Password") {
-        setErrmessage("Contraseña actual incorrecta");
+        setErrMessage("Contraseña actual incorrecta");
       } else if (error.response.data.message === "New password must be different") {
-        setErrmessage("La nueva contraseña debe ser diferente a la actual");
+        setErrMessage("La nueva contraseña debe ser diferente a la actual");
       } else {
-        setErrmessage("Error al cambiar la contraseña");
+        setErrMessage("Error al cambiar la contraseña");
       }
     }
   };
@@ -182,7 +182,7 @@ export default function ChangePassword() {
               }}
             /><br/>
             <div className="text-center">
-              {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errmessage}</Typography>}
+              {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography>}
             </div>
             <div className="text-center">
               <Button
@@ -203,7 +203,7 @@ export default function ChangePassword() {
                   setConfPassword("");
                   setErrors({ oldPassword: false, password: false, confPassword: false });
                   setError(false);
-                  setErrmessage("");
+                  setErrMessage("");
                 }}
               >
                 Cancelar
