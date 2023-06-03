@@ -12,7 +12,7 @@ const baseSchema = new mongoose.Schema(
     password: String,
     numero_telefonico: String,
   }, 
-  { collection: "users" }
+  { collection: "usuarios" }
 );
 
 baseSchema.pre("save", async function (next) {
