@@ -7,18 +7,33 @@ import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
 import { formatDate } from "@/components/general/date_utils";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
+import { useSession } from "next-auth/react";
+
+import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const AblyChatComponent = dynamic(
+  () => import("../../components/chat/AblyChatComponent"),
+  { ssr: false }
+);
 
 export default function Process() {
+  const { data: session } = useSession();
   const router = useRouter();
   const { process_id } = router.query;
 
-  console.log("process_id: " + process_id);
+  // console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
   const [uploadedDocument, setUploadedDocument] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
+  const [isChatOpen, setChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setChatOpen(!isChatOpen);
+  };
 
   const fetchProcess = async () => {
     const response = await fetch(
@@ -26,11 +41,22 @@ export default function Process() {
       { method: "GET" }
     );
 
+    const userData = await fetch(
+      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+    );
+
+    const resUser = await userData.json();
+
     const data = await response.json();
 
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
+        if (doc.nombre_documento == "INE") {
+          return { ...resUser.userData.documentos[0], _id: i};
+        } else if (doc.nombre_documento == "Licencia") {
+          return { ...resUser.userData.documentos[1], _id: i};
+        }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -45,7 +71,6 @@ export default function Process() {
 
   // Save the indices that were changed
   const handleDocumentEdit = async (indx) => {
-
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
@@ -75,7 +100,7 @@ export default function Process() {
     console.log("file_url: " + documentUrl);
     console.log("update_date: " + currentDocs[i].fecha_modificacion);
 
-    try{
+    try {
       const result = await fetch(
         `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
         {
@@ -131,9 +156,7 @@ export default function Process() {
                 <u>Ver archivo</u>
               </a>
             ) : (
-              <div>
-                 No hay archivo
-              </div>
+              <div>No hay archivo</div>
             )}
           </>
         ),
@@ -154,7 +177,11 @@ export default function Process() {
         minWidth: 150,
         flex: 1,
         valueGetter: (params) => {
-          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+          const cell =
+            params.row.fecha_modificacion !== "" &&
+            params.row.fecha_modificacion
+              ? formatDate(params.row.fecha_modificacion).formattedShortDate
+              : 0;
           return cell;
         },
       },
@@ -191,8 +218,8 @@ export default function Process() {
                   onChange={(e) => {
                     e.preventDefault();
                     const file = e.target.files[0];
-                    setUploadedDocument(file)
-                    setChangedDocumentIndex(params.row._id)
+                    setUploadedDocument(file);
+                    setChangedDocumentIndex(params.row._id);
                   }}
                 />
 
@@ -201,17 +228,14 @@ export default function Process() {
                   size="small"
                   component="span"
                   type="submit"
-                  onClick={() =>
-                    handleDocumentEdit(params.row._id)
-                  }
+                  onClick={() => handleDocumentEdit(params.row._id)}
                 >
                   <CheckIcon />
                 </IconButton>
               </div>
             ) : (
               <div>
-              {
-                params.row.url && params.row.url !== "" ? (
+                {params.row.url && params.row.url !== "" ? (
                   <IconButton
                     aria-label="delete"
                     size="small"
@@ -233,8 +257,7 @@ export default function Process() {
                   >
                     <UploadIcon />
                   </IconButton>
-                )
-              }
+                )}
               </div>
             )}
           </>
@@ -303,7 +326,8 @@ export default function Process() {
                   >
                     <strong>Cantidad a pagar:</strong>{" "}
                     <span style={{ color: "#333333" }}>
-                      $ {Intl.NumberFormat().format(process.cantidad_a_pagar)} MXN
+                      $ {Intl.NumberFormat().format(process.cantidad_a_pagar)}{" "}
+                      MXN
                     </span>
                   </Typography>
                 </div>
@@ -406,7 +430,7 @@ export default function Process() {
               </div>
             </div>
           </Fade>
-        
+
           <Fade in={true} timeout={1500}>
             <div className="text-center mt-4">
               <Button
@@ -448,6 +472,131 @@ export default function Process() {
             </div>
           </Fade>
         </Container>
+        <div className="container">
+          <Head>
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+              integrity="sha384-iBBgrCyberBlbChJLlKDcUWP7t8GwgaKI21Jc6CZP97ZvsjFjE9+3YF5nkvP1kj"
+              crossorigin="anonymous"
+            />
+          </Head>
+
+          <button className="chat-toggle-btn" onClick={toggleChat}>
+            Chat
+          </button>
+
+          {isChatOpen && (
+            <main className="chat-popup">
+              <h4 className="title">Vendedor</h4>
+              <AblyChatComponent id_purchase={process_id} />
+            </main>
+          )}
+
+          <style jsx>{`
+        .container {
+          position: relative;
+          display: grid;
+          grid-template-rows: 1fr 100px;
+          min-height: 100vh;
+          // background-color: aqua;
+        }
+
+        main {
+          display: grid;
+          grid-template-rows: auto 1fr;
+          width: 70%
+          max-width: 900px;
+          margin: 20px auto;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+            0px 1px 2px rgba(0, 0, 0, 0.24);
+          background-color: white;
+          position: fixed; 
+          bottom: 2px; 
+          right: 110px; 
+          z-index: 1000; 
+        }
+
+        chat-popup {
+          position: fixed;
+          bottom: 0;
+          transform: translateY(100%);
+          transition: transform 1s ease-in-out;  // Increased from 0.3s to 0.5s
+        }
+
+        .chat-popup.open {
+          transform: translateY(0);
+        }
+
+        .title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 75px;
+          margin: 0;
+          color: white;
+          background: #383838; 
+        }
+        
+        .chat-toggle-btn {
+          position: fixed; 
+          bottom: 20px; 
+          right: 20px; 
+          z-index: 1000; 
+          font-size: 1em;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 50px;
+          color: #fff;
+          background-color: #f55c7a;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .chat-toggle-btn:hover {
+          background-color: #f77a92; 
+        }
+
+        .chat-toggle-btn:focus {
+          outline: none; 
+        }
+
+
+      `}</style>
+
+          <style jsx global>{`
+            html,
+            body {
+              padding: 0;
+              margin: 0;
+              font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+                sans-serif;
+              color: #333; // Dark grey color for text
+            }
+
+            * {
+              box-sizing: border-box;
+            }
+
+            [data-author="me"] {
+              display: flex;
+              background-color: #f55c7a;
+              color: white;
+              align-self: flex-end;
+              flex-grow: 0;
+              border-radius: 20px 5px 20px 20px;
+            }
+
+            [data-author="other"] {
+              color: #383838;
+              align-self: flex-start;
+              border-radius: 5px 20px 20px 20px;
+            }
+          `}</style>
+        </div>
       </div>
     );
   } else {
