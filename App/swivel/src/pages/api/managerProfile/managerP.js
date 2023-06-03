@@ -1,4 +1,3 @@
-const Usuario = require("../../../models/usuario");
 const { User } = require("../../../models/user");
 import dbConnect from "../../../config/dbConnect";
 import { ObjectId } from "mongodb";
