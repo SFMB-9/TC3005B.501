@@ -39,7 +39,6 @@ export default function RotatingHeader() {
       // Update the image state with the corresponding image URL
       setTimeout(() => {
         setImage(toRotate[i].image);
-        setImageVisible(true); // Set the image visibility to true
       }, 3000);
 
         setDelta(100);
@@ -57,15 +56,16 @@ export default function RotatingHeader() {
   return (
     <section>
       <TrackVisibility>
-        <div className={`animate__animated ${imageVisible ? "animate__fadeIn" : ""}`}>
+      {({ isVisible }) =>
+        <div className={isVisible ? "animated__animated animate__fadeIn" : ""}>
           <CustomHero
-            title={text}
+            title = {text}
             backgroundImage={image}
-            message=''
+            message = ''
             searchbar
             containerSize={90}
           />
-        </div>
+        </div>}
       </TrackVisibility>
     </section>
   )

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
-import { useRouter } from 'next/router';
 import { signOut } from "next-auth/react";
 import axios from "axios";
 
@@ -27,7 +26,6 @@ export default function Account() {
 
     setApiData(res.userData);
   };
-
 
   const deleteAccount = async (e) => {
     e.preventDefault();
@@ -296,14 +294,15 @@ export default function Account() {
                         variant="contained"
                         type="submit"
                         className="w-80"
-                        style={{
+                        sx={{
                           marginTop: "-6.7vw",
                           marginLeft: "2.8vw",
-                          backgroundColor: "#D9D9D9"}}
-                        sx={{
                           fontFamily: "Lato",
-                          ":hover": {
-                            backgroundColor: "red",
+                          color: '#626262',
+                          backgroundColor: "#D9D9D9",
+                          "&:hover": {
+                            backgroundColor: "#b3b3b3",
+                            color: "#fff",
                           }
                         }}
                         >
@@ -328,9 +327,12 @@ export default function Account() {
                         className="w-80"
                         sx={{
                           fontFamily: "Lato",
-                          ":hover": {
-                            backgroundColor: "red",
-                          },
+                          color: '#626262',
+                          backgroundColor: "#D9D9D9",
+                          "&:hover": {
+                            backgroundColor: "#F55C7A",
+                            color: "#fff",
+                          }
                         }}
                         >
                         Eliminar Cuenta
@@ -342,17 +344,17 @@ export default function Account() {
                           variant="contained"
                           type="submit"
                           className="w-80"
-                          style={{
-                            backgroundColor: "#D9D9D9",
-                            border: "none"
-                            
-                          }}
                           sx={{
+                            border: "none",
                             fontFamily: "Lato",
-                            ":hover": {
-                              backgroundColor: "red",
-                            },
+                            color: '#626262',
+                            backgroundColor: "#D9D9D9",
+                            "&:hover": {
+                              backgroundColor: "#b3b3b3",
+                              color: "#fff",
+                            }
                           }}
+                        
                         >
                           Eliminar cuenta
                         </Button>

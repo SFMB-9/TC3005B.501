@@ -1,5 +1,6 @@
 /*
-Diego Corrales Pinedo
+Diego Corrales Pinedo,
+Salvador Milanes Braniff
 15/5/2023
 
 Page to visualize the details of a driving
@@ -10,50 +11,38 @@ Here the user is able to choose a date and
 time for their driving test.
 */
 
-import { useState, useEffect } from 'react';
+import { Container, Grid, Typography, Button, IconButton, Fade } from '@mui/material';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+import UploadIcon from "@mui/icons-material/Upload";
+import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from "@mui/icons-material/Edit";
+
+import DataTable from '@/components/general/Table';
+import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
+import { formatDate } from "@/components/general/date_utils";
+
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import setHours from "date-fns/setHours";
 import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
 import axios from 'axios';
-import { useSession } from "next-auth/react";
-import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
-import { Grid, Button } from '@mui/material';
-import json5 from 'json5';
 
 import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import LocationsMap from '@/components/general/locations_map';
 import PopUpComponent from '@/components/general/Popup';
 
-import { formatDate } from "@/components/general/date_utils";
 import styles from '@/styles/test_details.module.css';
-import DataTable from '@/components/general/Table';
 
 export default function RequestDetails() {
-
   const { data: session } = useSession();
   const router = useRouter();
-  const [documents, setDocuments] = useState([
-    {
-      nombre_documento: "licencia",
-      url: "www.sample.com",
-      fecha_modificacion: new Date().toISOString(),
-      estatus: "Aceptado",
-      comentarios: ""
-    },
-    {
-      nombre_documento: "identificacion",
-      url: "www.sample.com",
-      fecha_modificacion: new Date().toISOString(),
-      estatus: "Aceptado",
-      comentarios: ""
-    }]);
-  const [changedDocumentIndices, setChangedDocumentIndices] = useState([]);
-  const [changedDocuments, setChangedDocuments] = useState([]);
-  const [uploadedDocument, setUploadedDocument] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  const [uploadedDocument, setUploadedDocument] = useState(null);
+  const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
   const [userAddress, setUserAddress] = useState(null);
   const [carData, setCarData] = useState(null);
   const [firstImage, setFirstImage] = useState(null);
@@ -64,8 +53,9 @@ export default function RequestDetails() {
   const [agencyData, setAgencyData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  const [validatedDocs, setValidatedDocs] = useState(true);
+  const [agencyCoords, setAgencyCoords] = useState({});
   const { auto_id, colorName } = router.query;
-  const user_id = session.id;
 
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -73,7 +63,7 @@ export default function RequestDetails() {
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${user_id}`,
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${session.id}`,
       { method: 'GET' });
     const resData = await rawData.json();
     const retrievedAgency = resData.agency;
@@ -93,30 +83,204 @@ export default function RequestDetails() {
       }
     }
 
-    let retrievedDocuments = documents;
-
-    if (resData.user.documentos != undefined) {
-      retrievedDocuments = resData.user.documentos;
-    }
+    const newDocuments = resData.user.documentos.map((doc, i) => {
+      return { ...doc, _id: i };
+    });
 
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
+    setAgencyCoords({
+      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]), 
+      lng: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[1])
+    });
     setUserData(retrievedUser);
-    // setDocuments(retrievedDocuments);
+    setDocuments(newDocuments);
     setUserAddress(retrievedAddress);
+    checkValidatedDocs();
   }
+
+  const addToIsOpen = async (newKey) => {
+    let currentOpen = [...isOpen];
+    currentOpen.push(newKey);
+    setIsOpen(currentOpen);
+  };
+
+  const handleDocumentEdit = async (indx) => {
+
+    // console.log("uploadedDocument: " + uploadedDocument);
+    const isOpenWithoutIndx = isOpen.filter(function (i) {
+      return i !== indx;
+    });
+
+    setIsOpen(isOpenWithoutIndx);
+    await handleSubmit();
+  };
+
+  const handleSubmit = async () => {
+    const currentDocs = documents;
+
+    if (!uploadedDocument) {
+      return;
+    }
+
+    const documentUrl = await FileUpload(uploadedDocument);
+
+    currentDocs[changedDocumentIndex].url = documentUrl;
+    currentDocs[changedDocumentIndex].fecha_modificacion = new Date().toISOString();
+
+    try {
+      await fetch(
+        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${currentDocs[changedDocumentIndex].fecha_modificacion}&update_status=Subido`,
+        {
+          method: "PUT",
+        }
+      );
+
+      setDocuments(currentDocs);
+
+      fetchDetails();
+    } catch (error) {
+      console.error("Error occurred during the API request:", error);
+    }
+  };
+
+  const columns = useMemo(
+    () => [
+      {
+        field: "nombre_documento",
+        headerName: "Nombre",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+      },
+      {
+        field: "ver_archivo",
+        headerName: "Archivo",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        renderCell: (params) => (
+          <>
+            {params.row.url && params.row.url !== "" ? (
+              <a href={params.row.url}>
+                <u>Ver archivo</u>
+              </a>
+            ) : (
+              <div>
+                No hay archivo
+              </div>
+            )}
+          </>
+        ),
+      },
+      {
+        field: "estatus",
+        headerName: "Estatus",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+      },
+      {
+        field: "fecha_modificacion",
+        headerName: "Última modificación",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        valueGetter: (params) => {
+          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+          return cell;
+        },
+      },
+      {
+        field: "botones",
+        headerName: "",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => (
+          <>
+            {isOpen.includes(params.row._id) ? (
+              <div>
+                <label htmlFor="file-input">
+                  <IconButton aria-label="delete" size="small" component="span">
+                    <UploadIcon />
+                  </IconButton>
+                </label>
+                <input
+                  type="file"
+                  id="file-input"
+                  name="documents"
+                  style={{ visibility: "hidden", width: 0, height: 0 }}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    const file = e.target.files[0];
+                    console.log("file", file);
+                    setUploadedDocument(file)
+                    setChangedDocumentIndex(params.row._id)
+                  }}
+                />
+
+                <IconButton
+                  aria-label="delete"
+                  size="small"
+                  component="span"
+                  type="submit"
+                  onClick={() =>
+                    handleDocumentEdit(params.row._id)
+                  }
+                >
+                  <CheckIcon />
+                </IconButton>
+              </div>
+            ) : (
+              <div>
+                {
+                  params.row.url && params.row.url !== "" ? (
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToIsOpen(params.row._id);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToIsOpen(params.row._id);
+                      }}
+                    >
+                      <UploadIcon />
+                    </IconButton>
+                  )
+                }
+              </div>
+            )}
+          </>
+        ),
+      },
+    ],
+    [documents, isOpen]
+  );
 
   const createDrivingTest = async () => {
     // Save the changed documents to firebase
     await handleSubmit();
 
-    const filteredDocuments = documents.filter(json => {
-      return json.nombre_documento === "licencia" || json.nombre_documento === "identificacion";
-    });
-
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
-      { auto_id: auto_id, user_id: user_id, documents: filteredDocuments, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
+      { auto_id: auto_id, user_id: session.id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
 
     // Go to list of user's driving tests
     router.push({
@@ -124,76 +288,19 @@ export default function RequestDetails() {
     })
   };
 
-  const handleDocumentEdit = (doc, indx) => {
-    const documentIndices = [...changedDocumentIndices];
-    documentIndices.push(indx);
-    setChangedDocumentIndices(documentIndices);
-
-    const currentChangedDocuments = [...changedDocuments];
-    currentChangedDocuments.push(doc);
-    setChangedDocuments(currentChangedDocuments);
-
-    const isOpenWithoutIndx = isOpen.filter(function (i) {
-      return i !== indx;
+  const checkValidatedDocs = () => {
+    documents.forEach((doc) => {
+      if (doc.estatus !== "Aceptado") {
+        setValidatedDocs(false);
+      }
     });
-
-    setIsOpen(isOpenWithoutIndx);
   };
-
-  const handleSubmit = async () => {
-    let documentUrl = "";
-    const currentDocs = documents;
-
-    // Store the changed documents inside firebase
-    for (const [i, doc] of changedDocuments.entries()) {
-      // Upload to firebase
-      documentUrl = await FileUpload(doc);
-      // Assign new URL
-      currentDocs[changedDocumentIndices[i]].url = documentUrl;
-      // Change modification date, status and comments
-      currentDocs[changedDocumentIndices[i]].fecha_modificacion = new Date().toISOString();
-      currentDocs[changedDocumentIndices[i]].estatus = "En revision";
-      currentDocs[changedDocumentIndices[i]].comentarios = "";
-
-      setDocuments(currentDocs);
-    }
-  };
-
-  const addToIsOpen = async (newKey) => {
-    let currentOpen = [...isOpen];
-    currentOpen.push(newKey);
-    setIsOpen(currentOpen);
-  }
-
-  // const documentInfo = (document, i) => {
-  //   if (document.nombre_documento === "licencia" || document.nombre_documento === "identificacion") {
-  //     return (
-  //       <tr key={i}>
-  //         <td>{document.nombre_documento}</td>
-  //         {/* <td>{document.url}</td> */}
-  //         <td>{document.fecha_modificacion}</td>
-  //         <td><button onClick={() => addToIsOpen(i)}>Editar</button></td>
-  //         {isOpen.includes(i) && (
-  //           <td>
-  //             <div>
-  //               <input type="file" name="documents" onChange={(e) => setUploadedDocument(e.target.files[0])} />
-  //               <button type="submit" onClick={() => handleDocumentEdit(uploadedDocument, i)}>Confirm</button>
-  //             </div>
-  //           </td>
-  //         )}
-  //         <td>{document.estatus}</td>
-  //         <td>{document.comentarios}</td>
-  //       </tr>
-  //     );
-  //   }
-  //   return;
-  // };
 
   useEffect(() => {
-    if (auto_id) {
+    if (session) {
       fetchDetails();
     }
-  }, [auto_id]);
+  }, [session, documents]);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -201,136 +308,7 @@ export default function RequestDetails() {
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
 
-  const car_dealerships = [
-    { brand: 'Toyota', position: { lat: 19.4226, lng: -99.1676 } },
-    { brand: 'Honda', position: { lat: 19.4124, lng: -99.1546 } },
-    { brand: 'Ford', position: { lat: 19.4294, lng: -99.1409 } },
-    { brand: 'Chevrolet', position: { lat: 19.4257, lng: -99.1710 } },
-    { brand: 'Nissan', position: { lat: 19.4191, lng: -99.1539 } },
-    { brand: 'Volkswagen', position: { lat: 19.4269, lng: -99.1483 } },
-    { brand: 'BMW', position: { lat: 19.4208, lng: -99.1913 } },
-    { brand: 'Mercedes-Benz', position: { lat: 19.4106, lng: -99.1782 } },
-    { brand: 'Audi', position: { lat: 19.4216, lng: -99.2039 } },
-    { brand: 'Mazda', position: { lat: 19.4324, lng: -99.1367 } },
-  ];
-
-  const mapDocumentsToRows = (documents) => {
-    return documents.map((document, i) => {
-      return {
-        index: i,
-        ...document
-      }
-    });
-  }
-
-  const columns = [
-    {
-      field: 'Documento',
-      headerName: 'Documento',
-      headerAlign: 'center',
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (params) => {
-        let cell = params.row
-          ? `${params.row.nombre_documento}`
-          : 'No existe fecha de entrega';
-        return cell;
-      },
-    },
-    {
-      field: "FechaEntrega",
-      headerName: "Fecha de entrega",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (params) => {
-        let cell = params.row
-          ? `${formatDate(params.row.fecha_modificacion).formattedShortDate}`
-          : "No existe fecha de entrega";
-        return cell;
-      },
-    },
-    {
-      field: "subir",
-      headerName: "Subir",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      flex: 1,
-      renderCell: (params) => (
-        <>
-          <PopUpComponent
-            title="Subir documento"
-            popUpContent={
-              <>
-                {isOpen.includes(params.row.index) && (
-                  <div>
-                    <input
-                      type="file"
-                      name="documents"
-                      onChange={(e) => setUploadedDocument(e.target.files[0])}
-                    />
-                    <button
-                      type="submit"
-                      onClick={() => handleDocumentEdit(uploadedDocument, params.row.index)}
-                    >
-                      Confirm
-                    </button>
-                  </div>
-                )}
-              </>
-            }
-            btnOpen={
-              <Button
-                variant="contained"
-                disableElevation
-                onClick={() => addToIsOpen(params.row.index)}
-                className="py-0"
-                sx={{
-                  fontFamily: "Lato",
-                  fontSize: "12px",
-                  backgroundColor: "#111439",
-                }}
-              >
-                Editar
-              </Button>
-            }
-          />
-        </>
-      ),
-    },
-    {
-      field: "estatus",
-      headerName: "Estatus",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (params) => {
-        let cell = params.row
-          ? `${params.row.estatus}`
-          : "Este proceso no contiene auto";
-        return cell;
-      },
-    },
-    {
-      field: "comentarios",
-      headerName: "Comentarios",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (params) => {
-        let cell = params.row
-          ? `${params.row.comentarios}`
-          : "Este proceso no contiene auto";
-        return cell;
-      },
-    },
-  ]
-
-  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && agencyData != null) {
+  if (userData != null && documents != null && userAddress != null && carData != null && firstImage != null && agencyData != null && session) {
     return (
       <>
         <BuyerNavbar />
@@ -353,11 +331,18 @@ export default function RequestDetails() {
                 className='d-flex flex-column justify-content-center'
               >
                 <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <h4>Datos personales</h4>
-                  </div>
+                  <Typography
+                    variant="h4"
+                    fontWeight="bold"
+                    className="pb-2"
+                    sx={{
+                      fontFamily: "Raleway", color: "#333333",
+                      paddingTop: "0rem",
+                      paddingLeft: "2rem",
+                    }}
+                  >
+                    Datos Personales
+                  </Typography>
                   <div className='col-12 col-md-5'>
                   </div>
                   <div className='col-12 col-md-1'>
@@ -400,26 +385,61 @@ export default function RequestDetails() {
                   </div>
                 </div>
               </div>
-
-              {/* <table>
-                <thead>
-                  <tr>
-                    <th>Documento</th>
-                    
-                    <th>Fecha de entrega</th>
-                    <th>Subir</th>
-                    <th>Estatus</th>
-                    <th>Comentarios</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {documents.map((document, i) => (
-                    documentInfo(document, i)
-                  ))}
-                </tbody>
-              </table> */}
+              <div>
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  className="pb-2"
+                  sx={{
+                    fontFamily: "Raleway", color: "#333333",
+                    paddingTop: "1rem",
+                    paddingLeft: "2rem",
+                  }}
+                >
+                  Mis documentos
+                </Typography>
+                <div
+                  style={{
+                    padding: "3%",
+                    overflowY: "scroll",
+                    maxHeight: "100vh",
+                  }}
+                >
+                  <DataTable
+                    columns={columns}
+                    rows={documents}
+                    rowSelection={false}
+                    sx={{
+                      border: 1,
+                      borderColor: "#D9D9D9",
+                      "& .MuiDataGrid-cell": {
+                        border: 1,
+                        borderRight: 0,
+                        borderTop: 0,
+                        borderLeft: 0,
+                        borderColor: "#D9D9D9",
+                        fontFamily: "Lato",
+                        fontWeight: 500,
+                        fontSize: "12px",
+                        color: "#333333",
+                      },
+                      "& .MuiDataGrid-columnHeaders": {
+                        fontFamily: "Lato",
+                        fontSize: "16px",
+                        color: "#333333",
+                        borderBottom: 0,
+                      },
+                      "& .MuiDataGrid-columnHeaderTitle": {
+                        fontWeight: 800,
+                      },
+                      "& .MuiPaginationItem-text": {
+                        fontFamily: "Lato",
+                        color: "#333333",
+                      },
+                    }}
+                  />
+                </div>
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -428,57 +448,6 @@ export default function RequestDetails() {
                   marginBottom: "1rem",
                 }}
               >
-                {/* {
-                  documents ? (
-                    <div>
-                      <h4
-                        style={{
-                          fontFamily: "Lato",
-                          marginTop: "2rem",
-                        }}
-                      >Documentos</h4>
-
-                      <DataTable
-                        columns={columns}
-                        rows={mapDocumentsToRows(documents)}
-                        // rowSelection={false}
-                        sx={{
-                          border: 1,
-                          borderColor: "#D9D9D9",
-                          "& .MuiDataGrid-cell": {
-                            border: 1,
-                            borderRight: 0,
-                            borderTop: 0,
-                            borderLeft: 0,
-                            borderColor: "#D9D9D9",
-                            fontFamily: "Lato",
-                            fontWeight: 500,
-                            fontSize: "12px",
-                            color: "#333333",
-                          },
-                          "& .MuiDataGrid-columnHeaders": {
-                            fontFamily: "Lato",
-                            fontSize: "16px",
-                            color: "#333333",
-                            borderBottom: 0,
-                          },
-                          "& .MuiDataGrid-columnHeaderTitle": {
-                            fontWeight: 800,
-                          },
-                          "& .MuiPaginationItem-text": {
-                            fontFamily: "Lato",
-                            color: "#333333",
-                          },
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <div>
-                      <h4>Documentos</h4>
-                      <p>No hay documentos</p>
-                    </div>
-                  )
-                } */}
               </div>
               <div
                 style={{
@@ -490,16 +459,24 @@ export default function RequestDetails() {
                 }}
               >
                 <Button
-                  style={{
-                    marginRight: "2.5rem",
-                    backgroundColor: "#333333",
+                  sx={{
+                    fontFamily: "Lato",
+                    color: '#626262',
+                    backgroundColor: "#D9D9D9",
+                    "&:hover": {
+                      backgroundColor: "#b3b3b3",
+                      color: "#fff",
+                    },
                   }}
                   variant='contained' href='/catalog'>Cancelar</Button>
                 <Button
                   style={{
                     marginLeft: "2.5rem",
                   }}
-                  variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
+                  variant='contained' 
+                  onClick={() => setActiveSectionIndex(1)}
+                  disabled={!validatedDocs}
+                  >Continuar</Button>
               </div>
             </div>
           </>
@@ -512,13 +489,15 @@ export default function RequestDetails() {
                 <div className={styles.carInfo}>
                   <h1 className={styles.carName}>{carData.marca} {carData.modelo}</h1>
                   <span className={styles.year}> {carData.año} </span>
+                  <h4 className={styles.priceTag}> Dirección de la Agencia: </h4>
                   <p className={styles.address}>{carData.direccion_agencia}</p>
                   <h1 className={styles.priceTag}>$ {Intl.NumberFormat().format(carData.precio)} MXN</h1>
                 </div>
               </div>
               <div className={styles.testInfo}>
                 <div className={styles.schedule}>
-                  <h2 className={styles.schedule_header}>Elegir horario*</h2>
+                  <h2 className="mb-3">Elegir un horario:</h2>
+                  <h3> Elegir Fecha* </h3>
                   <DatePicker
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
@@ -526,7 +505,9 @@ export default function RequestDetails() {
                     minDate={addDays(new Date(), agencyData.dias_anticipo)}
                     maxDate={addDays(new Date(), agencyData.dias_max)}
                     startDate={addDays(new Date(), agencyData.dias_anticipo)}
+                    className="p-2"
                   />
+                  <h3 className="mt-3"> Elegir Hora* </h3>
                   <DatePicker
                     selected={selectedTime}
                     onChange={time => setSelectedTime(time)}
@@ -537,52 +518,61 @@ export default function RequestDetails() {
                     minTime={setHours(new Date(), agencyData.horas_min)}
                     maxTime={setHours(new Date(), agencyData.horas_max)}
                     dateFormat='hh:mm aa'
+                    className="p-2"
                   />
                 </div>
                 <LocationsMap
-                  locationsData={[{ brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 } }]}
+                  locationsData={[{ brand: carData.marca, position: agencyCoords }]}
                 />
               </div>
-              {selectedDate && (
-                <p>
-                  Fecha actualmente agendada:{" "}
-                  {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
-                  {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
-                </p>
-              )}
-              {selectedTime && (
-                <p>
-                  Hora actualmente agendada:{" "}
-                  {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
-                  {format(selectedTime, "hh:mm aa")} (Tiempo local)
-                </p>
-              )}
-              <Button variant='contained' onClick={() => setActiveSectionIndex(0)}>Volver</Button>
-              {(selectedDate && selectedTime) ? (
-                <div>
-                  <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
+              <div className={styles.containerNavButtons}>
+                {selectedDate && (
+                  <p>
+                    Fecha actualmente agendada:{" "}
+                    {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
+                    {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
+                  </p>
+                )}
+                {selectedTime && (
+                  <p>
+                    Hora actualmente agendada:{" "}
+                    {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
+                    {format(selectedTime, "hh:mm aa")} (Tiempo local)
+                  </p>
+                )}
+
+                <div className={styles.navButtons}>
+                  <Button variant='contained' onClick={() => setActiveSectionIndex(0)}
+                    sx={{
+                      marginRight: "3vw",
+                    }}
+                  >Volver</Button>
+                  {(selectedDate && selectedTime) ? (
+                    <div>
+                      <Button variant='contained' onClick={() => setActiveSectionIndex(2)}>Continuar</Button>
+                    </div>
+                  ) : (
+                    <div>
+                      <div>*Selecciona una fecha y horario para confirmar tu cita.</div>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div>
-                  <p>*Selecciona una fecha y horario para confirmar tu cita.</p>
-                </div>
-              )}
+              </div>
             </div>
           </>
         )}
         {activeSectionIndex === 2 && (
           <>
-            <div className={styles.confirmation}>
-              <p>
-                Fecha:{" "}
-                {format(selectedDate, "dd/MM/yyyy")}<br/>
-                Horario:{" "}
-                {format(selectedTime, "hh:mm aa")}<br/>
-                Dirección:{" "}
-                {carData.direccion_agencia}<br/>
-                Teléfono:{" "}
-                {agencyData.numero_telefonico}
-              </p>
+            <div>
+              <div>
+                <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
+                <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span><br />
+                <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span><br />
+                <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span><br />
+              </div>
+              <img src={firstImage} className={styles.imageDiv} />
+            </div>
+            <div>
               <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
               <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
             </div>

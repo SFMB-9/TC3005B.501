@@ -12,7 +12,7 @@ const baseSchema = new mongoose.Schema(
     password: String,
     numero_telefonico: String,
   }, 
-  { collection: "usuarios" }
+  { collection: "users" }
 );
 
 baseSchema.pre("save", async function (next) {
@@ -152,4 +152,4 @@ const SaEntity = User.discriminators && User.discriminators.SaEntity
                   ? User.discriminators.SaEntity 
                   : User.discriminator('SaEntity', superadminSchema)
 
-export { User, SellerUser, ManagerUser, BuyerUser, AdminUser, AgencyEntity, GaEntity, SaEntity };
+export { User, AdminUser, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };

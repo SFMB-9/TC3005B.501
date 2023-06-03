@@ -10,16 +10,19 @@ export default async function handler(req, res) {
     const file_url = req.query.file_url;
     const encodedURL = file_url.replace("/resumen-compra/", "/resumen-compra%2F");
     const update_date = req.query.update_date;
+    const update_status = req.query.update_status;
 
     if (req.method !== 'PUT') {
         return res.status(405).json({ message: 'Metodo no permitido' })
     }
 
-    await dbConnect();
+    dbConnect();
 
     try {
         // Find the process that needs to be updated
+        console.log("Finding process: " + process_id)
         const proc = await Proceso.findById(process_id);
+        console.log("Process " + proc);
         if (!proc) {
             return res.status(404).json({ message: 'No se encontro el proceso' });
         }
@@ -31,11 +34,10 @@ export default async function handler(req, res) {
         //update file url and update date
         doc[doc_index].url = encodedURL;
         doc[doc_index].fecha_modificacion = update_date;
-
-        console.log()
+        doc[doc_index].estatus = update_status;
 
         // Update status of the document using validation API only if it is an INE
-        if (doc[doc_index].nombre_documento === "INE" && doc[doc_index].estatus === "Pendiente") {
+        if (doc[doc_index].nombre_documento === "INE" && doc[doc_index].estatus === "En Revisión") {
             console.log("Validating INE" + `${encodedURL}`);
             let url = new URL('/api/validate-document', `http://${req.headers.host}`);
             url.searchParams.append('idURL', encodedURL);
@@ -47,11 +49,9 @@ export default async function handler(req, res) {
                 })
             });
             const data = await response.json();
-            //const data = JSON.parse(dataJSON);
-            console.log(data);
 
             if (data.validated) {
-                doc[doc_index].estatus = "Verificado por INE API";
+                doc[doc_index].estatus = "ID Validada";
             } else {
                 if (data.msg === "Su identificación no es valida; revise con su agente.") {
                     doc[doc_index].comentarios = "Identificación no válida, consulte con su agente ";
@@ -71,8 +71,5 @@ export default async function handler(req, res) {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: error.message });
-    } finally {
-        mongoose.disconnect();
-        console.log("Desconectado de MongoDB");
     }
 };

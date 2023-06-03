@@ -12,7 +12,7 @@ export const toRotate = [
     image: "https://img2.carmax.com/img/vehicles/17889286/1.jpg?width=800"
   },
   {
-    text: "Necesito un coche compacto para moverme en la ciudad",
+    text: "Necesito un carro compacto para moverme en la ciudad",
     image: "https://img.remediosdigitales.com/46b89d/fiat-500s-2017-1600-07/1366_2000.jpg"
   },
   {
@@ -24,11 +24,11 @@ export const toRotate = [
     image: "https://www.motortrend.com/uploads/sites/5/2016/02/2016-Chevrolet-Spark-LT-front-three-quarter-in-motion.jpg"
   },
   {
-    text: "coche electrico azul brillante 2023",
+    text: "Coche eléctrico azul brillante 2023",
     image: "https://wallpapercave.com/wp/wp4669675.jpg"
   },
   {
-    text: "Honda Civic 2018",
+    text: "Muestrame un Honda Civic 2018",
     image: "https://media.ed.edmunds-media.com/honda/civic/2018/oem/2018_honda_civic_4dr-hatchback_sport-touring_fq_oem_16_1280.jpg"
   }
 ];

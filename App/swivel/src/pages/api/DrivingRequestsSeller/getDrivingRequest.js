@@ -26,9 +26,12 @@ export default async (req, res) => {
 
     console.log(proceso);
 
+
     if (!proceso) {
       return res.status(404).json({ message: "No se encontro el proceso" });
     }
+
+    console.log(proceso)
 
     res.status(200).json({ proceso, message: "Se ha encontrado el proceso" });
   } catch (error) {

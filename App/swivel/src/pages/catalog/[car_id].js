@@ -63,7 +63,7 @@ export default function CarDetails() {
     );
 
     const data = await response.json();
-  
+
     if (!carDetails) {
       setCarDetails(data.result);
     }
@@ -129,15 +129,20 @@ export default function CarDetails() {
       auto: auto,
       cantidad_a_pagar: payment,
     };
-    console.log(body);
-    const result = await fetch("/api/saleCreation/with-mongo", {
-      method: "POST",
-      body: JSON.stringify(body),
-    });
 
-    const data = await result.json();
-
-    router.push(`/purchase/${data.id}`);
+    try{
+      const result = await fetch("/api/saleCreation/with-mongo", {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+  
+      const data = await result.json();
+  
+      router.push(`/purchase/${data.id}`);
+    }catch(error){
+      console.log(error);
+    }
+    
   }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
@@ -392,12 +397,12 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() => 
+                              onClick={() =>
                                 session
                                   ? viewDrivingRequestDetails(car_id)
                                   : (window.location.href = "/auth/login")
                                 }
-                              disabled={!isAvailable}
+                              // disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
@@ -906,8 +911,8 @@ export default function CarDetails() {
                           Tasa de{" "}
                           <strong>
                             {" "}
-                            {carDetails.plazos[selectedTerm]
-                              ? carDetails.plazos[selectedTerm]
+                            {(Math.round((carDetails.plazos[selectedTerm] + Number.EPSILON) * 100)/100)
+                              ? (Math.round((carDetails.plazos[selectedTerm]+ Number.EPSILON) * 100)/100)
                               : 0}
                             %
                           </strong>
@@ -1154,7 +1159,8 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                       >
-                        {interestRate}%
+                        {(Math.round((interestRate + Number.EPSILON) * 100)/100)}%
+                        
                       </Typography>
                     </div>
                   </div>
@@ -1216,8 +1222,8 @@ export default function CarDetails() {
                           $
                           {Intl.NumberFormat().format(
                             parseFloat(downPayment) +
-                              parseFloat(monthlyPayment) +
-                              parseFloat(selectedDeliveryPrice)
+                            parseFloat(monthlyPayment) +
+                            parseFloat(selectedDeliveryPrice)
                           )}{" "}
                           MXN
                         </div>

@@ -11,9 +11,12 @@ export default async (req, res) => {
   }
 
   const { id } = req.query;
-  console.log("ID: " + id);
+
+  console.log("ID: "+id);
   dbConnect();
+
   try {
+
     const userData = await User.findById(id);
 
     if (!userData) {

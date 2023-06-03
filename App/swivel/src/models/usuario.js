@@ -84,6 +84,33 @@ const usuarioSchema = new mongoose.Schema({
     dias_max: {
         type: Number,
     },
+    nombre_GA: {
+        type: String,
+    },
+    direccion_GA: {
+        type: String,
+    },
+    url_web: {
+        type: String,
+    },
+    email_GA: {
+        type: String,
+    },
+    telefono_GA1: {
+        type: String,
+    },
+    telefono_GA2: {
+        type: String,
+    },
+    nombre_representante: {
+        type: String,
+    },
+    email_representante: {
+        type: String,
+    },
+    telfono_representante: {
+        type: String,
+    },
     //_id: mongoose.Schema.Types.ObjectId,
 }); 
 
