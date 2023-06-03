@@ -2,21 +2,21 @@
 
 import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
-import AuthComponent from "@/components/login/auth_component";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
+
+import AuthComponent from "@/components/login/auth_component";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
-
+  const [ loading, setLoading ] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
+  const [ error, setError ] = useState(false);
   const [ errors, setErrors ] = useState({
     email: false,
     password: false,
   });
-
-  const [ error, setError ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
 
   const disabled = () => {
     for (const k in errors) {
@@ -24,9 +24,6 @@ export default function Login() {
     }
     return !(password && email);
   }
-
-  const [errMessage, setErrMessage] = useState("");
-  let passStatus = null;
 
   useEffect(() => { }, [session]);
 
@@ -40,10 +37,10 @@ export default function Login() {
 
       if (data.error) {
         console.log("Error:", data.error);
-        passStatus = false;
         setErrMessage("Correo o contraseña incorrectos");
+        setError(true);
+        setLoading(false)
       } else {
-        passStatus = true;
         let callbackUrl;
         if (session.role === "user") {
           callbackUrl = `${window.location.origin}/`;
@@ -65,8 +62,9 @@ export default function Login() {
       }
     } catch (error) {
       console.log(error);
-      passStatus = false;
       setErrMessage("Hubo un error al iniciar sesión");
+      setError(true);
+      setLoading(false)
     }
   };
 
@@ -138,12 +136,7 @@ export default function Login() {
                 disabled={disabled()}
                 onClick={() => {
                   setLoading(true);
-                  submitHandler();
-                  if (!passStatus) {
-                    setTimeout(() => {
-                    setError(true);
-                    setLoading(false);}, 1000);
-                  }
+                  setTimeout(()=> {submitHandler()}, 1000);
                 }}
               >
                 {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
