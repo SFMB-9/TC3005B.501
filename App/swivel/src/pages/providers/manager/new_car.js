@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Typography,
-  TextField,
-  Switch,
-  Select,
-  MenuItem,
-  IconButton,
-  Button,
-  Fade
-} from "@mui/material";
+import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
-import CloseIcon from "@mui/icons-material/Close";
 import ImageFileDrop from "@/components/general/FileDrop";
 import ManagerLayout from "@/components/providers/Manager/layout";
 //import uploadCar from '@/pages/api/elasticSearch/elasticCarRegister';
@@ -79,10 +70,10 @@ const CarRegistrationForm = () => {
       }
     }
 
-    /*
-    For future reference, this is how you upload a car to elastic
+    
+    // For future reference, this is how you upload a car to elastic
     await elasticCarRegister(updatedCar);
-    */
+    
 
     console.log(updatedCar);
     // Reset the form

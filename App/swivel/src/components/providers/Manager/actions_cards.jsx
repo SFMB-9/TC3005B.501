@@ -17,7 +17,7 @@ export default function ActionsCards() {
         imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
         text="Administración de vendedores"
-        href="/providers/manager/manejo-vendedores"
+        href="/providers/manager/manage_sellers"
         light={false}
         header=''
         fiftyFifty={false}
@@ -26,7 +26,7 @@ export default function ActionsCards() {
         imageSource="/manager/branch_action.jpg"
         icon="/manager/branch_icon.svg"
         text="Administración de la agencia"
-        href="/providers/seller/driving_req"
+        href="/providers/manager/manage_branches"
         light={false}
         header=''
         fiftyFifty={false}

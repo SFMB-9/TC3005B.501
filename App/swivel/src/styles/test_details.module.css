@@ -47,7 +47,6 @@
   display: flex;
   flex-direction: column;
   width: 40%;
-  /* Black box shadow */
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 10px solid #979797;
@@ -105,4 +104,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.confirmationRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 3vw;
+  margin-top: -8vh;
+}
+
+.dataCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.confLine {
+  color: "#F55C7A"
 }

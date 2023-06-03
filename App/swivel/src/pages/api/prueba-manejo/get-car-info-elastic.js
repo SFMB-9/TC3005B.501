@@ -13,7 +13,7 @@ export default async (req, res) => {
   if (req.method !== 'GET') {
     res.status(405).json({ message: 'Method not allowed' });
   }
-  
+
   const client = new Client({
     node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
     auth: {

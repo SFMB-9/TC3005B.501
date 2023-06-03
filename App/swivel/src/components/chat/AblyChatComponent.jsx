@@ -4,13 +4,14 @@ import styles from "./AblyChatComponent.module.css";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import Ably from "ably/promises";
-import { set } from "mongoose";
 
-const AblyChatComponent = () => {
+
+const AblyChatComponent = ( props ) => {
   const { data: session } = useSession();
+
   let inputBox = null;
   let messageEnd = null;
-  let channel_name = "id1-id2";
+  let channel_name = props.id_purchase;
 
   const [messageText, setMessageText] = useState("");
   const [receivedMessages, setMessages] = useState([]);
@@ -41,6 +42,7 @@ const AblyChatComponent = () => {
     };
     fetchMessages();
   }, [session, channel_name]);
+
 
   const [channel, ably] = useChannel(channel_name, (message) => {
     const history = receivedMessages.slice(-199);
