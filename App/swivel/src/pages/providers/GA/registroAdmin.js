@@ -45,6 +45,7 @@ const registroAdmin = () => {
                 email: email,
                 password: password,
                 numero_telefonico: phone,
+                grupo_automotriz_id: GA._id
             });
             console.log(response.data);
         } catch (error) {

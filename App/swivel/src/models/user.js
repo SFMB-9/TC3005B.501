@@ -148,4 +148,4 @@ const GaEntity = User.discriminators && User.discriminators.GaEntity
 
 const SaEntity = User.discriminators && User.discriminators.SaEntity ? User.discriminators.SaEntity : User.discriminator('SaEntity', superadminSchema)
 
-export { User, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };
+export { User, AdminUser, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };

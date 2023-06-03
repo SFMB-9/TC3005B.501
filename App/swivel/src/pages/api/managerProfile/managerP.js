@@ -11,7 +11,8 @@ export default async (req, res) => {
   }
 
   const { id } = req.query;
-  console.log("ID: " + id);
+
+  console.log("ID: "+id);
   dbConnect();
 
   try {

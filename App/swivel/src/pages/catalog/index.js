@@ -27,8 +27,6 @@ export default function Catalog() {
 
   let isFirstLoad = true;
 
-console.log("Search text: " + searchText);
-
   useEffect(() => {
     if (isFirstLoad) {
       if (JSON.stringify(router.query.searchQuery)) {
@@ -70,7 +68,6 @@ console.log("Search text: " + searchText);
       }
     });
 
-    console.log('qst',queryString)
     return queryString;
   };
 
@@ -82,19 +79,6 @@ console.log("Search text: " + searchText);
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`marca:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "marca", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
           return newSelectedFilters;
         });
       }
@@ -107,19 +91,6 @@ console.log("Search text: " + searchText);
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`tipo_vehiculo:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "tipo_vehiculo", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
           return newSelectedFilters;
         });
       }
@@ -132,19 +103,6 @@ console.log("Search text: " + searchText);
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`ano:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "ano", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
           return newSelectedFilters;
         });
       }
@@ -164,7 +122,6 @@ console.log("Search text: " + searchText);
 
     console.log("Selected Filters:" + selectedFilters);
     let queryString = buildQuery(selectedFilters);
-    console.log('yooo', queryString)
 
     const response = await fetch(
       `/api/catalogoNuevo/filter?${queryString}`

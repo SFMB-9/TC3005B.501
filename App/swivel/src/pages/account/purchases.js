@@ -56,7 +56,7 @@ export default function Purchases() {
               apiCurrentData && apiCurrentData.length > 0 && (
                 <CatalogPagination
                   catalogData={apiCurrentData}
-                  carCardType="purchasesCurrent"
+                  carCardType="purchases"
                   itemsPerPage={6}
                 />
               )
@@ -83,7 +83,7 @@ export default function Purchases() {
               apiCompletedData && apiCompletedData.length > 0 && (
                 <CatalogPagination
                   catalogData={apiCompletedData}
-                  carCardType="purchasesCompleted"
+                  carCardType="purchases"
                   itemsPerPage={6}
                 />
               )

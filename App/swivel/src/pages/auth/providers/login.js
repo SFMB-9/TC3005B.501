@@ -93,7 +93,6 @@ export default function Login() {
                 >
                   {" "}
                   Ingresar{" "}
-                </Typography>
               </button>
             </div>
           </form>}

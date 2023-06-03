@@ -6,19 +6,34 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
-import { Upload } from "@mui/icons-material";
+import { formatDate } from "@/components/general/date_utils";
+import EditIcon from "@mui/icons-material/Edit";
+import { useSession } from "next-auth/react";
+
+import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const AblyChatComponent = dynamic(
+  () => import("../../components/chat/AblyChatComponent"),
+  { ssr: false }
+);
 
 export default function Process() {
+  const { data: session } = useSession();
   const router = useRouter();
   const { process_id } = router.query;
 
-  console.log("process_id: " + process_id);
+  // console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
-  const [changedDocument, setChangedDocument] = useState(null);
   const [uploadedDocument, setUploadedDocument] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
+  const [isChatOpen, setChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setChatOpen(!isChatOpen);
+  };
 
   const fetchProcess = async () => {
     const response = await fetch(
@@ -26,11 +41,22 @@ export default function Process() {
       { method: "GET" }
     );
 
+    const userData = await fetch(
+      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+    );
+
+    const resUser = await userData.json();
+
     const data = await response.json();
 
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
+        if (doc.nombre_documento == "INE") {
+          return { ...resUser.userData.documentos[0], _id: i};
+        } else if (doc.nombre_documento == "Licencia") {
+          return { ...resUser.userData.documentos[1], _id: i};
+        }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -45,9 +71,6 @@ export default function Process() {
 
   // Save the indices that were changed
   const handleDocumentEdit = async (indx) => {
-
-    console.log("uploadedDocument: " + uploadedDocument);
-    console.log("changedDocumentIndex: " + changedDocumentIndex);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
@@ -60,7 +83,6 @@ export default function Process() {
     let documentUrl = "";
     const currentDocs = documents;
 
-    console.log("changedDocument: " + uploadedDocument);
     const i = changedDocumentIndex;
     const doc = uploadedDocument;
 
@@ -69,25 +91,37 @@ export default function Process() {
     }
 
     documentUrl = await FileUpload(doc);
-    console.log(documentUrl);
-
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
-    currentDocs[i].estatus = "En_Revision";
+    currentDocs[i].estatus = "En Revisión";
 
     console.log("process_id: " + process_id);
     console.log("doc_index: " + i);
     console.log("file_url: " + documentUrl);
     console.log("update_date: " + currentDocs[i].fecha_modificacion);
 
-    const result = await fetch(
-      `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
-      {
-        method: "PUT",
-      }
-    );
+    try {
+      const result = await fetch(
+        `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
+        {
+          method: "PUT",
+        }
+      );
 
-    fetchProcess();
+      fetchProcess();
+    } catch (error) {
+      console.error("Error occurred during the document upload:", error);
+    }
+  };
+
+  const checkValidatedDocs = () => {
+    let validatedDocs = true;
+    documents.forEach((doc) => {
+      if (doc.estatus !== "Aceptado") {
+        validatedDocs = false;
+      }
+    });
+    return validatedDocs;
   };
 
   useEffect(() => {
@@ -95,6 +129,7 @@ export default function Process() {
       return;
     }
     fetchProcess();
+    checkValidatedDocs();
   }, [process_id, uploadedDocument]);
 
   const columns = useMemo(
@@ -108,12 +143,23 @@ export default function Process() {
         flex: 1,
       },
       {
-        field: "url",
-        headerName: "URL",
+        field: "ver_archivo",
+        headerName: "Archivo",
         headerAlign: "center",
         align: "center",
         minWidth: 150,
-        flex: 2,
+        flex: 1,
+        renderCell: (params) => (
+          <>
+            {params.row.url && params.row.url !== "" ? (
+              <a href={params.row.url} target="_blank"> 
+                <u>Ver archivo</u>
+              </a>
+            ) : (
+              <div>No hay archivo</div>
+            )}
+          </>
+        ),
       },
       {
         field: "estatus",
@@ -130,6 +176,14 @@ export default function Process() {
         align: "center",
         minWidth: 150,
         flex: 1,
+        valueGetter: (params) => {
+          const cell =
+            params.row.fecha_modificacion !== "" &&
+            params.row.fecha_modificacion
+              ? formatDate(params.row.fecha_modificacion).formattedShortDate
+              : 0;
+          return cell;
+        },
       },
       {
         field: "comentarios",
@@ -164,8 +218,8 @@ export default function Process() {
                   onChange={(e) => {
                     e.preventDefault();
                     const file = e.target.files[0];
-                    setUploadedDocument(file)
-                    setChangedDocumentIndex(params.row._id)
+                    setUploadedDocument(file);
+                    setChangedDocumentIndex(params.row._id);
                   }}
                 />
 
@@ -174,24 +228,37 @@ export default function Process() {
                   size="small"
                   component="span"
                   type="submit"
-                  onClick={() =>
-                    handleDocumentEdit(params.row._id)
-                  }
+                  onClick={() => handleDocumentEdit(params.row._id)}
                 >
                   <CheckIcon />
                 </IconButton>
               </div>
             ) : (
-              <IconButton
-                aria-label="delete"
-                size="small"
-                onClick={(e) => {
-                  e.preventDefault();
-                  addToIsOpen(params.row._id);
-                }}
-              >
-                <UploadIcon />
-              </IconButton>
+              <div>
+                {params.row.url && params.row.url !== "" ? (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    aria-label="delete"
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToIsOpen(params.row._id);
+                    }}
+                  >
+                    <UploadIcon />
+                  </IconButton>
+                )}
+              </div>
             )}
           </>
         ),
@@ -259,7 +326,8 @@ export default function Process() {
                   >
                     <strong>Cantidad a pagar:</strong>{" "}
                     <span style={{ color: "#333333" }}>
-                      $ {Intl.NumberFormat().format(process.cantidad_a_pagar)} MXN
+                      $ {Intl.NumberFormat().format(process.cantidad_a_pagar)}{" "}
+                      MXN
                     </span>
                   </Typography>
                 </div>
@@ -288,8 +356,8 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Hola! Soy {process.vendedor.nombres} <br />
-                    Yo voy a estar revisando tus documentos <br />
+                    Hola! Soy tu agente,<br />
+                    estaré revisando tus documentos y contestando las dudas que tengas. <br />
                   </Typography>
                 </div>
                 <div className="col-12 col-sm-6 ">
@@ -362,51 +430,6 @@ export default function Process() {
               </div>
             </div>
           </Fade>
-          {/* <h1>Documentos</h1>
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>URL</th>
-                <th>Estatus</th>
-                <th>Ultima modificación</th>
-                <th>Comentarios</th>
-                <th>Editar</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {documents.map((document, i) => (
-                <tr key={i}>
-                  <td>{document.nombre_documento}</td>
-                  <td>{document.url}</td>
-                  <td>{document.estatus}</td>
-                  <td>{document.fecha_modificacion}</td>
-                  <td>{document.comentarios}</td>
-                  <td><button onClick={(e) => {
-                    e.preventDefault();
-                    addToIsOpen(i)
-                  }
-                  }> Editar </button></td>
-                  {isOpen.includes(i) && (
-                    <td>
-                      <div>
-                        <input type="file" name="documents" onChange={(e) => {
-                          e.preventDefault();
-                          const file = e.target.files[0];
-                          setUploadedDocument(file)
-                          setChangedDocumentIndex(i)
-                          //console.log(uploadedDocument)
-                        }} />
-                        <button type="submit" onClick={() => handleDocumentEdit(i)}>Confirm</button>
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table> */}
 
           <Fade in={true} timeout={1500}>
             <div className="text-center mt-4">
@@ -430,14 +453,17 @@ export default function Process() {
 
               <CheckoutPage
                 id={process_id}
+                validatedDocs={checkValidatedDocs()}
                 items={[
                   {
                     price_data: {
-                      currency: "mxn",
+                      currency: 'mxn',
                       product_data: {
                         name: `${process.auto.marca} ${process.auto.modelo} ${process.auto.ano}`,
+                        description: "Compra de auto",
+                        images: [process.auto.array_fotografias_url[0]],
                       },
-                      unit_amount: parseFloat(process.cantidad_a_pagar) * 100,
+                      unit_amount: Math.floor(parseFloat(process.cantidad_a_pagar) * 100),
                     },
                     quantity: 1,
                   },
@@ -446,6 +472,131 @@ export default function Process() {
             </div>
           </Fade>
         </Container>
+        <div className="container">
+          <Head>
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+              integrity="sha384-iBBgrCyberBlbChJLlKDcUWP7t8GwgaKI21Jc6CZP97ZvsjFjE9+3YF5nkvP1kj"
+              crossorigin="anonymous"
+            />
+          </Head>
+
+          <button className="chat-toggle-btn" onClick={toggleChat}>
+            Chat
+          </button>
+
+          {isChatOpen && (
+            <main className="chat-popup">
+              <h4 className="title">Vendedor</h4>
+              <AblyChatComponent id_purchase={process_id} />
+            </main>
+          )}
+
+          <style jsx>{`
+        .container {
+          position: relative;
+          display: grid;
+          grid-template-rows: 1fr 100px;
+          min-height: 100vh;
+          // background-color: aqua;
+        }
+
+        main {
+          display: grid;
+          grid-template-rows: auto 1fr;
+          width: 70%
+          max-width: 900px;
+          margin: 20px auto;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+            0px 1px 2px rgba(0, 0, 0, 0.24);
+          background-color: white;
+          position: fixed; 
+          bottom: 2px; 
+          right: 110px; 
+          z-index: 1000; 
+        }
+
+        chat-popup {
+          position: fixed;
+          bottom: 0;
+          transform: translateY(100%);
+          transition: transform 1s ease-in-out;  // Increased from 0.3s to 0.5s
+        }
+
+        .chat-popup.open {
+          transform: translateY(0);
+        }
+
+        .title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 75px;
+          margin: 0;
+          color: white;
+          background: #383838; 
+        }
+        
+        .chat-toggle-btn {
+          position: fixed; 
+          bottom: 20px; 
+          right: 20px; 
+          z-index: 1000; 
+          font-size: 1em;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 50px;
+          color: #fff;
+          background-color: #f55c7a;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .chat-toggle-btn:hover {
+          background-color: #f77a92; 
+        }
+
+        .chat-toggle-btn:focus {
+          outline: none; 
+        }
+
+
+      `}</style>
+
+          <style jsx global>{`
+            html,
+            body {
+              padding: 0;
+              margin: 0;
+              font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+                sans-serif;
+              color: #333; // Dark grey color for text
+            }
+
+            * {
+              box-sizing: border-box;
+            }
+
+            [data-author="me"] {
+              display: flex;
+              background-color: #f55c7a;
+              color: white;
+              align-self: flex-end;
+              flex-grow: 0;
+              border-radius: 20px 5px 20px 20px;
+            }
+
+            [data-author="other"] {
+              color: #383838;
+              align-self: flex-start;
+              border-radius: 5px 20px 20px 20px;
+            }
+          `}</style>
+        </div>
       </div>
     );
   } else {
