@@ -31,8 +31,6 @@ export default function Login() {
   useEffect(() => { }, [session]);
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-
     try {
       const data = await signIn("credentials", {
         redirect: false,
@@ -77,7 +75,7 @@ export default function Login() {
       <AuthComponent
         backImage=""
         fields={
-          <form className="d-flex flex-column " onSubmit={submitHandler}>
+          <div className="d-flex flex-column " onSubmit={submitHandler}>
             <div className="form-outline mb-2">
               <label className="form-label">
                 <Typography
@@ -136,17 +134,15 @@ export default function Login() {
             <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
               {error ? <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> : null}
               <Button 
-                type="submit" 
                 className="btn btn-primary btn-block mb-2"
                 disabled={disabled()}
                 onClick={() => {
                   setLoading(true);
-                  if (passStatus === false) {
+                  submitHandler();
+                  if (!passStatus) {
+                    setTimeout(() => {
                     setError(true);
-                    setLoading(false);
-                  } else {
-                    setError(false);
-                    passStatus = null;
+                    setLoading(false);}, 1000);
                   }
                 }}
               >
@@ -181,7 +177,7 @@ export default function Login() {
                 No tienes cuenta? <a href="/auth/signup">Regístrate aquí</a>
               </p>
             </div>
-          </form>}
+          </div>}
         cardImage="/card_welcome.png"
         backColor="black"
         bodyText="Compra el auto de tus sueños en un solo click"
