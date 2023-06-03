@@ -5,7 +5,7 @@ Luis Javier Karam
 Page to view the details of an agency and edit them as well as add and remove managers and sellers
 */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import GANavbar from '@/components/providers/GA/navbar';
 import styles from '@/styles/agency_details.module.css';
 import { Button, TextField, FormHelperText } from '@mui/material';

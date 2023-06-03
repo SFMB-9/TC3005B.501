@@ -286,23 +286,20 @@ export default function SignupGAData() {
                                         required
                                     />
                                     
-                                </div>
+                                 </div>
                                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                                    <button className="btn btn-primary btn-block mb-2" onSubmit={submitHandler}>
+                                    <button className="btn btn-primary btn-block mb-2"  onSubmit={() => setActiveSectionIndex(2)}>
                                         <Typography
-                                            wrap sx={{ color: "white", fontFamily: "lato" }}>
+                                            wrap sx={{
+                                                color: "white",
+                                                fontFamily: "lato",
+                                            }}
+                                        >
                                             {" "}
-                                            Continuar el registro{" "}
+                                            Continuar el Registro{" "}
                                         </Typography>
                                     </button>
-                                    <button type="submit" className="btn btn-secondary btn-block mb-2">
-                                        <Typography
-                                            sx={{ color: "white", fontFamily: "lato" }}>
-                                            {" "}
-                                            Atrás{" "}
-                                        </Typography>
-                                    </button>
-                                </div>
+                                </div> 
                             </form>
                         }
                     />

@@ -128,7 +128,7 @@ export default function GA_agencies() {
                     />
                 </div>
                 <div className={styles.addButtonContainer}>
-                    <Button variant="contained" color="primary" className={styles.button}>
+                    <Button variant="contained" color="primary" className={styles.button} href='/add_agency'>
                         Agregar Agencia
                     </Button>
                 </div>

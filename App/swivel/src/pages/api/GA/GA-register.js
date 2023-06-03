@@ -1,8 +1,9 @@
-import { AdminUser, GaEntity } from "../../models/user";
-import { GaProceso } from "../../models/procesos";
-import dbConnect from "../../config/dbConnect";
+import { AdminUser, GaEntity } from "../../../models/user";
+//import { GaEntity } from "../../models/user";
+import { GaProceso } from "../../../models/procesos";
+import dbConnect from "../../../config/dbConnect";
 
-import { encryptRole } from "../../utils/crypto";
+import { encryptRole } from "../../../utils/crypto";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
