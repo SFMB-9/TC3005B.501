@@ -15,7 +15,7 @@ import DataTable from "@/components/general/Table";
 import SimpleAccordion from "@/components/general/Accordion";
 
 
-import { Select, MenuItem, Typography } from "@mui/material";
+import { Select, MenuItem, Typography, Button} from "@mui/material";
 import SANavbar from '@/components/SA/navbar';
 import CollapsibleContainer from '@/components/general/collapsing_div';
 
@@ -153,6 +153,32 @@ const SARequestDashboard = () => {
           </Select>
         ),
       },
+      {
+        field: "detalles",
+        headerName: "Detalles",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => (
+          <Button
+            variant="contained"
+            disableElevation
+            // onClick={() =>
+            //   
+            // }
+            className="py-0"
+            sx={{
+              fontFamily: "Lato",
+              fontSize: "12px",
+              backgroundColor: "#111439",
+            }}
+          >
+            Ver detalles
+          </Button>
+        ),
+      },
     ];
 
     const rowsGA = requestsGA.filter((request) => {
@@ -215,6 +241,32 @@ const SARequestDashboard = () => {
           </Select>
         ),
       },
+      {
+        field: "detalles",
+        headerName: "Detalles",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => (
+          <Button
+            variant="contained"
+            disableElevation
+            // onClick={() =>
+            //   
+            // }
+            className="py-0"
+            sx={{
+              fontFamily: "Lato",
+              fontSize: "12px",
+              backgroundColor: "#111439",
+            }}
+          >
+            Ver detalles
+          </Button>
+        ),
+      },
     ];
 
     const rowsA = requestsA.filter((request) => {
@@ -226,12 +278,6 @@ const SARequestDashboard = () => {
     });
 
     console.log(rowsGA)
-
-
-
-    // if (!requestsGA || !requestsA) {
-    //   return null;
-    // }
 
     return (
       <>
@@ -284,16 +330,6 @@ const SARequestDashboard = () => {
                       </p>
                     </SimpleAccordion>
                   </div>
-                  {/* <div>
-                  <CollapsibleContainer header="Solicitudes de Agencia">
-
-                    <DataTable
-                      rows={rowsGA}
-                      columns={columnsGA}
-                    ></DataTable>
-
-                  </CollapsibleContainer>
-                </div> */}
                 </>
               )
               : requestsA.length > 0 ?
@@ -326,18 +362,11 @@ const SARequestDashboard = () => {
               <div></div>
           }
         </div>
-        {/* <CollapsibleContainer header="Solicitudes de Grupo Automotriz"> */}
-        {/* </CollapsibleContainer> */}
-
-
-
       </>
     );
   } else {
     <div>Cargando...</div>
-
   }
-
 }
 
 export default SARequestDashboard
