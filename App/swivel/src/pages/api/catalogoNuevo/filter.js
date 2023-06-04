@@ -67,6 +67,8 @@ export default async function handler(req, res) {
         tipo_vehiculo: "Tipo de vehículo"
     };
 
+    console.log("Query: " + JSON.stringify(req.query));
+
     if (req.method !== 'GET') {
         return res.status(400).json({ message: 'Method not allowed' });
     }
@@ -256,6 +258,19 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
                 }
             }
         });
+    }
+
+    // One for the agencia_id
+    if (queryParams.agencia_id) {
+        dbQuery.query.bool.must.push({
+            match: { 
+                agencia_id: queryParams.agencia_id
+            }
+            
+        });
+        console.log("Agencia id: " + queryParams.agencia_id);
+    } else {
+        console.log(queryParams);
     }
 
     return dbQuery;
