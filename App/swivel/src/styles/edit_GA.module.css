@@ -7,16 +7,23 @@
 .pageTitle {
     font-size: 40px;
     font-weight: bold;
-    padding-bottom: 60px;
+    padding-bottom: 2vw;
+}
+
+.tableTitle{
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
 }
 
 .inputFieldLeft {
-    margin-right: 190px;
+    margin-right: 18vw;
     padding-right: 10px ;
 }
 
 .inputField {
-    margin-right: 190px;
+    margin-right: 18vw;
 }
 
 .longInputField {
@@ -26,7 +33,7 @@
 
 .boldText {
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 1vw;
 }
 
 .row {
@@ -47,7 +54,15 @@
 }
 
 .inputContainer {
-    padding-bottom: 40px;
+    padding-bottom: 1vw;
+}
+
+.addButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-bottom: 1vw;
+    padding-top: 1vw;
 }
 
 /* Media queries for mobile devices */
