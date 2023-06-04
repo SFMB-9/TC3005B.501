@@ -3,6 +3,30 @@
     padding-left: 4vw;
 }
 
+
+.pageTitle{
+    font-weight: bold;
+    padding-bottom: 0;
+}
+
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 5%;
+    color: tomato;
+    padding-bottom: 1vw;
+    padding-top: 1vw;
+}
+
+
+
+.sectionTitle{
+    font-weight: bold;
+    padding-top: 1vw;
+}
+
+
 .row{
     display: flex;
     flex-direction: row;
@@ -22,7 +46,9 @@
 .cardInfoContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+
+    justify-content: center;
+
     align-items: center;
     margin-bottom: 1vw;
     min-height: 10vw;
@@ -49,9 +75,25 @@
     min-height: 20vw;
 }
 
+
+.tableContainer{
+    margin-top : 20px;
+    padding-right: 50%;
+}
+
+
 .status{
     color: #a0a0a0;
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+
+.subTitle{
+    font-weight: bold;
+    padding-bottom: 1.5vw;
+    color: #a0a0a0;
+
 }
