@@ -26,19 +26,24 @@ const CarRegistrationForm = () => {
     estado_agencia: "",
     municipio_agencia: "",
     direccion_agencia: "",
+    coordenadas_agencia: "",
     tipo_vehiculo: "",
     precio: 0,
     caracteristicas: [],
     extras: [],
     enganche: [],
-    plazos: {},
+    plazos: [],
     entrega: [],
-    disponible_prueba: "",
-    visible_catalogo: "",
+    disponible_prueba: false,
+    visible_catalogo: false,
     descripcion: "",
     ficha_tecnica: "",
     fotos_3d: [],
   });
+
+  function isFileObject(variable) {
+    return variable instanceof File || variable instanceof Blob;
+  }
 
   //handle submit
   const handleSubmit = async (e) => {
@@ -53,32 +58,43 @@ const CarRegistrationForm = () => {
       setOpen(true);
       return;
     }
+
+    const dbFormatPlazos = {};
+
+    // Convert plazos back to the desired format for the db
+    for (let i = 0; i < plazos.length; i++) {
+      const currentObject = plazos[i];
+      const key = Object.keys(currentObject)[0];
+      const value = currentObject[key];
+      dbFormatPlazos[key] = value;
+    }
+
     const updatedCar = {
       ...car,
       colores: color,
       caracteristicas: JSON.stringify(caracteristicas).replace(/\\\"/g, "\""),
       extras: JSON.stringify(extras).replace(/\\\"/g, "\""),
       enganche: JSON.stringify(enganche).replace(/\\\"/g, "\""),
-      plazos: JSON.stringify(plazos).replace(/\\\"/g, "\""),
+      plazos: JSON.stringify(dbFormatPlazos).replace(/\\\"/g, "\""),
       entrega: JSON.stringify(entrega).replace(/\\\"/g, "\""),
     };
     // Upload images to bucket
     for(let i = 0; i < fotos.length; i++){
       for(let j = 0; j < fotos[i].length; j++){
-        const foto = await FileUpload(fotos[i][j]);
-        updatedCar.colores[i].imagenes.push(foto);
-        console.log(updatedCar.colores[i].imagenes)
+        if (isFileObject(fotos[i][j])) {
+          const foto = await FileUpload(fotos[i][j]);
+          updatedCar.colores[i].imagenes.push(foto);
+          updatedCar.fotos_3d.push(foto);
+        }
       }
     }
 
     updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/\\\"/g, "\"");
 
+    console.log("Car to upload: ");
     console.log(updatedCar);
 
     // await axios.post('/api/carRegister/elasticCarRegister', { car: updatedCar});
-
-    // For future reference, this is how you upload a car to elastic
-    // await elasticCarRegister(updatedCar);
 
     /*
     // Reset the form
@@ -98,15 +114,16 @@ const CarRegistrationForm = () => {
       estado_agencia: "",
       municipio_agencia: "",
       direccion_agencia: "",
+      coordenadas_agencia: "",
       tipo_vehiculo: "",
       precio: 0,
       caracteristicas: [],
       extras: [],
       enganche: [],
-      plazo: {},
+      plazos: [],
       entrega: [],
-      disponible_prueba: "",
-      visible_catalogo: "",
+      disponible_prueba: false,
+      visible_catalogo: false,
       descripcion: "",
       ficha_tecnica: "",
       fotos_3d: [],
@@ -118,7 +135,7 @@ const CarRegistrationForm = () => {
   const [extras, setExtras] = useState([]);
   const [enganche, setEnganche] = useState([]);
   const [color, setColor] = useState([]);
-  const [plazos, setPlazo] = useState({});
+  const [plazos, setPlazo] = useState([]);
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
   const [open, setOpen] = useState(false);
@@ -132,6 +149,7 @@ const CarRegistrationForm = () => {
   const createEmptyFoto = () =>
     new File([], "empty.jpg", { type: "image/jpeg" });
   const createEmptyCarFoto = () => [];
+  const createEmptyPlazo = () => ({ 0: 0 });
 
   //handle change in normal inputs
   const handleChange = (e) => {
@@ -165,7 +183,6 @@ const CarRegistrationForm = () => {
 
   const handleFotosChange = (index, event) => {
     const updatedFotos = [...fotos];
-    console.log(updatedFotos);
     updatedFotos[index].push(...event);
     setFotos(updatedFotos);
   };
@@ -251,26 +268,30 @@ const CarRegistrationForm = () => {
   };
 
   //specific for plazo changes since it uses keys and values
-  // const handleKeyChange = (index, key) => {
-  //   const updatedPlazo = { ...plazos };
-  //   updatedPlazo[index] = { ...updatedPlazo[index], key };
-  //   setPlazo(updatedPlazo);
-  // };
+  const handleKeyChange = (newKey, index) => {
+    const newPlazos = [...plazos];
+    const value = Object.values(newPlazos[index])[0];
+    const updatedObject = { [newKey]: value};
+    newPlazos[index] = updatedObject;
+    setPlazo(newPlazos);
+  };
 
-  // const handleValueChange = (index, value) => {
-  //   const updatedPlazo = { ...plazos };
-  //   updatedPlazo[index] = { ...updatedPlazo[index], value };
-  //   setPlazo(updatedPlazo);
-  // };
-
-  const handlePlazoChange = (key, value) => {
-      const updatedPlazo = { ...plazos };
-      updatedPlazo[index] = { ...updatedPlazo[index], value };
-      setPlazo(updatedPlazo);
+  const handleValueChange = (newValue, index) => {
+    const newPlazos = [...plazos];
+    const key = Object.keys(newPlazos[index])[0];
+    const updatedObject = { [key]: newValue};
+    newPlazos[index] = updatedObject;
+    setPlazo(newPlazos);
+  };
 
   const handleRemovePlazo = (index) => {
-    const updatedPlazo = { ...plazos };
-    delete updatedPlazo[index];
+    setPlazo((prevPlazo) => {
+      const updatedPlazo = [...prevPlazo];
+      updatedPlazo.splice(index, 1);
+      return updatedPlazo;
+    });
+    const updatedPlazo = [...plazos];
+    updatedPlazo.splice(index, 1);
     setPlazo(updatedPlazo);
   };
 
@@ -284,8 +305,9 @@ const CarRegistrationForm = () => {
 
   //adds row to almost any array
   const handlePlazoAddRow = () => {
-    const newIndex = Object.keys(plazos).length;
-    setPlazo({ ...plazos, [newIndex]: { key: "", value: "" } });
+    const newPlazos = plazos;
+    newPlazos.push({0:0});
+    setPlazo(newPlazos);
   };
 
   const handleFotoAddRow = (index) => {
@@ -803,6 +825,31 @@ const CarRegistrationForm = () => {
                   className="w-100"
                 />
               </div>
+
+              <div className="col-xl-4 col-md-6">
+                <Typography
+                  fontFamily="Lato"
+                  color="#8A8A8A"
+                  className="pb-3"
+                  fontSize={{ xs: 15, md: 16, lg: 18 }}
+                >
+                  Coordenadas en formato: latitud,longitud
+                </Typography>
+
+                <TextField
+                  required
+                  size="small"
+                  type="text"
+                  name="coordenadas_agencia"
+                  id="coordenadas_agencia"
+                  value={car.coordenadas_agencia}
+                  onChange={handleChange}
+                  label="Coordenadas"
+                  inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                  InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                  className="w-100"
+                />
+              </div>
             </div>
           </div>
 
@@ -1273,7 +1320,7 @@ const CarRegistrationForm = () => {
                         borderTopRightRadius: 0,
                       }}
                     >
-                      {Object.entries(plazos).map(([key, value], index) => (
+                      {plazos.map((jsonObject, index) => (
                           <Fade in={true} key={index}>
                             <div className="row">
                               <div className="col">
@@ -1282,8 +1329,8 @@ const CarRegistrationForm = () => {
                                   size="small"
                                   type="text"
                                   name="key"
-                                  value={key}
-                                  onChange={(event) => handleKeyChange(index, event.target.value)}
+                                  value={Object.keys(jsonObject)[0]}
+                                  onChange={(event) => handleKeyChange(event.target.value, index)}
                                   label="Meses"
                                   inputProps={{
                                     min: "0",
@@ -1301,8 +1348,8 @@ const CarRegistrationForm = () => {
                                   size="small"
                                   type="text"
                                   name="value"
-                                  value={value}
-                                  onChange={(event) => handleValueChange(index, event.target.value)}
+                                  value={Object.values(jsonObject)[0]}
+                                  onChange={(event) => handleValueChange(event.target.value, index)}
                                   label="%"
                                   inputProps={{
                                     min: "0",
@@ -1340,7 +1387,9 @@ const CarRegistrationForm = () => {
                       }}
                       disableElevation
                       type="button"
-                      onClick={handlePlazoAddRow}
+                      onClick={() => 
+                        {handleAddRow(setPlazo, createEmptyPlazo)}
+                      }
                     >
                       Agregar Plazo
                     </Button>
