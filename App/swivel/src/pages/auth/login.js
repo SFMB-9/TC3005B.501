@@ -42,6 +42,7 @@ export default function Login() {
         setLoading(false)
       } else {
         let callbackUrl;
+        setTimeout(() => {
         if (session.role === "user") {
           callbackUrl = `${window.location.origin}/`;
         } else if (session.role === "seller") {
@@ -56,9 +57,9 @@ export default function Login() {
           // Log the role to vscode console
           console.log("Role:", session.role);
           callbackUrl = `${window.location.origin}/auth/logout`;
-        }
+        }}, 1000);
 
-        window.location.href = callbackUrl;
+        setTimeout(()=>{window.location.href = callbackUrl;}, 1500);
       }
     } catch (error) {
       console.log(error);
@@ -136,7 +137,7 @@ export default function Login() {
                 disabled={disabled()}
                 onClick={() => {
                   setLoading(true);
-                  setTimeout(()=> {submitHandler()}, 1000);
+                  setTimeout(()=> {submitHandler()}, 500);
                 }}
               >
                 {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
