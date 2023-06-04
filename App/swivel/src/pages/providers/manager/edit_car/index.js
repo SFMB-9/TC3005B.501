@@ -58,26 +58,7 @@ const CarRegistrationForm = () => {
     const retrievedPlazos = json5.parse(res.auto._source.plazos);
     const retrievedEntrega = json5.parse(res.auto._source.entrega);
 
-    console.log("Car info: ");
-    console.log(retrievedAuto);
-
-    // console.log("Retrieved colores: ");
-    // console.log(retrievedColors);
-
-    // console.log("Retrieved caracteristicas: ");
-    // console.log(retrievedCharacteristics);
-
-    // console.log("Retrieved extras: ");
-    // console.log(retrievedExtras);
-
-    // console.log("Retrieved enganche: ");
-    // console.log(retrievedEnganche);
-
-    // console.log("Retrieved plazos: ");
-    // console.log(retrievedPlazos)
-
-    // console.log("Retrieved entrega: ");
-    // console.log(retrievedEntrega);
+    console.log("CAR INFO: ", retrievedAuto);
 
     setColor(retrievedColors);
     setCaracteristicas(retrievedCharacteristics);
@@ -100,14 +81,9 @@ const CarRegistrationForm = () => {
       allColorsFotos.push(colorArray);
     });
 
-    console.log(allColorsFotos);
+    console.log("FOTOS: ", allColorsFotos);
 
     setFotos(allColorsFotos);
-
-    // console.log("Retrieved car: " + JSON.stringify(retrievedAuto));
-    // console.log("Retrieved car interior color: " + JSON.stringify(retrievedAuto.color_interior));
-    // console.log("Retrieved car available for DT: " + JSON.stringify(retrievedAuto.disponible_prueba));
-    // console.log("Retrieved car catalog visible: " + JSON.stringify(retrievedAuto.visible_catalogo));
     
     setCar({
       ...retrievedAuto,
@@ -119,12 +95,6 @@ const CarRegistrationForm = () => {
       //handleAddRow(setColor, createEmptyColor);
     }
   }
-
-
-
-  // colorsArray.forEach((color) => {
-  //   console.log(color);
-  // });
 
   useEffect(() => {
     if (auto_id) {
@@ -159,7 +129,7 @@ const CarRegistrationForm = () => {
       for (let j = 0; j < fotos[i].length; j++) {
         const foto = await FileUpload(fotos[i][j]);
         updatedCar.colores[i].imagenes.push(foto);
-        console.log(updatedCar.colores[i].imagenes)
+        console.log("FOTO COLOR", i, updatedCar.colores[i].imagenes)
       }
     }
 
@@ -505,7 +475,7 @@ const CarRegistrationForm = () => {
                     fontSize={{ xs: 15, md: 16, lg: 18 }}
                   > Color interiores </Typography>
                   <TextField
-                    required
+                    // required // There is no actual field for this in the DB
                     size="small"
                     type="text"
                     name="color_interior"
