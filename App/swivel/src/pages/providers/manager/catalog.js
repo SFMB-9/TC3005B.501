@@ -18,6 +18,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useRouter } from "next/router";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useSession } from "next-auth/react";
 
 import ManagerLayout from "@/components/providers/manager/layout";
 import SortCatalog from "@/components/buyer/sort_catalog";
@@ -25,12 +26,25 @@ import styles from "@/styles/catalog.module.css";
 import Searchbar from "@/components/general/searchbar";
 import DataTable from "@/components/general/Table";
 
-
 const json5 = require('json5');
+
 
 export default function Catalog() {
   const router = useRouter();
   const [searchText, setSearchText] = useState(null);
+  const { data: session } = useSession();
+  
+  const getIdAgencia = async () => {
+    let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+        { method: 'GET' });
+
+    const agenciaId = await agenciaIdRaw.json();
+
+    console.log('ID AGENCIA: ', agenciaId.user.agencia_id)
+    
+    return agenciaId.user.agencia_id;
+  }
+
 
   let isFirstLoad = true;
 
@@ -57,7 +71,7 @@ export default function Catalog() {
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
 
-  const buildQuery = (selectedFilters) => {
+  const buildQuery = async (selectedFilters) => {
     let query = {};
     selectedFilters.forEach((filter) => {
       const [category, item] = filter.split(":");
@@ -72,13 +86,24 @@ export default function Catalog() {
       setSearchText(router.query.searchQuery);
       queryString = "search=" + router.query.searchQuery + "="
     }
+
+    const idAgencia = await getIdAgencia();
+
+    console.log('QST BEFORE ID: ', queryString)
+    queryString += `${queryString ? "&" : ""}agencia_id=${idAgencia}`;
+    console.log('QST AFTER ID: ', queryString)
+
     Object.entries(query).forEach(([category, items]) => {
       if (items.length) {
         queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
       }
     });
 
-    console.log('qst', queryString)
+    console.log('QST AFTER FILTERS: ', queryString)
+    
+    // Additionally, limit the results to the agency of the manager
+    
+
     return queryString;
   };
 
@@ -172,7 +197,7 @@ export default function Catalog() {
 
     console.log("Selected Filters:" + selectedFilters);
     let queryString = buildQuery(selectedFilters);
-    console.log('yooo', queryString)
+    // console.log('yooo', queryString)
 
     const response = await fetch(
       `/api/catalogoNuevo/filter?${queryString}`
@@ -584,12 +609,7 @@ export default function Catalog() {
                   maxHeight: "100vh",
                 }}
               >
-                {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                    {`http://localhost:3000/api/catalogo/buscar-autos${
-                      selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                    }`}
-                  </div>
-                  <ApiDataDisplay apiData={catalogData} /> */}
+                {/* <ApiDataDisplay apiData={catalogData} /> */}
                 {catalogData ? (
                   <div className="section">
                     <div className="pt-4">
