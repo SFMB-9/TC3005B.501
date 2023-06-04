@@ -26,9 +26,9 @@ export default function informacionGA() {
 
 
     const columns = [
-        { field: 'Nombre', headerName: 'Nombre', width: 250 },
-        { field: 'Correo', headerName: 'Correo', width: 200 },
-        { field: 'Telefono', headerName: 'Telefono', width: 200 },
+        { field: 'Nombre', headerName: 'Nombre', width: 300 },
+        { field: 'Correo', headerName: 'Correo', width: 300 },
+        { field: 'Telefono', headerName: 'Telefono', width: 300  },
         {
             field: 'delete',
             headerName: 'Eliminar',
@@ -85,11 +85,8 @@ export default function informacionGA() {
             ),
         },
     ]
-    const rows = [
-        { id: 1, GrupoAutomotriz: 'Group 1', Email: 'group1@example.com', Estado: 'Active', Telefono: '123456789' },
-        { id: 2, GrupoAutomotriz: 'Group 2', Email: 'group2@example.com', Estado: 'Inactive', Telefono: '987654321' },
-        // Add more dummy rows as needed
-      ];
+
+    const rows = []
 
     const handleChange = (event) => {
         const { id, value } = event.target;
