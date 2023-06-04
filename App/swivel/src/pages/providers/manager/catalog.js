@@ -15,17 +15,16 @@ import { Grid, Checkbox, FormControlLabel, Typography, IconButton, Button } from
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
-
-import ManagerLayout from "@/components/providers/manager/layout";
-import CatalogPagination from "@/components/buyer/catalog_pagination";
-import SortCatalog from "@/components/buyer/sort_catalog";
-import styles from "@/styles/catalog.module.css";
 import { useRouter } from "next/router";
-import Searchbar from "@/components/general/searchbar";
-
-import DataTable from "@/components/general/Table";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import ManagerLayout from "@/components/providers/manager/layout";
+import SortCatalog from "@/components/buyer/sort_catalog";
+import styles from "@/styles/catalog.module.css";
+import Searchbar from "@/components/general/searchbar";
+import DataTable from "@/components/general/Table";
+
 
 const json5 = require('json5');
 
