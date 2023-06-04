@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button } from "@mui/material";
+import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
 
@@ -12,8 +12,6 @@ const json5 = require('json5');
 
 
 const CarRegistrationForm = () => {
-  const [colorsArray, setColorsArray] = useState();
-  console.log("heeey", colorsArray);
   const router = useRouter();
   const { auto_id } = router.query;
    // [ {nombre: "", hex: "", imagenes: []}, ...
@@ -39,7 +37,7 @@ const CarRegistrationForm = () => {
     caracteristicas: [],
     extras: [],
     enganche: [],
-    plazo: {},
+    plazos: {},
     entrega: [],
     disponible_prueba: "",
     visible_catalogo: "",
@@ -52,19 +50,69 @@ const CarRegistrationForm = () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
-    // console.log(JSON.stringify(res));
     const retrievedAuto = res.auto._source;
-    const retrievedColorsString = res.auto._source.colores;
-    const retrievedColors = json5.parse(retrievedColorsString);
+    const retrievedColors = json5.parse(res.auto._source.colores);
+    const retrievedCharacteristics = json5.parse(res.auto._source.caracteristicas);
+    const retrievedExtras = json5.parse(res.auto._source.extras);
+    const retrievedEnganche = json5.parse(res.auto._source.enganche);
+    const retrievedPlazos = json5.parse(res.auto._source.plazos);
+    const retrievedEntrega = json5.parse(res.auto._source.entrega);
 
-    let tempColors = [];
+    console.log("Car info: ");
+    console.log(retrievedAuto);
 
-    for (let i = 0; i < retrievedColors.length; i++) {
-      // Append color to colorsArray
-      tempColors.push(retrievedColors[i]);
-    }
-    setCar(retrievedAuto);
-    setColorsArray(tempColors);
+    // console.log("Retrieved colores: ");
+    // console.log(retrievedColors);
+
+    // console.log("Retrieved caracteristicas: ");
+    // console.log(retrievedCharacteristics);
+
+    // console.log("Retrieved extras: ");
+    // console.log(retrievedExtras);
+
+    // console.log("Retrieved enganche: ");
+    // console.log(retrievedEnganche);
+
+    // console.log("Retrieved plazos: ");
+    // console.log(retrievedPlazos)
+
+    // console.log("Retrieved entrega: ");
+    // console.log(retrievedEntrega);
+
+    setColor(retrievedColors);
+    setCaracteristicas(retrievedCharacteristics);
+    setExtras(retrievedExtras);
+    setEnganche(retrievedEnganche);
+    setPlazo(retrievedPlazos);
+    setEntrega(retrievedEntrega);
+
+    const allColorsFotos = [];
+
+    retrievedColors.forEach(color => {
+      const { imagenes } = color;
+      const colorArray = [];
+
+      imagenes.forEach(url => {
+        const jsonFoto = { name: url };
+        colorArray.push(jsonFoto);
+      });
+
+      allColorsFotos.push(colorArray);
+    });
+
+    console.log(allColorsFotos);
+
+    setFotos(allColorsFotos);
+
+    // console.log("Retrieved car: " + JSON.stringify(retrievedAuto));
+    // console.log("Retrieved car interior color: " + JSON.stringify(retrievedAuto.color_interior));
+    // console.log("Retrieved car available for DT: " + JSON.stringify(retrievedAuto.disponible_prueba));
+    // console.log("Retrieved car catalog visible: " + JSON.stringify(retrievedAuto.visible_catalogo));
+    
+    setCar({
+      ...retrievedAuto,
+      ano: retrievedAuto.año
+    });
 
     for (let i = 0; i < retrievedColors.length; i++) {
       //handleAddRow(setFotos, createEmptyCarFoto);
@@ -89,10 +137,10 @@ const CarRegistrationForm = () => {
     e.preventDefault();
 
     if (
-      car.colores.length === 0 ||
-      car.enganche.length === 0 ||
-      car.entrega.length === 0 ||
-      car.plazo.length === 0
+      !color ||
+      !enganche ||
+      !entrega ||
+      !plazos
     ) {
       setOpen(true);
       return;
@@ -100,11 +148,11 @@ const CarRegistrationForm = () => {
     const updatedCar = {
       ...car,
       colores: color,
-      caracteristicas: caracteristicas,
-      extras: extras,
-      enganche: enganche,
-      plazo: plazo,
-      entrega: entrega,
+      caracteristicas: JSON.stringify(caracteristicas).replace(/\\\"/g, "\""),
+      extras: JSON.stringify(extras).replace(/\\\"/g, "\""),
+      enganche: JSON.stringify(enganche).replace(/\\\"/g, "\""),
+      plazos: JSON.stringify(plazos).replace(/\\\"/g, "\""),
+      entrega: JSON.stringify(entrega).replace(/\\\"/g, "\""),
     };
     // Upload images to bucket
     for (let i = 0; i < fotos.length; i++) {
@@ -115,12 +163,12 @@ const CarRegistrationForm = () => {
       }
     }
 
-    /*
-    For future reference, this is how you upload a car to elastic
-    await elasticCarRegister(updatedCar);
-    */
+    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/\\\"/g, "\"");
 
     console.log(updatedCar);
+
+    // await axios.post('/api/carRegister/elasticCarRegister', { car: updatedCar});
+
     // Preset the form with the current car data
     setCar({
       cantidad: 0,
@@ -143,7 +191,7 @@ const CarRegistrationForm = () => {
       caracteristicas: [],
       extras: [],
       enganche: [],
-      plazo: {},
+      plazos: {},
       entrega: [],
       disponible_prueba: "",
       visible_catalogo: "",
@@ -159,14 +207,14 @@ const CarRegistrationForm = () => {
   const [extras, setExtras] = useState([]);
   const [enganche, setEnganche] = useState([]);
   const [color, setColor] = useState([]);
-  const [plazo, setPlazo] = useState({});
+  const [plazos, setPlazo] = useState({});
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
   const [open, setOpen] = useState(false);
   
 
   //create empty objects
-  const createEmptyColor = () => ({ nombre: "", hex: "", imagenes: [] });
+  const createEmptyColor = () => ({ nombre: "", valor_hexadecimal: "", imagenes: [] });
   const createEmptyCaracteristica = () => "";
   const createEmptyExtra = () => ({ nombre: "", precio: 0, descripcion: "" });
   const createEmptyEnganche = () => 0;
@@ -290,19 +338,19 @@ const CarRegistrationForm = () => {
 
   //specific for plazo changes since it uses keys and values
   const handleKeyChange = (index, key) => {
-    const updatedPlazo = { ...plazo };
+    const updatedPlazo = { ...plazos };
     updatedPlazo[index] = { ...updatedPlazo[index], key };
     setPlazo(updatedPlazo);
   };
 
   const handleValueChange = (index, value) => {
-    const updatedPlazo = { ...plazo };
+    const updatedPlazo = { ...plazos };
     updatedPlazo[index] = { ...updatedPlazo[index], value };
     setPlazo(updatedPlazo);
   };
 
   const handleRemovePlazo = (index) => {
-    const updatedPlazo = { ...plazo };
+    const updatedPlazo = { ...plazos };
     delete updatedPlazo[index];
     setPlazo(updatedPlazo);
   };
@@ -317,8 +365,8 @@ const CarRegistrationForm = () => {
 
   //adds row to almost any array
   const handlePlazoAddRow = () => {
-    const newIndex = Object.keys(plazo).length;
-    setPlazo({ ...plazo, [newIndex]: { key: "", value: "" } });
+    const newIndex = Object.keys(plazos).length;
+    setPlazo({ ...plazos, [newIndex]: { key: "", value: "" } });
   };
 
   const handleFotoAddRow = (index) => {
@@ -373,6 +421,7 @@ const CarRegistrationForm = () => {
                     name="disponible_prueba"
                     id="disponible_prueba"
                     onChange={handleSwitchChange}
+                    checked={car.disponible_prueba}
                   />
                   <div>
                     <Typography
@@ -387,6 +436,7 @@ const CarRegistrationForm = () => {
                     name="visible_catalogo"
                     id="visible_catalogo"
                     onChange={handleSwitchChange}
+                    checked={car.visible_catalogo}
                   />
                   <div>
                     <Typography
@@ -636,13 +686,13 @@ const CarRegistrationForm = () => {
                     size="small"
                     required
                   >
-                    <MenuItem value="sedan">Sedán</MenuItem>
-                    <MenuItem value="coupe">Coupé</MenuItem>
-                    <MenuItem value="convertible">Convertible</MenuItem>
-                    <MenuItem value="deportivo">Deportivo</MenuItem>
-                    <MenuItem value="familiar">Familiar</MenuItem>
-                    <MenuItem value="hatchback">Hatchback</MenuItem>
-                    <MenuItem value="pickup">Pickup</MenuItem>
+                    <MenuItem value="Sedán">Sedán</MenuItem>
+                    <MenuItem value="Coupé">Coupé</MenuItem>
+                    <MenuItem value="Convertible">Convertible</MenuItem>
+                    <MenuItem value="Deportivo">Deportivo</MenuItem>
+                    <MenuItem value="Familiar">Familiar</MenuItem>
+                    <MenuItem value="Hatchback">Hatchback</MenuItem>
+                    <MenuItem value="Pickup">Pickup</MenuItem>
                   </Select>
                 </div>
                 <Typography
@@ -810,8 +860,8 @@ const CarRegistrationForm = () => {
                           required
                           size="small"
                           type="text"
-                          name="hex"
-                          value={object.hex}
+                          name="valor_hexadecimal"
+                          value={object.valor_hexadecimal}
                           onChange={(event) => handleColorChange(index, event)}
                           label="Codigo Hexadecimal"
                           inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
@@ -983,7 +1033,7 @@ const CarRegistrationForm = () => {
                         size="small"
                         type="text"
                         name="nombre"
-                        value={object.nombre}
+                        value={object.titulo}
                         onChange={(event) => handleExtraChange(index, event)}
                         label="Nombre"
                         inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
@@ -1162,59 +1212,57 @@ const CarRegistrationForm = () => {
                           borderTopRightRadius: 0,
                         }}
                       >
-                        {Object.entries(plazo).map(([index, item]) => (
-                          <div className="row" key={index}>
-                            <div className="col">
-                              <TextField
-                                required
-                                size="small"
-                                type="text"
-                                name="key"
-                                value={item.key}
-                                onChange={(event) =>
-                                  handleKeyChange(index, event.target.value)
-                                }
-                                label="Meses"
-                                inputProps={{
-                                  min: "0",
-                                  style: { fontFamily: "Lato" },
-                                }}
-                                InputLabelProps={{
-                                  style: { fontFamily: "Lato" },
-                                }}
-                                className="mb-2 w-100"
-                              />
+                        {Object.entries(plazos).map(([key, value], index) => (
+                          <Fade in={true} key={index}>
+                            <div className="row">
+                              <div className="col">
+                                <TextField
+                                  required
+                                  size="small"
+                                  type="text"
+                                  name="key"
+                                  value={key}
+                                  onChange={(event) => handleKeyChange(index, event.target.value)}
+                                  label="Meses"
+                                  inputProps={{
+                                    min: "0",
+                                    style: { fontFamily: "Lato" },
+                                  }}
+                                  InputLabelProps={{
+                                    style: { fontFamily: "Lato" },
+                                  }}
+                                  className="mb-2 w-100"
+                                />
+                              </div>
+                              <div className="col d-flex">
+                                <TextField
+                                  required
+                                  size="small"
+                                  type="text"
+                                  name="value"
+                                  value={value}
+                                  onChange={(event) => handleValueChange(index, event.target.value)}
+                                  label="%"
+                                  inputProps={{
+                                    min: "0",
+                                    style: { fontFamily: "Lato" },
+                                  }}
+                                  InputLabelProps={{
+                                    style: { fontFamily: "Lato" },
+                                  }}
+                                  className="mb-2 w-100"
+                                />
+                                <IconButton
+                                  aria-label="delete"
+                                  size="small"
+                                  className="mb-2"
+                                  onClick={() => handleRemovePlazo(index)}
+                                >
+                                  <CloseIcon fontSize="inherit" />
+                                </IconButton>
+                              </div>
                             </div>
-                            <div className="col d-flex">
-                              <TextField
-                                required
-                                size="small"
-                                type="text"
-                                name="value"
-                                value={item.value}
-                                onChange={(event) =>
-                                  handleValueChange(index, event.target.value)
-                                }
-                                label="%"
-                                inputProps={{
-                                  min: "0",
-                                  style: { fontFamily: "Lato" },
-                                }}
-                                InputLabelProps={{
-                                  style: { fontFamily: "Lato" },
-                                }}
-                                className="mb-2 w-100"
-                              />
-                              <IconButton
-                                aria-label="delete"
-                                size="small"
-                                className="mb-2"
-                                onClick={() => handleRemovePlazo(index)}
-                              >
-                                <CloseIcon fontSize="inherit" />
-                              </IconButton>
-                            </div>
-                          </div>
+                          </Fade>
                         ))}
                       </div>
                     </div>
