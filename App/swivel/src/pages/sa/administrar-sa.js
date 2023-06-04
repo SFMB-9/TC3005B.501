@@ -6,9 +6,11 @@ Page to view a list of all the automotive groups related to the SA user that is 
 to edit and delete them.
 */
 
+
 import axios from "axios";
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 import Searchbar from '@/components/general/searchbar';
 import DataTable from '@/components/general/Table';
 import SANavbar from '@/components/SA/navbar';
@@ -17,6 +19,7 @@ import { Button, Grid } from '@mui/material';
 import styles from '@/styles/portal_generic.module.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
+
 import { useSession } from "next-auth/react";
 
 export default function SA_automotiveGroups() {
@@ -44,14 +47,17 @@ useEffect( () => {
 
     }, [session]);
 
+
     const createUserHandler = async () => {
         router.push(`/sa/register-admin`);
     }
 
     const columns = [
+
         { field: 'nombres', headerName: 'Administrdor', width: 300 },
         { field: 'email', headerName: 'Email', width: 250 },
         { field: 'numero_telefonico', headerName: 'Teléfono', width: 250 },
+
         {
             field: 'verDetalle',
             headerName: 'Ver detalle',
@@ -127,7 +133,9 @@ useEffect( () => {
             ),
         },
     ]
+
     const rows = users;
+
 
     const [isOpen, setIsOpen] = useState(false); // Define isOpen state
 

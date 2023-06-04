@@ -7,10 +7,12 @@ Page to view a list of all the automotive groups related to the SA user that is 
 to edit and delete them.
 */
 
+
 import axios from "axios";
 import React from 'react';
 import { useState, useEffect} from 'react';
 import { useSession } from "next-auth/react";
+
 import Searchbar from '@/components/general/searchbar';
 import DataTable from '@/components/general/Table';
 import SANavbar from '@/components/SA/navbar';
@@ -36,6 +38,7 @@ export default function SA_automotiveGroups() {
                     "/api/superadmin/getGAUsers")
  
                 setUsers(resp.data.allUsers)
+
             } catch(err){
                 console.log(err)
             }
@@ -53,12 +56,15 @@ export default function SA_automotiveGroups() {
         { field: 'legal', headerName: 'Email', width: 200, valueGetter: (params) => params.row.legal.email},
         { field: 'direccion', headerName: 'Estado', width: 200,valueGetter: (params) => params.row.direccion.estado},
         { field: 'numero_telefonico', headerName: 'Telefono', width: 200,valueGetter: (params) => params.row.legal.numero_telefonico },
+
         {
             field: 'verDetalle',
             headerName: 'Ver detalle',
             width: 200,
             renderCell: () => (
-                <Button 
+
+                <Button
+
                     variant="contained"
                     disableElevation
                     sx={{
