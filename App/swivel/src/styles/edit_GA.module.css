@@ -57,6 +57,14 @@
     padding-bottom: 1vw;
 }
 
+.addButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-bottom: 1vw;
+    padding-top: 1vw;
+}
+
 /* Media queries for mobile devices */
 @media (max-width: 768px) {
     .mainContainer {

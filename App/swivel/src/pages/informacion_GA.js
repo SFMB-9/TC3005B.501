@@ -2,11 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import GANavbar from '@/components/providers/GA/navbar'
 import styles from '@/styles/edit_GA.module.css';
-import { Button, TextField, FormHelperText } from '@mui/material';
+import { Button, TextField, Grid, FormHelperText } from '@mui/material';
 import DataTable from '@/components/general/Table';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
 import { useRouter } from 'next/router';
+import Searchbar from '@/components/general/searchbar';
 import axios from 'axios';
 
 
@@ -28,7 +29,7 @@ export default function informacionGA() {
     const columns = [
         { field: 'Nombre', headerName: 'Nombre', width: 300 },
         { field: 'Correo', headerName: 'Correo', width: 300 },
-        { field: 'Telefono', headerName: 'Telefono', width: 300  },
+        { field: 'Telefono', headerName: 'Telefono', width: 300 },
         {
             field: 'delete',
             headerName: 'Eliminar',
@@ -86,7 +87,12 @@ export default function informacionGA() {
         },
     ]
 
-    const rows = []
+    const rows = [
+        { _id: 1, Nombre: 'Alberto', Correo: 'group1@example.com', Estado: 'Active', Telefono: '123456789' },
+        { _id: 2, Nombre: 'Group 2', Correo: 'group2@example.com', Estado: 'Inactive', Telefono: '987654321' },
+        // Add more dummy rows as needed
+      ];
+      
 
     const handleChange = (event) => {
         const { id, value } = event.target;
@@ -96,6 +102,7 @@ export default function informacionGA() {
         }))
     };
 
+    const [isOpen, setIsOpen] = useState(false); // Define isOpen state
 
 
     return (
@@ -198,10 +205,23 @@ export default function informacionGA() {
                 </div>
 
                 <h1 className={styles.tableTitle}>Gestión de administradores alternos</h1>
+                <Grid item xs={12} md={9} sm={8}>
+                    <Searchbar className={styles.searchbar} />
+                </Grid>
                 <DataTable
                     columns={columns}
                     rows={rows}
+                    title="Administradores alternos"
+                    getRowId={(row) => row.id} // Provide a unique identifier for each row
                 />
+                <div className={styles.addButtonContainer}>
+                    <Button variant="contained" color="primary" 
+                    onClick={handleChange} // CHANGE THIS
+                    className={styles.button}>
+                        Agregar SA
+                    </Button>
+                </div>
+
 
             </div>
         </div>
