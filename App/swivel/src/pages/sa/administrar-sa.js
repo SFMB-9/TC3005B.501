@@ -6,8 +6,11 @@ Page to view a list of all the automotive groups related to the SA user that is 
 to edit and delete them.
 */
 
+
+import axios from "axios";
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import Searchbar from '@/components/general/searchbar';
 import DataTable from '@/components/general/Table';
 import SANavbar from '@/components/SA/navbar';
@@ -17,17 +20,44 @@ import styles from '@/styles/portal_generic.module.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
 
+import { useSession } from "next-auth/react";
+
 export default function SA_automotiveGroups() {
     const router = useRouter();
+    const [users, setUsers] = useState([]);
+    const { data: session } = useSession();
+
+useEffect( () => {
+
+        const getUsersData = async () => {
+
+            try{
+                const resp = await axios.get(
+                    "/api/superadmin/getSAUsers")
+ 
+                setUsers(resp.data.allUsers)
+            } catch(err){
+                console.log(err)
+            }
+        };
+
+        if(session){
+            getUsersData()
+        }
+
+    }, [session]);
+
 
     const createUserHandler = async () => {
         router.push(`/sa/register-admin`);
     }
 
     const columns = [
-        { field: 'SuperAdmin', headerName: 'Super Admin', width: 300 },
-        { field: 'Email', headerName: 'Email', width: 250 },
-        { field: 'Telefono', headerName: 'Telefono', width: 250 },
+
+        { field: 'nombres', headerName: 'Administrdor', width: 300 },
+        { field: 'email', headerName: 'Email', width: 250 },
+        { field: 'numero_telefonico', headerName: 'Teléfono', width: 250 },
+
         {
             field: 'verDetalle',
             headerName: 'Ver detalle',
@@ -103,14 +133,8 @@ export default function SA_automotiveGroups() {
             ),
         },
     ]
-    const rows = [
-        { _id: 1, SuperAdmin: 'GA 1', Email: 'ejemplo1@gmail.com', Telefono: '1234567890' },
-        { _id: 2, SuperAdmin: 'GA 2', Email: 'ejemplo2@gmail.com', Telefono: '0987654321' },
-        { _id: 3, SuperAdmin: 'GA 3', Email: 'ejemplo3@gmail.com', Telefono: '9876543210' },
-        { _id: 4, SuperAdmin: 'GA 4', Email: 'ejemplo4@gmail.com', Telefono: '5678901234' },
-        { _id: 5, SuperAdmin: 'GA 5', Email: 'ejemplo5@gmail.com', Telefono: '4321098765' },
-        // Add more dummy rows here if needed
-    ];
+
+    const rows = users;
 
 
     const [isOpen, setIsOpen] = useState(false); // Define isOpen state

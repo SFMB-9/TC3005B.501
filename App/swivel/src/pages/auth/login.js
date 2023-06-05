@@ -51,9 +51,9 @@ export default function Login() {
           callbackUrl = `${window.location.origin}/`;
         } else if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
-        } else if (session.role === "GA") {
+        } else if (session.role === "ga_admin") {
           callbackUrl = `${window.location.origin}/providers/GA`;
-        } else if (session.role === "manager") {
+        } else if (session.role === "agencyManager") {
           callbackUrl = `${window.location.origin}/providers/manager`;
         } else if (session.role === "admin"){
           callbackUrl = `${window.location.origin}/superadmin`;

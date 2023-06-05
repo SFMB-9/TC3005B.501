@@ -41,8 +41,6 @@ export default function Process() {
         if (!process_id) {
             return;
         }
-
-        console.log("praocess_id: " + session_id);
         fetchProcess();
         updateProcess();
     }, [process_id]);
