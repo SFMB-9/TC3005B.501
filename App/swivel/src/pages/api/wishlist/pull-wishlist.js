@@ -1,4 +1,4 @@
-import { User } from "../../../models/user";
+import { BuyerUser } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 import { encryptRole } from "../../../utils/crypto";
 import { Client } from '@elastic/elasticsearch';
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         console.log(id)
 
         try {
-            const result = await User.findOne({ tipo_usuario: e_role, _id: id }, "lista_deseos").lean().exec();
+            const result = await BuyerUser.findOne({ tipo_usuario: e_role, _id: id }, "lista_deseos").lean().exec();
             const wishlist = result.lista_deseos;
 
             const body = await client.search({

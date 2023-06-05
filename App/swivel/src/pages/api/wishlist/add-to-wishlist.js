@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         const { id, lst } = req.body;
 
         try {
-            const doc = await BuyerUser.findByIdAndUpdate(id, { lista_deseos: lst });
+            await BuyerUser.findByIdAndUpdate(id, { lista_deseos: lst });
 
             res.status(200).json({ message: "Wishlist updated successfully" });
         } 
