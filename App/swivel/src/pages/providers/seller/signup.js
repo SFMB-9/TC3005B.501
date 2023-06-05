@@ -28,7 +28,7 @@ export default function SellerSignup() {
       const { data } = await axios.post("/api/register", {
         nombres: name,
         apellidos: surname,
-        email: email,
+        email: email.toLocaleLowerCase(),
         password: password,
         tipo_usuario: "seller",
         agencia_id: agency,

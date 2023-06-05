@@ -24,7 +24,7 @@ export default function ManagerSignup() {
       const { data } = await axios.post("/api/register", {
         nombres: name,
         apellidos: surname,
-        email: email,
+        email: email.toLocaleLowerCase(),
         password: password,
         tipo_usuario: "manager",
         agencia_id: agency,
