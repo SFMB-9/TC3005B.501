@@ -12,7 +12,6 @@ export default function Process() {
   const router = useRouter();
   const { process_id } = router.query;
 
-  console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
