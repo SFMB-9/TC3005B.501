@@ -71,32 +71,31 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              </div>
-              <div className="form-outline mb-2">
-                <label className="form-label">
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontFamily: "lato",
-                    }}
-                  >
-                    {" "} Contraseña{" "} </Typography> </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
+            </div>
+            <div className="form-outline mb-2">
+              <label className="form-label">
+                <Typography
+                  sx={{
+                    color: "black",
+                    fontFamily: "lato",
+                  }}
                 >
-                  {" "}
-                  Ingresar{" "}
-                </Typography>
+                  {" "} Contraseña{" "} </Typography> </label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+              <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
+              >
+                {" "}
+                Ingresar{" "}
               </button>
             </div>
-          </form>}
+          </form >}
         title="Iniciar sesión como proveedor"
         cardImage="/providers_login_image.png"
         backColor="white"
@@ -104,7 +103,7 @@ export default function Login() {
         bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
         textColor="black"
       />
-  </>
+    </>
 
   );
 }
