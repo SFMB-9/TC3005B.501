@@ -5,14 +5,21 @@ import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
-
+import { useEffect } from 'react';
 
 export default function addSAdmin() {
+
+
 
     const router = useRouter();
 
     const { data: session } = useSession();
-
+    
+    useEffect(() => {
+      if(!session){
+        router.push("/auth/login");
+      }
+    })
 
     const [name, setName] = useState('');
     const [paternalLN, setpaternalLN] = useState('');

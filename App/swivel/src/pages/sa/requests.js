@@ -10,6 +10,7 @@ tabs, and within each tab, filtered by completed or pending.
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 import DataTable from "@/components/general/Table";
 import SimpleAccordion from "@/components/general/Accordion";
@@ -31,6 +32,7 @@ const SARequestDashboard = () => {
   const [requestsAFilter, setRequestsAFilter] = useState("all");
 
   const { data: session } = useSession();
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -46,8 +48,9 @@ const SARequestDashboard = () => {
 
         const allRequests = resp.data.allRequests
 
-        const reqGA = allRequests.filter(r => r.tipo_proceso === 'registroGA');
-        const reqA = allRequests.filter(r => r.tipo_proceso === 'registroA');
+        const reqGA = allRequests.filter(r => r.tipo_proceso === 'peticionGA');
+        const reqA = allRequests.filter(r => r.tipo_proceso === 'peticionA');
+
 
         setRequestsGA(reqGA)
         setRequestsA(reqA)
@@ -60,19 +63,27 @@ const SARequestDashboard = () => {
 
     if (session) {
       getRequestsData();
+    } else {
+      router.push("/auth/login");
     }
 
   }, [session]);
 
 
-
+    const handleDetail = (params,type) => {
+      router.push(`/sa/find/req/`+type+"/"+params)
+    }
 
   const updateAnyRequest = async (_id, status) => {
 
-    await axios.put("/api/superadmin/updateAnySARequestStatus", {
-      _id,
-      status
+    const upd = await axios.post("/api/superadmin/updateAnySARequestStatus", {
+      id:_id,
+      status:status
     });
+
+
+
+
 
     const tempRequestsGA = requestsGA.map((request) => {
       if (request._id === _id) {
@@ -98,8 +109,13 @@ const SARequestDashboard = () => {
     setRequestsA(tempRequestsA);
   };
 
-  console.log("requestsGA", requestsGA.length);
+
+
   if (requestsGA && requestsA) {
+
+    console.log("prep")
+    console.log(requestsGA)
+    console.log(requestsA)
     const columnsGA = [
       {
         field: "_id",
@@ -110,7 +126,7 @@ const SARequestDashboard = () => {
         flex: 1,
       },
       {
-        field: "nombres",
+        field: "grupo_automotriz",
         headerName: "Grupo Automotriz",
         headerAlign: "center",
         align: "center",
@@ -118,7 +134,7 @@ const SARequestDashboard = () => {
         flex: 1,
       },
       {
-        field: "fecha_solicitud",
+        field: "fecha_inicio",
         type: "date",
         headerName: "Fecha de Solicitud",
         headerAlign: "center",
@@ -142,11 +158,11 @@ const SARequestDashboard = () => {
         type: "actions",
         renderCell: (params) => (
           <Select
-            value={params.row.status}
+            value={params.row.estatus}
             onChange={(e) => updateAnyRequest(params.row._id, e.target.value)}
             label="Estatus"
           >
-            <MenuItem value="En_Revision">En Proceso</MenuItem>
+            <MenuItem value="pendiente">En Proceso</MenuItem>
             <MenuItem value="Aceptada">Aprobado</MenuItem>
             <MenuItem value="Rechazada">Rechazado</MenuItem>
           </Select>
@@ -164,9 +180,10 @@ const SARequestDashboard = () => {
           <Button
             variant="contained"
             disableElevation
-            // onClick={() =>
-            //   
-            // }
+            onClick={(e) =>
+            handleDetail(params.row._id,"ga")
+            
+            }
             className="py-0"
             sx={{
               fontFamily: "Lato",
@@ -190,7 +207,7 @@ const SARequestDashboard = () => {
 
     const columnsA = [
       {
-        field: "solicitud_agencia_id",
+        field: "agencia_id",
         headerName: "Número de Solicitud",
         headerAlign: "center",
         align: "center",
@@ -198,7 +215,7 @@ const SARequestDashboard = () => {
         flex: 1,
       },
       {
-        field: "nombre",
+        field: "tipo_proceso",
         headerName: "Agencia",
         headerAlign: "center",
         align: "center",
@@ -206,7 +223,7 @@ const SARequestDashboard = () => {
         flex: 1,
       },
       {
-        field: "fecha_solicitud",
+        field: "fecha_inicio",
         type: "date",
         headerName: "Fecha de Solicitud",
         headerAlign: "center",
@@ -221,7 +238,7 @@ const SARequestDashboard = () => {
           }),
       },
       {
-        field: "estatus_validacion",
+        field: "estatus",
         headerName: "Estatus",
         headerAlign: "center",
         align: "center",
@@ -234,7 +251,7 @@ const SARequestDashboard = () => {
             onChange={(e) => updateAnyRequest(params.row._id, e.target.value)}
             label="Estatus"
           >
-            <MenuItem value="En_Revision">En Proceso</MenuItem>
+            <MenuItem value="pendiente">En Proceso</MenuItem>
             <MenuItem value="Aceptada">Aprobado</MenuItem>
             <MenuItem value="Rechazada">Rechazado</MenuItem>
           </Select>
@@ -252,9 +269,10 @@ const SARequestDashboard = () => {
           <Button
             variant="contained"
             disableElevation
-            // onClick={() =>
-            //   
-            // }
+onClick={(e) =>
+            handleDetail(params.row._id,"ag")
+            
+            }
             className="py-0"
             sx={{
               fontFamily: "Lato",
@@ -276,7 +294,6 @@ const SARequestDashboard = () => {
       }
     });
 
-    console.log(rowsGA)
 
     return (
       <>
@@ -302,6 +319,7 @@ const SARequestDashboard = () => {
           >
             Gestión de solicitudes
           </Typography>
+
           {
             requestsGA.length > 0 ?
               (
@@ -317,6 +335,7 @@ const SARequestDashboard = () => {
                         <DataTable
                           rows={rowsGA}
                           columns={columnsGA}
+                          getRowId={(row) => row.id} 
                         ></DataTable>
                       }
                       backgroundColorTitle="#F7F7F7"
@@ -330,8 +349,8 @@ const SARequestDashboard = () => {
                     </SimpleAccordion>
                   </div>
                 </>
-              )
-              : requestsA.length > 0 ?
+              ) : <div></div>}{
+               requestsA.length > 0 ?
                 (
                   <>
                     <div
@@ -344,7 +363,8 @@ const SARequestDashboard = () => {
                       content={
                         <DataTable
                           rows={rowsA}
-                          columns={columnsGA}
+                          columns={columnsA}
+                          getRowId={(row) => row.id} 
                         ></DataTable>
                       }
                       backgroundColorTitle="#F7F7F7"
@@ -359,6 +379,7 @@ const SARequestDashboard = () => {
                 )
               :
               <div></div>
+            }
           }
         </div>
       </>

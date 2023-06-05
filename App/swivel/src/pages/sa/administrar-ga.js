@@ -22,6 +22,7 @@ import styles from '@/styles/portal_generic.module.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
 
+
 export default function SA_automotiveGroups() {
 
 
@@ -46,9 +47,20 @@ export default function SA_automotiveGroups() {
 
         if(session){
             getUsersData()
-        }
+        }else {
+      router.push("/auth/login");
+    }
 
     }, [session]);
+
+    const handleDetail = (params) => {
+        console.log(params)
+        router.push(`/sa/find/user/ga/`+params)
+    }
+
+
+
+
 
 
     const columns = [
@@ -61,9 +73,10 @@ export default function SA_automotiveGroups() {
             field: 'verDetalle',
             headerName: 'Ver detalle',
             width: 200,
-            renderCell: () => (
+            renderCell: (params) => (
 
                 <Button
+                    onClick={() => handleDetail(params.row._id)}
 
                     variant="contained"
                     disableElevation
@@ -155,7 +168,7 @@ export default function SA_automotiveGroups() {
                         rows={rows}
                         columns={columns}
                         title="Usuarios"
-                        getRowId={(row) => row.id} // Provide a unique identifier for each row
+                        getRowId={(row) => row.id} 
                     />
                 </div>
             </div>

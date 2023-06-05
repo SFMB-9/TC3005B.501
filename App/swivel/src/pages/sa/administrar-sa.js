@@ -43,7 +43,9 @@ useEffect( () => {
 
         if(session){
             getUsersData()
-        }
+        } else {
+      router.push("/auth/login");
+    }
 
     }, [session]);
 

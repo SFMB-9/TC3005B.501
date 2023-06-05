@@ -1,25 +1,86 @@
 import React from 'react';
+import axios from "axios";
 import styles from '@/styles/vista_solicitud_general.module.css';
 import SANavbar from '@/components/SA/navbar';
 import DataTable from '@/components/general/Table';
 import { Button } from '@mui/material';
+import { useRouter } from 'next/router';
+import { useState, useEffect} from 'react';
+import { useSession } from "next-auth/react";
 
 export default function detailsGA() {
 
+    const router = useRouter();
+    const userId = router.query.id_ga;
+
+    const [user, setUser] = useState({});
+    const [legal, setLegal] = useState({});
+    const [address, setAddress] = useState({});
+    const [approval, setApproval] = useState({});
+    const [agencies, setAgencies] = useState([]);
+    const { data: session } = useSession();
+
+    useEffect( () => {
+
+        const getGADetail = async () => {
+
+            try{
+                const resp = await axios.post(
+                    "/api/superadmin/detailGa",
+                    {id:userId}
+                    )
+
+ 
+                setUser(Object.values(resp.data.groupDetails)[0]);
+                setAddress(Object.values(resp.data.groupDetails)[0].direccion);
+                setLegal(Object.values(resp.data.groupDetails)[0].legal);
+                setApproval(Object.values(resp.data.groupApproval)[0]);
 
 
-    const columns = [{ field: 'Nombre', headerName: 'Nombre', width: 250 },
-    { field: 'Correo', headerName: 'Correo', width: 200 },
-    { field: 'Telefono', headerName: 'Teléfono', width: 200 },]
 
-    const rows = []
+
+                setAgencies(resp.data.groupAgencies);
+
+                
+
+
+            } catch(err){
+                console.log(err)
+            }
+        };
+
+        if(session){
+            getGADetail()
+        } else {
+      router.push("/auth/login");
+    }
+
+    }, [session]);
+
+
+
+
+
+
+    const columns = [{ field: '_id', headerName: 'ID', width: 250 },
+    { field: 'nombres', headerName: 'Nombre', width: 200 },
+    { field: 'dir', headerName: 'Dirección', width: 200, renderCell: (params) => (
+      <div>
+        {`${params.row.direccion.calle || ''} ${params.row.direccion.numero_exterior || ''}`}
+      </div>
+    )
+
+
+},]
+
+    const rows = agencies
 
     return (
         <div>
             <SANavbar />
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Detalle del grupo automotriz</h1> {/*Cambiar Folio por numero de solicitud*/}
-                <h4 className={styles.subTitle}>NOMBRE AGENCIA</h4> {/*Cambiar por nombre de agencia*/}
+                <h4 className={styles.subTitle}>{user.nombres}</h4> {/*Cambiar por nombre de agencia*/}
                 <div className={styles.row}>
                     <div className={styles.cardContainer}>
                         <div className={styles.card}>
@@ -28,49 +89,52 @@ export default function detailsGA() {
                                 <div>
                                     <div className={styles.row}>
                                         <p className={styles.boldText}>Nombre:</p>
-                                        <p>Nombre completo</p> {/*Cambiar por nombre de GA*/}
-                                    </div>
-                                    <div className={styles.row}>
-                                        <p className={styles.boldText}>Correo:</p>
-                                        <p>algo@gmail.com</p> {/*Cambiar por correo de solicitante*/}
-                                    </div>
-                                    <div className={styles.row}>
-                                        <p className={styles.boldText}>Telefono:</p>
-                                        <p>0000000000000</p> {/*Cambiar por telefono de solicitante*/}
+                                        <p>{user.nombres}</p> 
                                     </div>
                                     <div className={styles.row}>
                                         <p className={styles.boldText}>Dirección:</p>
-                                        <p>Lago alberto</p> {/*Cambiar por direccion de solicitante*/}
+                                        <p>{`${address.calle} ${address.numero_exterior} ${address["numero_interior"]} ${address.ciudad} ${address.estado} ${address.codigo_postal}`}</p> 
+                                    </div>
+                                    <div className={styles.row}>
+                                        <p className={styles.boldText}>RFC:</p>
+                                        <p>{user.rfc_grupo_automotriz}</p>
+                                    </div>
+                                    <div className={styles.row}>
+                                        <p className={styles.boldText}>Sitio Web:</p>
+                                        <p>{user.url_grupo_automotriz}</p> 
                                     </div>
 
                                 </div>
                             </div>
-                            <p className={styles.status}>Solicitud realizada: {/*fecha*/}</p>
+                            
                         </div>
                     </div>
 
                     <div className={styles.cardContainer}>
                         <div className={styles.card}>
-                            <h5 className={styles.cardTitle}>Aprobado Por:</h5>
+                            <h5 className={styles.cardTitle}>Aprobación</h5>
                             <div className={styles.cardInfoContainer}>
                                 <div>
                                     <div className={styles.row}>
-                                        <p className={styles.boldText}>Nombre:</p>
+                                        <p className={styles.boldText}>Revisor:</p>
                                         <p>Usuario SA</p> {/*Cambiar por nombre de quien aprobo*/}
                                     </div>
                                     <div className={styles.row}>
-                                        <p className={styles.boldText}>Correo:</p>
+                                        <p className={styles.boldText}>ID Solicitud:</p>
                                         <p>algo@gmail.com</p> {/*Cambiar por correo de solicitante*/}
                                     </div>
                                     <div className={styles.row}>
-                                        <p className={styles.boldText}>Telefono:</p>
+                                        <p className={styles.boldText}>Estatus</p>
                                         <p>0000000000000</p> {/*Cambiar por telefono de solicitante*/}
                                     </div>
+                                                                <p className={styles.status}>Solicitud Realizada: {approval.fecha_inicio}</p>
+                            <p className={styles.status}>Ultimo Estatus: {approval.estatus} al  {approval.fecha_estatus}</p>
+
 
                                 </div>
 
                             </div>
-                            <p className={styles.status}>Aprobado el: {/*fecha*/}</p>
+
                         </div>
                     </div>
 
@@ -82,15 +146,15 @@ export default function detailsGA() {
                                 <div>
                                     <div className={styles.row}>
                                         <p className={styles.boldText}>Nombre:</p>
-                                        <p>Alberto</p> {/*Cambiar por nombre de quien aprobo*/}
+                                        <p>{legal.nombres + " " + legal.apellidos}</p> {/*Cambiar por nombre de quien aprobo*/}
                                     </div>
                                     <div className={styles.row}>
                                         <p className={styles.boldText}>Correo:</p>
-                                        <p>algo@gmail.com</p> {/*Cambiar por correo de solicitante*/}
+                                        <p>{legal.email}</p> {/*Cambiar por correo de solicitante*/}
                                     </div>
                                     <div className={styles.row}>
                                         <p className={styles.boldText}>Telefono:</p>
-                                        <p>0000000000000</p> {/*Cambiar por telefono de solicitante*/}
+                                        <p>{legal.numero_telefonico}</p> {/*Cambiar por telefono de solicitante*/}
                                     </div>
 
                                 </div>
