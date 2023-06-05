@@ -47,12 +47,14 @@ const CarRegistrationForm = () => {
     ficha_tecnica: "",
     fotos_3d: [],
   });
+  const [carId, setCarId] = useState("");
   
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
+    const retrievedCarId = res.auto._id;
     const retrievedColors = json5.parse(res.auto._source.colores);
     const retrievedCharacteristics = json5.parse(res.auto._source.caracteristicas);
     const retrievedExtras = json5.parse(res.auto._source.extras);
@@ -115,6 +117,8 @@ const CarRegistrationForm = () => {
     // console.log("Retrieved car catalog visible: " + JSON.stringify(retrievedAuto.visible_catalogo));
     // console.log("Retrieved car amount: " + JSON.stringify(retrievedAuto.cantidad));
     
+    setCarId(retrievedCarId);
+
     setCar({
       ...retrievedAuto,
       ano: retrievedAuto.año
@@ -180,7 +184,7 @@ const CarRegistrationForm = () => {
     console.log("Car to upload: ");
     console.log(updatedCar);
 
-    await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar});
+    await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar, id: carId});
 
     setCar({
       cantidad: 0,
