@@ -1,3 +1,4 @@
+//This screen should return the user's data and allow the user to edit their information. 
 import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from '@/styles/edit_GA.module.css';

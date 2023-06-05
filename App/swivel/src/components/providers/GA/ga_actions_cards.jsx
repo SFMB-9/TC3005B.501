@@ -6,18 +6,9 @@ export default function GActionsCards() {
     <div className={styles.actionCardsContainer}>
       <CustomIconCard
         imageSource="/manager/catalog_action.jpg"
-        icon="/manager/catalog_icon.svg"
-        text="Administración del catálogo"
-        href="/providers/new_GA/" //<-- there are still no route to add
-        light={false}
-        header=''
-        fiftyFifty={false}
-      />
-      <CustomIconCard
-        imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
-        text="Administración de gerentes"
-        href="/providers/GA/manageGA" //<-- there are still no route to add
+        text="Perfil grupo automotriz"
+        href="/providers/GA/informacion_GA" //<-- there are still no route to add
         light={false}
         header=''
         fiftyFifty={false}
@@ -26,7 +17,7 @@ export default function GActionsCards() {
         imageSource="/manager/branch_action.jpg"
         icon="/manager/branch_icon.svg"
         text="Administración de agencias"
-        href="/providers/GA/portal_agencias" //<-- there are still no route to add
+        href="/providers/GA/portal_agencias" 
         light={false}
         header=''
         fiftyFifty={false}
