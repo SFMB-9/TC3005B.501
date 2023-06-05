@@ -33,19 +33,6 @@ export default function Catalog() {
   const router = useRouter();
   const [searchText, setSearchText] = useState(null);
   const { data: session } = useSession();
-  
-  const getIdAgencia = async () => {
-    let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
-        { method: 'GET' });
-
-    const agenciaId = await agenciaIdRaw.json();
-
-    console.log('ID AGENCIA: ', agenciaId.user.agencia_id)
-    
-    return agenciaId.user.agencia_id;
-  }
-
-
   let isFirstLoad = true;
 
   console.log("Search text: " + searchText);
@@ -71,7 +58,7 @@ export default function Catalog() {
   const [apiData, setApiData] = useState(null);
   const [catalogData, setCatalogData] = useState([]);
 
-  const buildQuery = async (selectedFilters) => {
+  const buildQuery = (selectedFilters) => {
     let query = {};
     selectedFilters.forEach((filter) => {
       const [category, item] = filter.split(":");
@@ -87,12 +74,6 @@ export default function Catalog() {
       queryString = "search=" + router.query.searchQuery + "="
     }
 
-    const idAgencia = await getIdAgencia();
-
-    console.log('QST BEFORE ID: ', queryString)
-    queryString += `${queryString ? "&" : ""}agencia_id=${idAgencia}`;
-    console.log('QST AFTER ID: ', queryString)
-
     Object.entries(query).forEach(([category, items]) => {
       if (items.length) {
         queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
@@ -100,104 +81,16 @@ export default function Catalog() {
     });
 
     console.log('QST AFTER FILTERS: ', queryString)
-    
-    // Additionally, limit the results to the agency of the manager
-    
 
     return queryString;
   };
 
-  const fetchFilters = async () => {
-    if (router.query.marca) {
-      const query = router.query.marca;
-      removeQueryParam("marca");
-      if (!selectedFilters.includes(`marca:${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`marca:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "marca", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    if (router.query.tipo) {
-      const query = router.query.tipo;
-      removeQueryParam("tipo");
-      if (!selectedFilters.includes(`tipo_vehiculo:${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`tipo_vehiculo:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "tipo_vehiculo", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    if (router.query.year) {
-      const query = router.query.year;
-      removeQueryParam("year");
-      if (!selectedFilters.includes(`ano:${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`ano:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "ano", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    if (router.query.searchQuery) {
-      const query = router.query.searchQuery;
-      removeQueryParam("searchQuery");
-      if (!selectedFilters.includes(`search=${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`search=${query}`);
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    console.log("Selected Filters:" + selectedFilters);
+  const fetchFilters = async (idAgencia) => {
     let queryString = buildQuery(selectedFilters);
-    // console.log('yooo', queryString)
+
+    queryString += `${queryString ? "&" : ""}agencia_id=${idAgencia}`;
+    
+    console.log('QST WITH AGENCY ID: ', queryString)
 
     const response = await fetch(
       `/api/catalogoNuevo/filter?${queryString}`
@@ -211,10 +104,23 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    if (router.isReady) {
-      fetchFilters();
+    const getIdAgencia = async () => {
+      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+          { method: 'GET' });
+  
+      const agenciaId = await agenciaIdRaw.json();
+      
+      console.log("ID DE AGENCIA: " + agenciaId.user.agencia_id);
+  
+      return agenciaId.user.agencia_id;
     }
-  }, [selectedFilters, router.isReady]);
+
+    if (router.isReady && session) {
+      getIdAgencia().then((a_id) =>
+        fetchFilters(a_id)
+      );
+    }
+  }, [selectedFilters, router.isReady, session]);
 
   const handleMenuItemClick = (category, item) => {
     event.stopPropagation();

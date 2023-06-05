@@ -14,6 +14,8 @@ const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
+    console.log("QUERY IN ENDPOINT: " + JSON.stringify(req.query));
+
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
@@ -66,8 +68,6 @@ export default async function handler(req, res) {
         municipio_agencia: "Municipio de la agencia",
         tipo_vehiculo: "Tipo de vehículo"
     };
-
-    console.log("Query: " + JSON.stringify(req.query));
 
     if (req.method !== 'GET') {
         return res.status(400).json({ message: 'Method not allowed' });
@@ -260,18 +260,16 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
         });
     }
 
-    // One for the agencia_id
     if (queryParams.agencia_id) {
+        console.log("Llegale mi buen: " + queryParams.agencia_id);
         dbQuery.query.bool.must.push({
-            match: { 
+            match: {
                 agencia_id: queryParams.agencia_id
             }
-            
         });
-        console.log("Agencia id: " + queryParams.agencia_id);
-    } else {
-        console.log(queryParams);
     }
+
+    console.log(JSON.stringify(dbQuery));
 
     return dbQuery;
 }
