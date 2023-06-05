@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
 
@@ -16,7 +15,7 @@ export default async (req, res) => {
         }
 
       
-        await dbConnect();
+        dbConnect();
     
         try {
         // Find the process that needs to be updated
@@ -36,7 +35,7 @@ export default async (req, res) => {
         //save the changes
         await proc.save();
 
-        res.status(200).json({ message: 'added comment: ' + comment + ' in request: ' + request_id + ' at document: ' + doc[doc_id].nombre});
+        res.status(200).json({ message: 'added comment: ' + comment + ' in request: ' + request_id + ' at document: ' + doc[doc_id].nombre_documento});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });

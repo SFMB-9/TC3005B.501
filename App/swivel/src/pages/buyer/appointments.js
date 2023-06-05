@@ -6,7 +6,7 @@ export default function Appointments() {
 
 	const getTests = async () => {
 		const response = await fetch(
-			'http://localhost:3000/api/prueba-manejo/test-appointments'
+			'/api/prueba-manejo/test-appointments'
 		)
 		const data = await response.json()
 		const retrievedTests = await data

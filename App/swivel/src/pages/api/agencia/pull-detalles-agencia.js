@@ -1,4 +1,4 @@
-import { SellerUser } from "../../../models/user";
+import { User } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         const { agency } = req.query;
 
         try {
-            const result = await SellerUser.findOne({ agencia: agency }, "horas_min horas_max dias_anticipo dias_max documentos_requeridos_compra");
+            const result = await User.findOne({ nombres: agency }).exec(); 
             res.status(200).json(result);
         } 
         catch (error) {

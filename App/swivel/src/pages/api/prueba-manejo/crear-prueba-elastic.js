@@ -15,16 +15,19 @@ import dbConnect from "../../../config/dbConnect";
 export default async (req, res) => {
     await dbConnect();
     try {
-        let rawResult = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${req.body.auto_id}`, 
-        {method: 'GET'});
+        let url = new URL('/api/prueba-manejo/get-car-info-elastic', `http://${req.headers.host}`);
+        url.searchParams.append('auto_id', req.body.auto_id);
+        
+        let rawResult = await fetch(url.toString(),
+            { method: 'GET' });
         const jsonResult = await rawResult.json();
         const carData = jsonResult.auto._source;
-        
+
         const userData = await Usuario.findById(req.body.user_id);
         const agencyData = await Usuario.findOne({ "nombres": carData.nombre_agencia, "tipo_usuario": "agencia" });
-        
+
         // Create the Process with the defined data
-        const proceso = await Proceso.create({ 
+        const proceso = await Proceso.create({
             tipo_proceso: "pruebaManejo",
             estatus_validacion: "En proceso",
             documentos: req.body.documents,
@@ -49,7 +52,7 @@ export default async (req, res) => {
         });
 
         const procesoJSON = proceso.toJSON();
-        
+
         const result = {
             proceso_id: procesoJSON._id,
         };
@@ -57,9 +60,9 @@ export default async (req, res) => {
         return res
             .status(200)
             .json({ message: 'Proceso de prueba de manejo creado exitosamente', result: result });
-    } catch(error) {
+    } catch (error) {
         console.log(error)
-        return res.status(400).json({ message: 'Error al crear proceso de prueba de manejo', error: error.message});
+        return res.status(400).json({ message: 'Error al crear proceso de prueba de manejo', error: error.message });
     } finally {
         await mongoose.disconnect();
     }

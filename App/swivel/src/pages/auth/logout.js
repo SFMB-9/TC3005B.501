@@ -4,7 +4,7 @@ export default function Logout() {
   return (
     <>
       <button
-        onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })}
+        onClick={() => signOut({ callbackUrl: "/" })}
       >
         Sign out
       </button>

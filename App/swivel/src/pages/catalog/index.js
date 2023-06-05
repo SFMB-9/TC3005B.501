@@ -22,8 +22,20 @@ import { useRouter } from "next/router";
 import Searchbar from "@/components/general/searchbar";
 
 export default function Catalog() {
-
   const router = useRouter();
+  const [searchText, setSearchText] = useState(null);
+
+  let isFirstLoad = true;
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      if (JSON.stringify(router.query.searchQuery)) {
+        setSearchText(router.query.searchQuery);
+      }
+      isFirstLoad = false;
+    }
+  }, []);
+
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
@@ -46,6 +58,10 @@ export default function Catalog() {
     });
 
     let queryString = "";
+    if (JSON.stringify(router.query.searchQuery) && searchText === null) {
+      setSearchText(router.query.searchQuery);
+      queryString = "search=" + router.query.searchQuery + "="
+    }
     Object.entries(query).forEach(([category, items]) => {
       if (items.length) {
         queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
@@ -57,100 +73,64 @@ export default function Catalog() {
 
   const fetchFilters = async () => {
     if (router.query.marca) {
+      const query = router.query.marca;
       removeQueryParam("marca");
-      if (!selectedFilters.includes(`marca:${router.query.marca}`)) {
+      if (!selectedFilters.includes(`marca:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`marca:${router.query.marca}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "marca", value: router.query.marca };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
+          newSelectedFilters.push(`marca:${query}`);
           return newSelectedFilters;
         });
       }
     }
 
     if (router.query.tipo) {
+      const query = router.query.tipo;
       removeQueryParam("tipo");
-      if (!selectedFilters.includes(`tipo_vehiculo:${router.query.tipo}`)) {
+      if (!selectedFilters.includes(`tipo_vehiculo:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`tipo_vehiculo:${router.query.tipo}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "tipo_vehiculo", value: router.query.tipo };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
+          newSelectedFilters.push(`tipo_vehiculo:${query}`);
           return newSelectedFilters;
         });
       }
     }
 
     if (router.query.year) {
+      const query = router.query.year;
       removeQueryParam("year");
-      if (!selectedFilters.includes(`ano:${router.query.year}`)) {
+      if (!selectedFilters.includes(`ano:${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`ano:${router.query.year}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "ano", value: router.query.year };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
+          newSelectedFilters.push(`ano:${query}`);
           return newSelectedFilters;
         });
       }
     }
 
     if (router.query.searchQuery) {
+      const query = router.query.searchQuery;
       removeQueryParam("searchQuery");
-      if (!selectedFilters.includes(`search=${router.query.searchQuery}`)) {
+      if (!selectedFilters.includes(`search=${query}`)) {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`search=${router.query.searchQuery}`);
+          newSelectedFilters.push(`search=${query}`);
           return newSelectedFilters;
         });
       }
     }
 
-    console.log(selectedFilters);
+    console.log("Selected Filters:" + selectedFilters);
     let queryString = buildQuery(selectedFilters);
 
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/filter?${queryString}`
+      `/api/catalogoNuevo/filter?${queryString}`
     );
 
     const data = await response.json();
 
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
-    setApiData(data);
     setCatalogData(data.result);
   };
 
@@ -356,6 +336,8 @@ export default function Catalog() {
                 // para que se ejecute cuando se presione el botón de búsqueda
               */}
             <Searchbar
+              firstValue={searchText}
+              placeholderText={'Buscar...'}
               setState={setSelectedFilters}
             />
             <div>

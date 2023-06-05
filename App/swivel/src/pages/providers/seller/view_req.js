@@ -10,6 +10,16 @@ import DataTable from "@/components/general/Table";
 import { Select, MenuItem, Button, Typography } from "@mui/material";
 import SellerNavbar from "@/components/providers/seller/navbar";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import { formatDate } from "@/components/general/date_utils";
+import { Link } from "react-router-dom";
+
+import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const AblyChatComponent = dynamic(
+  () => import("@/components/chat/AblyChatComponent"),
+  { ssr: false }
+);
 
 const RequestDetails = () => {
   const router = useRouter();
@@ -17,6 +27,11 @@ const RequestDetails = () => {
   const [documents, setDocuments] = useState([]);
   const [user, setUser] = useState({});
   const { id, user_id } = router.query;
+  const [isChatOpen, setChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setChatOpen(!isChatOpen);
+  };
 
   // This function fetches the request details using the _id in the URL
   const fetchRequests = async () => {
@@ -26,12 +41,14 @@ const RequestDetails = () => {
       "/api/DrivingRequestsSeller/getDrivingRequest",
       { params: { _id: id } }
     );
-    const r = res.data.proceso;
+    const r = res.data.proceso[0];
+    console.log(r);
     const d = r.documentos.map((doc, index) => ({
       ...doc,
       comment: "",
       _id: index,
     }));
+    //const d = r.documentos
     setRequests(r);
     setDocuments(d);
   };
@@ -86,24 +103,25 @@ const RequestDetails = () => {
   const columns = [
     {
       field: "descarga",
-      headerName: "",
+      minWidth: 150,
+      headerName: "Archivo",
       headerAlign: "center",
       align: "center",
       type: "actions",
       renderCell: (params) => (
-        <DownloadRoundedIcon
-          className="m-0"
-          onClick={() => console.log("clicked")}
-          sx={{
-            color: "#F55C7A",
-            "&:hover": { cursor: "pointer", color: "#F59C7A" },
-            width: 18,
-          }}
-        />
+        <>
+          {params.row.url && params.row.url !== "" ? (
+            <a href={params.row.url} target="_blank">
+              <u>Ver archivo</u>
+            </a>
+          ) : (
+            <div>No hay archivo</div>
+          )}
+        </>
       ),
     },
     {
-      field: "nombre",
+      field: "nombre_documento",
       headerName: "Nombre",
       headerAlign: "center",
       align: "center",
@@ -112,32 +130,31 @@ const RequestDetails = () => {
     },
     {
       field: "fecha_modificacion",
-      type: "date",
       headerName: "Ultima modificación",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
-      valueFormatter: (params) =>
-        new Date(params.value).toLocaleDateString("es-ES", {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        }),
+      valueGetter: (params) => {
+        const cell =
+          params.row.fecha_modificacion !== "" && params.row.fecha_modificacion
+            ? formatDate(params.row.fecha_modificacion).formattedShortDate
+            : 0;
+        return cell;
+      },
     },
     {
-      field: "status",
+      field: "estatus",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
       type: "actions",
-      renderCell: (params) => (
-        console.log(params),
-        (
+      renderCell: (params) =>
+        params.row.estatus != "Pendiente" ? (
           <Select
-            value={params.value}
+            value={params.row.estatus}
             onChange={(e) =>
               updateDocumentStatus(request._id, params.row._id, e.target.value)
             }
@@ -151,7 +168,7 @@ const RequestDetails = () => {
               sx={{ fontFamily: "Lato", fontSize: "12px" }}
               value="En_Revision"
             >
-              En Proceso
+              En Revisión
             </MenuItem>
             <MenuItem
               sx={{ fontFamily: "Lato", fontSize: "12px" }}
@@ -166,8 +183,9 @@ const RequestDetails = () => {
               Rechazado
             </MenuItem>
           </Select>
-        )
-      ),
+        ) : (
+          <p>{params.row.estatus}</p>
+        ),
     },
     {
       field: "comentarios",
@@ -236,7 +254,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        {request.auto.precio}
+                        ${request.auto.precio}
                       </li>
                     </>
                   ) : (
@@ -266,13 +284,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        {user._id}
-                      </li>
-                      <li
-                        className="list-group-item"
-                        style={{ fontFamily: "Lato", fontSize: 11 }}
-                      >
-                        {user.name}
+                        {user.nombres} {user.apellidos}
                       </li>
                       <li
                         className="list-group-item"
@@ -284,36 +296,12 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        {user.phone} Phone
+                        {user.numero_telefonico}
                       </li>
                     </>
                   ) : (
                     <li className="list-group-item">"No hay cliente</li>
                   )}
-                  <li
-                    className="list-group-item p-0"
-                    style={{ fontFamily: "Lato", fontSize: 11 }}
-                  >
-                    <Button
-                      variant="contained"
-                      disableElevation
-                      onClick={() => console.log("clicked")}
-                      className="py-0"
-                      sx={{
-                        fontFamily: "Lato",
-                        fontWeight: "bold",
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "#111439",
-                        "&:hover": { backgroundColor: "#333333" },
-                        borderRadius: 0,
-                        borderBottomLeftRadius: 4,
-                        borderBottomRightRadius: 4,
-                      }}
-                    >
-                      Iniciar Chat
-                    </Button>
-                  </li>
                 </ul>
               </div>
               {/*User details*/}
@@ -331,6 +319,14 @@ const RequestDetails = () => {
               sx={{ fontFamily: "Lato", color: "#333333" }}
             >
               Documentos
+            </Typography>
+            <Typography
+              variant="p"
+              fontWeight="light"
+              className="py-3"
+              sx={{ fontFamily: "Lato", color: "#333333" }}
+            >
+              * Para editar los comentarios haga doble click sobre el campo
             </Typography>
             <DataTable
               columns={columns}
@@ -370,6 +366,131 @@ const RequestDetails = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="container">
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha384-iBBgrCyberBlbChJLlKDcUWP7t8GwgaKI21Jc6CZP97ZvsjFjE9+3YF5nkvP1kj"
+            crossorigin="anonymous"
+          />
+        </Head>
+
+        <button className="chat-toggle-btn" onClick={toggleChat}>
+          Chat
+        </button>
+
+        {isChatOpen && (
+          <main className="chat-popup">
+            <h4 className="title">{user.nombres + " " + user.apellidos}</h4>
+            <AblyChatComponent id_purchase={id}/>
+          </main>
+        )}
+
+        <style jsx>{`
+        .container {
+          position: relative;
+          display: grid;
+          grid-template-rows: 1fr 100px;
+          min-height: 100vh;
+          // background-color: aqua;
+        }
+
+        main {
+          display: grid;
+          grid-template-rows: auto 1fr;
+          width: 70%
+          max-width: 900px;
+          margin: 20px auto;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+            0px 1px 2px rgba(0, 0, 0, 0.24);
+          background-color: white;
+          position: fixed; 
+          bottom: 2px; 
+          right: 110px; 
+          z-index: 1000; 
+        }
+
+        chat-popup {
+          position: fixed;
+          bottom: 0;
+          transform: translateY(100%);
+          transition: transform 1s ease-in-out;  // Increased from 0.3s to 0.5s
+        }
+
+        .chat-popup.open {
+          transform: translateY(0);
+        }
+
+        .title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 75px;
+          margin: 0;
+          color: white;
+          background: #383838; 
+        }
+        
+        .chat-toggle-btn {
+          position: fixed; 
+          bottom: 20px; 
+          right: 20px; 
+          z-index: 1000; 
+          font-size: 1em;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 50px;
+          color: #fff;
+          background-color: #f55c7a;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .chat-toggle-btn:hover {
+          background-color: #f77a92; 
+        }
+
+        .chat-toggle-btn:focus {
+          outline: none; 
+        }
+
+
+      `}</style>
+
+        <style jsx global>{`
+          html,
+          body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+              Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+              sans-serif;
+            color: #333; // Dark grey color for text
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          [data-author="me"] {
+            display: flex;
+            background-color: #f55c7a;
+            color: white;
+            align-self: flex-end;
+            flex-grow: 0;
+            border-radius: 20px 5px 20px 20px;
+          }
+
+          [data-author="other"] {
+            color: #383838;
+            align-self: flex-start;
+            border-radius: 5px 20px 20px 20px;
+          }
+        `}</style>
       </div>
     </>
   );

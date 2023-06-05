@@ -13,7 +13,7 @@ export default function Process() {
 
     const fetchProcess = async () => {
         const response = await fetch(
-            `http://localhost:3000/api/purchase-docs/with-mongo?process_id=${process_id}`,
+            `/api/purchase-docs/with-mongo?process_id=${process_id}`,
             { method: "GET" }
         );
 
@@ -26,7 +26,7 @@ export default function Process() {
 
     const updateProcess = async () => {
       const response = await fetch(
-          `http://localhost:3000/api/success/update-document?process_id=${process_id}&session_id=${session_id}`,
+          `/api/success/update-document?process_id=${process_id}&session_id=${session_id}`,
           { method: "PUT" }
       );
 
@@ -41,8 +41,6 @@ export default function Process() {
         if (!process_id) {
             return;
         }
-
-        console.log("praocess_id: " + session_id);
         fetchProcess();
         updateProcess();
     }, [process_id]);

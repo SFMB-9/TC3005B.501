@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
+  console.log(req.body.items)
   console.log(JSON.parse(req.body.items))
   if (req.method === 'POST') {
     try {
@@ -11,7 +12,7 @@ export default async function handler(req, res) {
         payment_method_types: ['card'],
         line_items: JSON.parse(req.body.items),
         mode: 'payment',
-        metadata: {process_id: req.body.id},
+        metadata: { process_id: req.body.id },
         success_url: `${req.headers.origin}/success/${req.body.id}/{CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/purchase/${req.body.id}`,
       });
