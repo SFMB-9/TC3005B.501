@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
@@ -158,11 +159,11 @@ const CarRegistrationForm = () => {
     const {año, ...updatedCar} = car;
 
     updatedCar.colores = color;
-    updatedCar.caracteristicas = JSON.stringify(caracteristicas).replace(/\\\"/g, "\"");
-    updatedCar.extras = JSON.stringify(extras).replace(/\\\"/g, "\"");
-    updatedCar.enganche = JSON.stringify(enganche).replace(/\\\"/g, "\"");
-    updatedCar.plazos = JSON.stringify(dbFormatPlazos).replace(/\\\"/g, "\"");
-    updatedCar.entrega = JSON.stringify(entrega).replace(/\\\"/g, "\"");
+    updatedCar.caracteristicas = JSON.stringify(caracteristicas).replace(/"/g, "'");
+    updatedCar.extras = JSON.stringify(extras).replace(/"/g, "'");
+    updatedCar.enganche = JSON.stringify(enganche).replace(/"/g, "'");
+    updatedCar.plazos = JSON.stringify(dbFormatPlazos).replace(/"/g, "'");
+    updatedCar.entrega = JSON.stringify(entrega).replace(/"/g, "'");
 
     // Upload images to bucket
     for (let i = 0; i < fotos.length; i++) {
@@ -174,43 +175,51 @@ const CarRegistrationForm = () => {
       }
     }
 
-    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/\\\"/g, "\"");
+    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
 
     console.log("Car to upload: ");
     console.log(updatedCar);
 
-    // await axios.post('/api/carRegister/elasticCarRegister', { car: updatedCar});
+    await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar});
 
-    // setCar({
-    //   cantidad: 0,
-    //   marca: "",
-    //   modelo: "",
-    //   colores: [],
-    //   color_interior: "",
-    //   combustible: "",
-    //   motor: "",
-    //   ano: 0,
-    //   transmision: "",
-    //   rendimiento: "",
-    //   pasajeros: 0,
-    //   nombre_agencia: "",
-    //   estado_agencia: "",
-    //   municipio_agencia: "",
-    //   direccion_agencia: "",
-    //   coordenadas_agencia: "",
-    //   tipo_vehiculo: "",
-    //   precio: 0,
-    //   caracteristicas: [],
-    //   extras: [],
-    //   enganche: [],
-    //   plazos: [],
-    //   entrega: [],
-    //   disponible_prueba: false,
-    //   visible_catalogo: false,
-    //   descripcion: "",
-    //   ficha_tecnica: "",
-    //   fotos_3d: [],
-    // });
+    setCar({
+      cantidad: 0,
+      marca: "",
+      modelo: "",
+      colores: [],
+      color_interior: "",
+      combustible: "",
+      motor: "",
+      ano: 0,
+      transmision: "",
+      rendimiento: "",
+      pasajeros: 0,
+      nombre_agencia: "",
+      estado_agencia: "",
+      municipio_agencia: "",
+      direccion_agencia: "",
+      coordenadas_agencia: "",
+      tipo_vehiculo: "",
+      precio: 0,
+      caracteristicas: [],
+      extras: [],
+      enganche: [],
+      plazos: [],
+      entrega: [],
+      disponible_prueba: false,
+      visible_catalogo: false,
+      descripcion: "",
+      ficha_tecnica: "",
+      fotos_3d: [],
+    });
+
+    returnToCatalog();
+  };
+
+  const returnToCatalog = () => {
+    router.push({
+      pathname: "./catalog",
+    });
   };
 
   const [caracteristicas, setCaracteristicas] = useState([]);

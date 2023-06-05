@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import axios from 'axios';
+import { useRouter } from "next/router";
+import axios from "axios";
 
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
@@ -10,6 +11,8 @@ import ManagerLayout from "@/components/providers/Manager/layout";
 
 //create car object
 const CarRegistrationForm = () => {
+  const router = useRouter();
+  
   const [car, setCar] = useState({
     cantidad: 0,
     marca: "",
@@ -69,14 +72,15 @@ const CarRegistrationForm = () => {
       dbFormatPlazos[key] = value;
     }
 
+    // Replace all double quotes for single quotes to prevent them from being escaped
     const updatedCar = {
       ...car,
       colores: color,
-      caracteristicas: JSON.stringify(caracteristicas).replace(/\\\"/g, "\""),
-      extras: JSON.stringify(extras).replace(/\\\"/g, "\""),
-      enganche: JSON.stringify(enganche).replace(/\\\"/g, "\""),
-      plazos: JSON.stringify(dbFormatPlazos).replace(/\\\"/g, "\""),
-      entrega: JSON.stringify(entrega).replace(/\\\"/g, "\""),
+      caracteristicas: JSON.stringify(caracteristicas).replace(/"/g, "'"),
+      extras: JSON.stringify(extras).replace(/"/g, "'"),
+      enganche: JSON.stringify(enganche).replace(/"/g, "'"),
+      plazos: JSON.stringify(dbFormatPlazos).replace(/"/g, "'"),
+      entrega: JSON.stringify(entrega).replace(/"/g, "'"),
     };
     // Upload images to bucket
     for(let i = 0; i < fotos.length; i++){
@@ -89,14 +93,14 @@ const CarRegistrationForm = () => {
       }
     }
 
-    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/\\\"/g, "\"");
+    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
+    updatedCar.fotos_3d = JSON.stringify(car.fotos_3d).replace(/"/g, "'");
 
     console.log("Car to upload: ");
     console.log(updatedCar);
 
-    // await axios.post('/api/carRegister/elasticCarRegister', { car: updatedCar});
-
-    /*
+    await axios.post("/api/carRegister/elasticCarRegister", { car: updatedCar});
+    
     // Reset the form
     setCar({
       cantidad: 0,
@@ -128,7 +132,14 @@ const CarRegistrationForm = () => {
       ficha_tecnica: "",
       fotos_3d: [],
     });
-    */
+
+    returnToCatalog();
+  };
+
+  const returnToCatalog = () => {
+    router.push({
+      pathname: "./catalog",
+    });
   };
 
   const [caracteristicas, setCaracteristicas] = useState([]);

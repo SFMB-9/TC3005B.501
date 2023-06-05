@@ -4,10 +4,10 @@ const { ELASTIC_API_KEY } = process.env
 
 export default async function handler(req, res) {
   //const client = new Client({ node: 'http://localhost:9200' });
-  if(req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
+  if(req.method !== 'PUT') return res.status(405).json({ message: 'Method not allowed' });
 
   const car = req.body.car;
-  const { ano, ...carWithoutAno } = car;
+  const { ano, id, ...carWithoutAnoId } = car;
 
   const client = new Client({
       node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
@@ -17,10 +17,11 @@ export default async function handler(req, res) {
   })
 
   try {
-    await client.index({
+    await client.update({
       index: 'autos',
+      id: id,
       body: {
-        ...carWithoutAno,
+        ...carWithoutAnoId,
         año: ano,
       }
     });
