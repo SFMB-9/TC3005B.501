@@ -17,7 +17,6 @@ import SimpleAccordion from "@/components/general/Accordion";
 
 import { Select, MenuItem, Typography, Button} from "@mui/material";
 import SANavbar from '@/components/SA/navbar';
-import CollapsibleContainer from '@/components/general/collapsing_div';
 
 
 const SARequestDashboard = () => {

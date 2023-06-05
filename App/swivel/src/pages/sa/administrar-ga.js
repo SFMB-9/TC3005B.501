@@ -8,8 +8,11 @@ to edit and delete them.
 */
 
 
+import axios from "axios";
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
+import { useSession } from "next-auth/react";
+
 import Searchbar from '@/components/general/searchbar';
 import DataTable from '@/components/general/Table';
 import SANavbar from '@/components/SA/navbar';
@@ -31,11 +34,11 @@ export default function SA_automotiveGroups() {
         const getUsersData = async () => {
 
             try{
-                const resp = await.get(
-                    "/api/superadmin/getGAUsers",
-                    {})
+                const resp = await axios.get(
+                    "/api/superadmin/getGAUsers")
+ 
+                setUsers(resp.data.allUsers)
 
-                setUsers(resp.data.gaUsers)
             } catch(err){
                 console.log(err)
             }
@@ -49,16 +52,19 @@ export default function SA_automotiveGroups() {
 
 
     const columns = [
-        { field: 'GrupoAutomotriz', headerName: 'Grupo Automotriz', width: 250 },
-        { field: 'Email', headerName: 'Email', width: 200 },
-        { field: 'Estado', headerName: 'Estado', width: 200 },
-        { field: 'Telefono', headerName: 'Telefono', width: 200 },
+        { field: 'nombres', headerName: 'Grupo Automotriz', width: 250 },
+        { field: 'legal', headerName: 'Email', width: 200, valueGetter: (params) => params.row.legal.email},
+        { field: 'direccion', headerName: 'Estado', width: 200,valueGetter: (params) => params.row.direccion.estado},
+        { field: 'numero_telefonico', headerName: 'Telefono', width: 200,valueGetter: (params) => params.row.legal.numero_telefonico },
+
         {
             field: 'verDetalle',
             headerName: 'Ver detalle',
             width: 200,
             renderCell: () => (
+
                 <Button
+
                     variant="contained"
                     disableElevation
                     sx={{

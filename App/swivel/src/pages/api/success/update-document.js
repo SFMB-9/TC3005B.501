@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
-
 import Stripe from "stripe";
+import { SellerUser } from "@/models/user";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       // Do something based on the payment status
       if (paymentStatus === "paid" && check_id === process_id) {
   
-        await dbConnect();
+        dbConnect();
   
         try {
           // Find the process that needs to be updated
@@ -38,10 +38,17 @@ export default async function handler(req, res) {
           }
           //get the documents of the process
   
-          proc.estatus = "Pagado";
+          proc.estatus = "pagado";
           proc.markModified("pagado");
           //save the changes
           await proc.save();
+
+          const vendedor = await SellerUser.findById(proc.vendedor._id);
+          vendedor.contar_ventas_en_proceso -=1;
+          console.log("Ventas en proceso:" + vendedor.contar_ventas_en_proceso);
+          vendedor.markModified("contar_ventas_en_proceso");
+          await vendedor.save();
+
           return res
             .status(200)
             .json({ message: "Updated process status: " + process_id });
