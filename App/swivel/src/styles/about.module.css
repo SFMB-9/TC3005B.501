@@ -83,10 +83,12 @@
 .section {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
   
 .section img {
-    width: 42vw;
+    height: 100%;
+    width: 43vw;
     border-radius: 3%;
 }
   
@@ -97,7 +99,7 @@
   
 .content1 span, .content2 span {
     font-family: 'Lato';
-    font-size: 1.5vw;
+    font-size: 1.3vw;
 }
   
 .content1 {

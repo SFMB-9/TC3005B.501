@@ -1,0 +1,90 @@
+.mainContainer {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 1.8vw;
+}
+
+.pageTitle {
+    font-weight: bold;
+    padding-bottom: 1vw;
+}
+
+.sectionTitle{
+    font-weight: bold;
+    padding-bottom: 1.5vw;
+}
+
+.inputFieldLeft {
+    margin-right: 13vw;
+    padding-right: 0.7vw ;
+}
+
+.inputFieldLeft input{
+    padding: 0.8vw;
+    padding-left: 1.2vw;
+}
+
+.inputField {
+    margin-right: 13vw;
+}
+
+.inputField input{
+    padding: 0.8vw;
+    padding-left: 1.2vw;
+}
+
+.longInputField {
+    width: 100%;
+    margin-right: 20.8vw;
+}
+
+.longInputField input{
+    padding: 0.8vw;
+    padding-left: 1.2vw;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 2vw;
+}
+
+.button {
+    margin-right: 2vw;
+}
+
+.inputContainer {
+    padding-bottom: 1vw;
+}
+
+.inputContainer h5{
+    font-size: 1.2vw;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 53.3vw) {
+    .mainContainer {
+        padding-left: 0.7vw;
+        padding-right: 0.7vw;
+    }
+
+    .inputField,
+    .inputFieldLeft,
+    .longInputField {
+        margin-right: 0;
+    }
+
+    .inputContainer h5{
+        font-size: 1vw;
+    }
+
+}
+
+

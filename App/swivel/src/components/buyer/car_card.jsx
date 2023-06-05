@@ -21,10 +21,43 @@ import { useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+function setColor(cardType, status){
+  let statusColor; 
+  let statusDisplay;
+  if (cardType === 'purchases') {
+    if (status === 'pagado') {
+      statusColor = '#18AE00';
+      statusDisplay = 'Pagado';
+    }
+    else if (status === 'pagoPendiente') {
+      statusColor = '#FFC700';
+      statusDisplay = 'Pago pendiente';
+    }
+    else if (status === 'documentosPendientes') {
+      statusColor = '#F55959';
+      statusDisplay = 'Documentos pendientes';
+    }
+  } else if (cardType === 'drivingTest') {
+    if (status === 'Finalizada') {
+      statusColor = '#18AE00';
+      statusDisplay = 'Finalizada';
+    }
+    else if (status === 'En proceso') {
+      statusColor = '#FFC700';
+      statusDisplay = 'En proceso';
+    }
+    else if (status === 'Cancelada') {
+      statusColor = '#F55959';
+      statusDisplay = 'Cancelada';
+    }
+  }
+  return [statusColor, statusDisplay];
+}
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
   const [favorite, setFavorite] = useState(false);
+  const [statusColor, statusDisplay] = setColor(props.cardType, props.status);
   const theme = createTheme({
     palette: {
       contrast: {
@@ -37,18 +70,22 @@ export default function CarCard(props) {
   if (props.cardType !== "catalog") {
     cardMaxHeight = 500;
   }
-
   return (
     <Card sx={{ maxWidth: cardMaxWidth, maxHeight: cardMaxHeight }}>
       <div style={{ position: 'relative' }}>
-        <CardMedia
-          component="img"
-          height="160"
-          image={props.carImage}
-          alt="car"
-        />
+        <a href={props.carUrl}>
+          <CardMedia
+            component="img"
+            height="160"
+            image={props.carImage}
+            alt="car"
+          />
+        </a>
         <IconButton
-          onClick={() => setFavorite(!favorite)}
+          onClick={(event) => {
+            event.stopPropagation(); 
+            setFavorite(!favorite);
+          }}
           sx={{
             position: 'absolute',
             top: 3.5,
@@ -164,7 +201,8 @@ export default function CarCard(props) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    Estatus: &nbsp; <Typography gutterBottom variant="body2" sx={{
+                    Estatus: &nbsp; 
+                    <Typography gutterBottom variant="body2" sx={{
                       marginBottom: '0',
                       fontFamily: 'Lato',
                       fontWeight: 'bolder',
@@ -172,9 +210,9 @@ export default function CarCard(props) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#F55C7A'
+                      color: statusColor
                     }}>
-                      {props.status}
+                      {statusDisplay}
                     </Typography>
                   </Typography>
                 </div>

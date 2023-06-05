@@ -22,6 +22,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FolderIcon from '@mui/icons-material/Folder';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from "next-auth/react";
 
 import styles from "@/styles/old_sidebar.module.css";
 
@@ -33,21 +34,21 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
   const root = '/account'
-  
+
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
-  
-      const res = await resData.json();
-  
-      setApiData(res.userData);
-    };
+
+    const res = await resData.json();
+
+    setApiData(res.userData);
+  };
   useEffect(() => {
-      if (session) {
-        fetchData();
-      }
-    }, [session]);
+    if (session) {
+      fetchData();
+    }
+  }, [session]);
   const handleArrowClick = () => {
     setIsSidebarVisible(!isSidebarVisible);
     setIsArrowVisible(false);
@@ -92,6 +93,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
     event.stopPropagation();
   };
 
+  if (!apiData) {
+    return null;
+  }
+
   return (
     <div className="sidebar-container" style={{ height: "100vh" }}>
       {/* Sidebar */}
@@ -128,90 +133,94 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                   {
                     apiData ? (
                       <>
-                       <b className={styles.name}>{apiData.nombres} {apiData.apellidos}</b>
-                      <span className={styles.name} style={{
-                        fontSize: '0.8rem',
-                      }}>{apiData.email}</span>
+                        <b className={styles.name}>{apiData.nombres} {apiData.apellidos}</b>
+                        <p className={styles.name} style={{
+                          fontSize: '0.8rem',
+                          marginBottom: '0'
+                        }}>{apiData.email}</p>
                       </>
                     ) : (
                       <>
-                      <b className={styles.name}>Cargando...</b>
-                      <span className={styles.name}>Cargando...</span>
+                        <b className={styles.name}>Cargando...</b>
+                        <p className={styles.name}>Cargando...</p>
                       </>
                     )
                   }
-                 
                 </div>
               </MenuItem>
-
+              <Link href={`${root}/`}>
                 <MenuItem
                   icon={<ManageAccountsIcon />}
                   style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/`}
                 >
-                  <Link href={`${root}/`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
-                    
-                      Mi cuenta
-                
-                  </Link>
-
+                  Mi cuenta
                 </MenuItem>
-
+              </Link>
+              <Link href={`${root}/change_password`}>
                 <MenuItem
                   icon={<KeyIcon />}
                   style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/change_password`}
                 >
-                  <Link href={`${root}/change_password`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Contraseña
-                  </Link>
                 </MenuItem>
-
+              </Link>
+              <Link href={`${root}/purchases`}>
                 <MenuItem
                   icon={<ShoppingBagIcon />}
                   style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/purchases`}
                 >
-                  <Link href={`${root}/purchases`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis compras
-                  </Link>
                 </MenuItem>
-
+              </Link>
+              <Link href={`${root}/tests`}>
                 <MenuItem
                   icon={<DirectionsCarIcon />}
                   style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/tests`}
                 >
-                  <Link href={`${root}/tests`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis pruebas de manejo
-                  </Link>
                 </MenuItem>
-              
+              </Link>
+              <Link href={`${root}/favorites`}>
                 <MenuItem
                   icon={<FavoriteIcon />}
                   style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/favorites`}
                 >
-                  <Link href={`${root}/favorites`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis favoritos
-                  </Link>
                 </MenuItem>
-             
+              </Link>
+              <Link href={`${root}/documents`}>
                 <MenuItem
                   icon={<FolderIcon />}
                   style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/documents`}
                 >
-                  <Link href={`${root}/documents`} passHref style={{ textDecoration: 'none', color: '#333333' }}>
                   Mis documentos
-                  </Link>
                 </MenuItem>
+              </Link>
               {/* {children} */}
             </Menu>
           </div>
           {/* Pie del Sidebar */}
-          <div className="sidebar_footer" style={{ flexShrink: 0, color:'#8A8A8A' }}>
+          <div className="sidebar_footer" style={{ flexShrink: 0, color: '#8A8A8A' }}>
             <Menu>
               {/* {footer} */}
               <MenuItem
-                icon={<LogoutIcon 
+                icon={<LogoutIcon
                 />}
+                onClick={() => signOut({ callbackUrl: '/auth/login' })}
               >
-                Cerrar sesión
+                <span>Cerrar sesión</span>
               </MenuItem>
             </Menu>
           </div>

@@ -7,7 +7,6 @@ Utilizarlo permite reducir la cantidad de codigo redundante en interfaces
 que compartan la misma estructura.
 */
 import ManagerNavbar from "./navbar";
-import Footer from "../../general/footer";
 
 export default function ManagerLayout({ children }) {
   return (
@@ -16,7 +15,6 @@ export default function ManagerLayout({ children }) {
         session={true}
       />
       {children}
-      {/* <Footer /> */}
     </>
   );
 }

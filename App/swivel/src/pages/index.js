@@ -9,7 +9,6 @@ import BuyerLayout from "@/components/buyer/layout";
 import RotatingHeader from "@/components/buyer/rotating_header";
 import Process from "@/components/buyer/process";
 import CategoryViews from "@/components/buyer/category_views";
-import CarViews from "@/components/buyer/car_views";
 import SwivelExperience from "@/components/buyer/swivel_experience";
 import Testimonials from "@/components/buyer/testimonials";
 
@@ -18,7 +17,7 @@ export default function Home() {
     <>
       <BuyerLayout>
         <RotatingHeader/>
-        <CategoryViews/>
+        <CategoryViews />
         {/* <CarViews/> */}
         <SwivelExperience/>
         <Process />

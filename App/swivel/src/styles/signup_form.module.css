@@ -18,42 +18,41 @@
   text-align: center;
   padding: 20px 0px 10px;
 }
-
 .campoForm {
-  border: 0;
-  background-color: transparent;
-  align-self: stretch;
-  text-align: left;
-}
+    border: 0;
+    background-color: transparent;
+    align-self: stretch;
+    text-align: left;
+  }
+  
+  .labelText {
+    padding: 2px, 0, 1px ;
+  }
+  
+  .botningreso {
+    align-self: stretch;
+    background-color: var(--contraste);
+    border-color: var(--contraste);
+  }
 
-.labelText {
-  padding: 2px, 0, 1px;
-}
-
-.botningreso {
-  align-self: stretch;
-  background-color: var(--contraste);
-  border-color: var(--contraste);
-}
-
-.botngoogle {
-  align-self: stretch;
-  background-color: lightgray;
-  color: gray;
-  border-color: lightgray;
-  text-align: center;
-}
-
-.logoIcon {
-  position: relative;
-  border-radius: var(--br-12xs);
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-  padding-left: 5px;
-}
-
-.signInWith {
+  .botngoogle {
+    align-self: stretch;
+    background-color: lightgray;
+    color: gray;
+    border-color: lightgray;
+    text-align: center;
+  }
+  
+  .logoIcon {
+    position: relative;
+    border-radius: var(--br-12xs);
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding-left: 5px;
+  }
+  
+  .signInWith {
   position: relative;
   font-size: var(--font-size-xl);
   font-weight: 500;
@@ -69,30 +68,31 @@
   box-shadow: 0 0 1px #000, 0 1px 1px rgba(0, 0, 0, 0.17);
   display: flex;
   flex-direction: row;
-  padding: var(--padding-12xs) var(--padding-3xs) var(--padding-12xs) var(--padding-12xs);
+  padding: var(--padding-12xs) var(--padding-3xs) var(--padding-12xs)
+    var(--padding-12xs);
   align-items: center;
   justify-content: space-between;
 }
 
 .regstrateAqu {
-  text-decoration: underline;
-  color: #000;
-}
-
-.noTienesCuentaContainer {
-  align-self: stretch;
-  position: relative;
-  font-size: var(--font-size-xl);
-  font-weight: 300;
-  font-family: var(--font-lato);
-  color: black;
-  text-align: center;
-}
-
-.forms {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
-}
+    text-decoration: underline;
+    color: #000;
+  }
+  
+  .noTienesCuentaContainer {
+    align-self: stretch;
+    position: relative;
+    font-size: var(--font-size-xl);
+    font-weight: 300;
+    font-family: var(--font-lato);
+    color: black;
+    text-align: center;
+  }
+  
+  .forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+  }
