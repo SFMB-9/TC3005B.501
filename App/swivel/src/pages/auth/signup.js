@@ -9,6 +9,7 @@ Código utilizado para el formulario de registro de usuario comprador, para la i
 import axios from "axios";
 import React, { useState } from "react";
 import AuthComponent from "@/components/login/auth_component";
+import mexicanStates from "@/components/general/states";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
@@ -78,7 +79,7 @@ export default function SignupBuyerData() {
       console.log(data);
       passStatus = true;
       setErrMessage("Usuario registrado exitosamente");
-      setTimeout(() => {window.location.href = "/auth/login";}, 1000);
+      setTimeout(() => { window.location.href = "/auth/login"; }, 1000);
     } catch (error) {
       console.log(error.response.data);
       passStatus = false;
@@ -100,7 +101,6 @@ export default function SignupBuyerData() {
                 }}
               >
                 <div className="mb-2">
-                  <div className="d-flex flex-row ">
                     <TextField
                       type="text"
                       className="w-100"
@@ -113,13 +113,18 @@ export default function SignupBuyerData() {
                         const v = e.target.value;
                         setName(v);
                         if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                          setErrors({ ...errors, name: true})
+                          setErrors({ ...errors, name: true })
                         } else {
                           setErrors({ ...errors, name: false })
                         }
                       }}
+                      sx={{
+                        '& input': { padding: "0.8vw", marginRight: "0.1vw" },
+                      }}
                       required
                     />
+                  </div>
+                  <div className="mb-2">
                     <TextField
                       ype="text"
                       className="w-100"
@@ -132,14 +137,16 @@ export default function SignupBuyerData() {
                         const v = e.target.value;
                         setSurname(v);
                         if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                          setErrors({ ...errors, surname: true})
+                          setErrors({ ...errors, surname: true })
                         } else {
                           setErrors({ ...errors, surname: false })
                         }
                       }}
+                      sx={{
+                        '& input': { padding: "0.8vw" },
+                      }}
                       required
                     />
-                  </div>
                 </div>
                 <div className="mb-2">
                   <TextField
@@ -158,6 +165,9 @@ export default function SignupBuyerData() {
                       } else {
                         setErrors({ ...errors, email: false });
                       }
+                    }}
+                    sx={{
+                      '& input': { padding: "0.8vw" },
                     }}
                     required
                   />
@@ -180,6 +190,9 @@ export default function SignupBuyerData() {
                         setErrors({ ...errors, phone: false });
                       }
                     }}
+                    sx={{
+                      '& input': { padding: "0.8vw" },
+                    }}
                     required
                   />
                 </div>
@@ -195,7 +208,7 @@ export default function SignupBuyerData() {
                     onChange={(e) => {
                       const v = e.target.value;
                       setPassword(v);
-                      if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                      if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v) || !/\d/.test(v)) {
                         setErrors({ ...errors, password: true })
                         if (v.length < 6) {
                           setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
@@ -214,6 +227,9 @@ export default function SignupBuyerData() {
                         setConfPasswordHelper("");
                       }
                     }}
+                    sx={{
+                      '& input': { padding: "0.8vw" },
+                    }}
                     required
                   />
                 </div>
@@ -230,16 +246,19 @@ export default function SignupBuyerData() {
                       const v = e.target.value;
                       setConfPassword(v);
                       if (v !== password) {
-                        setErrors({ ...errors, confPassword: true})
+                        setErrors({ ...errors, confPassword: true })
                       } else {
                         setErrors({ ...errors, confPassword: false })
                       }
+                    }}
+                    sx={{
+                      '& input': { padding: "0.8vw" },
                     }}
                   />
                 </div>
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
                   <button
-                    className="btn btn-primary btn-block mb-2" 
+                    className="btn btn-primary btn-block mb-2"
                     onSubmit={submitHandler}
                   >
                     <Typography
@@ -289,17 +308,20 @@ export default function SignupBuyerData() {
               <div>
                 <form className="d-flex flex-column" onSubmit={submitHandler}>
                   <div className="form-outline mb-2">
+                    <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Calle"
+                          value={street}
+                          onChange={(e) => setStreet(e.target.value)}
+                          required
+                        />
+                    </div>
+                  <div className="form-outline mb-2">
                     <div className="d-flex flex-row ">
+                      
                       <input
                         type="text"
-                        className="form-control"
-                        placeholder="Calle"
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
-                        required
-                      />
-                      <input
-                        type="number"
                         className="form-control"
                         placeholder="Num. Ext"
                         value={exterior_num}
@@ -307,18 +329,18 @@ export default function SignupBuyerData() {
                         required
                       />
                       <input
-                        type="number"
+                        type="text"
                         className="form-control"
                         placeholder="Num. Int."
                         value={interior_num}
                         onChange={(e) => setInteriorNum(e.target.value)}
-                        
+
                       />
                     </div>
                   </div>
                   <div className="form-outline mb-2">
                     <input
-                      type="number"
+                      type="text"
                       className="form-control"
                       placeholder="Código Postal"
                       value={postalCode}
@@ -337,21 +359,37 @@ export default function SignupBuyerData() {
                     />
                   </div>
                   <div className="form-outline mb-2">
-                    <input
+                    {/* <input
                       type="text"
                       className="form-control"
                       placeholder="Estado"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
                       required
-                    />
+                    /> */}
+                    <select
+                      className="form-control"
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
+                      required
+                    >
+                      <option value="">Elegir estado</option>
+                      {mexicanStates.map((stateObj, index) => (
+                        <option key={index} value={stateObj.name}>
+                          {stateObj.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-outline mb-2">
                     <input
                       type="text"
                       className="form-control"
                       placeholder="País"
-                      value={country}
+                      value={"México"}
                       onChange={(e) => setCountry(e.target.value)}
                       required
+                      disabled
                     />
                   </div>
                   <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">

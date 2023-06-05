@@ -53,6 +53,8 @@ export default function RequestDetails() {
   const [agencyData, setAgencyData] = useState(null);
   const [isOpen, setIsOpen] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  const [validatedDocs, setValidatedDocs] = useState(true);
+  const [agencyCoords, setAgencyCoords] = useState({});
   const { auto_id, colorName } = router.query;
 
   const fetchDetails = async () => {
@@ -85,11 +87,22 @@ export default function RequestDetails() {
       return { ...doc, _id: i };
     });
 
+    // console.log("Car data: " + JSON.stringify(retrievedAuto));
+    // console.log("Agency data: " + JSON.stringify(retrievedAgency));
+    // console.log("Agency ID: " + retrievedAuto.agencia_id);
+    // console.log("User data: " + JSON.stringify(retrievedUser));
+    // console.log("First image: " + JSON.stringify(firstImage));
+
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
+    setAgencyCoords({
+      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]), 
+      lng: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[1])
+    });
     setUserData(retrievedUser);
     setDocuments(newDocuments);
     setUserAddress(retrievedAddress);
+    checkValidatedDocs();
   }
 
   const addToIsOpen = async (newKey) => {
@@ -128,7 +141,7 @@ export default function RequestDetails() {
           method: "PUT",
         }
       );
-      
+
       setDocuments(currentDocs);
 
       fetchDetails();
@@ -157,12 +170,12 @@ export default function RequestDetails() {
         renderCell: (params) => (
           <>
             {params.row.url && params.row.url !== "" ? (
-              <a href={params.row.url}> 
+              <a href={params.row.url}>
                 <u>Ver archivo</u>
               </a>
             ) : (
               <div>
-                 No hay archivo
+                No hay archivo
               </div>
             )}
           </>
@@ -233,31 +246,31 @@ export default function RequestDetails() {
               </div>
             ) : (
               <div>
-              {
-                params.row.url && params.row.url !== "" ? (
-                  <IconButton
-                    aria-label="delete"
-                    size="small"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addToIsOpen(params.row._id);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton
-                    aria-label="delete"
-                    size="small"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addToIsOpen(params.row._id);
-                    }}
-                  >
-                    <UploadIcon />
-                  </IconButton>
-                )
-              }
+                {
+                  params.row.url && params.row.url !== "" ? (
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToIsOpen(params.row._id);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToIsOpen(params.row._id);
+                      }}
+                    >
+                      <UploadIcon />
+                    </IconButton>
+                  )
+                }
               </div>
             )}
           </>
@@ -271,9 +284,6 @@ export default function RequestDetails() {
     // Save the changed documents to firebase
     await handleSubmit();
 
-    // console.log("User ID: " + user_id);
-    console.log("Session ID: " + session.id);
-
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
       { auto_id: auto_id, user_id: session.id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
@@ -282,6 +292,14 @@ export default function RequestDetails() {
     router.push({
       pathname: '/account/tests',
     })
+  };
+
+  const checkValidatedDocs = () => {
+    documents.forEach((doc) => {
+      if (doc.estatus !== "Aceptado") {
+        setValidatedDocs(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -461,7 +479,10 @@ export default function RequestDetails() {
                   style={{
                     marginLeft: "2.5rem",
                   }}
-                  variant='contained' onClick={() => setActiveSectionIndex(1)}>Continuar</Button>
+                  variant='contained' 
+                  onClick={() => setActiveSectionIndex(1)}
+                  // disabled={!validatedDocs}
+                  >Continuar</Button>
               </div>
             </div>
           </>
@@ -507,29 +528,29 @@ export default function RequestDetails() {
                   />
                 </div>
                 <LocationsMap
-                  locationsData={[{ brand: 'Toyota', position: { lat: 40.7128, lng: -74.0059 } }]}
+                  locationsData={[{ brand: carData.marca, position: agencyCoords }]}
                 />
               </div>
               <div className={styles.containerNavButtons}>
-              {selectedDate && (
-                <p>
-                  Fecha actualmente agendada:{" "}
-                  {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
-                  {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
-                </p>
-              )}
-              {selectedTime && (
-                <p>
-                  Hora actualmente agendada:{" "}
-                  {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
-                  {format(selectedTime, "hh:mm aa")} (Tiempo local)
-                </p>
-              )}
-              
+                {selectedDate && (
+                  <p>
+                    Fecha actualmente agendada:{" "}
+                    {/* La fecha se guarda en UTC, pero se muestra en tiempo local */}
+                    {format(selectedDate, "dd/MM/yyyy")} (Tiempo local)
+                  </p>
+                )}
+                {selectedTime && (
+                  <p>
+                    Hora actualmente agendada:{" "}
+                    {/* La hora se guarda en UTC, pero se muestra en tiempo local */}
+                    {format(selectedTime, "hh:mm aa")} (Tiempo local)
+                  </p>
+                )}
+
                 <div className={styles.navButtons}>
                   <Button variant='contained' onClick={() => setActiveSectionIndex(0)}
                     sx={{
-                      marginRight:"3vw",
+                      marginRight: "3vw",
                     }}
                   >Volver</Button>
                   {(selectedDate && selectedTime) ? (
@@ -548,26 +569,18 @@ export default function RequestDetails() {
         )}
         {activeSectionIndex === 2 && (
           <>
-            <div className={styles.confirmation}>
-              <div className='col-12 col-md-5'>
-                <div className='col-12 col-md-5'>
-                  <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span>
-                </div>
-                <div className='col-12 col-md-5'>
-                  <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span>
-                </div>
-                <div className='col-12 col-md-5'>
-                  <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span>
-                </div>
-                <div className='col-12 col-md-5'>
-                  <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span>  
-                </div>
-                <div className='col-12 col-md-5'></div>
-                <div className='col-12 col-md-5'>
-                  <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-                  <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
-                </div>
+            <div>
+              <div>
+                <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
+                <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span><br />
+                <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span><br />
+                <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span><br />
               </div>
+              <img src={firstImage} className={styles.imageDiv} />
+            </div>
+            <div>
+              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+              <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
             </div>
           </>
         )}

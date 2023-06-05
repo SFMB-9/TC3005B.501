@@ -1,0 +1,72 @@
+.mainContainer {
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 50px;
+}
+
+.pageTitle {
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 60px;
+}
+
+.sectionTitle{
+    font-weight: bold;
+    padding-bottom: 30px;
+}
+
+.inputFieldLeft {
+    margin-right: 190px;
+    padding-right: 10px ;
+}
+
+.inputField {
+    margin-right: 190px;
+}
+
+.longInputField {
+    width: 100%;
+    margin-right: 300px;
+}
+
+.boldText {
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.button {
+    margin-right: 30px;
+}
+
+.inputContainer {
+    padding-bottom: 40px;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) {
+    .mainContainer {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .inputField,
+    .inputFieldLeft,
+    .longInputField {
+        margin-right: 0;
+    }
+
+}
+

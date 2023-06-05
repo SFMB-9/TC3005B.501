@@ -1,4 +1,3 @@
-const Usuario = require("../../../models/usuario");
 const { User } = require("../../../models/user");
 import dbConnect from "../../../config/dbConnect";
 import { ObjectId } from "mongodb";
@@ -14,7 +13,9 @@ export default async (req, res) => {
 
   console.log("ID: "+id);
   dbConnect();
+
   try {
+
     const userData = await User.findById(id);
 
     if (!userData) {
