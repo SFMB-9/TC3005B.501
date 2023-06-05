@@ -95,7 +95,7 @@ export default function Login() {
                   Ingresar{" "}
               </button>
             </div>
-          </form>}
+          </form >}
         title="Iniciar sesión como proveedor"
         cardImage="/providers_login_image.png"
         backColor="white"
@@ -103,7 +103,7 @@ export default function Login() {
         bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
         textColor="black"
       />
-  </>
+    </>
 
   );
 }
