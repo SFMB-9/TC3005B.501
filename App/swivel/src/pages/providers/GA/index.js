@@ -10,8 +10,8 @@ export default function GALandingPage() {
     <>
       <GANavbar/>
       <CustomHero
-        title="Bienvenidx, nombre"
-        message="Administra tus solicitudes pendientes"
+        title="¡Bienvenidx!"
+        message="Administra tus agencias, gerentes y conoce tu desempeño"
       />
       <GActionsCards/>
     </>
