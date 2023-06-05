@@ -33,6 +33,7 @@ export default function Catalog() {
   const router = useRouter();
   const [searchText, setSearchText] = useState(null);
   const { data: session } = useSession();
+  const [ idAgencia, setIdAgencia ] = useState(null);
   
   const getIdAgencia = async () => {
     let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
@@ -51,13 +52,15 @@ export default function Catalog() {
   console.log("Search text: " + searchText);
 
   useEffect(() => {
-    if (isFirstLoad) {
-      if (JSON.stringify(router.query.searchQuery)) {
-        setSearchText(router.query.searchQuery);
+    if (session) {
+      if (isFirstLoad) {
+        if (JSON.stringify(router.query.searchQuery)) {
+          setSearchText(router.query.searchQuery);
+        }
+        isFirstLoad = false;
       }
-      isFirstLoad = false;
     }
-  }, []);
+  }, [session]);
 
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
@@ -211,10 +214,10 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    if (router.isReady) {
+    if (router.isReady && session) {
       fetchFilters();
     }
-  }, [selectedFilters, router.isReady]);
+  }, [selectedFilters, router.isReady, session]);
 
   const handleMenuItemClick = (category, item) => {
     event.stopPropagation();
