@@ -54,7 +54,7 @@ Solamente nos interesan los siguientes campos:
 
 El propósito de este panel es darle a cada vendedor una manera de tener una vista detallada del proceso en específico que quiera y se le haya sido asignado. Igualmente sirve para poder cambiar el estatus de cada uno de los documentos relacionados con ese proceso y cambiar sus comentarios.
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled.png)
 
 La interfaz consiste de tres componentes principales: una sección con los detalles del auto, una sección con los detalles del cliente y una tabla con los documentos asociados al proceso.
 
@@ -66,7 +66,7 @@ El usuario, al inspeccionar la tabla de documentos, puede seleccionar el estatus
 
 Para Desplegar los detalles del auto: 
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%201.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%201.png)
 
 ```jsx
 <h2>Auto:</h2>
@@ -98,7 +98,7 @@ En caso de que no haya un auto se despliega: “No hay auto”
 
 Para Desplegar los detalles del cliente: 
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%202.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%202.png)
 
 ```jsx
 	<h2>Cliente:</h2>
@@ -131,7 +131,7 @@ En caso de que no haya un auto se despliega: “No hay cliente”
 
 Para desplegar la tabla de documentos:
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%203.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%203.png)
 
 ```jsx
 <h1>Documentos del proceso</h1>
@@ -215,7 +215,7 @@ De igual manera, el estatus se actualiza en la base de datos al momento de ser c
 
 En seguida se despliega el comentario actual del documento:
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%204.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%204.png)
 
 ```jsx
 								<td>
@@ -236,11 +236,11 @@ En seguida se despliega el comentario actual del documento:
 
 Por medio del campo input, al momento de cambiarlo se actualiza una variable de estado que independiente a cada documento. A partir de esto, al momento de dar enter se actualiza el comentario en la base de datos.
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%205.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%205.png)
 
 Opcionalmente, se puede utilizar:
 
-![Untitled](Pa%CC%81gina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%206.png)
+![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled%206.png)
 
 Para poder añadir el comentario a la base de datos.
 
