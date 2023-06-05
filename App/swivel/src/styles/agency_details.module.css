@@ -1,0 +1,168 @@
+.mainContainer {
+    padding: 20px;
+    padding-left: 100px;
+}
+
+.pageTitle {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.subTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 1vw;
+    margin-top: 1vw;
+    
+}
+
+.agencyName {
+    font-size: 30px;
+    color: #979797;
+}
+
+.sectionTitle {
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.registrationDate {
+    color: #979797;
+}
+
+.editHeader {
+    display: flex;
+    align-items: center;
+    margin-top: -25px;
+}
+
+.tableHeaderContainer {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.icon {
+    margin-left: 10px;
+    margin-top: 33px;
+}
+
+.button {
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.saveButtonContainer {
+    margin-left: 30px;
+    margin-top: 30px;
+    padding-left: 400px;
+}
+
+.firstTableContainer {
+    width: 750px;
+}
+
+.secondTableContainer {
+    width: 550px;
+}
+
+.boldText {
+    font-weight: bold;
+}	
+
+.divider {
+    border-bottom: 0.5px solid #979797;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inputField {
+    width: 500px;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+.longInputField {
+    width: 1050px;
+    margin-bottom: 10px;
+}
+
+.inputFieldContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: le;
+}
+
+.popupButton {
+    margin-left: 10px;
+}
+
+.popupText {
+    margin-bottom: 20px;
+}
+
+.warningText {
+    font-weight: bold;
+    color: #ff1c1c;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+
+    /* Apply changes only on screens with a maximum width of 768px (mobile devices) */
+    .mainContainer {
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+
+    .pageTitle {
+        font-size: 30px;
+    }
+
+    .agencyName {
+        font-size: 25px;
+    }
+
+    .sectionTitle {
+        margin-top: 20px;
+    }
+
+    .icon {
+        margin-top: 25px;
+    }
+
+    .button {
+        margin-top: 20px;
+    }
+
+    .saveButtonContainer {
+        padding-left: 20px;
+    }
+
+    .firstTableContainer {
+        max-width: 100%;
+        overflow-x: auto;
+        width: auto;
+    }
+
+    .secondTableContainer {
+        max-width: 100%;
+        overflow-x: auto;
+        width: auto;
+    }
+
+    .inputField {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .longInputField {
+        width: 100%;
+    }
+
+    .inputFieldContainer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
