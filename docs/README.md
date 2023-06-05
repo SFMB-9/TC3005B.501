@@ -10,13 +10,14 @@
   <h3>Versionamiento</h3>
   </br>
 
-  | Versión | Fecha      | Responsable        | Comentarios             |
-  | ------- | ---------- | ------------------ | ----------------------- |
-  | 1.0.0   | 5/7/2023   | Andrew Dunkerley   | Creación del Documento  |
-  | 1.0.1   | 5/14/2023  | Andrew Dunkerley   | Redacción de Secciones  |
-  | 1.1.0   | 5/23/2023  | Andrew Dunkerley   | Traspaso a Markdown     |
-  | 1.2.0   | 5/26/2023  | Emiliano Cabrera   | Adición de módulos      |
-  | 1.3.0   | 5/31/2023  | Diego Corrales     | Adición de módulos      |
+  | Versión | Fecha      | Responsable        | Comentarios                      |
+  | ------- | ---------- | ------------------ | -------------------------------- |
+  | 1.0.0   | 5/7/2023   | Andrew Dunkerley   | Creación del Documento           |
+  | 1.0.1   | 5/14/2023  | Andrew Dunkerley   | Redacción de Secciones           |
+  | 1.1.0   | 5/23/2023  | Andrew Dunkerley   | Traspaso a Markdown              |
+  | 1.2.0   | 5/26/2023  | Emiliano Cabrera   | Adición de módulos               |
+  | 1.3.0   | 5/31/2023  | Diego Corrales     | Adición de módulos               |
+  | 1.4.0   | 6/04/2023  | Emiliano Cabrera   | Eliminación de módulos sobrantes |
 
 </div>
 
@@ -34,15 +35,15 @@
 
 - [APIs](SDD%20Docs%203a47ce1847ab4b59ae57344d5f692bb2/APIs%2001b022e1b6b2453faf9e457af4dd7c7c.md)
 
-- [Registro para compradores](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Registro%20para%20compradores%203032adfd7455491cab00e8b9afeb4084.md)
+---
 
 - [Lista de Vendedores](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Lista%20de%20Vendedores%20d6c791abb3784056ba376ba6f1965719.md)
-
-- [Gestión de Agencia](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Gestio%CC%81n%20de%20Agencia%2039b7f328d4b24fb3b1487699bf14b758.md)
 
 - [APIs](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/APIs%20059691d154ad421abbf7f195cee48c5c.md)
 
 - [Pruebas](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Pruebas%20b2896060cbea4a73b56f84c3fc288dcd.md)
+
+---
 
 - [Catálogo de Autos del Gerente](SDD%20A01781631%202d18d24397e646f9b940386130104832/Cata%CC%81logo%20de%20Autos%20Gerente%20e22ac2ca51284d049de39820656786f9.md)
 
