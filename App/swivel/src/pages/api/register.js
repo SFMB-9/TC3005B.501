@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
 
     if (req.body.hasOwnProperty('tipo_entidad')) {
-    entity = req.body.tipo_entidad;
+      entity = req.body.tipo_entidad;
     }
 
 
@@ -152,13 +152,8 @@ export default async function handler(req, res) {
 
       const daysNotice = req.body.daysNotice;
       const daysMax = req.body.daysMax;
-      
-
-
-
 
       const A = await AgencyEntity.create({
-
         tipo_usuario: encryptRole(entity),
         nombres: agencyName,
         direccion: {
@@ -173,7 +168,6 @@ export default async function handler(req, res) {
         is_account_verified: false,
         url_agencia: url,
 
-
         /*coordenadas_agencia: coordinate,*/
         horas_min: openT,
         horas_max: closeT,
@@ -181,7 +175,6 @@ export default async function handler(req, res) {
         dias_max: daysMax,
 
         grupo_automotriz_id: GA
-
       });
 
       const A_id = A._id.toString();
@@ -284,135 +277,27 @@ export default async function handler(req, res) {
 
 
         res.status(200).json({ message: "SuperAdmin registered successfully" });
-      } else if (role==="ga_admin"){
-
-        if(entity){
-
-      const agency = req.body.nombre_GA;
-      const name = req.body.nombres;
-      
-      
-      const rfc = req.body.rfc;
-      const url = req.body.url
-
-      const street = req.body.direccion.calle;
-      const exterior_num = req.body.direccion.numero_exterior;
-      const interior_num = req.body.direccion.numero_interior;
-      const city = req.body.direccion.ciudad;
-      const state = req.body.direccion.estado;
-      const country = req.body.direccion.pais;
-      const postalCode = req.body.direccion.codigo_postal;
-
-      const legalName = req.body.legal.lNombres
-      const legalSurname = req.body.legal.lApellidos
-      const legalEmail = req.body.legal.lEmail
-      const legalPhone = req.body.legal.lPhone
-
-
-      const GA = await GaEntity.create({
-        tipo_usuario: encryptRole(entity),
-        nombres: agency,
-        direccion: {
-          calle: street,
-          numero_exterior: exterior_num,
-          numero_interior: interior_num,
-          ciudad: city,
-          estado: state,
-          pais: country,
-          codigo_postal: postalCode,
-        },
-        is_account_verified: false,
-        url_grupo_automotriz: url,
-        rfc_grupo_automotriz: rfc,
-
-        legal: {
-          nombres: legalName,
-          apellidos: legalSurname,
-          email: legalEmail,
-          numero_telefonico: legalPhone
-      }
-      });
-
-      const GA_id = GA._id.toString();
-
-      const GAdmin = await AdminUser.create({
-        tipo_usuario: encrypted_role,
-        nombres: name,
-        apellidos: surname,
-        email: email,
-        password: password,
-        numero_telefonico: phone,
-        grupo_automotriz_id: GA_id
-      });
-
-      const GAdmin_id = GAdmin._id.toString();
-
-      const list = ["licencia","ine","comprobante_domicilio"] // SA_012 - replace hardcode!
-      const documentos = [];
-
-      for (let i = 0; i < list.length; i++) {
-        const nombre_documento = list[i];
-        const url = "";
-        const estatus = "";
-        const comentarios = "";
-        const fecha_modificacion = new Date();
-
-        documentos.push({
-          nombre_documento,
-          url,
-          estatus,
-          comentarios,
-          fecha_modificacion,
+      } 
+      else if (role==="ga_admin"){
+        const GAdmin = await AdminUser.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          numero_telefonico: phone,
         });
+
+        const GAdmin_id = GAdmin._id.toString();
+        
+        res.status(200).json({ message: "GA Admin registered successfully", id: GAdmin_id });
+      } 
+      else {
+        res.status(400).json({ message: "Account already exists" });
       }
-
-      const GAProc = await Proceso.create({
-        tipo_proceso: "peticionGA",
-        estatus: "pendiente",
-
-        direccion: {
-          calle: street,
-          numero_exterior: exterior_num,
-          numero_interior: interior_num,
-          ciudad: city,
-          estado: state,
-          pais: country,
-          codigo_postal: postalCode,
-        },
-
-        documentos: documentos,
-
-        fecha_inicio: new Date(),
-        solicitud_cancelada: false,
-
-        grupo_automotriz_id: GA_id,
-        grupo_automotriz: agency,
-        usuario_final_id: GAdmin_id
-      })
-
-      } else {
-
-        const GA_id = req.body.ga_id;
-
-        await AdminUser.create({
-        tipo_usuario: encrypted_role,
-        nombres: name,
-        apellidos: surname,
-        email: email,
-        password: password,
-        numero_telefonico: phone,
-        grupo_automotriz_id: GA_id 
-      });
-
-      }
-
-      res.status(200).json({ message: "GA Admin registered successfully" });
-
-      } else {
-      res.status(400).json({ message: "Account already exists" });
+    }
+    else {
+      res.status(405).json({ message: "Incorrect request method" });
     }
   }
-  else {
-    res.status(405).json({ message: "Incorrect request method" });
-  }}
 }

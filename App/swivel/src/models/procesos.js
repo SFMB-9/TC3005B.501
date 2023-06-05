@@ -5,7 +5,7 @@ mongoose.connection.setMaxListeners(20);
 const baseSchema = new mongoose.Schema(
   {
     tipo_proceso: String,
-    estatus: String,
+    estatus_validacion: String,
 
     documentos: Array,
 
@@ -19,9 +19,10 @@ const baseSchema = new mongoose.Schema(
       codigo_postal: String
     },
 
-    fecha_inicio: Date,
+    fecha_solicitud: Date,
     comentarios: String,
     solicitud_cancelada: Boolean,
+    usuario_ga_id: String,
 
     auto: {
       auto_id: String,
@@ -52,8 +53,31 @@ const baseSchema = new mongoose.Schema(
     superadmin_id: String,
     fecha_agendada: Date,
     hora_agendada: Date,
-  },
-  
+
+    info_GA: {
+      nombres: String,
+      direccion: {
+        calle: String,
+        numero_exterior: String,
+        numero_interior: String,
+        ciudad: String,
+        estado: String,
+        pais: String,
+        codigo_postal: String
+      },
+
+      is_account_verified: Boolean,
+      url_grupo_automotriz: String,
+      rfc_grupo_automotriz: String,
+
+      legal: {
+        nombres: String,
+        apellidos: String,
+        email: String,
+        numero_telefonico: String
+      }
+    }
+  },  
   { collection: "procesos" }
 );
 

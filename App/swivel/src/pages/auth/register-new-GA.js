@@ -13,11 +13,13 @@ export default function SignupGAData() {
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("");
+    const [_id, setId] = useState("");
 
-    const [agencyName, setAgencyName] = useState("");
+    const [GAName, setGAName] = useState("");
     const [url, setUrl] = useState("");
     const [rfc, setRfc] = useState("");
-    const [phone, setPhone] = useState("");
+    const [GAphone, setGAPhone] = useState("");
     const [street, setStreet] = useState("");
     const [exterior_num, setExteriorNum] = useState("");
     const [interior_num, setInteriorNum] = useState("");
@@ -39,17 +41,13 @@ export default function SignupGAData() {
         e.preventDefault();
 
         try {
-            const { data } = await axios.post("/api/GA/GA-register", {
-                tipo_usuario: 'GA',
-                tipo_entidad: 'GAEntity',
-                nombre_agencia: agencyName,
-                nombres: name,
-                last_name: surname,
-                email: email,
-                password: password,
-                numero_telefonico: phone,
+            const { message, info } = await axios.post("/api/GA/GA-register", {
+                nombre_agencia: GAName,
+                GA_telefono: GAphone,
                 url: url,
                 rfc: rfc,
+                docs: ["Acta constitutiva", "RFC", "Comprobante de domicilio"],
+                admin: _id,
 
                 direccion: {
                     calle: street,
@@ -69,10 +67,10 @@ export default function SignupGAData() {
                 }
             });
             
-            routDocs(data);
+            //routDocs(info); <-- leads to Andrew's GA docs page, do with this what you will
         } 
         catch (error) {
-            console.log(error.response.data);
+            console.log(error);
         }
     };
 
@@ -81,6 +79,21 @@ export default function SignupGAData() {
 
     const routDocs = (data) => {
         router.push(`/providers/GA/documentosGA?_id=${data}`);
+    }
+
+    const registerHandler = async () => {
+        const { message, id } = await axios.post("/api/register", {
+            nombres: name,
+            apellidos: surname,
+            email: email,
+            password: password,
+            numero_telefonico: phone,
+            tipo_usuario: "ga_admin"
+        });
+
+        setId(id);
+
+        secondSection();
     }
 
     const firstSection = () => {
@@ -135,6 +148,15 @@ export default function SignupGAData() {
                 />
 
                 <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Número telefónico"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                />
+
+                <input
                     type="password"
                     className="form-control"
                     placeholder="Contraseña"
@@ -150,7 +172,7 @@ export default function SignupGAData() {
                     required
                 />
 
-                <button onClick={secondSection}>
+                <button onClick={registerHandler}>
                     Siguiente
                 </button>
             </div>}
@@ -161,8 +183,8 @@ export default function SignupGAData() {
                     type="text"
                     className="form-control"
                     placeholder="Nombre del GA"
-                    value={agencyName}
-                    onChange={(e) => setAgencyName(e.target.value)}
+                    value={GAName}
+                    onChange={(e) => setGAName(e.target.value)}
                     required
                 />
 
@@ -242,8 +264,8 @@ export default function SignupGAData() {
                     type="text"
                     className="form-control"
                     placeholder="Número telefónico"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    value={GAphone}
+                    onChange={(e) => setGAPhone(e.target.value)}
                     required
                 />                
 
