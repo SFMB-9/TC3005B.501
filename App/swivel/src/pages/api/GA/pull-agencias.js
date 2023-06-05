@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const encryptedRole = encryptRole(role);
 
     const agencies = await db
-      .collection("users")
+      .collection("usuarios")
       .find({ role: encryptedRole, grupo_automotriz: GA }) // change to role: encryptedRole
       .toArray();
     res.status(200).json(agencies);
