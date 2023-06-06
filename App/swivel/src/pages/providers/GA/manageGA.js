@@ -266,7 +266,7 @@ export default function ManageGA() {
                     </div>
                     <div className="p-5" style={{width: "100%"}}
                     >
-                        <h2> <b>Administradores</b> </h2>
+                        <h2> <b>Gestión de administradores alternos</b> </h2>
                         {
 
                             admins ?
