@@ -65,11 +65,11 @@ export default async function handler(req, res) {
       // email existence validation, pings the email and returns if non-existent
       isAlive
         ? function () {
-            // continue
-          }
+          // continue
+        }
         : function () {
-            return res.status(400).json({ message: "Email is invalid" });
-          };
+          return res.status(400).json({ message: "Email is invalid" });
+        };
     });
 
     let usedEmail = await User.findOne({ email: email });
