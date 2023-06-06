@@ -76,7 +76,7 @@ const RequestDetails = () => {
   // This function creates a new comment for a document
   const addNewComment = async (_id, doc_id, comment) => {
     const doc = documents[doc_id];
-    await axios.put("/api/DrivingRequestsSeller/updateDocumentComment", {
+    await axios.put("/api/DrivingRequestsSeller/updateDocumentCommentMongo", {
       _id,
       doc_id,
       comment: comment ? comment : doc.comment,
