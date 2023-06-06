@@ -1,6 +1,12 @@
-import { useState, useEffect, useMemo } from "react";
-import { useRouter } from 'next/router';
-import axios from "axios";
+/*
+Ana Paula Katsuda
+
+Code used to pull agencias from the database and display them in a table.
+*/
+
+import React, { useEffect, useState, useMemo } from "react";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
     IconButton,
     Button,
@@ -8,108 +14,51 @@ import {
     Typography,
     TextField,
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-import DataTable from "@/components/general/Table";
-import GALayout from "@/components/providers/GA/ga_layout";
-import PopUpComponent from '@/components/general/Popup';
 import Searchbar from '@/components/general/searchbar';
+import GALayout from "@/components/providers/GA/ga_layout";
+import DataTable from "@/components/general/Table";
+import PopUpComponent from '@/components/general/Popup';
 
-export default function ManageGA() {
-    const router = useRouter();
-
-    const [GA, setGA] = useState();
-    const [admin, setAdmin] = useState();
-    const [admins, setAdmins] = useState();
-    const [admin_id, setA_id] = useState();
-
+export default function ManageAgencias() {
+    const [agencias, setAgencias] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
+    const role = "ea32725caec36ffca1c1ee939e606cd1"; // Quitar cosas hardcodeadas
+    const GA = "647ae7c7f25041c1b7b8a57b";
 
-
-
-    const getAdmin = async (id) => {
-        const response = await axios.get("/api/managerProfile/managerP", {
-            params: {
-                id: id
-            }
-        });
-        setAdmin(response.data.userData);
-    };
-
-    const getGA = async (id) => {
-        const response = await axios.get("/api/managerProfile/managerP", {
-            params: {
-                id: id
-            }
-        });
-        setGA(response.data.userData);
-    };
-
-    const getAdmins = async () => {
-        const response = await axios.get("/api/GA/getAdmins", {
-            params: {
-                id: GA._id
-            }
-
-        });
-        setAdmins(response.data.userData);
-        console.log("admins", admins);
-    }
-
-    const RoutRegistroGAManager = () => {
+    const RoutRegistroAgencias = () => {
         if (router) {
             router.push({
-                pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
+                pathname: `/providers/GA/registroAgencia?GA=${GA?.nombre}`, // por definir
+                // pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
             });
         }
     };
 
     useEffect(() => {
-        setA_id("647af5ebfb2360082e89094b");
+        const fetchAgencias = async () => {
+            const res = await fetch(
+                `http://localhost:3000/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+            );
+            const data = await res.json();
+            setAgencias(data.result);
+        };
+        fetchAgencias();
     }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            console.log(admin_id);
-            if (admin_id)
-                await getAdmin(admin_id);
-
-        };
-        fetchData();
-    }, [admin_id]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            console.log(admin);
-            if (admin)
-                await getGA(admin.grupo_automotriz_id);
-        };
-        fetchData();
-    }, [admin]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            console.log(GA);
-            if (GA)
-                await getAdmins();
-        };
-        fetchData();
-    }, [GA]);
-
-    useEffect(() => {
-        if (admins) {
+        if (agencias) {
             setFilteredResults(
-                admins.filter((entry) =>
-                    entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) //||
-                    // entry.apellidos.toLowerCase().includes(searchValue.toLowerCase()) ||
+                agencias.filter((entry) =>
+                    entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) //||
                     // entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
                     // entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
                 )
             );
         }
-    }, [admins, searchValue]);
+    }, [agencias, searchValue]);
 
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
@@ -126,12 +75,17 @@ export default function ManageGA() {
                 flex: 1,
             },
             {
-                field: "apellidos",
-                headerName: "Apellido",
+                field: "estado",
+                headerName: "Estado",
                 headerAlign: "center",
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    let cell = params.row
+                        ? `${params.row.direccion.estado}` : "Estado no encontrado";
+                    return cell;
+                },
             },
             {
                 field: "email",
@@ -148,6 +102,32 @@ export default function ManageGA() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+            },
+            {
+                field: "detalles",
+                headerName: "",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                type: "actions",
+                renderCell: (params) => (
+                    <Button
+                        variant="contained"
+                        disableElevation
+                        onClick={() =>
+                           router.push(`/providers/GA/agency_management/${params.row._id}`)
+                        }
+                        className="py-0"
+                        sx={{
+                            fontFamily: "Lato",
+                            fontSize: "12px",
+                            backgroundColor: "#111439",
+                        }}
+                    >
+                        Ver detalles
+                    </Button>
+                ),
             },
             {
                 field: "botones",
@@ -221,9 +201,10 @@ export default function ManageGA() {
                 ),
             },
         ],
-        [admins]
+        [agencias]
     );
 
+    console.log(agencias)
     return (
         <>
             <GALayout>
@@ -231,8 +212,6 @@ export default function ManageGA() {
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        // alignItems: "center",
-                        // justifyContent: "center",
                         width: "100%",
                     }}
                 >
@@ -246,37 +225,10 @@ export default function ManageGA() {
                                 fontFamily: "Raleway",
                                 textAlign: "start",
                             }}
-                        >Información de Grupo Automotiz</h1>
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-6">
-                                    <h4>Nombre: <span>{GA?.nombres}</span></h4>
-                                </div>
-                                <div className="col-6">
-                                    <h4>Teléfono: <span>{admin?.numero_telefonico}</span></h4>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-6">
-                                    <h4>Email: <span>{GA?.legal.email}</span></h4>
-                                </div>
-                                <div className="col-6">
-                                    <h4>Dirección: <span>{GA?.direccion.calle + ' ext. ' + GA?.direccion.numero_exterior + ' int. ' + GA?.direccion.numero_interior + ', ' + GA?.direccion.ciudad + ', ' + GA?.direccion.estado + ', CP: ' + GA?.direccion.codigo_postal}</span></h4>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div
-                        style={{
-                            padding: "4rem",
-                            width: "100%",
-                        }}
-                    >
-                        <h1>Administradores</h1>
+                        >Administración de agencias</h1>
                         {
 
-                            admins ?
+                            agencias ?
                                 <div>
                                     <div
                                         style={{
@@ -294,18 +246,18 @@ export default function ManageGA() {
                                             searchStyle='administrative'
                                         />
                                         {/* <a href='/providers/seller/signup'> */}
-                                            <button
-                                                onClick={RoutRegistroGAManager}
-                                                style={{
-                                                    flex: '25%',
-                                                    backgroundColor: '#F55C7A',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '6px',
-                                                    height: '50%',
-                                                    padding: '0.5rem 1rem',
-                                                }}
-                                            > Registrar admin  + </button>
+                                        <button
+                                            onClick={RoutRegistroAgencias}
+                                            style={{
+                                                flex: '25%',
+                                                backgroundColor: '#F55C7A',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '6px',
+                                                height: '50%',
+                                                padding: '0.5rem 1rem',
+                                            }}
+                                        > Registrar admin  + </button>
                                         {/* </a> */}
                                     </div>
                                     <DataTable
@@ -344,7 +296,7 @@ export default function ManageGA() {
                                 </div>
                                 :
                                 <div>
-                                    <p>No hay administradores</p>
+                                    <p>No hay agencias registradas</p>
                                 </div>
                         }
                     </div>
@@ -352,4 +304,4 @@ export default function ManageGA() {
             </GALayout>
         </>
     );
-};
+}
