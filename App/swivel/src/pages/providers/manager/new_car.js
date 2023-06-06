@@ -96,9 +96,6 @@ const CarRegistrationForm = () => {
     updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
     updatedCar.fotos_3d = JSON.stringify(car.fotos_3d).replace(/"/g, "'");
 
-    console.log("Car to upload: ");
-    console.log(updatedCar);
-
     await axios.post("/api/carRegister/elasticCarRegister", { car: updatedCar});
     
     // Reset the form

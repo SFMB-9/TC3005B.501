@@ -261,15 +261,12 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
     }
 
     if (queryParams.agencia_id) {
-        console.log("Llegale mi buen: " + queryParams.agencia_id);
         dbQuery.query.bool.must.push({
             match: {
                 agencia_id: queryParams.agencia_id
             }
         });
     }
-
-    console.log(JSON.stringify(dbQuery));
 
     return dbQuery;
 }
