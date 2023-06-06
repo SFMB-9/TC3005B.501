@@ -602,7 +602,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading Process...</p>
+        <p>Loading ...</p>
       </div>
     );
   }
