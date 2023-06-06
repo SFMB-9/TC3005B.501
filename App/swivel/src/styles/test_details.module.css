@@ -26,9 +26,15 @@
   width: 100%;
 }
 
-.imageDiv {
-  width: 60%;
+#imageDiv {
+  width: auto;
+  height: 90%;
   border-radius: 10px;
+  padding: 2vw;
+}
+
+.infoPrueba{
+  padding: 0 8vw 0 12vw;
 }
 
 .schedule, .confirmation {

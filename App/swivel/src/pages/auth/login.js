@@ -104,6 +104,12 @@ export default function Login() {
                     setErrors({ ...errors, email: false });
                   }
                 }}
+                sx={{
+                  '& input':{
+                    padding:"0.8vw",
+                    paddingLeft: "1.2vw"
+                  }
+                }}
               />
 
             </div>
@@ -127,6 +133,12 @@ export default function Login() {
                 onChange={(e) => {
                   const v = e.target.value;
                   setPassword(v);
+                }}
+                sx={{
+                  '& input':{
+                    padding:"0.8vw",
+                    paddingLeft: "1.2vw"
+                  }
                 }}
               />
             </div>
