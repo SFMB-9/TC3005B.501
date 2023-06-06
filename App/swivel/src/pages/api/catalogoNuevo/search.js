@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     // Initialize empty query
     let dbQuery = {};
 
-    dbQuery.size = 100;
+    dbQuery.size = 900;
 
     // If search is not "", undefined, or null, then build the query
     if (Boolean(searchQuery)) {

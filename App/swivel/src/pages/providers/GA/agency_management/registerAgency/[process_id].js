@@ -5,6 +5,7 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import axios from "axios";
 
 export default function RegisterGroupProcess() {
     const router = useRouter();
@@ -89,10 +90,44 @@ export default function RegisterGroupProcess() {
     };
 
     const handleConfirmRegister = async () => {
-        console.log("Confirmando registro de GA");
-        // const result = await axios.post("/api/register", {
+        const body = {
+            "nombres": process.info_agencia.nombres,
+            "apellidos": "",
+            "email": process.info_agencia.email,
+            "tipo_usuario": "agencyEntity",
+            "numero_telefonico": process.info_agencia.numero_telefonico,
+            "grupo_id": "grupo_id", //Cambiar
+            "rfc": process.info_agencia.rfc,
+            "url": process.info_agencia.url,
+            "direccion": {
+                "calle": process.info_agencia.direccion.calle,
+                "numero_exterior": process.info_agencia.direccion.numero_exterior,
+                "numero_interior": process.info_agencia.direccion.numero_interior,
+                "ciudad": process.info_agencia.direccion.ciudad,
+                "estado": process.info_agencia.direccion.estado,
+                "pais": process.info_agencia.direccion.pais,
+                "codigo_postal": process.info_agencia.direccion.codigo_postal
+            },
+            "coordinates": "",
+            "open": "",
+            "close": "",
+            "daysNotice": "",
+            "daysMax": ""
+        }
 
-        // });
+        try {
+            const result = await axios.post("/api/register", body);
+            console.log(result);
+            if (result.status == 200) {
+                alert("Registro exitoso");
+                router.push("/providers/GA/agency_management");
+            } else {
+                alert("Error al registrar");
+            }
+        } catch (error) {
+            console.log(error);
+            alert("Error al registrar");
+        }
     }
 
     useEffect(() => {

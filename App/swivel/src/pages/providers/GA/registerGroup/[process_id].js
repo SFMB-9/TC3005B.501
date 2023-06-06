@@ -5,6 +5,7 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import axios from "axios";
 
 export default function RegisterGroupProcess() {
     const router = useRouter();
@@ -89,10 +90,45 @@ export default function RegisterGroupProcess() {
     };
 
     const handleConfirmRegister = async () => {
-        console.log("Confirmando registro de GA");
-        // const result = await axios.post("/api/register", {
-            
-        // });
+
+        const body = {
+            "nombres": process.info_GA.nombres,
+            "apellidos": "",
+            "email": process.info_GA.email,
+            "tipo_usuario": "gaEntity",
+            "numero_telefonico": process.info_GA.numero_telefonico,
+            "rfc": process.info_GA.rfc_grupo_automotriz,
+            "url": process.info_GA.url_grupo_automotriz,
+            "direccion": {
+                "calle": process.info_GA.direccion.calle,
+                "numero_exterior": process.info_GA.direccion.numero_exterior,
+                "numero_interior": process.info_GA.direccion.numero_interior,
+                "ciudad": process.info_GA.direccion.ciudad,
+                "estado": process.info_GA.direccion.estado,
+                "pais": process.info_GA.direccion.pais,
+                "codigo_postal": process.info_GA.direccion.codigo_postal
+            },
+            "legal": {
+                "lNombres": process.info_GA.legal.nombres,
+                "lApellidos": process.info_GA.legal.apellidos,
+                "lEmail": process.info_GA.legal.email,
+                "lPhone": process.info_GA.legal.numero_telefonico
+            }
+        }
+
+        try{
+            const result = await axios.post("/api/register", body);
+            console.log(result);
+            if(result.status == 200){
+                alert("Registro exitoso");
+                router.push("/providers/GA");
+            }else{
+                alert("Error al registrar");
+            }
+        }catch(error){
+            console.log(error);
+            alert("Error al registrar");
+        }
     }
 
     useEffect(() => {
@@ -332,19 +368,19 @@ export default function RegisterGroupProcess() {
                             </Button>
 
                             <Button
-                            variant="contained"
-                            sx={{
-                              fontFamily: "Lato",
-                              width: 150,
-                              ":hover": {
-                                backgroundColor: "#F68E70",
-                              },
-                            }}
-                            disabled={process.estatus_validacion != "aceptado"}
-                            type="button"
-                            onClick={handleConfirmRegister}
+                                variant="contained"
+                                sx={{
+                                    fontFamily: "Lato",
+                                    width: 150,
+                                    ":hover": {
+                                        backgroundColor: "#F68E70",
+                                    },
+                                }}
+                                disabled={process.estatus_validacion != "aceptado"}
+                                type="button"
+                                onClick={handleConfirmRegister}
                             >
-                            Confirmar creación de grupo automotriz
+                                Confirmar creación de grupo automotriz
                             </Button>
                         </div>
                     </Fade>
