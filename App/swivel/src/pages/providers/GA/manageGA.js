@@ -124,10 +124,10 @@ export default function ManageGA() {
         if (admins) {
             setFilteredResults(
                 admins.filter((entry) =>
-                    entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) //||
-                    // entry.apellidos.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
+                    entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.apellidos.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
                 )
             );
         }
