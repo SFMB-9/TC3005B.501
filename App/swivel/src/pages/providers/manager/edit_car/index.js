@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
@@ -32,25 +33,28 @@ const CarRegistrationForm = () => {
     estado_agencia: "",
     municipio_agencia: "",
     direccion_agencia: "",
+    coordenadas_agencia: "",
     tipo_vehiculo: "",
     precio: 0,
     caracteristicas: [],
     extras: [],
     enganche: [],
-    plazos: {},
+    plazos: [],
     entrega: [],
-    disponible_prueba: "",
-    visible_catalogo: "",
+    disponible_prueba: false,
+    visible_catalogo: false,
     descripcion: "",
     ficha_tecnica: "",
     fotos_3d: [],
   });
+  const [carId, setCarId] = useState("");
   
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
+    const retrievedCarId = res.auto._id;
     const retrievedColors = json5.parse(res.auto._source.colores);
     const retrievedCharacteristics = json5.parse(res.auto._source.caracteristicas);
     const retrievedExtras = json5.parse(res.auto._source.extras);
@@ -58,13 +62,37 @@ const CarRegistrationForm = () => {
     const retrievedPlazos = json5.parse(res.auto._source.plazos);
     const retrievedEntrega = json5.parse(res.auto._source.entrega);
 
-    console.log("CAR INFO: ", retrievedAuto);
+    // console.log("Retrieved colores: ");
+    // console.log(retrievedColors);
 
+    // console.log("Retrieved caracteristicas: ");
+    // console.log(retrievedCharacteristics);
+
+    // console.log("Retrieved extras: ");
+    // console.log(retrievedExtras);
+
+    // console.log("Retrieved enganche: ");
+    // console.log(retrievedEnganche);
+
+    // console.log("Retrieved plazos: ");
+    // console.log(retrievedPlazos)
+
+    // console.log("Retrieved entrega: ");
+    // console.log(retrievedEntrega);
+
+    const formattedPlazos = [];
+
+    // Convert plazos into an array for easier displaying
+    for (let key in retrievedPlazos) {
+      formattedPlazos.push({ [key]: retrievedPlazos[key] });
+    }
+
+    // Preset the car's data to dynamically display it in frontend
     setColor(retrievedColors);
     setCaracteristicas(retrievedCharacteristics);
     setExtras(retrievedExtras);
     setEnganche(retrievedEnganche);
-    setPlazo(retrievedPlazos);
+    setPlazo(formattedPlazos);
     setEntrega(retrievedEntrega);
 
     const allColorsFotos = [];
@@ -81,19 +109,20 @@ const CarRegistrationForm = () => {
       allColorsFotos.push(colorArray);
     });
 
-    console.log("FOTOS: ", allColorsFotos);
-
     setFotos(allColorsFotos);
+
+    // console.log("Retrieved car: " + JSON.stringify(retrievedAuto));
+    // console.log("Retrieved car interior color: " + JSON.stringify(retrievedAuto.color_interior));
+    // console.log("Retrieved car available for DT: " + JSON.stringify(retrievedAuto.disponible_prueba));
+    // console.log("Retrieved car catalog visible: " + JSON.stringify(retrievedAuto.visible_catalogo));
+    // console.log("Retrieved car amount: " + JSON.stringify(retrievedAuto.cantidad));
     
+    setCarId(retrievedCarId);
+
     setCar({
       ...retrievedAuto,
       ano: retrievedAuto.año
     });
-
-    for (let i = 0; i < retrievedColors.length; i++) {
-      //handleAddRow(setFotos, createEmptyCarFoto);
-      //handleAddRow(setColor, createEmptyColor);
-    }
   }
 
   useEffect(() => {
@@ -101,6 +130,10 @@ const CarRegistrationForm = () => {
       fetchDetails(); 
     }
   }, [auto_id]);
+
+  function isFileObject(variable) {
+    return variable instanceof File || variable instanceof Blob;
+  }
 
   //handle submit
   const handleSubmit = async (e) => {
@@ -115,31 +148,41 @@ const CarRegistrationForm = () => {
       setOpen(true);
       return;
     }
-    const updatedCar = {
-      ...car,
-      colores: color,
-      caracteristicas: JSON.stringify(caracteristicas).replace(/\\\"/g, "\""),
-      extras: JSON.stringify(extras).replace(/\\\"/g, "\""),
-      enganche: JSON.stringify(enganche).replace(/\\\"/g, "\""),
-      plazos: JSON.stringify(plazos).replace(/\\\"/g, "\""),
-      entrega: JSON.stringify(entrega).replace(/\\\"/g, "\""),
-    };
+
+    const dbFormatPlazos = {};
+
+    // Convert plazos back to the desired format for the db
+    for (let i = 0; i < plazos.length; i++) {
+      const currentObject = plazos[i];
+      const key = Object.keys(currentObject)[0];
+      const value = currentObject[key];
+      dbFormatPlazos[key] = value;
+    }
+
+    // Remove año property, replaced by ano
+    const {año, ...updatedCar} = car;
+
+    updatedCar.colores = color;
+    updatedCar.caracteristicas = JSON.stringify(caracteristicas).replace(/"/g, "'");
+    updatedCar.extras = JSON.stringify(extras).replace(/"/g, "'");
+    updatedCar.enganche = JSON.stringify(enganche).replace(/"/g, "'");
+    updatedCar.plazos = JSON.stringify(dbFormatPlazos).replace(/"/g, "'");
+    updatedCar.entrega = JSON.stringify(entrega).replace(/"/g, "'");
+
     // Upload images to bucket
     for (let i = 0; i < fotos.length; i++) {
       for (let j = 0; j < fotos[i].length; j++) {
-        const foto = await FileUpload(fotos[i][j]);
-        updatedCar.colores[i].imagenes.push(foto);
-        console.log("FOTO COLOR", i, updatedCar.colores[i].imagenes)
+        if (isFileObject(fotos[i][j])) {
+          const foto = await FileUpload(fotos[i][j]);
+          updatedCar.colores[i].imagenes.push(foto);
+        }
       }
     }
 
-    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/\\\"/g, "\"");
+    updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
 
-    console.log(updatedCar);
+    await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar, id: carId});
 
-    // await axios.post('/api/carRegister/elasticCarRegister', { car: updatedCar});
-
-    // Preset the form with the current car data
     setCar({
       cantidad: 0,
       marca: "",
@@ -156,28 +199,35 @@ const CarRegistrationForm = () => {
       estado_agencia: "",
       municipio_agencia: "",
       direccion_agencia: "",
+      coordenadas_agencia: "",
       tipo_vehiculo: "",
       precio: 0,
       caracteristicas: [],
       extras: [],
       enganche: [],
-      plazos: {},
+      plazos: [],
       entrega: [],
-      disponible_prueba: "",
-      visible_catalogo: "",
+      disponible_prueba: false,
+      visible_catalogo: false,
       descripcion: "",
       ficha_tecnica: "",
       fotos_3d: [],
     });
+
+    returnToCatalog();
   };
 
-  const [arrays, setArrays] = useState({});
+  const returnToCatalog = () => {
+    router.push({
+      pathname: "./catalog",
+    });
+  };
 
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [extras, setExtras] = useState([]);
   const [enganche, setEnganche] = useState([]);
   const [color, setColor] = useState([]);
-  const [plazos, setPlazo] = useState({});
+  const [plazos, setPlazo] = useState([]);
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
   const [open, setOpen] = useState(false);
@@ -195,8 +245,12 @@ const CarRegistrationForm = () => {
 
   //handle change in normal inputs
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCar((prevCar) => ({ ...prevCar, [name]: value }));
+    const { name, value, type } = e.target;
+    if (type === "number") {
+      setCar((prevCar) => ({ ...prevCar, [name]: parseInt(value) }));
+    } else {
+      setCar((prevCar) => ({ ...prevCar, [name]: value }));
+    }
   };
 
   const handleSwitchChange = (e) => {
@@ -221,7 +275,6 @@ const CarRegistrationForm = () => {
 
   const handleFotosChange = (index, event) => {
     const updatedFotos = [...fotos];
-    console.log(updatedFotos);
     updatedFotos[index].push(...event);
     setFotos(updatedFotos);
   };
@@ -307,21 +360,30 @@ const CarRegistrationForm = () => {
   };
 
   //specific for plazo changes since it uses keys and values
-  const handleKeyChange = (index, key) => {
-    const updatedPlazo = { ...plazos };
-    updatedPlazo[index] = { ...updatedPlazo[index], key };
-    setPlazo(updatedPlazo);
+  const handleKeyChange = (newKey, index) => {
+    const newPlazos = [...plazos];
+    const value = Object.values(newPlazos[index])[0];
+    const updatedObject = { [newKey]: value};
+    newPlazos[index] = updatedObject;
+    setPlazo(newPlazos);
   };
 
-  const handleValueChange = (index, value) => {
-    const updatedPlazo = { ...plazos };
-    updatedPlazo[index] = { ...updatedPlazo[index], value };
-    setPlazo(updatedPlazo);
+  const handleValueChange = (newValue, index) => {
+    const newPlazos = [...plazos];
+    const key = Object.keys(newPlazos[index])[0];
+    const updatedObject = { [key]: newValue};
+    newPlazos[index] = updatedObject;
+    setPlazo(newPlazos);
   };
 
   const handleRemovePlazo = (index) => {
-    const updatedPlazo = { ...plazos };
-    delete updatedPlazo[index];
+    setPlazo((prevPlazo) => {
+      const updatedPlazo = [...prevPlazo];
+      updatedPlazo.splice(index, 1);
+      return updatedPlazo;
+    });
+    const updatedPlazo = [...plazos];
+    updatedPlazo.splice(index, 1);
     setPlazo(updatedPlazo);
   };
 
@@ -335,8 +397,9 @@ const CarRegistrationForm = () => {
 
   //adds row to almost any array
   const handlePlazoAddRow = () => {
-    const newIndex = Object.keys(plazos).length;
-    setPlazo({ ...plazos, [newIndex]: { key: "", value: "" } });
+    const newPlazos = plazos;
+    newPlazos.push({0:0});
+    setPlazo(newPlazos);
   };
 
   const handleFotoAddRow = (index) => {
@@ -475,7 +538,7 @@ const CarRegistrationForm = () => {
                     fontSize={{ xs: 15, md: 16, lg: 18 }}
                   > Color interiores </Typography>
                   <TextField
-                    // required // There is no actual field for this in the DB
+                    required
                     size="small"
                     type="text"
                     name="color_interior"
@@ -545,7 +608,7 @@ const CarRegistrationForm = () => {
                     id="ano"
                     value={car.ano}
                     onChange={handleChange}
-                    label="Año"
+                    label="Ano"
                     inputProps={{
                       min: "1900",
                       max: "9999",
@@ -766,6 +829,27 @@ const CarRegistrationForm = () => {
                     value={car.direccion_agencia}
                     onChange={handleChange}
                     label="Dirección"
+                    inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                    InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                    className="w-100"
+                  />
+                </div>
+                <div className="col-xl-4 col-md-6">
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  > Coordenadas en formato: latitud,longitud </Typography>
+                  <TextField
+                    required
+                    size="small"
+                    type="text"
+                    name="coordenadas_agencia"
+                    id="coordenadas_agencia"
+                    value={car.coordenadas_agencia}
+                    onChange={handleChange}
+                    label="Coordenadas"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="w-100"
@@ -1182,7 +1266,7 @@ const CarRegistrationForm = () => {
                           borderTopRightRadius: 0,
                         }}
                       >
-                        {Object.entries(plazos).map(([key, value], index) => (
+                        {plazos.map((jsonObject, index) => (
                           <Fade in={true} key={index}>
                             <div className="row">
                               <div className="col">
@@ -1191,8 +1275,8 @@ const CarRegistrationForm = () => {
                                   size="small"
                                   type="text"
                                   name="key"
-                                  value={key}
-                                  onChange={(event) => handleKeyChange(index, event.target.value)}
+                                  value={Object.keys(jsonObject)[0]}
+                                  onChange={(event) => handleKeyChange(event.target.value, index)}
                                   label="Meses"
                                   inputProps={{
                                     min: "0",
@@ -1210,8 +1294,8 @@ const CarRegistrationForm = () => {
                                   size="small"
                                   type="text"
                                   name="value"
-                                  value={value}
-                                  onChange={(event) => handleValueChange(index, event.target.value)}
+                                  value={Object.values(jsonObject)[0]}
+                                  onChange={(event) => handleValueChange(event.target.value, index)}
                                   label="%"
                                   inputProps={{
                                     min: "0",

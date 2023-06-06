@@ -27,7 +27,7 @@ const User = mongoose.models.User || mongoose.model("User", baseSchema);
 const buyerSchema = new mongoose.Schema({
   account_provider: String, 
   email_verification_token: String,
-  lista_deseos: Array,
+  lista_deseos: [String],
   documentos: Array,
 
   //registro-direccion
