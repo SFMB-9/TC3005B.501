@@ -321,12 +321,16 @@ export default function SignupBuyerData() {
                     <div className="d-flex flex-row ">
                       
                       <input
+                        required
                         type="text"
                         className="form-control"
                         placeholder="Num. Ext"
                         value={exterior_num}
                         onChange={(e) => setExteriorNum(e.target.value)}
-                        required
+                        
+                        style={{
+                          marginRight:"0.5vw"
+                        }}
                       />
                       <input
                         type="text"
