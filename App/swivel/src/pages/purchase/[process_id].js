@@ -23,6 +23,7 @@ export default function Process() {
   const router = useRouter();
   const { process_id } = router.query;
 
+  // console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
@@ -102,7 +103,7 @@ export default function Process() {
 
     try {
       const result = await fetch(
-        `/api/purchase-docs/update-docs-mongo?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
+        `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
         {
           method: "PUT",
         }
@@ -603,7 +604,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading Process...</p>
+        <p>Loading ...</p>
       </div>
     );
   }

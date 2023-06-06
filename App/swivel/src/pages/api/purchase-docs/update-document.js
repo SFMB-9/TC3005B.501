@@ -26,12 +26,11 @@ export default async function handler(req, res) {
         if (!proc) {
             return res.status(404).json({ message: 'No se encontro el proceso' });
         }
-        // if (!proc.documentos[doc_index]) {
-        //     return res.status(404).json({ message: 'No se encontro el documento' });
-        // }
+        if (!proc.documentos[doc_index]) {
+            return res.status(404).json({ message: 'No se encontro el documento' });
+        }
         //get the documents of the process
         const doc = proc.documentos;
-        console.log("Documentos: " + doc);
         //update file url and update date
         doc[doc_index].url = encodedURL;
         doc[doc_index].fecha_modificacion = update_date;

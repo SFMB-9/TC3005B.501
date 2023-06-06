@@ -142,6 +142,9 @@ export default async function handler(req, res) {
       }
       else if (role === "agencyEntity") {
 
+      }
+      else if (role === "agencyEntity") {
+
         const GA = req.body.grupo_id;
         const rfc = req.body.rfc;
         const url = req.body.url;

@@ -132,7 +132,6 @@ export default function Catalog() {
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setCatalogData(data.result);
-    setApiData(data);
   };
 
   useEffect(() => {
