@@ -5,7 +5,6 @@ import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export default function addSAdmin() {
 
@@ -47,7 +46,9 @@ export default function addSAdmin() {
             "password":password,
             "tipo_usuario":"admin"
         }),{ headers: {"Content-Type": "application/json"}});
+        router.back();
     };
+
 
     const cancelHandler = () => {
         router.back();
