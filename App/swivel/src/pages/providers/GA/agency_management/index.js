@@ -19,6 +19,7 @@ import Searchbar from '@/components/general/searchbar';
 import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
+import EditEntityData from '@/components/providers/GA/edit_entity_data';
 
 export default function ManageAgencias() {
     const [agencias, setAgencias] = useState([]);
@@ -36,14 +37,15 @@ export default function ManageAgencias() {
         }
     };
 
+    const fetchAgencias = async () => {
+        const res = await fetch(
+            `http://localhost:3000/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+        );
+        const data = await res.json();
+        setAgencias(data.result);
+    };
+
     useEffect(() => {
-        const fetchAgencias = async () => {
-            const res = await fetch(
-                `http://localhost:3000/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
-            );
-            const data = await res.json();
-            setAgencias(data.result);
-        };
         fetchAgencias();
     }, []);
 
@@ -52,9 +54,9 @@ export default function ManageAgencias() {
             setFilteredResults(
                 agencias.filter((entry) =>
                     entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) //||
-                    // entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
+                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
                 )
             );
         }
@@ -64,6 +66,16 @@ export default function ManageAgencias() {
         setSearchValue(event.target.value);
     };
 
+    const deleteEntry = async (entry) => {
+        console.log("This entry", entry);
+        try {
+            await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry } });
+            fetchAgencias();
+        }
+        catch (error) {
+            console.log("Error borrando usuario: ", error);
+        }
+    };
     const columns = useMemo(
         () => [
             {
@@ -116,7 +128,7 @@ export default function ManageAgencias() {
                         variant="contained"
                         disableElevation
                         onClick={() =>
-                           router.push(`/providers/GA/agency_management/${params.row._id}`)
+                            router.push(`/providers/GA/agency_management/${params.row._id}`)
                         }
                         className="py-0"
                         sx={{
@@ -150,9 +162,11 @@ export default function ManageAgencias() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <div>
-                                        <p> Editar datos </p>
-                                    </div>
+                                    <>
+                                    <EditEntityData data={params.row}
+                                        userType="agency" />
+                                    {console.log("params.row", params.row)}
+                                    </>
                                 }
                                 btnOpen={
                                     <IconButton
@@ -172,7 +186,7 @@ export default function ManageAgencias() {
                                         <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
-                                            onClick={() => deleteEntry(params.row.email)}
+                                            onClick={() => deleteEntry(params.row._id)}
                                             type="submit"
                                             className="w-80"
                                             sx={{
@@ -257,7 +271,7 @@ export default function ManageAgencias() {
                                                 height: '50%',
                                                 padding: '0.5rem 1rem',
                                             }}
-                                        > Registrar admin  + </button>
+                                        > Registrar agencia  + </button>
                                         {/* </a> */}
                                     </div>
                                     <DataTable
