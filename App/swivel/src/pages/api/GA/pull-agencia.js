@@ -23,7 +23,6 @@ export default async function handler(req, res) {
     const sellerRole = encryptRole("seller");
 
     const agency = await userCollection.findOne({_id : new ObjectId(id)});
-    console.log(agency);
     const GA = await userCollection.findOne({_id : new ObjectId(agency.grupo_automotriz_id)}, { projection: { nombres: 1} });
     const managers = await userCollection.find({ agencia_id: id, __t: 'ManagerUser' }).toArray();
     const sellers = await userCollection.find({ agencia_id: id, __t: 'SellerUser' }).toArray();
