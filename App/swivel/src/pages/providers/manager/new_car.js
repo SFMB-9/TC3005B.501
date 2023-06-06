@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
@@ -11,8 +12,10 @@ import ManagerLayout from "@/components/providers/Manager/layout";
 
 //create car object
 const CarRegistrationForm = () => {
+  const { data: session } = useSession();
+
   const router = useRouter();
-  
+
   const [car, setCar] = useState({
     cantidad: 0,
     marca: "",
@@ -43,6 +46,24 @@ const CarRegistrationForm = () => {
     ficha_tecnica: "",
     fotos_3d: [],
   });
+  const [agenciaId, setAgenciaId] = useState("");
+
+  useEffect(() => {
+    const getIdAgencia = async () => {
+      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+          { method: 'GET' });
+  
+      const agenciaId = await agenciaIdRaw.json();
+  
+      return agenciaId.user.agencia_id;
+    }
+
+    if (router.isReady && session) {
+      getIdAgencia().then((a_id) =>
+        setAgenciaId(a_id)
+      );
+    }
+  }, [router.isReady, session]);
 
   function isFileObject(variable) {
     return variable instanceof File || variable instanceof Blob;
@@ -96,7 +117,7 @@ const CarRegistrationForm = () => {
     updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
     updatedCar.fotos_3d = JSON.stringify(car.fotos_3d).replace(/"/g, "'");
 
-    await axios.post("/api/carRegister/elasticCarRegister", { car: updatedCar});
+    await axios.post("/api/carRegister/elasticCarRegister", { car: updatedCar, agency_id: agenciaId});
     
     // Reset the form
     setCar({

@@ -46,6 +46,7 @@ const CarRegistrationForm = () => {
     descripcion: "",
     ficha_tecnica: "",
     fotos_3d: [],
+    agencia_id: ""
   });
   const [carId, setCarId] = useState("");
   
