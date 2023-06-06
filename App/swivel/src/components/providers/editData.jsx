@@ -29,7 +29,7 @@ export default function EditAccount(props) {
         numero_telefonico: newPhone,
 
       });
-      //window.location.href = "/account";
+      window.location.href = "/providers/GA/editProfile";
 
     } catch (error) {
       console.log(error);
@@ -38,7 +38,6 @@ export default function EditAccount(props) {
     }
 
   };
-
 
   if (props.data) {
     return (
