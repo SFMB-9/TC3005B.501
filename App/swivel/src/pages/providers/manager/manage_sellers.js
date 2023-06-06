@@ -73,7 +73,7 @@ export default function SearchResults() {
             fetchResults();
         }
         catch (error) {
-            console.error('Error deleting entry:', error);
+            console.error('Error borrando usuario: ', error);
         }
     };
 
@@ -136,7 +136,9 @@ export default function SearchResults() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <EditSellerData data={params.row} agency={agency}/>
+                                    <EditSellerData data={params.row}
+                                    userType="seller"
+                                    />
                                 }
                                 btnOpen={
                                     <IconButton
