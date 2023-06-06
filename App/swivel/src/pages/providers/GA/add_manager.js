@@ -1,84 +1,78 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import { Button, TextField } from "@mui/material";
-import styles from "@/styles/add_manager.module.css";
-import GANavbar from "@/components/providers/GA/navbar";
+import React, { useState } from 'react';
+import { Button, TextField } from '@mui/material';
+import styles from '@/styles/add_manager.module.css';
+import GANavbar from '@/components/providers/GA/navbar';
 
-export default function MergedSignup() {
-    const [name, setName] = useState("");
-    const [surname, setSurname] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState({});
+export default function AddManager() {
+    const [formValues, setFormValues] = useState({
+        nombres: '',
+        apellidos: '',
+        telefono: '',
+        agencia: '',
+        correo: '',
+        contraseña: '',
+        confirmarContraseña: '',
+    });
 
-    const router = useRouter();
-    const GA = router.query.GA_id;
-    const agency = router.query.agency_id;
+    const [errors, setErrors] = useState({
+        nombres: '',
+        apellidos: '',
+        telefono: '',
+        agencia: '',
+        correo: '',
+        contraseña: '',
+        confirmarContraseña: '',
+    });
 
-    const validateForm = () => {
-        let isValid = true;
-        const newErrors = {};
-
-        if (!name) {
-            newErrors.nombres = "Please enter your name";
-            isValid = false;
-        }
-
-        if (!surname) {
-            newErrors.apellidos = "Please enter your surname";
-            isValid = false;
-        }
-
-        if (!phone) {
-            newErrors.telefono = "Please enter your phone number";
-            isValid = false;
-        }
-
-        if (!email) {
-            newErrors.correo = "Please enter your email";
-            isValid = false;
-        }
-
-        if (!password) {
-            newErrors.contraseña = "Please enter your password";
-            isValid = false;
-        }
-
-        if (password !== confirmPassword) {
-            newErrors.confirmarContraseña = "Passwords do not match";
-            isValid = false;
-        }
-
-        setErrors(newErrors);
-        return isValid;
+    const handleChange = (event) => {
+        const { id, value } = event.target;
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [id]: value,
+        }));
     };
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
+    const handleAddManager = (event) => {
+        event.preventDefault();
 
-        if (validateForm()) {
-            try {
-                const { data } = await axios.post("/api/register", {
-                    nombres: name,
-                    apellidos: surname,
-                    email: email.toLocaleLowerCase(),
-                    password: password,
-                    tipo_usuario: "manager",
-                    agencia_id: agency,
-                    grupo_automotriz_id: GA,
-                    numero_telefonico: phone,
-                });
+        let isValid = true;
+        const newErrors = { ...errors };
 
-                console.log(data);
-            } catch (error) {
-                console.log(error.response.data);
+        // Check if any of the fields are empty
+        for (const key in formValues) {
+            if (formValues[key] === '') {
+                newErrors[key] = 'This field is required';
+                isValid = false;
+            } else {
+                newErrors[key] = '';
             }
         }
+
+        // Check if the email is valid
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formValues.correo)) {
+            newErrors.correo = 'Please enter a valid email';
+            isValid = false;
+        }
+
+        // Check if the passwords match
+        if (formValues.contraseña !== formValues.confirmarContraseña) {
+            newErrors.confirmarContraseña = 'Passwords do not match';
+            isValid = false;
+        }
+
+        if (!isValid) {
+            setErrors(newErrors);
+            return; // Exit the function if any validation fails
+        }
+
+        console.log('Form values:', formValues);
+        // Upload form data or perform other operations
     };
 
     const handleCancel = () => {
+        // Handle cancel logic here
+        console.log('Cancel');
     };
 
     return (
@@ -87,7 +81,7 @@ export default function MergedSignup() {
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Agregar Gerente</h1>
                 <h3 className={styles.boldText}>Ingresa los datos del gerente</h3>
-                <form onSubmit={submitHandler}>
+                <form>
                     <div className={styles.inputContainer}>
                         <div className={styles.row}>
                             <div className={styles.inputFieldContainer}>
@@ -98,8 +92,8 @@ export default function MergedSignup() {
                                     label="Nombre(s)"
                                     variant="outlined"
                                     fullWidth
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
+                                    value={formValues.nombres}
+                                    onChange={handleChange}
                                     error={!!errors.nombres}
                                     helperText={errors.nombres}
                                 />
@@ -112,8 +106,8 @@ export default function MergedSignup() {
                                     label="Apellido(s)"
                                     variant="outlined"
                                     fullWidth
-                                    value={surname}
-                                    onChange={(e) => setSurname(e.target.value)}
+                                    value={formValues.apellidos}
+                                    onChange={handleChange}
                                     error={!!errors.apellidos}
                                     helperText={errors.apellidos}
                                 />
@@ -129,10 +123,25 @@ export default function MergedSignup() {
                             label="Teléfono"
                             variant="outlined"
                             fullWidth
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            value={formValues.telefono}
+                            onChange={handleChange}
                             error={!!errors.telefono}
                             helperText={errors.telefono}
+                        />
+                    </div>
+
+                    <div className={styles.inputContainer}>
+                        <h5>Agencia</h5>
+                        <TextField
+                            className={styles.longInputField}
+                            id="agencia"
+                            label="Agencia"
+                            variant="outlined"
+                            fullWidth
+                            value={formValues.agencia}
+                            onChange={handleChange}
+                            error={!!errors.agencia}
+                            helperText={errors.agencia}
                         />
                     </div>
 
@@ -145,8 +154,8 @@ export default function MergedSignup() {
                             label="Correo Electrónico"
                             variant="outlined"
                             fullWidth
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formValues.correo}
+                            onChange={handleChange}
                             error={!!errors.correo}
                             helperText={errors.correo}
                         />
@@ -162,8 +171,8 @@ export default function MergedSignup() {
                                     label="Contraseña"
                                     variant="outlined"
                                     fullWidth
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={formValues.contraseña}
+                                    onChange={handleChange}
                                     error={!!errors.contraseña}
                                     helperText={errors.contraseña}
                                     type="password"
@@ -177,6 +186,8 @@ export default function MergedSignup() {
                                     label="Confirmar Contraseña"
                                     variant="outlined"
                                     fullWidth
+                                    value={formValues.confirmarContraseña}
+                                    onChange={handleChange}
                                     error={!!errors.confirmarContraseña}
                                     helperText={errors.confirmarContraseña}
                                     type="password"
@@ -188,19 +199,33 @@ export default function MergedSignup() {
                     <div className={styles.buttonContainer}>
                         <Button
                             variant="contained"
-                            color="primary"
-                            type="submit"
                             className={styles.button}
-                        >
-                            Register
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="primary"
+                            disableElevation
+                            sx={{
+                                backgroundColor: '#979797',
+                                fontFamily: 'lato',
+                                fontWeight: 'bold',
+                                ':hover': { backgroundColor: '#BABABA' },
+                            }}
                             onClick={handleCancel}
-                            className={styles.button}
                         >
-                            Cancel
+                            Cancelar
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            className={styles.button}
+                            disableElevation
+                            sx={{
+                                backgroundColor: '#F55C7A',
+                                fontFamily: 'lato',
+                                fontWeight: 'bold',
+                                ':hover': { backgroundColor: '#BABABA' },
+                            }}
+                            onClick={handleAddManager}
+                        >
+                            Agregar
                         </Button>
                     </div>
                 </form>

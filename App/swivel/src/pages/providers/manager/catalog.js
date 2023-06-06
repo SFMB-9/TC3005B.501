@@ -103,6 +103,7 @@ export default function Catalog() {
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setCatalogData(data.result);
+    setApiData(data);
   };
 
   useEffect(() => {
@@ -452,47 +453,30 @@ export default function Catalog() {
           </Grid>
           <Grid item xs={12} md={9} sm={8}>
             {/*
-                Pasar la función fetchSearch como prop al componente Searchbar
-                // para que se ejecute cuando se presione el botón de búsqueda
-              */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flex: '100%',
-                alignItems: 'center',
-                paddingTop: "2rem",
-                paddingBottom: "1rem",
-                paddingRight: "1rem",
-                paddingLeft: "1rem"
-              }}
-            >
-              <Searchbar
+                Desabilitar el searchbar para el catalogo de gerente
+            <Searchbar
               firstValue={searchText}
               placeholderText={'Buscar...'}
               setState={setSelectedFilters}
-              searchStyle="administrative"
-              />
-              <Button
-                variant="contained"
-                size="small"
-                style={{ minWidth: '110px' }}
-                sx={{
-                  fontFamily: "Lato",
-                  ":hover": {
-                    backgroundColor: "palevioletred",
-                  },
-                }}
-                disableElevation
-                type="button"
-                onClick={() => viewCreateCar()}
-              >
-                Agregar Auto
-              </Button>
-            </div>
-            
+            /> */}
             <div>
               <div className={styles.catalogHeader}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  style={{ minWidth: '110px' }}
+                  sx={{
+                    fontFamily: "Lato",
+                    ":hover": {
+                      backgroundColor: "palevioletred",
+                    },
+                  }}
+                  disableElevation
+                  type="button"
+                  onClick={() => viewCreateCar()}
+                >
+                  Agregar Auto
+                </Button>
                 <span className="justify-content-start align-items-center">
                   <Typography color="text.secondary" sx={{
                     fontFamily: "Lato",

@@ -144,7 +144,7 @@ async function assembleFilter(result, filters, req) {
 
 // Function to build elasticsearch search body
 function buildQuery(queryParams, searchResultsIds, dbQuery) {
-    dbQuery.size = 100;
+    dbQuery.size = 900;
     dbQuery.query = {
         bool: {
             must: []
