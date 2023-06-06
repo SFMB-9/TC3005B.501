@@ -38,13 +38,15 @@ export default function Catalog() {
   console.log("Search text: " + searchText);
 
   useEffect(() => {
-    if (isFirstLoad) {
-      if (JSON.stringify(router.query.searchQuery)) {
-        setSearchText(router.query.searchQuery);
+    if (session) {
+      if (isFirstLoad) {
+        if (JSON.stringify(router.query.searchQuery)) {
+          setSearchText(router.query.searchQuery);
+        }
+        isFirstLoad = false;
       }
-      isFirstLoad = false;
     }
-  }, []);
+  }, [session]);
 
   // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);

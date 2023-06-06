@@ -14,6 +14,8 @@ const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
+    console.log("QUERY IN ENDPOINT: " + JSON.stringify(req.query));
+
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
