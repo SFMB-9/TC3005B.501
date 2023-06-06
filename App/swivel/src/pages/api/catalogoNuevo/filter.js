@@ -258,5 +258,13 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
         });
     }
 
+    if (queryParams.agencia_id) {
+        dbQuery.query.bool.must.push({
+            match: {
+                agencia_id: queryParams.agencia_id
+            }
+        });
+    }
+
     return dbQuery;
 }

@@ -18,6 +18,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useRouter } from "next/router";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useSession } from "next-auth/react";
 
 import ManagerLayout from "@/components/providers/manager/layout";
 import SortCatalog from "@/components/buyer/sort_catalog";
@@ -25,13 +26,13 @@ import styles from "@/styles/catalog.module.css";
 import Searchbar from "@/components/general/searchbar";
 import DataTable from "@/components/general/Table";
 
-
 const json5 = require('json5');
+
 
 export default function Catalog() {
   const router = useRouter();
   const [searchText, setSearchText] = useState(null);
-
+  const { data: session } = useSession();
   let isFirstLoad = true;
 
   console.log("Search text: " + searchText);
@@ -72,107 +73,20 @@ export default function Catalog() {
       setSearchText(router.query.searchQuery);
       queryString = "search=" + router.query.searchQuery + "="
     }
+
     Object.entries(query).forEach(([category, items]) => {
       if (items.length) {
         queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
       }
     });
 
-    console.log('qst', queryString)
     return queryString;
   };
 
-  const fetchFilters = async () => {
-    if (router.query.marca) {
-      const query = router.query.marca;
-      removeQueryParam("marca");
-      if (!selectedFilters.includes(`marca:${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`marca:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "marca", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    if (router.query.tipo) {
-      const query = router.query.tipo;
-      removeQueryParam("tipo");
-      if (!selectedFilters.includes(`tipo_vehiculo:${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`tipo_vehiculo:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "tipo_vehiculo", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    if (router.query.year) {
-      const query = router.query.year;
-      removeQueryParam("year");
-      if (!selectedFilters.includes(`ano:${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`ano:${query}`);
-          setSelectedChips((prevSelectedChips) => {
-            const newChip = { category: "ano", value: query };
-            const isChipDuplicate = prevSelectedChips.find(
-              (chip) =>
-                chip.category === newChip.category &&
-                chip.value === newChip.value
-            );
-            if (isChipDuplicate) {
-              return prevSelectedChips;
-            } else {
-              return [...prevSelectedChips, newChip];
-            }
-          });
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    if (router.query.searchQuery) {
-      const query = router.query.searchQuery;
-      removeQueryParam("searchQuery");
-      if (!selectedFilters.includes(`search=${query}`)) {
-        setSelectedFilters((prevSelectedFilters) => {
-          const newSelectedFilters = [...prevSelectedFilters];
-          newSelectedFilters.push(`search=${query}`);
-          return newSelectedFilters;
-        });
-      }
-    }
-
-    console.log("Selected Filters:" + selectedFilters);
+  const fetchFilters = async (idAgencia) => {
     let queryString = buildQuery(selectedFilters);
-    console.log('yooo', queryString)
+
+    queryString += `${queryString ? "&" : ""}agencia_id=${idAgencia}`;
 
     const response = await fetch(
       `/api/catalogoNuevo/filter?${queryString}`
@@ -187,10 +101,21 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    if (router.isReady) {
-      fetchFilters();
+    const getIdAgencia = async () => {
+      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+          { method: 'GET' });
+  
+      const agenciaId = await agenciaIdRaw.json();
+  
+      return agenciaId.user.agencia_id;
     }
-  }, [selectedFilters, router.isReady]);
+
+    if (router.isReady && session) {
+      getIdAgencia().then((a_id) =>
+        fetchFilters(a_id)
+      );
+    }
+  }, [selectedFilters, router.isReady, session]);
 
   const handleMenuItemClick = (category, item) => {
     event.stopPropagation();
@@ -520,30 +445,47 @@ export default function Catalog() {
           </Grid>
           <Grid item xs={12} md={9} sm={8}>
             {/*
-                Desabilitar el searchbar para el catalogo de gerente
-            <Searchbar
+                Pasar la función fetchSearch como prop al componente Searchbar
+                // para que se ejecute cuando se presione el botón de búsqueda
+              */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flex: '100%',
+                alignItems: 'center',
+                paddingTop: "2rem",
+                paddingBottom: "1rem",
+                paddingRight: "1rem",
+                paddingLeft: "1rem"
+              }}
+            >
+              <Searchbar
               firstValue={searchText}
               placeholderText={'Buscar...'}
               setState={setSelectedFilters}
-            /> */}
+              searchStyle="administrative"
+              />
+              <Button
+                variant="contained"
+                size="small"
+                style={{ minWidth: '110px' }}
+                sx={{
+                  fontFamily: "Lato",
+                  ":hover": {
+                    backgroundColor: "palevioletred",
+                  },
+                }}
+                disableElevation
+                type="button"
+                onClick={() => viewCreateCar()}
+              >
+                Agregar Auto
+              </Button>
+            </div>
+            
             <div>
               <div className={styles.catalogHeader}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  style={{ minWidth: '110px' }}
-                  sx={{
-                    fontFamily: "Lato",
-                    ":hover": {
-                      backgroundColor: "palevioletred",
-                    },
-                  }}
-                  disableElevation
-                  type="button"
-                  onClick={() => viewCreateCar()}
-                >
-                  Agregar Auto
-                </Button>
                 <span className="justify-content-start align-items-center">
                   <Typography color="text.secondary" sx={{
                     fontFamily: "Lato",
@@ -568,12 +510,7 @@ export default function Catalog() {
                   maxHeight: "100vh",
                 }}
               >
-                {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                    {`http://localhost:3000/api/catalogo/buscar-autos${
-                      selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                    }`}
-                  </div>
-                  <ApiDataDisplay apiData={catalogData} /> */}
+                {/* <ApiDataDisplay apiData={catalogData} /> */}
                 {catalogData ? (
                   <div className="section">
                     <div className="pt-4">

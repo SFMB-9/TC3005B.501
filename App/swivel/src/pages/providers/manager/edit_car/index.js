@@ -181,9 +181,6 @@ const CarRegistrationForm = () => {
 
     updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
 
-    console.log("Car to upload: ");
-    console.log(updatedCar);
-
     await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar, id: carId});
 
     setCar({
