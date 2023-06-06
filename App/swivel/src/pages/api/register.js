@@ -58,11 +58,11 @@ export default async function handler(req, res) {
       // email existence validation, pings the email and returns if non-existent
       isAlive
         ? function () {
-            // continue
-          }
+          // continue
+        }
         : function () {
-            return res.status(400).json({ message: "Email is invalid" });
-          };
+          return res.status(400).json({ message: "Email is invalid" });
+        };
     });
 
     let usedEmail = await User.findOne({ email: email });
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     if (!usedEmail) {
       if (role === "user") {
         const street = req.body.direccion.calle;
-        
+
         const exterior_num = req.body.direccion.numero_exterior;
         const interior_num = req.body.direccion.numero_interior;
         const city = req.body.direccion.ciudad;
@@ -113,7 +113,7 @@ export default async function handler(req, res) {
       } else if (role === "seller") {
 
         const agencia_id = req.body.agencia_id;
-        
+
 
         await SellerUser.create({
           nombres: name,
@@ -129,156 +129,156 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "Seller registered successfully" });
       } else if (role === "manager") {
 
-        const GA =  req.body.grupo_id;
+        const GA = req.body.grupo_id;
 
-         if(entity){
+        if (entity) {
 
-                const agencyName = req.body.nombreAgencia;
+          const agencyName = req.body.nombreAgencia;
 
-      const url = req.body.url
+          const url = req.body.url
 
-      const street = req.body.direccion.calle;
-      const exterior_num = req.body.direccion.numero_exterior;
-      const interior_num = req.body.direccion.numero_interior;
-      const city = req.body.direccion.ciudad;
-      const state = req.body.direccion.estado;
-      const country = req.body.direccion.pais;
-      const postalCode = req.body.direccion.codigo_postal;
+          const street = req.body.direccion.calle;
+          const exterior_num = req.body.direccion.numero_exterior;
+          const interior_num = req.body.direccion.numero_interior;
+          const city = req.body.direccion.ciudad;
+          const state = req.body.direccion.estado;
+          const country = req.body.direccion.pais;
+          const postalCode = req.body.direccion.codigo_postal;
 
-      const coordinate = req.body.coordinates;
+          const coordinate = req.body.coordinates;
 
-      const openT = req.body.open;
-      const closeT= req.body.close;
+          const openT = req.body.open;
+          const closeT = req.body.close;
 
-      const daysNotice = req.body.daysNotice;
-      const daysMax = req.body.daysMax;
+          const daysNotice = req.body.daysNotice;
+          const daysMax = req.body.daysMax;
 
-      const A = await AgencyEntity.create({
-        tipo_usuario: encryptRole(entity),
-        nombres: agencyName,
-        direccion: {
-          calle: street,
-          numero_exterior: exterior_num,
-          numero_interior: interior_num,
-          ciudad: city,
-          estado: state,
-          pais: country,
-          codigo_postal: postalCode,
-        },
-        is_account_verified: false,
-        url_agencia: url,
+          const A = await AgencyEntity.create({
+            tipo_usuario: encryptRole(entity),
+            nombres: agencyName,
+            direccion: {
+              calle: street,
+              numero_exterior: exterior_num,
+              numero_interior: interior_num,
+              ciudad: city,
+              estado: state,
+              pais: country,
+              codigo_postal: postalCode,
+            },
+            is_account_verified: false,
+            url_agencia: url,
 
-        /*coordenadas_agencia: coordinate,*/
-        horas_min: openT,
-        horas_max: closeT,
-        dias_anticipo: daysNotice,
-        dias_max: daysMax,
+            /*coordenadas_agencia: coordinate,*/
+            horas_min: openT,
+            horas_max: closeT,
+            dias_anticipo: daysNotice,
+            dias_max: daysMax,
 
-        grupo_automotriz_id: GA
-      });
+            grupo_automotriz_id: GA
+          });
 
-      const A_id = A._id.toString();
+          const A_id = A._id.toString();
 
-      const AManager = await ManagerUser.create({
-        tipo_usuario: encrypted_role,
-        nombres: name,
-        apellidos: surname,
-        email: email,
-        password: password,
-        numero_telefonico: phone,
-        grupo_automotriz_id: GA,
-        agencia_id: A_id
-      });
+          const AManager = await ManagerUser.create({
+            tipo_usuario: encrypted_role,
+            nombres: name,
+            apellidos: surname,
+            email: email,
+            password: password,
+            numero_telefonico: phone,
+            grupo_automotriz_id: GA,
+            agencia_id: A_id
+          });
 
-      const AManager_id = AManager._id.toString();
+          const AManager_id = AManager._id.toString();
 
-      const list = ["licencia","ine","comprobante_domicilio"] // SA_012 - replace hardcode!
-      const documentos = [];
+          const list = ["licencia", "ine", "comprobante_domicilio"] // SA_012 - replace hardcode!
+          const documentos = [];
 
-      for (let i = 0; i < list.length; i++) {
-        const nombre_documento = list[i];
-        const url = "";
-        const estatus = "";
-        const comentarios = "";
-        const fecha_modificacion = new Date();
+          for (let i = 0; i < list.length; i++) {
+            const nombre_documento = list[i];
+            const url = "";
+            const estatus = "";
+            const comentarios = "";
+            const fecha_modificacion = new Date();
 
-        documentos.push({
-          nombre_documento,
-          url,
-          estatus,
-          comentarios,
-          fecha_modificacion,
-        });
-      }
+            documentos.push({
+              nombre_documento,
+              url,
+              estatus,
+              comentarios,
+              fecha_modificacion,
+            });
+          }
 
-      const AProc = await Proceso.create({
-        tipo_proceso: "peticionA",
-        estatus: "pendiente",
+          const AProc = await Proceso.create({
+            tipo_proceso: "peticionA",
+            estatus: "pendiente",
 
-        direccion: {
-          calle: street,
-          numero_exterior: exterior_num,
-          numero_interior: interior_num,
-          ciudad: city,
-          estado: state,
-          pais: country,
-          codigo_postal: postalCode,
-        },
+            direccion: {
+              calle: street,
+              numero_exterior: exterior_num,
+              numero_interior: interior_num,
+              ciudad: city,
+              estado: state,
+              pais: country,
+              codigo_postal: postalCode,
+            },
 
-        documentos: documentos,
+            documentos: documentos,
 
-        fecha_inicio: new Date(),
-        solicitud_cancelada: false,
+            fecha_inicio: new Date(),
+            solicitud_cancelada: false,
 
-        grupo_automotriz_id: GA,
-        agencia_id: A_id,
-        usuario_final_id: AManager_id
-      })
+            grupo_automotriz_id: GA,
+            agencia_id: A_id,
+            usuario_final_id: AManager_id
+          })
 
-      } else {
+        } else {
 
-        const A_id = req.body.agencia_id;
+          const A_id = req.body.agencia_id;
 
-        await ManagerUser.create({
-        tipo_usuario: encrypted_role,
-        nombres: name,
-        apellidos: surname,
-        email: email,
-        password: password,
-        numero_telefonico: phone,
-        grupo_automotriz_id: GA,
-        agencia_id: A_id
-      });
+          await ManagerUser.create({
+            tipo_usuario: encrypted_role,
+            nombres: name,
+            apellidos: surname,
+            email: email,
+            password: password,
+            numero_telefonico: phone,
+            grupo_automotriz_id: GA,
+            agencia_id: A_id
+          });
 
 
 
-         }
+        }
 
         res.status(200).json({ message: "Manager registered successfully" });
-      
 
 
 
-      } else if (role==="admin") {
 
-        
+      } else if (role === "admin") {
+
+
 
         await SaEntity.create({
 
-          nombres:name,
-          apellidos:surname,
-          email:email,
-          password:password,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
           tipo_usuario: encrypted_role,
-          numero_telefonico:phone,
-          foo:"bar"
+          numero_telefonico: phone,
+          foo: "bar"
 
         });
 
 
         res.status(200).json({ message: "SuperAdmin registered successfully" });
-      } 
-      else if (role==="ga_admin"){
+      }
+      else if (role === "ga_admin") {
         const GAdmin = await AdminUser.create({
           tipo_usuario: encrypted_role,
           nombres: name,
@@ -286,12 +286,13 @@ export default async function handler(req, res) {
           email: email,
           password: password,
           numero_telefonico: phone,
+          grupo_automotriz_id: ""
         });
 
         const GAdmin_id = GAdmin._id.toString();
-        
+
         res.status(200).json({ message: "GA Admin registered successfully", id: GAdmin_id });
-      } 
+      }
       else {
         res.status(400).json({ message: "Account already exists" });
       }

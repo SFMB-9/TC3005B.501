@@ -1,9 +1,13 @@
-import Proceso from "../../../models/procesos";
-import dbConnect from "../../../config/dbConnect";
+// import Proceso from "../../../models/procesos";
+// import dbConnect from "../../../config/dbConnect";
+import connectToDatabase from "@/utils/mongodb";
 
 export default async function handler(req, res) {
+  const client = await connectToDatabase;
+  const db = client.db("test");
+  const procesos = await db.collection("procesos")
+
   if (req.method === "POST") {
-    dbConnect();
 
     const street = req.body.direccion.calle;
     const exterior_num = req.body.direccion.numero_exterior;
@@ -19,6 +23,7 @@ export default async function handler(req, res) {
     const legalPhone = req.body.legal.lPhone;
 
     const GAPhone = req.body.GAPhone;
+    const GAemail = req.body.GAemail;
     const agency = req.body.nombre_agencia;
 
     const admin_id = req.body.admin;
@@ -28,23 +33,17 @@ export default async function handler(req, res) {
 
     const documentos = [];
 
-    doc_lst.forEach(elem => {
-      const nombre_documento = elem;
-      const url = "";
-      const estatus = "";
-      const comentarios = "";
-      const fecha_modificacion = null;
-
+    doc_lst.forEach(documento => {
       documentos.push({
-        nombre: nombre_documento,
-        url: url,
-        estatus: estatus,
-        comentarios: comentarios,
-        fecha_modificacion: fecha_modificacion,
+        nombre_documento: documento,
+        url: "",
+        fecha_modificacion: "",
+        estatus: "Pendiente",
+        comentarios: ""
       });
-    }); 
+    });
 
-    const proc = await Proceso.create({
+    const proc = {
       tipo_proceso: "registroGA",
       estatus_validacion: "pendiente",
 
@@ -63,7 +62,8 @@ export default async function handler(req, res) {
         is_account_verified: false,
         url_grupo_automotriz: url,
         rfc_grupo_automotriz: rfc,
-
+        numero_telefonico: GAPhone,
+        email: GAemail,
         legal: {
           nombres: legalName,
           apellidos: legalSurname,
@@ -73,17 +73,22 @@ export default async function handler(req, res) {
       },
 
       documentos: documentos,
-
-      fecha_solicitud: new Date(),
-      solicitud_cancelada: false,
-      numero_telefonico: GAPhone,
-
+      fecha_creacion: new Date(),
       usuario_ga_id: admin_id
-    }); 
+    };
 
-    res.status(200).json({ message: "Process created", info: proc._id.toString() });
+    try {
+      const result = await procesos.insertOne(proc);
+
+      const id_proceso = result.insertedId;
+
+      return res.status(200).json({ message: "Process created", id: id_proceso });
+    } catch (error) {
+      return res.status(500).json({ message: "Error creating process", error: error });
+    }
+
   }
   else {
     res.status(405).json({ message: "Incorrect request method" });
-  }  
+  }
 }

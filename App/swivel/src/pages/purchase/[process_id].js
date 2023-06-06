@@ -101,7 +101,7 @@ export default function Process() {
 
     try {
       const result = await fetch(
-        `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
+        `/api/purchase-docs/update-docs-mongo?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
         {
           method: "PUT",
         }

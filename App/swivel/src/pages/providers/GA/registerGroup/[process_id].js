@@ -78,14 +78,23 @@ export default function RegisterGroupProcess() {
         console.log("update_date: " + currentDocs[i].fecha_modificacion);
 
         const result = await fetch(
-            `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}`,
+            `/api/purchase-docs/update-docs-mongo?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
             {
                 method: "PUT",
             }
         );
 
+        const data = await result.json();
+
         fetchProcess();
     };
+
+    const handleConfirmRegister = async () => {
+        console.log("Confirmando registro de GA");
+        // const result = await axios.post("/api/register", {
+            
+        // });
+    }
 
     useEffect(() => {
         if (!process_id) {
@@ -226,7 +235,7 @@ export default function RegisterGroupProcess() {
                                     >
                                         <strong>Nombre del Grupo Automotriz:</strong>{" "}
                                         <span style={{ color: "#333333" }}>
-                                            {process.ga.nombres}
+                                            {process.info_GA.nombres}
                                         </span>
                                     </Typography>
                                     <Typography
@@ -237,7 +246,7 @@ export default function RegisterGroupProcess() {
                                     >
                                         <strong>Website:</strong>{" "}
                                         <span style={{ color: "#333333" }}>
-                                            {process.ga.url_website}
+                                            {process.info_GA.url_grupo_automotriz}
                                         </span>
                                     </Typography>
                                     <Typography
@@ -247,7 +256,7 @@ export default function RegisterGroupProcess() {
                                         fontSize={{ xs: 13, md: 14, lg: 16 }}
                                     >
                                         <strong>Número Telefónico:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>{process.ga.numero_telefonico}</span>
+                                        <span style={{ color: "#333333" }}>{process.info_GA.numero_telefonico}</span>
                                     </Typography>
                                     <Typography
                                         fontFamily="Lato"
@@ -256,7 +265,7 @@ export default function RegisterGroupProcess() {
                                     >
                                         <strong>Email:</strong>{" "}
                                         <span style={{ color: "#333333" }}>
-                                            {process.ga.email}
+                                            {process.info_GA.email}
                                         </span>
                                     </Typography>
                                 </div>
@@ -303,52 +312,6 @@ export default function RegisterGroupProcess() {
                             </div>
                         </div>
                     </Fade>
-                    {/* <h1>Documentos</h1>
-              <table style={{ width: "100%" }}>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>URL</th>
-                    <th>Estatus</th>
-                    <th>Ultima modificación</th>
-                    <th>Comentarios</th>
-                    <th>Editar</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {documents.map((document, i) => (
-                    <tr key={i}>
-                      <td>{document.nombre_documento}</td>
-                      <td>{document.url}</td>
-                      <td>{document.estatus}</td>
-                      <td>{document.fecha_modificacion}</td>
-                      <td>{document.comentarios}</td>
-                      <td><button onClick={(e) => {
-                        e.preventDefault();
-                        addToIsOpen(i)
-                      }
-                      }> Editar </button></td>
-                      {isOpen.includes(i) && (
-                        <td>
-                          <div>
-                            <input type="file" name="documents" onChange={(e) => {
-                              e.preventDefault();
-                              const file = e.target.files[0];
-                              setUploadedDocument(file)
-                              setChangedDocumentIndex(i)
-                              //console.log(uploadedDocument)
-                            }} />
-                            <button type="submit" onClick={() => handleDocumentEdit(i)}>Confirm</button>
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table> */}
-
                     <Fade in={true} timeout={1500}>
                         <div className="text-center mt-4">
                             <Button
@@ -378,27 +341,12 @@ export default function RegisterGroupProcess() {
                                 backgroundColor: "#F68E70",
                               },
                             }}
-                            disabled={true}
+                            disabled={process.estatus_validacion != "aceptado"}
                             type="button"
-                            onClick={handleClick}
+                            onClick={handleConfirmRegister}
                             >
                             Confirmar creación de grupo automotriz
                             </Button>
-                            <CheckoutPage
-                                id={process_id}
-                                items={[
-                                    {
-                                        price_data: {
-                                            currency: "mxn",
-                                            product_data: {
-                                                name: `${process.auto.marca} ${process.auto.modelo} ${process.auto.ano}`,
-                                            },
-                                            unit_amount: parseFloat(process.cantidad_a_pagar) * 100,
-                                        },
-                                        quantity: 1,
-                                    },
-                                ]}
-                            />
                         </div>
                     </Fade>
                 </Container>
