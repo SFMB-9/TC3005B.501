@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   if(req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
 
   const car = req.body.car;
+  const agency_id = req.body.agency_id;
   const { ano, ...carWithoutAno } = car;
 
   const client = new Client({
@@ -22,6 +23,7 @@ export default async function handler(req, res) {
       body: {
         ...carWithoutAno,
         año: ano,
+        agencia_id: agency_id
       }
     });
 
