@@ -39,6 +39,7 @@ export default async function handler(req, res) {
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
     const searchIds = searchResultsJson.result;
+    const searchScores = searchResultsJson.score;
 
     // Handles the cases where searchids is undefined or empty
     if (searchIds !== undefined) {
@@ -80,6 +81,16 @@ export default async function handler(req, res) {
         }, { meta: true });
 
         let result = elasticResponse.body.hits.hits;
+
+        // Add score to each result
+        result.forEach((item, index) => {
+            item._source.score = searchScores[item._id];
+        });
+
+        // Sort results by score
+        result.sort((a, b) => {
+            return b._source.score - a._source.score;
+        });
 
         let filters = {};
         await assembleFilter(result, filters, req);
