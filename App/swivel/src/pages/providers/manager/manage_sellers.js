@@ -7,16 +7,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
     IconButton,
     Button,
-    Container,
-    Typography,
-    TextField,
 } from '@mui/material';
 
 //import { useRouter } from "next/router";
 
 import Searchbar from '@/components/general/searchbar';
 import ManagerLayout from '@/components/providers/Manager/layout';
-import { Margin } from '@mui/icons-material';
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
 import EditSellerData from '@/components/providers/seller/edit_seller_data';
