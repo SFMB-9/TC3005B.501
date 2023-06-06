@@ -42,10 +42,10 @@ export default async function handler(req, res) {
     const email = req.body.email;
     const role = req.body.tipo_usuario;
     const phone = req.body.numero_telefonico;
- 
+
     //
 
-    if (["gaEntity","AgencyEntity"].indexOf(role) === -1){
+    if (["gaEntity", "agencyEntity"].indexOf(role) === -1) {
       const password = req.body.password;
     }
 
@@ -67,11 +67,11 @@ export default async function handler(req, res) {
       // email existence validation, pings the email and returns if non-existent
       isAlive
         ? function () {
-            // continue
-          }
+          // continue
+        }
         : function () {
-            return res.status(400).json({ message: "Email is invalid" });
-          };
+          return res.status(400).json({ message: "Email is invalid" });
+        };
     });
 
     let usedEmail = await User.findOne({ email: email });
@@ -122,7 +122,7 @@ export default async function handler(req, res) {
           ],
         });
         res.status(200).json({ message: "User registered successfully" });
-      } 
+      }
       else if (role === "seller") {
         const agencia_id = req.body.agencia_id;
 
@@ -138,83 +138,77 @@ export default async function handler(req, res) {
           contar_ventas_completas: 0,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      } 
-      else if(role ==="AgencyEntity"){
+      }
+      else if (role === "agencyEntity") {
 
         const GA = req.body.grupo_id;
         const rfc = req.body.rfc;
         const url = req.body.url;
 
-          const street = req.body.direccion.calle;
-          const exterior_num = req.body.direccion.numero_exterior;
-          const interior_num = req.body.direccion.numero_interior;
-          const city = req.body.direccion.ciudad;
-          const state = req.body.direccion.estado;
-          const country = req.body.direccion.pais;
-          const postalCode = req.body.direccion.codigo_postal;
+        const street = req.body.direccion.calle;
+        const exterior_num = req.body.direccion.numero_exterior;
+        const interior_num = req.body.direccion.numero_interior;
+        const city = req.body.direccion.ciudad;
+        const state = req.body.direccion.estado;
+        const country = req.body.direccion.pais;
+        const postalCode = req.body.direccion.codigo_postal;
 
-          const legalName = req.body.legal.lNombres;
-          const legalSurname = req.body.legal.lApellidos;
-          const legalEmail = req.body.legal.lEmail;
-          const legalPhone = req.body.legal.lPhone;
+        const coordinate = req.body.coordinates;
 
-          const coordinate = req.body.coordinates;
+        const openT = req.body.open;
+        const closeT = req.body.close;
 
-          const openT = req.body.open;
-          const closeT = req.body.close;
-
-          const daysNotice = req.body.daysNotice;
-          const daysMax = req.body.daysMax;
+        const daysNotice = req.body.daysNotice;
+        const daysMax = req.body.daysMax;
 
 
-            const A = await AgencyEntity.create({
-            tipo_usuario: encrypted_role),
-            nombres: name,
-            direccion: {
-              calle: street,
-              numero_exterior: exterior_num,
-              numero_interior: interior_num,
-              ciudad: city,
-              estado: state,
-              pais: country,
-              codigo_postal: postalCode,
-            },
-            is_account_verified: false,
-            url_agencia: url,
+        const A = await AgencyEntity.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+          },
+          is_account_verified: false,
+          url_agencia: url,
 
-            /*coordenadas_agencia: coordinate,*/
-            horas_min: openT,
-            horas_max: closeT,
-            dias_anticipo: daysNotice,
-            dias_max: daysMax,
+          coordenadas_agencia: coordinate,
+          horas_min: openT,
+          horas_max: closeT,
+          dias_anticipo: daysNotice,
+          dias_max: daysMax,
 
-            grupo_automotriz_id: GA,
-          });
+          grupo_automotriz_id: GA,
+        });
 
-res.status(200).json({ message: "Agency registered successfully" });
+        res.status(200).json({ message: "Agency registered successfully" });
 
 
 
-
-      } 
+      }
       else if (role === "manager") {
         const GA = req.body.grupo_id;
-          const A_id = req.body.agencia_id;
+        const A_id = req.body.agencia_id;
 
-          await ManagerUser.create({
-            tipo_usuario: encrypted_role,
-            nombres: name,
-            apellidos: surname,
-            email: email,
-            password: password,
-            numero_telefonico: phone,
-            grupo_automotriz_id: GA,
-            agencia_id: A_id,
-          });
-        
+        await ManagerUser.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          numero_telefonico: phone,
+          grupo_automotriz_id: GA,
+          agencia_id: A_id,
+        });
+
 
         res.status(200).json({ message: "Manager registered successfully" });
-      } 
+      }
       else if (role === "admin") {
         await SaEntity.create({
           nombres: name,
@@ -227,76 +221,76 @@ res.status(200).json({ message: "Agency registered successfully" });
         });
 
         res.status(200).json({ message: "SuperAdmin registered successfully" });
-      } 
-      else if (role === "gaEntity"){
+      }
+      else if (role === "gaEntity") {
 
-          const rfc = req.body.rfc;
-          const url = req.body.url;
+        const rfc = req.body.rfc;
+        const url = req.body.url;
 
-          const street = req.body.direccion.calle;
-          const exterior_num = req.body.direccion.numero_exterior;
-          const interior_num = req.body.direccion.numero_interior;
-          const city = req.body.direccion.ciudad;
-          const state = req.body.direccion.estado;
-          const country = req.body.direccion.pais;
-          const postalCode = req.body.direccion.codigo_postal;
+        const street = req.body.direccion.calle;
+        const exterior_num = req.body.direccion.numero_exterior;
+        const interior_num = req.body.direccion.numero_interior;
+        const city = req.body.direccion.ciudad;
+        const state = req.body.direccion.estado;
+        const country = req.body.direccion.pais;
+        const postalCode = req.body.direccion.codigo_postal;
 
-          const legalName = req.body.legal.lNombres;
-          const legalSurname = req.body.legal.lApellidos;
-          const legalEmail = req.body.legal.lEmail;
-          const legalPhone = req.body.legal.lPhone;
+        const legalName = req.body.legal.lNombres;
+        const legalSurname = req.body.legal.lApellidos;
+        const legalEmail = req.body.legal.lEmail;
+        const legalPhone = req.body.legal.lPhone;
 
-          const GA = await GaEntity.create({
-            tipo_usuario: encrypted_role,
-            nombres: agency,
-            direccion: {
-              calle: street,
-              numero_exterior: exterior_num,
-              numero_interior: interior_num,
-              ciudad: city,
-              estado: state,
-              pais: country,
-              codigo_postal: postalCode,
-            },
-            is_account_verified: false,
-            url_grupo_automotriz: url,
-            rfc_grupo_automotriz: rfc,
+        const GA = await GaEntity.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+          },
+          is_account_verified: false,
+          url_grupo_automotriz: url,
+          rfc_grupo_automotriz: rfc,
 
-            legal: {
-              nombres: legalName,
-              apellidos: legalSurname,
-              email: legalEmail,
-              numero_telefonico: legalPhone,
-            },
-          });
-          res.status(200).json({ message: "GA registered successfully" });
+          legal: {
+            nombres: legalName,
+            apellidos: legalSurname,
+            email: legalEmail,
+            numero_telefonico: legalPhone,
+          },
+        });
+        res.status(200).json({ message: "GA registered successfully" });
 
-      } 
+      }
       else if (role === "ga_admin") {
 
-          const GAdmin = await AdminUser.create({
-            tipo_usuario: encrypted_role,
-            nombres: name,
-            apellidos: surname,
-            email: email,
-            password: password,
-            numero_telefonico: phone,
-            grupo_automotriz_id: GA_id,
-          });
+        const GAdmin = await AdminUser.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          numero_telefonico: phone,
+          grupo_automotriz_id: GA_id,
+        });
 
-        
-        
+
+
 
         res.status(200).json({ message: "GA Admin registered successfully" });
-       } 
-      } 
+      }
+    }
     else {
-        res.status(400).json({ message: "Account already exists" });
+      res.status(400).json({ message: "Account already exists" });
     }
-    } else {
-      res.status(405).json({ message: "Incorrect request method" });
-    }
-
-
+  } else {
+    res.status(405).json({ message: "Incorrect request method" });
   }
+
+
+}
 
