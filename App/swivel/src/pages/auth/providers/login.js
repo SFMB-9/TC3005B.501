@@ -4,15 +4,34 @@ import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import AuthComponent from "@/components/login/auth_component";
 import { Typography } from "@mui/material";
-
+import axios from "axios";
 import styles from "@/styles/login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [procesoGA, setProcesoGA] = useState("");
   const { data: session } = useSession();
 
-  useEffect(() => { }, [session]);
+  useEffect(() => {
+    const getProcesoGA = async () => {
+      try {
+        const { data } = await axios.get("/api/GA/getProcesoGA", {
+          params: {
+            id: session.id,
+          },
+        });
+        console.log(data);
+        setProcesoGA(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (session && session.role === "GA") {
+      getProcesoGA();
+    }
+  }, [session]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -32,7 +51,13 @@ export default function Login() {
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else if (session.role === "GA") {
-          callbackUrl = `${window.location.origin}/providers/GA`;
+          if (!procesoGA) {
+            callbackUrl = `${window.location.origin}/providers/GA/registerGroup/form`;
+          } else if (procesoGA && session.grupo_automotriz_id) {
+            callbackUrl = `${window.location.origin}/providers/GA`;
+          } else {
+            callbackUrl = `${window.location.origin}/providers/GA/registerGroup/${procesoGA._id}`;
+          }
         } else if (session.role === "manager") {
           callbackUrl = `${window.location.origin}/providers/manager`;
         } else {
@@ -72,31 +97,38 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              </div>
-              <div className="form-outline mb-2">
-                <label className="form-label">
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontFamily: "lato",
-                    }}
-                  >
-                    {" "} Contraseña{" "} </Typography> </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
+            </div>
+            <div className="form-outline mb-2">
+              <label className="form-label">
+                <Typography
+                  sx={{
+                    color: "black",
+                    fontFamily: "lato",
+                  }}
                 >
                   {" "}
-                  Ingresar{" "}
+                  Contraseña{" "}
+                </Typography>{" "}
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+              <button
+                type="submit"
+                className="btn btn-primary btn-block mb-2 color-black"
+                style={{ backgroundColor: "#000", border: "none" }}
+              >
+                {" "}
+                Ingresar{" "}
               </button>
             </div>
-          </form >}
+          </form>
+        }
         title="Iniciar sesión como proveedor"
         cardImage="/providers_login_image.png"
         backColor="white"
@@ -105,6 +137,5 @@ export default function Login() {
         textColor="black"
       />
     </>
-
   );
 }
