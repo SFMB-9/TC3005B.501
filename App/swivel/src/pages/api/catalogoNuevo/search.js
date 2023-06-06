@@ -57,16 +57,14 @@ export default async function handler(req, res) {
             body: dbQuery,
         }, { meta: true });
 
-        console.log("Query: " + JSON.stringify(dbQuery));
         let fullResults = elasticResponse.body.hits.hits;
-        console.log(fullResults)
         let result = fullResults.map(item => item._id);
 
         let score = {};
         fullResults.forEach(item => {
             score[item._id] = item._score;
         });
-        
+
         if (result.length === 0) {
             return res.status(404).json({ message: "No se encontraron autos" });
         }
