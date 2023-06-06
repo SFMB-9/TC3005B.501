@@ -14,6 +14,8 @@ const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
+    console.log("QUERY IN ENDPOINT: " + JSON.stringify(req.query));
+
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
@@ -257,6 +259,17 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
             }
         });
     }
+
+    if (queryParams.agencia_id) {
+        console.log("Llegale mi buen: " + queryParams.agencia_id);
+        dbQuery.query.bool.must.push({
+            match: {
+                agencia_id: queryParams.agencia_id
+            }
+        });
+    }
+
+    console.log(JSON.stringify(dbQuery));
 
     return dbQuery;
 }
