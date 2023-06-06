@@ -24,6 +24,7 @@ export default async function handler(req, res) {
         if (!proc) {
             return res.status(404).json({ message: 'No se encontro el proceso' });
         }
+        console.log(JSON.stringify(proc.documentos))
         const doc = proc.documentos;
         doc[doc_index].url = encodedURL;
         doc[doc_index].fecha_modificacion = update_date;
@@ -57,6 +58,7 @@ export default async function handler(req, res) {
         }
 
         const result = await procesos.updateOne({ _id: new ObjectId(process_id)}, { $set: { documentos: doc } });
+        console.log(JSON.stringify(result))
         return res.status(200).json({ message: 'Updated file in request: ' + process_id + ' at document: ' + doc[doc_index].nombre_documento });
     }catch(error){
         console.log(error);
