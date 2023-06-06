@@ -87,12 +87,6 @@ export default function RequestDetails() {
       return { ...doc, _id: i };
     });
 
-    // console.log("Car data: " + JSON.stringify(retrievedAuto));
-    // console.log("Agency data: " + JSON.stringify(retrievedAgency));
-    // console.log("Agency ID: " + retrievedAuto.agencia_id);
-    // console.log("User data: " + JSON.stringify(retrievedUser));
-    // console.log("First image: " + JSON.stringify(firstImage));
-
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
     setAgencyCoords({
@@ -481,7 +475,7 @@ export default function RequestDetails() {
                   }}
                   variant='contained' 
                   onClick={() => setActiveSectionIndex(1)}
-                  // disabled={!validatedDocs}
+                  disabled={!validatedDocs}
                   >Continuar</Button>
               </div>
             </div>

@@ -1,4 +1,4 @@
-// const Usuario = require("../../../models/usuario");
+const Usuario = require("../../../models/usuario");
 const { User } = require("../../../models/user");
 import dbConnect from "../../../config/dbConnect";
 //will change this when sessions are implemented

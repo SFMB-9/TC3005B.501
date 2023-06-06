@@ -101,7 +101,7 @@ export default function Account() {
                     type="text"
                     name="nombre"
                     id="nombre"
-                    defaultValue={apiData.nombres}
+                    defaultValue={apiData.name}
                     // value={apiData.nombre}
                     // onChange={handleChange}
                     label="Nombre(s)"
