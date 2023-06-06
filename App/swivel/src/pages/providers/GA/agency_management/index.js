@@ -20,6 +20,7 @@ import Searchbar from '@/components/general/searchbar';
 import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
+import EditEntityData from '@/components/providers/GA/edit_entity_data';
 import { useRouter } from "next/router";
 
 export default function ManageAgencias() {
@@ -57,9 +58,9 @@ export default function ManageAgencias() {
             setFilteredResults(
                 agencias.filter((entry) =>
                     entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) //||
-                    // entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
+                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
                 )
             );
         }
@@ -129,6 +130,16 @@ export default function ManageAgencias() {
 
         ]
     )
+    const deleteEntry = async (entry) => {
+        console.log("This entry", entry);
+        try {
+            await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry } });
+            fetchAgencias();
+        }
+        catch (error) {
+            console.log("Error borrando usuario: ", error);
+        }
+    };
     const columns = useMemo(
         () => [
             {
@@ -215,9 +226,11 @@ export default function ManageAgencias() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <div>
-                                        <p> Editar datos </p>
-                                    </div>
+                                    <>
+                                    <EditEntityData data={params.row}
+                                        userType="agency" />
+                                    {console.log("params.row", params.row)}
+                                    </>
                                 }
                                 btnOpen={
                                     <IconButton
@@ -237,7 +250,7 @@ export default function ManageAgencias() {
                                         <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
-                                            onClick={() => deleteEntry(params.row.email)}
+                                            onClick={() => deleteEntry(params.row._id)}
                                             type="submit"
                                             className="w-80"
                                             sx={{
