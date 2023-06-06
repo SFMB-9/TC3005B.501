@@ -91,7 +91,7 @@ export default function RegisterGroupProcess() {
     const handleConfirmRegister = async () => {
         console.log("Confirmando registro de GA");
         // const result = await axios.post("/api/register", {
-            
+
         // });
     }
 
@@ -217,7 +217,7 @@ export default function RegisterGroupProcess() {
                                 fontSize={{ xs: 25, md: 28, lg: 33 }}
                                 className="pt-2 text-center"
                             >
-                                Suba los documentos requeridos para realizar su registro de Grupo Automotriz
+                                Suba los documentos requeridos para realizar el registro de Agencia
                             </Typography>
                         </div>
                     </Fade>
@@ -232,9 +232,9 @@ export default function RegisterGroupProcess() {
                                         className="pb-3"
                                         fontSize={{ xs: 13, md: 14, lg: 16 }}
                                     >
-                                        <strong>Nombre del Grupo Automotriz:</strong>{" "}
+                                        <strong>Nombre del Agencia:</strong>{" "}
                                         <span style={{ color: "#333333" }}>
-                                            {process.info_GA.nombres}
+                                            {process.info_agencia.nombres}
                                         </span>
                                     </Typography>
                                     <Typography
@@ -245,7 +245,7 @@ export default function RegisterGroupProcess() {
                                     >
                                         <strong>Website:</strong>{" "}
                                         <span style={{ color: "#333333" }}>
-                                            {process.info_GA.url_grupo_automotriz}
+                                            {process.info_agencia.url}
                                         </span>
                                     </Typography>
                                     <Typography
@@ -255,7 +255,7 @@ export default function RegisterGroupProcess() {
                                         fontSize={{ xs: 13, md: 14, lg: 16 }}
                                     >
                                         <strong>Número Telefónico:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>{process.info_GA.numero_telefonico}</span>
+                                        <span style={{ color: "#333333" }}>{process.info_agencia.numero_telefonico}</span>
                                     </Typography>
                                     <Typography
                                         fontFamily="Lato"
@@ -264,7 +264,7 @@ export default function RegisterGroupProcess() {
                                     >
                                         <strong>Email:</strong>{" "}
                                         <span style={{ color: "#333333" }}>
-                                            {process.info_GA.email}
+                                            {process.info_agencia.email}
                                         </span>
                                     </Typography>
                                 </div>
@@ -332,19 +332,19 @@ export default function RegisterGroupProcess() {
                             </Button>
 
                             <Button
-                            variant="contained"
-                            sx={{
-                              fontFamily: "Lato",
-                              width: 150,
-                              ":hover": {
-                                backgroundColor: "#F68E70",
-                              },
-                            }}
-                            disabled={process.estatus_validacion != "aceptado"}
-                            type="button"
-                            onClick={handleConfirmRegister}
+                                variant="contained"
+                                sx={{
+                                    fontFamily: "Lato",
+                                    width: 150,
+                                    ":hover": {
+                                        backgroundColor: "#F68E70",
+                                    },
+                                }}
+                                disabled={process.estatus_validacion != "aceptado"}
+                                type="button"
+                                onClick={handleConfirmRegister}
                             >
-                            Confirmar creación de grupo automotriz
+                                Confirmar creación de Agencia
                             </Button>
                         </div>
                     </Fade>

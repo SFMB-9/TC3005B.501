@@ -1,3 +1,4 @@
+"use client"
 /*
 Ana Paula Katsuda
 
@@ -19,22 +20,17 @@ import Searchbar from '@/components/general/searchbar';
 import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
+import { useRouter } from "next/router";
 
 export default function ManageAgencias() {
+    const router = useRouter();
+
     const [agencias, setAgencias] = useState([]);
+    const [procesos, setProcesos] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
     const role = "ea32725caec36ffca1c1ee939e606cd1"; // Quitar cosas hardcodeadas
     const GA = "647ae7c7f25041c1b7b8a57b";
-
-    const RoutRegistroAgencias = () => {
-        if (router) {
-            router.push({
-                pathname: `/providers/GA/registroAgencia?GA=${GA?.nombre}`, // por definir
-                // pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
-            });
-        }
-    };
 
     useEffect(() => {
         const fetchAgencias = async () => {
@@ -45,6 +41,15 @@ export default function ManageAgencias() {
             setAgencias(data.result);
         };
         fetchAgencias();
+
+        const fetchProcesos = async () => {
+            const res = await fetch(
+                `http://localhost:3000/api/GA/pull-procesos?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+            );
+            const data = await res.json();
+            setProcesos(data.result);
+        };
+        fetchProcesos();
     }, []);
 
     useEffect(() => {
@@ -64,6 +69,66 @@ export default function ManageAgencias() {
         setSearchValue(event.target.value);
     };
 
+    const processColumns = useMemo(
+        () => [
+            {
+                field: "nombres_agencia",
+                headerName: "Nombre",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                valueGetter: (params) => {
+                    let cell = params.row
+                        ? `${params.row.info_agencia.nombres}` : "Nombre no encontrado";
+                    return cell;
+                }
+            },
+            {
+                field: "fecha_creacion",
+                headerName: "Fecha de creación",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+            },
+            {
+                field: "estatus_validacion",
+                headerName: "Estatus de validación",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+            },
+            {
+                field: "botones",
+                headerName: "",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                type: "actions",
+                renderCell: (params) => (
+                    <Button
+                        variant="contained"
+                        disableElevation
+                        onClick={() =>
+                            router.push(`/providers/GA/agency_management/registerAgency/${params.row._id}`)
+                        }
+                        className="py-0"
+                        sx={{
+                            fontFamily: "Lato",
+                            fontSize: "12px",
+                            backgroundColor: "#111439",
+                        }}
+                    >
+                        Ver detalles
+                    </Button>
+                ),
+            }
+
+        ]
+    )
     const columns = useMemo(
         () => [
             {
@@ -116,7 +181,7 @@ export default function ManageAgencias() {
                         variant="contained"
                         disableElevation
                         onClick={() =>
-                           router.push(`/providers/GA/agency_management/${params.row._id}`)
+                            router.push(`/providers/GA/agency_management/${params.row._id}`)
                         }
                         className="py-0"
                         sx={{
@@ -247,7 +312,7 @@ export default function ManageAgencias() {
                                         />
                                         {/* <a href='/providers/seller/signup'> */}
                                         <button
-                                            onClick={RoutRegistroAgencias}
+                                            onClick={() => { router.push("/providers/GA/agency_management/registerAgency/form") }}
                                             style={{
                                                 flex: '25%',
                                                 backgroundColor: '#F55C7A',
@@ -257,7 +322,7 @@ export default function ManageAgencias() {
                                                 height: '50%',
                                                 padding: '0.5rem 1rem',
                                             }}
-                                        > Registrar admin  + </button>
+                                        > Crear Nueva Agencia </button>
                                         {/* </a> */}
                                     </div>
                                     <DataTable
@@ -299,6 +364,40 @@ export default function ManageAgencias() {
                                     <p>No hay agencias registradas</p>
                                 </div>
                         }
+
+                        {procesos ? <DataTable
+                            columns={processColumns}
+                            rows={procesos}
+                            rowSelection={false}
+                            sx={{
+                                border: 1,
+                                borderColor: "#D9D9D9",
+                                "& .MuiDataGrid-cell": {
+                                    border: 1,
+                                    borderRight: 0,
+                                    borderTop: 0,
+                                    borderLeft: 0,
+                                    borderColor: "#D9D9D9",
+                                    fontFamily: "Lato",
+                                    fontWeight: 500,
+                                    fontSize: "12px",
+                                    color: "#333333",
+                                },
+                                "& .MuiDataGrid-columnHeaders": {
+                                    fontFamily: "Lato",
+                                    fontSize: "16px",
+                                    color: "#333333",
+                                    borderBottom: 0,
+                                },
+                                "& .MuiDataGrid-columnHeaderTitle": {
+                                    fontWeight: 800,
+                                },
+                                "& .MuiPaginationItem-text": {
+                                    fontFamily: "Lato",
+                                    color: "#333333",
+                                },
+                            }}
+                        /> : <p>No hay procesos registrados</p>}
                     </div>
                 </div>
             </GALayout>
