@@ -15,7 +15,16 @@ Authors:
 
 */
 
-import { User, SellerUser, ManagerUser, BuyerUser, AdminUser, GaEntity, AgencyEntity, SaEntity } from "../../models/user";
+import {
+  User,
+  SellerUser,
+  ManagerUser,
+  BuyerUser,
+  AdminUser,
+  GaEntity,
+  AgencyEntity,
+  SaEntity,
+} from "../../models/user";
 import Proceso from "../../models/procesos";
 
 import dbConnect from "../../config/dbConnect";
@@ -32,13 +41,11 @@ export default async function handler(req, res) {
     const password = req.body.password;
     const role = req.body.tipo_usuario;
     const phone = req.body.numero_telefonico;
-    let entity = false
+    let entity = false;
 
-
-    if (req.body.hasOwnProperty('tipo_entidad')) {
+    if (req.body.hasOwnProperty("tipo_entidad")) {
       entity = req.body.tipo_entidad;
     }
-
 
     const encrypted_role = encryptRole(role);
 
@@ -99,21 +106,19 @@ export default async function handler(req, res) {
               nombre_documento: "INE",
               url: "",
               fecha_modificacion: "",
-              estatus: "Pendiente"
+              estatus: "Pendiente",
             },
             {
               nombre_documento: "Licencia de conducir",
               url: "",
               fecha_modificacion: "",
-              estatus: "Pendiente"
-            }
+              estatus: "Pendiente",
+            },
           ],
         });
         res.status(200).json({ message: "User registered successfully" });
       } else if (role === "seller") {
-
         const agencia_id = req.body.agencia_id;
-
 
         await SellerUser.create({
           nombres: name,
@@ -124,18 +129,16 @@ export default async function handler(req, res) {
           agencia_id: agencia_id,
           numero_telefonico: phone,
           contar_ventas_en_proceso: 0,
-          contar_ventas_completas: 0
+          contar_ventas_completas: 0,
         });
         res.status(200).json({ message: "Seller registered successfully" });
       } else if (role === "manager") {
-
         const GA = req.body.grupo_id;
 
         if (entity) {
-
           const agencyName = req.body.nombreAgencia;
 
-          const url = req.body.url
+          const url = req.body.url;
 
           const street = req.body.direccion.calle;
           const exterior_num = req.body.direccion.numero_exterior;
@@ -174,7 +177,7 @@ export default async function handler(req, res) {
             dias_anticipo: daysNotice,
             dias_max: daysMax,
 
-            grupo_automotriz_id: GA
+            grupo_automotriz_id: GA,
           });
 
           const A_id = A._id.toString();
@@ -187,12 +190,12 @@ export default async function handler(req, res) {
             password: password,
             numero_telefonico: phone,
             grupo_automotriz_id: GA,
-            agencia_id: A_id
+            agencia_id: A_id,
           });
 
           const AManager_id = AManager._id.toString();
 
-          const list = ["licencia", "ine", "comprobante_domicilio"] // SA_012 - replace hardcode!
+          const list = ["licencia", "ine", "comprobante_domicilio"]; // SA_012 - replace hardcode!
           const documentos = [];
 
           for (let i = 0; i < list.length; i++) {
@@ -232,11 +235,9 @@ export default async function handler(req, res) {
 
             grupo_automotriz_id: GA,
             agencia_id: A_id,
-            usuario_final_id: AManager_id
-          })
-
+            usuario_final_id: AManager_id,
+          });
         } else {
-
           const A_id = req.body.agencia_id;
 
           await ManagerUser.create({
@@ -247,57 +248,143 @@ export default async function handler(req, res) {
             password: password,
             numero_telefonico: phone,
             grupo_automotriz_id: GA,
-            agencia_id: A_id
+            agencia_id: A_id,
           });
-
-
-
         }
 
         res.status(200).json({ message: "Manager registered successfully" });
-
-
-
-
       } else if (role === "admin") {
-
-
-
         await SaEntity.create({
-
           nombres: name,
           apellidos: surname,
           email: email,
           password: password,
           tipo_usuario: encrypted_role,
           numero_telefonico: phone,
-          foo: "bar"
-
+          foo: "bar",
         });
-
 
         res.status(200).json({ message: "SuperAdmin registered successfully" });
-      }
-      else if (role === "ga_admin") {
-        const GAdmin = await AdminUser.create({
-          tipo_usuario: encrypted_role,
-          nombres: name,
-          apellidos: surname,
-          email: email,
-          password: password,
-          numero_telefonico: phone,
-          grupo_automotriz_id: ""
-        });
+      } else if (role === "ga_admin") {
+        if (entity) {
+          const agency = req.body.nombre_GA;
+          const name = req.body.nombres;
 
-        const GAdmin_id = GAdmin._id.toString();
+          const rfc = req.body.rfc;
+          const url = req.body.url;
 
-        res.status(200).json({ message: "GA Admin registered successfully", id: GAdmin_id });
-      }
-      else {
+          const street = req.body.direccion.calle;
+          const exterior_num = req.body.direccion.numero_exterior;
+          const interior_num = req.body.direccion.numero_interior;
+          const city = req.body.direccion.ciudad;
+          const state = req.body.direccion.estado;
+          const country = req.body.direccion.pais;
+          const postalCode = req.body.direccion.codigo_postal;
+
+          const legalName = req.body.legal.lNombres;
+          const legalSurname = req.body.legal.lApellidos;
+          const legalEmail = req.body.legal.lEmail;
+          const legalPhone = req.body.legal.lPhone;
+
+          const GA = await GaEntity.create({
+            tipo_usuario: encryptRole(entity),
+            nombres: agency,
+            direccion: {
+              calle: street,
+              numero_exterior: exterior_num,
+              numero_interior: interior_num,
+              ciudad: city,
+              estado: state,
+              pais: country,
+              codigo_postal: postalCode,
+            },
+            is_account_verified: false,
+            url_grupo_automotriz: url,
+            rfc_grupo_automotriz: rfc,
+
+            legal: {
+              nombres: legalName,
+              apellidos: legalSurname,
+              email: legalEmail,
+              numero_telefonico: legalPhone,
+            },
+          });
+
+          const GA_id = GA._id.toString();
+
+          const GAdmin = await AdminUser.create({
+            tipo_usuario: encrypted_role,
+            nombres: name,
+            apellidos: surname,
+            email: email,
+            password: password,
+            numero_telefonico: phone,
+            grupo_automotriz_id: GA_id,
+          });
+
+          const GAdmin_id = GAdmin._id.toString();
+
+          const list = ["licencia", "ine", "comprobante_domicilio"]; // SA_012 - replace hardcode!
+          const documentos = [];
+
+          for (let i = 0; i < list.length; i++) {
+            const nombre_documento = list[i];
+            const url = "";
+            const estatus = "";
+            const comentarios = "";
+            const fecha_modificacion = new Date();
+
+            documentos.push({
+              nombre_documento,
+              url,
+              estatus,
+              comentarios,
+              fecha_modificacion,
+            });
+          }
+
+          const GAProc = await Proceso.create({
+            tipo_proceso: "peticionGA",
+            estatus: "pendiente",
+
+            direccion: {
+              calle: street,
+              numero_exterior: exterior_num,
+              numero_interior: interior_num,
+              ciudad: city,
+              estado: state,
+              pais: country,
+              codigo_postal: postalCode,
+            },
+
+            documentos: documentos,
+
+            fecha_inicio: new Date(),
+            solicitud_cancelada: false,
+
+            grupo_automotriz_id: GA_id,
+            grupo_automotriz: agency,
+            usuario_final_id: GAdmin_id,
+          });
+        } else {
+          const GA_id = req.body.ga_id;
+
+          await AdminUser.create({
+            tipo_usuario: encrypted_role,
+            nombres: name,
+            apellidos: surname,
+            email: email,
+            password: password,
+            numero_telefonico: phone,
+            grupo_automotriz_id: GA_id,
+          });
+        }
+
+        res.status(200).json({ message: "GA Admin registered successfully" });
+      } else {
         res.status(400).json({ message: "Account already exists" });
       }
-    }
-    else {
+    } else {
       res.status(405).json({ message: "Incorrect request method" });
     }
   }
