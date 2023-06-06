@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
-import styles from '@/styles/informacion_usuarioSA.module.css';
+import styles from '@/styles/edit_GA.module.css';
+import BuyerNavbar from '@/components/providers/GA/navbar'; //TODO CHANGE TO GA NAVBAR
 import axios from 'axios';
-import SANavbar from '@/components/SA/navbar';
 import { useRouter } from 'next/router';
 
-export default function informacionUsuarioSA() {
+export default function EditGA() {
     const router = useRouter();
     const id = "6477e14bae27e558e56c3c13";
 
     const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [middleName, setMiddleName] = useState('');
+    const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
 
     // Function to fetch search results from the API endpoint
     const fetchResults = async () => {
@@ -23,12 +20,12 @@ export default function informacionUsuarioSA() {
             const response = await axios.get("/api/managerProfile/managerP", { params: { id: id } });
             console.log(response.data.userData);
             const userData = response.data.userData;
-            setName(userData.nombre || '');
-            setLastName(userData.apellido_paterno || '');
-            setMiddleName(userData.apellido_materno || '');
-            setEmail(userData.correo || '');
-            setPhone(userData.numero_telefono || '');
-        } catch (error) {
+            setName(userData.nombres || ''); // Provide an empty string as the initial value
+            setSurname(userData.surname || ''); // Provide an empty string as the initial value
+            setEmail(userData.email || ''); // Provide an empty string as the initial value
+            setPhone(userData.numero_telefonico || ''); // Provide an empty string as the initial value
+        }
+        catch (error) {
             console.error('Error fetching search results:', error);
         }
     };
@@ -39,75 +36,94 @@ export default function informacionUsuarioSA() {
     }, []);
 
     const submitHandler = async () => {
-        await axios.put('/api/GA/editGA', { id, name, lastName, middleName, email, phone, password, confirmPassword });
+        await axios.put('/api/GA/editGA', { id, name, surname, email, phone });
     };
 
     const cancelHandler = () => {
-        router.back();
+        router.push(`/providers/GA`);
     };
 
-    const inputLabelProps = {
-        shrink: true,
-    };
+
+
+
+    //Old code
+    // const [formValues, setFormValues] = useState({
+    //     nombre: '',
+    //     apellido: '',
+    //     correo: '',
+    //     telefono: '',
+    // });
+
+    // const handleChange = (event) => {
+    //     const { id, value } = event.target;
+    //     setFormValues((prevValues) => ({
+    //         ...prevValues,
+    //         [id]: value,
+    //     }));
+    // };
+
+    // const handleSave = (event) => {
+    //     event.preventDefault();
+    //     console.log('Form values:', formValues);
+    //     // Upload form data
+    // };
+
+    // const handleCancel = () => {
+    //     // Handle cancel logic here
+    //     console.log('Cancel');
+    // };
 
     return (
         <div>
-            <SANavbar />
+            <BuyerNavbar />
             <div className={styles.mainContainer}>
-                <h1 className={styles.pageTitle}>Información de usuario</h1>
+                <h1 className={styles.pageTitle}>Editar Perfil</h1>
                 <div className={styles.row}>
                     <div className={styles.inputContainer}>
-
                         <h5>Nombre(s)</h5>
                         <TextField
-                            className={styles.inputField}
+                            className={styles.inputFieldLeft}
                             id="nombre"
-                            value={name}
+                            label={name}
                             variant="outlined"
                             fullWidth
-                            InputLabelProps={inputLabelProps}
-                            placeholder="Ingrese su nombre"
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <h5>Apellidos</h5>
+                        <h5>Apellido(s)</h5>
                         <TextField
-                            className={styles.inputFieldLeft}
-                            id="apellidoPaterno"
-                            value={lastName}
+                            className={styles.inputField}
+                            id="apellido"
+                            label={surname}
                             variant="outlined"
                             fullWidth
-                            InputLabelProps={inputLabelProps}
-                            placeholder="Ingrese su apellido paterno"
-                            onChange={(e) => setLastName(e.target.value)}
+                            onChange={(e) => setSurname(e.target.value)}
                         />
                     </div>
                 </div>
+
                 <div className={styles.inputContainer}>
                     <h5>Correo</h5>
                     <TextField
                         className={styles.longInputField}
                         id="correo"
-                        value={email}
+                        label={email}
                         variant="outlined"
                         fullWidth
-                        InputLabelProps={inputLabelProps}
-                        placeholder="Ingrese su correo electrónico"
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
+
                 <div className={styles.inputContainer}>
                     <h5>Teléfono</h5>
                     <TextField
                         className={styles.longInputField}
                         id="telefono"
-                        value={phone}
+                        label={phone}
                         variant="outlined"
                         fullWidth
-                        InputLabelProps={inputLabelProps}
-                        placeholder="Ingrese su número de teléfono"
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
@@ -127,6 +143,7 @@ export default function informacionUsuarioSA() {
                     >
                         Cancelar
                     </Button>
+
                     <Button
                         type="submit"
                         variant="contained"

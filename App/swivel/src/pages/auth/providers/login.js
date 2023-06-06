@@ -28,6 +28,7 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
+        console.log("Role:", session.role);
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else if (session.role === "GA") {
