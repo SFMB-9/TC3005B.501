@@ -218,7 +218,7 @@ export default function informacionGA() {
                     <Button variant="contained" color="primary" 
                     onClick={handleChange} // CHANGE THIS
                     className={styles.button}>
-                        Agregar SA
+                        Agregar Administrador Alterno
                     </Button>
                 </div>
 
