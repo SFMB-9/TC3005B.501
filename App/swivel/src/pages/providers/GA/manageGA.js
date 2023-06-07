@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 import axios from "axios";
+import { encryptRole } from "../../../utils/crypto";
 import {
     IconButton,
     Button,
@@ -17,6 +19,7 @@ import DataTable from "@/components/general/Table";
 import GALayout from "@/components/providers/GA/ga_layout";
 import PopUpComponent from '@/components/general/Popup';
 import Searchbar from '@/components/general/searchbar';
+import EditSellerData from '@/components/providers/seller/edit_seller_data';
 import styles from '@/styles/manageGA.module.css'
 
 export default function ManageGA() {
@@ -30,7 +33,17 @@ export default function ManageGA() {
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
 
+    const { data: session } = useSession();
 
+    const fetchData = async () => {
+      const resData = await fetch(
+        `/api/managerProfile/managerP?id=${session.id}`
+      );
+  
+      const res = await resData.json();
+  
+      setApiData(res.userData);
+    };
 
     const getAdmin = async (id) => {
         const response = await axios.get("/api/managerProfile/managerP", {
@@ -55,10 +68,8 @@ export default function ManageGA() {
             params: {
                 id: GA._id
             }
-
         });
         setAdmins(response.data.userData);
-        console.log("admins", admins);
     }
 
     const RoutRegistroGAManager = () => {
@@ -66,6 +77,17 @@ export default function ManageGA() {
             router.push({
                 pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
             });
+        }
+    };
+
+    const deleteEntry = async (entry) => {
+        console.log("This entry", entry);
+        try {
+            await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry} });
+            getAdmins();
+        }
+        catch (error) {
+            console.log("Error borrando usuario: ", error);
         }
     };
 
@@ -105,15 +127,16 @@ export default function ManageGA() {
         if (admins) {
             setFilteredResults(
                 admins.filter((entry) =>
-                    entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) //||
-                    // entry.apellidos.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
+                    entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.apellidos.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
                 )
             );
         }
     }, [admins, searchValue]);
 
+    console.log(admins);
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
     };
@@ -173,9 +196,11 @@ export default function ManageGA() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <div>
-                                        <p> Editar datos </p>
-                                    </div>
+                                    <>
+                                    <EditSellerData data={params.row}
+                                    userType="gaManager"/>
+                                    {console.log('yujuu', params.row)}
+                                    </>
                                 }
                                 btnOpen={
                                     <IconButton
@@ -195,7 +220,7 @@ export default function ManageGA() {
                                         <p> Al hacer click en "Eliminar cuenta" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
-                                            onClick={() => deleteEntry(params.row.email)}
+                                            onClick={() => deleteEntry(params.row._id)}
                                             type="submit"
                                             className="w-80"
                                             sx={{
