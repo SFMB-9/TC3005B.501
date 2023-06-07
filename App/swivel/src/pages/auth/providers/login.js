@@ -28,6 +28,7 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
+        console.log("Role:", session.role);
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else if (session.role === "GA") {
@@ -95,7 +96,7 @@ export default function Login() {
                   Ingresar{" "}
               </button>
             </div>
-          </form>}
+          </form >}
         title="Iniciar sesión como proveedor"
         cardImage="/providers_login_image.png"
         backColor="white"
@@ -103,7 +104,7 @@ export default function Login() {
         bodyText="Inicia sesión para administrar los usuarios registrados en la plataforma"
         textColor="black"
       />
-  </>
+    </>
 
   );
 }

@@ -27,6 +27,35 @@ import {
 } from "../../models/user";
 import Proceso from "../../models/procesos";
 
+/*
+
+Single Endpoint for all User Register operations across platforms.
+
+
+Authors:
+
+- Francisco Salcedo
+- Ana Paula Katsuda
+- Andreina Sananez
+- Emiliano Cabrera
+- Salvador Milanes 
+- Sebastian Gonzalez
+- Andrew Dunkerley
+
+*/
+
+import {
+  User,
+  SellerUser,
+  ManagerUser,
+  BuyerUser,
+  AdminUser,
+  GaEntity,
+  AgencyEntity,
+  SaEntity,
+} from "../../models/user";
+import Proceso from "../../models/procesos";
+
 import dbConnect from "../../config/dbConnect";
 
 import { encryptRole } from "../../utils/crypto";
@@ -139,9 +168,6 @@ export default async function handler(req, res) {
           contar_ventas_completas: 0,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      }
-      else if (role === "agencyEntity") {
-
       }
       else if (role === "agencyEntity") {
 
