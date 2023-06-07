@@ -10,14 +10,15 @@
   <h3>Versionamiento</h3>
   </br>
 
-  | Versión | Fecha      | Responsable        | Comentarios                      |
-  | ------- | ---------- | ------------------ | -------------------------------- |
-  | 1.0.0   | 5/7/2023   | Andrew Dunkerley   | Creación del Documento           |
-  | 1.0.1   | 5/14/2023  | Andrew Dunkerley   | Redacción de Secciones           |
-  | 1.1.0   | 5/23/2023  | Andrew Dunkerley   | Traspaso a Markdown              |
-  | 1.2.0   | 5/26/2023  | Emiliano Cabrera   | Adición de módulos               |
-  | 1.3.0   | 5/31/2023  | Diego Corrales     | Adición de módulos               |
-  | 1.4.0   | 6/04/2023  | Emiliano Cabrera   | Eliminación de módulos sobrantes |
+  | Versión | Fecha      | Responsable        | Comentarios                             |
+  | ------- | ---------- | ------------------ | --------------------------------------- |
+  | 1.0.0   | 5/7/2023   | Andrew Dunkerley   | Creación del Documento                  |
+  | 1.0.1   | 5/14/2023  | Andrew Dunkerley   | Redacción de Secciones                  |
+  | 1.1.0   | 5/23/2023  | Andrew Dunkerley   | Traspaso a Markdown                     |
+  | 1.2.0   | 5/26/2023  | Emiliano Cabrera   | Adición de módulos                      |
+  | 1.3.0   | 5/31/2023  | Diego Corrales     | Adición de módulos                      |
+  | 1.4.0   | 6/04/2023  | Emiliano Cabrera   | Eliminación de módulos sobrantes        |
+  | 1.4.1   | 6/06/2023  | Emiliano Cabrera   | Ajuste de módulo de Lista de Vendedores |
 
 </div>
 
