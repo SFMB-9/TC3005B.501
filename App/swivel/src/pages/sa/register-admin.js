@@ -190,8 +190,9 @@ export default function addSAdmin() {
                         }}
                         onClick={cancelHandler}
                     >
-                        Cancelar
+                        Regresar
                     </Button>
+                    {!success && (
                     <Button
                         type="submit"
                         variant="contained"
@@ -206,7 +207,7 @@ export default function addSAdmin() {
                         }}
                     >
                         Guardar
-                    </Button>
+                    </Button>)}
                     {badPw && (<div> Passwords don't match.</div>)}
                     {success && (<div> User created successfully </div>)}
                 </div>
