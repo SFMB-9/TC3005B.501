@@ -1,3 +1,5 @@
+//App/swivel/src/pages/providers/GA/manageGA.js
+
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router';
 import { useSession } from "next-auth/react";
@@ -18,6 +20,7 @@ import GALayout from "@/components/providers/GA/ga_layout";
 import PopUpComponent from '@/components/general/Popup';
 import Searchbar from '@/components/general/searchbar';
 import EditSellerData from '@/components/providers/seller/edit_seller_data';
+import styles from '@/styles/manageGA.module.css'
 
 export default function ManageGA() {
     const router = useRouter();
@@ -214,7 +217,7 @@ export default function ManageGA() {
                                 title="Eliminar cuenta"
                                 popUpContent={
                                     <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                                        <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
+                                        <p> Al hacer click en "Eliminar cuenta" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
                                             onClick={() => deleteEntry(params.row._id)}
@@ -261,11 +264,7 @@ export default function ManageGA() {
                         width: "100%",
                     }}
                 >
-                    <div
-                        style={{
-                            padding: "4rem",
-                        }}
-                    >
+                    <div className="m-5">
                         <h1
                             style={{
                                 fontFamily: "Raleway",
@@ -273,37 +272,28 @@ export default function ManageGA() {
                             }}
                         >Información de Grupo Automotiz</h1>
                         <div className="container">
-                            <div className="row">
+                            <div className="mt-5 row">
                                 <div className="col-6">
-                                    <h4>Nombre: <span>{GA?.nombres}</span></h4>
+                                    <h5> <span id={styles.campos}> Nombre: </span> <span id={styles.contenido}>{GA?.nombres}</span></h5>
                                 </div>
                                 <div className="col-6">
-                                    <h4>Teléfono: <span>{admin?.numero_telefonico}</span></h4>
+                                    <h5> <span id={styles.campos}>Teléfono: </span> <span id={styles.contenido}>{admin?.numero_telefonico}</span></h5>
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="mt-3 row">
                                 <div className="col-6">
-                                    <h4>Email: <span>{GA?.legal.email}</span></h4>
+                                    <h5> <span id={styles.campos}>Email: </span> <span id={styles.contenido}>{GA?.legal.email}</span></h5>
                                 </div>
                                 <div className="col-6">
-                                    <h4>Dirección: <span>{GA?.direccion.calle + ' ext. ' + GA?.direccion.numero_exterior + ' int. ' + GA?.direccion.numero_interior + ', ' + GA?.direccion.ciudad + ', ' + GA?.direccion.estado + ', CP: ' + GA?.direccion.codigo_postal}</span></h4>
+                                    <h5> <span id={styles.campos}>Dirección: </span> <span id={styles.contenido}>{GA?.direccion.calle + ' ext. ' + GA?.direccion.numero_exterior + ' int. ' + GA?.direccion.numero_interior + ', ' + GA?.direccion.ciudad + ', ' + GA?.direccion.estado + ', CP: ' + GA?.direccion.codigo_postal}</span></h5>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <div
-                        style={{
-                            padding: "4rem",
-                            width: "100%",
-                        }}
+                    <div className="p-5" style={{width: "100%"}}
                     >
-                        <h1
-                            style={{
-                                fontFamily: "Raleway",
-                                textAlign: "start",
-                            }}
-                        >Gestión de administradores alternos</h1>
+                        <h2> <b>Gestión de administradores alternos</b> </h2>
                         {
 
                             admins ?
