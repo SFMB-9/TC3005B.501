@@ -1,4 +1,6 @@
-import connectToDatabase from '@/utils/mongodb';
+const Usuario = require("../../../models/usuario");
+const { User } = require("../../../models/user");
+import dbConnect from "../../../config/dbConnect";
 import { ObjectId } from "mongodb";
 //will change this when sessions are implemented
 //import {getSession} from 'next-auth/client'
@@ -8,15 +10,14 @@ export default async (req, res) => {
     return res.status(405).json({ message: "Metodo no permitido" });
   }
 
-  const client = await connectToDatabase;
-  const db = client.db("test");
-  const userCollection = db.collection('usuarios');
-
   const { id } = req.query;
+
+  console.log("ID: "+id);
+  dbConnect();
 
   try {
 
-    const userData = await userCollection.findOne({_id: new ObjectId(id)});
+    const userData = await User.findById(id);
 
     if (!userData) {
       return res.status(404).json({ message: "Usuario no encontrado" });
@@ -25,4 +26,12 @@ export default async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   } 
+  // finally {
+  //   // mongoose.disconnect();
+  //   // setTimeout(() => {
+  //   //   mongoose.disconnect();
+  //     console.log("Desconectado de MongoDB");
+  //   // }, 1000);
+  // }
+  // mongoose.disconnect();
 };

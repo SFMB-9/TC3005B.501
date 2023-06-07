@@ -136,9 +136,9 @@ export default function CarDetails() {
         body: JSON.stringify(body),
       });
   
-      await result.json().then((data) => {router.push(`/purchase/${data.id}`)});
-      
-      //router.push(`/purchase/${data.id}`);
+      const data = await result.json();
+  
+      router.push(`/purchase/${data.id}`);
     }catch(error){
       console.log(error);
     }

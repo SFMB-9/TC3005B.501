@@ -54,10 +54,9 @@ export default function Process() {
       const newDocuments = data.result.documentos.map((doc, i) => {
         if (doc.nombre_documento == "INE") {
           return { ...resUser.userData.documentos[0], _id: i};
+        } else if (doc.nombre_documento == "Licencia") {
+          return { ...resUser.userData.documentos[1], _id: i};
         }
-        //  else if (doc.nombre_documento == "Licencia") {
-        //   return { ...resUser.userData.documentos[1], _id: i};
-        // }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -126,13 +125,12 @@ export default function Process() {
   };
 
   useEffect(() => {
-    if (!session) {
+    if (!process_id) {
       return;
     }
     fetchProcess();
     checkValidatedDocs();
-    console.log(documents)
-  }, [process_id, uploadedDocument, session]);
+  }, [process_id, uploadedDocument]);
 
   const columns = useMemo(
     () => [
@@ -604,7 +602,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading ...</p>
+        <p>Loading Process...</p>
       </div>
     );
   }

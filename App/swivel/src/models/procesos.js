@@ -58,3 +58,5 @@ const baseSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.models.Proceso || mongoose.model('Proceso', baseSchema);
+
+;

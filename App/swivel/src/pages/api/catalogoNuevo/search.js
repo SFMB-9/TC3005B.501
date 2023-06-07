@@ -32,15 +32,15 @@ export default async function handler(req, res) {
     // Initialize empty query
     let dbQuery = {};
 
-    dbQuery.size = 900;
+    dbQuery.size = 100;
 
     // If search is not "", undefined, or null, then build the query
     if (Boolean(searchQuery)) {
         const query = {
             "multi_match": {
                 "query": searchQuery,
-                "fields": ["descripcion", "colores", "marca"],
-                "minimum_should_match": 2
+                "fields": ["descripcion", "color"],
+                "minimum_should_match": 1
             }
         }
         dbQuery.query = query;
@@ -51,19 +51,14 @@ export default async function handler(req, res) {
     }
 
     try {
-
         let elasticResponse = await client.search({
             index: 'autos',
             body: dbQuery,
         }, { meta: true });
 
         let fullResults = elasticResponse.body.hits.hits;
-        let result = fullResults.map(item => item._id);
 
-        let score = {};
-        fullResults.forEach(item => {
-            score[item._id] = item._score;
-        });
+        let result = fullResults.map(item => item._id);
 
         if (result.length === 0) {
             return res.status(404).json({ message: "No se encontraron autos" });
@@ -77,8 +72,7 @@ export default async function handler(req, res) {
             .status(200)
             .json({
                 message: result.length + " auto(s) recuperados exitosamente",
-                result: result,
-                score: score
+                result: result
             });
 
     } catch (error) {

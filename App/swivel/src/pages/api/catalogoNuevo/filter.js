@@ -14,8 +14,6 @@ const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
-    console.log("QUERY IN ENDPOINT: " + JSON.stringify(req.query));
-
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
@@ -39,7 +37,6 @@ export default async function handler(req, res) {
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
     const searchIds = searchResultsJson.result;
-    const searchScores = searchResultsJson.score;
 
     // Handles the cases where searchids is undefined or empty
     if (searchIds !== undefined) {
@@ -81,16 +78,6 @@ export default async function handler(req, res) {
         }, { meta: true });
 
         let result = elasticResponse.body.hits.hits;
-
-        // Add score to each result
-        result.forEach((item, index) => {
-            item._source.score = searchScores[item._id];
-        });
-
-        // Sort results by score
-        result.sort((a, b) => {
-            return b._source.score - a._source.score;
-        });
 
         let filters = {};
         await assembleFilter(result, filters, req);
@@ -155,7 +142,7 @@ async function assembleFilter(result, filters, req) {
 
 // Function to build elasticsearch search body
 function buildQuery(queryParams, searchResultsIds, dbQuery) {
-    dbQuery.size = 900;
+    dbQuery.size = 100;
     dbQuery.query = {
         bool: {
             must: []
@@ -267,14 +254,6 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
                     gte: queryParams.precio_min,
                     lte: queryParams.precio_max
                 }
-            }
-        });
-    }
-
-    if (queryParams.agencia_id) {
-        dbQuery.query.bool.must.push({
-            match: {
-                agencia_id: queryParams.agencia_id
             }
         });
     }
