@@ -9,20 +9,18 @@ import {
     Button,
 } from "@mui/material";
 
-export default function EditSellerData(props) {
+export default function EditEntityData(props) {
     const [userId, setUserId] = useState(props.data._id);
     const [editingEntry, setEditingEntry] = useState(null);
     const [editedName, setEditedName] = useState(props.data.nombres);
-    const [editedLastName, setEditedLastName] = useState(props.data.apellidos);
+    const [editedUrl, setEditedUrl] = useState(props.data.url_agencia);
     const [editedEmail, setEditedEmail] = useState(props.data.email);
     const [editedCellphone, setEditedCellphone] = useState(props.data.numero_telefonico);
     let apiPath = "";
 
-    if (props.userType === "seller") {
-        apiPath = "/api/gerente/actualizar-vendedor";
-    } else if (props.userType === "gaManager") {
-        apiPath = "/api/GA/actualizar-admin-ga";
-    } 
+    if (props.userType === "agency") {
+        apiPath = "/api/GA/actualizar-agencia";
+    }
     
     console.log("the path", apiPath)
 
@@ -30,7 +28,7 @@ export default function EditSellerData(props) {
         setEditingEntry(entry);
         setUserId(entry._id);
         setEditedName(entry.nombres);
-        setEditedLastName(entry.apellidos);
+        setEditedUrl(entry.url_agencia);
         setEditedEmail(entry.email);
         setEditedCellphone(entry.numero_telefonico);
     };
@@ -42,7 +40,7 @@ export default function EditSellerData(props) {
             await axios.put(apiPath, {
                 _id: userId,
                 name: editedName,
-                last_name: editedLastName,
+                url: editedUrl,
                 newEmail: editedEmail,
                 cellphone: editedCellphone,
             });
@@ -63,7 +61,7 @@ export default function EditSellerData(props) {
                     fontSize={{ xs: 25, md: 28, lg: 33 }}
                     className="pt-2 pb-4"
                 >
-                    Editar usuario
+                    Edita entidad
                 </Typography>
 
                 <Typography
@@ -73,7 +71,7 @@ export default function EditSellerData(props) {
                     fontWeight="bold"
                     fontSize={{ xs: 16, md: 17, lg: 19 }}
                 >
-                    Datos Personales
+                    Datos Generales
                 </Typography>
                 <div className="d-sm-flex justify-content-between mb-4">
                     <div className="row">
@@ -85,7 +83,7 @@ export default function EditSellerData(props) {
                                 className="pb-3"
                                 fontSize={{ xs: 15, md: 16, lg: 18 }}
                             >
-                                Nombre(s)
+                                Nombre(s) agencia
                             </Typography>
                             <TextField
                                 required
@@ -110,7 +108,7 @@ export default function EditSellerData(props) {
                                 className="pb-3"
                                 fontSize={{ xs: 15, md: 16, lg: 18 }}
                             >
-                                Apellidos
+                                Url
                             </Typography>
                             <TextField
                                 required
@@ -118,9 +116,9 @@ export default function EditSellerData(props) {
                                 type="text"
                                 name="surname"
                                 id="name_field"
-                                value={editedLastName}
+                                value={editedUrl}
                                 pattern="[a-zA-Z]+"
-                                onChange={(e) => setEditedLastName(e.target.value)}
+                                onChange={(e) => setEditedUrl(e.target.value)}
                                 label="Apellidos"
                                 inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                                 InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -159,7 +157,7 @@ export default function EditSellerData(props) {
                                 className="pb-3"
                                 fontSize={{ xs: 15, md: 16, lg: 18 }}
                             >
-                                Celular
+                                Número telefónico
                             </Typography>
 
                             <TextField
