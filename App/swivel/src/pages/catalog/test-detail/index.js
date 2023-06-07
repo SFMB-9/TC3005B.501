@@ -288,6 +288,11 @@ export default function RequestDetails() {
     })
   };
 
+  const goBackToCatalog = () => {
+    // Go back to the catalog
+    router.back();
+  };
+
   const checkValidatedDocs = () => {
     documents.forEach((doc) => {
       if (doc.estatus !== "Aceptado") {
@@ -468,7 +473,7 @@ export default function RequestDetails() {
                       color: "#fff",
                     },
                   }}
-                  variant='contained' href='/catalog'>Cancelar</Button>
+                  variant='contained' onClick={() => goBackToCatalog()}>Cancelar</Button>
                 <Button
                   style={{
                     marginLeft: "2.5rem",
