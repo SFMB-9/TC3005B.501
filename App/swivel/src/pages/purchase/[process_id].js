@@ -23,7 +23,6 @@ export default function Process() {
   const router = useRouter();
   const { process_id } = router.query;
 
-  // console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
@@ -54,9 +53,10 @@ export default function Process() {
       const newDocuments = data.result.documentos.map((doc, i) => {
         if (doc.nombre_documento == "INE") {
           return { ...resUser.userData.documentos[0], _id: i};
-        } else if (doc.nombre_documento == "Licencia") {
-          return { ...resUser.userData.documentos[1], _id: i};
         }
+        //  else if (doc.nombre_documento == "Licencia") {
+        //   return { ...resUser.userData.documentos[1], _id: i};
+        // }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -102,7 +102,7 @@ export default function Process() {
 
     try {
       const result = await fetch(
-        `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
+        `/api/purchase-docs/update-docs-mongo?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
         {
           method: "PUT",
         }
@@ -125,12 +125,13 @@ export default function Process() {
   };
 
   useEffect(() => {
-    if (!process_id) {
+    if (!session) {
       return;
     }
     fetchProcess();
     checkValidatedDocs();
-  }, [process_id, uploadedDocument]);
+    console.log(documents)
+  }, [process_id, uploadedDocument, session]);
 
   const columns = useMemo(
     () => [
@@ -602,7 +603,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading Process...</p>
+        <p>Loading ...</p>
       </div>
     );
   }

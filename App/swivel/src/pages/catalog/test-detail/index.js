@@ -87,6 +87,12 @@ export default function RequestDetails() {
       return { ...doc, _id: i };
     });
 
+    // console.log("Car data: " + JSON.stringify(retrievedAuto));
+    // console.log("Agency data: " + JSON.stringify(retrievedAgency));
+    // console.log("Agency ID: " + retrievedAuto.agencia_id);
+    // console.log("User data: " + JSON.stringify(retrievedUser));
+    // console.log("First image: " + JSON.stringify(firstImage));
+
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
     setAgencyCoords({
@@ -288,6 +294,11 @@ export default function RequestDetails() {
     })
   };
 
+  const goBackToCatalog = () => {
+    // Go back to the catalog
+    router.back();
+  };
+
   const checkValidatedDocs = () => {
     documents.forEach((doc) => {
       if (doc.estatus !== "Aceptado") {
@@ -468,14 +479,14 @@ export default function RequestDetails() {
                       color: "#fff",
                     },
                   }}
-                  variant='contained' href='/catalog'>Cancelar</Button>
+                  variant='contained' onClick={() => goBackToCatalog()}>Cancelar</Button>
                 <Button
                   style={{
                     marginLeft: "2.5rem",
                   }}
                   variant='contained' 
                   onClick={() => setActiveSectionIndex(1)}
-                  disabled={!validatedDocs}
+                  // disabled={!validatedDocs}
                   >Continuar</Button>
               </div>
             </div>
