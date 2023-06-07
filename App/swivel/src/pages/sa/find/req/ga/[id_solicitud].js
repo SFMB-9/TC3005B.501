@@ -5,6 +5,7 @@ import DataTable from '@/components/general/Table';
 import { useRouter } from 'next/router';
 import { useState, useEffect} from 'react';
 import { useSession } from "next-auth/react";
+import LoadingScreen from "@/components/general/LoadingScreen";
 import axios from "axios";
 
 export default function vistaSolicitud() {
@@ -18,6 +19,7 @@ export default function vistaSolicitud() {
     const [approval, setApproval] = useState({});
     const [agencies, setAgencies] = useState([]);
     const [documents, setDocuments] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { data: session } = useSession();
 
 
@@ -41,6 +43,8 @@ export default function vistaSolicitud() {
 
 
                 setAgencies(resp.data.groupAgencies);
+                setIsLoading(false)
+
 
                 
 
@@ -70,6 +74,7 @@ export default function vistaSolicitud() {
     return (
         <div>
             <SANavbar />
+            {isLoading && <LoadingScreen />}
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Solicitud #{approval._id}</h1> 
                 <h4>Resumen de solicitud: Creacion de Grupo Automotriz</h4> {/*Cambiar por tipo de solicitud*/}

@@ -19,11 +19,13 @@ import { Button, Grid } from '@mui/material';
 import styles from '@/styles/portal_generic.module.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 import { useSession } from "next-auth/react";
 
 export default function SA_automotiveGroups() {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
     const [users, setUsers] = useState([]);
     const { data: session } = useSession();
 
@@ -36,6 +38,7 @@ useEffect( () => {
                     "/api/superadmin/getSAUsers")
  
                 setUsers(resp.data.allUsers)
+                setIsLoading(false)
             } catch(err){
                 console.log(err)
             }
@@ -145,6 +148,7 @@ useEffect( () => {
     return (
         <div>
             <SANavbar />
+            {isLoading && <LoadingScreen />}
             <div className={styles.mainContainer}>
                 <h4 className={styles.pageTitle}>Gestión de Administradores</h4>
                 <Grid item xs={12} md={9} sm={8}>

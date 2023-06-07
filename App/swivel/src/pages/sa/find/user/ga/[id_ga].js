@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useState, useEffect} from 'react';
 import { useSession } from "next-auth/react";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function detailsGA() {
 
@@ -19,6 +20,7 @@ export default function detailsGA() {
     const [approval, setApproval] = useState({});
     const [agencies, setAgencies] = useState([]);
     const { data: session } = useSession();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect( () => {
 
@@ -40,6 +42,7 @@ export default function detailsGA() {
 
 
                 setAgencies(resp.data.groupAgencies);
+                setIsLoading(false)
 
                 
 
@@ -78,6 +81,7 @@ export default function detailsGA() {
     return (
         <div>
             <SANavbar />
+            {isLoading && <LoadingScreen />}
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Detalle del grupo automotriz</h1> {/*Cambiar Folio por numero de solicitud*/}
                 <h4 className={styles.subTitle}>{user.nombres}</h4> {/*Cambiar por nombre de agencia*/}

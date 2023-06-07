@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect} from 'react';
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function vistaSolicitud() {
 
@@ -20,6 +21,7 @@ export default function vistaSolicitud() {
     const [legal, setLegal] = useState({});
     const { data: session } = useSession();
     const [documents, setDocuments] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect( () => {
 
@@ -38,6 +40,7 @@ export default function vistaSolicitud() {
                 setApproval(resp.data.reqFound);
                 setGa(resp.data.repDetails);
                 setLegal(resp.data.repDetails.legal);
+                setIsLoading(false)
                 
 
                 
@@ -70,6 +73,7 @@ export default function vistaSolicitud() {
     return (
         <div>
             <SANavbar />
+            {isLoading && <LoadingScreen />}
             <div className={styles.mainContainer}>
                 <h1 className={styles.pageTitle}>Solicitud# {approval._id}</h1> {/*Cambiar Folio por numero de solicitud*/}
                 <h4>Resumen de solicitud: Creacion de Agencia</h4> {/*Cambiar por tipo de solicitud*/}

@@ -5,6 +5,8 @@ import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 export default function addSAdmin() {
 
@@ -13,10 +15,11 @@ export default function addSAdmin() {
     const router = useRouter();
 
     const { data: session } = useSession();
+    const [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
       if(!session){
-        router.push("/auth/login");
+        //router.push("/auth/login");
       }
     })
 
@@ -27,6 +30,8 @@ export default function addSAdmin() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [badPw, setBadPw] = useState(false)
+    const [success, setSuccess]= useState(false)
 
 
 
@@ -34,8 +39,14 @@ export default function addSAdmin() {
 
     const submitHandler = async () => {
 
+        setIsLoading(true)
+
         if (password != confirmPassword){
+            setBadPw(true)
+            setIsLoading(false)
             return
+        } else {
+            setBadPw(false)
         }
 
         await axios.post('/api/register', JSON.stringify({
@@ -46,7 +57,10 @@ export default function addSAdmin() {
             "password":password,
             "tipo_usuario":"admin"
         }),{ headers: {"Content-Type": "application/json"}});
-        router.back();
+        setSuccess(true)
+        setIsLoading(false)
+        
+
     };
 
 
@@ -63,6 +77,7 @@ export default function addSAdmin() {
     return (
         <div>
             <SANavbar />
+            {isLoading && <LoadingScreen />}
             <div className={styles.mainContainer}>
                 <h2 className={styles.pageTitle}>Agregar administrador</h2>
                 <h4 className={styles.sectionTitle}>Ingresa los datos del administrador</h4>
@@ -192,6 +207,8 @@ export default function addSAdmin() {
                     >
                         Guardar
                     </Button>
+                    {badPw && (<div> Passwords don't match.</div>)}
+                    {success && (<div> User created successfully </div>)}
                 </div>
             </div>
         </div>

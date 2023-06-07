@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 
 import DataTable from "@/components/general/Table";
 import SimpleAccordion from "@/components/general/Accordion";
-
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 import { Select, MenuItem, Typography, Button} from "@mui/material";
 import SANavbar from '@/components/SA/navbar';
@@ -30,12 +30,10 @@ const SARequestDashboard = () => {
 
   const [requestsA, setRequestsA] = useState([]);
   const [requestsAFilter, setRequestsAFilter] = useState("all");
+  const [isLoading, setIsLoading] = useState(true);
 
   const { data: session } = useSession();
   const router = useRouter();
-
-
-  useEffect(() => {
 
     const getRequestsData = async () => {
 
@@ -50,6 +48,7 @@ const SARequestDashboard = () => {
 
         const reqGA = allRequests.filter(r => r.tipo_proceso === 'peticionGA');
         const reqA = allRequests.filter(r => r.tipo_proceso === 'peticionA');
+        setIsLoading(false)
 
 
         setRequestsGA(reqGA)
@@ -61,10 +60,15 @@ const SARequestDashboard = () => {
 
     };
 
+  useEffect(() => {
+
+
+
     if (session) {
       getRequestsData();
     } else {
-      router.push("/auth/login");
+
+
     }
 
   }, [session]);
@@ -75,6 +79,7 @@ const SARequestDashboard = () => {
     }
 
   const updateAnyRequest = async (_id, status) => {
+    setIsLoading(true)
 
     const upd = await axios.post("/api/superadmin/updateAnySARequestStatus", {
       id:_id,
@@ -82,31 +87,8 @@ const SARequestDashboard = () => {
     });
 
 
+    getRequestsData();
 
-
-
-    const tempRequestsGA = requestsGA.map((request) => {
-      if (request._id === _id) {
-        return { ...request, status }
-      }
-      else {
-        return request
-      }
-
-    });
-
-    const tempRequestsA = requestsA.map((request) => {
-      if (request._id === _id) {
-        return { ...request, status }
-      }
-      else {
-        return request
-      }
-
-    });
-
-    setRequestsGA(tempRequestsGA);
-    setRequestsA(tempRequestsA);
   };
 
 
@@ -238,7 +220,7 @@ const SARequestDashboard = () => {
           }),
       },
       {
-        field: "estatus",
+        field: "estatus_validacion",
         headerName: "Estatus",
         headerAlign: "center",
         align: "center",
@@ -247,7 +229,7 @@ const SARequestDashboard = () => {
         type: "actions",
         renderCell: (params) => (
           <Select
-            value={params.row.status}
+            value={params.row.estatus}
             onChange={(e) => updateAnyRequest(params.row._id, e.target.value)}
             label="Estatus"
           >
@@ -298,6 +280,7 @@ onClick={(e) =>
     return (
       <>
         <SANavbar />
+        {isLoading && <LoadingScreen />}
         <div
           style={{
             display: 'flex',
@@ -380,7 +363,6 @@ onClick={(e) =>
               :
               <div></div>
             }
-          }
         </div>
       </>
     );
