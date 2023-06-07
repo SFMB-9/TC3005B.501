@@ -34,11 +34,11 @@ export default function BuyerSidebar() {
                 Mis pruebas de manejo
               </MenuItem>
             </a>
-            {/* <a href={`${root}/favorites`}>
+            <a href={`${root}/favorites`}>
               <MenuItem>
                 Favoritos
               </MenuItem>
-            </a> */}
+            </a>
             <a href={`${root}/documents`}>
               <MenuItem>
                 Mis documentos
