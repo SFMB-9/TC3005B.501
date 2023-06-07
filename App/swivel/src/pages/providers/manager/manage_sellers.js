@@ -7,18 +7,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
     IconButton,
     Button,
-    Container,
-    Typography,
-    TextField,
 } from '@mui/material';
 
 //import { useRouter } from "next/router";
 
 import Searchbar from '@/components/general/searchbar';
 import ManagerLayout from '@/components/providers/Manager/layout';
-import { Margin } from '@mui/icons-material';
 import DataTable from "@/components/general/Table";
-import Popup from "@/components/general/Popup";
 import PopUpComponent from '@/components/general/Popup';
 import EditSellerData from '@/components/providers/seller/edit_seller_data';
 
@@ -78,7 +73,7 @@ export default function SearchResults() {
             fetchResults();
         }
         catch (error) {
-            console.error('Error deleting entry:', error);
+            console.error('Error borrando usuario: ', error);
         }
     };
 
@@ -141,7 +136,9 @@ export default function SearchResults() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <EditSellerData data={params.row} agency={agency}/>
+                                    <EditSellerData data={params.row}
+                                    userType="seller"
+                                    />
                                 }
                                 btnOpen={
                                     <IconButton

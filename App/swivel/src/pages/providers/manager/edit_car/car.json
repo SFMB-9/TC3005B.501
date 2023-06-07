@@ -1,0 +1,40 @@
+{
+  "auto": {
+    "_index": "autos",
+    "_id": "eZS_dIgB6Fc17-h0h8FR",
+    "_version": 7,
+    "_seq_no": 6002,
+    "_primary_term": 3,
+    "found": true,
+    "_source": {
+      "descripcion": "El Audi Q2 2018 es un vehículo que ha sido diseñado pensando en ofrecer lo mejor de la marca, con un enfoque en la eficiencia y el rendimiento en todo momento. Aunque puede ser utilizado por diferentes segmentos de público, la mejor forma de aprovechar todas sus características es en ciudad.\n\nEste hatchback cuenta con una impresionante pantalla táctil que te permite acceder a una gran cantidad de opciones y características sin tener que apartar la vista de la carretera. Además, la configuración del sistema ha sido diseñada para hacerla intuitiva y fácil de utilizar, lo que permite un control más preciso sobre tu automóvil.\n\nEl Audi Q2 2018 es una máquina de gasolina altamente eficiente que ofrece una experiencia de conducción excepcional. Todo su sistema de propulsión está optimizado para ofrecer el mejor rendimiento posible, lo que lo convierte en una opción ideal para aquellos conductores que necesitan un vehículo de uso diario en la urbe.\n\nEs en la ciudad donde las características del Audi Q2 2018 realmente empiezan a brillar. Su diseño compacto significa que es fácil de manejar y maniobrar, lo que lo convierte en la opción perfecta para aquellos conductores que necesitan algo con un tamaño manejable y una buena visibilidad.\n\nAdemás, su transmisión automática garantiza una experiencia de conducción suave y sin problemas mientras se enfrenta al tráfico congestionado y a las complicadas ciudades. Es una opción muy interesante para aquellos conductores que pasan mucho tiempo en la carretera y quieren asegurarse de que su experiencia de conducción sea lo más agradable posible.\n\nEn general, el Audi Q2 2018 es el mejor vehículo para aquellos conductores urbanos que buscan una experiencia de conducción suave, eficiente y altamente intuitiva. Su combinación de características lo convierten en el vehículo ideal para aquellos que buscan algo que pueda ofrecer la mejor conducción posible mientras se enfrentan a las complicadas ciudades en las que vivimos hoy en día. Motor V8 4 pasajeros Colores: Gris Azulado, Gris Oscuro, Blanco Perla, Negro Extras: Sistema de Aviso de Cambio de Carril, Asistente de Arranque en Pendientes, Volante Forrado en Cuero, Sistema de Frenos de Disco.",
+      "motor": "V8",
+      "caracteristicas": "['Pantalla táctil']",
+      "estado_agencia": "Ciudad de México",
+      "nombre_agencia": "Nissan Cuauhtemoc",
+      "tipo_vehiculo": "Hatchback",
+      "colores": "[{'nombre': 'Gris Azulado', 'valor_hexadecimal': '#708090', 'imagenes': ['https://images.prd.kavak.io/eyJidWNrZXQiOiJrYXZhay1pbWFnZXMiLCJrZXkiOiJpbWFnZXMvMjM4MTM3L0VYVEVSSU9SLWZyb250U2lkZVBpbG90TmVhci0xNjc3Njc4NDQ3MzE1LmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjU0MCwiaGVpZ2h0IjozMTB9fX0=']}, {'nombre': 'Gris Oscuro', 'valor_hexadecimal': '#696969', 'imagenes': ['https://images.prd.kavak.io/eyJidWNrZXQiOiJrYXZhay1pbWFnZXMiLCJrZXkiOiJpbWFnZXMvMjM4MTM3L0VYVEVSSU9SLWZyb250U2lkZVBpbG90TmVhci0xNjc3Njc4NDQ3MzE1LmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjU0MCwiaGVpZ2h0IjozMTB9fX0=']}, {'nombre': 'Blanco Perla', 'valor_hexadecimal': '#F8F8FF', 'imagenes': ['https://images.prd.kavak.io/eyJidWNrZXQiOiJrYXZhay1pbWFnZXMiLCJrZXkiOiJpbWFnZXMvMjM4MTM3L0VYVEVSSU9SLWZyb250U2lkZVBpbG90TmVhci0xNjc3Njc4NDQ3MzE1LmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjU0MCwiaGVpZ2h0IjozMTB9fX0=']}, {'nombre': 'Negro', 'valor_hexadecimal': '#000000', 'imagenes': ['https://images.prd.kavak.io/eyJidWNrZXQiOiJrYXZhay1pbWFnZXMiLCJrZXkiOiJpbWFnZXMvMjA5MzM5L0VYVEVSSU9SLWZyb250U2lkZVBpbG90TmVhci0xNjY3NDEwNzkxMzkwLmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjU0MCwiaGVpZ2h0IjozMTB9fX0=']}]",
+      "extras": "[{'titulo': 'Sistema de Aviso de Cambio de Carril', 'precio': 6500.0, 'descripcion': 'Alerta al conductor cuando se produce un cambio de carril involuntario'}, {'titulo': 'Asistente de Arranque en Pendientes', 'precio': 3500.0, 'descripcion': 'Facilita el arranque en pendientes sin deslizamientos hacia atrás'}, {'titulo': 'Volante Forrado en Cuero', 'precio': 3000.0, 'descripcion': 'Proporciona un agarre suave y cómodo durante la conducción'}, {'titulo': 'Sistema de Frenos de Disco', 'precio': 5000.0, 'descripcion': 'Proporciona un frenado más eficiente y seguro'}]",
+      "municipio_agencia": "Cuauhtémoc",
+      "ficha_tecnica": "https://github.com/SFMBa01029956/TC3005B.501",
+      "coordenadas_agencia": "19.4085891,-99.1844605",
+      "marca": "Audi",
+      "precio": 454999,
+      "transmision": "Automático",
+      "litros": "1.4",
+      "entrega": "[{'nombre': 'Domicilio', 'precio': 10997, 'descripcion': 'Lo llevamos a la puerta de tu casa'}, {'nombre': 'Recoger en Agencia', 'precio': 0.0, 'descripcion': 'Recoge tu auto en la agencia GRATIS'}]",
+      "direccion_agencia": "Av.Jose Vasconcelos, Av. Revolución 111, Hipódromo Condesa, 06170 Ciudad de México",
+      "gerente_id": "6475d196b0304a50ba2a3113",
+      "enganche": "[10, 15, 25, 30, 35]",
+      "pasajeros": 4,
+      "plazos": "{'12': 5.6, '24': 5.699999999999999, '36': 5.8, '48': 6.0, '60': 6.199999999999999}",
+      "agencia_id": "6475ce431870c4941b667158",
+      "modelo": "Q2",
+      "combustible": "Gasolina",
+      "fotos_3d": "['https://images.prd.kavak.io/eyJidWNrZXQiOiJrYXZhay1pbWFnZXMiLCJrZXkiOiJpbWFnZXMvMjM4MTM3L0VYVEVSSU9SLWZyb250U2lkZVBpbG90TmVhci0xNjc3Njc4NDQ3MzE1LmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjU0MCwiaGVpZ2h0IjozMTB9fX0=']",
+      "rendimiento": 14.9,
+      "año": 2018
+    }
+  },
+  "message": "Se ha encontrado el auto"
+}

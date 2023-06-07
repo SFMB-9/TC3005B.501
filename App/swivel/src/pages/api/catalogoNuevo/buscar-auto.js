@@ -23,7 +23,7 @@ export default async function handler(req, res){
       query = {
           "track_total_hits": true, 
           "from" : 0, 
-          "size" : 1000,
+          "size" : 900,
           "query": {
              "match": {
                "descripcion": {

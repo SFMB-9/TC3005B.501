@@ -87,6 +87,12 @@ export default function RequestDetails() {
       return { ...doc, _id: i };
     });
 
+    // console.log("Car data: " + JSON.stringify(retrievedAuto));
+    // console.log("Agency data: " + JSON.stringify(retrievedAgency));
+    // console.log("Agency ID: " + retrievedAuto.agencia_id);
+    // console.log("User data: " + JSON.stringify(retrievedUser));
+    // console.log("First image: " + JSON.stringify(firstImage));
+
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
     setAgencyCoords({
@@ -288,6 +294,11 @@ export default function RequestDetails() {
     })
   };
 
+  const goBackToCatalog = () => {
+    // Go back to the catalog
+    router.back();
+  };
+
   const checkValidatedDocs = () => {
     documents.forEach((doc) => {
       if (doc.estatus !== "Aceptado") {
@@ -468,14 +479,14 @@ export default function RequestDetails() {
                       color: "#fff",
                     },
                   }}
-                  variant='contained' href='/catalog'>Cancelar</Button>
+                  variant='contained' onClick={() => goBackToCatalog()}>Cancelar</Button>
                 <Button
                   style={{
                     marginLeft: "2.5rem",
                   }}
                   variant='contained' 
                   onClick={() => setActiveSectionIndex(1)}
-                  disabled={!validatedDocs}
+                  // disabled={!validatedDocs}
                   >Continuar</Button>
               </div>
             </div>
@@ -562,23 +573,33 @@ export default function RequestDetails() {
           </>
         )}
         {activeSectionIndex === 2 && (
-          <>
-            <div>
-              <div>
-                <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
-                <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span><br />
-                <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span><br />
-                <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span><br />
+        <>
+          <Container
+            className="d-flex flex-row justify-content-center"
+            sx={{
+              marginTop:"4vw",
+              marginBottom: "0.7vw"
+            }}
+          >
+            
+              <div className="d-flex flex-column justify-content-center">
+                <div className="px-5">
+                  <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
+                  <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span><br />
+                  <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span><br />
+                  {/* <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span><br /> */}
+                </div>
+                <img src={firstImage} id={styles.imageDiv} />
               </div>
-              <img src={firstImage} className={styles.imageDiv} />
-            </div>
-            <div>
-              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-              <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
-            </div>
+          </Container>  
+              <div className="d-flex justify-content-center">
+                <Button className="m-3" variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+                <Button className="m-3" variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
+              </div>
           </>
+          
         )}
-      </>
+        </>
     );
   } else {
     return (

@@ -1,35 +1,70 @@
 /*
 Luis Javier Karam
+Francisco Salcedo
 30/5/2023
 
-Page to view a list of all the agencies related to the GA user that is logged in and the ability 
-to edit and delete agencies.
+Page to view a list of all the automotive groups related to the SA user that is logged in and the ability 
+to edit and delete them.
 */
 
+
+import axios from "axios";
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
+import { useSession } from "next-auth/react";
+
 import Searchbar from '@/components/general/searchbar';
 import DataTable from '@/components/general/Table';
-import GANavbar from '@/components/providers/GA/navbar';
+import SANavbar from '@/components/SA/navbar';
 import { useRouter } from 'next/router';
 import { Button, Grid } from '@mui/material';
 import styles from '@/styles/portal_generic.module.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
 import PopUpComponent from '@/components/general/Popup';
 
-export default function GA_agencies() {
+export default function SA_automotiveGroups() {
+
+
     const router = useRouter();
+    const [users, setUsers] = useState([]);
+    const { data: session } = useSession();
+
+    useEffect( () => {
+
+        const getUsersData = async () => {
+
+            try{
+                const resp = await axios.get(
+                    "/api/superadmin/getGAUsers")
+ 
+                setUsers(resp.data.allUsers)
+
+            } catch(err){
+                console.log(err)
+            }
+        };
+
+        if(session){
+            getUsersData()
+        }
+
+    }, [session]);
+
 
     const columns = [
-        { field: 'Agencia', headerName: 'Agencia', width: 300 },
-        { field: 'Estado', headerName: 'Estado', width: 300 },
-        { field: 'Telefono', headerName: 'Telefono', width: 250 },
+        { field: 'nombres', headerName: 'Grupo Automotriz', width: 250 },
+        { field: 'legal', headerName: 'Email', width: 200, valueGetter: (params) => params.row.legal.email},
+        { field: 'direccion', headerName: 'Estado', width: 200,valueGetter: (params) => params.row.direccion.estado},
+        { field: 'numero_telefonico', headerName: 'Telefono', width: 200,valueGetter: (params) => params.row.legal.numero_telefonico },
+
         {
             field: 'verDetalle',
             headerName: 'Ver detalle',
             width: 200,
             renderCell: () => (
+
                 <Button
+
                     variant="contained"
                     disableElevation
                     sx={{
@@ -99,22 +134,18 @@ export default function GA_agencies() {
             ),
         },
     ]
-    const rows =
-        [
-            { _id: 1, Agencia: 'Agencia 1', Estado: 'Estado 1', Telefono: '1234567890' },
-            { _id: 2, Agencia: 'Agencia 2', Estado: 'Estado 2', Telefono: '0987654321' },
-            { _id: 3, Agencia: 'Agencia 3', Estado: 'Estado 3', Telefono: '9876543210' },
-            // Add more dummy rows here if needed
-        ]
+
+    const rows = users;
+
 
     const [isOpen, setIsOpen] = useState(false); // Define isOpen state
 
 
     return (
         <div>
-            <GANavbar />
+            <SANavbar />
             <div className={styles.mainContainer}>
-                <h4 className={styles.pageTitle}>Administracion de agencias</h4>
+                <h4 className={styles.pageTitle}>Gestión de Grupos Automotrices</h4>
                 <Grid item xs={12} md={9} sm={8}>
                     <Searchbar className={styles.searchbar} />
                 </Grid>
@@ -123,14 +154,9 @@ export default function GA_agencies() {
                     <DataTable
                         rows={rows}
                         columns={columns}
-                        title="Agencias"
+                        title="Usuarios"
                         getRowId={(row) => row.id} // Provide a unique identifier for each row
                     />
-                </div>
-                <div className={styles.addButtonContainer}>
-                    <Button variant="contained" color="primary" className={styles.button} href='/add_agency'>
-                        Agregar Agencia
-                    </Button>
                 </div>
             </div>
         </div>

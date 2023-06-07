@@ -5,8 +5,8 @@ export default function GANavbar() {
     <CustomNavbar
       home='/providers/GA'
       elems_right={[
-        {name: 'Acciones', href: '', popup: [{name: 'Manejo de catálogo', href: ''}, {name: 'Administración de gerentes', href: ''}, {name: 'Administración de la agencias', href: ''}, {name: 'Estadísticas de ventas', href: ''}]},
-        {name: 'Mi cuenta', href: '', popup: [{name: 'Nombre del usuario', href: ''}, {name: 'Cambiar contraseña', href: '/providers/GA-update-password'}, {name: 'Cerrar sesión', href:'#', signoutComponent: '/auth/login'}]},
+        {name: 'Acciones', href: '', popup: [{name: 'Administración de gerentes', href: 'providers/GA/manageGA'}, {name: 'Administración de la agencias', href: 'providers/GA/portal_agencias'}, {name: 'Estadísticas de ventas', href: ''}]},
+        {name: 'Mi cuenta', href: '', popup: [{name: 'Editar Mi Perfil', href: '/providers/GA/editProfile'}, {name: 'Cambiar contraseña', href: '/providers/GA/GA-update-password'}, {name: 'Cerrar sesión', href:'#', signoutComponent: '/auth/login'}]},
       ]}
     />
   )
