@@ -217,7 +217,7 @@ const registroAdmin = () => {
                             type="submit"
                             className={styles.button}
                         >
-                            Register
+                            Registrar
                         </Button>
                         <Button
                             variant="outlined"
@@ -225,7 +225,7 @@ const registroAdmin = () => {
                             onClick={handleCancel}
                             className={styles.button}
                         >
-                            Cancel
+                            Cancelar
                         </Button>
                     </div>
                 </form>
