@@ -11,6 +11,7 @@ test.describe('Driving Req', () => {
         await page.locator('input[type="email"]').fill('karla@gmail.com');
         await page.locator('input[type="email"]').press('Tab');
         await page.locator('input[type="password"]').fill('Karla123!');
+        await page.locator('button', { name: 'Ingresar' }).hover();
         await page.getByRole('button', { name: 'Ingresar' }).click();            
     })
 
