@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,7 +10,7 @@ import {
     Button,
 } from '@mui/material';
 
-//import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import Searchbar from '@/components/general/searchbar';
 import ManagerLayout from '@/components/providers/Manager/layout';
@@ -19,7 +20,7 @@ import EditSellerData from '@/components/providers/seller/edit_seller_data';
 
 export default function SearchResults() {
 
-    //const router = useRouter();
+    const router = useRouter();
 
     const [results, setResults] = useState([]);
 
@@ -28,7 +29,7 @@ export default function SearchResults() {
 
     const [agency, setAgency] = useState('');
     const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
-    const router = useRouter ? useRouter() : null;
+    //const router = useRouter ? useRouter() : null;
 
     const RoutRegistroVendedor = () => {
         if (router) {
@@ -155,7 +156,7 @@ export default function SearchResults() {
                                 title="Eliminar cuenta"
                                 popUpContent={
                                     <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                                        <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
+                                        <p> Al hacer click en &apos;Confirmar&apos; estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
                                             onClick={() => deleteEntry(params.row.email)}
@@ -216,7 +217,7 @@ export default function SearchResults() {
                                 setState={handleSearchChange}
                                 searchStyle='administrative'
                             />
-                            <a href='/providers/seller/signup'>
+                            <Link href='/providers/seller/signup'>
                                 <button
                                     onClick={RoutRegistroVendedor}
                                     style={{
@@ -229,7 +230,7 @@ export default function SearchResults() {
                                         padding: '0.5rem 1rem',
                                     }}
                                 > Registrar vendedor  + </button>
-                            </a>
+                            </Link>
                         </div>
                     </div>
 

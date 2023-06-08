@@ -8,7 +8,7 @@ import styles from "@/styles/add_manager.module.css";
 import GANavbar from "@/components/providers/GA/navbar";
 
 
-const registroAdmin = () => {
+const RegistroAdmin = () => {
 
     const router = useRouter();
 

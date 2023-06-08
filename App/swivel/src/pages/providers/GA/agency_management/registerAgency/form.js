@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import AuthComponent from "@/components/login/auth_component";
 import { useSession } from "next-auth/react";
 
-export default function registerForm() {
+export default function RegisterForm() {
     const { data: session } = useSession();
     const router = useRouter();
 

@@ -2,7 +2,7 @@ import CustomHero from "@/components/general/custom_hero";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-export default function arrival() {
+export default function Arrival() {
   const [apiData, setApiData] = useState(null);
 
   const { data: session } = useSession();

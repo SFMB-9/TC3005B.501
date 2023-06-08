@@ -294,7 +294,7 @@ export default function AgencyDetails() {
                               title="Eliminar Gerente"
                               popUpContent={
                                   <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar a este gerente? </p>
-                                      <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar la cuenta. </p>
+                                      <p> Al hacer click en &quot;Confirmar&quot; estas confirmando de forma definitiva que quieres eliminar la cuenta. </p>
                                       <Button
                                           variant="contained"
                                           onClick={() =>  deleteEntry(params.row._id)}

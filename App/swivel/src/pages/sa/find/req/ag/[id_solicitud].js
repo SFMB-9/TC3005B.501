@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import LoadingScreen from "@/components/general/LoadingScreen";
 
-export default function vistaSolicitud() {
+export default function VistaSolicitud() {
 
     const router = useRouter();
     const userId = router.query.id_solicitud;
