@@ -180,8 +180,8 @@ export default function CategoryViews() {
         <>
           <div className={styles.brands}>
             <div className={styles.brandsArray}>
-              {itemsToShowBrand.map((brand) => (
-                <Link href={`/catalog?marca=${brand}`}>
+              {itemsToShowBrand.map((brand, index) => (
+                <Link href={`/catalog?marca=${brand}`} key={index}>
                   <div className={styles.brand}>
                     <img src={`/buyer/brands/${brand}.png?`} />
                     <span className={styles.brandName}>{brand}</span>
@@ -205,8 +205,8 @@ export default function CategoryViews() {
         <>
           <div className={styles.types}>
             <div className={styles.typesArray}>
-              {itemsToShowType.map((type) => (
-                <Link href={`/catalog?tipo=${type}`}>
+              {itemsToShowType.map((type, index) => (
+                <Link href={`/catalog?tipo=${type}`} key={index}>
                   <div className={styles.type}>
                     <img src={`/buyer/types/${type}.png?`} />
                     <span className={styles.typeName}>{type}</span>
@@ -227,8 +227,8 @@ export default function CategoryViews() {
       name: 'Años', component: () =>
         <>
           <div className={styles.yearsArray}>
-            {itemsToShowYear.map((year) => (
-              <Link href={`/catalog?year=${year}`}>
+            {itemsToShowYear.map((year, index) => (
+              <Link href={`/catalog?year=${year}`} key={index}>
                 <span className={styles.yearName}>{year}</span>
               </Link>
             ))}

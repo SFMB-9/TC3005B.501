@@ -28,6 +28,10 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
+        // TODO roles are encrypted so it won't match
+        // TODO Check new actual role names and compare those @f-salcedo-c
+        //  @a01025303
+        // Hotfix: OR for variable user naming conventions.
         console.log("Role:", session.role);
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
