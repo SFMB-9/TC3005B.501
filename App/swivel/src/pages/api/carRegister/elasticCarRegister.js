@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   if(req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
 
   const car = req.body.car;
+  const agency_id = req.body.agency_id;
   const { ano, ...carWithoutAno } = car;
 
   const client = new Client({
@@ -16,17 +17,18 @@ export default async function handler(req, res) {
       }
   })
 
-  // try {
+  try {
     await client.index({
       index: 'autos',
       body: {
         ...carWithoutAno,
-        año: ano
+        año: ano,
+        agencia_id: agency_id
       }
     });
 
     res.status(200).json({ message: 'Car uploaded successfully' });
-  // } catch (error) {
-  //   res.status(500).json({ message: 'Error uploading car' });
-  // }
+  } catch (error) {
+    res.status(500).json({ message: 'Error uploading car' });
+  }
 };

@@ -8,7 +8,7 @@ button in the test-detail page.
 */
 
 const { Client } = require('@elastic/elasticsearch');
-import connectToDatabase from '@/utils/mongodb'
+import connectToDatabase from '@/utils/mongodb';
 import { ObjectId } from "mongodb";
 const { ELASTIC_API_KEY } = process.env
 
@@ -22,7 +22,7 @@ export default async (req, res) => {
         auth: {
             apiKey: ELASTIC_API_KEY
         }
-    })
+    });
 
     const client = await connectToDatabase;
     const db = client.db("test");

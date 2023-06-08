@@ -1,0 +1,10 @@
+#campos{
+    font-size: max(1.5vw, 18px);
+    font-weight: 500;
+}
+
+#contenido{
+    font-size: max(1.5vw, 18px);
+    font-weight: 300;
+    color: #737272;
+}
