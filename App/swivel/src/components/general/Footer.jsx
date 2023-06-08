@@ -13,16 +13,9 @@ import { Typography } from "@mui/material";
 
 // Constante que contiene los links de la primera columna del footer
 const pages1 = [
+  { name: "Sobre nosotros", link: "/about" },
   { name: "Compra un auto", link: "/catalog" },
-  { name: "Registra tu agencia", link: "/signup_agencia" },
-  { name: "Contacto", link: "/contacto" },
-];
-
-// Constante que contiene los links de la segunda columna del footer
-const pages2 = [
-  { name: "Sobre nosotros", link: "/sobre-nosotros" },
-  { name: "Testimonio", link: "/testimonio" },
-  { name: "FAQ", link: "/faq" },
+  { name: "Registra tu agencia", link: "/providers/GA/registerGroup/signup_agencia" }
 ];
 
 // Funcion que retorna el footer de la pagina
