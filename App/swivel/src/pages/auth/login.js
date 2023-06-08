@@ -17,6 +17,7 @@ export default function Login() {
     email: false,
     password: false,
   });
+  const [firstTime, setFirstTime] = useState(true);
 
   const disabled = () => {
     for (const k in errors) {
@@ -28,6 +29,7 @@ export default function Login() {
   useEffect(() => { }, [session]);
 
   const submitHandler = async (e) => {
+    setFirstTime(false);
     try {
       const data = await signIn("credentials", {
         redirect: false,
@@ -37,35 +39,39 @@ export default function Login() {
 
       if (data.error) {
         console.log("Error:", data.error);
-        setErrMessage("Correo o contraseña incorrectos");
-        setError(true);
-        setLoading(false)
+        if (!firstTime) {
+          setErrMessage("Correo o contraseña incorrectos");
+          setError(true);
+          setLoading(false)
+        }
       } else {
-        let callbackUrl;
-        setTimeout(() => {
-        if (session.role === "user") {
-          callbackUrl = `${window.location.origin}/`;
-        } else if (session.role === "seller") {
-          callbackUrl = `${window.location.origin}/providers/seller`;
-        } else if (session.role === "ga_admin") {
-          callbackUrl = `${window.location.origin}/providers/GA`;
-        } else if (session.role === "agencyManager") {
-          callbackUrl = `${window.location.origin}/providers/manager`;
-        } else if (session.role === "admin"){
-          callbackUrl = `${window.location.origin}/superadmin`;
-        } else {
-          // Log the role to vscode console
-          console.log("Role:", session.role);
-          callbackUrl = `${window.location.origin}/auth/logout`;
-        }}, 1000);
-
-        setTimeout(()=>{window.location.href = callbackUrl;}, 1500);
+          let callbackUrl;
+          if (session) {
+            if (session.role === "user") {
+              callbackUrl = `${window.location.origin}/`;
+            } else if (session.role === "seller") {
+              callbackUrl = `${window.location.origin}/providers/seller`;
+            } else if (session.role === "ga_admin") {
+              callbackUrl = `${window.location.origin}/providers/GA`;
+            } else if (session.role === "agencyManager") {
+              callbackUrl = `${window.location.origin}/providers/manager`;
+            } else if (session.role === "admin"){
+              callbackUrl = `${window.location.origin}/superadmin`;
+            } else {
+              callbackUrl = `${window.location.origin}/auth/logout`;
+            }
+          }
+          if (callbackUrl) {
+            window.location.href = callbackUrl;
+          }
       }
     } catch (error) {
       console.log(error);
-      setErrMessage("Hubo un error al iniciar sesión");
-      setError(true);
-      setLoading(false)
+      if (!firstTime) {
+        setErrMessage("Hubo un error al iniciar sesión");
+        setError(true);
+        setLoading(false);
+      }
     }
   };
 
@@ -103,6 +109,7 @@ export default function Login() {
                   } else {
                     setErrors({ ...errors, email: false });
                   }
+                  setFirstTime(true)
                 }}
               />
 
@@ -127,6 +134,7 @@ export default function Login() {
                 onChange={(e) => {
                   const v = e.target.value;
                   setPassword(v);
+                  setFirstTime(true)
                 }}
               />
             </div>
@@ -135,9 +143,17 @@ export default function Login() {
               <Button 
                 className="btn btn-primary btn-block mb-2"
                 disabled={disabled()}
+                onPointerOver={() => {
+                  if (firstTime) {
+                    console.log("first time");
+                    submitHandler();
+                  }
+                }}
                 onClick={() => {
+                  setFirstTime(false);
                   setLoading(true);
-                  setTimeout(()=> {submitHandler()}, 500);
+                  setTimeout(()=> {submitHandler()}, 1000);
+                  
                 }}
               >
                 {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
