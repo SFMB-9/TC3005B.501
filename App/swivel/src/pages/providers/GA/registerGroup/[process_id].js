@@ -113,7 +113,8 @@ export default function RegisterGroupProcess() {
                 "lApellidos": process.info_GA.legal.apellidos,
                 "lEmail": process.info_GA.legal.email,
                 "lPhone": process.info_GA.legal.numero_telefonico
-            }
+            },
+            "usuario_ga_id": process.usuario_ga_id
         }
 
         try{
@@ -125,6 +126,7 @@ export default function RegisterGroupProcess() {
             }else{
                 alert("Error al registrar");
             }
+
         }catch(error){
             console.log(error);
             alert("Error al registrar");

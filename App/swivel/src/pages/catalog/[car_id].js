@@ -135,7 +135,7 @@ export default function CarDetails() {
         method: "POST",
         body: JSON.stringify(body),
       });
-  
+
       await result.json().then((data) => {router.push(`/purchase/${data.id}`)});
       
       //router.push(`/purchase/${data.id}`);

@@ -57,7 +57,7 @@ export default function AgencyDetails() {
             setState(response.data.agency.direccion.estado);
             setCountry(response.data.agency.direccion.pais);
             setPC(response.data.agency.direccion.codigo_postal);
-            console.log(response.data);
+
         }
         catch (error) {
             console.error('Error fetching search results:', error);
@@ -86,7 +86,8 @@ export default function AgencyDetails() {
     };
 
     const addManager = () => {
-        router.push(`providers/manager/signup?GA_id=${agency.grupo_automotriz_id}&agency_id=${router.query.id}`);
+        //router.push(`providers/manager/signup?GA_id=${agency.grupo_automotriz_id}&agency_id=${router.query.id}`);
+        router.push(`registerManager/?GA_id=${agency.grupo_automotriz_id}&agency_id=${agency_id}`);
     };
 
     const addSeller = () => {
@@ -276,7 +277,6 @@ export default function AgencyDetails() {
                               popUpContent={
                                   <div>
                                       <p> Editar datos </p>
-                                      {console.log(params.row._id)}
                                   </div>
                               }
                               btnOpen={
