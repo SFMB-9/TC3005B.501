@@ -92,8 +92,9 @@ export default function ManageGA() {
     };
 
     useEffect(() => {
-        setA_id("647af5ebfb2360082e89094b");
-    }, []);
+        if (!session) return
+        setA_id(session.id);
+    }, [session]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -199,7 +200,6 @@ export default function ManageGA() {
                                     <>
                                     <EditSellerData data={params.row}
                                     userType="gaManager"/>
-                                    {console.log('yujuu', params.row)}
                                     </>
                                 }
                                 btnOpen={

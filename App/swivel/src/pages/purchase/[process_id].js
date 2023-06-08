@@ -12,6 +12,8 @@ import { useSession } from "next-auth/react";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { RouterRounded } from "@mui/icons-material";
 
 const AblyChatComponent = dynamic(
   () => import("../../components/chat/AblyChatComponent"),
@@ -111,6 +113,21 @@ export default function Process() {
       fetchProcess();
     } catch (error) {
       console.error("Error occurred during the document upload:", error);
+    }
+  };
+
+  // Agregar confirmación de cancelación
+  const handleCancel = async () => {
+    try{
+      const result = await axios.delete("/api/saleCreation/deleteProcess",{
+        body: {
+          process_id: process_id
+        }
+      })
+
+      router.back();
+    } catch(error){
+      console.log(error)
     }
   };
 
@@ -444,6 +461,7 @@ export default function Process() {
                   //   backgroundColor: "#F68E70",
                   // },
                 }}
+                onClick={handleCancel} 
                 disableElevation
                 type="button"
                 href="/catalog"
