@@ -13,7 +13,7 @@ export default function OtherGANavbar() {
       ]}
       searchbar
       elems_right={[
-        {name: 'Mi Cuenta', href: '', popup: [{name: 'Inicia Sesión', href: '/auth/providers/login'}, {name: 'Regístrate', href: '/providers/GA/registerGroup/form'}]},
+        {name: 'Mi Cuenta', href: '', popup: [{name: 'Inicia Sesión', href: '/auth/providers/login'}, {name: 'Registra tu G.A', href: '/providers/GA/registerGroup/form'}]},
       ]}
     />
   );

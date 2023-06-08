@@ -1,6 +1,5 @@
 import React from "react";
 import Step from "@/components/providers/GA/step";
-import Image from "next/image";
 import { Typography, Button } from "@mui/material";
 import Link from "next/link";
 
@@ -24,7 +23,7 @@ const Process = () => {
               fontFamily="Raleway"
               align="left"
             >
-              ¡Trabaja con Nosotrxs!
+              Trabaja con Nosotrxs
             </Typography>
           </div>
 
