@@ -12,7 +12,7 @@ export default async function handler(req, res){
 		try{
 			const allRequests = await Proceso.find(
 			{
-				$or:[{tipo_proceso: "registroGA"}, {tipo_proceso:"registroAgencia"}]
+				$or:[{tipo_proceso: "peticionA"}, {tipo_proceso:"peticionGA"}]
 			}
 			)
 			
@@ -26,6 +26,7 @@ export default async function handler(req, res){
 	
 	} else {
 		return res.status(400).json({ msg: "Method not permitted" })
-	}}
+	}
 
+}
 

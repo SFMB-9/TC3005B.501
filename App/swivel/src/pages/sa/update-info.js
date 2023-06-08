@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from '@/styles/informacion_usuarioSA.module.css';
 import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
+import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
 
 export default function informacionUsuarioSA() {
     const router = useRouter();
-    const id = "6477e14bae27e558e56c3c13";
+    const { data: session } = useSession();
 
     const [name, setName] = useState('');
+    const [q, setQ] = useState('');
     const [lastName, setLastName] = useState('');
     const [middleName, setMiddleName] = useState('');
     const [email, setEmail] = useState('');
@@ -18,16 +22,18 @@ export default function informacionUsuarioSA() {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     // Function to fetch search results from the API endpoint
-    const fetchResults = async () => {
+    const fetchResults = async (q) => {
         try {
-            const response = await axios.get("/api/managerProfile/managerP", { params: { id: id } });
+            const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
             console.log(response.data.userData);
             const userData = response.data.userData;
-            setName(userData.nombre || '');
-            setLastName(userData.apellido_paterno || '');
+            setName(userData.nombres || '');
+            setLastName(userData.apellidos || '');
             setMiddleName(userData.apellido_materno || '');
-            setEmail(userData.correo || '');
-            setPhone(userData.numero_telefono || '');
+            setEmail(userData.email || '');
+            setPhone(userData.numero_telefonico || '');
+
+            console.log(response)
         } catch (error) {
             console.error('Error fetching search results:', error);
         }
@@ -35,11 +41,17 @@ export default function informacionUsuarioSA() {
 
     // Fetch results when the component mounts
     useEffect(() => {
-        fetchResults();
-    }, []);
+        if(session){
+            fetchResults(session.id)
+            setQ(session.id)
+        } else {
 
-    const submitHandler = async () => {
-        await axios.put('/api/GA/editGA', { id, name, lastName, middleName, email, phone, password, confirmPassword });
+        }
+    }, [session]);
+
+    const submitHandler = async (q) => {
+        console.log(q)
+        await axios.put('/api/superadmin/update', { id:q, name:name, surname: lastName, email:email, currentPhone:phone});
     };
 
     const cancelHandler = () => {
@@ -66,7 +78,7 @@ export default function informacionUsuarioSA() {
                             variant="outlined"
                             fullWidth
                             InputLabelProps={inputLabelProps}
-                            placeholder="Ingrese su nombre"
+                            placeholder={name}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
@@ -80,7 +92,7 @@ export default function informacionUsuarioSA() {
                             variant="outlined"
                             fullWidth
                             InputLabelProps={inputLabelProps}
-                            placeholder="Ingrese su apellido paterno"
+                            placeholder="{lastName}"
                             onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
@@ -94,7 +106,7 @@ export default function informacionUsuarioSA() {
                         variant="outlined"
                         fullWidth
                         InputLabelProps={inputLabelProps}
-                        placeholder="Ingrese su correo electrónico"
+                        placeholder="{email}"
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
@@ -107,7 +119,7 @@ export default function informacionUsuarioSA() {
                         variant="outlined"
                         fullWidth
                         InputLabelProps={inputLabelProps}
-                        placeholder="Ingrese su número de teléfono"
+                        placeholder="{phone}"
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
@@ -132,7 +144,7 @@ export default function informacionUsuarioSA() {
                         variant="contained"
                         className={styles.button}
                         disableElevation
-                        onClick={submitHandler}
+                        onClick={()=>{submitHandler(q)}}
                         sx={{
                             backgroundColor: '#F55C7A',
                             fontFamily: 'lato',
