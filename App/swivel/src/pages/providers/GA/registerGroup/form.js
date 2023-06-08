@@ -85,27 +85,59 @@ export default function registerForm() {
     };
 
     return(
-        <div>
-            {first && <div>
-                <h1>Registro de GA</h1>
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Nombre del GA"
-                    value={GAName}
-                    onChange={(e) => setGAName(e.target.value)}
-                    required
-                />
-
-                <input
+        <div 
+            className="container align-self-center"
+            // style={{
+            //     display: "flex",
+            //     flexDirection: "column",
+            //     justifyContent: "center",
+            //     alignItems: "center", 
+            // }}
+        >
+            {first && <div 
+                style={{
+                    padding: "2rem"
+                }}
+                className="d-flex flex-column justify-content-center"
+                >
+                <div className="d-flex flex-row">
+                <h1
+                    // style={{
+                    //     marginBottom: "1.2rem"
+                    // }}
+                >Registro de GA</h1>
+                </div>
+                <div className="row">
+                    <div className="col-xl-6 col-md-12">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Nombre del GA"
+                        value={GAName}
+                        onChange={(e) => setGAName(e.target.value)}
+                        required
+                        style={{
+                            marginBottom: "0.8rem"
+                        }}
+                    />
+                    </div>
+                    <div className="col-xl-6 col-md-12">
+                    <input
                     type="text"
                     className="form-control"
                     placeholder="RFC"
                     value={rfc}
                     onChange={(e) => setRfc(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                </div>
+                
+                <div className="row">
+                    <div className="col-xl-4 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -113,8 +145,12 @@ export default function registerForm() {
                     value={street}
                     onChange={(e) => setStreet(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                <div className="col-xl-4 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -122,8 +158,12 @@ export default function registerForm() {
                     value={exterior_num}
                     onChange={(e) => setExteriorNum(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                <div className="col-xl-4 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -131,8 +171,14 @@ export default function registerForm() {
                     value={interior_num}
                     onChange={(e) => setInteriorNum(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                </div>
+                <div className="row">
+                    <div className="col-xl-4 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -140,8 +186,12 @@ export default function registerForm() {
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                <div className="col-xl-4 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -149,8 +199,12 @@ export default function registerForm() {
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                <div className="col-xl-4 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -158,8 +212,14 @@ export default function registerForm() {
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                </div>
+                <div className="row">
+                    <div className="col-xl-6 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -167,8 +227,12 @@ export default function registerForm() {
                     value={postalCode}
                     onChange={(e) => setPC(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
+                </div>
+                <div className="col-xl-6 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -176,8 +240,14 @@ export default function registerForm() {
                     value={GAphone}
                     onChange={(e) => setGAPhone(e.target.value)}
                     required
-                />                
-
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
+                />     
+                </div>           
+                </div>
+                <div className="row">
+                    <div className="col-xl-6 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -185,7 +255,12 @@ export default function registerForm() {
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
+                </div>
+                <div className="col-xl-6 col-md-12">
                 <input
                     type="text"
                     className="form-control"
@@ -193,11 +268,21 @@ export default function registerForm() {
                     value={GAemail}
                     onChange={(e) => setGAEmail(e.target.value)}
                     required
+                    style={{
+                        marginBottom: "0.8rem"
+                    }}
                 />
-
-                <button onClick={secondSection}>
+                </div>
+                </div>
+                <div className="row">
+                <button 
+                    style={{
+                        marginBottom: "2rem"
+                    }}
+                    onClick={secondSection}>
                     Siguiente
                 </button>
+                </div>
             </div>}
 
             {second && <div>
