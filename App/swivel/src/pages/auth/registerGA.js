@@ -3,7 +3,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import AuthComponent from "@/components/login/auth_component";
 
 /* Función que retorna el formulario de registro de GA con su dirección, junto con los botones de ingreso  */
 export default function SignupGAData() {
