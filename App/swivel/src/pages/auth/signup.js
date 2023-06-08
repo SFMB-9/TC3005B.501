@@ -89,6 +89,7 @@ export default function SignupBuyerData() {
       console.log(data);
       passStatus = true;
       setErrMessage("Usuario registrado exitosamente");
+      setTimeout(() => {window.location.href = "/auth/login";}, 8000);
     } catch (error) {
       console.log(error.response.data);
       passStatus = false;
@@ -416,7 +417,7 @@ export default function SignupBuyerData() {
                         //setActiveSectionIndex(0)
                         setError(false)
                         setLoading(false) 
-                        setTimeout(() => {window.location.href = "/auth/login";}, 2000);
+                        
                       } else {
                         setLoading(false);
                         setError(true);
