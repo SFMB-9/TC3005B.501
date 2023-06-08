@@ -25,35 +25,8 @@ import {
   AgencyEntity,
   SaEntity,
 } from "../../models/user";
-import Proceso from "../../models/procesos";
-
-/*
-
-Single Endpoint for all User Register operations across platforms.
 
 
-Authors:
-
-- Francisco Salcedo
-- Ana Paula Katsuda
-- Andreina Sananez
-- Emiliano Cabrera
-- Salvador Milanes 
-- Sebastian Gonzalez
-- Andrew Dunkerley
-
-*/
-
-import {
-  User,
-  SellerUser,
-  ManagerUser,
-  BuyerUser,
-  AdminUser,
-  GaEntity,
-  AgencyEntity,
-  SaEntity,
-} from "../../models/user";
 import Proceso from "../../models/procesos";
 
 import dbConnect from "../../config/dbConnect";
