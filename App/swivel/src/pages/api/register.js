@@ -27,6 +27,35 @@ import {
 } from "../../models/user";
 import Proceso from "../../models/procesos";
 
+/*
+
+Single Endpoint for all User Register operations across platforms.
+
+
+Authors:
+
+- Francisco Salcedo
+- Ana Paula Katsuda
+- Andreina Sananez
+- Emiliano Cabrera
+- Salvador Milanes 
+- Sebastian Gonzalez
+- Andrew Dunkerley
+
+*/
+
+import {
+  User,
+  SellerUser,
+  ManagerUser,
+  BuyerUser,
+  AdminUser,
+  GaEntity,
+  AgencyEntity,
+  SaEntity,
+} from "../../models/user";
+import Proceso from "../../models/procesos";
+
 import dbConnect from "../../config/dbConnect";
 
 import { encryptRole } from "../../utils/crypto";
@@ -75,6 +104,7 @@ export default async function handler(req, res) {
     });
 
     let usedEmail = await User.findOne({ email: email });
+    console.log(usedEmail);
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
 
@@ -144,6 +174,8 @@ export default async function handler(req, res) {
         const GA = req.body.grupo_id;
         const rfc = req.body.rfc;
         const url = req.body.url;
+        const email = req.body.email;
+        const numero_telefonico = req.body.numero_telefonico;
 
         const street = req.body.direccion.calle;
         const exterior_num = req.body.direccion.numero_exterior;
@@ -165,6 +197,8 @@ export default async function handler(req, res) {
         const A = await AgencyEntity.create({
           tipo_usuario: encrypted_role,
           nombres: name,
+          email: email,
+          numero_telefonico: numero_telefonico,
           direccion: {
             calle: street,
             numero_exterior: exterior_num,
@@ -227,6 +261,8 @@ export default async function handler(req, res) {
         const rfc = req.body.rfc;
         const url = req.body.url;
 
+        const email = req.body.email;
+        const numero_telefonico = req.body.numero_telefonico;
         const street = req.body.direccion.calle;
         const exterior_num = req.body.direccion.numero_exterior;
         const interior_num = req.body.direccion.numero_interior;
@@ -243,6 +279,8 @@ export default async function handler(req, res) {
         const GA = await GaEntity.create({
           tipo_usuario: encrypted_role,
           nombres: name,
+          email: email,
+          numero_telefonico: numero_telefonico,
           direccion: {
             calle: street,
             numero_exterior: exterior_num,
@@ -277,9 +315,6 @@ export default async function handler(req, res) {
           numero_telefonico: phone,
           grupo_automotriz_id: GA_id,
         });
-
-
-
 
         res.status(200).json({ message: "GA Admin registered successfully" });
       }

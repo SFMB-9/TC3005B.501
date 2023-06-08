@@ -33,7 +33,7 @@ export default function CategoryViews() {
     const response = await fetch('/api/catalogoNuevo/tipos')
     const data = await response.json()
     console.log(data)
-    setTypes(data.result.sort())
+    setTypes(data.result)
   }
 
   const fetchYears = async () => {

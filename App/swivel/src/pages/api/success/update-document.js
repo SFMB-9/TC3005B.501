@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
-
 import Stripe from "stripe";
 import { SellerUser } from "@/models/user";
 import connectToDatabase from "@/utils/mongodb";
@@ -47,7 +46,6 @@ export default async function handler(req, res) {
           //   return res.status(404).json({ message: "No se encontro el proceso" });
           // }
           //get the documents of the process
-  
           // proc.estatus = "pagado";
           // proc.markModified("pagado");
           // //save the changes

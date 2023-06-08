@@ -2,21 +2,22 @@
 
 import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
-import AuthComponent from "@/components/login/auth_component";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
+
+import AuthComponent from "@/components/login/auth_component";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
-
+  const [ loading, setLoading ] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
+  const [ error, setError ] = useState(false);
   const [ errors, setErrors ] = useState({
     email: false,
     password: false,
   });
-
-  const [ error, setError ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
+  const [firstTime, setFirstTime] = useState(true);
 
   const disabled = () => {
     for (const k in errors) {
@@ -25,14 +26,10 @@ export default function Login() {
     return !(password && email);
   }
 
-  const [errMessage, setErrMessage] = useState("");
-  let passStatus = null;
-
   useEffect(() => { }, [session]);
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-
+    setFirstTime(false);
     try {
       const data = await signIn("credentials", {
         redirect: false,
@@ -42,31 +39,39 @@ export default function Login() {
 
       if (data.error) {
         console.log("Error:", data.error);
-        passStatus = false;
-        setErrMessage("Correo o contraseña incorrectos");
-      } else {
-        passStatus = true;
-        let callbackUrl;
-        if (session.role === "user") {
-          callbackUrl = `${window.location.origin}/`;
-        } else if (session.role === "seller") {
-          callbackUrl = `${window.location.origin}/providers/seller`;
-        } else if (session.role === "GA") {
-          callbackUrl = `${window.location.origin}/providers/GA`;
-        } else if (session.role === "manager") {
-          callbackUrl = `${window.location.origin}/providers/manager`;
-        } else {
-          // Log the role to vscode console
-          console.log("Role:", session.role);
-          callbackUrl = `${window.location.origin}/auth/logout`;
+        if (!firstTime) {
+          setErrMessage("Correo o contraseña incorrectos");
+          setError(true);
+          setLoading(false)
         }
-
-        window.location.href = callbackUrl;
+      } else {
+          let callbackUrl;
+          if (session) {
+            if (session.role === "user") {
+              callbackUrl = `${window.location.origin}/`;
+            } else if (session.role === "seller") {
+              callbackUrl = `${window.location.origin}/providers/seller`;
+            } else if (session.role === "ga_admin") {
+              callbackUrl = `${window.location.origin}/providers/GA`;
+            } else if (session.role === "agencyManager") {
+              callbackUrl = `${window.location.origin}/providers/manager`;
+            } else if (session.role === "admin"){
+              callbackUrl = `${window.location.origin}/superadmin`;
+            } else {
+              callbackUrl = `${window.location.origin}/auth/logout`;
+            }
+          }
+          if (callbackUrl) {
+            window.location.href = callbackUrl;
+          }
       }
     } catch (error) {
       console.log(error);
-      passStatus = false;
-      setErrMessage("Hubo un error al iniciar sesión");
+      if (!firstTime) {
+        setErrMessage("Hubo un error al iniciar sesión");
+        setError(true);
+        setLoading(false);
+      }
     }
   };
 
@@ -75,7 +80,7 @@ export default function Login() {
       <AuthComponent
         backImage=""
         fields={
-          <form className="d-flex flex-column " onSubmit={submitHandler}>
+          <div className="d-flex flex-column " onSubmit={submitHandler}>
             <div className="form-outline mb-2">
               <label className="form-label">
                 <Typography
@@ -104,6 +109,7 @@ export default function Login() {
                   } else {
                     setErrors({ ...errors, email: false });
                   }
+                  setFirstTime(true)
                 }}
               />
 
@@ -128,24 +134,26 @@ export default function Login() {
                 onChange={(e) => {
                   const v = e.target.value;
                   setPassword(v);
+                  setFirstTime(true)
                 }}
               />
             </div>
             <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
               {error ? <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> : null}
               <Button 
-                type="submit" 
                 className="btn btn-primary btn-block mb-2"
                 disabled={disabled()}
-                onClick={() => {
-                  setLoading(true);
-                  if (passStatus === false) {
-                    setError(true);
-                    setLoading(false);
-                  } else {
-                    setError(false);
-                    passStatus = null;
+                onPointerOver={() => {
+                  if (firstTime) {
+                    console.log("first time");
+                    submitHandler();
                   }
+                }}
+                onClick={() => {
+                  setFirstTime(false);
+                  setLoading(true);
+                  setTimeout(()=> {submitHandler()}, 1000);
+                  
                 }}
               >
                 {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
@@ -179,7 +187,7 @@ export default function Login() {
                 No tienes cuenta? <a href="/auth/signup">Regístrate aquí</a>
               </p>
             </div>
-          </form>}
+          </div>}
         cardImage="/card_welcome.png"
         backColor="black"
         bodyText="Compra el auto de tus sueños en un solo click"

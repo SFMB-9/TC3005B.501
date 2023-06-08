@@ -18,12 +18,30 @@ export default function SellerSignup() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+  const [confPasswordHelper, setConfPasswordHelper] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
+  const [errors, setErrors] = useState({
+    name: false,
+    surname: false,
+    email: false,
+    phone: false,
+    password: false,
+  });
+
+  const disabled = () => {
+    for (let key in errors) {
+      if (errors[key] !== "") return true;
+    }
+    return !(name && surname && email && phone && password && confPassword);
+  };
   
   const agency = "6475ce431870c4941b667158";
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const { data } = await axios.post("/api/register", {
         nombres: name,
@@ -34,11 +52,17 @@ export default function SellerSignup() {
         agencia_id: agency,
         numero_telefonico: phone,
       });
-
-      window.location.href = `${window.location.origin}/providers/manager/manage_sellers`;
+      setError(true);
+      setErrMessage("Usuario registrado correctamente");
+      setLoading(false);
       console.log(data);
+      setTimeout(()=>{window.location.href = `${window.location.origin}/providers/manager/manage_sellers`;}, 2000)
+      
     } catch (error) {
       console.log(error.response.data);
+      setError(true);
+      setErrMessage("Error al registrar usuario");
+      setLoading(false);
     }
   };
 
@@ -46,7 +70,7 @@ export default function SellerSignup() {
     <>
     <ManagerLayout>
       <Container maxWidth="xl"> 
-      <div className="section pt-3 p-5">
+        <div className="section pt-3 p-5">
           <Typography
             fontFamily="Lato"
             color="#1F1F1F"
@@ -55,7 +79,6 @@ export default function SellerSignup() {
           >
             Registra un vendedor
           </Typography>
-
           <Typography
             fontFamily="Lato"
             color="#1F1F1F"
@@ -65,20 +88,18 @@ export default function SellerSignup() {
           >
             Datos Personales
           </Typography>
-
           <form onSubmit={submitHandler}>
-          <div className="d-sm-flex justify-content-between mb-4">
-            <div className="row">
-              
+            <div className="d-sm-flex justify-content-between mb-4">
+              <div className="row">
                 <div className="col-xl-6 col-md-8">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      className="pb-3"
-                      fontSize={{ xs: 15, md: 16, lg: 18 }}
-                    >
-                      Nombre(s)
-                    </Typography>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Nombre(s)
+                  </Typography>
                   <TextField
                     required
                     size="small"
@@ -94,16 +115,15 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-
                 <div className="col-xl-6 col-md-8">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      className="pb-3"
-                      fontSize={{ xs: 15, md: 16, lg: 18 }}
-                    >
-                      Apellidos
-                    </Typography>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Apellidos
+                  </Typography>
                   <TextField
                     required
                     size="small"
@@ -119,7 +139,6 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-              
                 <div className="col-xl-6 col-md-8">
                   <Typography
                     fontFamily="Lato"
@@ -153,7 +172,6 @@ export default function SellerSignup() {
                   >
                     Celular
                   </Typography>
-
                   <TextField
                     required
                     size="small"
@@ -169,7 +187,6 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-
                 <Typography
                   fontFamily="Lato"
                   color="#1F1F1F"
@@ -179,7 +196,6 @@ export default function SellerSignup() {
                 >
                   Contraseña
                 </Typography>
-
                 <Typography
                   fontFamily="Lato"
                   color="#8A8A8A"
@@ -188,17 +204,15 @@ export default function SellerSignup() {
                 >
                   La contraseña debe tener al menos seis caracteres, e incluir una combinación de números, letras y caracteres especiales (!$@%).
                 </Typography>
-
-              
                 <div className="col-xl-6 col-md-8">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      className="pb-3"
-                      fontSize={{ xs: 15, md: 16, lg: 18 }}
-                    >
-                      Contraseña
-                    </Typography>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Contraseña
+                  </Typography>
                   <TextField
                     required
                     size="small"
@@ -214,7 +228,6 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-
                 <div className="col-xl-6 col-md-8">
                   <Typography
                     fontFamily="Lato"
@@ -224,7 +237,6 @@ export default function SellerSignup() {
                   >
                     Confirmar contraseña
                   </Typography>
-
                   <TextField
                     required
                     size="small"
@@ -240,27 +252,24 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-              
-
-              <Typography
-                fontFamily="Lato"
-                color="#1F1F1F"
-                className="pt-5 pb-3"
-                fontWeight="bold"
-                fontSize={{ xs: 16, md: 17, lg: 19 }}
-              >
-                Datos Administrativos
-              </Typography>
-              
+                <Typography
+                  fontFamily="Lato"
+                  color="#1F1F1F"
+                  className="pt-5 pb-3"
+                  fontWeight="bold"
+                  fontSize={{ xs: 16, md: 17, lg: 19 }}
+                >
+                  Datos Administrativos
+                </Typography>
                 <div className="col-xl-6 col-md-8">
-                    <Typography
-                      fontFamily="Lato"
-                      color="#8A8A8A"
-                      className="pb-3"
-                      fontSize={{ xs: 15, md: 16, lg: 18 }}
-                    >
-                      Agencia
-                    </Typography>
+                  <Typography
+                    fontFamily="Lato"
+                    color="#8A8A8A"
+                    className="pb-3"
+                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                  >
+                    Agencia
+                  </Typography>
                   <TextField
                     disabled
                     size="small"
@@ -276,7 +285,6 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-
                 <div className="col-xl-6 col-md-8">
                   <Typography
                     fontFamily="Lato"
@@ -286,7 +294,6 @@ export default function SellerSignup() {
                   >
                     Ubicación
                   </Typography>
-
                   <TextField
                     disabled
                     size="small"
@@ -302,7 +309,6 @@ export default function SellerSignup() {
                     className="mb-3 w-100"
                   />
                 </div>
-
                 <div className="text-center mt-5">
                   <Button
                     variant="contained"
