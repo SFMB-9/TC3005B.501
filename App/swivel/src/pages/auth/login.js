@@ -111,6 +111,9 @@ export default function Login() {
                   }
                   setFirstTime(true)
                 }}
+                sx={{
+                  '& input': { padding: "0.8vw" },
+                }}
               />
 
             </div>
@@ -135,6 +138,9 @@ export default function Login() {
                   const v = e.target.value;
                   setPassword(v);
                   setFirstTime(true)
+                }}
+                sx={{
+                  '& input': { padding: "0.8vw" },
                 }}
               />
             </div>
