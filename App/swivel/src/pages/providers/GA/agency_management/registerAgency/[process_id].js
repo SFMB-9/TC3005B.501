@@ -6,8 +6,12 @@ import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
 import axios from "axios";
+import GANavbar from '@/components/providers/GA/navbar';
+import styles from '@/styles/test_details.module.css';
+import PhaseIndicator from '@/components/general/phase_indicator';
+import { formatDate } from "@/components/general/date_utils";
 
-export default function RegisterGroupProcess() {
+export default function RegisterAgencyProcess() {
     const router = useRouter();
     const { process_id } = router.query;
 
@@ -154,6 +158,19 @@ export default function RegisterGroupProcess() {
                 align: "center",
                 minWidth: 150,
                 flex: 2,
+                renderCell: (params) => (
+                    <>
+                        {params.row.url && params.row.url !== "" ? (
+                            <a href={params.row.url}>
+                                <u>Ver archivo</u>
+                            </a>
+                        ) : (
+                            <div>
+                                No hay archivo
+                            </div>
+                        )}
+                    </>
+                ),
             },
             {
                 field: "estatus",
@@ -170,6 +187,10 @@ export default function RegisterGroupProcess() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : "";
+                    return cell;
+                },
             },
             {
                 field: "comentarios",
@@ -240,71 +261,105 @@ export default function RegisterGroupProcess() {
         [documents, isOpen]
     );
 
+    const phases = ['Datos', 'Documentos'];
+
     if (process != null) {
         return (
             <div>
-                <Container maxWidth="md">
+                <GANavbar />
+                <h1 className={styles.request}>Solicitud de registro de Agencia</h1>
+                <PhaseIndicator phases={phases} currentPhaseIndex={1} />
+                <Container>
                     <Fade in={true} timeout={1000}>
                         <div className="section p-5">
                             <Typography
                                 fontFamily="Lato"
                                 color="#1F1F1F"
                                 fontSize={{ xs: 25, md: 28, lg: 33 }}
-                                className="pt-2 text-center"
+                                className="text-center"
                             >
-                                Suba los documentos requeridos para realizar el registro de Agencia
+                                Entrega de documentos
                             </Typography>
                         </div>
                     </Fade>
 
                     <Fade in={true} timeout={1500}>
                         <div className="section px-5 text-sm-start text-center mb-3">
-                            <div className="row align-items-center shadow-sm rounded border p-2 mb-3">
+                            <div className="container shadow-sm rounded border p-2 mb-3">
+                                <div className='row mt-4'>
+                                    <div className='col-12 col-md-6'>
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Nombre de la agencia:
+                                            {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_agencia.nombres}
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div className='col-12 col-md-6'>
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Sitio web:
+                                            {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_agencia.url}
+                                            </span>
+                                        </h5>
+                                </div>
+                            </div>
+                            <div className="row mt-4 mb-4">
                                 <div className="col-12 col-sm-6">
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        className="pb-3"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
+                                    <h5
+                                        style={{
+                                            paddingLeft: "1.2rem",
+                                        }}
                                     >
-                                        <strong>Nombre del Agencia:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>
-                                            {process.info_agencia.nombres}
+                                        Número telefónico:
+                                        {" "}
+                                        <span style={{
+                                            color: "#333333",
+                                            fontWeight: "lighter",
+                                            fontSize: "1.1rem"
+                                        }}>
+                                            {process.info_agencia.numero_telefonico}
                                         </span>
-                                    </Typography>
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        className="pb-3"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
+                                    </h5>
+                                </div>
+                                <div className="col-12 col-sm-6">
+                                    <h5
+                                        style={{
+                                            paddingLeft: "1.2rem",
+                                        }}
                                     >
-                                        <strong>Website:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>
-                                            {process.info_agencia.url}
-                                        </span>
-                                    </Typography>
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        className="pb-3"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
-                                    >
-                                        <strong>Número Telefónico:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>{process.info_agencia.numero_telefonico}</span>
-                                    </Typography>
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
-                                    >
-                                        <strong>Email:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>
+                                        Correo electrónico:
+                                        {" "}
+                                        <span style={{
+                                            color: "#333333",
+                                            fontWeight: "lighter",
+                                            fontSize: "1.1rem"
+                                        }}>
                                             {process.info_agencia.email}
                                         </span>
-                                    </Typography>
+                                    </h5>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </Fade>
 
                     <Fade in={true} timeout={1500}>
@@ -347,13 +402,13 @@ export default function RegisterGroupProcess() {
                         </div>
                     </Fade>
                     <Fade in={true} timeout={1500}>
-                        <div className="text-center mt-4">
+                        <div className="text-center mt-4 mb-5">
                             <Button
                                 variant="outlined"
                                 sx={{
                                     fontFamily: "Lato",
                                     color: "000000",
-                                    width: 150,
+                                    width: "auto",
                                     // ":hover": {
                                     //   backgroundColor: "#F68E70",
                                     // },
@@ -370,7 +425,7 @@ export default function RegisterGroupProcess() {
                                 variant="contained"
                                 sx={{
                                     fontFamily: "Lato",
-                                    width: 150,
+                                    width: "auto",
                                     ":hover": {
                                         backgroundColor: "#F68E70",
                                     },
