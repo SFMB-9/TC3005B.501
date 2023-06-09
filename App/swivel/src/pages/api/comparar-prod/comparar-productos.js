@@ -1,4 +1,3 @@
-import dbConnect from "../../../config/dbConnect";
 import { Client } from '@elastic/elasticsearch';
 
 /* 
@@ -15,8 +14,6 @@ export default async function handler(req, res) {
     })
 
     if(req.method === 'GET'){
-        dbConnect();
-
         const lst = req.query.lst;
         const arr = lst.split(',')
 
