@@ -3,6 +3,7 @@ import CustomHero from "@/components/general/custom_hero";
 import OtherGANavbar from "@/components/providers/GA/navNoSession";
 import Process from "@/components/providers/GA/process";
 import RequestCards from "@/components/providers/GA/request_cards";
+import Footer from "@/components/general/Footer";
 
 export default function gaLandingPage() {
   return (
@@ -14,6 +15,7 @@ export default function gaLandingPage() {
       />
       <RequestCards/>
       <Process />
+      <Footer />
     </>
   );
 }
