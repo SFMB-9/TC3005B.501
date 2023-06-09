@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 
-export default function informacionUsuarioSA() {
+export default function InformacionUsuarioSA() {
     const router = useRouter();
     const { data: session } = useSession();
 

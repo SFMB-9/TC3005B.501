@@ -9,7 +9,7 @@ import GANavbar from '@/components/providers/GA/navbar'
 import styles from '@/styles/test_details.module.css';
 import mexicanStates from "@/components/general/states";
 
-export default function registerForm() {
+export default function RegisterForm() {
     const { data: session } = useSession();
     const router = useRouter();
 

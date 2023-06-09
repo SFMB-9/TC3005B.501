@@ -3,7 +3,7 @@
 import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
-
+import Link from "next/link";
 import AuthComponent from "@/components/login/auth_component";
 
 export default function Login() {
@@ -184,7 +184,7 @@ export default function Login() {
             </div>
             <div className="text-center">
               <p>
-                No tienes cuenta? <a href="/auth/signup">Regístrate aquí</a>
+                No tienes cuenta? <Link href="/auth/signup">Regístrate aquí</Link>
               </p>
             </div>
           </div>}

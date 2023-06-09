@@ -9,7 +9,7 @@ import { useState, useEffect} from 'react';
 import { useSession } from "next-auth/react";
 import LoadingScreen from "@/components/general/LoadingScreen";
 
-export default function detailsGA() {
+export default function DetailsGA() {
 
     const router = useRouter();
     const userId = router.query.id_ga;

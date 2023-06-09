@@ -300,7 +300,7 @@ const RequestDetails = () => {
                       </li>
                     </>
                   ) : (
-                    <li className="list-group-item">"No hay cliente</li>
+                    <li className="list-group-item">No hay cliente</li>
                   )}
                 </ul>
               </div>

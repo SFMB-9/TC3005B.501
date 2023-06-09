@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 
 
-export default function changePasswordSA() {
+export default function ChangePasswordSA() {
 
       const router = useRouter();
     const { data: session } = useSession();

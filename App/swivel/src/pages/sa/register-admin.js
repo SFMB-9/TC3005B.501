@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import LoadingScreen from "@/components/general/LoadingScreen";
 
 
-export default function addSAdmin() {
+export default function AddSAdmin() {
 
 
 
@@ -208,7 +208,7 @@ export default function addSAdmin() {
                     >
                         Guardar
                     </Button>)}
-                    {badPw && (<div> Passwords don't match.</div>)}
+                    {badPw && (<div> Passwords don&apos;t match.</div>)}
                     {success && (<div> User created successfully </div>)}
                 </div>
             </div>
