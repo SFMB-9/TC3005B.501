@@ -15,6 +15,8 @@ import React, { useState } from "react";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 
 import AuthComponent from "@/components/login/auth_component";
+import mexicanStates from "@/components/general/states";
+import styles from '@/styles/signup.module.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Función que retorna el formulario de registro de comprador con su dirección, junto con los botones de ingreso  */
@@ -123,6 +125,9 @@ export default function SignupBuyerData() {
                         setErrors({ ...errors, name: false })
                       }
                     }}
+                    sx={{
+                      marginRight: "0.5vw",
+                    }}
                   />
                   <TextField
                     required
@@ -143,9 +148,10 @@ export default function SignupBuyerData() {
                       }
                     }}
                     sx={{
-                      '& input': { padding: "0.8vw" },
+                      marginLeft: "0.5vw",
                     }}
                   />
+                  
                 </div>
                 <TextField
                   required
@@ -289,11 +295,10 @@ export default function SignupBuyerData() {
             title="Regístrate"
             fields={
               <div className="d-flex flex-column">
-                <div className="d-flex flex-row mb-2">
                   <TextField
                     required
                     size="small"
-                    sx={{width: "50%"}}
+                    className="w-100 mb-2"
                     label="Calle"
                     value={street}
                     disabled={loading}
@@ -309,11 +314,13 @@ export default function SignupBuyerData() {
                       }
                     }}
                   />
+                <div className="d-flex flex-row mb-2">
                   <TextField
                     required
                     type="number"
                     size="small"
-                    sx={{width: "45%"}}
+                    className="w-100"
+                    sx={{marginRight:"0.5vw"}}
                     label="nº Exterior"
                     value={exterior_num}
                     disabled={loading}
@@ -324,7 +331,8 @@ export default function SignupBuyerData() {
                   <TextField
                     size="small"
                     type="number"
-                    sx={{width: "45%"}}
+                    className="w-100"
+                    sx={{marginLeft:"0.5vw"}}
                     label="nº Interior"
                     value={interior_num}
                     disabled={loading}
@@ -364,7 +372,21 @@ export default function SignupBuyerData() {
                     }
                   }}
                 />
-                <TextField
+                <select
+                  required
+                  className="mb-2"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  id={styles.dropdownStates}
+                >
+                  <option value="">Elegir estado</option>
+                  {mexicanStates.map((stateObj, index) => (
+                    <option key={index} value={stateObj.name}>
+                      {stateObj.name}
+                    </option>
+                  ))}
+                </select>
+                {/* <TextField
                   required
                   size="small"
                   className="w-100 mb-2"
@@ -382,7 +404,7 @@ export default function SignupBuyerData() {
                       setErrors({ ...errors, state: false })
                     }
                   }}
-                />
+                /> */}
                 <TextField
                   required
                   size="small"
