@@ -1,6 +1,7 @@
 // Author: Mateo Herrera Sebastian Gonzalez
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -249,14 +250,14 @@ export default function CarDetails() {
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalog">
+              <Link href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
                 <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
                   Regresar al catálogo
                 </span>
-              </a>
+              </Link>
               <div className="pt-4">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>

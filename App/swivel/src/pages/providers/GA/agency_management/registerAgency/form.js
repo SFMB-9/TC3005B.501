@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-export default function registerForm() {
+export default function RegisterForm() {
     const { data: session } = useSession();
     const router = useRouter();
 

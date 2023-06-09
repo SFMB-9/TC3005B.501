@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
 
-export default function informacionGA() {
+export default function InformacionGA() {
     const router = useRouter();
     const id = "6477e14bae27e558e56c3c13";
 
