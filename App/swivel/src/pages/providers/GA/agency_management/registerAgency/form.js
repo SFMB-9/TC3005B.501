@@ -8,7 +8,6 @@ Sebastián González Villacorta
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import AuthComponent from "@/components/login/auth_component";
 import { useSession } from "next-auth/react";
 
 export default function registerForm() {
@@ -28,10 +27,18 @@ export default function registerForm() {
     const [country, setCountry] = useState("");
     const [postalCode, setPC] = useState("");
 
+    const fetchGAId = async () => {
+        const res = await fetch(`/api/managerProfile/managerP?id=${session.id}`);
+        const ga_admin_data = await res.json();
+        const ga_id = ga_admin_data.userData.grupo_automotriz_id;
+        return ga_id;
+    };
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
         try {
+            const ga_id = await fetchGAId();
             const result = await axios.post("/api/GA/agency-register", {
                 nombre_agencia: agencyName,
                 agencyPhone: agencyPhone,
@@ -39,8 +46,6 @@ export default function registerForm() {
                 url: url,
                 rfc: rfc,
                 docs: ["Acta constitutiva", "RFC", "Comprobante de domicilio"],
-                //grupo_automotriz_id: session.id, //Obtener el id del grupo automotriz
-                grupo_automotriz_id: "647ae7c7f25041c1b7b8a57b",
                 direccion: {
                     calle: street,
                     numero_exterior: exterior_num,
@@ -50,6 +55,7 @@ export default function registerForm() {
                     pais: country,
                     codigo_postal: postalCode,
                 },
+                grupo_automotriz_id: ga_id,
 
             });
 

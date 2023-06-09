@@ -22,35 +22,49 @@ import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
 import EditEntityData from '@/components/providers/GA/edit_entity_data';
+import { useSession } from "next-auth/react";
 
 export default function ManageAgencias() {
     const [agencias, setAgencias] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
-    const role = "ea32725caec36ffca1c1ee939e606cd1"; // Quitar cosas hardcodeadas
-    const GA = "647ae7c7f25041c1b7b8a57b";
+    const [GA, setGA] = useState("");
+    const role = "1624fa678ed998894bece420898aa464"; // Quitar cosas hardcodeadas
     const router = useRouter();
+    const { data: session } = useSession();
 
-    const RoutRegistroAgencias = () => {
+
+    const RouteRegistroAgencias = () => {
         if (router) {
-            router.push({
-                pathname: `/providers/GA/registroAgencia?GA=${GA}`, // por definir
-                // pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
-            });
+            router.push("/providers/GA/agency_management/registerAgency/form");
         }
     };
 
     const fetchAgencias = async () => {
-        const res = await fetch(
-            `http://localhost:3000/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
-        );
-        const data = await res.json();
-        setAgencias(data.result);
+        try{
+            const res = await fetch(
+                `/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+            );
+            const data = await res.json();
+            setAgencias(data.result);
+        }catch(error){
+            console.log(error)
+        }
+        
     };
 
+    const fetchGAId = async () => {
+        const res = await fetch(`/api/managerProfile/managerP?id=${session.id}`);
+        const ga_admin_data = await res.json();
+        const GA = ga_admin_data.userData.grupo_automotriz_id;
+        console.log(GA)
+        setGA(GA);
+    };
     useEffect(() => {
+        if(!session) return
+        fetchGAId();
         fetchAgencias();
-    }, []);
+    }, [GA]);
 
     useEffect(() => {
         if (agencias) {
@@ -168,7 +182,6 @@ export default function ManageAgencias() {
                                     <>
                                     <EditEntityData data={params.row}
                                         userType="agency" />
-                                    {console.log("params.row", params.row)}
                                     </>
                                 }
                                 btnOpen={
@@ -233,7 +246,7 @@ export default function ManageAgencias() {
                                         />
                                         {/* <a href='/providers/seller/signup'> */}
                                         <button
-                                            onClick={RoutRegistroAgencias}
+                                            onClick={RouteRegistroAgencias}
                                             style={{
                                                 flex: '25%',
                                                 backgroundColor: '#F55C7A',
@@ -283,6 +296,18 @@ export default function ManageAgencias() {
                                 :
                                 <div>
                                     <p>No hay agencias registradas</p>
+                                    <button
+                                            onClick={RouteRegistroAgencias}
+                                            style={{
+                                                flex: '25%',
+                                                backgroundColor: '#F55C7A',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '6px',
+                                                height: '50%',
+                                                padding: '0.5rem 1rem',
+                                            }}
+                                        > Registrar agencia  + </button>
                                 </div>
                         }
                     </div>

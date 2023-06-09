@@ -96,7 +96,7 @@ export default function RegisterGroupProcess() {
             "email": process.info_agencia.email,
             "tipo_usuario": "agencyEntity",
             "numero_telefonico": process.info_agencia.numero_telefonico,
-            "grupo_id": "grupo_id", //Cambiar
+            "grupo_id": process.grupo_automotriz_id,
             "rfc": process.info_agencia.rfc,
             "url": process.info_agencia.url,
             "direccion": {
