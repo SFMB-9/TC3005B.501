@@ -15,8 +15,9 @@ import { storage } from "../../../utils/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 function validateFile(file) {
-  const allowedExtensions = ["pdf", "docx", "png", "jpg"]; // your allowed extensions
-  const sizeLimit = 5 * 1024 * 1024; // 5 MB size limit
+  console.log(typeof file);
+  const allowedExtensions = ["pdf", "jpg", "jpeg", "png", "gif", "bmp"];
+  const sizeLimit = 32* 1024 * 1024; // 5 MB size limit
 
   // Get the file extension
   const fileExtension = file.name.split(".").pop().toLowerCase();
@@ -29,7 +30,7 @@ function validateFile(file) {
       )}`
     );
   }
-
+  
   // Check the size
   if (file.size > sizeLimit) {
     throw new Error(
