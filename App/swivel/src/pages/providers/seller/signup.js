@@ -37,7 +37,7 @@ export default function SellerSignup() {
     return !(name && surname && email && phone && password && confPassword);
   };
   
-  const agency = "6475ce431870c4941b667158";
+  const agency = "647af5ebfb2360082e89094b";
 
   const submitHandler = async (e) => {
     e.preventDefault();
