@@ -71,12 +71,12 @@ export default function WorkingHoursComponent() {
     const res = await resRaw.json();
     const agencyData = res.userData;
 
-    // Set the state variables accordingly
-    console.log('AD: ', agencyData)
     // Map the documents to the format expected by the table
     const docs = agencyData.documentos_requeridos_compra.map((doc) => {
       return { 0: doc };
     });
+
+    // Set the state variables accordingly
     setDoc(docs);
     setStartTime(agencyData.horas_min);
     setEndTime(agencyData.horas_max);
@@ -111,10 +111,7 @@ export default function WorkingHoursComponent() {
       dias_max: maxDays
     });
 
-    // returnToLastPage();
-    console.log("Se actualizó la agencia");
-    // Show new documents
-    console.log(documents);
+    returnToLastPage();
   };
 
   const returnToLastPage = () => {
