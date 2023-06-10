@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PopUpComponent from '@/components/general/Popup';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import EditSellerData from '@/components/providers/seller/edit_seller_data';
 
 export default function AgencyDetails() {
 
@@ -81,9 +82,10 @@ export default function AgencyDetails() {
         }
     };
 
-    const editEntry = (entry) => {
-        router.push(`providers/new_GA/edit-gerente?id=${entry}`);
-    };
+    // const editEntry = (entry) => {
+    //     router.push(`providers/new_GA/edit-gerente?id=${entry}`);
+    // };
+
 
     const addManager = () => {
         //router.push(`providers/manager/signup?GA_id=${agency.grupo_automotriz_id}&agency_id=${router.query.id}`);
@@ -275,16 +277,15 @@ export default function AgencyDetails() {
                           <PopUpComponent
                               title="Editar datos"
                               popUpContent={
-                                  <div>
-                                      <p> Editar datos </p>
-                                  </div>
+                                <EditSellerData data={params.row}
+                                userType="manager"
+                                />
                               }
                               btnOpen={
                                   <IconButton
                                       aria-label="delete"
                                       size="small"
                                       component="span"
-                                  // onClick={() => editEntry(params.row)}
                                   >
                                       <EditIcon />
                                   </IconButton>
@@ -294,7 +295,7 @@ export default function AgencyDetails() {
                               title="Eliminar Gerente"
                               popUpContent={
                                   <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar a este gerente? </p>
-                                      <p> Al hacer click en &quot;Confirmar&quot; estas confirmando de forma definitiva que quieres eliminar la cuenta. </p>
+                                      <p> Al hacer click en &quot;Eliminar gerente&quot; estas confirmando de forma definitiva que quieres eliminar la cuenta. </p>
                                       <Button
                                           variant="contained"
                                           onClick={() =>  deleteEntry(params.row._id)}

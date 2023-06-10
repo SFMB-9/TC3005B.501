@@ -22,7 +22,9 @@ export default function EditSellerData(props) {
         apiPath = "/api/gerente/actualizar-vendedor";
     } else if (props.userType === "gaManager") {
         apiPath = "/api/GA/actualizar-admin-ga";
-    } 
+    } else if (props.userType === "manager") {
+        apiPath = "/api/GA/actualizar-gerente";
+    }
     
     console.log("the path", apiPath)
 
