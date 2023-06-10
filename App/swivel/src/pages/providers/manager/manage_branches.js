@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Grid, Typography, TextField, Button, Card, CardContent, IconButton, fabClasses } from '@mui/material';
+import { Grid, Typography, TextField, Card, CardContent, IconButton, Fade } from '@mui/material';
 import axios from "axios";
 import ManagerLayout from "@/components/providers/manager/layout";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import DataTable from "@/components/general/Table";
-import CheckIcon from '@mui/icons-material/Check';
 import CustomizedSnackbars from "@/components/general/Alert";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function WorkingHoursComponent() {
   const router = useRouter();
@@ -22,38 +20,20 @@ export default function WorkingHoursComponent() {
   const [name, setName] = useState('');
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [docs, setDoc] = useState([]);
 
-  // const handleAddFile = () => {
-  //   const docs = [...documents, { _id: documents.length, name: name }];
-  //       const newDocs = docs.map((doc, i) => {
-  //         return {
-  //           _id: i,
-  //           name: doc.name,
-  //         }
-  //       }
-  //       );
-  //       setDocuments(newDocs);
+  const createEmptyDoc = () => ({ 0: '' });
 
-  //     setName('');
-  //     setShow(false);
-
-  // }
-
-  // const handleDeleteFile = (id) => {
-  //   const docs = [...documents];
-  //   console.log(documents);
-  //   const deletedDocs = docs.filter((doc) => doc._id !== id);
-  //   const newDocs = deletedDocs.map((doc, i) => {
-  //     return {
-  //       _id: i,
-  //       name: doc.name,
-  //     }
-  //   }
-  //   );
-  //   console.log(newDocs);
-  //   setDocuments(newDocs);
-    
-  // }
+  const handleRemoveDoc = (index) => {
+    setDoc((prevPlazo) => {
+      const updatedDoc = [...prevPlazo];
+      updatedDoc.splice(index, 1);
+      return updatedDoc;
+    });
+    const updatedDoc = [...docs];
+    updatedDoc.splice(index, 1);
+    setDoc(updatedDoc);
+  };
 
 
   // Handle input changes
@@ -73,19 +53,36 @@ export default function WorkingHoursComponent() {
     setMaxDays(parseInt(event.target.value));
   };
 
-  const fetchData = async (retrievedAgencyId) => {
-      // Get the agency data
-      const resRaw = await fetch(`/api/managerProfile/managerP?id=${retrievedAgencyId}`);
-      const res = await resRaw.json();
-      const agencyData = res.userData;
+  const handleAddRow = (setStateFunc, createEmptyFunc) => {
+    setStateFunc((prevState) => [...prevState, createEmptyFunc()]);
+  };
 
-      // Set the state variables accordingly
-      setDocuments(agencyData.documentos_requeridos_compra);
-      setStartTime(agencyData.horas_min);
-      setEndTime(agencyData.horas_max);
-      setPreDays(agencyData.dias_anticipo);
-      setMaxDays(agencyData.dias_max);
-      setAgencyId(retrievedAgencyId);
+  const handleValueChange = (newValue, index) => {
+    const newPlazos = [...docs];
+    const key = Object.keys(newPlazos[index])[0];
+    const updatedObject = { [key]: newValue};
+    newPlazos[index] = updatedObject;
+    setDoc(newPlazos);
+  };
+
+  const fetchData = async (retrievedAgencyId) => {
+    // Get the agency data
+    const resRaw = await fetch(`/api/managerProfile/managerP?id=${retrievedAgencyId}`);
+    const res = await resRaw.json();
+    const agencyData = res.userData;
+
+    // Set the state variables accordingly
+    console.log('AD: ', agencyData)
+    // Map the documents to the format expected by the table
+    const docs = agencyData.documentos_requeridos_compra.map((doc) => {
+      return { 0: doc };
+    });
+    setDoc(docs);
+    setStartTime(agencyData.horas_min);
+    setEndTime(agencyData.horas_max);
+    setPreDays(agencyData.dias_anticipo);
+    setMaxDays(agencyData.dias_max);
+    setAgencyId(retrievedAgencyId);
   };
 
   // Handle form submission
@@ -98,16 +95,26 @@ export default function WorkingHoursComponent() {
       return;
     }
 
-    await axios.put('/api/agencia/actualizar-agencia', { 
-      id: agencyId, 
+    // Map the documents to the format expected by the backend
+    const documents = docs.map((doc) => {
+      return Object.values(doc)[0];
+    });
+    console.log('DOCS: ', documents);
+
+    await axios.put('/api/agencia/actualizar-agencia', {
+      id: agencyId,
+
       documentos: documents,
       horas_min: startTime,
       horas_max: endTime,
       dias_anticipo: preDays,
       dias_max: maxDays
     });
-    
-    returnToLastPage();
+
+    // returnToLastPage();
+    console.log("Se actualizó la agencia");
+    // Show new documents
+    console.log(documents);
   };
 
   const returnToLastPage = () => {
@@ -117,10 +124,10 @@ export default function WorkingHoursComponent() {
   useEffect(() => {
     const getIdAgencia = async () => {
       let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
-          { method: 'GET' });
-  
+        { method: 'GET' });
+
       const agenciaId = await agenciaIdRaw.json();
-  
+
       return agenciaId.user.agencia_id;
     }
 
@@ -130,58 +137,6 @@ export default function WorkingHoursComponent() {
       );
     }
   }, [router.isReady, session]);
-
-  // const columns = useMemo( ()=> [
-  //   {
-  //     field: "_id",
-  //     headerName: "No.",
-  //     type: "number",
-  //     headerAlign: "center",
-  //     align: "center",
-  //     minWidth: 150,
-  //     flex: 1,
-  //   },
-  //   {
-  //     field: "name",
-  //     headerName: "Documento",
-  //     headerAlign: "center",
-  //     align: "center",
-  //     minWidth: 150,
-  //     flex: 1,
-  //   },
-  //   {
-  //     field: "botones",
-  //     headerName: "",
-  //     headerAlign: "center",
-  //     align: "center",
-  //     minWidth: 150,
-  //     flex: 1,
-  //     type: "actions",
-  //     renderCell: (params) => (
-  //       // <Button
-  //       //   variant="contained"
-  //       //   disableElevation
-  //       //   onClick={() =>
-  //       //     viewRequest(params.row._id, params.row.usuario_final_id)
-  //       //   }
-  //       //   className="py-0"
-  //       //   sx={{
-  //       //     fontFamily: "Lato",
-  //       //     fontSize: "12px",
-  //       //     backgroundColor: "#111439",
-  //       //   }}
-  //       // >
-  //       //   Ver detalles
-  //       // </Button>
-  //       <>
-  //       <IconButton aria-label="delete" size="small" onClick={()=>handleDeleteFile(params.row._id)}>
-  //         <DeleteOutlineIcon />
-  //       </IconButton>
-  //       </>
-  //     ),
-  //   },
-  // ], [documents]);
-
 
   if (agencyId) {
     return (
@@ -397,7 +352,7 @@ export default function WorkingHoursComponent() {
                         marginBottom: '2%',
                         textAlign: 'center',
                       }} color="text.secondary">
-                        Gestiona los documentos que el cliente debera presentar en la agencia para completar su proceso de compra, y seleccione cuales aplican para una solicitud de prueba de manejo.
+                        Gestiona los documentos que el cliente deberá presentar en la Agencia para completar su proceso de compra, y seleccione cuáles aplican para una solicitud de prueba de manejo.
                       </Typography>
                     </div>
                     <div
@@ -414,7 +369,7 @@ export default function WorkingHoursComponent() {
                           marginBottom: '2%',
                         }}
                       >
-                      {/* {documents ? (
+                        {/* {documents ? (
                         <div className="section d-flex justify-content-center w-100">
                         <div className="pt-4">
                           <DataTable
@@ -458,33 +413,75 @@ export default function WorkingHoursComponent() {
                         </div>
                       )} */}
                       </div>
-
-                      {(show &&
-                      
-                      <div className='d-flex justify-content-around align-items-center'>
-
-                        <TextField
-                          label="Nombre del documento"
-                          onChange={(e) => setName(e.target.value)}
-                          value={name}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          sx={{
-                            flex: '50%',
-                            marginRight: '0.5rem',
-                          }}
-                        />
-                        <IconButton aria-label="delete" size="small" onClick={() => {setName(''); setShow(false)}}>
-                          <DeleteOutlineIcon />
-                        </IconButton>
-
-                        <IconButton aria-label="delete" size="small" onClick={handleAddFile}>
-                          <CheckIcon />
-                        </IconButton>
-
+                      <div className="col-md">
+                        <div>
+                          <div className="mb-4">
+                            <div
+                              className="p-3 py-2 shadow-sm"
+                              style={{
+                                backgroundColor: "#f5f5f5",
+                                borderRadius: 10,
+                                borderBottomLeftRadius: 0,
+                                borderBottomRightRadius: 0,
+                              }}
+                            >
+                              <div className="w-100 row">
+                                <div className="col">
+                                  <Typography
+                                    fontFamily="Lato"
+                                    color="#1f1f1f"
+                                    fontSize={{ xs: 15, md: 16, lg: 18 }}
+                                  >
+                                    Documentos
+                                  </Typography>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="p-3 py-3 shadow-sm"
+                              style={{
+                                borderRadius: 10,
+                                borderTopLeftRadius: 0,
+                                borderTopRightRadius: 0,
+                              }}
+                            >
+                              {docs.map((jsonObject, index) => (
+                                <Fade in={true} key={index}>
+                                  <div className="row">
+                                    <div className="col d-flex">
+                                      <TextField
+                                        required
+                                        size="small"
+                                        type="text"
+                                        name="value"
+                                        value={Object.values(jsonObject)[0]}
+                                        onChange={(event) => handleValueChange(event.target.value, index)}
+                                        label="Documento"
+                                        inputProps={{
+                                          min: "0",
+                                          style: { fontFamily: "Lato" },
+                                        }}
+                                        InputLabelProps={{
+                                          style: { fontFamily: "Lato" },
+                                        }}
+                                        className="mb-2 w-100"
+                                      />
+                                      <IconButton
+                                        aria-label="delete"
+                                        size="small"
+                                        className="mb-2"
+                                        onClick={() => handleRemoveDoc(index)}
+                                      >
+                                        <CloseIcon fontSize="inherit" />
+                                      </IconButton>
+                                    </div>
+                                  </div>
+                                </Fade>
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                      )}
+                      </div>
                       <div
                         style={{
                           display: 'flex',
@@ -493,34 +490,32 @@ export default function WorkingHoursComponent() {
                         }}
                         className='w-100 d-flex justify-content-center'
                       >
-                        
-                        
                         <button
-                onClick={()=>setShow(true)}
-                style={{
-                  width: '10rem',
-                  backgroundColor: '#F55C7A',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '6px',
-                  height: '50%',
-                  padding: '0.5rem 1rem',
-                  marginLeft: '1rem',
-                }}
-              >
-                Agregar
-              </button>
+                          onClick={() => { handleAddRow(setDoc, createEmptyDoc)}}
+                          style={{
+                            width: '10rem',
+                            backgroundColor: '#F55C7A',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            height: '50%',
+                            padding: '0.5rem 1rem',
+                            marginLeft: '1rem',
+                          }}
+                        >
+                          Agregar
+                        </button>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
-          
-          
-          
-          
-          
+
+
+
+
+
             <div
               style={{
                 display: 'flex',
