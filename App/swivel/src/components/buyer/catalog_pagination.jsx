@@ -19,6 +19,9 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
   const [currentPage, setCurrentPage] = useState(1);
   // Calculate the total number of pages based on the number of items per page
   let totalPages;
+  // State that holds the selected cars to compare
+  const [carIds, setCarIds] = useState([]);
+
   if (catalogData !== undefined)
   {
     totalPages = Math.ceil(catalogData.length / itemsPerPage);
@@ -27,6 +30,15 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
   {
     totalPages = 1;
   }
+
+  // Function that handles the page change for the comparison
+  const routToComparison = () => {
+    if(carIds.length > 1 || carIds.length < 4){
+        alert("Solo puedes comparar un mínimo de 2 autos y un máximo de 3 autos.");
+        return;
+    }
+    router.push(`/buyer/comparar?ids=${carIds.join(",")}`);
+  };
 
   // Function that handles the page change
   const handlePageChange = (event, page) => {
@@ -55,7 +67,13 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
 
   return (
     <div>
-      <CatalogGrid carListing={itemsToShow} cardType={carCardType} />
+      {(carIds.length > 1 && carIds.length < 4) && 
+        (<>
+          <label htmlFor={carIds}>carIds</label>
+          <button onClick={routToComparison}>Comparar productos</button>
+        </>)
+      }
+      <CatalogGrid carListing={itemsToShow} cardType={carCardType} carIds={carIds} setCarIds={setCarIds} />
       <Pagination
         sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}
         count={totalPages}

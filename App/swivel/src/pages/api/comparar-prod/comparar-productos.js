@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
         console.log(arr)
 
-        if(arr.length < 2 || arr.length > 3){
+        if(arr.length > 1 || arr.length < 4){
             return res.status(401).json({ message: 'Unsupported amount of cars' }); // <-- handle this part in front
         };
 

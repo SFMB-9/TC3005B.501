@@ -13,7 +13,7 @@ import {formatDate} from "@/components/general/date_utils";
 
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
-export default function CatalogGrid({ carListing, cardType }) {
+export default function CatalogGrid({ carListing, cardType, carIds, setCarIds }) {
   let carList;
   let cardProps;
   if (carListing !== undefined) {
@@ -66,6 +66,8 @@ export default function CatalogGrid({ carListing, cardType }) {
                 <CarCard
                   {...cardProps[cardType]}
                   cardType={cardType}
+                  carIds={carIds}
+                  setCarIds={setCarIds}
                 />
                 :
                 <CarCard
