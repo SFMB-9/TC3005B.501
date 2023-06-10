@@ -53,12 +53,12 @@ export default function Process() {
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
-        if (doc.nombre_documento == "INE") {
-          return { ...resUser.userData.documentos[0], _id: i};
-        }
-        //  else if (doc.nombre_documento == "Licencia") {
-        //   return { ...resUser.userData.documentos[1], _id: i};
+        // if (doc.nombre_documento == "INE") {
+        //   return { ...resUser.userData.documentos[0], _id: i};
         // }
+        // //  else if (doc.nombre_documento == "Licencia") {
+        // //   return { ...resUser.userData.documentos[1], _id: i};
+        // // }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -134,7 +134,7 @@ export default function Process() {
   const checkValidatedDocs = () => {
     let validatedDocs = true;
     documents.forEach((doc) => {
-      if (doc.estatus !== "Aceptado") {
+      if (doc.estatus !== "Aceptado" || doc.estatus !== "ID Validada") {
         validatedDocs = false;
       }
     });
