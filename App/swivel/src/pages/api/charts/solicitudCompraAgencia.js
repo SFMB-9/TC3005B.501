@@ -1,19 +1,19 @@
 import connectToDatabase from '@/utils/mongodb_function';
 
 export default async function handler(req, res) {
-  const id = req.query.id;
-  console.log(id);
+  const name = req.query.name;
+  console.log(name);
   try {
     const client = await connectToDatabase();
     const db = client.db("test");
     const procesos = db.collection("procesos");
 
-    const documents = await procesos.find({ 'agencia._id': id }).toArray();
+    const documents = await procesos.find({nombre_agencia: name }).toArray();
 
     // Extract the files or relevant data from the documents
-    const files = documents.map((document) => document.documentos);
+    
 
-    res.status(200).json({ message: "Datos recuperados", files });
+    res.status(200).json({ message: "Datos recuperados", documents });
 
     client.close(); // Close the MongoDB connection
   } catch (error) {
