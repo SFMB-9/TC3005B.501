@@ -72,16 +72,15 @@ export default function ManageGA() {
         setAdmins(response.data.userData);
     }
 
-    const RoutRegistroGAManager = () => {
+    const RouteRegistroGAManager = () => {
         if (router) {
             router.push({
-                pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
+                pathname: `/providers/GA/registroAdmin`,
             });
         }
     };
 
     const deleteEntry = async (entry) => {
-        console.log("This entry", entry);
         try {
             await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry} });
             getAdmins();
@@ -98,17 +97,14 @@ export default function ManageGA() {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log(admin_id);
             if (admin_id)
                 await getAdmin(admin_id);
-
         };
         fetchData();
     }, [admin_id]);
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log(admin);
             if (admin)
                 await getGA(admin.grupo_automotriz_id);
         };
@@ -117,7 +113,6 @@ export default function ManageGA() {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log(GA);
             if (GA)
                 await getAdmins();
         };
@@ -137,9 +132,10 @@ export default function ManageGA() {
         }
     }, [admins, searchValue]);
 
-    console.log(admins);
     const handleSearchChange = (event) => {
-        setSearchValue(event.target.value);
+        if (event.target) {
+            setSearchValue(event.target.value);
+        }
     };
 
     const columns = useMemo(
@@ -315,7 +311,7 @@ export default function ManageGA() {
                                         />
                                         {/* <a href='/providers/seller/signup'> */}
                                             <button
-                                                onClick={RoutRegistroGAManager}
+                                                onClick={RouteRegistroGAManager}
                                                 style={{
                                                     flex: '25%',
                                                     backgroundColor: '#F55C7A',
@@ -325,7 +321,7 @@ export default function ManageGA() {
                                                     height: '50%',
                                                     padding: '0.5rem 1rem',
                                                 }}
-                                            > Registrar admin  + </button>
+                                            > + Registrar admin </button>
                                         {/* </a> */}
                                     </div>
                                     <DataTable

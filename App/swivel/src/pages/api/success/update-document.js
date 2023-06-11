@@ -31,14 +31,12 @@ export default async function handler(req, res) {
       if (paymentStatus === "paid" && check_id === process_id) {
   
         try {
-
-          await dbConnect();
-
           const client = await connectToDatabase;
           const db = client.db("test");
-          const procesos = db.collection('procesos');
+          const coleccionProcesos = db.collection('procesos');
+          const coleccionUsuarios = db.collection('usuarios');
 
-          const proc = await procesos.findOneAndUpdate({_id : new ObjectId(process_id)}, {$set: {estatus: "pagado"}});
+          const proc = await coleccionProcesos.findOneAndUpdate({_id : new ObjectId(process_id)}, {$set: {estatus: "pagado"}});
 
           // Find the process that needs to be updated
           // const proc = await Proceso.findById(process_id);
@@ -51,11 +49,13 @@ export default async function handler(req, res) {
           // //save the changes
           // await proc.save();
 
-          const vendedor = await SellerUser.findById(proc.value.vendedor._id);
-          vendedor.contar_ventas_en_proceso -=1;
-          console.log("Ventas en proceso:" + vendedor.contar_ventas_en_proceso);
-          vendedor.markModified("contar_ventas_en_proceso");
-          await vendedor.save();
+          await coleccionUsuarios.findOneAndUpdate({_id : new ObjectId(proc.value.vendedor._id)}, {$inc: {contar_ventas_en_proceso: -1}});
+
+          // const vendedor = await SellerUser.findById(proc.value.vendedor._id);
+          // vendedor.contar_ventas_en_proceso -=1;
+          // console.log("Ventas en proceso:" + vendedor.contar_ventas_en_proceso);
+          // vendedor.markModified("contar_ventas_en_proceso");
+          // await vendedor.save();
 
           return res
             .status(200)
