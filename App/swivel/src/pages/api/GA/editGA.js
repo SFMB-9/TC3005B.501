@@ -15,7 +15,7 @@ export default async function handler(req, res) {
                   numero_telefonico: numero_telefonico } 
         }
     );
-
+    //hola
     res.status(200).json({ message: "profile info updated correctly" });
 
   }

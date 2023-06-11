@@ -6,7 +6,7 @@ export default function SANavbar() {
       home='/sa'
       elems_right={[
         {name: 'Dashboard', href: '/sa'},
-        {name: 'Mi cuenta', href: '', popup: [{name: "Ver mi Perfil", href: '/sa/update-info'}, {name: 'Cambiar contraseña', href: '/sa/change-password'}, {name: 'Cerrar sesión', href:'#', signoutComponent: '/auth/login'}]},
+        {name: 'Mi cuenta', href: '', popup: [{name: "Editar mi Perfil", href: '/sa/update-info'}, {name: 'Cambiar contraseña', href: '/sa/change-password'}, {name: 'Cerrar sesión', href:'#', signoutComponent: '/auth/login'}]},
       ]}
     />
   )

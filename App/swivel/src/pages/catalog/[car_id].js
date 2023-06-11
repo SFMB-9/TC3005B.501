@@ -1,6 +1,7 @@
 // Author: Mateo Herrera Sebastian Gonzalez
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -135,10 +136,10 @@ export default function CarDetails() {
         method: "POST",
         body: JSON.stringify(body),
       });
-  
-      const data = await result.json();
-  
-      router.push(`/purchase/${data.id}`);
+
+      await result.json().then((data) => {router.push(`/purchase/${data.id}`)});
+      
+      //router.push(`/purchase/${data.id}`);
     }catch(error){
       console.log(error);
     }
@@ -249,14 +250,14 @@ export default function CarDetails() {
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalog">
+              <Link href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
                 <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
                   Regresar al catálogo
                 </span>
-              </a>
+              </Link>
               <div className="pt-4">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>

@@ -148,7 +148,7 @@ export default function Documents() {
         minWidth: 150,
         flex: 1,
         valueGetter: (params) => {
-          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : 0;
+          const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : "";
           return cell;
         },
       },

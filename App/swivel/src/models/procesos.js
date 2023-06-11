@@ -110,5 +110,4 @@ const baseSchema = new mongoose.Schema(
   { collection: "procesos" }
 );
 
-module.exports = mongoose.models.Proceso || mongoose.model("Proceso", baseSchema);
-// export { Proceso, VentaProceso, PruebaProceso, GaProceso, AgencyProceso };
+module.exports = mongoose.models.Proceso || mongoose.model('Proceso', baseSchema);

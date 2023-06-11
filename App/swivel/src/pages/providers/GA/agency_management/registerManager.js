@@ -11,6 +11,7 @@ export default function MergedSignup() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
 
     const router = useRouter();
@@ -70,6 +71,7 @@ export default function MergedSignup() {
                     grupo_automotriz_id: GA,
                     numero_telefonico: phone,
                 });
+                router.back();
 
                 console.log(data);
             } catch (error) {
@@ -79,6 +81,7 @@ export default function MergedSignup() {
     };
 
     const handleCancel = () => {
+        router.back();
     };
 
     return (
@@ -177,6 +180,8 @@ export default function MergedSignup() {
                                     label="Confirmar Contraseña"
                                     variant="outlined"
                                     fullWidth
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     error={!!errors.confirmarContraseña}
                                     helperText={errors.confirmarContraseña}
                                     type="password"

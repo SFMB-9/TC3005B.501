@@ -5,14 +5,23 @@ import axios from 'axios';
 import SANavbar from '@/components/SA/navbar';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 
-export default function addSAdmin() {
+export default function AddSAdmin() {
+
+
 
     const router = useRouter();
 
     const { data: session } = useSession();
-
+    const [isLoading, setIsLoading] = useState(false);
+    
+    useEffect(() => {
+      if(!session){
+        //router.push("/auth/login");
+      }
+    })
 
     const [name, setName] = useState('');
     const [paternalLN, setpaternalLN] = useState('');
@@ -21,6 +30,8 @@ export default function addSAdmin() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [badPw, setBadPw] = useState(false)
+    const [success, setSuccess]= useState(false)
 
 
 
@@ -28,8 +39,14 @@ export default function addSAdmin() {
 
     const submitHandler = async () => {
 
+        setIsLoading(true)
+
         if (password != confirmPassword){
+            setBadPw(true)
+            setIsLoading(false)
             return
+        } else {
+            setBadPw(false)
         }
 
         await axios.post('/api/register', JSON.stringify({
@@ -40,7 +57,12 @@ export default function addSAdmin() {
             "password":password,
             "tipo_usuario":"admin"
         }),{ headers: {"Content-Type": "application/json"}});
+        setSuccess(true)
+        setIsLoading(false)
+        
+
     };
+
 
     const cancelHandler = () => {
         router.back();
@@ -55,6 +77,7 @@ export default function addSAdmin() {
     return (
         <div>
             <SANavbar />
+            {isLoading && <LoadingScreen />}
             <div className={styles.mainContainer}>
                 <h2 className={styles.pageTitle}>Agregar administrador</h2>
                 <h4 className={styles.sectionTitle}>Ingresa los datos del administrador</h4>
@@ -167,8 +190,9 @@ export default function addSAdmin() {
                         }}
                         onClick={cancelHandler}
                     >
-                        Cancelar
+                        Regresar
                     </Button>
+                    {!success && (
                     <Button
                         type="submit"
                         variant="contained"
@@ -183,7 +207,9 @@ export default function addSAdmin() {
                         }}
                     >
                         Guardar
-                    </Button>
+                    </Button>)}
+                    {badPw && (<div> Passwords don&apos;t match.</div>)}
+                    {success && (<div> User created successfully </div>)}
                 </div>
             </div>
         </div>

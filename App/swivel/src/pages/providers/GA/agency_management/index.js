@@ -1,3 +1,4 @@
+"use client"
 /*
 Ana Paula Katsuda
 
@@ -5,6 +6,7 @@ Code used to pull agencias from the database and display them in a table.
 */
 
 import React, { useEffect, useState, useMemo } from "react";
+import { useRouter } from "next/router";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
@@ -19,42 +21,59 @@ import Searchbar from '@/components/general/searchbar';
 import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
+import EditEntityData from '@/components/providers/GA/edit_entity_data';
+import { useSession } from "next-auth/react";
 
 export default function ManageAgencias() {
     const [agencias, setAgencias] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
-    const role = "ea32725caec36ffca1c1ee939e606cd1"; // Quitar cosas hardcodeadas
-    const GA = "647ae7c7f25041c1b7b8a57b";
+    const [GA, setGA] = useState("");
+    const role = "1624fa678ed998894bece420898aa464"; // Quitar cosas hardcodeadas
+    const router = useRouter();
+    const { data: session } = useSession();
 
-    const RoutRegistroAgencias = () => {
+
+    const RouteRegistroAgencias = () => {
         if (router) {
-            router.push({
-                pathname: `/providers/GA/registroAgencia?GA=${GA?.nombre}`, // por definir
-                // pathname: `/providers/GA/registroAdmin?GA=${GA?.nombre}`,
-            });
+            router.push("/providers/GA/agency_management/registerAgency/form");
         }
     };
 
-    useEffect(() => {
-        const fetchAgencias = async () => {
+    const fetchAgencias = async () => {
+        try{
             const res = await fetch(
-                `http://localhost:3000/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+                `/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
             );
             const data = await res.json();
             setAgencias(data.result);
-        };
+        }catch(error){
+            console.log(error)
+        }
+        
+    };
+
+    const fetchGAId = async () => {
+        const res = await fetch(`/api/managerProfile/managerP?id=${session.id}`);
+        const ga_admin_data = await res.json();
+        const GA = ga_admin_data.userData.grupo_automotriz_id;
+        console.log(GA)
+        setGA(GA);
+    };
+    useEffect(() => {
+        if(!session) return
+        fetchGAId();
         fetchAgencias();
-    }, []);
+    }, [GA]);
 
     useEffect(() => {
         if (agencias) {
             setFilteredResults(
                 agencias.filter((entry) =>
                     entry.nombres.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) //||
-                    // entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    // entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
+                    entry.direccion.estado.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    entry.numero_telefonico.toLowerCase().includes(searchValue.toLowerCase())
                 )
             );
         }
@@ -64,6 +83,16 @@ export default function ManageAgencias() {
         setSearchValue(event.target.value);
     };
 
+    const deleteEntry = async (entry) => {
+        console.log("This entry", entry);
+        try {
+            await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry } });
+            fetchAgencias();
+        }
+        catch (error) {
+            console.log("Error borrando usuario: ", error);
+        }
+    };
     const columns = useMemo(
         () => [
             {
@@ -116,7 +145,7 @@ export default function ManageAgencias() {
                         variant="contained"
                         disableElevation
                         onClick={() =>
-                           router.push(`/providers/GA/agency_management/${params.row._id}`)
+                            router.push(`/providers/GA/agency_management/${params.row._id}`)
                         }
                         className="py-0"
                         sx={{
@@ -150,9 +179,10 @@ export default function ManageAgencias() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <div>
-                                        <p> Editar datos </p>
-                                    </div>
+                                    <>
+                                    <EditEntityData data={params.row}
+                                        userType="agency" />
+                                    </>
                                 }
                                 btnOpen={
                                     <IconButton
@@ -162,37 +192,6 @@ export default function ManageAgencias() {
                                     // onClick={() => editEntry(params.row)}
                                     >
                                         <EditIcon />
-                                    </IconButton>
-                                }
-                            />
-                            <PopUpComponent
-                                title="Eliminar cuenta"
-                                popUpContent={
-                                    <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                                        <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => deleteEntry(params.row.email)}
-                                            type="submit"
-                                            className="w-80"
-                                            sx={{
-                                                fontFamily: "Lato",
-                                                ":hover": {
-                                                    backgroundColor: "red",
-                                                },
-                                            }}
-                                        >
-                                            Eliminar Cuenta
-                                        </Button>
-                                    </div>
-                                }
-                                btnOpen={
-                                    <IconButton
-                                        aria-label="delete"
-                                        size="small"
-                                        component="span"
-                                    >
-                                        <DeleteIcon />
                                     </IconButton>
                                 }
                             />
@@ -247,7 +246,7 @@ export default function ManageAgencias() {
                                         />
                                         {/* <a href='/providers/seller/signup'> */}
                                         <button
-                                            onClick={RoutRegistroAgencias}
+                                            onClick={RouteRegistroAgencias}
                                             style={{
                                                 flex: '25%',
                                                 backgroundColor: '#F55C7A',
@@ -257,7 +256,7 @@ export default function ManageAgencias() {
                                                 height: '50%',
                                                 padding: '0.5rem 1rem',
                                             }}
-                                        > Registrar admin  + </button>
+                                        > Registrar agencia  + </button>
                                         {/* </a> */}
                                     </div>
                                     <DataTable
@@ -297,6 +296,18 @@ export default function ManageAgencias() {
                                 :
                                 <div>
                                     <p>No hay agencias registradas</p>
+                                    <button
+                                            onClick={RouteRegistroAgencias}
+                                            style={{
+                                                flex: '25%',
+                                                backgroundColor: '#F55C7A',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '6px',
+                                                height: '50%',
+                                                padding: '0.5rem 1rem',
+                                            }}
+                                        > Registrar agencia  + </button>
                                 </div>
                         }
                     </div>

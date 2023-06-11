@@ -8,7 +8,7 @@ export default function GActionsCards() {
         imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
         text="Administración de Agencias"
-        href="/providers/GA/portal_agencias"
+        href="/providers/GA/agency_management"
         light={false}
         header=''
         fiftyFifty={false}

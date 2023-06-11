@@ -12,6 +12,8 @@ import { useSession } from "next-auth/react";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { RouterRounded } from "@mui/icons-material";
 
 const AblyChatComponent = dynamic(
   () => import("../../components/chat/AblyChatComponent"),
@@ -51,11 +53,12 @@ export default function Process() {
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
-        if (doc.nombre_documento == "INE") {
-          return { ...resUser.userData.documentos[0], _id: i};
-        } else if (doc.nombre_documento == "Licencia") {
-          return { ...resUser.userData.documentos[1], _id: i};
-        }
+        // if (doc.nombre_documento == "INE") {
+        //   return { ...resUser.userData.documentos[0], _id: i};
+        // }
+        // //  else if (doc.nombre_documento == "Licencia") {
+        // //   return { ...resUser.userData.documentos[1], _id: i};
+        // // }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -113,10 +116,25 @@ export default function Process() {
     }
   };
 
+  // Agregar confirmación de cancelación
+  const handleCancel = async () => {
+    try{
+      const result = await axios.delete("/api/saleCreation/deleteProcess",{
+        body: {
+          process_id: process_id
+        }
+      })
+
+      router.back();
+    } catch(error){
+      console.log(error)
+    }
+  };
+
   const checkValidatedDocs = () => {
     let validatedDocs = true;
     documents.forEach((doc) => {
-      if (doc.estatus !== "Aceptado") {
+      if (doc.estatus !== "Aceptado" || doc.estatus !== "ID Validada") {
         validatedDocs = false;
       }
     });
@@ -124,12 +142,13 @@ export default function Process() {
   };
 
   useEffect(() => {
-    if (!process_id) {
+    if (!session) {
       return;
     }
     fetchProcess();
     checkValidatedDocs();
-  }, [process_id, uploadedDocument]);
+    console.log(documents)
+  }, [process_id, uploadedDocument, session]);
 
   const columns = useMemo(
     () => [
@@ -442,6 +461,7 @@ export default function Process() {
                   //   backgroundColor: "#F68E70",
                   // },
                 }}
+                onClick={handleCancel} 
                 disableElevation
                 type="button"
                 href="/catalog"
@@ -601,7 +621,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading Process...</p>
+        <p>Loading ...</p>
       </div>
     );
   }
