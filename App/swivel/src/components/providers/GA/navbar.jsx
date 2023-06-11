@@ -11,7 +11,7 @@ export default function GANavbar() {
         href: '', 
         popup: [
           {name: 'Administración de gerentes', href: 'providers/GA/manageGA'}, 
-          {name: 'Administración de la agencias', href: 'providers/GA/agency_management'}, 
+          {name: 'Administración de agencias', href: 'providers/GA/agency_management'}, 
           {name: 'Estadísticas de ventas', href: ''}
         ],
       },

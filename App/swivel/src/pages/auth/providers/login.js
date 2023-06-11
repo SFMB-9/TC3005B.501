@@ -36,7 +36,20 @@ export default function Login() {
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else if (session.role === "GA") {
-          callbackUrl = `${window.location.origin}/providers/GA`;
+          // Check if the GA has a grupo_automotriz_id, meaning they are verified
+          let rawCheck = await fetch(`http://localhost:3000/api/GA/GA-has-id?_id=${session.id}`,
+            { method: 'GET' });
+          const resCheck = await rawCheck.json();
+          // If the user is verified, redirect to landing
+          if(resCheck.hasGrupoAutomotrizId) {
+            callbackUrl = `${window.location.origin}/providers/GA`;
+          // If the user is not verified, redirect to process page
+          } else {
+            let rawProcess = await fetch(`http://localhost:3000/api/GA/GA-process-id?_id=${session.id}`,
+              { method: 'GET' });
+            const resProcess = await rawProcess.json();
+            callbackUrl = `${window.location.origin}/providers/GA/registerGroup/${resProcess.process._id}`;
+          }
         } else if (session.role === "manager") {
           callbackUrl = `${window.location.origin}/providers/manager`;
         } else {
