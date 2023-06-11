@@ -75,7 +75,7 @@ export default function AgencyDetails() {
         console.log("This entry", entry);
         try {
             await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry} });
-            getAdmins();
+            fetchResults();
         }
         catch (error) {
             console.log("Error borrando usuario: ", error);

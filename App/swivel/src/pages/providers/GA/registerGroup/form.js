@@ -22,7 +22,7 @@ export default function RegisterForm() {
     const [interior_num, setInteriorNum] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState("México");
     const [postalCode, setPC] = useState("");
     const [GAemail, setGAEmail] = useState("");
 
