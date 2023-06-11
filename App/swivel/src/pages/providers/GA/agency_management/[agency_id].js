@@ -87,7 +87,7 @@ export default function AgencyDetails() {
 
     const addManager = () => {
         //router.push(`providers/manager/signup?GA_id=${agency.grupo_automotriz_id}&agency_id=${router.query.id}`);
-        router.push(`registerManager/?GA_id=${agency.grupo_automotriz_id}&agency_id=${agency_id}`);
+        router.push(`registerManager/?agency_id=${agency_id}`);
     };
 
     const addSeller = () => {
