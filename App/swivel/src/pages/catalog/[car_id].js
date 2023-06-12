@@ -423,7 +423,7 @@ export default function CarDetails() {
                                   setDrawerOpen(true);
                                 } else {
                                   window.location.href = "/auth/login";
-                                  Cookies.set('CAR_BUY', `http://localhost:3000/catalog/${car_id}`)
+                                  Cookies.set('CAR_BUY', `${window.location.origin}/catalog/${car_id}`)
                                 }
                                 // session
                                 //   ? setDrawerOpen(true)
