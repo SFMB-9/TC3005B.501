@@ -75,7 +75,7 @@ export default function AgencyDetails() {
         console.log("This entry", entry);
         try {
             await axios.delete("/api/buyerProfile/deleteUser", { params: { id: entry} });
-            getAdmins();
+            fetchResults();
         }
         catch (error) {
             console.log("Error borrando usuario: ", error);
@@ -89,22 +89,7 @@ export default function AgencyDetails() {
 
     const addManager = () => {
         //router.push(`providers/manager/signup?GA_id=${agency.grupo_automotriz_id}&agency_id=${router.query.id}`);
-        router.push(`registerManager/?GA_id=${agency.grupo_automotriz_id}&agency_id=${agency_id}`);
-    };
-
-    const addSeller = () => {
-        router.push(`providers/seller/signup?id=${router.query.id}`);
-    };
-
-    const saveAgency = async () => {
-        try {
-            await axios.put('/api/GA/actualizar-agencia', { id: id, phone: phone, email: email, calle: calle, num_ext: num_ext, num_int: num_int, city: city, state: state, country: country, PC: PC });
-
-            fetchResults();
-        }
-        catch (error) {
-            console.error('Error deleting entry:', error);
-        }
+        router.push(`registerManager/?agency_id=${agency_id}`);
     };
 
 
@@ -294,8 +279,8 @@ export default function AgencyDetails() {
                           <PopUpComponent
                               title="Eliminar Gerente"
                               popUpContent={
-                                  <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar a este gerente? </p>
-                                      <p> Al hacer click en &quot;Eliminar gerente&quot; estas confirmando de forma definitiva que quieres eliminar la cuenta. </p>
+                                  <div className="text-center mt-3"> <p> ¿Estás segurx que quieres eliminar a este gerente? </p>
+                                      <p> Al hacer click en &quot;Eliminar gerente&quot; estás confirmando de forma definitiva que quieres eliminar la cuenta. </p>
                                       <Button
                                           variant="contained"
                                           onClick={() =>  deleteEntry(params.row._id)}

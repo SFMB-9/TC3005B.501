@@ -22,7 +22,7 @@ export default function RegisterForm() {
     const [interior_num, setInteriorNum] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState("México");
     const [postalCode, setPC] = useState("");
     const [GAemail, setGAEmail] = useState("");
 
@@ -344,7 +344,7 @@ export default function RegisterForm() {
                                 paddingLeft: "12vw",
                                 paddingRight: "12vw",
                             }}
-                        >Datos generales del Grupo Automotriz</h3>
+                        >Datos legales del Grupo Automotriz</h3>
                         <div className="container"
                             style={{
                                 paddingLeft: "8vw",

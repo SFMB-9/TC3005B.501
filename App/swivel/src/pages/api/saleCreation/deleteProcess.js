@@ -5,9 +5,7 @@ export default async function handler(req, res) {
     const client = await connectToDatabase;
     const db = client.db("test");
     const procesos = await db.collection("procesos");
-
-    const parsedBody = JSON.parse(req.body);
-    const process_id = parsedBody.process_id;
+    const process_id = req.query.process_id;
 
     if(req.method !== "DELETE") {
         return res.status(400).json({ message: "Wrong request method" });
