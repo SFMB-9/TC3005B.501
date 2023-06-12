@@ -6,50 +6,60 @@ import { useRouter } from "next/router";
 import { Button, TextField } from "@mui/material";
 import styles from "@/styles/add_manager.module.css";
 import GANavbar from "@/components/providers/GA/navbar";
+import { useSession } from "next-auth/react";
 
 
 const RegistroAdmin = () => {
-
+    const { data: session } = useSession();
     const router = useRouter();
 
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [errors, setErrors] = useState({}); 
-    const [GA, setGA] = useState();
+    const [GA, setGA] = useState("");
 
     useEffect(() => {
-        const fetchGA = async () => {
-            const response = await axios.get("/api/managerProfile/managerP", {
-                params: {
-                    id: "6477e6e3ae27e558e56c3c18"
-                }
-            });
-            setGA(response.data.userData);
-        };
-
-        fetchGA();
-    }, []);
+        const getIdGA = async () => {
+          let gaIdRaw = await fetch(`http://localhost:3000/api/GA/GA-get-id?_id=${session.id}`,
+            { method: 'GET' });
+    
+          const gaId = await gaIdRaw.json();
+    
+          return gaId.user.grupo_automotriz_id;
+        }
+    
+        if (router.isReady && session) {
+          getIdGA().then((ga_id) =>
+            setGA(ga_id)
+          );
+        }
+    }, [router.isReady, session]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(GA);
-        try {
-            const response = await axios.post("/api/GA/Admin-register", {
-                tipo_usuario: 'GA',
-                nombre_agencia: GA.nombres,
-                nombres: name,
-                last_name: surname,
-                email: email,
-                password: password,
-                numero_telefonico: phone,
-                grupo_automotriz_id: GA._id
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
+
+        if (validateForm()) {
+            try {
+                const result = await axios.post("/api/register", {
+                    nombres: name,
+                    apellidos: surname,
+                    email: email,
+                    password: password,
+                    numero_telefonico: phone,
+                    tipo_usuario: "ga_admin",
+                    grupo_id: GA
+                });
+
+                router.back();
+
+                console.log(result);
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
@@ -204,6 +214,7 @@ const RegistroAdmin = () => {
                                     fullWidth
                                     error={!!errors.confirmarContraseña}
                                     helperText={errors.confirmarContraseña}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     //type="password"
                                     required
                                 />
@@ -232,7 +243,7 @@ const RegistroAdmin = () => {
             </div>    
             </div>
             
-    )
+    );
 }
 
-export default registroAdmin;
+export default RegistroAdmin;

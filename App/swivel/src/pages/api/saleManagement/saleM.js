@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const Usuario = require('../../../models/usuario');
+const Usuario = require('../../../models/user');
 import dbConnect from "../../../config/dbConnect";
 
 const handler = async (req, res) => {

@@ -14,6 +14,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { RouterRounded } from "@mui/icons-material";
+import PopUpComponent from "@/components/general/Popup";
 
 const AblyChatComponent = dynamic(
   () => import("../../components/chat/AblyChatComponent"),
@@ -53,12 +54,12 @@ export default function Process() {
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
-        if (doc.nombre_documento == "INE") {
-          return { ...resUser.userData.documentos[0], _id: i};
-        }
-        //  else if (doc.nombre_documento == "Licencia") {
-        //   return { ...resUser.userData.documentos[1], _id: i};
+        // if (doc.nombre_documento == "INE") {
+        //   return { ...resUser.userData.documentos[0], _id: i};
         // }
+        // //  else if (doc.nombre_documento == "Licencia") {
+        // //   return { ...resUser.userData.documentos[1], _id: i};
+        // // }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -115,16 +116,16 @@ export default function Process() {
       console.error("Error occurred during the document upload:", error);
     }
   };
-
+  console.log(process_id)
   // Agregar confirmación de cancelación
   const handleCancel = async () => {
     try{
-      const result = await axios.delete("/api/saleCreation/deleteProcess",{
-        body: {
-          process_id: process_id
-        }
-      })
-
+      console.log("estamos en", process_id)
+      const result = await axios({
+        method: 'delete',
+        url: '/api/saleCreation/deleteProcess?process_id=' + process_id,
+      });
+      
       router.back();
     } catch(error){
       console.log(error)
@@ -134,7 +135,7 @@ export default function Process() {
   const checkValidatedDocs = () => {
     let validatedDocs = true;
     documents.forEach((doc) => {
-      if (doc.estatus !== "Aceptado") {
+      if (doc.estatus !== "Aceptado" || doc.estatus !== "ID Validada") {
         validatedDocs = false;
       }
     });
@@ -285,10 +286,11 @@ export default function Process() {
     [documents, isOpen]
   );
 
+  console.log(process)
   if (process != null) {
     return (
       <div>
-        <Container maxWidth="md">
+        <Container>
           <Fade in={true} timeout={1000}>
             <div className="section p-5">
               <Typography
@@ -450,27 +452,52 @@ export default function Process() {
           </Fade>
 
           <Fade in={true} timeout={1500}>
-            <div className="text-center mt-4">
-              <Button
-                variant="outlined"
+            <div className="container text-center mt-4">
+              <div className="row">
+                  <div className="col-12 col-sm-6">
+                  <PopUpComponent 
+                title="Cancelar solicitud de compra"
+                popUpContent={
+                  <div className="text-center mt-3"> <p> ¿Estás segurx que quieres cancelar tu proceso de compra? </p>
+                  <p> Al hacer click en &quot;Cancelar proceso&quot; estás confirmando de forma definitiva que quieres cancelar tu solicitud de compra. </p>
+                  <Button
+                      variant="contained"
+                      onClick={handleCancel}
+                      type="submit"
+                      className="w-80"
+                      sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                              backgroundColor: "red",
+                          },
+                      }}
+                  >
+                      Cancelar proceso
+                  </Button>
+                  </div>
+                }
+                btnOpen={
+                  <Button
                 sx={{
                   fontFamily: "Lato",
-                  color: "000000",
+                color: "#FFFFFF",
                   width: 150,
+                  backgroundColor: "gray",
                   // ":hover": {
                   //   backgroundColor: "#F68E70",
                   // },
                 }}
-                onClick={handleCancel} 
                 disableElevation
                 type="button"
-                href="/catalog"
                 className="me-4"
               >
                 Cancelar
               </Button>
-
-              <CheckoutPage
+                }
+              />
+                  </div>
+                  <div className="col-12 col-sm-6">
+                  <CheckoutPage
                 id={process_id}
                 validatedDocs={checkValidatedDocs()}
                 items={[
@@ -488,6 +515,29 @@ export default function Process() {
                   },
                 ]}
               />
+                  </div>
+              </div>
+              
+              {/* <Button
+                variant="outlined"
+                sx={{
+                  fontFamily: "Lato",
+                  color: "000000",
+                  width: 150,
+                  // ":hover": {
+                  //   backgroundColor: "#F68E70",
+                  // },
+                }}
+                onClick={handleCancel} 
+                disableElevation
+                type="button"
+                href="/catalog"
+                className="me-4"
+              >
+                Cancelar
+              </Button> */}
+
+              
             </div>
           </Fade>
         </Container>
@@ -517,7 +567,7 @@ export default function Process() {
           position: relative;
           display: grid;
           grid-template-rows: 1fr 100px;
-          min-height: 100vh;
+          // min-height: 100vh;
           // background-color: aqua;
         }
 
@@ -621,7 +671,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading ...</p>
+        <p>Cargando ...</p>
       </div>
     );
   }

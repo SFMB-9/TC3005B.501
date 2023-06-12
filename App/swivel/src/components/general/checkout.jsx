@@ -10,7 +10,6 @@ const CheckoutPage = (props) => {
       _id: props.id,
       status: 'pagoPendiente'
       });
-    console.log("Proceso actualizado a pagoPendiente")
     const stripe = await getStripe();
     const response = await fetch('/api/stripe/create-checkout-session', {
       method: 'POST',
