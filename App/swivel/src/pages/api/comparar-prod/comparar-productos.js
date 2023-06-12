@@ -1,5 +1,4 @@
-import { Client } from '@elastic/elasticsearch';
-
+const { Client } = require('@elastic/elasticsearch')
 /* 
 car comparison function
 Recieves: request object, response object
@@ -17,11 +16,12 @@ export default async function handler(req, res) {
         const lst = req.query.lst;
         const arr = lst.split(',')
 
-        console.log(arr)
+        //console.log(arr)
 
-        if(arr.length > 1 || arr.length < 4){
-            return res.status(401).json({ message: 'Unsupported amount of cars' }); // <-- handle this part in front
-        };
+        // Dont think this should be handled here
+        // if(arr.length < 1 || arr.length > 4){
+        //     return res.status(401).json({ message: 'Unsupported amount of cars' }); // <-- handle this part in front
+        // };
 
         try {
             const body = await client.search({

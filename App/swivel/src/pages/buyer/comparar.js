@@ -8,7 +8,6 @@ export default function Comparison() {
 
   const fetchData = async () => {
     const ids = router.query.ids; // <-- pass as a comma-separated string of ids. i.e. E5S_dIgB6Fc17-h0xcKz,mZS_dIgB6Fc17-h09MIB,SZTAdIgB6Fc17-h0J8OE
-    console.log(ids);
     const response = await axios.get('/api/comparar-prod/comparar-productos', { params: { lst: ids } });
     setVehicles(response.data);
   };
@@ -19,6 +18,7 @@ export default function Comparison() {
   }, [router.query.ids]);
 
   return (
+    vehicles.length > 1 ? 
     <div>
       {vehicles.map((vehicle, index) => (
         <div key={index}>
@@ -31,6 +31,9 @@ export default function Comparison() {
           {/*add more components*/}
         </div>
       ))}
+    </div> : 
+    <div>
+      <h2>No hay suficientes autos para la comparación</h2>
     </div>
   );
 }
