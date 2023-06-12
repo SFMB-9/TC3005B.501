@@ -43,71 +43,100 @@ export default function Purchases() {
     {
       name: "Solicitudes de compra",
       component: () => (
-      <>
-      <div>
-          <div
-            style={{
-              padding: "3%",
-              overflowY: "scroll",
-              maxHeight: "100vh",
-            }}
-          >
-            {
-              apiCurrentData && apiCurrentData.length > 0 && (
-                <CatalogPagination
-                  catalogData={apiCurrentData}
-                  carCardType="purchases"
-                  itemsPerPage={6}
-                />
-              )
-            }
-          </div>
+        <>
+          <div>
+            <div
+              style={{
+                padding: "3%",
+                overflowY: "scroll",
+                maxHeight: "100vh",
+              }}
+            >
+              {
+                apiCurrentData && apiCurrentData.length > 0 ? (
+                  <CatalogPagination
+                    catalogData={apiCurrentData}
+                    carCardType="purchases"
+                    itemsPerPage={6}
+                  />
+                )
+                  : (
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      className="pb-2"
+                      sx={{
+                        fontFamily: "Lato", color: "#333333",
+                        paddingTop: "1rem",
+                        paddingLeft: "2rem",
+                      }}
+                    >
+                      Todavía no cuenta con solicitudes de compra en proceso.
+                    </Typography>
+                  )
+              }
+            </div>
 
-        </div>
-      </>
+          </div>
+        </>
       )
     },
     {
       name: "Compras finalizadas",
-      component: () => 
-      <>
-      <div>
-          <div
-            style={{
-              padding: "3%",
-              overflowY: "scroll",
-              maxHeight: "100vh",
-            }}
-          >
-            {
-              apiCompletedData && apiCompletedData.length > 0 && (
-                <CatalogPagination
-                  catalogData={apiCompletedData}
-                  carCardType="purchases"
-                  itemsPerPage={6}
-                />
-              )
-            }
+      component: () =>
+        <>
+          <div>
+            <div
+              style={{
+                padding: "3%",
+                overflowY: "scroll",
+                maxHeight: "100vh",
+              }}
+            >
+              {
+                apiCompletedData && apiCompletedData.length > 0 ? (
+                  <CatalogPagination
+                    catalogData={apiCompletedData}
+                    carCardType="purchases"
+                    itemsPerPage={6}
+                  />
+                )
+                  : (
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      className="pb-2"
+                      sx={{
+                        fontFamily: "Lato", color: "#333333",
+                        paddingTop: "1rem",
+                        paddingLeft: "2rem",
+                      }}
+                    >
+                      Todavía no cuenta con compras finalizadas.
+                    </Typography>
+                  )
+              }
+            </div>
           </div>
-        </div>
-      </>
+        </>
     },
   ]
   return (
     <AccountLayout>
       <Grid item xs={12} md={9} sm={8}>
         <Typography
-              variant="h4"
-              fontWeight="bold"
-              className="pb-2"
-              sx={{ fontFamily: "Raleway", color: "#333333",
-                paddingTop: "1rem",
-                paddingLeft: "2rem",
-              }}
-            >
-              Mis compras
-          </Typography>
-        <CustomTogglerBar 
+          variant="h4"
+          fontWeight="bold"
+          className="pb-2"
+          sx={{
+            fontFamily: "Raleway", color: "#333333",
+            paddingTop: "1rem",
+            paddingLeft: "2rem",
+          }}
+        >
+          Mis compras
+        </Typography>
+        <CustomTogglerBar
           components={components}
           stretched
           tall
