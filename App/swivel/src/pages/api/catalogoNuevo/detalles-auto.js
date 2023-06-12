@@ -38,6 +38,7 @@ export default async function CarDetails(req, res) {
         if (!result) {
             return res.status(500).json({ message: "Detalle de Auto no encontrado" });
         }
+        
 
         result.colores = json5.parse(result.colores);
         result.caracteristicas = json5.parse(result.caracteristicas);
