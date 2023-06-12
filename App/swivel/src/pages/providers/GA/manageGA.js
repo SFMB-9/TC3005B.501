@@ -34,7 +34,7 @@ export default function ManageGA() {
     const [filteredResults, setFilteredResults] = useState([]);
 
     const { data: session } = useSession();
-
+    
     // const fetchData = async () => {
     //   const resData = await fetch(
     //     `/api/managerProfile/managerP?id=${session.id}`
