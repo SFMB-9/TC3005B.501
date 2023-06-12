@@ -35,7 +35,7 @@ export default function Login() {
         console.log("Role:", session.role);
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
-        } else if (session.role === "GA") {
+        } else if (session.role === "ga_admin") {
           // Check if the GA has a grupo_automotriz_id, meaning they are verified
           let rawCheck = await fetch(`http://localhost:3000/api/GA/GA-has-id?_id=${session.id}`,
             { method: 'GET' });
@@ -43,12 +43,18 @@ export default function Login() {
           // If the user is verified, redirect to landing
           if(resCheck.hasGrupoAutomotrizId) {
             callbackUrl = `${window.location.origin}/providers/GA`;
-          // If the user is not verified, redirect to process page
+          // If the user is not verified, look for a process
           } else {
             let rawProcess = await fetch(`http://localhost:3000/api/GA/GA-process-id?_id=${session.id}`,
               { method: 'GET' });
             const resProcess = await rawProcess.json();
-            callbackUrl = `${window.location.origin}/providers/GA/registerGroup/${resProcess.process._id}`;
+            // If there is an active process, redirect to it
+            if (resProcess.process) {
+              callbackUrl = `${window.location.origin}/providers/GA/registerGroup/${resProcess.process._id}`;
+            // If there isn't, redirect to the form to begin the process
+            } else {
+              callbackUrl = `${window.location.origin}/providers/GA/registerGroup/form`;
+            }
           }
         } else if (session.role === "manager") {
           callbackUrl = `${window.location.origin}/providers/manager`;

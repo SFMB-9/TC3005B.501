@@ -31,7 +31,7 @@ export default async (req, res) => {
         });
 
       if (!process) {
-        res.status(405).json({ message: 'Proceso GA para usuario con id ' + user_id + 'no encontrado'});
+        res.status(404).json({ message: 'Proceso GA para usuario con id ' + user_id + ' no encontrado'});
       }
 
       res.status(200).json({ process }, { message: "Porceso encontrado exitosamente" });
