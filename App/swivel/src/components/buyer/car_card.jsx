@@ -76,6 +76,7 @@ export default function CarCard(props) {
   const handleCheckbox = (e) => {
     setCheckboxState(e.target.checked)
     if (e.target.checked) {
+      console.log(props._id)
       props.setCarIds([...props.carIds, props._id]);
     }
     else {

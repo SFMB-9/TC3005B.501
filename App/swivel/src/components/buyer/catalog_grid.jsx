@@ -24,6 +24,7 @@ export default function CatalogGrid({ carListing, cardType, carIds, setCarIds })
         cardProps = {
           catalog: {
             carUrl: `/catalog/${car._id}`,
+            _id: car._id,
             carImage: json5.parse(car._source.fotos_3d)[0],
             carBrand: car._source.marca,
             carModel: car._source.modelo,

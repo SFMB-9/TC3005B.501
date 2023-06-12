@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const lst = req.query.lst;
         const arr = lst.split(',')
 
-        //console.log(arr)
+        // console.log(arr)
 
         // Dont think this should be handled here
         // if(arr.length < 1 || arr.length > 4){
