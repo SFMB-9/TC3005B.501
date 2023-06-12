@@ -28,11 +28,12 @@ export default function SellerSignup() {
     email: false,
     phone: false,
     password: false,
+    confPassword: false,
   });
 
   const disabled = () => {
     for (let key in errors) {
-      if (errors[key] !== "") return true;
+      if (errors[key]) return true;
     }
     return !(name && surname && email && phone && password && confPassword);
   };
@@ -56,7 +57,7 @@ export default function SellerSignup() {
       setErrMessage("Usuario registrado correctamente");
       setLoading(false);
       console.log(data);
-      setTimeout(()=>{window.location.href = `${window.location.origin}/providers/manager/manage_sellers`;}, 2000)
+      setTimeout(()=>{window.location.href = `${window.location.origin}/providers/manager/manage_sellers`;}, 8000)
       
     } catch (error) {
       console.log(error.response.data);
@@ -107,8 +108,18 @@ export default function SellerSignup() {
                     name="name"
                     id="name_field"
                     value={name}
-                    pattern="[a-zA-Z]+"
-                    onChange={(e) => setName(e.target.value)}
+                    disabled={loading}
+                    error={errors.name}
+                    helperText={errors.name ? "Solo letras" : ""}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setName(v);
+                      if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                        setErrors({ ...errors, name: true})
+                      } else {
+                        setErrors({ ...errors, name: false })
+                      }
+                    }}
                     label="Nombre(s)"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -131,8 +142,19 @@ export default function SellerSignup() {
                     name="surname"
                     id="name_field"
                     value={surname}
+                    disabled={loading}
+                    error={errors.surname}
+                    helperText={errors.surname ? "Solo letras" : ""}
                     pattern="[a-zA-Z]+"
-                    onChange={(e) => setSurname(e.target.value)}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setSurname(v);
+                      if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                        setErrors({ ...errors, surname: true})
+                      } else {
+                        setErrors({ ...errors, surname: false })
+                      }
+                    }}
                     label="Apellidos"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -155,8 +177,18 @@ export default function SellerSignup() {
                     name="email"
                     id="email_field"
                     value={email}
-                    pattern="[a-zA-Z]+"
-                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={loading}
+                    error={errors.email}
+                    helperText={errors.email ? "Correo inválido" : ""}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setEmail(v);
+                      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
+                        setErrors({ ...errors, email: true})
+                      } else {
+                        setErrors({ ...errors, email: false })
+                      }
+                    }}
                     label="Correo electrónico"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -179,8 +211,19 @@ export default function SellerSignup() {
                     name="phone_field"
                     id="phone"
                     value={phone}
+                    disabled={loading}
+                    error={errors.phone}
+                    helperText={errors.phone ? "Número invalido" : ""}
                     pattern="[a-zA-Z]+"
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setPhone(v);
+                      if (v.length < 10 || v.length > 10 || !/^\d+$/.test(v)) {
+                        setErrors({ ...errors, phone: true})
+                      } else {
+                        setErrors({ ...errors, phone: false })
+                      }
+                    }}
                     label="Celular"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -220,8 +263,28 @@ export default function SellerSignup() {
                     name="paswword_field"
                     id="password"
                     value={password}
-                    pattern="[a-zA-Z]+"
-                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={loading}
+                    error={errors.password}
+                    helperText={errors.password ? confPasswordHelper : ""}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setPassword(v);
+                      if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                        setErrors({ ...errors, password: true })
+                        if (v.length < 6) {
+                          setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                        } else if (!/[a-zA-Z]/.test(v)) {
+                          setConfPasswordHelper("La contraseña debe tener al menos una letra")
+                        } else if (!/\d/.test(v)) {
+                          setConfPasswordHelper("La contraseña debe tener al menos un digito")
+                        } else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                          setConfPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                        }
+                      } else {
+                        setErrors({ ...errors, password: false })
+                        setConfPasswordHelper("");
+                      }
+                    }}
                     label="Contraseña"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -244,8 +307,18 @@ export default function SellerSignup() {
                     name="passwordConfirmation"
                     id="passwordConfirmation"
                     value={confPassword}
-                    pattern="[a-zA-Z]+"
-                    onChange={(e) => setConfPassword(e.target.value)}
+                    disabled={loading}
+                    error={errors.confPassword}
+                    helperText={errors.confPassword ? "Las contraseñas no coinciden" : ""}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setConfPassword(v);
+                      if (v !== password) {
+                        setErrors({ ...errors, confPassword: true })
+                      } else {
+                        setErrors({ ...errors, confPassword: false })
+                      }
+                    }}
                     label="Confirmar contraseña"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
@@ -310,15 +383,20 @@ export default function SellerSignup() {
                   />
                 </div>
                 <div className="text-center mt-5">
+                  {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> }
                   <Button
                     variant="contained"
                     type="submit"
                     className="w-50"
+                    disabled={disabled()}
                     sx={{
                       fontFamily: "Lato",
                       ":hover": {
                         backgroundColor: "red",
                       },
+                    }}
+                    onClick={() => {
+                      submitHandler();
                     }}
                   >
                     Crear vendedor
