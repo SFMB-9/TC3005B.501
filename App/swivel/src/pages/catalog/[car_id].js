@@ -406,7 +406,7 @@ export default function CarDetails() {
                                 } else {
                                   window.location.href = "/auth/login";
                                   Cookies.set(
-                                    "CAR_BUY",
+                                    "CAR_REQ",
                                     `${window.location.origin}/catalog/${car_id}`
                                   );
                                 }
@@ -430,7 +430,7 @@ export default function CarDetails() {
                                 } else {
                                   window.location.href = "/auth/login";
                                   Cookies.set(
-                                    "CAR_BUY",
+                                    "CAR_REQ",
                                     `${window.location.origin}/catalog/${car_id}`
                                   );
                                 }
@@ -527,7 +527,7 @@ export default function CarDetails() {
                           } else {
                             window.location.href = "/auth/login";
                             Cookies.set(
-                              "CAR_BUY",
+                              "CAR_REQ",
                               `${window.location.origin}/catalog/${car_id}`
                             );
                           }

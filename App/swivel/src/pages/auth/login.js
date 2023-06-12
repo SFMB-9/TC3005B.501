@@ -49,9 +49,9 @@ export default function Login() {
           let callbackUrl;
           if (session) {
             if (session.role === "user") {
-              if (Cookies.get("CAR_BUY")) {
-                const value = Cookies.get("CAR_BUY");
-                Cookies.remove("CAR_BUY");
+              if (Cookies.get("CAR_REQ")) {
+                const value = Cookies.get("CAR_REQ");
+                Cookies.remove("CAR_REQ");
                 callbackUrl = value;
               }
               else {
