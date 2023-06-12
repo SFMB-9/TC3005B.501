@@ -4,7 +4,6 @@ import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import AuthComponent from "@/components/login/auth_component";
 import { Typography } from "@mui/material";
-
 import styles from "@/styles/login.module.css";
 
 export default function Login() {

@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 import Link from "next/link";
 import AuthComponent from "@/components/login/auth_component";
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -48,7 +49,14 @@ export default function Login() {
           let callbackUrl;
           if (session) {
             if (session.role === "user") {
-              callbackUrl = `${window.location.origin}/`;
+              if (Cookies.get("CAR_BUY")) {
+                const value = Cookies.get("CAR_BUY");
+                Cookies.remove("CAR_BUY");
+                callbackUrl = value;
+              }
+              else {
+                callbackUrl = `${window.location.origin}/`;
+              }
             } else if (session.role === "seller") {
               callbackUrl = `${window.location.origin}/providers/seller`;
             } else if (session.role === "ga_admin") {
