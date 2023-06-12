@@ -48,14 +48,14 @@ export default function About({
               <h1>¿Cuáles son nuestros valores?</h1>
               <span>
                 <ol>
-                  <li>
-                    Transparencia: Estamos comprometidos en proporcionar información honesta y confiable para ayudar a nuestros consumidores a tomar decisiones acertadas.
+                  <li className="mb-4">
+                    <b>Transparencia:</b> Estamos comprometidos en proporcionar información honesta y confiable para ayudar a nuestros consumidores a tomar decisiones acertadas.
                   </li>
-                  <li>
-                    Responsabilidad: Nos mantenemos a nosotros mismos y a los miembros de nuestro equipo en altos estándares de calidad y buscamos mejorar constantemente nuestros procesos.
+                  <li className="mb-4">
+                    <b>Responsabilidad:</b> Nos mantenemos a nosotros mismos y a los miembros de nuestro equipo en altos estándares de calidad y buscamos mejorar constantemente nuestros procesos.
                   </li>
-                  <li>
-                    Adaptabilidad: Estamos comprometidos en mantenernos al día con las tendencias de la industria y aprovechar la nueva tecnología para desarrollar nuestra plataforma y brindar un mejor servicio a nuestros clientes.
+                  <li className="mb-4">
+                    <b>Adaptabilidad:</b> Estamos comprometidos en mantenernos al día con las tendencias de la industria y aprovechar la nueva tecnología para desarrollar nuestra plataforma y brindar un mejor servicio a nuestros clientes.
                   </li>
                 </ol>
               </span>

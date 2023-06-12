@@ -12,58 +12,112 @@ search.
 
 import React, { useState, useEffect, useMemo } from "react";
 import { Grid, Checkbox, FormControlLabel, Typography, IconButton, Button } from "@mui/material";
-import Searchbar from "@/components/general/searchbar";
-import ManagerLayout from "@/components/providers/manager/layout";
-import styles from "@/styles/catalog.module.css";
-import { useRouter } from 'next/router';
-import { useSession } from "next-auth/react";
-import FilterListIcon from '@mui/icons-material/FilterList';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { useRouter } from "next/router";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useSession } from "next-auth/react";
+
+import ManagerLayout from "@/components/providers/manager/layout";
+import SortCatalog from "@/components/buyer/sort_catalog";
+import styles from "@/styles/catalog.module.css";
+import Searchbar from "@/components/general/searchbar";
 import DataTable from "@/components/general/Table";
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
+const json5 = require('json5');
+
 
 export default function Catalog() {
+  const router = useRouter();
+  const [searchText, setSearchText] = useState(null);
+  const { data: session } = useSession();
+  let isFirstLoad = true;
+
+  console.log("Search text: " + searchText);
+
+  useEffect(() => {
+    if (session) {
+      if (isFirstLoad) {
+        if (JSON.stringify(router.query.searchQuery)) {
+          setSearchText(router.query.searchQuery);
+        }
+        isFirstLoad = false;
+      }
+    }
+  }, [session]);
+
+  // Filter variables
   const [filterHeaders, setFilterHeaders] = useState(null);
   const [filters, setFilters] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [selectedChips, setSelectedChips] = useState([]);
-  const [apiData, setApiData] = useState(null);
-  const [catalogData, setCatalogData] = useState([]);
   const [expandedMenuItems, setExpandedMenuItems] = useState({});
+  const [selectedChips, setSelectedChips] = useState([]);
   const [deletingCarIds, setDeletingCarIds] = useState([]);
 
-  const router = useRouter();
+  // Data variables
+  const [apiData, setApiData] = useState(null);
+  const [catalogData, setCatalogData] = useState([]);
 
-  // Get agency name from session
-  //const { data: session } = useSession();
-  //const agencyName = session.nombre_agencia;
-  const agencyName = "Kia";
+  const buildQuery = (selectedFilters) => {
+    let query = {};
+    selectedFilters.forEach((filter) => {
+      const [category, item] = filter.split(":");
+      if (!query[category]) {
+        query[category] = [];
+      }
+      query[category].push(item);
+    });
 
-  const fetchFilters = async () => {
-    console.log("Fetching...");
-    let queryString = selectedFilters.length
-      ? `${selectedFilters
-        .map((filter) => filter.replace("modelos", "modelo"))
-        .join("&")}`
-      : "";
+    let queryString = "";
+    if (JSON.stringify(router.query.searchQuery) && searchText === null) {
+      setSearchText(router.query.searchQuery);
+      queryString = "search=" + router.query.searchQuery + "="
+    }
+
+    Object.entries(query).forEach(([category, items]) => {
+      if (items.length) {
+        queryString += `${queryString ? "&" : ""}${category}=${items.join(",")}`;
+      }
+    });
+
+    return queryString;
+  };
+
+  const fetchFilters = async (idAgencia) => {
+    let queryString = buildQuery(selectedFilters);
+
+    queryString += `${queryString ? "&" : ""}agencia_id=${idAgencia}`;
 
     const response = await fetch(
-      `/api/catalogo-gerente/buscar-auto-agencia?agencyName=${encodeURIComponent(agencyName)}&${queryString}`
+      `/api/catalogoNuevo/filter?${queryString}`
     );
 
     const data = await response.json();
 
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
-    setApiData(data);
     setCatalogData(data.result);
+    setApiData(data);
   };
 
   useEffect(() => {
-    fetchFilters();
-  }, [selectedFilters]);
+    const getIdAgencia = async () => {
+      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+          { method: 'GET' });
+  
+      const agenciaId = await agenciaIdRaw.json();
+  
+      return agenciaId.user.agencia_id;
+    }
+
+    if (router.isReady && session) {
+      getIdAgencia().then((a_id) =>
+        fetchFilters(a_id)
+      );
+    }
+  }, [selectedFilters, router.isReady, session]);
 
   const handleMenuItemClick = (category, item) => {
     event.stopPropagation();
@@ -78,21 +132,19 @@ export default function Catalog() {
     setSelectedFilters((prevSelectedFilters) => {
       const newSelectedFilters = [...prevSelectedFilters];
       if (expandedMenuItems[category]?.[item]) {
-        const filterIndex = newSelectedFilters.indexOf(`${category}=${item}`);
+        const filterIndex = newSelectedFilters.indexOf(`${category}:${item}`);
         if (filterIndex > -1) {
           newSelectedFilters.splice(filterIndex, 1);
         }
         setSelectedChips((prevSelectedChips) =>
           prevSelectedChips.filter(
             (chip) => chip.category !== category || chip.value !== item
-          )
-        );
+          ));
       } else {
-        // remove any existing filter for this category
-        newSelectedFilters.filter((f) => !f.startsWith(`${category}=`));
         // add the new filter if it's not null
         if (item) {
-          newSelectedFilters.push(`${category}=${item}`);
+
+          newSelectedFilters.push(`${category}:${item}`);
           setSelectedChips((prevSelectedChips) => {
             const newChip = { category, value: item };
             const isChipDuplicate = prevSelectedChips.find(
@@ -110,6 +162,12 @@ export default function Catalog() {
       }
       return newSelectedFilters;
     });
+  };
+
+  const handleUncheckAllFilters = () => {
+    setSelectedFilters([]);
+    setSelectedChips([]);
+    setExpandedMenuItems({});
   };
 
   const renderSubMenu = (category, subMenuItems) => (
@@ -136,6 +194,63 @@ export default function Catalog() {
     </ul>
   );
 
+  const removeQueryParam = (param) => {
+    const { pathname, query } = router;
+    const params = new URLSearchParams(query);
+    params.delete(param);
+    router.replace(
+      { pathname, query: params.toString() },
+      undefined,
+      { shallow: true }
+    );
+  };
+
+  const handleNoSort = () => {
+    setCatalogData(apiData.result);
+  };
+
+  const handleSortByAscPrice = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return a._source.precio - b._source.precio; // Sort in ascending order
+    });
+    setCatalogData(sortedData);
+  };
+
+  const handleSortByDescPrice = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return b._source.precio - a._source.precio; // Sort in descending order
+    });
+    setCatalogData(sortedData);
+  };
+
+  const handleSortByAscModel = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return a._source.modelo.localeCompare(b._source.modelo); // Sort in ascending order
+    });
+    setCatalogData(sortedData);
+  };
+
+  const handleSortByDescModel = () => {
+    const sortedData = [...catalogData].sort((a, b) => {
+      return b._source.modelo.localeCompare(a._source.modelo); // Sort in descending order
+    });
+    setCatalogData(sortedData);
+  };
+
+  const handleSelectedSortOption = (selectedOption) => {
+    if (selectedOption === "price-asc") {
+      handleSortByAscPrice();
+    } else if (selectedOption === "price-des") {
+      handleSortByDescPrice();
+    } else if (selectedOption === "model-asc") {
+      handleSortByAscModel();
+    } else if (selectedOption === "model-des") {
+      handleSortByDescModel();
+    } else if (selectedOption === "restart") {
+      handleNoSort();
+    }
+  };
+
   const viewCreateCar = () => {
     // Navigate to the page to create cars
     router.push({
@@ -159,7 +274,7 @@ export default function Catalog() {
       { method: 'DELETE' });
   };
 
-  const columns = useMemo( ()=> [
+  const columns = useMemo(() => [
     {
       field: "imagen",
       headerName: "Imagen",
@@ -168,8 +283,9 @@ export default function Catalog() {
       minWidth: 150,
       flex: 1,
       renderCell: (params) => {
-        let cell = params.row._source.fotos_3d[0]
-          ? <img src={params.row._source.fotos_3d[0]} height="50" width="60" />
+        let data = params.row;
+        let cell = data
+          ? <img src={json5.parse(data._source.fotos_3d)[0]} height="50" width="60" />
           : "Este proceso no contiene imagen";
         return cell;
       },
@@ -213,7 +329,7 @@ export default function Catalog() {
       flex: 1,
       valueGetter: (params) => {
         let cell = params.row._source.año
-          ? params.row._source.año
+          ? params.row._source.año.toString()
           : 0;
         return cell;
       },
@@ -228,7 +344,7 @@ export default function Catalog() {
       flex: 1,
       valueGetter: (params) => {
         let cell = params.row._source.precio
-          ? params.row._source.precio
+          ? `$${params.row._source.precio.toLocaleString()} MXN`
           : 0;
         return cell;
       },
@@ -259,13 +375,13 @@ export default function Catalog() {
         // </Button>
         <>
 
-        <IconButton aria-label="delete" size="small" onClick={() => viewEditCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
-          <DriveFileRenameOutlineIcon />
-        </IconButton>
+          <IconButton aria-label="delete" size="small" onClick={() => viewEditCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
+            <EditIcon />
+          </IconButton>
 
-        <IconButton aria-label="delete" size="small" onClick={() => deleteCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
-          <DeleteOutlineIcon />
-        </IconButton>
+          <IconButton aria-label="delete" size="small" onClick={() => deleteCar(params.row._id)} disabled={deletingCarIds.includes(params.row._id)}>
+            <DeleteIcon />
+          </IconButton>
         </>
       ),
     },
@@ -278,152 +394,149 @@ export default function Catalog() {
           {
             paddingLeft: "3%",
             paddingRight: "1%"
-          }}>
+          }
+        } >
           <Grid item xs={12} md={3} sm={4}>
             <div className={styles.filterContainer}>
               <div className={styles.filterHeader}>
-                <div
-                  className={styles.filterTitle}
-                >
+                <div className={styles.filterTitle}>
                   <div className={styles.iconWrapper}>
                     <FilterListIcon className={styles.filterListIcon} />
                   </div>
-                  <span>Filtros</span></div>
+                  <span>Filtros</span>
                 </div>
-                {/* {selectedChips.map((chip, index) => (
-                <Chip
-                  key={`${chip.category}-${chip.value}-${index}`}
-                  label={`${filterHeaders[chip.category]}: ${chip.value}`}
-                  onDelete={() =>
-                    handleMenuItemClick(chip.category, chip.value)
-                  }
-                  color="primary"
-                  variant="outlined"
-                  className={styles.filterChip}
-                />
-              ))} */}
-                {filters && (
-                  <ul className={styles.filterList}>
-                    {Object.entries(filters).map(([category, subMenuItems]) => (
-                      <li key={category} className={styles.filterItem}>
-                        <button
-                          className={styles.filterButton}
-                          onClick={() => handleMenuItemClick(category, null)}
-                        >
-                          <div >
+                <div className={styles.buttonWrapper}>
+                  <Button
+                    variant="text"
+                    onClick={handleUncheckAllFilters}
+                    sx={{
+                      textDecoration: "underline",
+                      textAlign: "right",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    Eliminar filtros
+                  </Button>
+                </div>
+              </div>
+              <div className={styles.filterBody}>
+                {/* Chips go here */}
+              </div>
+              {filters && (
+                <ul className={styles.filterList}>
+                  {Object.entries(filters).map(([category, subMenuItems]) => (
+                    <li key={category} className={styles.filterItem}>
+                      <button
+                        className={styles.filterButton}
+                        onClick={() => handleMenuItemClick(category, null)}
+                      >
+                        <div >
                           {filterHeaders[category]}
                           <div className={styles.arrow}>
                             {expandedMenuItems[category]?.[null] ? <ExpandMoreIcon /> : <ChevronRightIcon />}
                           </div>
                         </div>
-                        </button>
-                        {expandedMenuItems[category]?.[null] &&
-                          renderSubMenu(category, subMenuItems)}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                      </button>
+                      {expandedMenuItems[category]?.[null] &&
+                        renderSubMenu(category, subMenuItems)}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </Grid>
-          <Grid item xs={12} md={9} sm={8}>
-            {/*
-              Pasar la función fetchSearch como prop al componente Searchbar
-              // para que se ejecute cuando se presione el botón de búsqueda
-            */}
-
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="w-100">
-
-              <Searchbar
-                setState={setSelectedFilters}
-              > </Searchbar>
+          <Grid item xs={12} md={9} sm={8}>            
+            <div>
+              <div className={styles.catalogHeader}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  style={{ minWidth: '110px' }}
+                  sx={{
+                    fontFamily: "Lato",
+                    ":hover": {
+                      backgroundColor: "palevioletred",
+                    },
+                  }}
+                  disableElevation
+                  type="button"
+                  onClick={() => viewCreateCar()}
+                >
+                  Agregar Auto
+                </Button>
+                <span className="justify-content-start align-items-center">
+                  <Typography color="text.secondary" sx={{
+                    fontFamily: "Lato",
+                  }}>
+                    Mostrando&nbsp;
+                    {
+                      catalogData !== undefined ? Intl.NumberFormat().format(catalogData.length) : 0
+                    }
+                    &nbsp;resultados
+                  </Typography>
+                </span>
+                <span className="d-flex align-items-center">
+                  <span style={{
+                    marginRight: "1rem"
+                  }}>Ordenar por </span><SortCatalog handleSortOption={handleSelectedSortOption} />
+                </span>
               </div>
-
-              <div>
-<Button
-                variant="contained"
-                size="small"
-                style={{minWidth: '110px'}}
-                sx={{
-                  fontFamily: "Lato",
-                  ":hover": {
-                    backgroundColor: "palevioletred",
-                  },
+              <div
+                style={{
+                  padding: "3%",
+                  overflowY: "scroll",
+                  maxHeight: "100vh",
                 }}
-                disableElevation
-                type="button"
-                onClick={() => viewCreateCar()}
               >
-                Agregar Auto
-              </Button>
-
+                {/* <ApiDataDisplay apiData={catalogData} /> */}
+                {catalogData ? (
+                  <div className="section">
+                    <div className="pt-4">
+                      <DataTable
+                        columns={columns}
+                        rows={catalogData}
+                        rowSelection={false}
+                        sx={{
+                          border: 1,
+                          borderColor: "#D9D9D9",
+                          "& .MuiDataGrid-cell": {
+                            border: 1,
+                            borderRight: 0,
+                            borderTop: 0,
+                            borderLeft: 0,
+                            borderColor: "#D9D9D9",
+                            fontFamily: "Lato",
+                            fontWeight: 500,
+                            fontSize: "12px",
+                            color: "#333333",
+                          },
+                          "& .MuiDataGrid-columnHeaders": {
+                            fontFamily: "Lato",
+                            fontSize: "16px",
+                            color: "#333333",
+                            borderBottom: 0,
+                          },
+                          "& .MuiDataGrid-columnHeaderTitle": {
+                            fontWeight: 800,
+                          },
+                          "& .MuiPaginationItem-text": {
+                            fontFamily: "Lato",
+                            color: "#333333",
+                          },
+                        }}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <h2>No se econtraron autos.</h2>
+                  </div>
+                )}
               </div>
-
-            </div>
-
-            <div
-              style={{
-                padding: "3%",
-                overflowY: "scroll",
-                maxHeight: "100vh",
-              }}
-            >
-              {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                {`http://localhost:3000/api/catalogo/buscar-autos${
-                  selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
-                }`}
-              </div>
-              <ApiDataDisplay apiData={apiData} /> */}
-              {/* <CatalogGrid carListing={catalogData} /> */}
-              {/* Display listing of cars */}
-              {catalogData ? (
-                <div className="section">
-                <div className="pt-4">
-                  <DataTable
-                    columns={columns}
-                    rows={catalogData}
-                    rowSelection={false}
-                    sx={{
-                      border: 1,
-                      borderColor: "#D9D9D9",
-                      "& .MuiDataGrid-cell": {
-                        border: 1,
-                        borderRight: 0,
-                        borderTop: 0,
-                        borderLeft: 0,
-                        borderColor: "#D9D9D9",
-                        fontFamily: "Lato",
-                        fontWeight: 500,
-                        fontSize: "12px",
-                        color: "#333333",
-                      },
-                      "& .MuiDataGrid-columnHeaders": {
-                        fontFamily: "Lato",
-                        fontSize: "16px",
-                        color: "#333333",
-                        borderBottom: 0,
-                      },
-                      "& .MuiDataGrid-columnHeaderTitle": {
-                        fontWeight: 800,
-                      },
-                      "& .MuiPaginationItem-text": {
-                        fontFamily: "Lato",
-                        color: "#333333",
-                      },
-                    }}
-                  />
-                </div>
-              </div>
-              ) : (
-                <div>
-                  <h2>No se econtraron autos.</h2>
-                </div>
-              )}
-              
             </div>
           </Grid>
         </Grid>
       </ManagerLayout>
     </>
   );
-}
+};

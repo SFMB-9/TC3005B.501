@@ -16,19 +16,18 @@ import { trusted } from "mongoose";
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
-
-  const [email, setEmail] = useState("");
+  const [oldPasswordHelper, setOldPasswordHelper] = useState("");	
+  const [confPasswordHelper, setConfPasswordHelper] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
-
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
   const [errors, setErrors] = useState({
     password: false,
     confPassword: false,
     oldPassword: false,
   });
-
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const disabled = () => {
     for (const k in errors) {
@@ -40,43 +39,46 @@ export default function ChangePassword() {
   // useEffect(() => {}, [session]);
 
   // if (session) setEmail(session.user.email);
-  const viewRequest = {
-    status: 0,
-    message: "",
-  };
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     
-    if (password === confPassword) {
-      try {
-        console.log(session.user.email);
-        const { data } = await axios.put("/api/changePassword", {
-          email: session.user.email,
-          password,
-          oldPassword,
-        });
-        console.log(data);
-        viewRequest.status = 200;
-        viewRequest.message = data;
-        
-      } catch (error) {
-        console.log(error);
-        console.log(error.response.data);
-        viewRequest.status = error
-        viewRequest.message = error.response.data;
+    try {
+      //console.log(session.user.email);
+      const { data } = await axios.put("/api/changePassword", {
+        email: session.user.email,
+        password,
+        oldPassword,
+      });
+      //console.log(data);
+      setLoading(false);
+      setError(false);
+      setErrMessage("Contraseña cambiada exitosamente");
+      setTimeout(() => {
+        setOldPassword("");
+        setPassword("");
+        setConfPassword("");
+        setErrMessage("");}, 1500);
+    } catch (error) {
+      //console.log(error);
+      console.log(error.response.data.message);
+      if (error.response.data.message === "Wrong Current Password") {
+        setErrMessage("Contraseña actual incorrecta");
+      } else if (error.response.data.message === "New password must be different") {
+        setErrMessage("La nueva contraseña debe ser diferente a la actual");
+      } else {
+        setErrMessage("Error al cambiar la contraseña");
       }
-    }else{
-      console.log("Passwords do not match");
+      setLoading(false);
+      setError(false);
     }
-
   };
-
 
   return (
     <>
       <div className="section">
         <div className="container">
-          <div className="pt-4">
+          <div className="p-4">
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -103,16 +105,29 @@ export default function ChangePassword() {
               onChange={(e) => {
                 const v = e.target.value;
                 setOldPassword(v);
-                if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
                   setErrors({ ...errors, oldPassword: true })
+                  if (v.length < 6) {
+                    setOldPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                  }
+                  else if (!/[a-zA-Z]/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos una letra")
+                  }
+                  else if (!/\d/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos un digito")
+                  }
+                  else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                  }
                 } else {
                   setErrors({ ...errors, oldPassword: false })
+                  setOldPasswordHelper("");
                 }
               }}
               required
               disabled={loading}
               error={errors.oldPassword}
-              helperText={errors.oldPassword ? "Contraseña incorrecta (Incluye más de 6 caracteres y al menos una letra, digito y caracter especial" : null}
+              helperText={errors.oldPassword ? oldPasswordHelper : null}
             /> <br/>
             <TextField
               id="password_field"
@@ -124,14 +139,27 @@ export default function ChangePassword() {
               required
               disabled={loading}
               error={errors.password}
-              helperText={errors.password ? "Contraseña incorrecta (Incluye más de 6 caracteres y al menos una letra, un digito y un caracter especial)" : null}
+              helperText={errors.password ? confPasswordHelper : null}
               onChange={(e) => {
                 const v = e.target.value;
                 setPassword(v);
-                if (v.length < 6 || !/(!|@|%|&|#|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
                   setErrors({ ...errors, password: true })
+                  if (v.length < 6) {
+                    setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                  }
+                  else if (!/[a-zA-Z]/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos una letra")
+                  }
+                  else if (!/\d/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos un digito")
+                  }
+                  else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                  }
                 } else {
                   setErrors({ ...errors, password: false })
+                  setConfPasswordHelper("");
                 }
               }}
             /><br/>
@@ -157,18 +185,27 @@ export default function ChangePassword() {
               }}
             /><br/>
             <div className="text-center">
+              {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography>}
+            </div>
+            <div className="text-center">
               <Button
                 variant="contained"
                 disableElevation
-                href="/providers/seller"
                 className="me-3"
                 sx={{
                   fontFamily: "Lato",
+                  color: '#626262',
                   backgroundColor: "#D9D9D9",
                   "&:hover": {
                     backgroundColor: "#b3b3b3",
                     color: "#fff",
                   },
+                }}
+                onClick={() => {
+                  setOldPassword("");
+                  setPassword("");
+                  setConfPassword("");
+                  setErrMessage("");
                 }}
               >
                 Cancelar
@@ -180,13 +217,6 @@ export default function ChangePassword() {
                 disabled={disabled()}
                 onClick={() => {
                   setLoading(true);
-                  if (viewRequest.status === 200) {
-                    setLoading(false);
-                    setError(false);
-                  } else {
-                    setLoading(false);
-                    setError(true);
-                  }
                 }}
                 sx={{
                   fontFamily: "Lato",
@@ -197,7 +227,7 @@ export default function ChangePassword() {
                   },
                 }}
               >
-                {loading ? <CircularProgress size={25}/> : "Cambiar Contraseña"}
+                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : "Cambiar Contraseña"}
               </Button>
             </div>
           </form>

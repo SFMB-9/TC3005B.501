@@ -26,9 +26,15 @@
   width: 100%;
 }
 
-.imageDiv {
-  width: 60%;
+#imageDiv {
+  width: auto;
+  height: 90%;
   border-radius: 10px;
+  padding: 2vw;
+}
+
+.infoPrueba{
+  padding: 0 8vw 0 12vw;
 }
 
 .schedule, .confirmation {
@@ -47,7 +53,6 @@
   display: flex;
   flex-direction: column;
   width: 40%;
-  /* Black box shadow */
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 10px solid #979797;
@@ -72,6 +77,7 @@
   padding: 1vw;
   color: #979797;
   margin-bottom: 2px solid #979797;
+  text-align: center;
 }
 
 .priceTag {
@@ -85,4 +91,41 @@
 
 .testInfo {
   padding-top: 20vh;
+}
+
+.datePicker{
+  background-color: aqua;
+}
+
+.navButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-Top: 3vw;
+}
+
+.containerNavButtons{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmationRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 3vw;
+  margin-top: -8vh;
+}
+
+.dataCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.confLine {
+  color: "#F55C7A"
 }

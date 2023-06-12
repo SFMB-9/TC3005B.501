@@ -9,14 +9,18 @@ Description: Search for cars in elasticsearch using filters or matches in each f
 // Connecting to ElasticSearch with security disabled
 //import fetch from 'node-fetch';
 const { Client } = require('@elastic/elasticsearch')
+const json5 = require('json5');
+const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
+    console.log("QUERY IN ENDPOINT: " + JSON.stringify(req.query));
+
     //const client = new Client({ node: 'http://localhost:9200' });
     const client = new Client({
         node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
         auth: {
-            apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+            apiKey: ELASTIC_API_KEY
         }
     })
 
@@ -35,6 +39,7 @@ export default async function handler(req, res) {
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
     const searchIds = searchResultsJson.result;
+    const searchScores = searchResultsJson.score;
 
     // Handles the cases where searchids is undefined or empty
     if (searchIds !== undefined) {
@@ -77,6 +82,16 @@ export default async function handler(req, res) {
 
         let result = elasticResponse.body.hits.hits;
 
+        // Add score to each result
+        result.forEach((item, index) => {
+            item._source.score = searchScores[item._id];
+        });
+
+        // Sort results by score
+        result.sort((a, b) => {
+            return b._source.score - a._source.score;
+        });
+
         let filters = {};
         await assembleFilter(result, filters, req);
 
@@ -109,15 +124,22 @@ async function assembleFilter(result, filters, req) {
     let response = await fetch(url.toString());
 
     let marcaResponse = await response.json();
-    let marca = marcaResponse.result;
+    let marca = marcaResponse.result.sort();
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
+    modelo.sort();
     let ano = [...new Set(result.map(item => item._source.año))];
-    let color = [...new Set(result.map(item => item._source.colores.map(item => item.nombre)).flat())];
+    ano.sort().reverse();
+    let color = [...new Set(result.map(item => json5.parse(item._source.colores).map(item => item.nombre)).flat())];
+    color.sort();
     let combustible = [...new Set(result.map(item => item._source.combustible))];
+    combustible.sort();
     let motor = [...new Set(result.map(item => item._source.motor))];
+    motor.sort();
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
+    tipo_vehiculo.sort();
     let estado_agencia = [...new Set(result.map(item => item._source.estado_agencia))];
+    estado_agencia.sort();
 
     filters.marca = marca;
     filters.modelo = modelo;
@@ -133,7 +155,7 @@ async function assembleFilter(result, filters, req) {
 
 // Function to build elasticsearch search body
 function buildQuery(queryParams, searchResultsIds, dbQuery) {
-
+    dbQuery.size = 900;
     dbQuery.query = {
         bool: {
             must: []
@@ -245,6 +267,14 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
                     gte: queryParams.precio_min,
                     lte: queryParams.precio_max
                 }
+            }
+        });
+    }
+
+    if (queryParams.agencia_id) {
+        dbQuery.query.bool.must.push({
+            match: {
+                agencia_id: queryParams.agencia_id
             }
         });
     }

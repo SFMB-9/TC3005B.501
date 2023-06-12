@@ -7,16 +7,17 @@ of a given car in the elastic db.
 */
 
 const { Client } = require('@elastic/elasticsearch');
+const { ELASTIC_API_KEY } = process.env
 
 export default async (req, res) => {
   if (req.method !== 'GET') {
     res.status(405).json({ message: 'Method not allowed' });
   }
-  
+
   const client = new Client({
     node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
     auth: {
-        apiKey: 'blpSdGFvZ0I2RmMxNy1oMFJjQUw6WER6UHc0T3BTUnlld0lzWUEwRzFTQQ=='
+        apiKey: ELASTIC_API_KEY
     }
   });
 

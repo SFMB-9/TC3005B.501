@@ -38,14 +38,12 @@ export default function Process() {
   };
 
     useEffect(() => {
-        if (!process_id) {
+        if (!process_id && !session_id) {
             return;
         }
-
-        console.log("praocess_id: " + session_id);
         fetchProcess();
         updateProcess();
-    }, [process_id]);
+    }, [process_id, session_id]);
 
     if (process != null) {
         return (
