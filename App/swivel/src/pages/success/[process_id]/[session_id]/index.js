@@ -38,12 +38,12 @@ export default function Process() {
   };
 
     useEffect(() => {
-        if (!process_id) {
+        if (!process_id && !session_id) {
             return;
         }
         fetchProcess();
         updateProcess();
-    }, [process_id]);
+    }, [process_id, session_id]);
 
     if (process != null) {
         return (
@@ -293,7 +293,7 @@ export default function Process() {
     } else {
         return (
             <div>
-                <p>Loading Process...</p>
+                <p>Cargando...</p>
             </div>
         );
     }

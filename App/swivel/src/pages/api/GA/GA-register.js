@@ -1,5 +1,7 @@
-// import Proceso from "../../../models/procesos";
-// import dbConnect from "../../../config/dbConnect";
+/*
+Sebastián González Villacorta
+05/06/2023
+*/
 import connectToDatabase from "@/utils/mongodb";
 
 export default async function handler(req, res) {

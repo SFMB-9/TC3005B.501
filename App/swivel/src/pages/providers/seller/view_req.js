@@ -76,7 +76,7 @@ const RequestDetails = () => {
   // This function creates a new comment for a document
   const addNewComment = async (_id, doc_id, comment) => {
     const doc = documents[doc_id];
-    await axios.put("/api/DrivingRequestsSeller/updateDocumentComment", {
+    await axios.put("/api/DrivingRequestsSeller/updateDocumentCommentMongo", {
       _id,
       doc_id,
       comment: comment ? comment : doc.comment,
@@ -97,7 +97,7 @@ const RequestDetails = () => {
   }, [user_id]);
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   const columns = [
@@ -300,7 +300,7 @@ const RequestDetails = () => {
                       </li>
                     </>
                   ) : (
-                    <li className="list-group-item">"No hay cliente</li>
+                    <li className="list-group-item">No hay cliente</li>
                   )}
                 </ul>
               </div>

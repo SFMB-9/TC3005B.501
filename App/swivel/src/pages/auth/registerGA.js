@@ -3,11 +3,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import AuthComponent from "@/components/login/auth_component";
 
 /* Función que retorna el formulario de registro de GA con su dirección, junto con los botones de ingreso  */
 export default function SignupGAData() {
     const router = useRouter();
+
+    const grupo_id = router.query.grupo_id;
 
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
@@ -17,14 +18,19 @@ export default function SignupGAData() {
     const [_id, setId] = useState("");
 
     const registerHandler = async () => {
-        const { message, id } = await axios.post("/api/register", {
+        try {
+        const result = await axios.post("/api/register", {
             nombres: name,
             apellidos: surname,
             email: email,
             password: password,
             numero_telefonico: phone,
-            tipo_usuario: "ga_admin"
+            tipo_usuario: "ga_admin",
+            grupo_id: grupo_id ? grupo_id : "",
         });
+    } catch (error) {
+        console.log(error);
+    }
     }
 
 
@@ -74,7 +80,9 @@ export default function SignupGAData() {
                     className="form-control"
                     placeholder="Contraseña"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        console.log(e.target.value)
+                        setPassword(e.target.value)}}
                     required
                 />
 

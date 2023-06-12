@@ -12,7 +12,7 @@ export default async function handler(req, res){
 
 		try{
 			const allUsers= await User.find(
-			{ tipo_usuario: encryptRole("ga")}
+			{ __t: "GaEntity"}
 			)
 			
 			return res.status(200).json({allUsers, message: "Success" });

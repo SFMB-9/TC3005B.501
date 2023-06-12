@@ -1,4 +1,4 @@
-import {GAEntity} from '../../models/user'
+import {GAEntity} from '../../../models/user'
 import dbConnect from '@/config/dbConnect'
 
 export async function handler(req, res) {

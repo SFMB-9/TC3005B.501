@@ -25,6 +25,7 @@ export default async function handler(req, res) {
             .limit(1, { _id: 0, _id: 1 })
             .toArray();
 
+        console.log(resultVendedor)
         if (resultVendedor.length === 0) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
@@ -64,6 +65,8 @@ export default async function handler(req, res) {
             agencia: agenciaVendedor,
             cantidad_a_pagar: parsedBody.cantidad_a_pagar
         };
+
+        console.log(proceso)
 
         const result = await db.collection("procesos").insertOne(proceso);
 

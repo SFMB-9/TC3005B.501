@@ -28,11 +28,34 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
+        // TODO roles are encrypted so it won't match
+        // TODO Check new actual role names and compare those @f-salcedo-c
+        //  @a01025303
+        // Hotfix: OR for variable user naming conventions.
         console.log("Role:", session.role);
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
-        } else if (session.role === "GA") {
-          callbackUrl = `${window.location.origin}/providers/GA`;
+        } else if (session.role === "ga_admin") {
+          // Check if the GA has a grupo_automotriz_id, meaning they are verified
+          let rawCheck = await fetch(`http://localhost:3000/api/GA/GA-has-id?_id=${session.id}`,
+            { method: 'GET' });
+          const resCheck = await rawCheck.json();
+          // If the user is verified, redirect to landing
+          if(resCheck.hasGrupoAutomotrizId) {
+            callbackUrl = `${window.location.origin}/providers/GA`;
+          // If the user is not verified, look for a process
+          } else {
+            let rawProcess = await fetch(`http://localhost:3000/api/GA/GA-process-id?_id=${session.id}`,
+              { method: 'GET' });
+            const resProcess = await rawProcess.json();
+            // If there is an active process, redirect to it
+            if (resProcess.process) {
+              callbackUrl = `${window.location.origin}/providers/GA/registerGroup/${resProcess.process._id}`;
+            // If there isn't, redirect to the form to begin the process
+            } else {
+              callbackUrl = `${window.location.origin}/providers/GA/registerGroup/form`;
+            }
+          }
         } else if (session.role === "manager") {
           callbackUrl = `${window.location.origin}/providers/manager`;
         } else {
