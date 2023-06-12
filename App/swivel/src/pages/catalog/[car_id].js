@@ -400,11 +400,17 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() =>
-                                session
-                                  ? viewDrivingRequestDetails(car_id)
-                                  : (window.location.href = "/auth/login")
-                              }
+                              onClick={() => {
+                                if (session) {
+                                  viewDrivingRequestDetails(car_id);
+                                } else {
+                                  window.location.href = "/auth/login";
+                                  Cookies.set(
+                                    "CAR_BUY",
+                                    `${window.location.origin}/catalog/${car_id}`
+                                  );
+                                }
+                              }}
                               // disabled={!isAvailable}
                             >
                               Prueba de manejo
