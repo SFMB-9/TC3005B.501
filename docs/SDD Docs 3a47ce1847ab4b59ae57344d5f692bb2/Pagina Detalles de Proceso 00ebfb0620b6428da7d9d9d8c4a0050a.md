@@ -35,7 +35,7 @@ Solamente nos interesan los siguientes campos:
     
     Para el servidor se esta utilizando Node.js utilizando un protocolo de comunicación HTTPS por el cual se mandan requests de tipo REST a endpoints que establecen una conexión con un cluster en MongoDB.  En el caso del Dashboard, únicamente se utilizan requests de tipo: GET y PUT, siguiendo la siguiente estructura:
     
-    …/DrivingRequestsSeller/…
+    …/DrivingRequestsSeller/… 
     
     Dependiendo de que endpoint se va a utilizar pueden seguir las siguientes rutas:
     
@@ -52,7 +52,7 @@ Solamente nos interesan los siguientes campos:
 
 - Descripción de la interfaz de usuario
 
-El propósito de este panel es darle a cada vendedor una manera de tener una vista detallada del proceso en específico que quiera y se le haya sido asignado. Igualmente sirve para poder cambiar el estatus de cada uno de los documentos relacionados con ese proceso y cambiar sus comentarios.
+El propósito de este panel es darle a cada vendedor una manera de tener una vista detallada del proceso en específico que quiera y se le haya sido asignado. Igualmente sirve para poder cambiar el estatus de cada uno de los documentos relacionados con ese proceso y cambiar sus comentarios:
 
 ![Untitled](Pagina%20Detalles%20de%20Proceso%2000ebfb0620b6428da7d9d9d8c4a0050a/Untitled.png)
 
