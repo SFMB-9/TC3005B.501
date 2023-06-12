@@ -28,7 +28,7 @@ export default function SearchResults() {
     const [filteredResults, setFilteredResults] = useState([]);
 
     const [agency, setAgency] = useState('');
-    const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
+    // const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
     //const router = useRouter ? useRouter() : null;
 
     const RoutRegistroVendedor = () => {
