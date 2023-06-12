@@ -20,6 +20,7 @@ import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
 
 import { useSession } from "next-auth/react";
+import Cookies from 'js-cookie';
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -131,19 +132,20 @@ export default function CarDetails() {
       cantidad_a_pagar: payment,
     };
 
-    try{
+    try {
       const result = await fetch("/api/saleCreation/with-mongo", {
         method: "POST",
         body: JSON.stringify(body),
       });
 
-      await result.json().then((data) => {router.push(`/purchase/${data.id}`)});
-      
+      await result.json().then((data) => {
+        router.push(`/purchase/${data.id}`);
+      });
+
       //router.push(`/purchase/${data.id}`);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-    
   }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
@@ -402,7 +404,7 @@ export default function CarDetails() {
                                 session
                                   ? viewDrivingRequestDetails(car_id)
                                   : (window.location.href = "/auth/login")
-                                }
+                              }
                               // disabled={!isAvailable}
                             >
                               Prueba de manejo
@@ -416,11 +418,17 @@ export default function CarDetails() {
                                 fontWeight: "bold",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() =>
-                                session
-                                  ? setDrawerOpen(true)
-                                  : (window.location.href = "/auth/login")
-                              }
+                              onClick={() => {
+                                if (session) {
+                                  setDrawerOpen(true);
+                                } else {
+                                  window.location.href = "/auth/login";
+                                  Cookies.set('CAR_BUY', `http://localhost:3000/catalog/${car_id}`)
+                                }
+                                // session
+                                //   ? setDrawerOpen(true)
+                                //   : (window.location.href = "/auth/login")
+                              }}
                             >
                               Compra
                             </Button>
@@ -912,8 +920,16 @@ export default function CarDetails() {
                           Tasa de{" "}
                           <strong>
                             {" "}
-                            {(Math.round((carDetails.plazos[selectedTerm] + Number.EPSILON) * 100)/100)
-                              ? (Math.round((carDetails.plazos[selectedTerm]+ Number.EPSILON) * 100)/100)
+                            {Math.round(
+                              (carDetails.plazos[selectedTerm] +
+                                Number.EPSILON) *
+                                100
+                            ) / 100
+                              ? Math.round(
+                                  (carDetails.plazos[selectedTerm] +
+                                    Number.EPSILON) *
+                                    100
+                                ) / 100
                               : 0}
                             %
                           </strong>
@@ -1160,8 +1176,9 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                       >
-                        {(Math.round((interestRate + Number.EPSILON) * 100)/100)}%
-                        
+                        {Math.round((interestRate + Number.EPSILON) * 100) /
+                          100}
+                        %
                       </Typography>
                     </div>
                   </div>
@@ -1223,8 +1240,8 @@ export default function CarDetails() {
                           $
                           {Intl.NumberFormat().format(
                             parseFloat(downPayment) +
-                            parseFloat(monthlyPayment) +
-                            parseFloat(selectedDeliveryPrice)
+                              parseFloat(monthlyPayment) +
+                              parseFloat(selectedDeliveryPrice)
                           )}{" "}
                           MXN
                         </div>
