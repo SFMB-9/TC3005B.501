@@ -3,7 +3,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from '@/styles/registerGA.module.css'
 import { Container,Typography, TextField, Button } from "@mui/material";
 
 /* Función que retorna el formulario de registro de GA con su dirección, junto con los botones de ingreso  */
