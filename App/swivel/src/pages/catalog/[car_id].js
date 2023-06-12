@@ -20,7 +20,7 @@ import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
 
 import { useSession } from "next-auth/react";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -423,11 +423,11 @@ export default function CarDetails() {
                                   setDrawerOpen(true);
                                 } else {
                                   window.location.href = "/auth/login";
-                                  Cookies.set('CAR_BUY', `${window.location.origin}/catalog/${car_id}`)
+                                  Cookies.set(
+                                    "CAR_BUY",
+                                    `${window.location.origin}/catalog/${car_id}`
+                                  );
                                 }
-                                // session
-                                //   ? setDrawerOpen(true)
-                                //   : (window.location.href = "/auth/login")
                               }}
                             >
                               Compra
@@ -515,11 +515,17 @@ export default function CarDetails() {
                           fontWeight: "bold",
                           ":hover": { backgroundColor: "#BABABA" },
                         }}
-                        onClick={() =>
-                          session
-                            ? setDrawerOpen(true)
-                            : (window.location.href = "/auth/login")
-                        }
+                        onClick={() => {
+                          if (session) {
+                            setDrawerOpen(true);
+                          } else {
+                            window.location.href = "/auth/login";
+                            Cookies.set(
+                              "CAR_BUY",
+                              `${window.location.origin}/catalog/${car_id}`
+                            );
+                          }
+                        }}
                         size="small"
                         className="w-100"
                       >
