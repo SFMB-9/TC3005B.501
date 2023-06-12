@@ -1,5 +1,5 @@
-import Usuario from '../../../models/usuario'
-import dbConnect from '../../config/dbConnect'
+import Usuario from '../../../models/user'
+import dbConnect from '../../../config/dbConnect'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from './auth/[...nextauth]'
 import handler from './getCar'

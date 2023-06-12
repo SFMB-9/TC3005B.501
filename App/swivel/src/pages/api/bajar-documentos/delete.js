@@ -7,7 +7,7 @@ H_028 Endpoint de Baja de documento
 import fs from "fs";
 import { MongoClient, ObjectId } from "mongodb";
 import multer from "multer";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth";
 
 const upload = multer({ dest: "public/uploads/" });
 

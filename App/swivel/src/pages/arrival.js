@@ -25,7 +25,7 @@ export default function Arrival() {
 
   return(
     <CustomHero
-      title={` Bienvenidx, ${apiData.nombres}`}
+      title={` Bienvenidx, ${apiData?.nombres}`}
       message={''}
       containerSize={100}
     />
