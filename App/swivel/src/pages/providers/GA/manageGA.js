@@ -35,15 +35,15 @@ export default function ManageGA() {
 
     const { data: session } = useSession();
 
-    const fetchData = async () => {
-      const resData = await fetch(
-        `/api/managerProfile/managerP?id=${session.id}`
-      );
+    // const fetchData = async () => {
+    //   const resData = await fetch(
+    //     `/api/managerProfile/managerP?id=${session.id}`
+    //   );
   
-      const res = await resData.json();
+    //   const res = await resData.json();
   
-      setApiData(res.userData);
-    };
+    //   setApiData(res.userData);
+    // };
 
     const getAdmin = async (id) => {
         const response = await axios.get("/api/managerProfile/managerP", {

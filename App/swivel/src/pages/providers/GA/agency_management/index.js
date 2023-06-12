@@ -47,6 +47,8 @@ export default function ManageAgencias() {
             );
             const data = await res.json();
             setAgencias(data.result);
+            console.log(data.result);
+            console.log("Agencias", agencias)
         }catch(error){
             console.log(error)
         }
