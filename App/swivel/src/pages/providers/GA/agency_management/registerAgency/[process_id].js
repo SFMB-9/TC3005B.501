@@ -5,6 +5,7 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 import GANavbar from '@/components/providers/GA/navbar';
 import styles from '@/styles/test_details.module.css';
@@ -179,6 +180,13 @@ export default function RegisterAgencyProcess() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.estatus;
+                    if (cell === "En_Revision") {
+                        return "En revisión";
+                    }
+                    return cell;
+                },
             },
             {
                 field: "fecha_modificacion",
@@ -243,16 +251,33 @@ export default function RegisterAgencyProcess() {
                                 </IconButton>
                             </div>
                         ) : (
-                            <IconButton
-                                aria-label="delete"
-                                size="small"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    addToIsOpen(params.row._id);
-                                }}
-                            >
-                                <UploadIcon />
-                            </IconButton>
+                            <div>
+                                {
+                                    params.row.url && params.row.url !== "" ? (
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                addToIsOpen(params.row._id);
+                                            }}
+                                        >
+                                            <EditIcon />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                addToIsOpen(params.row._id);
+                                            }}
+                                        >
+                                            <UploadIcon />
+                                        </IconButton>
+                                    )
+                                }
+                            </div>
                         )}
                     </>
                 ),
@@ -320,46 +345,46 @@ export default function RegisterAgencyProcess() {
                                                 {process.info_agencia.url}
                                             </span>
                                         </h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row mt-4 mb-4">
-                                <div className="col-12 col-sm-6">
-                                    <h5
-                                        style={{
-                                            paddingLeft: "1.2rem",
-                                        }}
-                                    >
-                                        Número telefónico:
-                                        {" "}
-                                        <span style={{
-                                            color: "#333333",
-                                            fontWeight: "lighter",
-                                            fontSize: "1.1rem"
-                                        }}>
-                                            {process.info_agencia.numero_telefonico}
-                                        </span>
-                                    </h5>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <h5
-                                        style={{
-                                            paddingLeft: "1.2rem",
-                                        }}
-                                    >
-                                        Correo electrónico:
-                                        {" "}
-                                        <span style={{
-                                            color: "#333333",
-                                            fontWeight: "lighter",
-                                            fontSize: "1.1rem"
-                                        }}>
-                                            {process.info_agencia.email}
-                                        </span>
-                                    </h5>
+                                <div className="row mt-4 mb-4">
+                                    <div className="col-12 col-sm-6">
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Número telefónico:
+                                            {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_agencia.numero_telefonico}
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div className="col-12 col-sm-6">
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Correo electrónico:
+                                            {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_agencia.email}
+                                            </span>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </Fade>
 
                     <Fade in={true} timeout={1500}>
@@ -444,7 +469,7 @@ export default function RegisterAgencyProcess() {
     } else {
         return (
             <div>
-                <p>Loading Process...</p>
+                <p>Cargando...</p>
             </div>
         );
     }

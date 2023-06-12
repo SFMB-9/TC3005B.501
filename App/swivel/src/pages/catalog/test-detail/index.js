@@ -314,7 +314,7 @@ export default function RequestDetails() {
   }, [session, documents]);
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];

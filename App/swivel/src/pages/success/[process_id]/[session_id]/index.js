@@ -293,7 +293,7 @@ export default function Process() {
     } else {
         return (
             <div>
-                <p>Loading Process...</p>
+                <p>Cargando...</p>
             </div>
         );
     }
