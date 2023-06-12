@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 //import { useRouter } from 'next/router'
 import GActionsCards from "@/components/providers/GA/ga_actions_cards";
 import RequestCards from "@/components/providers/GA/request_cards";
-import Process from "@/components/buyer/process";
+import Process from "@/components/providers/GA/process";
 import Footer from "@/components/general/footer";
 
 export default function GALandingPage() {

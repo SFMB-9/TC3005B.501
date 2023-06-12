@@ -10,8 +10,8 @@ export default function GANavbar() {
         name: 'Acciones', 
         href: '', 
         popup: [
-          {name: 'Administración de gerentes', href: 'providers/GA/manageGA'}, 
-          {name: 'Administración de agencias', href: 'providers/GA/agency_management'}, 
+          {name: 'Administración de G.A', href: '/providers/GA/manageGA'}, 
+          {name: 'Administración de agencias', href: '/providers/GA/agency_management'}, 
           {name: 'Estadísticas de ventas', href: ''}
         ],
       },
@@ -21,7 +21,7 @@ export default function GANavbar() {
         popup: [
           {name: 'Editar Mi Perfil', href: '/providers/GA/editProfile'}, 
           {name: 'Cambiar contraseña', href: '/providers/GA/GA-update-password'}, 
-          {name: 'Cerrar sesión', href:'#', signoutComponent: ''}
+          {name: 'Cerrar sesión', href:'#', signoutComponent: '/auth/providers/login'}
         ]
       },
     ] : [

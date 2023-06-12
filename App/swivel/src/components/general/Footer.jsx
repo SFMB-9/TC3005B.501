@@ -15,7 +15,7 @@ import { Typography } from "@mui/material";
 const pages1 = [
   { name: "Sobre nosotros", link: "/about" },
   { name: "Compra un auto", link: "/catalog" },
-  { name: "Registra tu agencia", link: "/providers/GA/landing" }
+  { name: "Registra tu agencia", link: "/providers/GA" }
 ];
 
 // Funcion que retorna el footer de la pagina
