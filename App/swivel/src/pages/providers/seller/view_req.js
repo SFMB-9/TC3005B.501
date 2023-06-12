@@ -97,7 +97,7 @@ const RequestDetails = () => {
   }, [user_id]);
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   const columns = [
