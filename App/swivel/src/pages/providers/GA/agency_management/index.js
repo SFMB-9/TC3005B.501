@@ -22,6 +22,7 @@ import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
 import EditEntityData from '@/components/providers/GA/edit_entity_data';
+import { formatDate } from "@/components/general/date_utils";
 import { useSession } from "next-auth/react";
 
 export default function ManageAgencias() {
@@ -35,9 +36,6 @@ export default function ManageAgencias() {
     const [GA, setGA] = useState("");
     const [procesos, setProcesos] = useState([]);
     const role = "1624fa678ed998894bece420898aa464"; // Quitar cosas hardcodeadas
-
-
-
 
     const RouteRegistroAgencias = () => {
         if (router) {
@@ -242,6 +240,10 @@ export default function ManageAgencias() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.fecha_creacion !== "" && params.row.fecha_creacion ? formatDate(params.row.fecha_creacion).formattedShortDate : "";
+                    return cell;
+                },
             },
             {
                 field: "estatus_validacion",
@@ -250,6 +252,13 @@ export default function ManageAgencias() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.estatus_validacion;
+                    if (cell === "pendiente") {
+                        return "Pendiente";
+                    }
+                    return cell;
+                },
             },
             {
                 field: "botones",
@@ -386,8 +395,24 @@ export default function ManageAgencias() {
                                 > Registrar agencia  + </button>
                             </div>
                         }
-
-                        {procesos ? <DataTable
+                        <div
+                            style={{
+                                marginTop: "2rem",
+                                marginBottom: "1rem",
+                            }}
+                        >
+                            <h4
+                                style={{
+                                    fontFamily: "Raleway",
+                                    textAlign: "start",
+                                }}
+                            >
+                                Procesos activos de registro de agencia
+                            </h4>
+                        </div>
+                        {procesos ? 
+                        <div>
+                        <DataTable
                             columns={processColumns}
                             rows={procesos}
                             rowSelection={false}
@@ -419,7 +444,8 @@ export default function ManageAgencias() {
                                     color: "#333333",
                                 },
                             }}
-                        /> : <p>No hay procesos registrados</p>}
+                        />
+                        </div> : <p>No hay procesos registrados</p>}
                     </div>
                 </div>
             </GALayout>
