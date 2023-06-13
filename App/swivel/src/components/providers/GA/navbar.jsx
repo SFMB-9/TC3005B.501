@@ -26,7 +26,7 @@ export default function GANavbar() {
       },
     ] : [
       { name: "Iniciar sesión", href: "/auth/providers/login" },
-      { name: 'Regístrate', href: '/providers/GA/auth/signup' }
+      { name: 'Regístrate', href: '/GA/registroAdmin' }
     ];
 
   return (
