@@ -7,7 +7,7 @@ test.describe('Driving Req', () => {
         await page.goto('http://localhost:3000/')
         await page.getByRole('link', { name: 'Iniciar sesión'}).click()
 
-        //Se confirma la sesión antes de realizar el proceso
+        //Se inicia y confirma la sesión antes de realizar el proceso
         await page.locator('input[type="email"]').click();
         await page.locator('input[type="email"]').fill('karla@gmail.com');
         await page.locator('input[type="email"]').press('Tab');
