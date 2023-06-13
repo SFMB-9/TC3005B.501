@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
 import styles from '@/styles/add_manager.module.css';
 import GANavbar from '@/components/providers/GA/navbar';
+import { Container,Typography, TextField, Button } from "@mui/material";
+
 
 export default function AddManager() {
     const [formValues, setFormValues] = useState({
@@ -76,160 +77,264 @@ export default function AddManager() {
     };
 
     return (
-        <div>
-            <GANavbar />
-            <div className={styles.mainContainer}>
-                <h1 className={styles.pageTitle}>Agregar Gerente</h1>
-                <h3 className={styles.boldText}>Ingresa los datos del gerente</h3>
-                <form>
-                    <div className={styles.inputContainer}>
-                        <div className={styles.row}>
-                            <div className={styles.inputFieldContainer}>
-                                <h5>Nombre(s)</h5>
-                                <TextField
-                                    className={styles.inputField}
-                                    id="nombres"
-                                    label="Nombre(s)"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={formValues.nombres}
-                                    onChange={handleChange}
-                                    error={!!errors.nombres}
-                                    helperText={errors.nombres}
-                                />
-                            </div>
-                            <div className={styles.inputFieldContainer}>
-                                <h5>Apellido(s)</h5>
-                                <TextField
-                                    className={styles.inputField}
-                                    id="apellidos"
-                                    label="Apellido(s)"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={formValues.apellidos}
-                                    onChange={handleChange}
-                                    error={!!errors.apellidos}
-                                    helperText={errors.apellidos}
-                                />
-                            </div>
+        <>
+        <GANavbar />
+        <Container className="pt-3 p-5">
+            <Typography
+                fontFamily="Lato"
+                color="#1F1F1F"
+                fontSize={{ xs: 25, md: 28, lg: 33 }}
+                className="pt-2 pb-4"
+            >
+                Agregar Gerente
+            </Typography>
+            <Typography
+                fontFamily="Lato"
+                color="#1F1F1F"
+                className="pb-3"
+                fontWeight="bold"
+                fontSize={{ xs: 16, md: 17, lg: 19 }}
+            >
+                Ingresa los datos del gerente
+            </Typography>
+            <form>
+                <div className="d-sm-flex justify-content-between mb-4">
+                    <div className="row">
+                        <div className="col-xl-6 col-md-8">
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Nombre(s)
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="nombres"
+                                label="Nombre(s)"
+                                variant="outlined"
+                                size="small"
+                                type="text"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.nombres}
+                                onChange={handleChange}
+                                error={!!errors.nombres}
+                                helperText={errors.nombres} 
+                            />
+                        </div>
+                        <div className="col-xl-6 col-md-8">
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Apellido(s)
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="apellidos"
+                                label="Apellido(s)"
+                                variant="outlined"
+                                size="small"
+                                type="text"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.apellidos}
+                                onChange={handleChange}
+                                error={!!errors.apellidos}
+                                helperText={errors.apellidos}
+                            />
+                        </div>
+                        <div className="col-xl-6 col-md-8">
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Teléfono
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="telefono"
+                                label="Teléfono"
+                                variant="outlined"
+                                size="small"
+                                type="text"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.telefono}
+                                onChange={handleChange}
+                                error={!!errors.telefono}
+                                helperText={errors.telefono}
+                            />
+                        </div>
+                        <div className="col-xl-6 col-md-8">
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Agencia
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="agencia"
+                                label="Agencia"
+                                variant="outlined"
+                                size="small"
+                                type="text"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.agencia}
+                                onChange={handleChange}
+                                error={!!errors.agencia}
+                                helperText={errors.agencia}
+                            />
+                        </div>
+                        <Typography
+                            fontFamily="Lato"
+                            color="#1F1F1F"
+                            className="pt-5 pb-1"
+                            fontWeight="bold"
+                            fontSize={{ xs: 16, md: 17, lg: 19 }}
+                        >
+                            Credenciales
+                        </Typography>
+                        <div >
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Correo Electrónico
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="correo"
+                                label="Correo Electrónico"
+                                variant="outlined"
+                                size="small"
+                                type="text"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.correo}
+                                onChange={handleChange}
+                                error={!!errors.correo}
+                                helperText={errors.correo}
+                            />
+                        </div>
+                        <div className="col-xl-6 col-md-8">
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Contraseña
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="contraseña"
+                                label="Contraseña"
+                                variant="outlined"
+                                size="small"
+                                type="password"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.contraseña}
+                                onChange={handleChange}
+                                error={!!errors.contraseña}
+                                helperText={errors.contraseña}
+                            />
+                        </div>
+                        <div className="col-xl-6 col-md-8">
+                            <Typography
+                                fontFamily="Lato"
+                                color="#8A8A8A"
+                                className="pb-3"
+                                fontSize={{ xs: 15, md: 16, lg: 18 }}
+                            >
+                                Confirmar Contraseña
+                            </Typography>
+                            <TextField
+                                required
+                                className="mb-3 w-100"
+                                id="confirmarContraseña"
+                                label="Confirmar Contraseña"
+                                variant="outlined"
+                                size="small"
+                                type="password"
+                                
+                                pattern="[a-zA-Z]+"
+                                inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
+                                InputLabelProps={{ style: { fontFamily: "Lato" } }}
+                                value={formValues.confirmarContraseña}
+                                onChange={handleChange}
+                                error={!!errors.confirmarContraseña}
+                                helperText={errors.confirmarContraseña}
+                            />
                         </div>
                     </div>
 
-                    <div className={styles.inputContainer}>
-                        <h5>Teléfono</h5>
-                        <TextField
-                            className={styles.longInputField}
-                            id="telefono"
-                            label="Teléfono"
-                            variant="outlined"
-                            fullWidth
-                            value={formValues.telefono}
-                            onChange={handleChange}
-                            error={!!errors.telefono}
-                            helperText={errors.telefono}
-                        />
-                    </div>
+                </div>
+                <div className={styles.buttonContainer}>
+                    <Button
+                        variant="contained"
+                        className={styles.button}
+                        disableElevation
+                        sx={{
+                            backgroundColor: '#979797',
+                            fontFamily: 'lato',
+                            fontWeight: 'bold',
+                            ':hover': { backgroundColor: '#BABABA' },
+                        }}
+                        onClick={handleCancel}
+                    >
+                        Cancelar
+                    </Button>
 
-                    <div className={styles.inputContainer}>
-                        <h5>Agencia</h5>
-                        <TextField
-                            className={styles.longInputField}
-                            id="agencia"
-                            label="Agencia"
-                            variant="outlined"
-                            fullWidth
-                            value={formValues.agencia}
-                            onChange={handleChange}
-                            error={!!errors.agencia}
-                            helperText={errors.agencia}
-                        />
-                    </div>
-
-                    <h3 className={styles.boldText}>Credenciales</h3>
-                    <div className={styles.inputContainer}>
-                        <h5>Correo Electrónico</h5>
-                        <TextField
-                            className={styles.longInputField}
-                            id="correo"
-                            label="Correo Electrónico"
-                            variant="outlined"
-                            fullWidth
-                            value={formValues.correo}
-                            onChange={handleChange}
-                            error={!!errors.correo}
-                            helperText={errors.correo}
-                        />
-                    </div>
-
-                    <div className={styles.inputContainer}>
-                        <div className={styles.row}>
-                            <div className={styles.inputFieldContainer}>
-                                <h5>Contraseña</h5>
-                                <TextField
-                                    className={styles.inputField}
-                                    id="contraseña"
-                                    label="Contraseña"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={formValues.contraseña}
-                                    onChange={handleChange}
-                                    error={!!errors.contraseña}
-                                    helperText={errors.contraseña}
-                                    type="password"
-                                />
-                            </div>
-                            <div className={styles.inputFieldContainer}>
-                                <h5>Confirmar Contraseña</h5>
-                                <TextField
-                                    className={styles.inputField}
-                                    id="confirmarContraseña"
-                                    label="Confirmar Contraseña"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={formValues.confirmarContraseña}
-                                    onChange={handleChange}
-                                    error={!!errors.confirmarContraseña}
-                                    helperText={errors.confirmarContraseña}
-                                    type="password"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.buttonContainer}>
-                        <Button
-                            variant="contained"
-                            className={styles.button}
-                            disableElevation
-                            sx={{
-                                backgroundColor: '#979797',
-                                fontFamily: 'lato',
-                                fontWeight: 'bold',
-                                ':hover': { backgroundColor: '#BABABA' },
-                            }}
-                            onClick={handleCancel}
-                        >
-                            Cancelar
-                        </Button>
-
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            className={styles.button}
-                            disableElevation
-                            sx={{
-                                backgroundColor: '#F55C7A',
-                                fontFamily: 'lato',
-                                fontWeight: 'bold',
-                                ':hover': { backgroundColor: '#BABABA' },
-                            }}
-                            onClick={handleAddManager}
-                        >
-                            Agregar
-                        </Button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        className={styles.button}
+                        disableElevation
+                        sx={{
+                            backgroundColor: '#F55C7A',
+                            fontFamily: 'lato',
+                            fontWeight: 'bold',
+                            ':hover': { backgroundColor: '#BABABA' },
+                        }}
+                        onClick={handleAddManager}
+                    >
+                        Agregar
+                    </Button>
+                </div>
+            </form>
+        </Container>
+        </>
     );
 }
