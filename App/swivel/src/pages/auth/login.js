@@ -198,7 +198,7 @@ export default function Login() {
             </div>
             <div className="text-center">
               <p>
-                No tienes cuenta? <Link href="/auth/signup">Regístrate aquí</Link>
+                ¿No tienes cuenta? <Link href="/auth/signup" style={{ color: "#F55C7A" }}>Regístrate aquí</Link>
               </p>
             </div>
           </div>}

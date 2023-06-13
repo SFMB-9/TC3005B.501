@@ -30,7 +30,7 @@ export default function Process() {
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
   const [uploadedDocument, setUploadedDocument] = useState(null);
-  const [isOpen, setIsOpen] = useState([]);
+  const [isOpen, setIsOpen] = useState(null);
   const [isChatOpen, setChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -66,19 +66,16 @@ export default function Process() {
     }
   };
 
-  const addToIsOpen = async (newKey) => {
-    let currentOpen = [...isOpen];
-    currentOpen.push(newKey);
-    setIsOpen(currentOpen);
-  };
+  // const addToIsOpen = async (newKey) => {
+  //   let currentOpen = [...isOpen];
+  //   currentOpen.push(newKey);
+  //   setIsOpen(currentOpen);
+  // };
 
   // Save the indices that were changed
   const handleDocumentEdit = async (indx) => {
-    const isOpenWithoutIndx = isOpen.filter(function (i) {
-      return i !== indx;
-    });
 
-    setIsOpen(isOpenWithoutIndx);
+    setIsOpen(null);
     await handleSubmit();
   };
 
@@ -222,7 +219,7 @@ export default function Process() {
         type: "actions",
         renderCell: (params) => (
           <>
-            {isOpen.includes(params.row._id) ? (
+            {isOpen === params.row._id ? (
               <div>
                 <label htmlFor="file-input">
                   <IconButton aria-label="delete" size="small" component="span">
@@ -260,7 +257,7 @@ export default function Process() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <EditIcon />
@@ -271,7 +268,7 @@ export default function Process() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <UploadIcon />
@@ -368,7 +365,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    <strong>Agente Asignado</strong>
+                    <strong>Vendedor Asignado</strong>
                   </Typography>
                   <Typography
                     fontFamily="Lato"
@@ -376,7 +373,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Hola! Soy tu agente,<br />
+                    Hola! Soy tu vendedor,<br />
                     estaré revisando tus documentos y contestando las dudas que tengas. <br />
                   </Typography>
                 </div>
