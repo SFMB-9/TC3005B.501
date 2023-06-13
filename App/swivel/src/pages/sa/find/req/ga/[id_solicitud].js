@@ -90,16 +90,16 @@ export default function VistaSolicitud() {
     }
 
 
-    const rowsDoc =documents
+    const rowsDoc = documents;
     const columnsDoc = [
-
-        {field: "nombre_documento",
+        {
+        field: "nombre_documento",
         headerName: "Documento",
         headerAlign: "center",
         align: "center",
         minWidth: 150,
-        flex: 1,},
-
+        flex: 1,
+        },
         {
         field: "fecha_modificacion",
         type: "date",
@@ -109,112 +109,89 @@ export default function VistaSolicitud() {
         minWidth: 150,
         flex: 1,
         valueFormatter: (params) =>
-          new Date(params.value).toLocaleDateString("es-ES", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-          }),
-      },
-
-
+            new Date(params.value).toLocaleDateString("es-ES", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+            }),
+        },
         {
-        field: "estatus",
-        headerName: "Estatus",
-        headerAlign: "center",
-        align: "center",
-        minWidth: 150,
-        flex: 1,
-        type: "actions",
-        renderCell: (params) => (
-          <Select
-            value={params.row.estatus}
-            onChange={(e) => updateAnyDocument(e.target.value,params.row._id)}
-            label="Estatus"
-          >
-            <MenuItem value="pendiente">En Proceso</MenuItem>
-            <MenuItem value="aceptado">Aprobado</MenuItem>
-            <MenuItem value="rechazado">Rechazado</MenuItem>
-          </Select>
-        ),
-      },
-
-
-{
-    field: 'comentarios',
-    headerName: 'Comentarios',
-    width: 200,
-    renderCell: (params) => {
-      const [isEditing, setIsEditing] = useState(false);
-      const [value, setValue] = useState(params.value?.toString() || '');
-      const [savedValue, setSavedValue] = useState(params.value?.toString() || '');
-
-      const handleEditClick = () => {
-        setIsEditing(true);
-      };
-
-      const handleSaveClick = (value,i) => {
-        console.log("hello")
-        // Perform saving logic here, e.g., update the value in the data source
-        commentAnyDocument(value,i)
-        setSavedValue(value);
-        setIsEditing(false);
-      };
-
-      const handleInputChange = (event) => {
-        setValue(event.target.value);
-      };
-
-      return isEditing ? (
-        <TextField
-          fullWidth
-          value={value}
-          onChange={handleInputChange}
-          autoFocus
-          onBlur={(e) => handleSaveClick(value,params.row._id)}
-        />
-      ) : (
-        <div>
-          {savedValue}
-          <Button onClick={handleEditClick}>Edit</Button>
-        </div>
-      );
-    }
-  },
-
-  {field:"descarga",
-  minWidth:150,
-  headerName:"Archivo",
-  headerAlign:"center",
-  type:"actions",
-  renderCell: (params) => (
-    <>
-
-    {params.row.url && params.row.url !== " " ? (
-        <a href={params.row.url} target="_blank">
-        <u>Ver archivo</u>
-        </a>) : (<div> No hay archivo </div>) }
-    </>
-
-
-    )
-}
-
-
-
-
-
-
-
-
-        ]
-
-
-
-
-
- 
-
-
+            field: "estatus",
+            headerName: "Estatus",
+            headerAlign: "center",
+            align: "center",
+            minWidth: 150,
+            flex: 1,
+            type: "actions",
+            renderCell: (params) => (
+            <Select
+                value={params.row.estatus}
+                onChange={(e) => updateAnyDocument(e.target.value,params.row._id)}
+                label="Estatus"
+            >
+                <MenuItem value="Pendiente">En Proceso</MenuItem>
+                <MenuItem value="Aceptado">Aprobado</MenuItem>
+                <MenuItem value="Rechazado">Rechazado</MenuItem>
+            </Select>
+            ),
+        },
+        {
+            field: 'comentarios',
+            headerName: 'Comentarios',
+            width: 200,
+            renderCell: (params) => {
+              const [isEditing, setIsEditing] = useState(false);
+              const [value, setValue] = useState(params.value?.toString() || '');
+              const [savedValue, setSavedValue] = useState(params.value?.toString() || '');
+        
+              const handleEditClick = () => {
+                setIsEditing(true);
+              };
+        
+              const handleSaveClick = (value,i) => {
+                console.log("hello")
+                // Perform saving logic here, e.g., update the value in the data source
+                commentAnyDocument(value,i)
+                setSavedValue(value);
+                setIsEditing(false);
+              };
+        
+              const handleInputChange = (event) => {
+                setValue(event.target.value);
+              };
+        
+              return isEditing ? (
+                <TextField
+                  fullWidth
+                  value={value}
+                  onChange={handleInputChange}
+                  autoFocus
+                  onBlur={(e) => handleSaveClick(value,params.row._id)}
+                />
+              ) : (
+                <div>
+                  {savedValue}
+                  <Button onClick={handleEditClick}>Edit</Button>
+                </div>
+              );
+            }
+        },
+        {
+            field:"descarga",
+            minWidth:150,
+            headerName:"Archivo",
+            headerAlign:"center",
+            type:"actions",
+            renderCell: (params) => (
+            <>
+            {params.row.url && params.row.url !== " " ? (
+                <a href={params.row.url} target="_blank">
+                <u>Ver archivo</u>
+                </a>) : (<div> No hay archivo </div>) }
+            </>
+            )
+        }
+    ]
 
     return (
         <div>
@@ -283,14 +260,12 @@ export default function VistaSolicitud() {
 
                 </div>
                 <h4>Documentos</h4>
-
-                        <DataTable
-                          rows={rowsDoc}
-                          columns={columnsDoc}
-                          getRowId={(row) => row._id} 
-                        ></DataTable>
-
-
+                    <DataTable
+                        rows={rowsDoc}
+                        columns={columnsDoc}
+                        getRowId={(row) => row._id} 
+                    >
+                    </DataTable>
             </div>
         </div>
     );

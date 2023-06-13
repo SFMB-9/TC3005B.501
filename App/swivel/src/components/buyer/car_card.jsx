@@ -67,7 +67,7 @@ export default function CarCard(props) {
   });
   let cardMaxWidth = 500;
   if (props.cardType !== "catalog") {
-    cardMaxHeight = 500;
+    let cardMaxHeight = 500;
   }
 
   const [checkboxState, setCheckboxState] = useState(false);
