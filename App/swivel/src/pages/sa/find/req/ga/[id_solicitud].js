@@ -7,6 +7,8 @@ import { useState, useEffect} from 'react';
 import { useSession } from "next-auth/react";
 import LoadingScreen from "@/components/general/LoadingScreen";
 import axios from "axios";
+import { Select, MenuItem, Typography, Button} from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 export default function VistaSolicitud() {
 
@@ -22,9 +24,6 @@ export default function VistaSolicitud() {
     const [isLoading, setIsLoading] = useState(true);
     const { data: session } = useSession();
 
-
-    useEffect( () => {
-
         const getGADetail = async () => {
 
             try{
@@ -34,15 +33,18 @@ export default function VistaSolicitud() {
                     )
 
  
-                setUser(Object.values(resp.data.groupDetails)[0]);
-                setAddress(Object.values(resp.data.groupDetails)[0].direccion);
-                setLegal(Object.values(resp.data.groupDetails)[0].legal);
-                setApproval(Object.values(resp.data.groupApproval)[0]);
+                setUser(resp.data.groupDetails);
+                setAddress(resp.data.groupDetails.direccion);
+                setLegal(resp.data.groupDetails.legal);
+                setApproval(resp.data.groupApproval);
+                
+                
+                const newDocuments = resp.data.groupDocs.map((doc,i) =>{
+                    return { ...doc, _id: i};
+                });
 
+                setDocuments(newDocuments);
 
-
-
-                setAgencies(resp.data.groupAgencies);
                 setIsLoading(false)
 
 
@@ -52,7 +54,10 @@ export default function VistaSolicitud() {
             } catch(err){
                 console.log(err)
             }
-        };
+        }; 
+
+    useEffect( () => {
+
 
         if(session){
             getGADetail()
@@ -62,6 +67,112 @@ export default function VistaSolicitud() {
 
     }, [session]);
 
+    const updateAnyDocument = async (status, i) => {
+        setIsLoading(true)
+     const upd = await axios.post("/api/superadmin/updateAnyDocStatus", {
+      id:userId,
+      status:status,
+      index:i
+    });
+
+     getGADetail();
+    }
+
+
+    const rowsDoc =documents
+    const columnsDoc = [
+
+        {field: "nombre_documento",
+        headerName: "Documento",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,},
+
+        {
+        field: "fecha_modificacion",
+        type: "date",
+        headerName: "Fecha de Modificación",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        valueFormatter: (params) =>
+          new Date(params.value).toLocaleDateString("es-ES", {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+          }),
+      },
+
+
+        {
+        field: "estatus",
+        headerName: "Estatus",
+        headerAlign: "center",
+        align: "center",
+        minWidth: 150,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => (
+          <Select
+            value={params.row.estatus}
+            onChange={(e) => updateAnyDocument(e.target.value,params.row._id)}
+            label="Estatus"
+          >
+            <MenuItem value="pendiente">En Proceso</MenuItem>
+            <MenuItem value="aceptado">Aprobado</MenuItem>
+            <MenuItem value="rechazado">Rechazado</MenuItem>
+          </Select>
+        ),
+      },
+
+
+      {field: 'comentarios',
+    headerName: 'Comentarios',
+    width: 200,
+    renderCell: (params) => {
+      // Access the row data using params.row
+      // You can customize the value or render logic here
+      return (
+        <TextField
+          value={params.value} // Assuming the field in your row data is 'customField'
+          onChange={(event) => {
+            const newValue = event.target.value;
+            // Update the value in your state or data source
+            // using the params.row.id or params.row index
+          }}
+        />
+      );
+    }
+  },
+
+  {field:"descarga",
+  minWidth:150,
+  headerName:"Archivo",
+  headerAlign:"center",
+  type:"actions",
+  renderCell: (params) => (
+    <>
+
+    {params.row.url && params.row.url !== " " ? (
+        <a href={params.row.url} target="_blank">
+        <u>Ver archivo</u>
+        </a>) : (<div> No hay archivo </div>) }
+    </>
+
+
+    )
+}
+
+
+
+
+
+
+
+
+        ]
 
 
 
@@ -98,7 +209,7 @@ export default function VistaSolicitud() {
                                     </div>
                                 </div>
                             </div>
-                            <p className={styles.status}>Estatus de la solicitud: {approval.estatus}</p>
+                            <p className={styles.status}>Estatus de la solicitud: {approval.estatus_validacion}</p>
                         </div>
                     </div>
 
@@ -133,12 +244,19 @@ export default function VistaSolicitud() {
                             </div>
                         </div>
 
-                        <p className={styles.status}>Solicitud Realizada: {approval.fecha_inicio}</p>
+                        <p className={styles.status}>Solicitud Realizada: {approval.fecha_creacion}</p>
                     </div>
 
                 </div>
                 <h4>Documentos</h4>
-                {/*Aqui van los documentos*/}
+
+                        <DataTable
+                          rows={rowsDoc}
+                          columns={columnsDoc}
+                          getRowId={(row) => row._id} 
+                        ></DataTable>
+
+
             </div>
         </div>
     );
