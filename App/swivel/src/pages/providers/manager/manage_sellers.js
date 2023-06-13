@@ -44,7 +44,7 @@ export default function SearchResults() {
     const fetchAgency = async (q) => {
         try {
             const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
-            conast userData = response.data.userData;
+            const userData = response.data.userData;
             setAgency(userData.agencia_id || '');
         } catch (error) {
             console.error('Error fetching search results:', error);
