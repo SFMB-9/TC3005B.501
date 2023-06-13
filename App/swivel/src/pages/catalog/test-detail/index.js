@@ -100,8 +100,13 @@ export default function RequestDetails() {
       lng: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[1])
     });
     setUserData(retrievedUser);
-    setDocuments(newDocuments);
     setUserAddress(retrievedAddress);
+
+    // Only update documents if they have changed in order to prevent an infinite loop
+    if (JSON.stringify(documents) !== JSON.stringify(newDocuments)) {
+      setDocuments(newDocuments);
+    }
+
     checkValidatedDocs();
   }
 
@@ -112,37 +117,23 @@ export default function RequestDetails() {
   };
 
   const handleDocumentEdit = async (indx) => {
-
-    // console.log("uploadedDocument: " + uploadedDocument);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
 
     setIsOpen(isOpenWithoutIndx);
-    await handleSubmit();
   };
 
   const handleSubmit = async () => {
-    const currentDocs = documents;
-
-    if (!uploadedDocument) {
-      return;
-    }
-
     const documentUrl = await FileUpload(uploadedDocument);
-
-    currentDocs[changedDocumentIndex].url = documentUrl;
-    currentDocs[changedDocumentIndex].fecha_modificacion = new Date().toISOString();
 
     try {
       await fetch(
-        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${currentDocs[changedDocumentIndex].fecha_modificacion}&update_status=Subido`,
+        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${new Date().toISOString()}&update_status=Subido`,
         {
           method: "PUT",
         }
       );
-
-      setDocuments(currentDocs);
 
       fetchDetails();
     } catch (error) {
@@ -170,7 +161,11 @@ export default function RequestDetails() {
         renderCell: (params) => (
           <>
             {params.row.url && params.row.url !== "" ? (
-              <a href={params.row.url}>
+              <a 
+                href={params.row.url}
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
                 <u>Ver archivo</u>
               </a>
             ) : (
@@ -225,24 +220,11 @@ export default function RequestDetails() {
                   style={{ visibility: "hidden", width: 0, height: 0 }}
                   onChange={(e) => {
                     e.preventDefault();
-                    const file = e.target.files[0];
-                    console.log("file", file);
-                    setUploadedDocument(file)
-                    setChangedDocumentIndex(params.row._id)
+                    setUploadedDocument(e.target.files[0]);
+                    setChangedDocumentIndex(params.row._id);
+                    handleDocumentEdit(params.row._id);
                   }}
                 />
-
-                <IconButton
-                  aria-label="delete"
-                  size="small"
-                  component="span"
-                  type="submit"
-                  onClick={() =>
-                    handleDocumentEdit(params.row._id)
-                  }
-                >
-                  <CheckIcon />
-                </IconButton>
               </div>
             ) : (
               <div>
@@ -281,9 +263,6 @@ export default function RequestDetails() {
   );
 
   const createDrivingTest = async () => {
-    // Save the changed documents to firebase
-    await handleSubmit();
-
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
       { auto_id: auto_id, user_id: session.id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
@@ -301,10 +280,12 @@ export default function RequestDetails() {
 
   const checkValidatedDocs = () => {
     documents.forEach((doc) => {
-      if (doc.estatus !== "Aceptado") {
+      if (doc.estatus !== "Subido") {
         setValidatedDocs(false);
+        return;
       }
     });
+    setValidatedDocs(true);
   };
 
   useEffect(() => {
@@ -312,6 +293,12 @@ export default function RequestDetails() {
       fetchDetails();
     }
   }, [session, documents]);
+
+  useEffect(() => {
+    if (uploadedDocument) {
+      handleSubmit();
+    }
+  }, [uploadedDocument]);
 
   if (router.isFallback) {
     return <div>Cargando...</div>;
@@ -486,7 +473,7 @@ export default function RequestDetails() {
                   }}
                   variant='contained' 
                   onClick={() => setActiveSectionIndex(1)}
-                  // disabled={!validatedDocs}
+                  disabled={!validatedDocs}
                   >Continuar</Button>
               </div>
             </div>
