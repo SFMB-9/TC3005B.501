@@ -101,8 +101,10 @@ export default function SearchResults() {
     };
 
     const handleSearchChange = (event) => {
-        setSearchValue(event.target.value);
-    };
+        if (event.target) {
+            setSearchValue(event.target.value);
+        }
+    };
 
     const columns = useMemo(
         () => [
