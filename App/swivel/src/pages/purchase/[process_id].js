@@ -134,8 +134,10 @@ export default function Process() {
     documents.forEach((doc) => {
       if (doc.estatus !== "Aceptado" || doc.estatus !== "ID Validada") {
         validatedDocs = false;
+        return validatedDocs;
       }
     });
+    validatedDocs = true;
     return validatedDocs;
   };
 
