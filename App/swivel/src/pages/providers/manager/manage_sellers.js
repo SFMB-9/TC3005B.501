@@ -63,14 +63,13 @@ export default function SearchResults() {
     };
 
     useEffect(() => {
-        fetchAgency(session.id)
-    }, [agency])
-    
-    // Fetch results when the component mounts
-    useEffect(() => {
-        fetchResults();
+        if (session) {
+            fetchAgency(session.id)
+            fetchResults()
+        }
+        
+    }, [session])
 
-    }, [agency]);
 
     useEffect(() => {
         setFilteredResults(
