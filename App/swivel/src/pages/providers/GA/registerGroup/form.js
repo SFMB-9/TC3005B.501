@@ -253,7 +253,21 @@ export default function RegisterForm() {
                                     />
                                 </div>
                                 <div className="col-12 col-md-4">
-                                    <input
+                                <select
+                                    required
+                                    className="form-control"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                    id={styles.dropdownStates}
+                                    >
+                                    <option style={{color:"#6C757D"}} value="" selected="Elegir estado">Elegir estado</option>
+                                    {mexicanStates.map((stateObj, index) => (
+                                        <option style={{color:"black"}} key={index} value={stateObj.name}>
+                                        {stateObj.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                    { /* <input
                                         type="text"
                                         className="form-control"
                                         placeholder="Estado"
@@ -263,10 +277,11 @@ export default function RegisterForm() {
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="col-12 col-md-2">
                                     <input
+                                        disabled
                                         type="text"
                                         className="form-control"
                                         placeholder="País"
@@ -274,6 +289,7 @@ export default function RegisterForm() {
                                         onChange={(e) => setCountry(e.target.value)}
                                         required
                                         style={{
+                                            color:"#6C757D",
                                             marginBottom: "0.8rem"
                                         }}
                                         inputProps={{ readOnly: true }}
