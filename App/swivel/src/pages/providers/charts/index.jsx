@@ -1,30 +1,41 @@
 import React from "react";
 import MasVendido from "./MasVendido";
-import { fetchData } from "next-auth/client/_utils";
 
 export default function Estadisticas() {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
     document.title = "Proveedores - Gráficos";
-    fetchData(
-      "http://localhost:3000/api/charts/solicitudCompraAgencia?name=Nissan%20Cuauhtemoc",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/charts/solicitudCompraAgencia?name=Nissan%20Cuauhtemoc",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setData(data);
+          console.log("Data:", data);
+        } else {
+          throw new Error("Request failed with status: " + response.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
       }
-    ).then((res) => {
-      setData(res.documents);
-    });
-    console.log("data", data);
+    };
+
+    fetchData();
   }, []);
 
   return (
     <div>
       <h1>Estadisticas</h1>
-      {data && data.length > 0 && <MasVendido data={data} />}
+      {data && data.length > 0 && <MasVendido data={data.documents} />}
     </div>
   );
 }
