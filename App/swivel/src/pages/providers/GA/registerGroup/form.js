@@ -239,27 +239,41 @@ export default function RegisterForm() {
                                     />
                                 </div>
                                 <div className="col-12 col-md-4">
-                                    <TextField
-                                        required
-                                        size="small"
-                                        className="w-100"
-                                        label="Estado"
+                                <select
+                                    required
+                                    className="form-control"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                    id={styles.dropdownStates}
+                                    >
+                                    <option style={{color:"#6C757D"}} value="" selected="Elegir estado">Elegir estado</option>
+                                    {mexicanStates.map((stateObj, index) => (
+                                        <option style={{color:"black"}} key={index} value={stateObj.name}>
+                                        {stateObj.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                    { /* <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Estado"
                                         value={state}
                                         onChange={(e) => setState(e.target.value)}
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="col-12 col-md-2">
-                                    <TextField
-                                        required
-                                        size="small"
-                                        className="w-100"
-                                        label="País"
+                                    <input
+                                        disabled
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="País"
                                         value="México"
                                         onChange={(e) => setCountry(e.target.value)}
                                         style={{
+                                            color:"#6C757D",
                                             marginBottom: "0.8rem"
                                         }}
                                         inputProps={{ readOnly: true }}
