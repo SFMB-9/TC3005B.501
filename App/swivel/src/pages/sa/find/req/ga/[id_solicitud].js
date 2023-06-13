@@ -73,6 +73,17 @@ export default function VistaSolicitud() {
       id:userId,
       status:status,
       index:i
+    });b
+
+     getGADetail();
+    }
+
+    const commentAnyDocument = async (comm, i) => {
+        setIsLoading(true)
+     const upd = await axios.post("/api/superadmin/updateAnyDocComment", {
+      id:userId,
+      comment:comm,
+      index:i
     });
 
      getGADetail();
@@ -129,18 +140,40 @@ export default function VistaSolicitud() {
             headerName: 'Comentarios',
             width: 200,
             renderCell: (params) => {
-            // Access the row data using params.row
-            // You can customize the value or render logic here
-                return (
-                    <TextField
-                    value={params.value} // Assuming the field in your row data is 'customField'
-                    onChange={(event) => {
-                        const newValue = event.target.value;
-                        // Update the value in your state or data source
-                        // using the params.row.id or params.row index
-                    }}
-                    />
-                );
+              const [isEditing, setIsEditing] = useState(false);
+              const [value, setValue] = useState(params.value?.toString() || '');
+              const [savedValue, setSavedValue] = useState(params.value?.toString() || '');
+        
+              const handleEditClick = () => {
+                setIsEditing(true);
+              };
+        
+              const handleSaveClick = (value,i) => {
+                console.log("hello")
+                // Perform saving logic here, e.g., update the value in the data source
+                commentAnyDocument(value,i)
+                setSavedValue(value);
+                setIsEditing(false);
+              };
+        
+              const handleInputChange = (event) => {
+                setValue(event.target.value);
+              };
+        
+              return isEditing ? (
+                <TextField
+                  fullWidth
+                  value={value}
+                  onChange={handleInputChange}
+                  autoFocus
+                  onBlur={(e) => handleSaveClick(value,params.row._id)}
+                />
+              ) : (
+                <div>
+                  {savedValue}
+                  <Button onClick={handleEditClick}>Edit</Button>
+                </div>
+              );
             }
         },
         {

@@ -17,7 +17,7 @@ const LoadingScreen = () => {
         fontSize: '24px',
       }}
     >
-      Loading...
+      Cargando...
     </div>
   );
 };
