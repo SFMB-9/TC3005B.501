@@ -65,10 +65,16 @@ export default function SearchResults() {
     useEffect(() => {
         if (session) {
             fetchAgency(session.id)
-            fetchResults()
         }
         
     }, [session])
+
+    useEffect(() => {
+        if (agency) {
+            fetchResults()
+        }
+        
+    }, [agency])
 
 
     useEffect(() => {
