@@ -41,7 +41,7 @@ export default async function handler(req, res) {
                 }
               });
 
-            const searchResults = body.hits.hits.map(hit => hit._source);
+            const searchResults = body.hits.hits.map(hit => hit); //._source);
             
             res.status(200).json(searchResults);
         } 
