@@ -257,17 +257,6 @@ export default function SearchResults() {
                     </div>
 
                     <div>
-                        <label htmlFor="agency_field">Agencia</label>
-                        <input
-                            type="text"
-                            id="agency_field"
-                            className="form-control"
-                            value={agency}
-                            onChange={(e) => setAgency(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
                         <DataTable
                             columns={columns}
                             rows={filteredResults}
