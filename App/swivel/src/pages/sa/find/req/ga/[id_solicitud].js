@@ -73,7 +73,7 @@ export default function VistaSolicitud() {
       id:userId,
       status:status,
       index:i
-    });b
+    });
 
      getGADetail();
     }
