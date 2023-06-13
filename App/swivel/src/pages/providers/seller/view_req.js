@@ -64,12 +64,18 @@ const RequestDetails = () => {
   };
 
   // This function updates the status of a document
-  const updateDocumentStatus = async (_id, doc_id, status) => {
+  const updateDocumentStatus = async (_id, doc_id, status, phone) => {
     await axios.put("/api/DrivingRequestsSeller/updateDocumentStatus", {
       _id,
       doc_id,
       status,
     });
+
+    await axios.post('/api/twilio/message', { 
+      to: `+521${phone}` , 
+      message: `SWIVEL: Actualización de tu proceso de venta: ${status}` 
+    });
+
     fetchRequests();
   };
 
@@ -156,7 +162,7 @@ const RequestDetails = () => {
           <Select
             value={params.row.estatus}
             onChange={(e) =>
-              updateDocumentStatus(request._id, params.row._id, e.target.value)
+              updateDocumentStatus(request._id, params.row._id, e.target.value, user.numero_telefonico)
             }
             label="Status"
             variant="standard"
