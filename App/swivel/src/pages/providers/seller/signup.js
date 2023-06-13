@@ -25,6 +25,7 @@ export default function SellerSignup() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMessage, setErrMessage] = useState("");
+  const [agency, setAgency] = useState("");
   const [errors, setErrors] = useState({
     name: false,
     surname: false,
@@ -40,9 +41,15 @@ export default function SellerSignup() {
     return !(name && surname && email && phone && password && confPassword);
   };
 
-  const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
-  const userData = response.data.userData;
-  const agency = userData.agencia_id;
+  const fetchResults = async (q) => {
+        try {
+            const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
+            const userData = response.data.userData;
+            setAgency(userData.agencia_id || '');
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        }
+    };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -70,6 +77,8 @@ export default function SellerSignup() {
       setLoading(false);
     }
   };
+
+  fetchResults(session.id)
 
   return (
     <>
