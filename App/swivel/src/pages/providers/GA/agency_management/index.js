@@ -247,7 +247,7 @@ export default function ManageAgencias() {
                                 title="Eliminar cuenta"
                                 popUpContent={
                                     <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                                        <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
+                                        <p> Al hacer click en &quot;Confirmar&quot; estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
                                             onClick={() => deleteEntry(params.row._id)}

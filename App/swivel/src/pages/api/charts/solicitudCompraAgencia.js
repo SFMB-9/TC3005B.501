@@ -11,8 +11,6 @@ export default async function handler(req, res) {
     const documents = await procesos.find({nombre_agencia: name }).toArray();
 
     // Extract the files or relevant data from the documents
-    
-
     res.status(200).json({ message: "Datos recuperados", documents });
 
     client.close(); // Close the MongoDB connection
