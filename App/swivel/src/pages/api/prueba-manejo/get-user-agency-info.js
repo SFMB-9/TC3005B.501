@@ -8,7 +8,6 @@ of a given user in the db.
 
 import connectToDatabase from '@/utils/mongodb'
 import { ObjectId } from "mongodb";
-import { encryptRole } from '@/utils/crypto';
 
 export default async (req, res) => {
     if (req.method !== 'GET') {

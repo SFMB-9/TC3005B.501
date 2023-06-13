@@ -66,7 +66,6 @@ export default function CarCard(props) {
     },
   });
   let cardMaxWidth = 500;
-  let cardMaxHeight = 330;
   if (props.cardType !== "catalog") {
     cardMaxHeight = 500;
   }
@@ -85,7 +84,7 @@ export default function CarCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: cardMaxWidth, maxHeight: cardMaxHeight }}>
+    <Card sx={{ maxWidth: cardMaxWidth }}>
       <div style={{ position: 'relative' }}>
         <a href={props.carUrl}>
           <CardMedia

@@ -253,8 +253,8 @@ const SARequestDashboard = () => {
             label="Estatus"
           >
             <MenuItem value="pendiente">En Proceso</MenuItem>
-            <MenuItem value="Aceptada">Aprobado</MenuItem>
-            <MenuItem value="Rechazada">Rechazado</MenuItem>
+            <MenuItem value="aceptado">Aprobado</MenuItem>
+            <MenuItem value="rechazado">Rechazado</MenuItem>
           </Select>
         ),
       },

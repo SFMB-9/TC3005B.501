@@ -92,7 +92,7 @@ export default function SignupBuyerData() {
       passStatus = true;
       setErrMessage("Usuario registrado exitosamente");
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
       passStatus = false;
       setErrMessage("Hubo un error al registrarse");
     }

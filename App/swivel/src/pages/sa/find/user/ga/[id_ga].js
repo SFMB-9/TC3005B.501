@@ -33,10 +33,10 @@ export default function DetailsGA() {
                     )
 
  
-                setUser(Object.values(resp.data.groupDetails)[0]);
-                setAddress(Object.values(resp.data.groupDetails)[0].direccion);
-                setLegal(Object.values(resp.data.groupDetails)[0].legal);
-                setApproval(Object.values(resp.data.groupApproval)[0]);
+                setUser(resp.data.groupDetails);
+                setAddress(resp.data.groupDetails.direccion);
+                setLegal(resp.data.groupDetails.legal);
+                setApproval(resp.data.groupApproval);
 
 
 

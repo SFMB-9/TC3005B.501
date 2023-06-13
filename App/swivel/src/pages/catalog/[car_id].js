@@ -183,6 +183,7 @@ export default function CarDetails() {
       ano: carDetails.año,
       precio: carDetails.precio.toString(),
       array_fotografias_url: selectedColor.imagenes,
+      agencia: carDetails.agencia_id,
     };
 
     const payment =

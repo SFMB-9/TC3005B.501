@@ -156,6 +156,9 @@ export default function Login() {
               {error ? <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> : null}
               <Button 
                 className="btn btn-primary btn-block mb-2"
+                style={{
+                  backgroundColor: "#0d6efd"
+                }}
                 disabled={disabled()}
                 onPointerOver={() => {
                   if (firstTime) {
@@ -198,7 +201,7 @@ export default function Login() {
             </div>
             <div className="text-center">
               <p>
-                No tienes cuenta? <Link href="/auth/signup">Regístrate aquí</Link>
+                ¿No tienes cuenta? <Link href="/auth/signup" style={{ color: "#F55C7A" }}>Regístrate aquí</Link>
               </p>
             </div>
           </div>}

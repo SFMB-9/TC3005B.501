@@ -5,6 +5,7 @@ import LocationsMap from "@/components/general/locations_map";
 import { useRouter } from 'next/router'
 import styles from '@/styles/category_views.module.css'
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 // Selecting any item will actually 
 // instance a filter in the catalog
@@ -183,7 +184,7 @@ export default function CategoryViews() {
               {itemsToShowBrand.map((brand, index) => (
                 <Link href={`/catalog?marca=${brand}`} key={index}>
                   <div className={styles.brand}>
-                    <img src={`/buyer/brands/${brand}.png?`} />
+                    <img src={`/buyer/brands/${brand.toLowerCase()}.png`} />
                     <span className={styles.brandName}>{brand}</span>
                   </div>
                 </Link>
@@ -208,7 +209,7 @@ export default function CategoryViews() {
               {itemsToShowType.map((type, index) => (
                 <Link href={`/catalog?tipo=${type}`} key={index}>
                   <div className={styles.type}>
-                    <img src={`/buyer/types/${type}.png?`} />
+                  <img src={`/buyer/types/${type.toLowerCase()}.png`} />
                     <span className={styles.typeName}>{type}</span>
                   </div>
                 </Link>
