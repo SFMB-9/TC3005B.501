@@ -1,17 +1,20 @@
 "use client";
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
   TextField,
-  Button,
+  Button, 
 } from "@mui/material";
+
+import { useSession } from "next-auth/react";
 
 import ManagerLayout from "@/components/providers/manager/layout";
 
 export default function SellerSignup() {
+  const { data: session } = useSession();
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -22,6 +25,7 @@ export default function SellerSignup() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMessage, setErrMessage] = useState("");
+  const [agency, setAgency] = useState("");
   const [errors, setErrors] = useState({
     name: false,
     surname: false,
@@ -36,8 +40,16 @@ export default function SellerSignup() {
     }
     return !(name && surname && email && phone && password && confPassword);
   };
-  
-  const agency = "647af5ebfb2360082e89094b";
+
+  const fetchResults = async (q) => {
+        try {
+            const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
+            const userData = response.data.userData;
+            setAgency(userData.agencia_id || '');
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        }
+    };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -65,6 +77,14 @@ export default function SellerSignup() {
       setLoading(false);
     }
   };
+
+    useEffect(() => {
+        if(session){
+            fetchResults(session.id)
+        } else {
+
+        }
+    }, [session]);
 
   return (
     <>
