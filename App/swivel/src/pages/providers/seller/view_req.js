@@ -12,6 +12,8 @@ import SellerNavbar from "@/components/providers/seller/navbar";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { formatDate } from "@/components/general/date_utils";
 import { Link } from "react-router-dom";
+import TextField from '@mui/material/TextField';
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -28,6 +30,7 @@ const RequestDetails = () => {
   const [user, setUser] = useState({});
   const { id, user_id } = router.query;
   const [isChatOpen, setChatOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleChat = () => {
     setChatOpen(!isChatOpen);
@@ -100,104 +103,97 @@ const RequestDetails = () => {
     return <div>Cargando...</div>;
   }
 
-  const columns = [
-    {
-      field: "descarga",
-      minWidth: 150,
-      headerName: "Archivo",
-      headerAlign: "center",
-      align: "center",
-      type: "actions",
-      renderCell: (params) => (
-        <>
-          {params.row.url && params.row.url !== "" ? (
-            <a href={params.row.url} target="_blank">
-              <u>Ver archivo</u>
-            </a>
-          ) : (
-            <div>No hay archivo</div>
-          )}
-        </>
-      ),
-    },
-    {
+  const updateAnyDocument = async (status, i) => {
+      setIsLoading(true)
+    const upd = await axios.post("/api/superadmin/updateAnyDocStatus", {
+      id: id,
+      status: status,
+      index: i
+    });
+
+    fetchRequests();
+  }
+
+  const rowsDoc = documents;
+  const columnsDoc = [
+      {
       field: "nombre_documento",
-      headerName: "Nombre",
+      headerName: "Documento",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
-    },
-    {
-      field: "fecha_modificacion",
-      headerName: "Ultima modificación",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (params) => {
-        const cell =
-          params.row.fecha_modificacion !== "" && params.row.fecha_modificacion
-            ? formatDate(params.row.fecha_modificacion).formattedShortDate
-            : 0;
-        return cell;
       },
-    },
-    {
-      field: "estatus",
-      headerName: "Estatus",
+      {
+      field: "fecha_modificacion",
+      type: "date",
+      headerName: "Fecha de Modificación",
       headerAlign: "center",
       align: "center",
       minWidth: 150,
       flex: 1,
-      type: "actions",
-      renderCell: (params) =>
-        params.row.estatus != "Pendiente" ? (
+      valueFormatter: (params) =>
+          new Date(params.value).toLocaleDateString("es-ES", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+          }),
+      },
+      {
+          field: "estatus",
+          headerName: "Estatus",
+          headerAlign: "center",
+          align: "center",
+          minWidth: 150,
+          flex: 1,
+          type: "actions",
+          renderCell: (params) => (
           <Select
-            value={params.row.estatus}
-            onChange={(e) =>
-              updateDocumentStatus(request._id, params.row._id, e.target.value)
-            }
-            label="Status"
-            variant="standard"
-            size="small"
-            color="primary"
-            sx={{ fontFamily: "Lato", fontSize: "12px" }}
+              value={params.row.estatus}
+              onChange={(e) => updateAnyDocument(e.target.value,params.row._id)}
+              label="Estatus"
           >
-            <MenuItem
-              sx={{ fontFamily: "Lato", fontSize: "12px" }}
-              value="En_Revision"
-            >
-              En Revisión
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: "Lato", fontSize: "12px" }}
-              value="Aceptado"
-            >
-              Aprobado
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: "Lato", fontSize: "12px" }}
-              value="Rechazado"
-            >
-              Rechazado
-            </MenuItem>
+              <MenuItem value="Pendiente">En Proceso</MenuItem>
+              <MenuItem value="Aceptado">Aprobado</MenuItem>
+              <MenuItem value="Rechazado">Rechazado</MenuItem>
           </Select>
-        ) : (
-          <p>{params.row.estatus}</p>
-        ),
-    },
-    {
-      field: "comentarios",
-      headerName: "Comentarios",
-      headerAlign: "center",
-      align: "center",
-      minWidth: 150,
-      flex: 2,
-      type: "text",
-      editable: true,
-    },
-  ];
+          ),
+      },
+      {
+          field: 'comentarios',
+          headerName: 'Comentarios',
+          width: 200,
+          renderCell: (params) => {
+          // Access the row data using params.row
+          // You can customize the value or render logic here
+              return (
+                  <TextField
+                  value={params.value} // Assuming the field in your row data is 'customField'
+                  onChange={(event) => {
+                      const newValue = event.target.value;
+                      // Update the value in your state or data source
+                      // using the params.row.id or params.row index
+                  }}
+                  />
+              );
+          }
+      },
+      {
+          field:"descarga",
+          minWidth:150,
+          headerName:"Archivo",
+          headerAlign:"center",
+          type:"actions",
+          renderCell: (params) => (
+          <>
+          {params.row.url && params.row.url !== " " ? (
+              <a href={params.row.url} target="_blank">
+              <u>Ver archivo</u>
+              </a>) : (<div> No hay archivo </div>) }
+          </>
+          )
+      }
+  ]
 
   const rows = documents;
   console.log(documents);
@@ -206,6 +202,7 @@ const RequestDetails = () => {
     // This is the page that displays the details of a request
     <>
       <SellerNavbar />
+      {/* {isLoading && <LoadingScreen />} */}
       <div className="px-lg-5 mx-xl-5">
         <div className="section px-2">
           <div className="px-3">
@@ -312,58 +309,13 @@ const RequestDetails = () => {
 
         <div className="section px-2">
           <div className="p-3 pt-2">
-            <Typography
-              variant="h5"
-              fontWeight="bold"
-              className="py-3"
-              sx={{ fontFamily: "Lato", color: "#333333" }}
-            >
-              Documentos
-            </Typography>
-            <Typography
-              variant="p"
-              fontWeight="light"
-              className="py-3"
-              sx={{ fontFamily: "Lato", color: "#333333" }}
-            >
-              * Para editar los comentarios haga doble click sobre el campo
-            </Typography>
+          <h4>Documentos</h4>
             <DataTable
-              columns={columns}
-              rows={rows}
-              rowSelection={false}
-              save={true}
-              endpoint={addNewComment}
-              requiredInfo={{ rid: request._id }}
-              sx={{
-                border: 1,
-                borderColor: "#D9D9D9",
-                "& .MuiDataGrid-cell": {
-                  border: 1,
-                  borderRight: 0,
-                  borderTop: 0,
-                  borderLeft: 0,
-                  borderColor: "#D9D9D9",
-                  fontFamily: "Lato",
-                  fontWeight: 500,
-                  fontSize: "12px",
-                  color: "#333333",
-                },
-                "& .MuiDataGrid-columnHeaders": {
-                  fontFamily: "Lato",
-                  fontSize: "16px",
-                  color: "#333333",
-                  borderBottom: 0,
-                },
-                "& .MuiDataGrid-columnHeaderTitle": {
-                  fontWeight: 800,
-                },
-                "& .MuiPaginationItem-text": {
-                  fontFamily: "Lato",
-                  color: "#333333",
-                },
-              }}
-            />
+                rows={rowsDoc}
+                columns={columnsDoc}
+                getRowId={(row) => row._id} 
+            >
+            </DataTable>
           </div>
         </div>
       </div>
@@ -393,7 +345,7 @@ const RequestDetails = () => {
           position: relative;
           display: grid;
           grid-template-rows: 1fr 100px;
-          min-height: 100vh;
+          // min-height: 100vh;
           // background-color: aqua;
         }
 
