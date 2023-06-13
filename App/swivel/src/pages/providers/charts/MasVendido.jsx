@@ -1,30 +1,40 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React from "react";
+import { Bar } from "react-chartjs-2";
 
-const data = {
-    labels: ['Category 1', 'Category 2', 'Category 3'],
+const countModels = (dataList) => {
+  const models = dataList.reduce((acc, curr) => {
+    const { modelo } = curr.auto;
+    if (acc[modelo]) {
+      acc[modelo]++;
+    } else {
+      acc[modelo] = 1;
+    }
+    return acc;
+  }, {});
+
+  const sortedModels = Object.entries(models)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .map(([modelo]) => modelo);
+
+  return { models, sortedModels };
+};
+
+const MasVendido = ({ data }) => {
+  // Call the countModels function with your dataList
+  const { models, sortedModels } = countModels(data);
+
+  const chartData = {
+    labels: sortedModels,
     datasets: [
       {
-        label: 'Data Set 1',
-        data: [10, 20, 30], // Replace with your data values
-        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Specify color for bars
+        label: "Modelo más vendido",
+        data: sortedModels.map((modelo) => models[modelo]),
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
       },
     ],
   };
-  
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true, // Start y-axis from zero
-      },
-    },
-  };
 
-  const BarChart = () => {
-    return (
-      <div>
-        <Bar data={data} options={options} />
-      </div>
-    );
-  };
-  
+  return <Bar data={chartData} />;
+};
+
+export default MasVendido;
