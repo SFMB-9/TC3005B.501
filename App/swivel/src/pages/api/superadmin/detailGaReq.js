@@ -3,7 +3,7 @@ import dbConnect from "../../../config/dbConnect";
 import {User} from "../../../models/user";
 const Proceso = require("../../../models/procesos");
 import { encryptRole } from "../../../utils/crypto";
-
+import { Select, MenuItem, Typography, Button} from "@mui/material";
 import connectToDatabase from "@/utils/mongodb";
 import { ObjectId } from "mongodb";
  
@@ -24,10 +24,11 @@ export default async function handler(req, res){
 			const reqFound = await processCollection.findOne({_id: new ObjectId(reqId)});
 			const groupDetails = reqFound.info_GA
 			const groupApproval = reqFound
+			const groupDocs = reqFound.documentos
 
 
 			
-			return res.status(200).json({groupApproval, groupDetails, message: "Success" });
+			return res.status(200).json({groupApproval, groupDetails, groupDocs, message: "Success" });
 			
 		} catch (err){
 			console.log(err);
