@@ -96,7 +96,7 @@ export default function RequestDetails() {
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
     setAgencyCoords({
-      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]), 
+      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]),
       lng: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[1])
     });
     setUserData(retrievedUser);
@@ -161,9 +161,9 @@ export default function RequestDetails() {
         renderCell: (params) => (
           <>
             {params.row.url && params.row.url !== "" ? (
-              <a 
+              <a
                 href={params.row.url}
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <u>Ver archivo</u>
@@ -318,91 +318,127 @@ export default function RequestDetails() {
         />
         {activeSectionIndex === 0 && (
           <>
-            <div className={styles.schedule}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-                className='d-flex flex-column justify-content-center'
-              >
-                <div className='row p-3'>
-                  <Typography
-                    variant="h4"
-                    fontWeight="bold"
-                    className="pb-2"
-                    sx={{
-                      fontFamily: "Raleway", color: "#333333",
-                      paddingTop: "0rem",
-                      paddingLeft: "2rem",
-                    }}
-                  >
-                    Datos Personales
-                  </Typography>
-                  <div className='col-12 col-md-5'>
-                  </div>
-                  <div className='col-12 col-md-1'>
+            <Container >
+
+              <Fade in={true} timeout={1500}>
+                <div className='section p-5 text-sm-start text-center'>
+                  <h4 className='mb-3'>Datos personales</h4>
+                  <div className='container shadow-sm rounded border p-2'>
+                    <div className='row mt-4 text-center'>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Nombre(s):
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.nombres}
+                          </span>
+                        </h5>
+                      </div>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Apellido(s):
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.apellidos}
+                          </span>
+                        </h5>
+                        </div>
+                    </div>
+                    <div className='row mt-4 text-center'>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Correo electrónico:
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.email}
+                          </span>
+                        </h5>
+                      </div>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Teléfono:
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.numero_telefonico}
+                          </span>
+                        </h5>
+                      </div>
+                    </div>
+                    <div className='row mt-4 mb-4 text-center'>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Estado de residencia: 
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userAddress.estado}
+                          </span>
+                        </h5>
+                        </div>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Código postal: 
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userAddress.codigo_postal}
+                          </span>
+                        </h5>
+                      </div>
+                      </div>
                   </div>
                 </div>
-                <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Nombre(s): <span style={{ color: "#333333" }}>{userData.nombres}</span></span>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Apellidos: <span style={{ color: "#333333" }}>{userData.apellidos}</span></span>
-                  </div>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                </div>
-                <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Correo: <span style={{ color: "#333333" }}>{userData.email}</span></span>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Celular: <span style={{ color: "#333333" }}>{userData.numero_telefonico}</span></span>
-                  </div>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                </div>
-                <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Estado de residencia: <span style={{ color: "#333333" }}>{userAddress.estado}</span></span>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Código postal: <span style={{ color: "#333333" }}>{userAddress.codigo_postal}</span></span>
-                  </div>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <Typography
-                  variant="h4"
-                  fontWeight="bold"
-                  className="pb-2"
-                  sx={{
-                    fontFamily: "Raleway", color: "#333333",
-                    paddingTop: "1rem",
-                    paddingLeft: "2rem",
-                  }}
-                >
-                  Mis documentos
-                </Typography>
-                <div
-                  style={{
-                    padding: "3%",
-                    overflowY: "scroll",
-                    maxHeight: "100vh",
-                  }}
-                >
+              </Fade>
+              <Fade in={true} timeout={1500}>
+                <div className='section p-5 pt-0 text-sm-start text-center mb-3'>
+                <h4 className='mb-3'>Documentos</h4>
+                  <div className='pt-4'>
                   <DataTable
                     columns={columns}
                     rows={documents}
@@ -436,26 +472,11 @@ export default function RequestDetails() {
                       },
                     }}
                   />
+                  </div>
                 </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: "1rem",
-                  marginBottom: "1rem",
-                }}
-              >
+              </Fade>
+              <Fade in={true} timeout={1500}>
+                <div className='text-center mt-4 mb-5'>
                 <Button
                   sx={{
                     fontFamily: "Lato",
@@ -471,12 +492,13 @@ export default function RequestDetails() {
                   style={{
                     marginLeft: "2.5rem",
                   }}
-                  variant='contained' 
+                  variant='contained'
                   onClick={() => setActiveSectionIndex(1)}
                   disabled={!validatedDocs}
-                  >Continuar</Button>
-              </div>
-            </div>
+                >Continuar</Button>
+                </div>
+              </Fade>
+            </Container>
           </>
         )}
         {activeSectionIndex === 1 && (
@@ -560,15 +582,15 @@ export default function RequestDetails() {
           </>
         )}
         {activeSectionIndex === 2 && (
-        <>
-          <Container
-            className="d-flex flex-row justify-content-center"
-            sx={{
-              marginTop:"4vw",
-              marginBottom: "0.7vw"
-            }}
-          >
-            
+          <>
+            <Container
+              className="d-flex flex-row justify-content-center"
+              sx={{
+                marginTop: "4vw",
+                marginBottom: "0.7vw"
+              }}
+            >
+
               <div className="d-flex flex-column justify-content-center">
                 <div className="px-5">
                   <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
@@ -578,15 +600,15 @@ export default function RequestDetails() {
                 </div>
                 <img src={firstImage} id={styles.imageDiv} />
               </div>
-          </Container>  
-              <div className="d-flex justify-content-center">
-                <Button className="m-3" variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-                <Button className="m-3" variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
-              </div>
+            </Container>
+            <div className="d-flex justify-content-center">
+              <Button className="m-3" variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+              <Button className="m-3" variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
+            </div>
           </>
-          
+
         )}
-        </>
+      </>
     );
   } else {
     return (
