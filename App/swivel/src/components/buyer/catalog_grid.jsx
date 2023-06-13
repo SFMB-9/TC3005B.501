@@ -14,7 +14,7 @@ import {formatDate} from "@/components/general/date_utils";
 const json5 = require('json5');
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
 un carousel de imágenes de cada auto */
-export default function CatalogGrid({ carListing, cardType }) {
+export default function CatalogGrid({ carListing, cardType, carIds, setCarIds }) {
   let carList;
   let cardProps;
   console.log("listing", carListing);
@@ -24,6 +24,7 @@ export default function CatalogGrid({ carListing, cardType }) {
         cardProps = {
           catalog: {
             carUrl: `/catalog/${car._id}`,
+            _id: car._id,
             carImage: json5.parse(car._source.fotos_3d)[0],
             carBrand: car._source.marca,
             carModel: car._source.modelo,
@@ -66,6 +67,8 @@ export default function CatalogGrid({ carListing, cardType }) {
                 <CarCard
                   {...cardProps[cardType]}
                   cardType={cardType}
+                  carIds={carIds}
+                  setCarIds={setCarIds}
                 />
                 :
                 <CarCard

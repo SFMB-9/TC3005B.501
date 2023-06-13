@@ -70,6 +70,20 @@ export default function CarCard(props) {
   if (props.cardType !== "catalog") {
     cardMaxHeight = 500;
   }
+
+  const [checkboxState, setCheckboxState] = useState(false);
+
+  const handleCheckbox = (e) => {
+    setCheckboxState(e.target.checked)
+    if (e.target.checked) {
+      console.log(props._id)
+      props.setCarIds([...props.carIds, props._id]);
+    }
+    else {
+      props.setCarIds(props.carIds.filter((id) => id !== props._id));
+    }
+  };
+
   return (
     <Card sx={{ maxWidth: cardMaxWidth, maxHeight: cardMaxHeight }}>
       <div style={{ position: 'relative' }}>
@@ -136,6 +150,13 @@ export default function CarCard(props) {
                   <ThemeProvider theme={theme}>
                     <div><ArrowForwardIcon sx={{ fontSize: 25, color: "#F55C7A" }} /></div>
                   </ThemeProvider>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={checkboxState}
+                    onChange={handleCheckbox}
+                  />
                 </div>
               </>
             )
