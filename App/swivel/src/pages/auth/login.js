@@ -156,6 +156,9 @@ export default function Login() {
               {error ? <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography> : null}
               <Button 
                 className="btn btn-primary btn-block mb-2"
+                style={{
+                  backgroundColor: "#0d6efd"
+                }}
                 disabled={disabled()}
                 onPointerOver={() => {
                   if (firstTime) {
