@@ -1,10 +1,10 @@
-import connectToDatabase from '@/utils/mongodb_function';
+import connectToDatabase from '@/utils/mongodb';
 
 export default async function handler(req, res) {
   const name = req.query.name;
   console.log(name);
   try {
-    const client = await connectToDatabase();
+    const client = await connectToDatabase;
     const db = client.db("test");
     const procesos = db.collection("procesos");
 
