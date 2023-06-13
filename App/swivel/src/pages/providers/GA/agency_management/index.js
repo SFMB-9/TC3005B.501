@@ -22,17 +22,20 @@ import GALayout from "@/components/providers/GA/ga_layout";
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
 import EditEntityData from '@/components/providers/GA/edit_entity_data';
+import { formatDate } from "@/components/general/date_utils";
 import { useSession } from "next-auth/react";
 
 export default function ManageAgencias() {
+    const router = useRouter();
+
+    const { data: session } = useSession();
+
     const [agencias, setAgencias] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
     const [GA, setGA] = useState("");
+    const [procesos, setProcesos] = useState([]);
     const role = "1624fa678ed998894bece420898aa464"; // Quitar cosas hardcodeadas
-    const router = useRouter();
-    const { data: session } = useSession();
-
 
     const RouteRegistroAgencias = () => {
         if (router) {
@@ -41,7 +44,7 @@ export default function ManageAgencias() {
     };
 
     const fetchAgencias = async () => {
-        try{
+        try {
             const res = await fetch(
                 `/api/GA/pull-agencias?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
             );
@@ -49,10 +52,18 @@ export default function ManageAgencias() {
             setAgencias(data.result);
             console.log(data.result);
             console.log("Agencias", agencias)
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
-        
+
+    };
+
+    const fetchProcesos = async () => {
+        const res = await fetch(
+            `http://localhost:3000/api/GA/pull-procesos?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+        );
+        const data = await res.json();
+        setProcesos(data.result);
     };
 
     const fetchGAId = async () => {
@@ -63,10 +74,12 @@ export default function ManageAgencias() {
         setGA(GA);
     };
     useEffect(() => {
-        if(!session) return
+        if (!session) return
         fetchGAId();
-        fetchAgencias();
-    }, [GA]);
+        if (!GA) return
+        fetchAgencias()
+        fetchProcesos();
+    }, [session, GA]);
 
     useEffect(() => {
         if (agencias) {
@@ -182,8 +195,8 @@ export default function ManageAgencias() {
                                 title="Editar datos"
                                 popUpContent={
                                     <>
-                                    <EditEntityData data={params.row}
-                                        userType="agency" />
+                                        <EditEntityData data={params.row}
+                                            userType="agency" />
                                     </>
                                 }
                                 btnOpen={
@@ -204,6 +217,78 @@ export default function ManageAgencias() {
         ],
         [agencias]
     );
+
+    const processColumns = useMemo(
+        () => [
+            {
+                field: "nombres_agencia",
+                headerName: "Nombre",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                valueGetter: (params) => {
+                    let cell = params.row
+                        ? `${params.row.info_agencia.nombres}` : "Nombre no encontrado";
+                    return cell;
+                }
+            },
+            {
+                field: "fecha_creacion",
+                headerName: "Fecha de creación",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.fecha_creacion !== "" && params.row.fecha_creacion ? formatDate(params.row.fecha_creacion).formattedShortDate : "";
+                    return cell;
+                },
+            },
+            {
+                field: "estatus_validacion",
+                headerName: "Estatus de validación",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.estatus_validacion;
+                    if (cell === "pendiente") {
+                        return "Pendiente";
+                    }
+                    return cell;
+                },
+            },
+            {
+                field: "botones",
+                headerName: "",
+                headerAlign: "center",
+                align: "center",
+                minWidth: 150,
+                flex: 1,
+                type: "actions",
+                renderCell: (params) => (
+                    <Button
+                        variant="contained"
+                        disableElevation
+                        onClick={() =>
+                            router.push(`/providers/GA/agency_management/registerAgency/${params.row._id}`)
+                        }
+                        className="py-0"
+                        sx={{
+                            fontFamily: "Lato",
+                            fontSize: "12px",
+                            backgroundColor: "#111439",
+                        }}
+                    >
+                        Ver detalles
+                    </Button>
+                ),
+            }
+
+        ]
+    )
 
     console.log(agencias)
     return (
@@ -227,91 +312,140 @@ export default function ManageAgencias() {
                                 textAlign: "start",
                             }}
                         >Administración de agencias</h1>
-                        {
-
-                            agencias ?
-                                <div>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            flex: '100%',
-                                            alignItems: 'center',
-                                            padding: '1rem',
-                                        }}
-                                    >
-                                        <Searchbar
-                                            firstValue={searchValue}
-                                            // setState={setSearchValue}
-                                            setState={handleSearchChange}
-                                            searchStyle='administrative'
-                                        />
-                                        {/* <a href='/providers/seller/signup'> */}
-                                        <button
-                                            onClick={RouteRegistroAgencias}
-                                            style={{
-                                                flex: '25%',
-                                                backgroundColor: '#F55C7A',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '6px',
-                                                height: '50%',
-                                                padding: '0.5rem 1rem',
-                                            }}
-                                        > Registrar agencia  + </button>
-                                        {/* </a> */}
-                                    </div>
-                                    <DataTable
-                                        columns={columns}
-                                        rows={filteredResults}
-                                        rowSelection={false}
-                                        sx={{
-                                            border: 1,
-                                            borderColor: "#D9D9D9",
-                                            "& .MuiDataGrid-cell": {
-                                                border: 1,
-                                                borderRight: 0,
-                                                borderTop: 0,
-                                                borderLeft: 0,
-                                                borderColor: "#D9D9D9",
-                                                fontFamily: "Lato",
-                                                fontWeight: 500,
-                                                fontSize: "12px",
-                                                color: "#333333",
-                                            },
-                                            "& .MuiDataGrid-columnHeaders": {
-                                                fontFamily: "Lato",
-                                                fontSize: "16px",
-                                                color: "#333333",
-                                                borderBottom: 0,
-                                            },
-                                            "& .MuiDataGrid-columnHeaderTitle": {
-                                                fontWeight: 800,
-                                            },
-                                            "& .MuiPaginationItem-text": {
-                                                fontFamily: "Lato",
-                                                color: "#333333",
-                                            },
-                                        }}
+                        {agencias ?
+                            <div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        flex: '100%',
+                                        alignItems: 'center',
+                                        padding: '1rem',
+                                    }}
+                                >
+                                    <Searchbar
+                                        firstValue={searchValue}
+                                        // setState={setSearchValue}
+                                        setState={handleSearchChange}
+                                        searchStyle='administrative'
                                     />
-                                </div>
-                                :
-                                <div>
-                                    <p>No hay agencias registradas</p>
+                                    {/* <a href='/providers/seller/signup'> */}
                                     <button
-                                            onClick={RouteRegistroAgencias}
-                                            style={{
-                                                flex: '25%',
-                                                backgroundColor: '#F55C7A',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '6px',
-                                                height: '50%',
-                                                padding: '0.5rem 1rem',
-                                            }}
-                                        > Registrar agencia  + </button>
+                                        onClick={RouteRegistroAgencias}
+                                        style={{
+                                            flex: '25%',
+                                            backgroundColor: '#F55C7A',
+                                            color: 'white',
+                                            border: 'none',
+                                            borderRadius: '6px',
+                                            height: '50%',
+                                            padding: '0.5rem 1rem',
+                                        }}
+                                    > Registrar agencia  + </button>
+                                    {/* </a> */}
                                 </div>
+                                <DataTable
+                                    columns={columns}
+                                    rows={filteredResults}
+                                    rowSelection={false}
+                                    sx={{
+                                        border: 1,
+                                        borderColor: "#D9D9D9",
+                                        "& .MuiDataGrid-cell": {
+                                            border: 1,
+                                            borderRight: 0,
+                                            borderTop: 0,
+                                            borderLeft: 0,
+                                            borderColor: "#D9D9D9",
+                                            fontFamily: "Lato",
+                                            fontWeight: 500,
+                                            fontSize: "12px",
+                                            color: "#333333",
+                                        },
+                                        "& .MuiDataGrid-columnHeaders": {
+                                            fontFamily: "Lato",
+                                            fontSize: "16px",
+                                            color: "#333333",
+                                            borderBottom: 0,
+                                        },
+                                        "& .MuiDataGrid-columnHeaderTitle": {
+                                            fontWeight: 800,
+                                        },
+                                        "& .MuiPaginationItem-text": {
+                                            fontFamily: "Lato",
+                                            color: "#333333",
+                                        },
+                                    }}
+                                />
+                            </div>
+                            :
+                            <div>
+                                <p>No hay agencias registradas</p>
+                                <button
+                                    onClick={RouteRegistroAgencias}
+                                    style={{
+                                        flex: '25%',
+                                        backgroundColor: '#F55C7A',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '6px',
+                                        height: '50%',
+                                        padding: '0.5rem 1rem',
+                                    }}
+                                > Registrar agencia  + </button>
+                            </div>
                         }
+                        <div
+                            style={{
+                                marginTop: "2rem",
+                                marginBottom: "1rem",
+                            }}
+                        >
+                            <h4
+                                style={{
+                                    fontFamily: "Raleway",
+                                    textAlign: "start",
+                                }}
+                            >
+                                Procesos activos de registro de agencia
+                            </h4>
+                        </div>
+                        {procesos ? 
+                        <div>
+                        <DataTable
+                            columns={processColumns}
+                            rows={procesos}
+                            rowSelection={false}
+                            sx={{
+                                border: 1,
+                                borderColor: "#D9D9D9",
+                                "& .MuiDataGrid-cell": {
+                                    border: 1,
+                                    borderRight: 0,
+                                    borderTop: 0,
+                                    borderLeft: 0,
+                                    borderColor: "#D9D9D9",
+                                    fontFamily: "Lato",
+                                    fontWeight: 500,
+                                    fontSize: "12px",
+                                    color: "#333333",
+                                },
+                                "& .MuiDataGrid-columnHeaders": {
+                                    fontFamily: "Lato",
+                                    fontSize: "16px",
+                                    color: "#333333",
+                                    borderBottom: 0,
+                                },
+                                "& .MuiDataGrid-columnHeaderTitle": {
+                                    fontWeight: 800,
+                                },
+                                "& .MuiPaginationItem-text": {
+                                    fontFamily: "Lato",
+                                    color: "#333333",
+                                },
+                            }}
+                        />
+                        </div> : <p>No hay procesos registrados</p>}
                     </div>
                 </div>
             </GALayout>

@@ -5,6 +5,7 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 import GANavbar from '@/components/providers/GA/navbar';
 import styles from '@/styles/test_details.module.css';
@@ -182,6 +183,13 @@ export default function RegisterGroupProcess() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.estatus;
+                    if (cell === "En_Revision") {
+                        return "En revisión";
+                    }
+                    return cell;
+                },
             },
             {
                 field: "fecha_modificacion",
@@ -246,16 +254,33 @@ export default function RegisterGroupProcess() {
                                 </IconButton>
                             </div>
                         ) : (
-                            <IconButton
-                                aria-label="delete"
-                                size="small"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    addToIsOpen(params.row._id);
-                                }}
-                            >
-                                <UploadIcon />
-                            </IconButton>
+                            <div>
+                                {
+                                    params.row.url && params.row.url !== "" ? (
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                addToIsOpen(params.row._id);
+                                            }}
+                                        >
+                                            <EditIcon />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                addToIsOpen(params.row._id);
+                                            }}
+                                        >
+                                            <UploadIcon />
+                                        </IconButton>
+                                    )
+                                }
+                            </div>
                         )}
                     </>
                 ),
@@ -459,7 +484,7 @@ export default function RegisterGroupProcess() {
     } else {
         return (
             <div>
-                <p>Loading Process...</p>
+                <p>Cargando...</p>
             </div>
         );
     }

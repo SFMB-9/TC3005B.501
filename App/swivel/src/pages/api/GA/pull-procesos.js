@@ -4,7 +4,6 @@ export default async function handler(req, res) {
     const client = await connectToDatabase;
     const db = client.db("test");
 
-    const tipo_usuario = req.query.tipo_usuario;
     const grupo_automotriz_id = req.query.grupo_automotriz_id;
 
     if (req.method === "GET") {
