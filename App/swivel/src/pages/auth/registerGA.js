@@ -41,6 +41,7 @@ export default function SignupGAData() {
 return (
     <>
     <SANavbar/>
+    <div>
     <Container className="p-5">
         <Typography 
             className="pb-3"
@@ -121,6 +122,7 @@ return (
             </Button>
         </div>
     </Container> 
+    </div>
     </>
 );
 }
