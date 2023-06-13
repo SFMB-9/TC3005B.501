@@ -223,20 +223,20 @@ const RegistroAdmin = () => {
                     </div>
                 <div className={styles.buttonContainer}>
                         <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            className={styles.button}
-                        >
-                            Register
-                        </Button>
-                        <Button
                             variant="outlined"
                             color="primary"
                             onClick={handleCancel}
                             className={styles.button}
                         >
-                            Cancel
+                            Cancelar
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            className={styles.button}
+                        >
+                            Registrar administrador
                         </Button>
                     </div>
                 </form>

@@ -185,6 +185,12 @@ export default function RegisterAgencyProcess() {
                     if (cell === "En_Revision") {
                         return "En revisión";
                     }
+                    else if (cell === "aceptado") {
+                        return "Aceptado";
+                    }
+                    else if (cell === "rechazado") {
+                        return "Rechazado";
+                    }
                     return cell;
                 },
             },
