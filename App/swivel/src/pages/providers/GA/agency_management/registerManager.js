@@ -24,18 +24,18 @@ export default function MergedSignup() {
 
     useEffect(() => {
         const getIdGA = async () => {
-          let gaIdRaw = await fetch(`http://localhost:3000/api/GA/GA-get-id?_id=${session.id}`,
-            { method: 'GET' });
-    
-          const gaId = await gaIdRaw.json();
-    
-          return gaId.user.grupo_automotriz_id;
+            let gaIdRaw = await fetch(`http://localhost:3000/api/GA/GA-get-id?_id=${session.id}`,
+                { method: 'GET' });
+
+            const gaId = await gaIdRaw.json();
+
+            return gaId.user.grupo_automotriz_id;
         }
-    
+
         if (router.isReady && session) {
-          getIdGA().then((ga_id) =>
-            setGA(ga_id)
-          );
+            getIdGA().then((ga_id) =>
+                setGA(ga_id)
+            );
         }
     }, [router.isReady, session]);
 
@@ -110,18 +110,21 @@ export default function MergedSignup() {
             <div>
                 <GANavbar />
                 <div className={styles.mainContainer}>
-                    <h1 className={styles.pageTitle}>Agregar Gerente</h1>
-                    <h3 className={styles.boldText}>Ingresa los datos del gerente</h3>
+                    <h1 className="mb-4">Agregar Gerente</h1>
                     <form onSubmit={submitHandler}>
-                        <div className={styles.inputContainer}>
-                            <div className={styles.row}>
-                                <div className={styles.inputFieldContainer}>
+                        <div className="container">
+                            <div className="row">
+                                <h3 className={styles.boldText}>Ingresa los datos del gerente</h3>
+                            </div>
+                            <div className="row mt-2">
+                                <div className="col-12 col-md-6">
                                     <h5>Nombre(s)</h5>
                                     <TextField
                                         className={styles.inputField}
+                                        size="small"
                                         id="nombres"
-                                        label="Nombre(s)"
                                         variant="outlined"
+                                        placeholder="Nombre(s)"
                                         fullWidth
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
@@ -129,13 +132,14 @@ export default function MergedSignup() {
                                         helperText={errors.nombres}
                                     />
                                 </div>
-                                <div className={styles.inputFieldContainer}>
+                                <div className="col-12 col-md-6">
                                     <h5>Apellido(s)</h5>
                                     <TextField
                                         className={styles.inputField}
+                                        size="small"
                                         id="apellidos"
-                                        label="Apellido(s)"
                                         variant="outlined"
+                                        placeholder="Apellido(s)"
                                         fullWidth
                                         value={surname}
                                         onChange={(e) => setSurname(e.target.value)}
@@ -144,98 +148,106 @@ export default function MergedSignup() {
                                     />
                                 </div>
                             </div>
-                        </div>
-
-                        <div className={styles.inputContainer}>
-                            <h5>Teléfono</h5>
-                            <TextField
-                                className={styles.longInputField}
-                                id="telefono"
-                                label="Teléfono"
-                                variant="outlined"
-                                fullWidth
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                                error={!!errors.telefono}
-                                helperText={errors.telefono}
-                            />
-                        </div>
-
-                        <h3 className={styles.boldText}>Credenciales</h3>
-                        <div className={styles.inputContainer}>
-                            <h5>Correo Electrónico</h5>
-                            <TextField
-                                className={styles.longInputField}
-                                id="correo"
-                                label="Correo Electrónico"
-                                variant="outlined"
-                                fullWidth
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                error={!!errors.correo}
-                                helperText={errors.correo}
-                            />
-                        </div>
-
-                        <div className={styles.inputContainer}>
-                            <div className={styles.row}>
-                                <div className={styles.inputFieldContainer}>
-                                    <h5>Contraseña</h5>
+                            <div className="row mt-4">
+                                <div className="col-12">
+                                    <h5>Teléfono</h5>
                                     <TextField
-                                        className={styles.inputField}
-                                        id="contraseña"
-                                        label="Contraseña"
+                                        className={styles.longInputField}
+                                        size="small"
+                                        id="telefono"
+                                        placeholder="Teléfono"
                                         variant="outlined"
                                         fullWidth
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        error={!!errors.contraseña}
-                                        helperText={errors.contraseña}
-                                        type="password"
-                                    />
-                                </div>
-                                <div className={styles.inputFieldContainer}>
-                                    <h5>Confirmar Contraseña</h5>
-                                    <TextField
-                                        className={styles.inputField}
-                                        id="confirmarContraseña"
-                                        label="Confirmar Contraseña"
-                                        variant="outlined"
-                                        fullWidth
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                        error={!!errors.confirmarContraseña}
-                                        helperText={errors.confirmarContraseña}
-                                        type="password"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                        error={!!errors.telefono}
+                                        helperText={errors.telefono}
                                     />
                                 </div>
                             </div>
-                        </div>
-
-                        <div className={styles.buttonContainer}>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                onClick={handleCancel}
-                                className={styles.button}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                className={styles.button}
-                            >
-                                Registrar
-                            </Button>
+                            <div className="row mt-4">
+                                <h3 className={styles.boldText}>Credenciales</h3>
+                            </div>
+                            <div className="row mt-2">
+                                <div className="col-12">
+                                    <h5>Correo Electrónico</h5>
+                                    <TextField
+                                        className={styles.longInputField}
+                                        size="small"
+                                        id="correo"
+                                        variant="outlined"
+                                        placeholder="Correo Electrónico"
+                                        fullWidth
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        error={!!errors.correo}
+                                        helperText={errors.correo}
+                                    />
+                                </div>
+                            </div>
+                                <div className="row mt-4">
+                                    <div className="col-12 col-md-6">
+                                        <h5>Contraseña</h5>
+                                        <TextField
+                                            className={styles.inputField}
+                                            size="small"
+                                            id="contraseña"
+                                            variant="outlined"
+                                            placeholder="Contraseña"
+                                            fullWidth
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            error={!!errors.contraseña}
+                                            helperText={errors.contraseña}
+                                            type="password"
+                                        />
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <h5>Confirmar Contraseña</h5>
+                                        <TextField
+                                            className={styles.inputField}
+                                            size="small"
+                                            id="confirmarContraseña"
+                                            variant="outlined"
+                                            placeholder="Confirmar Contraseña"
+                                            fullWidth
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                            error={!!errors.confirmarContraseña}
+                                            helperText={errors.confirmarContraseña}
+                                            type="password"
+                                        />
+                                    </div>
+                                </div>
+                            <div className="row mt-4 mb-5">
+                                <div className="col-12 col-md-6">
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    onClick={handleCancel}
+                                    className="w-100"
+                                >
+                                    Cancelar
+                                </Button>
+                                </div>
+                                <div className="col-12 col-md-6">
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                    className="w-100"
+                                >
+                                    Registrar
+                                </Button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         );
     } else {
-        return(
+        return (
             <p>Cargando...</p>
         );
     }
