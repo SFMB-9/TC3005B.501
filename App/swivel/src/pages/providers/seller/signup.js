@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -78,7 +78,13 @@ export default function SellerSignup() {
     }
   };
 
-  fetchResults(session.id)
+    useEffect(() => {
+        if(session){
+            fetchResults(session.id)
+        } else {
+
+        }
+    }, [session]);
 
   return (
     <>
