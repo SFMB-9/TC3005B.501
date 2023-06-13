@@ -223,8 +223,17 @@ export default function SearchResults() {
                         margin: '2rem 5rem',
                     }}
                 >
-                    <div>
-                        <h1>Administración de Vendedores</h1>
+                    <div
+                        style= {{
+                            paddingBottom: '3rem',
+                        }}
+                    >
+                        <h1
+                            style= {{
+                                paddingBottom: '1rem',
+                            }}
+                        >
+                            Administración de Vendedores</h1>
                         <div
                             style={{
                                 display: 'flex',
