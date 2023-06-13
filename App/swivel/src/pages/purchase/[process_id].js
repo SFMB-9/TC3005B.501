@@ -365,7 +365,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    <strong>Agente Asignado</strong>
+                    <strong>Vendedor Asignado</strong>
                   </Typography>
                   <Typography
                     fontFamily="Lato"
@@ -373,7 +373,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Hola! Soy tu agente,<br />
+                    Hola! Soy tu vendedor,<br />
                     estaré revisando tus documentos y contestando las dudas que tengas. <br />
                   </Typography>
                 </div>
