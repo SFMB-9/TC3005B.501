@@ -1,6 +1,7 @@
 /*
 
 Sebastian Gonzalez Villacorta
+Mateo Herrera - fix errors
 29/5/2023
 
 Description: Create new entry of proceso de venta in MongoDB
@@ -17,13 +18,15 @@ export default async function handler(req, res) {
 
     const parsedBody = JSON.parse(req.body);
     const auto = parsedBody.auto;
+    console.log(auto);
 
     try {
         const resultVendedor = await usuarios
-            .find({ "contar_ventas_en_proceso": { $exists: true, $lt: Infinity } })
+            .find({ "agencia_id": auto.agencia })
             .sort({ "contar_ventas_en_proceso": 1 })
             .limit(1, { _id: 0, _id: 1 })
             .toArray();
+
 
         console.log(resultVendedor)
         if (resultVendedor.length === 0) {
@@ -66,7 +69,7 @@ export default async function handler(req, res) {
             cantidad_a_pagar: parsedBody.cantidad_a_pagar
         };
 
-        console.log(proceso)
+        // console.log(proceso)
 
         const result = await db.collection("procesos").insertOne(proceso);
 
