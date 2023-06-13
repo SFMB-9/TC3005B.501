@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { timeout } from '../../playwright.config'
 
 test.describe('LogIn', () => {
   test.beforeEach(async ({ page }) => {
@@ -15,10 +16,13 @@ test.describe('LogIn', () => {
     await page.locator('input[type="password"]').fill('Karla123!');
     await page.locator('button', { name: 'Ingresar' }).hover();
     await page.getByRole('button', { name: 'Ingresar' }).click();
+    await page.goto('http://localhost:3000/');
+    await page.goto('http://localhost:3000/');
+    await page.goto('http://localhost:3000/');
     // Verify login
-    setTimeout(() => {page.getByRole('menuitem', { name: 'Mi cuenta' }).getByText('Mi cuenta').click();}, 10000);
+    await page.getByRole('menuitem', { name: 'Mi cuenta' }).getByText('Mi cuenta').click();
     // Logout
-    setTimeout(() => {page.getByRole('menuitem', { name: 'Cerrar sesión' }).getByText('Cerrar sesión').click();}, 10000);
+    await page.getByRole('menuitem', { name: 'Cerrar sesión' }).getByText('Cerrar sesión').click();
   });
   test('LogIn with invalid credentials', async ({ page }) => {
     await page.locator('input[type="email"]').click();
