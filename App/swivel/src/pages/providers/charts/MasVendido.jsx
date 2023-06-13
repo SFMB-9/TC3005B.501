@@ -1,16 +1,13 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import Chart from 'chart.js/auto';
 
 const countModels = (dataList) => {
-  const models = dataList.reduce((acc, curr) => {
-    const { modelo } = curr.auto;
-    if (acc[modelo]) {
-      acc[modelo]++;
-    } else {
-      acc[modelo] = 1;
-    }
-    return acc;
-  }, {});
+  const models = {};
+  dataList.forEach((item) => {
+    const modelo = item.auto.modelo;
+    models[modelo] = models[modelo] ? models[modelo] + 1 : 1;
+  });
 
   const sortedModels = Object.entries(models)
     .sort(([, countA], [, countB]) => countB - countA)
@@ -20,14 +17,13 @@ const countModels = (dataList) => {
 };
 
 const MasVendido = ({ data }) => {
-  // Call the countModels function with your dataList
   const { models, sortedModels } = countModels(data);
 
   const chartData = {
     labels: sortedModels,
     datasets: [
       {
-        label: "Modelo más vendido",
+        label: "Count",
         data: sortedModels.map((modelo) => models[modelo]),
         backgroundColor: "rgba(75, 192, 192, 0.6)",
       },

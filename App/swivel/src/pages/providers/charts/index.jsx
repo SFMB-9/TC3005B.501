@@ -1,5 +1,6 @@
 import React from "react";
 import MasVendido from "./MasVendido";
+import SimpleChart from "./SimpleChart";
 
 export default function Estadisticas() {
   const [data, setData] = React.useState([]);
@@ -35,7 +36,7 @@ export default function Estadisticas() {
   return (
     <div>
       <h1>Estadisticas</h1>
-      {data && data.length > 0 && <MasVendido data={data.documents} />}
+      {data && <MasVendido data={data.documents} />}
     </div>
   );
 }
