@@ -8,6 +8,7 @@ Description: Create new entry of proceso de venta in MongoDB
 
 */
 
+import { encryptRole } from "@/utils/crypto";
 import connectToDatabase from "@/utils/mongodb";
 import { ObjectId } from "mongodb";
 
@@ -21,8 +22,9 @@ export default async function handler(req, res) {
     console.log(auto);
 
     try {
+      const vendedorRole = encryptRole("seller");
         const resultVendedor = await usuarios
-            .find({ "agencia_id": auto.agencia })
+            .find({ "agencia_id": auto.agencia, tipo_usuario: vendedorRole  })
             .sort({ "contar_ventas_en_proceso": 1 })
             .limit(1, { _id: 0, _id: 1 })
             .toArray();
