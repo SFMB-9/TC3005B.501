@@ -98,10 +98,14 @@ export default function CarDetails() {
   };
 
   useEffect(() => {
-    if (session) {
-      fetchFavorites();
-      handleFavorites();
-    }
+    const fetchData = async () => {
+      if (session) {
+        await fetchFavorites();
+        handleFavorites();
+      }
+    };
+  
+    fetchData();
   }, [session]);
 
   useEffect(() => {
