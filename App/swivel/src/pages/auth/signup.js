@@ -317,7 +317,7 @@ export default function SignupBuyerData() {
                 <div className="d-flex flex-row mb-2">
                   <TextField
                     required
-                    type="number"
+                    type="text"
                     size="small"
                     className="w-100"
                     sx={{marginRight:"0.5vw"}}
@@ -330,7 +330,7 @@ export default function SignupBuyerData() {
                   />
                   <TextField
                     size="small"
-                    type="number"
+                    type="text"
                     className="w-100"
                     sx={{marginLeft:"0.5vw"}}
                     label="nº Interior"
@@ -343,7 +343,7 @@ export default function SignupBuyerData() {
                 </div>
                 <TextField
                   required
-                  type="number"
+                  type="text"
                   size="small"
                   className="w-100 mb-2"
                   label="Código Postal"
@@ -410,8 +410,8 @@ export default function SignupBuyerData() {
                   size="small"
                   className="w-100 mb-2"
                   label="País"
-                  value={country}
-                  disabled={loading}
+                  value="México"
+                  disabled
                   error={errors.country}
                   helperText={errors.country ? "Solo letras" : ""}
                   onChange={(e) => {
