@@ -228,10 +228,11 @@ export default function RegisterForm() {
                         <div className="col-12 col-md-2">
                             <TextField
                                 required
+                                disabled
                                 size="small"
                                 className="w-100"
                                 label="País"
-                                value="México"
+                                value={country}
                                 inputProps={{ readOnly: true }}
                                 onChange={(e) => setCountry(e.target.value)}
                                 style={{ marginBottom: "0.8rem" }}

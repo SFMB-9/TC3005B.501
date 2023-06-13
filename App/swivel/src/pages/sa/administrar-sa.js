@@ -57,31 +57,21 @@ useEffect( () => {
         router.push(`/sa/register-admin`);
     }
 
+    const handleDelete = async (q) => {
+        console.log(q)
+        try{
+            await axios.delete("/api/buyerProfile/deleteUser", {params:{id:q}})
+        } catch (err){
+            console.log(err)
+        }
+    }
+
     const columns = [
 
         { field: 'nombres', headerName: 'Administrdor', width: 300 },
         { field: 'email', headerName: 'Email', width: 250 },
         { field: 'numero_telefonico', headerName: 'Teléfono', width: 250 },
 
-        {
-            field: 'verDetalle',
-            headerName: 'Ver detalle',
-            width: 200,
-            renderCell: () => (
-                <Button
-                    variant="contained"
-                    disableElevation
-                    sx={{
-                        backgroundColor: '#F55C7A',
-                        fontFamily: 'lato',
-                        fontWeight: 'bold',
-                        ':hover': { backgroundColor: '#BABABA' },
-                    }}
-                >
-                    Ver detalle
-                </Button>
-            ),
-        },
         {
             field: 'delete',
             headerName: 'Eliminar',
@@ -92,7 +82,7 @@ useEffect( () => {
                     title="Confirmar Eliminación"
                     popUpContent={
                         <div className={styles.popupText}>
-                            <h4>¿Estás seguro de que deseas eliminar esta agencia?</h4>
+                            <h4>¿Estás seguro de que deseas eliminar este usuario administrador?</h4>
                             <p className={styles.warningText}>Esta acción no se puede deshacer.</p>
                         </div>
                     }

@@ -8,16 +8,7 @@ export default function ReqCards() {
         imageSource="/register.jpg"
         icon="/processGA1.svg"
         text="Regístrate"
-        href="/auth/signup"
-        light={false}
-        header=''
-        //fiftyFifty={false}
-      />
-      <CustomIconCard
-        imageSource="/registerGA.jpg"
-        icon="/processGA2.svg"
-        text="Regístra a tu Grupo Automotriz"
-        href="/providers/GA/registerGroup/form"
+        href="/providers/GA/registroAdmin"
         light={false}
         header=''
         //fiftyFifty={false}

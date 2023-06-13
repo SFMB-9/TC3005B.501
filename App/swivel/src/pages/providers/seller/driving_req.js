@@ -25,7 +25,6 @@ const SellerDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(session.id)
       try {
         // Get all requests
         const requestRes = await axios.get(
@@ -38,10 +37,10 @@ const SellerDashboard = () => {
           }
         );
 
-        const requests = requestRes.data.procesos;
+        const retrievedRequests = requestRes.data.procesos;
         // Get all unique user ids
         const userIds = [
-          ...new Set(requests.map((request) => request.usuario_final_id)),
+          ...new Set(retrievedRequests.map((request) => request.usuario_final_id)),
         ];
         // Get all users
         const userPromises = userIds.map((id) =>
@@ -59,7 +58,9 @@ const SellerDashboard = () => {
         }, {});
 
         // Set the requests and users state
-        setRequests(requests);
+        if (JSON.stringify(requests) !== JSON.stringify(retrievedRequests)) {
+          setRequests(retrievedRequests);
+        }
         setUser(users);
       } catch (error) {
         console.log(error);
@@ -69,7 +70,7 @@ const SellerDashboard = () => {
     if (session) {
       fetchData();
     }
-  }, [session]);
+  }, [session, requests]);
 
   // Update the status of a request
   const updateRequestStatus = async (_id, status) => {
@@ -80,7 +81,7 @@ const SellerDashboard = () => {
 
     const updatedRequests = requests.map((request) => {
       if (request._id === _id) {
-        return { ...request, status };
+        return { ...request, status: "Loading" };
       } else {
         return request;
       }

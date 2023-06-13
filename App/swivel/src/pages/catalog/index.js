@@ -79,8 +79,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`marca:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            marca: {
+              ...prevExpandedMenuItems.marca,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -91,8 +99,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`tipo_vehiculo:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            tipo_vehiculo: {
+              ...prevExpandedMenuItems.tipo_vehiculo,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -103,8 +119,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`ano:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            ano: {
+              ...prevExpandedMenuItems.ano,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -273,6 +297,7 @@ export default function Catalog() {
     }
   };
 
+  console.log("Catalog Data:" , catalogData)
   return (
     <>
       <BuyerLayout>
@@ -341,7 +366,29 @@ export default function Catalog() {
               placeholderText={'Buscar...'}
               setState={setSelectedFilters}
             />
-            <div>
+            {
+              !catalogData ?
+                <div className={styles.catalogHeader}>
+                  <span className="justify-content-start align-items-center">
+                    <Typography color="text.secondary" sx={{
+                      fontFamily: "Lato",
+                    }}>
+                      No se encontraron resultados, elimine filtros para realiar una nueva búsqueda.
+                    </Typography>
+                  </span>
+                </div>
+                : catalogData.length <= 0 ?
+                <div className={styles.catalogHeader}>
+                  <span className="justify-content-start align-items-center">
+                    <Typography color="text.secondary" sx={{
+                      fontFamily: "Lato",
+                    }}>
+                      Buscando autos...
+                    </Typography>
+                  </span>
+                </div>
+                :
+                <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
                   <Typography color="text.secondary" sx={{
@@ -380,6 +427,8 @@ export default function Catalog() {
                 />
               </div>
             </div>
+            }
+
           </Grid>
         </Grid>
       </BuyerLayout>

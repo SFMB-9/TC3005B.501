@@ -10,16 +10,25 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { Typography } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 // Constante que contiene los links de la primera columna del footer
-const pages1 = [
-  { name: "Sobre nosotros", link: "/about" },
-  { name: "Compra un auto", link: "/catalog" },
-  { name: "Registra tu agencia", link: "/providers/GA" }
-];
+
 
 // Funcion que retorna el footer de la pagina
-const Footer = () => {
+export default function Footer() {
+  const { data: session } = useSession();
+
+  const pages1 = session
+  ? [
+    { name: "Sobre nosotros", link: "/about" },
+    { name: "Compra un auto", link: "/catalog" },
+  ] : [
+    { name: "Sobre nosotros", link: "/about" },
+    { name: "Compra un auto", link: "/catalog" },
+    { name: "Registra tu agencia", link: "/providers/GA" },
+  ]
+
   return (
     <section style={{ backgroundColor: "black" }} className="px-0 mx-0 py-2">
       <div className="container px-0">
@@ -48,5 +57,3 @@ const Footer = () => {
     </section>
   );
 };
-
-export default Footer;
