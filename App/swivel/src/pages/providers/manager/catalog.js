@@ -20,7 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSession } from "next-auth/react";
 
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
 import Searchbar from "@/components/general/searchbar";

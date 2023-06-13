@@ -1,6 +1,6 @@
 import BuyerNavbar from "@/components/buyer/navbar";
 import BuyerSidebar from "@/components/buyer/sidebar";
-import Footer from "@/components/general/footer";
+import Footer from "@/components/general/Footer";
 
 export default function AccountLayout({children}) {
   return(

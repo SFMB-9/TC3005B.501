@@ -5679,9 +5679,15 @@ electron-to-chromium@^1.4.284:
   integrity sha512-vjeaj0u/UYnzA/CIdGXzzcxRLCqRwREYc9YfaWInjIEr7/XPttZ6ShpyqapchEy0S2r6LpLjDBTnNj7ZxnxJKg==
 
 electron-to-chromium@^1.4.428:
+<<<<<<< HEAD
   version "1.4.430"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.430.tgz#52693c812a81800fafb5b312c1a850142e2fc9eb"
   integrity sha512-FytjTbGwz///F+ToZ5XSeXbbSaXalsVRXsz2mHityI5gfxft7ieW3HqFLkU5V1aIrY42aflICqbmFoDxW10etg==
+=======
+  version "1.4.428"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.428.tgz#c31fc88e854f49d8305cdabf6ec934ff1588a902"
+  integrity sha512-L7uUknyY286of0AYC8CKfgWstD0Smk2DvHDi9F0GWQhSH90Bzi7iDrmCbZKz75tYJxeGSAc7TYeKpmbjMDoh1w==
+>>>>>>> prod-fixes
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -9133,11 +9139,14 @@ mime-types@^2.1.12, mime-types@~2.1.24, mime-types@~2.1.34:
   dependencies:
     mime-db "1.52.0"
 
+<<<<<<< HEAD
 mime@1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.5.tgz#9eed073022a8bf5e16c8566c6867b8832bfbfa13"
   integrity sha512-QfwTOA+zRHSZXxl9Y7ue5ifKDhU1prnh0dO67Vgcl7Lcx0+79vL9A1ln0qtVur8CFSdYq5Zhnw9DDZQgwDh8Ng==
 
+=======
+>>>>>>> prod-fixes
 mime@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
@@ -9732,6 +9741,7 @@ openid-client@^5.2.1, openid-client@^5.4.0:
     object-hash "^2.2.0"
     oidc-token-hash "^5.0.3"
 
+<<<<<<< HEAD
 optimist@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/optimist/-/optimist-0.3.1.tgz#6680d30560193af5a55eb64394883ed7bcb98f2e"
@@ -9739,6 +9749,8 @@ optimist@0.3.1:
   dependencies:
     wordwrap ">=0.0.1 <0.1.0"
 
+=======
+>>>>>>> prod-fixes
 optionator@^0.8.1:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.8.3.tgz#84fa1d036fe9d3c7e21d99884b601167ec8fb495"
@@ -10234,11 +10246,14 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
+<<<<<<< HEAD
 progress@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/progress/-/progress-0.0.4.tgz#dc20375e77236ba009c0ab5c6fa4f6d92f7408cf"
   integrity sha512-D91pHw+l8w46yr1/UNAdjXRbDu4bKxR4DZQV3yosuX7osMR54SNewCfhg2LWqjb1Q1cCUSz0nJ15WDFG1w5BIQ==
 
+=======
+>>>>>>> prod-fixes
 promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
@@ -10896,6 +10911,7 @@ remark-rehype@^9.0.0:
     mdast-util-to-hast "^11.0.0"
     unified "^10.0.0"
 
+<<<<<<< HEAD
 req@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/req/-/req-0.1.4.tgz#d63eeb9b82b8ed148b84314d8a8d72921182cba4"
@@ -10911,6 +10927,8 @@ request@2.9.202:
   resolved "https://registry.yarnpkg.com/request/-/request-2.9.202.tgz#c61399cdfbbefda5dc48653b0e9bea517d9f8497"
   integrity sha512-3tc+z/Mcu5Ux4WCZ2dh3F/h7EghvlTQNr0OeplFt09gOCbSZ8MZpHwWIjX/s6I8CsineNvUBGG4/QUNLSC9nKg==
 
+=======
+>>>>>>> prod-fixes
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz"

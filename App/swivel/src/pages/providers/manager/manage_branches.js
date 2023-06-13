@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Grid, Typography, TextField, Card, CardContent, IconButton, Fade } from '@mui/material';
 import axios from "axios";
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 import CustomizedSnackbars from "@/components/general/Alert";
 import CloseIcon from "@mui/icons-material/Close";
 

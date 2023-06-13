@@ -9,7 +9,7 @@ import {
   Button,
 } from "@mui/material";
 
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 
 export default function SellerSignup() {
   const [name, setName] = useState("");
