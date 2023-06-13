@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     // Extract the files or relevant data from the documents
     res.status(200).json({ message: "Datos recuperados", documents });
 
-    client.close(); // Close the MongoDB connection
+    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
