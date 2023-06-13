@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import GActionsCards from "@/components/providers/GA/ga_actions_cards";
 import RequestCards from "@/components/providers/GA/request_cards";
 import Process from "@/components/providers/GA/process";
-import Footer from "@/components/general/footer";
+import Footer from "@/components/general/Footer";
 
 export default function GALandingPage() {
   const { data: session } = useSession()

@@ -11,7 +11,7 @@ import {
   
   
 import PopUpComponent from "@/components/general/Popup"
-import ManagerNavbar from "@/components/providers/manager/navbar";
+import ManagerNavbar from "@/components/providers/Manager/navbar";
 
 export default function Profile() {
     const [apiData, setApiData] = useState(null);
