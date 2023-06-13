@@ -33,7 +33,7 @@ export default function VistaSolicitud() {
                     {id:userId}
                     )
 
- 
+  
                 setAgency(resp.data.agencyDetails);
                 setAddress(resp.data.agencyDetails.direccion);
                 setManager(resp.data.managerDetails);
@@ -126,11 +126,11 @@ export default function VistaSolicitud() {
                                 </div>
                                 <div className={styles.row}>
                                     <p className={styles.boldText}>Representante:</p>
-                                    <p>{legal.nombres} {legal.apellidos}</p>
+                                    <p>{manager.nombres} {manager.apellidos}</p>
                                 </div>
                                 <div className={styles.row}>
                                     <p className={styles.boldText}>Correo:</p>
-                                    <p>{legal.email}</p>
+                                    <p>{manager.email}</p>
                                 </div>
                                 <div className={styles.row}>
                                     <p className={styles.boldText}>Sitio web:</p>

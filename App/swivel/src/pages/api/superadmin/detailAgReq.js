@@ -11,28 +11,22 @@ export default async function handler(req, res){
 
 	if(req.method == "POST"){
 
-		dbConnect();
+		const client = await connectToDatabase;
+    	const db = client.db("test");
+    	const processCollection = db.collection('procesos');
+    	const userCollection = db.collection('usuarios');
 
 		try{
 
 
-			const reqFound = await Proceso.findById(reqId);
+			const reqFound = await processCollection.findOne({_id: new ObjectId(reqId)});
 			const userId = reqFound.usuario_final_id;
 
+			const managerDetails= await userCollection.findOne({_id: new ObjectId(userId)});
 
+			const agencyDetails = await userCollection.findOne({_id: new ObjectId(reqFound.agencia_id)});
 
-
-
-			const managerDetails= await User.findById(
-				userId
-				
-			)
-
-			const agencyDetails = await User.findById(
-				reqFound.agencia_id
-				)
-
-			const repDetails = await User.findById(agencyDetails.grupo_automotriz_id)
+			const repDetails = await userCollection.findOne({_id: new ObjectId(agencyDetails.grupo_automotriz_id)});
 			
 			
 			return res.status(200).json({agencyDetails,managerDetails,reqFound,repDetails, message: "Success" });

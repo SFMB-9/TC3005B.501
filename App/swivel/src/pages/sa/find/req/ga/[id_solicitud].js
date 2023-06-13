@@ -34,15 +34,14 @@ export default function VistaSolicitud() {
                     )
 
  
-                setUser(Object.values(resp.data.groupDetails)[0]);
-                setAddress(Object.values(resp.data.groupDetails)[0].direccion);
-                setLegal(Object.values(resp.data.groupDetails)[0].legal);
-                setApproval(Object.values(resp.data.groupApproval)[0]);
+                setUser(resp.data.groupDetails);
+                setAddress(resp.data.groupDetails.direccion);
+                setLegal(resp.data.groupDetails.legal);
+                setApproval(resp.data.groupApproval);
+                console.log(user)
 
 
 
-
-                setAgencies(resp.data.groupAgencies);
                 setIsLoading(false)
 
 
@@ -98,7 +97,7 @@ export default function VistaSolicitud() {
                                     </div>
                                 </div>
                             </div>
-                            <p className={styles.status}>Estatus de la solicitud: {approval.estatus}</p>
+                            <p className={styles.status}>Estatus de la solicitud: {approval.estatus_validacion}</p>
                         </div>
                     </div>
 
@@ -133,7 +132,7 @@ export default function VistaSolicitud() {
                             </div>
                         </div>
 
-                        <p className={styles.status}>Solicitud Realizada: {approval.fecha_inicio}</p>
+                        <p className={styles.status}>Solicitud Realizada: {approval.fecha_creacion}</p>
                     </div>
 
                 </div>
