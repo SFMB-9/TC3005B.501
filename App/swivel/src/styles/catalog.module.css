@@ -97,12 +97,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  
+  overflow-y: auto;
+  max-height: 24rem;
 }
 
 .item {
   margin-bottom: 5;
-  
 }
 
 .submenu {
