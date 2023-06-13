@@ -77,11 +77,22 @@ export default function CarDetails() {
     setIsAvailable(data.result.disponible_prueba);
   };
 
+  const handleFavorites = (wishList) => {
+    if (wishList){
+      if (wishList.some(car => car._id === car_id)) {
+        setFavorite(true);
+      } else {
+        setFavorite(false);
+      }
+    }
+  };
+  
   const fetchFavorites = async () => {
     if (session){
       try {
         const response = await axios.get('/api/wishlist/pull-wishlist', { params: { id: session.id } }); 
         setWishlist(response.data);
+        handleFavorites(response.data);
       } 
       catch (error) {
         console.error('Error fetching data:', error);
@@ -89,13 +100,13 @@ export default function CarDetails() {
     }
   }; 
 
-  const handleFavorites = async () => {
-    if (wishList.some(car => car._id === car_id)) {
-      setFavorite(true);
-    } else {
-      setFavorite(false);
-    }
-  };
+  // const handleFavorites = async () => {
+  //   if (wishList.some(car => car._id === car_id)) {
+  //     setFavorite(true);
+  //   } else {
+  //     setFavorite(false);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
