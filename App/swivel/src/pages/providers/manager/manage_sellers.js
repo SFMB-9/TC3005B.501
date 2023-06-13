@@ -62,12 +62,15 @@ export default function SearchResults() {
         }
     };
 
-    // Fetch results when the component mounts
     useEffect(() => {
         fetchAgency(session.id)
+    }, [agency])
+    
+    // Fetch results when the component mounts
+    useEffect(() => {
         fetchResults();
 
-    }, [session, agency]);
+    }, [agency]);
 
     useEffect(() => {
         setFilteredResults(
