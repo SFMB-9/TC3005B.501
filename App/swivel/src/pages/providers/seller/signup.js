@@ -6,12 +6,15 @@ import {
   Container,
   Typography,
   TextField,
-  Button,
+  Button, 
 } from "@mui/material";
+
+import { useSession } from "next-auth/react";
 
 import ManagerLayout from "@/components/providers/manager/layout";
 
 export default function SellerSignup() {
+  const { data: session } = useSession();
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -36,8 +39,10 @@ export default function SellerSignup() {
     }
     return !(name && surname && email && phone && password && confPassword);
   };
-  
-  const agency = "647af5ebfb2360082e89094b";
+
+  const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
+  const userData = response.data.userData;
+  const agency = userData.agencia_id;
 
   const submitHandler = async (e) => {
     e.preventDefault();
