@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { timeout } from '../playwright.config'
+import { timeout } from '../../playwright.config'
 
 test.describe('Driving Req', () => {
     test.beforeEach(async ({ page }) => {
