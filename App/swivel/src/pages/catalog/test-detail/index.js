@@ -25,6 +25,7 @@ import { formatDate } from "@/components/general/date_utils";
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { es } from 'date-fns/locale';
 import setHours from "date-fns/setHours";
 import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
@@ -516,18 +517,19 @@ export default function RequestDetails() {
               </div>
               <div className={styles.testInfo}>
                 <div className={styles.schedule}>
-                  <h2 className="mb-3">Elegir un horario:</h2>
-                  <h3> Elegir Fecha* </h3>
+                  <h3 className="mb-3">Elegir un horario:</h3>
+                  <h5> Elegir fecha* </h5>
                   <DatePicker
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
+                    locale={es}
                     dateFormat='dd/MM/yyyy'
                     minDate={addDays(new Date(), agencyData.dias_anticipo)}
                     maxDate={addDays(new Date(), agencyData.dias_max)}
                     startDate={addDays(new Date(), agencyData.dias_anticipo)}
                     className="p-2"
                   />
-                  <h3 className="mt-3"> Elegir Hora* </h3>
+                  <h5 className="mt-3"> Elegir hora* </h5>
                   <DatePicker
                     selected={selectedTime}
                     onChange={time => setSelectedTime(time)}
@@ -535,6 +537,7 @@ export default function RequestDetails() {
                     showTimeSelectOnly
                     timeFormat='hh aa'
                     timeIntervals={60}
+                    locale={es}
                     minTime={setHours(new Date(), agencyData.horas_min)}
                     maxTime={setHours(new Date(), agencyData.horas_max)}
                     dateFormat='hh:mm aa'
