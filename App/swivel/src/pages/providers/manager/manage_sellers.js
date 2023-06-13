@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import Searchbar from '@/components/general/searchbar';
 import ManagerLayout from '@/components/providers/Manager/layout';
@@ -21,6 +22,7 @@ import EditSellerData from '@/components/providers/seller/edit_seller_data';
 export default function SearchResults() {
 
     const router = useRouter();
+    const { data: session } = useSession();
 
     const [results, setResults] = useState([]);
 
@@ -39,6 +41,16 @@ export default function SearchResults() {
         }
     };
 
+    const fetchAgency = async (q) => {
+        try {
+            const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
+            conast userData = response.data.userData;
+            setAgency(userData.agencia_id || '');
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        }
+    };
+
     // Function to fetch search results from the API endpoint
     const fetchResults = async () => {
         try {
@@ -52,8 +64,10 @@ export default function SearchResults() {
 
     // Fetch results when the component mounts
     useEffect(() => {
+        fetchAgency(session.id)
         fetchResults();
-    }, [agency]);
+
+    }, [session, agency]);
 
     useEffect(() => {
         setFilteredResults(
