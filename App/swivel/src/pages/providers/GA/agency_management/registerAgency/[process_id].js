@@ -20,7 +20,7 @@ export default function RegisterAgencyProcess() {
     const [documents, setDocuments] = useState([]);
     const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
     const [uploadedDocument, setUploadedDocument] = useState(null);
-    const [isOpen, setIsOpen] = useState([]);
+    const [isOpen, setIsOpen] = useState(null);
 
     const fetchProcess = async () => {
         const response = await fetch(
@@ -39,23 +39,17 @@ export default function RegisterAgencyProcess() {
         }
     };
 
-    const addToIsOpen = async (newKey) => {
-        let currentOpen = [...isOpen];
-        currentOpen.push(newKey);
-        setIsOpen(currentOpen);
-    };
+    // const addToIsOpen = async (newKey) => {
+    //     let currentOpen = [...isOpen];
+    //     currentOpen.push(newKey);
+    //     setIsOpen(currentOpen);
+    // };
 
     // Save the indices that were changed
     const handleDocumentEdit = async (indx) => {
 
-        console.log("uploadedDocument: " + uploadedDocument);
-        console.log("changedDocumentIndex: " + changedDocumentIndex);
-        const isOpenWithoutIndx = isOpen.filter(function (i) {
-            return i !== indx;
-        });
-
-        setIsOpen(isOpenWithoutIndx);
-        await handleSubmit();
+      setIsOpen(null);
+      await handleSubmit();
     };
 
     const handleSubmit = async () => {
@@ -224,7 +218,7 @@ export default function RegisterAgencyProcess() {
                 type: "actions",
                 renderCell: (params) => (
                     <>
-                        {isOpen.includes(params.row._id) ? (
+                        {isOpen === params.row._id ? (
                             <div>
                                 <label htmlFor="file-input">
                                     <IconButton aria-label="delete" size="small" component="span">
@@ -265,7 +259,7 @@ export default function RegisterAgencyProcess() {
                                             size="small"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                addToIsOpen(params.row._id);
+                                                setIsOpen(params.row._id);
                                             }}
                                         >
                                             <EditIcon />
@@ -276,7 +270,7 @@ export default function RegisterAgencyProcess() {
                                             size="small"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                addToIsOpen(params.row._id);
+                                                setIsOpen(params.row._id);
                                             }}
                                         >
                                             <UploadIcon />

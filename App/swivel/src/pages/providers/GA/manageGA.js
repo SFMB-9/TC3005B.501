@@ -247,7 +247,6 @@ export default function ManageGA() {
         ],
         [admins]
     );
-
     return (
         <>
             <GALayout>
@@ -278,7 +277,7 @@ export default function ManageGA() {
                             </div>
                             <div className="mt-3 row">
                                 <div className="col-6">
-                                    <h5> <span id={styles.campos}>Email: </span> <span id={styles.contenido}>{GA?.legal.email}</span></h5>
+                                    <h5> <span id={styles.campos}>Correo electrónico: </span> <span id={styles.contenido}>{GA?.email}</span></h5>
                                 </div>
                                 <div className="col-6">
                                     <h5> <span id={styles.campos}>Dirección: </span> <span id={styles.contenido}>{GA?.direccion.calle + ' ext. ' + GA?.direccion.numero_exterior + ' int. ' + GA?.direccion.numero_interior + ', ' + GA?.direccion.ciudad + ', ' + GA?.direccion.estado + ', CP: ' + GA?.direccion.codigo_postal}</span></h5>

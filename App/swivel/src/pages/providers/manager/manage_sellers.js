@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import Searchbar from '@/components/general/searchbar';
 import ManagerLayout from '@/components/providers/Manager/layout';
@@ -21,6 +22,7 @@ import EditSellerData from '@/components/providers/seller/edit_seller_data';
 export default function SearchResults() {
 
     const router = useRouter();
+    const { data: session } = useSession();
 
     const [results, setResults] = useState([]);
 
@@ -39,6 +41,16 @@ export default function SearchResults() {
         }
     };
 
+    const fetchAgency = async (q) => {
+        try {
+            const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
+            const userData = response.data.userData;
+            setAgency(userData.agencia_id || '');
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        }
+    };
+
     // Function to fetch search results from the API endpoint
     const fetchResults = async () => {
         try {
@@ -50,10 +62,20 @@ export default function SearchResults() {
         }
     };
 
-    // Fetch results when the component mounts
     useEffect(() => {
-        fetchResults();
-    }, [agency]);
+        if (session) {
+            fetchAgency(session.id)
+        }
+        
+    }, [session])
+
+    useEffect(() => {
+        if (agency) {
+            fetchResults()
+        }
+        
+    }, [agency])
+
 
     useEffect(() => {
         setFilteredResults(
@@ -79,8 +101,10 @@ export default function SearchResults() {
     };
 
     const handleSearchChange = (event) => {
-        setSearchValue(event.target.value);
-    };
+        if (event.target) {
+            setSearchValue(event.target.value);
+        }
+    };
 
     const columns = useMemo(
         () => [
@@ -201,8 +225,17 @@ export default function SearchResults() {
                         margin: '2rem 5rem',
                     }}
                 >
-                    <div>
-                        <h1>Administración de Vendedores</h1>
+                    <div
+                        style= {{
+                            paddingBottom: '3rem',
+                        }}
+                    >
+                        <h1
+                            style= {{
+                                paddingBottom: '1rem',
+                            }}
+                        >
+                            Administración de Vendedores</h1>
                         <div
                             style={{
                                 display: 'flex',
@@ -234,17 +267,6 @@ export default function SearchResults() {
                         </div>
                     </div>
 
-                    <div>
-                        <label htmlFor="agency_field">Agencia</label>
-                        <input
-                            type="text"
-                            id="agency_field"
-                            className="form-control"
-                            value={agency}
-                            onChange={(e) => setAgency(e.target.value)}
-                            required
-                        />
-                    </div>
                     <div>
                         <DataTable
                             columns={columns}
