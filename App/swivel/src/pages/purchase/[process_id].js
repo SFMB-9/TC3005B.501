@@ -93,7 +93,7 @@ export default function Process() {
     documentUrl = await FileUpload(doc);
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
-    currentDocs[i].estatus = "En Revisión";
+    currentDocs[i].estatus = "Pendiente";
 
     console.log("process_id: " + process_id);
     console.log("doc_index: " + i);
