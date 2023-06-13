@@ -12,7 +12,7 @@ export default async function handler(req, res){
 		try{
 			const allRequests = await Proceso.find(
 			{
-				$or:[{tipo_proceso: "peticionA"}, {tipo_proceso:"peticionGA"}]
+				$or:[{tipo_proceso: "registroAgencia"}, {tipo_proceso:"registroGA"}]
 			}
 			)
 			
