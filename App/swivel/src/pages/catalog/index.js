@@ -79,8 +79,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`marca:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            marca: {
+              ...prevExpandedMenuItems.marca,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -91,8 +99,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`tipo_vehiculo:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            tipo_vehiculo: {
+              ...prevExpandedMenuItems.tipo_vehiculo,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -103,8 +119,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`ano:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            ano: {
+              ...prevExpandedMenuItems.ano,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
