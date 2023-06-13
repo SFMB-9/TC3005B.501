@@ -27,7 +27,7 @@ export default function GALandingPage() {
         :
         <>
           <CustomHero
-            title="Se parte del cambio"
+            title="Sé parte del cambio"
             message="¡Unete a Swivel! Regístrate como Grupo Automotriz y se parte del cambio"
           />
           <RequestCards />

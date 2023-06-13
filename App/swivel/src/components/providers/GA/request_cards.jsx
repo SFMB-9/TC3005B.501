@@ -13,15 +13,14 @@ export default function ReqCards() {
         header=''
         //fiftyFifty={false}
       />
-      <CustomIconCard
+      {/* <CustomIconCard
         imageSource="/registerGA.jpg"
         icon="/processGA2.svg"
         text="Regístra a tu Grupo Automotriz"
         href="/providers/GA/registerGroup/form"
         light={false}
         header=''
-        //fiftyFifty={false}
-      />
+      /> */}
       <CustomIconCard
         imageSource="/sesion.jpg"
         icon="/processGA4.svg"
