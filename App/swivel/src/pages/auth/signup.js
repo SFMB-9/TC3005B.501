@@ -35,7 +35,7 @@ export default function SignupBuyerData() {
   const [state, setState] = useState("");
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("México");
   const { encryptRole } = require("@/utils/crypto");
   const [errors, setErrors] = useState({
     name: false,
@@ -66,7 +66,7 @@ export default function SignupBuyerData() {
     for (const key in errors) {
       if (errors[key]) return true;
     }
-    return !(street && exterior_num && city && state && country && postalCode);
+    return !(street && exterior_num && city && state && postalCode);
   };
   const submitHandler = async (e) => {
     try {
