@@ -1,12 +1,14 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import Chart from 'chart.js/auto';
+import Chart from "chart.js/auto";
 
 const countModels = (dataList) => {
   const models = {};
   dataList.forEach((item) => {
-    const modelo = item.auto.modelo;
-    models[modelo] = models[modelo] ? models[modelo] + 1 : 1;
+    if (item.tipo_proceso == "solicitudCompra") {
+      const modelo = item.auto.modelo;
+      models[modelo] = models[modelo] ? models[modelo] + 1 : 1;
+    }
   });
 
   const sortedModels = Object.entries(models)

@@ -1,30 +1,38 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import Chart from "chart.js/auto";
 
-const data = {
-    labels: ['Category 1', 'Category 2', 'Category 3'],
+const countModels = (dataList) => {
+  const models = {};
+  dataList.forEach((item) => {
+    if (item.tipo_proceso == "pruebaManejo") {
+      const modelo = item.auto.modelo;
+      models[modelo] = models[modelo] ? models[modelo] + 1 : 1;
+    }
+  });
+
+  const sortedModels = Object.entries(models)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .map(([modelo]) => modelo);
+
+  return { models, sortedModels };
+};
+
+const MasPruebas = ({ data }) => {
+  const { models, sortedModels } = countModels(data);
+
+  const chartData = {
+    labels: sortedModels,
     datasets: [
       {
-        label: 'Data Set 1',
-        data: [10, 20, 30], // Replace with your data values
-        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Specify color for bars
+        label: "Count",
+        data: sortedModels.map((modelo) => models[modelo]),
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
       },
     ],
   };
-  
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true, // Start y-axis from zero
-      },
-    },
-  };
 
-  const BarChart = () => {
-    return (
-      <div>
-        <Bar data={data} options={options} />
-      </div>
-    );
-  };
-  
+  return <Bar data={chartData} />;
+};
+
+export default MasPruebas;
