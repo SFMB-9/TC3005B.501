@@ -120,7 +120,7 @@ export default function SignupBuyerData() {
                       const v = e.target.value;
                       setName(v);
                       if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                        setErrors({ ...errors, name: true})
+                        setErrors({ ...errors, name: true })
                       } else {
                         setErrors({ ...errors, name: false })
                       }
@@ -142,7 +142,7 @@ export default function SignupBuyerData() {
                       const v = e.target.value;
                       setSurname(v);
                       if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                        setErrors({ ...errors, surname: true})
+                        setErrors({ ...errors, surname: true })
                       } else {
                         setErrors({ ...errors, surname: false })
                       }
@@ -151,7 +151,7 @@ export default function SignupBuyerData() {
                       marginLeft: "0.5vw",
                     }}
                   />
-                  
+
                 </div>
                 <TextField
                   required
@@ -189,7 +189,7 @@ export default function SignupBuyerData() {
                     } else {
                       setErrors({ ...errors, phone: false });
                     }
-                  }}    
+                  }}
                 />
                 <TextField
                   required
@@ -204,7 +204,7 @@ export default function SignupBuyerData() {
                   onChange={(e) => {
                     const v = e.target.value;
                     setPassword(v);
-                    if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                    if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v) || !/\d/.test(v)) {
                       setErrors({ ...errors, password: true })
                       if (v.length < 6) {
                         setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
@@ -235,7 +235,7 @@ export default function SignupBuyerData() {
                     const v = e.target.value;
                     setConfPassword(v);
                     if (v !== password) {
-                      setErrors({ ...errors, confPassword: true})
+                      setErrors({ ...errors, confPassword: true })
                     } else {
                       setErrors({ ...errors, confPassword: false })
                     }
@@ -243,13 +243,13 @@ export default function SignupBuyerData() {
                 />
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
                   <Button
-                    className="btn btn-primary btn-block mb-1" 
-                    style={{backgroundColor: "#0d6efd"}}
-                    onClick={() =>{setLoading(true);setTimeout(()=>{setLoading(false);setActiveSectionIndex(1)}, 700)}}
+                    className="btn btn-primary btn-block mb-1"
+                    style={{ backgroundColor: "#0d6efd" }}
+                    onClick={() => { setLoading(true); setTimeout(() => { setLoading(false); setActiveSectionIndex(1) }, 700) }}
                     disableElevation
                     disabled={disabledFirst()}
                   >
-                    {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
+                    {loading ? <CircularProgress size={25} sx={{ color: "white" }} /> :
                       <Typography
                         wrap
                         sx={{
@@ -262,21 +262,6 @@ export default function SignupBuyerData() {
                       </Typography>
                     }
                   </Button>
-                  {/*<button
-                    type="submit"
-                    className="btn btn-secondary btn-block mb-1"
-                  >
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "lato",
-                      }}
-                    >
-                      {" "}
-                      <img alt="logo de google" src="/google_logo.svg" />{" "}
-                      Ingresar con Google{" "}
-                    </Typography>
-                    </button>*/}
                 </div>
                 <div className="text-center">
                   <p>
@@ -296,32 +281,32 @@ export default function SignupBuyerData() {
             title="Regístrate"
             fields={
               <div className="d-flex flex-column">
-                  <TextField
-                    required
-                    size="small"
-                    className="w-100 mb-2"
-                    label="Calle"
-                    value={street}
-                    disabled={loading}
-                    error={errors.street}
-                    helperText={errors.street ? "Calle inválida" : ""}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setStreet(v);
-                      if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                        setErrors({ ...errors, street: true})
-                      } else {
-                        setErrors({ ...errors, street: false })
-                      }
-                    }}
-                  />
+                <TextField
+                  required
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Calle"
+                  value={street}
+                  disabled={loading}
+                  error={errors.street}
+                  helperText={errors.street ? "Calle inválida" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setStreet(v);
+                    if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                      setErrors({ ...errors, street: true })
+                    } else {
+                      setErrors({ ...errors, street: false })
+                    }
+                  }}
+                />
                 <div className="d-flex flex-row mb-2">
                   <TextField
                     required
                     type="text"
                     size="small"
                     className="w-100"
-                    sx={{marginRight:"0.5vw"}}
+                    sx={{ marginRight: "0.5vw" }}
                     label="nº Exterior"
                     value={exterior_num}
                     disabled={loading}
@@ -333,7 +318,7 @@ export default function SignupBuyerData() {
                     size="small"
                     type="text"
                     className="w-100"
-                    sx={{marginLeft:"0.5vw"}}
+                    sx={{ marginLeft: "0.5vw" }}
                     label="nº Interior"
                     value={interior_num}
                     disabled={loading}
@@ -367,7 +352,7 @@ export default function SignupBuyerData() {
                     const v = e.target.value;
                     setCity(v);
                     if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                      setErrors({ ...errors, city: true})
+                      setErrors({ ...errors, city: true })
                     } else {
                       setErrors({ ...errors, city: false })
                     }
@@ -387,25 +372,6 @@ export default function SignupBuyerData() {
                     </option>
                   ))}
                 </select>
-                {/* <TextField
-                  required
-                  size="small"
-                  className="w-100 mb-2"
-                  label="Estado"
-                  value={state}
-                  disabled={loading}
-                  error={errors.state}
-                  helperText={errors.state ? "Solo letras" : ""}
-                  onChange={(e) => {
-                    const v = e.target.value;
-                    setState(v);
-                    if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                      setErrors({ ...errors, state: true})
-                    } else {
-                      setErrors({ ...errors, state: false })
-                    }
-                  }}
-                /> */}
                 <TextField
                   required
                   size="small"
@@ -419,7 +385,7 @@ export default function SignupBuyerData() {
                     const v = e.target.value;
                     setCountry(v);
                     if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                      setErrors({ ...errors, country: true})
+                      setErrors({ ...errors, country: true })
                     } else {
                       setErrors({ ...errors, country: false })
                     }
@@ -432,15 +398,15 @@ export default function SignupBuyerData() {
                     className="btn btn-primary btn-block mb-2"
                     disableElevation
                     disabled={disabledSecond()}
-                    style={{backgroundColor: "#0d6efd"}}
+                    style={{ backgroundColor: "#0d6efd" }}
                     onClick={() => {
                       setLoading(true)
                       submitHandler()
                       if (!passStatus) {
                         //setActiveSectionIndex(0)
                         setError(false)
-                        setLoading(false) 
-                        setTimeout(() => {window.location.href = "/auth/login";}, 2000);
+                        setLoading(false)
+                        setTimeout(() => { window.location.href = "/auth/login"; }, 2000);
                       } else {
                         setLoading(false);
                         setError(true);
@@ -448,7 +414,7 @@ export default function SignupBuyerData() {
                       }
                     }}
                   >
-                    {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
+                    {loading ? <CircularProgress size={25} sx={{ color: "white" }} /> :
                       <Typography
                         wrap
                         sx={{ color: "white", fontFamily: "lato" }}

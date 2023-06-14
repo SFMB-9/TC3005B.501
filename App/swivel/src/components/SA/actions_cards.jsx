@@ -17,7 +17,7 @@ export default function ActionsCards() {
         imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
         text="Estadisticas"
-        href="/sa/estadisticas"
+        href="/sa/stats"
         light={false}
         header=''
         fiftyFifty={false}
