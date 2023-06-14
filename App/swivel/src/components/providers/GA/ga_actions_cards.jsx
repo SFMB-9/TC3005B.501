@@ -22,15 +22,15 @@ export default function GActionsCards() {
         header=''
         fiftyFifty={false}
       />
-      <CustomIconCard
+      {/* <CustomIconCard
         imageSource="/manager/statistics_action.png"
         icon="/manager/statistics_icon.svg"
         text="Estadísticas de ventas"
-        href="/providers/GA/" //<-- there are still no route to add
+        href="/providers/GA/"
         light={false}
         header=''
         fiftyFifty={false}
-      />
+      /> */}
     </div>
   );
 }
