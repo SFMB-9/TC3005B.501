@@ -628,7 +628,7 @@ const CarRegistrationForm = () => {
                     id="ano"
                     value={car.ano}
                     onChange={handleChange}
-                    label="Ano"
+                    label="Año"
                     inputProps={{
                       min: "1900",
                       max: "9999",
