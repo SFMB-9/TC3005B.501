@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const db = client.db("test");
     const procesos = db.collection("procesos");
 
-    const documents = await procesos.find({nombre_agencia: name }).toArray();
+    const documents = await procesos.find({"agencia.nombres": name }).toArray();
 
     // Extract the files or relevant data from the documents
     res.status(200).json({ message: "Datos recuperados", documents });
