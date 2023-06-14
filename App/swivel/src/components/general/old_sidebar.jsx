@@ -148,32 +148,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                   }
                 </div>
               </MenuItem>
-              <Link href={`${root}/`}>
-                <MenuItem
-                  icon={<ManageAccountsIcon />}
-                  style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/`}
-                >
-                  Mi cuenta
-                </MenuItem>
-              </Link>
-              <Link href={`${root}/change_password`}>
-                <MenuItem
-                  icon={<KeyIcon />}
-                  style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/change_password`}
-                >
-                  Contraseña
-                </MenuItem>
-              </Link>
               <Link href={`${root}/purchases`}>
                 <MenuItem
                   icon={<ShoppingBagIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/purchases`}
                 >
                   Mis compras
                 </MenuItem>
@@ -182,8 +160,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<DirectionsCarIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/tests`}
                 >
                   Mis pruebas de manejo
                 </MenuItem>
@@ -192,8 +168,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<FavoriteIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/favorites`}
                 >
                   Mis favoritos
                 </MenuItem>
@@ -202,13 +176,26 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<FolderIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/documents`}
                 >
                   Mis documentos
                 </MenuItem>
               </Link>
-              {/* {children} */}
+              <Link href={`${root}/change_password`}>
+                <MenuItem
+                  icon={<KeyIcon />}
+                  style={{ color: '#333333' }}
+                >
+                  Contraseña
+                </MenuItem>
+              </Link>
+              <Link href={`${root}/`}>
+                <MenuItem
+                  icon={<ManageAccountsIcon />}
+                  style={{ color: '#333333' }}
+                >
+                  Mi cuenta
+                </MenuItem>
+              </Link>
             </Menu>
           </div>
           {/* Pie del Sidebar */}

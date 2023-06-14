@@ -12,6 +12,11 @@ import { useSession } from "next-auth/react";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { RouterRounded } from "@mui/icons-material";
+import PopUpComponent from "@/components/general/Popup";
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 const AblyChatComponent = dynamic(
   () => import("../../components/chat/AblyChatComponent"),
@@ -23,12 +28,11 @@ export default function Process() {
   const router = useRouter();
   const { process_id } = router.query;
 
-  // console.log("process_id: " + process_id);
   const [process, setProcess] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
   const [uploadedDocument, setUploadedDocument] = useState(null);
-  const [isOpen, setIsOpen] = useState([]);
+  const [isOpen, setIsOpen] = useState(null);
   const [isChatOpen, setChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -52,12 +56,12 @@ export default function Process() {
     if (data.result) {
       setProcess(data.result);
       const newDocuments = data.result.documentos.map((doc, i) => {
-        if (doc.nombre_documento == "INE") {
-          return { ...resUser.userData.documentos[0], _id: i};
-        }
-        //  else if (doc.nombre_documento == "Licencia") {
-        //   return { ...resUser.userData.documentos[1], _id: i};
+        // if (doc.nombre_documento == "INE") {
+        //   return { ...resUser.userData.documentos[0], _id: i};
         // }
+        // //  else if (doc.nombre_documento == "Licencia") {
+        // //   return { ...resUser.userData.documentos[1], _id: i};
+        // // }
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
@@ -65,19 +69,16 @@ export default function Process() {
     }
   };
 
-  const addToIsOpen = async (newKey) => {
-    let currentOpen = [...isOpen];
-    currentOpen.push(newKey);
-    setIsOpen(currentOpen);
-  };
+  // const addToIsOpen = async (newKey) => {
+  //   let currentOpen = [...isOpen];
+  //   currentOpen.push(newKey);
+  //   setIsOpen(currentOpen);
+  // };
 
   // Save the indices that were changed
   const handleDocumentEdit = async (indx) => {
-    const isOpenWithoutIndx = isOpen.filter(function (i) {
-      return i !== indx;
-    });
 
-    setIsOpen(isOpenWithoutIndx);
+    setIsOpen(null);
     await handleSubmit();
   };
 
@@ -95,7 +96,7 @@ export default function Process() {
     documentUrl = await FileUpload(doc);
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
-    currentDocs[i].estatus = "En Revisión";
+    currentDocs[i].estatus = "Pendiente";
 
     console.log("process_id: " + process_id);
     console.log("doc_index: " + i);
@@ -104,7 +105,7 @@ export default function Process() {
 
     try {
       const result = await fetch(
-        `/api/purchase-docs/update-document?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
+        `/api/purchase-docs/update-docs-mongo?process_id=${process_id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=${currentDocs[i].estatus}`,
         {
           method: "PUT",
         }
@@ -113,6 +114,21 @@ export default function Process() {
       fetchProcess();
     } catch (error) {
       console.error("Error occurred during the document upload:", error);
+    }
+  };
+  console.log(process_id)
+  // Agregar confirmación de cancelación
+  const handleCancel = async () => {
+    try{
+      console.log("estamos en", process_id)
+      const result = await axios({
+        method: 'delete',
+        url: '/api/saleCreation/deleteProcess?process_id=' + process_id,
+      });
+      
+      router.back();
+    } catch(error){
+      console.log(error)
     }
   };
 
@@ -211,7 +227,7 @@ export default function Process() {
         type: "actions",
         renderCell: (params) => (
           <>
-            {isOpen.includes(params.row._id) ? (
+            {isOpen === params.row._id ? (
               <div>
                 <label htmlFor="file-input">
                   <IconButton aria-label="delete" size="small" component="span">
@@ -249,7 +265,7 @@ export default function Process() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <EditIcon />
@@ -260,7 +276,7 @@ export default function Process() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <UploadIcon />
@@ -275,10 +291,11 @@ export default function Process() {
     [documents, isOpen]
   );
 
+  console.log(process)
   if (process != null) {
     return (
       <div>
-        <Container maxWidth="md">
+        <Container>
           <Fade in={true} timeout={1000}>
             <div className="section p-5">
               <Typography
@@ -356,7 +373,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    <strong>Agente Asignado</strong>
+                    <strong>Vendedor Asignado</strong>
                   </Typography>
                   <Typography
                     fontFamily="Lato"
@@ -364,7 +381,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Hola! Soy tu agente,<br />
+                    Hola! Soy tu vendedor,<br />
                     estaré revisando tus documentos y contestando las dudas que tengas. <br />
                   </Typography>
                 </div>
@@ -440,26 +457,52 @@ export default function Process() {
           </Fade>
 
           <Fade in={true} timeout={1500}>
-            <div className="text-center mt-4">
-              <Button
-                variant="outlined"
+            <div className="container text-center mt-4">
+              <div className="row">
+                  <div className="col-12 col-sm-6">
+                  <PopUpComponent 
+                title="Cancelar solicitud de compra"
+                popUpContent={
+                  <div className="text-center mt-3"> <p> ¿Estás segurx que quieres cancelar tu proceso de compra? </p>
+                  <p> Al hacer click en &quot;Cancelar proceso&quot; estás confirmando de forma definitiva que quieres cancelar tu solicitud de compra. </p>
+                  <Button
+                      variant="contained"
+                      onClick={handleCancel}
+                      type="submit"
+                      className="w-80"
+                      sx={{
+                          fontFamily: "Lato",
+                          ":hover": {
+                              backgroundColor: "red",
+                          },
+                      }}
+                  >
+                      Cancelar proceso
+                  </Button>
+                  </div>
+                }
+                btnOpen={
+                  <Button
                 sx={{
                   fontFamily: "Lato",
-                  color: "000000",
+                color: "#FFFFFF",
                   width: 150,
+                  backgroundColor: "gray",
                   // ":hover": {
                   //   backgroundColor: "#F68E70",
                   // },
                 }}
                 disableElevation
                 type="button"
-                href="/catalog"
                 className="me-4"
               >
                 Cancelar
               </Button>
-
-              <CheckoutPage
+                }
+              />
+                  </div>
+                  <div className="col-12 col-sm-6">
+                  <CheckoutPage
                 id={process_id}
                 validatedDocs={checkValidatedDocs()}
                 items={[
@@ -477,6 +520,29 @@ export default function Process() {
                   },
                 ]}
               />
+                  </div>
+              </div>
+              
+              {/* <Button
+                variant="outlined"
+                sx={{
+                  fontFamily: "Lato",
+                  color: "000000",
+                  width: 150,
+                  // ":hover": {
+                  //   backgroundColor: "#F68E70",
+                  // },
+                }}
+                onClick={handleCancel} 
+                disableElevation
+                type="button"
+                href="/catalog"
+                className="me-4"
+              >
+                Cancelar
+              </Button> */}
+
+              
             </div>
           </Fade>
         </Container>
@@ -506,7 +572,7 @@ export default function Process() {
           position: relative;
           display: grid;
           grid-template-rows: 1fr 100px;
-          min-height: 100vh;
+          // min-height: 100vh;
           // background-color: aqua;
         }
 
@@ -610,7 +676,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Loading ...</p>
+        <LoadingScreen/>
       </div>
     );
   }

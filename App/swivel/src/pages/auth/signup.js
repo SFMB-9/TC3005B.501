@@ -2,16 +2,22 @@
 Autores: Karla Mondragón, Andreína Sananez
 
 Código utilizado para el formulario de registro de usuario comprador, para la información de su dirección
+
+01/06/23:
+Tonatiuh Reyes:
+-Mensajes de errores y validaciones en front. Simplificación de código. Limitaciones de caracteres en campos de texto.
 */
 
 "use client";
 
 import axios from "axios";
 import React, { useState } from "react";
-import AuthComponent from "@/components/login/auth_component";
-import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Typography, TextField, Button, CircularProgress } from "@mui/material";
+
+import AuthComponent from "@/components/login/auth_component";
+import mexicanStates from "@/components/general/states";
+import styles from '@/styles/signup.module.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Función que retorna el formulario de registro de comprador con su dirección, junto con los botones de ingreso  */
 export default function SignupBuyerData() {
@@ -29,7 +35,7 @@ export default function SignupBuyerData() {
   const [state, setState] = useState("");
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("México");
   const { encryptRole } = require("@/utils/crypto");
   const [errors, setErrors] = useState({
     name: false,
@@ -38,24 +44,31 @@ export default function SignupBuyerData() {
     password: false,
     confPassword: false,
     phone: false,
+    street: false,
+    exterior_num: false,
+    interior_num: false,
+    city: false,
+    state: false,
+    country: false,
+    postalCode: false,
   });
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const disabled = () => {
+  const [errMessage, setErrMessage] = useState("");
+  let passStatus = null;
+  const disabledFirst = () => {
     for (const key in errors) {
       if (errors[key]) return true;
     }
-    return false;
+    return !(name && surname && email && password && confPassword && phone);
   };
-
-  const [errMessage, setErrMessage] = useState("");
-  let passStatus = null;
-
-
+  const disabledSecond = () => {
+    for (const key in errors) {
+      if (errors[key]) return true;
+    }
+    return !(street && exterior_num && city && state && postalCode);
+  };
   const submitHandler = async (e) => {
-    e.preventDefault();
-
     try {
       const { data } = await axios.post("/api/register", {
         tipo_usuario: 'user',
@@ -78,9 +91,8 @@ export default function SignupBuyerData() {
       console.log(data);
       passStatus = true;
       setErrMessage("Usuario registrado exitosamente");
-      setTimeout(() => {window.location.href = "/auth/login";}, 1000);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
       passStatus = false;
       setErrMessage("Hubo un error al registrarse");
     }
@@ -93,187 +105,166 @@ export default function SignupBuyerData() {
           <AuthComponent
             title="Regístrate"
             fields={
-              <form
-                className="d-flex flex-column"
-                onSubmit={() => {
-                  setActiveSectionIndex(1);
-                }}
-              >
-                <div className="mb-2">
-                  <div className="d-flex flex-row ">
-                    <TextField
-                      type="text"
-                      className="w-100"
-                      placeholder="Nombre(s)"
-                      value={name}
-                      disabled={loading}
-                      error={errors.name}
-                      helperText={errors.name ? "Solo letras" : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setName(v);
-                        if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                          setErrors({ ...errors, name: true})
-                        } else {
-                          setErrors({ ...errors, name: false })
-                        }
-                      }}
-                      sx={{
-                        '& input':{padding:"0.8vw", marginRight: "0.1vw"},
-                      }}
-                      required
-                    />
-                    <TextField
-                      ype="text"
-                      className="w-100"
-                      placeholder="Apellidos"
-                      value={surname}
-                      disabled={loading}
-                      error={errors.surname}
-                      helperText={errors.surname ? "Solo letras" : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        setSurname(v);
-                        if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
-                          setErrors({ ...errors, surname: true})
-                        } else {
-                          setErrors({ ...errors, surname: false })
-                        }
-                      }}
-                      sx={{
-                        '& input':{padding:"0.8vw"},
-                      }}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="mb-2">
+              <div className="d-flex flex-column">
+                <div className="d-flex flex-row mb-2">
                   <TextField
-                    type="email"
-                    className="w-100"
-                    placeholder="Correo Electrónico"
-                    value={email}
-                    disabled={loading}
-                    error={errors.email}
-                    helperText={errors.email ? "Correo electrónico inválido" : ""}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setEmail(v);
-                      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
-                        setErrors({ ...errors, email: true });
-                      } else {
-                        setErrors({ ...errors, email: false });
-                      }
-                    }}
-                    sx={{
-                      '& input':{padding:"0.8vw"},
-                    }}
                     required
-                  />
-                </div>
-                <div className="mb-2">
-                  <TextField
-                    type="phone"
+                    size="small"
                     className="w-100"
-                    placeholder="Teléfono"
-                    value={phone}
+                    label="Nombre(s)"
+                    value={name}
                     disabled={loading}
-                    error={errors.phone}
-                    helperText={errors.phone ? "Teléfono inválido" : ""}
+                    error={errors.name}
+                    helperText={errors.name ? "Solo letras" : ""}
                     onChange={(e) => {
                       const v = e.target.value;
-                      setPhone(v)
-                      if (v.length < 10 || !/^\d+$/.test(v)) {
-                        setErrors({ ...errors, phone: true });
+                      setName(v);
+                      if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                        setErrors({ ...errors, name: true})
                       } else {
-                        setErrors({ ...errors, phone: false });
+                        setErrors({ ...errors, name: false })
                       }
                     }}
                     sx={{
-                      '& input':{padding:"0.8vw"},
+                      marginRight: "0.5vw",
                     }}
+                  />
+                  <TextField
                     required
-                  />
-                </div>
-                <div className="mb-2">
-                  <TextField
-                    type="password"
+                    size="small"
                     className="w-100"
-                    placeholder="Contraseña"
-                    value={password}
+                    label="Apellidos"
+                    value={surname}
                     disabled={loading}
-                    error={errors.password}
-                    helperText={errors.password ? confPasswordHelper : ""}
+                    error={errors.surname}
+                    helperText={errors.surname ? "Solo letras" : ""}
                     onChange={(e) => {
                       const v = e.target.value;
-                      setPassword(v);
-                      if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
-                        setErrors({ ...errors, password: true })
-                        if (v.length < 6) {
-                          setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
-                        }
-                        else if (!/[a-zA-Z]/.test(v)) {
-                          setConfPasswordHelper("La contraseña debe tener al menos una letra")
-                        }
-                        else if (!/\d/.test(v)) {
-                          setConfPasswordHelper("La contraseña debe tener al menos un digito")
-                        }
-                        else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
-                          setConfPasswordHelper("La contraseña debe tener al menos un caracter especial")
-                        }
+                      setSurname(v);
+                      if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                        setErrors({ ...errors, surname: true})
                       } else {
-                        setErrors({ ...errors, password: false })
-                        setConfPasswordHelper("");
+                        setErrors({ ...errors, surname: false })
                       }
                     }}
                     sx={{
-                      '& input':{padding:"0.8vw"},
+                      marginLeft: "0.5vw",
                     }}
-                    required
                   />
+                  
                 </div>
-                <div className="mb-2">
-                  <TextField
-                    type="password"
-                    className="w-100"
-                    placeholder="Confirmar Contraseña"
-                    value={confPassword}
-                    disabled={loading}
-                    error={errors.confPassword}
-                    helperText={errors.confPassword ? "Las contraseñas no coinciden" : ""}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setConfPassword(v);
-                      if (v !== password) {
-                        setErrors({ ...errors, confPassword: true})
-                      } else {
-                        setErrors({ ...errors, confPassword: false })
+                <TextField
+                  required
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Correo Electrónico"
+                  value={email}
+                  disabled={loading}
+                  error={errors.email}
+                  helperText={errors.email ? "Correo electrónico inválido" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setEmail(v);
+                    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
+                      setErrors({ ...errors, email: true });
+                    } else {
+                      setErrors({ ...errors, email: false });
+                    }
+                  }}
+                />
+                <TextField
+                  required
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Teléfono"
+                  value={phone}
+                  disabled={loading}
+                  error={errors.phone}
+                  helperText={errors.phone ? "Teléfono inválido" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPhone(v)
+                    if (v.length < 10 || v.length > 10 || !/^\d+$/.test(v)) {
+                      setErrors({ ...errors, phone: true });
+                    } else {
+                      setErrors({ ...errors, phone: false });
+                    }
+                  }}    
+                />
+                <TextField
+                  required
+                  type="password"
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Contraseña"
+                  value={password}
+                  disabled={loading}
+                  error={errors.password}
+                  helperText={errors.password ? confPasswordHelper : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPassword(v);
+                    if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                      setErrors({ ...errors, password: true })
+                      if (v.length < 6) {
+                        setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                      } else if (!/[a-zA-Z]/.test(v)) {
+                        setConfPasswordHelper("La contraseña debe tener al menos una letra")
+                      } else if (!/\d/.test(v)) {
+                        setConfPasswordHelper("La contraseña debe tener al menos un digito")
+                      } else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                        setConfPasswordHelper("La contraseña debe tener al menos un caracter especial")
                       }
-                    }}
-                    sx={{
-                      '& input':{padding:"0.8vw"},
-                    }}
-                  />
-                </div>
+                    } else {
+                      setErrors({ ...errors, password: false })
+                      setConfPasswordHelper("");
+                    }
+                  }}
+                />
+                <TextField
+                  required
+                  type="password"
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Confirmar Contraseña"
+                  value={confPassword}
+                  disabled={loading}
+                  error={errors.confPassword}
+                  helperText={errors.confPassword ? "Las contraseñas no coinciden" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setConfPassword(v);
+                    if (v !== password) {
+                      setErrors({ ...errors, confPassword: true})
+                    } else {
+                      setErrors({ ...errors, confPassword: false })
+                    }
+                  }}
+                />
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                  <button
-                    className="btn btn-primary btn-block mb-2" 
-                    onSubmit={submitHandler}
+                  <Button
+                    className="btn btn-primary btn-block mb-1" 
+                    style={{backgroundColor: "#0d6efd"}}
+                    onClick={() =>{setLoading(true);setTimeout(()=>{setLoading(false);setActiveSectionIndex(1)}, 700)}}
+                    disableElevation
+                    disabled={disabledFirst()}
                   >
-                    <Typography
-                      wrap
-                      sx={{
-                        color: "white",
-                        fontFamily: "lato",
-                      }}
-                    >
-                      {" "}
-                      Continuar el Registro{" "}
-                    </Typography>
-                  </button>
+                    {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
+                      <Typography
+                        wrap
+                        sx={{
+                          color: "white",
+                          fontFamily: "lato",
+                        }}
+                      >
+                        {" "}
+                        Continuar el Registro{" "}
+                      </Typography>
+                    }
+                  </Button>
                   {/*<button
                     type="submit"
-                    className="btn btn-secondary btn-block mb-2"
+                    className="btn btn-secondary btn-block mb-1"
                   >
                     <Typography
                       sx={{
@@ -293,7 +284,7 @@ export default function SignupBuyerData() {
                     <a href="#!"> Regístrate aquí</a>
                   </p>
                 </div>
-              </form>
+              </div>
             }
           />
         </>
@@ -304,79 +295,160 @@ export default function SignupBuyerData() {
           <AuthComponent
             title="Regístrate"
             fields={
-              <div>
-                <form className="d-flex flex-column" onSubmit={submitHandler}>
-                  <div className="form-outline mb-2">
-                    <div className="d-flex flex-row ">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Calle"
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
-                        required
-                      />
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Num. Ext"
-                        value={exterior_num}
-                        onChange={(e) => setExteriorNum(e.target.value)}
-                        required
-                      />
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Num. Int."
-                        value={interior_num}
-                        onChange={(e) => setInteriorNum(e.target.value)}
-                        
-                      />
-                    </div>
-                  </div>
-                  <div className="form-outline mb-2">
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Código Postal"
-                      value={postalCode}
-                      onChange={(e) => setPC(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-outline mb-2">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Ciudad"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-outline mb-2">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Estado"
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                      required
-                    />
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="País"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                    <button
-                      className="btn btn-primary btn-block mb-2"
-                      onSubmit={() => setActiveSectionIndex(2)}
-                    >
+              <div className="d-flex flex-column">
+                  <TextField
+                    required
+                    size="small"
+                    className="w-100 mb-2"
+                    label="Calle"
+                    value={street}
+                    disabled={loading}
+                    error={errors.street}
+                    helperText={errors.street ? "Calle inválida" : ""}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      setStreet(v);
+                      if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                        setErrors({ ...errors, street: true})
+                      } else {
+                        setErrors({ ...errors, street: false })
+                      }
+                    }}
+                  />
+                <div className="d-flex flex-row mb-2">
+                  <TextField
+                    required
+                    type="text"
+                    size="small"
+                    className="w-100"
+                    sx={{marginRight:"0.5vw"}}
+                    label="nº Exterior"
+                    value={exterior_num}
+                    disabled={loading}
+                    error={errors.exterior_num}
+                    helperText={errors.exterior_num ? "Número inválido" : ""}
+                    onChange={(e) => setExteriorNum(e.target.value)}
+                  />
+                  <TextField
+                    size="small"
+                    type="text"
+                    className="w-100"
+                    sx={{marginLeft:"0.5vw"}}
+                    label="nº Interior"
+                    value={interior_num}
+                    disabled={loading}
+                    error={errors.interior_num}
+                    helperText={errors.interior_num ? "Número inválido" : ""}
+                    onChange={(e) => setInteriorNum(e.target.value)}
+                  />
+                </div>
+                <TextField
+                  required
+                  type="text"
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Código Postal"
+                  value={postalCode}
+                  disabled={loading}
+                  error={errors.postalCode}
+                  helperText={errors.postalCode ? "Código postal inválido" : ""}
+                  onChange={(e) => setPC(e.target.value)}
+                />
+                <TextField
+                  required
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Ciudad"
+                  value={city}
+                  disabled={loading}
+                  error={errors.city}
+                  helperText={errors.city ? "Solo letras" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setCity(v);
+                    if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                      setErrors({ ...errors, city: true})
+                    } else {
+                      setErrors({ ...errors, city: false })
+                    }
+                  }}
+                />
+                <select
+                  required
+                  className="mb-2"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  id={styles.dropdownStates}
+                >
+                  <option value="">Elegir estado</option>
+                  {mexicanStates.map((stateObj, index) => (
+                    <option key={index} value={stateObj.name}>
+                      {stateObj.name}
+                    </option>
+                  ))}
+                </select>
+                {/* <TextField
+                  required
+                  size="small"
+                  className="w-100 mb-2"
+                  label="Estado"
+                  value={state}
+                  disabled={loading}
+                  error={errors.state}
+                  helperText={errors.state ? "Solo letras" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setState(v);
+                    if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                      setErrors({ ...errors, state: true})
+                    } else {
+                      setErrors({ ...errors, state: false })
+                    }
+                  }}
+                /> */}
+                <TextField
+                  required
+                  size="small"
+                  className="w-100 mb-2"
+                  label="País"
+                  value="México"
+                  disabled
+                  error={errors.country}
+                  helperText={errors.country ? "Solo letras" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setCountry(v);
+                    if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(v)) {
+                      setErrors({ ...errors, country: true})
+                    } else {
+                      setErrors({ ...errors, country: false })
+                    }
+                  }}
+                />
+                <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+                  {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography>}
+                  <Button
+                    type="submit"
+                    className="btn btn-primary btn-block mb-2"
+                    disableElevation
+                    disabled={disabledSecond()}
+                    style={{backgroundColor: "#0d6efd"}}
+                    onClick={() => {
+                      setLoading(true)
+                      submitHandler()
+                      if (!passStatus) {
+                        //setActiveSectionIndex(0)
+                        setError(false)
+                        setLoading(false) 
+                        setTimeout(() => {window.location.href = "/auth/login";}, 2000);
+                      } else {
+                        setLoading(false);
+                        setError(true);
+                        passStatus = null;
+                      }
+                    }}
+                  >
+                    {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : 
                       <Typography
                         wrap
                         sx={{ color: "white", fontFamily: "lato" }}
@@ -384,17 +456,15 @@ export default function SignupBuyerData() {
                         {" "}
                         Crear Cuenta{" "}
                       </Typography>
-                    </button>
-                  </div>
-                </form>
-                <a className="d-flex flex-column" href="/auth/signup" style={{ textDecoration: 'none' }}>
-                  <button className="btn btn-secondary btn-block mb-2">
+                    }
+                  </Button>
+                  <Button disabled={loading} className="btn btn-secondary btn-block mb-2" href="/auth/signup">
                     <Typography sx={{ color: "white", fontFamily: "lato" }}>
                       {" "}
                       Cancelar{" "}
                     </Typography>
-                  </button>
-                </a>
+                  </Button>
+                </div>
               </div>
             }
           />

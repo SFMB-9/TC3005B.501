@@ -20,6 +20,8 @@ import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from "next/router";
 import Searchbar from "@/components/general/searchbar";
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 export default function Catalog() {
   const router = useRouter();
@@ -79,8 +81,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`marca:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            marca: {
+              ...prevExpandedMenuItems.marca,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -91,8 +101,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`tipo_vehiculo:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            tipo_vehiculo: {
+              ...prevExpandedMenuItems.tipo_vehiculo,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -103,8 +121,16 @@ export default function Catalog() {
         setSelectedFilters((prevSelectedFilters) => {
           const newSelectedFilters = [...prevSelectedFilters];
           newSelectedFilters.push(`ano:${query}`);
+          setExpandedMenuItems((prevExpandedMenuItems) => ({
+            ...prevExpandedMenuItems,
+            ano: {
+              ...prevExpandedMenuItems.ano,
+              [query]: true,
+            },
+          }));
           return newSelectedFilters;
         });
+        return
       }
     }
 
@@ -132,6 +158,7 @@ export default function Catalog() {
     setFilterHeaders(data.filterHeaders);
     setFilters(data.filters);
     setCatalogData(data.result);
+    setApiData(data);
   };
 
   useEffect(() => {
@@ -272,6 +299,7 @@ export default function Catalog() {
     }
   };
 
+  console.log("Catalog Data:" , catalogData)
   return (
     <>
       <BuyerLayout>
@@ -340,7 +368,29 @@ export default function Catalog() {
               placeholderText={'Buscar...'}
               setState={setSelectedFilters}
             />
-            <div>
+            {
+              !catalogData ?
+                <div className={styles.catalogHeader}>
+                  <span className="justify-content-start align-items-center">
+                    <Typography color="text.secondary" sx={{
+                      fontFamily: "Lato",
+                    }}>
+                      No se encontraron resultados, elimine filtros para realizar una nueva búsqueda.
+                    </Typography>
+                  </span>
+                </div>
+                : catalogData.length <= 0 ?
+                <div className={styles.catalogHeader}>
+                  <span className="justify-content-start align-items-center">
+                    <Typography color="text.secondary" sx={{
+                      fontFamily: "Lato",
+                    }}>
+                      <div style={{marginLeft:"26vw", heigth:"auto"}}> <LoadingScreen/> </div>
+                    </Typography>
+                  </span>
+                </div>
+                :
+                <div>
               <div className={styles.catalogHeader}>
                 <span className="justify-content-start align-items-center">
                   <Typography color="text.secondary" sx={{
@@ -379,6 +429,8 @@ export default function Catalog() {
                 />
               </div>
             </div>
+            }
+
           </Grid>
         </Grid>
       </BuyerLayout>

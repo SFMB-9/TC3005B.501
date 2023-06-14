@@ -76,11 +76,17 @@ const SellerDashboard = () => {
   }, [session]);
 
   // Update the status of a request
-  const updateRequestStatus = async (_id, status) => {
+  const updateRequestStatus = async (_id, status, phone) => {
     await axios.put("/api/DrivingRequestsSeller/updateRequestStatus", {
       _id,
       status,
     });
+
+    await axios.post('/api/twilio/message', { 
+      to: `+521${phone}` , 
+      message: `*SWIVEL*\nActualización de tu proceso de compra\nEstado: ${status}` 
+    });
+
     const updatedRequests = requests.map((request) => {
       if (request._id === _id) {
         return { ...request, status };
@@ -141,7 +147,7 @@ const SellerDashboard = () => {
       renderCell: (params) => (
         <Select
           value={params.row.estatus}
-          onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
+          onChange={(e) => updateRequestStatus(params.row._id, e.target.value, user[params.row.usuario_final_id].numero_telefonico)}
           label="Status"
           variant="standard"
           size="small"
@@ -201,7 +207,8 @@ const SellerDashboard = () => {
     if (statusFilter === "all") {
       return true;
     } else {
-      return request.status === statusFilter;
+      console.log(request.estatus, statusFilter);
+      return request.estatus === statusFilter;
     }
   });
 
@@ -222,9 +229,9 @@ const SellerDashboard = () => {
         <div className="text-center pt-3">
           <SimpleToggleButton
             filters={[
-              { value: "documentosPendientes", name: "En Proceso" },
-              { value: "Aceptada", name: "Aprobado" },
-              { value: "Rechazada", name: "Rechazado" },
+              { value: "documentosPendientes", name: "Documentos Pendientes" },
+              { value: "pagoPendiente", name: "Pago Pendiente" },
+              { value: "pagado", name: "Pagado" },
             ]}
             onChange={setStatusFilter}
             sx={{

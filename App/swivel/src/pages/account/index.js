@@ -4,6 +4,8 @@ import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
 import { signOut } from "next-auth/react";
 import axios from "axios";
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 import {
   Container,
@@ -269,6 +271,53 @@ export default function Account() {
                 </div>
               </div>
               <div className="row mt-3">
+              <div className=" align-self-center col-xl-6 col-md-6">
+                  <PopUpComponent
+                    title = "Eliminar cuenta"
+                    popUpContent = {
+                    <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
+                    <p> Al hacer click en &quot;Eliminar cuenta&quot; estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
+                      <Button
+                        variant="contained"
+                        onClick={deleteAccount}
+                        type="submit"
+                        className="w-80"
+                        sx={{
+                          fontFamily: "Lato",
+                          color: '#626262',
+                          backgroundColor: "#D9D9D9",
+                          "&:hover": {
+                            backgroundColor: "#F55C7A",
+                            color: "#fff",
+                          }
+                        }}
+                        >
+                        Eliminar Cuenta
+                      </Button>
+                    </div>}
+                    btnOpen = {
+                      <div className="text-center">
+                        <Button
+                          variant="contained"
+                          type="submit"
+                          className="w-80"
+                          sx={{
+                            border: "none",
+                            fontFamily: "Lato",
+                            color: '#626262',
+                            backgroundColor: "#D9D9D9",
+                            "&:hover": {
+                              backgroundColor: "#b3b3b3",
+                              color: "#fff",
+                            }
+                          }}
+                        >
+                          Eliminar cuenta
+                        </Button>
+                      </div>}
+                  />
+                </div>
+                
                 <div className="align-self-center col-xl-6 col-md-6">
                    <PopUpComponent
                       title = "Editar datos"
@@ -311,58 +360,10 @@ export default function Account() {
 
                       } 
                   /> 
-                  
-                  
+                   
                 </div>
-                <div className=" align-self-center col-xl-6 col-md-6">
-                  <PopUpComponent
-                    title = "Eliminar cuenta"
-                    popUpContent = {
-                    <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                    <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
-                      <Button
-                        variant="contained"
-                        onClick={deleteAccount}
-                        type="submit"
-                        className="w-80"
-                        sx={{
-                          fontFamily: "Lato",
-                          color: '#626262',
-                          backgroundColor: "#D9D9D9",
-                          "&:hover": {
-                            backgroundColor: "#F55C7A",
-                            color: "#fff",
-                          }
-                        }}
-                        >
-                        Eliminar Cuenta
-                      </Button>
-                    </div>}
-                    btnOpen = {
-                      <div className="text-center">
-                        <Button
-                          variant="contained"
-                          type="submit"
-                          className="w-80"
-                          sx={{
-                            border: "none",
-                            fontFamily: "Lato",
-                            color: '#626262',
-                            backgroundColor: "#D9D9D9",
-                            "&:hover": {
-                              backgroundColor: "#b3b3b3",
-                              color: "#fff",
-                            }
-                          }}
-                        
-                        >
-                          Eliminar cuenta
-                        </Button>
-                      </div>}
-                  />
-                </div>
+                
             </div>
-            
           </div>
           </div>
         </Container>
@@ -371,9 +372,8 @@ export default function Account() {
   }
   else {
     return (
-      <div
-      >
-        Cargando...
+      <div>
+        <LoadingScreen/>
       </div>
     )
   }
