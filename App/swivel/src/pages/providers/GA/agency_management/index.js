@@ -73,6 +73,7 @@ export default function ManageAgencias() {
         console.log(GA)
         setGA(GA);
     };
+    
     useEffect(() => {
         if (!session) return
         fetchGAId();

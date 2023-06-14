@@ -9,7 +9,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 
 import CarCard from "@/components/buyer/car_card";
-import {formatDate} from "@/components/general/date_utils";
+import { formatDate } from "@/components/general/date_utils";
 
 const json5 = require('json5');
 /* Función que devuelve las cartas con infrmación de los autos acomodadas y con 
@@ -60,7 +60,7 @@ export default function CatalogGrid({ carListing, cardType, carIds, setCarIds })
           // },
         };
       }
-        return (
+      return (
           <Grid item xs={12} sm={12} md={6} lg={4} key={car._id}>
             {
               cardType === "catalog" ?
@@ -77,9 +77,9 @@ export default function CatalogGrid({ carListing, cardType, carIds, setCarIds })
                 />
             }
 
-          </Grid>
-        );
-      });
+        </Grid>
+      );
+    });
   }
   else {
     carList = <h1 className="d-flex flex-column justify-content-center align-items-center"> No se encontraron autos </h1>

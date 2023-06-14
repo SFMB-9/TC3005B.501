@@ -18,7 +18,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
 import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
-
+import axios from 'axios';
 import { useSession } from "next-auth/react";
 import Cookies from "js-cookie";
 
@@ -32,6 +32,7 @@ export default function CarDetails() {
   const { car_id } = router.query;
   const [carDetails, setCarDetails] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [wishList, setWishlist] = useState([]);
 
   // States for selected down payment
   const [selectedDownPayment, setSelectedDownPayment] = useState(0);
@@ -76,6 +77,48 @@ export default function CarDetails() {
     setIsAvailable(data.result.disponible_prueba);
   };
 
+  const handleFavorites = (wishList) => {
+    if (wishList){
+      if (wishList.some(car => car._id === car_id)) {
+        setFavorite(true);
+      } else {
+        setFavorite(false);
+      }
+    }
+  };
+  
+  const fetchFavorites = async () => {
+    if (session){
+      try {
+        const response = await axios.get('/api/wishlist/pull-wishlist', { params: { id: session.id } }); 
+        setWishlist(response.data);
+        handleFavorites(response.data);
+      } 
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  }; 
+
+  // const handleFavorites = async () => {
+  //   if (wishList.some(car => car._id === car_id)) {
+  //     setFavorite(true);
+  //   } else {
+  //     setFavorite(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session) {
+        await fetchFavorites();
+        handleFavorites();
+      }
+    };
+  
+    fetchData();
+  }, [session]);
+
   useEffect(() => {
     if (!car_id) {
       return;
@@ -100,6 +143,26 @@ export default function CarDetails() {
       setInterestRate(carDetails.plazos[Object.keys(carDetails.plazos)[0]]);
     }
   }, [carDetails]);
+
+  const handleFavoritesToggle = async () => {
+    let newFavorite = !favorite;
+    let newWishList = [...wishList];
+    if (newFavorite) {
+      newWishList.push(car_id);
+    } else {
+      newWishList = newWishList.filter(car => car._id !== car_id);
+    }
+    setFavorite(newFavorite);
+    setWishlist(newWishList);
+    try {
+      await axios.put('/api/wishlist/add-to-wishlist', { id: session.id, lst: newWishList });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // If the update fails, revert the state
+      setFavorite(!newFavorite);
+      setWishlist(wishList);
+    }
+  };
 
   const handleButtonClick = (sectionId) => {
     const navbarHeight = document
@@ -292,7 +355,10 @@ export default function CarDetails() {
                         <div className="text-end">
                           <IconButton
                             aria-label="favorito"
-                            onClick={() => setFavorite(!favorite)}
+                            onClick={() => {
+                              handleFavoritesToggle();
+                            }}
+                            // onClick={() => setFavorite(!favorite)}
                             className="p-0"
                           >
                             <img
