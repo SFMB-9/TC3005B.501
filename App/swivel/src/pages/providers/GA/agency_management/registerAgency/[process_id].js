@@ -11,6 +11,7 @@ import GANavbar from '@/components/providers/GA/navbar';
 import styles from '@/styles/test_details.module.css';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import { formatDate } from "@/components/general/date_utils";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function RegisterAgencyProcess() {
     const router = useRouter();
@@ -469,7 +470,7 @@ export default function RegisterAgencyProcess() {
     } else {
         return (
             <div>
-                <p>Cargando...</p>
+                <LoadingScreen/>
             </div>
         );
     }

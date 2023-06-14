@@ -17,6 +17,7 @@ import EditAccount from "../../../components/providers/editData"
 
 import AccountLayout from "@/components/providers/GA/ga_layout";
 import GANavbar from '@/components/providers/GA/navbar';
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 function CancelBtn() {
     const router = useRouter();
@@ -219,7 +220,7 @@ function CancelBtn() {
         return (
           <div
           >
-            Cargando...
+            <LoadingScreen/>
           </div>
         )
     }
