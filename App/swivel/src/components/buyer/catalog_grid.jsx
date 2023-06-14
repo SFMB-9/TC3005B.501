@@ -54,6 +54,10 @@ export default function CatalogGrid({ carListing, cardType, carIds, setCarIds })
           purchases: {
             date: "Fecha de inicio: " + (car.fecha_creacion ? formatDate(car.fecha_creacion).formattedDate : "No hay fecha de inicio"),
             status: car.estatus
+          },
+          finalized: {
+            date: "Fecha de inicio: " + (car.fecha_creacion ? formatDate(car.fecha_creacion).formattedDate : "No hay fecha de inicio"),
+            status: car.estatus
           }
           // favorites: {
           //   // Alternate set of props

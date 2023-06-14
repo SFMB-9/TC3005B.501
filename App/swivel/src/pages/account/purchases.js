@@ -37,8 +37,8 @@ export default function Purchases() {
     }
   }, [session]);
 
-  console.log("apiData", apiCurrentData);
-
+  console.log("apiData", apiCompletedData);
+  console.log("apiData2", apiCurrentData);
   const components = [
     {
       name: "Solicitudes de compra",

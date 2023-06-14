@@ -369,17 +369,7 @@ export default function Catalog() {
               setState={setSelectedFilters}
             />
             {
-              !catalogData ?
-                <div className={styles.catalogHeader}>
-                  <span className="justify-content-start align-items-center">
-                    <Typography color="text.secondary" sx={{
-                      fontFamily: "Lato",
-                    }}>
-                      No se encontraron resultados, elimine filtros para realizar una nueva búsqueda.
-                    </Typography>
-                  </span>
-                </div>
-                : catalogData.length <= 0 ?
+              !catalogData || catalogData.length <= 0 ?
                 <div className={styles.catalogHeader}>
                   <span className="justify-content-start align-items-center">
                       <div style={{marginLeft:"26vw", heigth:"auto"}}> <LoadingScreen/> </div>
