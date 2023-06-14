@@ -375,7 +375,7 @@ export default function Catalog() {
                     <Typography color="text.secondary" sx={{
                       fontFamily: "Lato",
                     }}>
-                      No se encontraron resultados, elimine filtros para realiar una nueva búsqueda.
+                      No se encontraron resultados, elimine filtros para realizar una nueva búsqueda.
                     </Typography>
                   </span>
                 </div>
