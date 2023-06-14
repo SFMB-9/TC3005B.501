@@ -36,11 +36,25 @@ export default async function handler(req, res) {
 
     // If search is not "", undefined, or null, then build the query
     if (Boolean(searchQuery)) {
+        const query_length = searchQuery.split(" ").length;
         const query = {
-            "multi_match": {
-                "query": searchQuery,
-                "fields": ["descripcion", "colores", "marca"],
-                "minimum_should_match": 2
+            "bool": {
+                "should": [
+                    {
+                        "multi_match": {
+                            "query": searchQuery,
+                            "fields": ["descripcion", "colores", "marca"],
+                            "minimum_should_match": {
+                                "script": {
+                                    "source": "params.query_length <= 3 ? 1 : 2",
+                                    "params": {
+                                        "query_length": query_length
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
             }
         }
         dbQuery.query = query;
