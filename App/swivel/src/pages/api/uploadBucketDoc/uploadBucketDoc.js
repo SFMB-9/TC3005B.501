@@ -24,7 +24,7 @@ function validateFile(file) {
   // Check the extension
   if (!allowedExtensions.includes(fileExtension)) {
     throw new Error(
-      `Invalid file extension. Only the following extensions are allowed: ${allowedExtensions.join(
+      `La extensión del documento que subió no es válida. Solamente se permiten las siguientes extensiones: ${allowedExtensions.join(
         ", "
       )}`
     );
@@ -33,7 +33,7 @@ function validateFile(file) {
   // Check the size
   if (file.size > sizeLimit) {
     throw new Error(
-      `File size exceeds the limit of ${sizeLimit / (1024 * 1024)} MB`
+      `El tamaño del archivo subido excede el límite de ${sizeLimit / (1024 * 1024)} MB`
     );
   }
 
