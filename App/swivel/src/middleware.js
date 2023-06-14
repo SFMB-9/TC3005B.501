@@ -1,10 +1,10 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-console.log("AlohaaaaaMiddleware1337");
-
 const rolePageMap = {
   admin: ["/sa.*"],
+
+  seller: ["/providers/seller.*"],
 };
 
 // function isAuthorizedRole(role, url) {
@@ -52,5 +52,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/sa/:path*"],
+  matcher: ["/sa/:path*", "/providers/:path*"],
 };
