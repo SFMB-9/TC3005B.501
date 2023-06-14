@@ -56,7 +56,8 @@
     "reactjs-popup": "^2.0.5",
     "sass-loader": "^13.2.2",
     "stripe": "^12.6.0",
-    "tesseract.js": "^4.0.6"
+    "tesseract.js": "^4.0.6",
+    "twilio": "^4.11.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.21.5",
