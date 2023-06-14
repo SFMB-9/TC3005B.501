@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade } from "@mui/material";
+import { Container, Typography, TextField, Switch, Select, MenuItem, IconButton, Button, Fade, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -15,8 +15,17 @@ const json5 = require('json5');
 const CarRegistrationForm = () => {
   const router = useRouter();
   const { auto_id } = router.query;
-   // [ {nombre: "", hex: "", imagenes: []}, ...
+  // [ {nombre: "", hex: "", imagenes: []}, ...
+  const [error, setError] = useState(null);
+  const [popOpen, setPopOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setPopOpen(true);
+  };
+
+  const handleClose = () => {
+    setPopOpen(false);
+  };
   const [car, setCar] = useState({
     cantidad: 0,
     marca: "",
@@ -49,7 +58,7 @@ const CarRegistrationForm = () => {
     agencia_id: ""
   });
   const [carId, setCarId] = useState("");
-  
+
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
@@ -117,7 +126,7 @@ const CarRegistrationForm = () => {
     // console.log("Retrieved car available for DT: " + JSON.stringify(retrievedAuto.disponible_prueba));
     // console.log("Retrieved car catalog visible: " + JSON.stringify(retrievedAuto.visible_catalogo));
     // console.log("Retrieved car amount: " + JSON.stringify(retrievedAuto.cantidad));
-    
+
     setCarId(retrievedCarId);
 
     setCar({
@@ -128,7 +137,7 @@ const CarRegistrationForm = () => {
 
   useEffect(() => {
     if (auto_id) {
-      fetchDetails(); 
+      fetchDetails();
     }
   }, [auto_id]);
 
@@ -161,7 +170,7 @@ const CarRegistrationForm = () => {
     }
 
     // Remove año property, replaced by ano
-    const {año, ...updatedCar} = car;
+    const { año, ...updatedCar } = car;
 
     updatedCar.colores = color;
     updatedCar.caracteristicas = JSON.stringify(caracteristicas).replace(/"/g, "'");
@@ -170,11 +179,22 @@ const CarRegistrationForm = () => {
     updatedCar.plazos = JSON.stringify(dbFormatPlazos).replace(/"/g, "'");
     updatedCar.entrega = JSON.stringify(entrega).replace(/"/g, "'");
 
+    let foto = ""
     // Upload images to bucket
     for (let i = 0; i < fotos.length; i++) {
       for (let j = 0; j < fotos[i].length; j++) {
         if (isFileObject(fotos[i][j])) {
-          const foto = await FileUpload(fotos[i][j]);
+          try {
+            foto = await FileUpload(fotos[i][j]);
+          } catch (error) {
+            // Handle the error here. For example, you can show a popup with the error message.
+            console.error('File upload failed:', error.message);
+            // Show a popup with the error message
+            // alert(error.message);
+            setError(error.message); // Set the error message
+            handleClickOpen(); // Open the modal
+            return;
+          }
           updatedCar.colores[i].imagenes.push(foto);
         }
       }
@@ -182,7 +202,7 @@ const CarRegistrationForm = () => {
 
     updatedCar.colores = JSON.stringify(updatedCar.colores).replace(/"/g, "'");
 
-    await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar, id: carId});
+    await axios.put('/api/carRegister/elasticCarUpdate', { car: updatedCar, id: carId });
 
     setCar({
       cantidad: 0,
@@ -232,7 +252,7 @@ const CarRegistrationForm = () => {
   const [entrega, setEntrega] = useState([]);
   const [fotos, setFotos] = useState([]);
   const [open, setOpen] = useState(false);
-  
+
 
   //create empty objects
   const createEmptyColor = () => ({ nombre: "", valor_hexadecimal: "", imagenes: [] });
@@ -364,7 +384,7 @@ const CarRegistrationForm = () => {
   const handleKeyChange = (newKey, index) => {
     const newPlazos = [...plazos];
     const value = Object.values(newPlazos[index])[0];
-    const updatedObject = { [newKey]: value};
+    const updatedObject = { [newKey]: value };
     newPlazos[index] = updatedObject;
     setPlazo(newPlazos);
   };
@@ -372,7 +392,7 @@ const CarRegistrationForm = () => {
   const handleValueChange = (newValue, index) => {
     const newPlazos = [...plazos];
     const key = Object.keys(newPlazos[index])[0];
-    const updatedObject = { [key]: newValue};
+    const updatedObject = { [key]: newValue };
     newPlazos[index] = updatedObject;
     setPlazo(newPlazos);
   };
@@ -399,7 +419,7 @@ const CarRegistrationForm = () => {
   //adds row to almost any array
   const handlePlazoAddRow = () => {
     const newPlazos = plazos;
-    newPlazos.push({0:0});
+    newPlazos.push({ 0: 0 });
     setPlazo(newPlazos);
   };
 
@@ -414,6 +434,28 @@ const CarRegistrationForm = () => {
   return (
     <ManagerLayout>
       <Container maxWidth="xl">
+        <div>
+          <Dialog
+            open={popOpen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle>
+              El documento que se subió no está permitido.
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {error}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary" autoFocus>
+                Cerrar
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
         <div className="section p-5">
           <Typography
             fontFamily="Lato"

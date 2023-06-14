@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Button } from "@mui/material";
-import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 import CheckoutPage from "@/components/general/checkout";
 import LoadingScreen from "@/components/general/LoadingScreen";
 
