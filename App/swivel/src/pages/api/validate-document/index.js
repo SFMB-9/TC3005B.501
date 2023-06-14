@@ -3,7 +3,10 @@ const { createWorker } = require('tesseract.js');
 
 export default async function handler(req, res) {
 
-  const data = JSON.parse(req.body);
+
+
+  //const data = JSON.parse(req.body);
+  const data = req.body;
   const FILE_LOC = data.idURL;
 
   if(!FILE_LOC){
@@ -56,23 +59,24 @@ export default async function handler(req, res) {
 
     rec =
     {
-      model: "e",
       cic: recognizedText.match(/\d{9}(?=\d{1}<<)(?!IDMEX)/)[0],
-      citizen_id: recognizedText.match(/\d{9}(?=\n|\s)(?!<<)/)[0]
+      identificadorCiudadano: recognizedText.match(/\d{9}(?=\n|\s)(?!<<)/)[0]
     }
 
+    console.log(rec)
 
-  }
+
+  } 
 
   console.log("Calling INE API")
-  const URL = "https://ine2.p.rapidapi.com/validate-ine";
+  const URL = "https://nubarium.p.rapidapi.com/ine/v2/valida_ine";
   const request = {
 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-RapidAPI-Key': process.env.INE_API_KEY,
-      'X-RapidAPI-Host': 'ine2.p.rapidapi.com'
+      'X-RapidAPI-Key':  process.env.INE_API_KEY,
+      'X-RapidAPI-Host': 'nubarium.p.rapidapi.com'
     },
     body: JSON.stringify(rec)
 
@@ -85,7 +89,7 @@ export default async function handler(req, res) {
 
     const result = JSON.parse(resultJSON);
     console.log(result);
-    if (result.can_vote == true) {
+    if (result.estatus == "OK") {
 
       res.send({
         msg: "Hemos validado su identificación con éxito.",
