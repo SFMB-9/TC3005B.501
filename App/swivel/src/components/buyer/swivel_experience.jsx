@@ -10,7 +10,7 @@ export default function SwivelExperience() {
         <img src='/buyer/exp1.png'/>
         <div className={styles.content1}>
           <h1>¿No te puedes decidir?</h1>
-          <span>
+          <span className={styles.paragraphs}>
             Con SWIVEL, ahora es más fácil adquirir un auto de manera digital. En unos pocos clicks, podrás encontrar el auto de tus sueños utilizando filtros o nuestra barra de navegación y elegir desde nuestra alta variedad de autos, modelos y agencias encontrando el auto que se adapta a ti. 
             Realizar compras en SWIVEL es seguro, simple y rápido. ¡Inténtalo ya!
           </span>
@@ -42,7 +42,7 @@ export default function SwivelExperience() {
       <div className={styles.section}>
         <div className={styles.content2}>
           <h1>¿Cuál es el auto para ti?</h1>
-          <span>
+          <span className={styles.paragraphs}>
             Busca a partir de tus necesidades, navega por nuestro amplio catálogo y utiliza nuestros filtros para acotar tu búsqueda. Una vez que hayas seleccionado el auto de tus sueños, elige el plan de financiamiento que se adapte a ti y haz tu primer pago. 
           </span>
           <br />
