@@ -204,7 +204,8 @@ const SellerDashboard = () => {
     if (statusFilter === "all") {
       return true;
     } else {
-      return request.status === statusFilter;
+      console.log(request.estatus, statusFilter);
+      return request.estatus === statusFilter;
     }
   });
 
@@ -225,9 +226,9 @@ const SellerDashboard = () => {
         <div className="text-center pt-3">
           <SimpleToggleButton
             filters={[
-              { value: "documentosPendientes", name: "En Proceso" },
-              { value: "Aceptada", name: "Aprobado" },
-              { value: "Rechazada", name: "Rechazado" },
+              { value: "documentosPendientes", name: "Documentos Pendientes" },
+              { value: "pagoPendiente", name: "Pago Pendiente" },
+              { value: "pagado", name: "Pagado" },
             ]}
             onChange={setStatusFilter}
             sx={{
