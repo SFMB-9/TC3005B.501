@@ -1,10 +1,18 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
+
 const rolePageMap = {
   admin: ["/sa.*"],
 
   seller: ["/providers/seller.*"],
+
+  user: [
+    "/account.*", 
+    "/pruebademanejo.*", 
+    "/purchase.*", 
+    "/catalog/test-detail", 
+    "/success.*"],
 };
 
 // function isAuthorizedRole(role, url) {
@@ -19,10 +27,12 @@ function isAuthorizedRole(role, url) {
     return false;
   }
 
+  if(rolePageMap[role].includes(url)) {
+    return true;
+  }
+
   for (let path of allowedPaths) {
-    console.log(url);
     const regex = new RegExp('^' + path); // '^' means start of the string
-    console.log(regex);
     if (regex.test(url)) {
       return true;
     }
@@ -52,5 +62,12 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/sa/:path*", "/providers/:path*"],
+  matcher: [
+    "/sa/:path*", 
+    "/providers/:path*", 
+    "/account/:path*", 
+    "/pruebademanejo/:path*", 
+    "/purchase/:path*", 
+    "/success/:path*", 
+    "/catalog/test-detail"],
 };
