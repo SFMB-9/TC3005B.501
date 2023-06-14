@@ -1,28 +1,41 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-const rolePageMap = {
-  user: ["/user/home"],
+console.log("AlohaaaaaMiddleware1337");
 
-  GA: [
-    "/automotive_group/dashboard",
-    "/automotive_group/docs",
-    "/automotive_group/home",
-    "/automotive_group/settings",
-    "/automotive_group/signup",
-  ],
+const rolePageMap = {
+  admin: ["/sa.*"],
 };
 
+// function isAuthorizedRole(role, url) {
+//   console.log(role);
+//   return rolePageMap[role]?.includes(url);
+// }
+
 function isAuthorizedRole(role, url) {
-  return rolePageMap[role]?.includes(url);
+  const allowedPaths = rolePageMap[role];
+
+  if (!allowedPaths) {
+    return false;
+  }
+
+  for (let path of allowedPaths) {
+    console.log(url);
+    const regex = new RegExp('^' + path); // '^' means start of the string
+    console.log(regex);
+    if (regex.test(url)) {
+      return true;
+    }
+  }
+  
+  // If none of the allowed paths match, return false
+  return false;
 }
 
 export default withAuth(
   function middleware(req) {
-    if (
-      !isAuthorizedRole(req.nextauth.token.user?.role, req.nextUrl.pathname)
-    ) {
-      return NextResponse.redirect("/auth/login");
+    if (!isAuthorizedRole(req.nextauth.token?.role, req.nextUrl.pathname)) {
+      return NextResponse.redirect("http://localhost:3000/forbidden");
     }
   },
 
@@ -39,5 +52,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/automotive_group/:path*", "/user/:path*"],
+  matcher: ["/sa/:path*"],
 };
