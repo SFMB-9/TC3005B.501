@@ -84,7 +84,7 @@ const SellerDashboard = () => {
 
     await axios.post('/api/twilio/message', { 
       to: `+521${phone}` , 
-      message: `SWIVEL: Actualización de tu proceso de venta: ${status}` 
+      message: `*SWIVEL*\nActualización de tu proceso de compra\nEstado: ${status}` 
     });
 
     const updatedRequests = requests.map((request) => {
