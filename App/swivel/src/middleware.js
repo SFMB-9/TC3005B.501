@@ -7,6 +7,8 @@ const rolePageMap = {
 
   seller: ["/providers/seller.*"],
 
+  ga_admin: ["/providers/GA.*"],
+
   user: [
     "/account.*", 
     "/pruebademanejo.*", 
