@@ -16,15 +16,15 @@ export default function ActionsCards() {
       <CustomIconCard
         imageSource="/manager/seller_action.jpg"
         icon="/manager/seller_icon.svg"
-        text="Estadisticas"
-        href="/sa/stats"
+        text="Gestion de usuarios G.A."
+        href="/sa/administrar-ga"
         light={false}
         header=''
         fiftyFifty={false}
       />
       <CustomIconCard
         imageSource="/manager/branch_action.jpg"
-        icon="/manager/branch_icon.svg"
+        icon="/manager/seller_icon.svg"
         text="Gestion de usuarios S.A."
         href="/sa/administrar-sa"
         light={false}
@@ -34,8 +34,8 @@ export default function ActionsCards() {
       <CustomIconCard
         imageSource="/manager/statistics_action.png"
         icon="/manager/statistics_icon.svg"
-        text="Gestion de usuarios G.A."
-        href="/sa/administrar-ga"
+        text="Estadisticas"
+        href="/sa/statistics"
         light={false}
         header=''
         fiftyFifty={false}
