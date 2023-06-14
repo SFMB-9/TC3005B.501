@@ -1,7 +1,14 @@
-import connectToDatabase from "@/utils/mongodb";
-import { ObjectId } from "mongodb";
+import dbConnect from "../../../config/dbConnect";
+const Proceso = require('../../../models/procesos');
+
+//import {getSession} from 'next-auth/client'
 
 export default async (req, res) => {
+  /*
+  //idk if sessions work so in the meantime I'll just use the user id
+  const session = await getSession({ req })
+  const user = session.get('user');
+  */
 
   if (req.method !== 'PUT') {
     return res.status(405).json({ message: 'Metodo no permitido' })
@@ -9,25 +16,25 @@ export default async (req, res) => {
 
   const proceso_id = req.body._id;
   const new_status = req.body.status
+  //seller id and type are passed as query parameters
 
-  const client = await connectToDatabase;
-  const db = client.db("test");
-  const processCollection = db.collection('procesos');
+  dbConnect();
 
   try {
     // Find the processes that belong to the seller and are of a specific type
-    const proc = await processCollection.findOne({ _id: new ObjectId(proceso_id) });
-    
+    const proc = await Proceso.findById(proceso_id);
     if (!proc) {
       return res.status(404).json({ message: 'No se encontro el proceso' });
     }
 
     if (proc.tipo_proceso === 'solicitudCompra') {
-      await processCollection.updateOne({ _id: new ObjectId(proceso_id) }, { $set: { estatus: new_status } });
+      proc.estatus = new_status;
     } else {
-      await processCollection.updateOne({ _id: new ObjectId(proceso_id) }, { $set: { estatus_validacion: new_status } });
+      proc.estatus_validacion = new_status;
     }
 
+    proc.markModified('estatus');
+    await proc.save();
     res.status(200).json({ message: 'status of ' + proceso_id + ' updated to ' + new_status });
   } catch (error) {
     console.error(error);

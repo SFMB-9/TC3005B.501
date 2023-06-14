@@ -35,7 +35,7 @@ const getReturnValues = (countDown) => {
 const ExpiredNotice = () => {
   return (
     <div className="d-flex justify-content-center align-items-center" style={{lineHeight: '1.75rem', padding: '.5rem'}}>
-        <DateTimeDisplay value={0} type={'Dias'} isDanger={false} />
+        <DateTimeDisplay value={0} type={'Dias'} isDanger={days <= 3} />
         <p>:</p>
         <DateTimeDisplay value={0} type={'Horas'} isDanger={false} />
         <p>:</p>
@@ -49,7 +49,7 @@ const ExpiredNotice = () => {
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <div className="d-flex justify-content-center align-items-center" style={{lineHeight: '1.75rem', padding: '.5rem'}}>
-        <DateTimeDisplay value={days} type={'Dias'} isDanger={false} />
+        <DateTimeDisplay value={days} type={'Dias'} isDanger={days <= 3} />
         <p>:</p>
         <DateTimeDisplay value={hours} type={'Horas'} isDanger={false} />
         <p>:</p>
@@ -62,17 +62,16 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 
 const CountdownTimer = ({ targetDate }) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
-  console.log(days, hours, minutes, seconds);
 
   if (days + hours + minutes + seconds <= 0) {
     return <ExpiredNotice />;
   } else {
     return (
       <ShowCounter
-        days={days? days : 0}
-        hours={hours ? hours : 0}
-        minutes={minutes ? minutes : 0}
-        seconds={seconds ? seconds : 0}
+        days={days}
+        hours={hours}
+        minutes={minutes}
+        seconds={seconds}
       />
     );
   }

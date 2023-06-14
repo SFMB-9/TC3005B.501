@@ -5,7 +5,7 @@ H_023 Endpoint de subir documento como Usuario Grupo Automotriz
 */
 
 import connectToDatabase from "@/utils/mongodb";
-import { getSession } from "next-auth";
+import { getSession } from "next-auth/client";
 
 export default async function handler(req, res) {
   const { db } = await connectToDatabase();

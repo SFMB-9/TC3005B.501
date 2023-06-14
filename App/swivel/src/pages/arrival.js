@@ -2,7 +2,7 @@ import CustomHero from "@/components/general/custom_hero";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-export default function Arrival() {
+export default function arrival() {
   const [apiData, setApiData] = useState(null);
 
   const { data: session } = useSession();
@@ -25,7 +25,7 @@ export default function Arrival() {
 
   return(
     <CustomHero
-      title={` Bienvenidx, ${apiData?.nombres}`}
+      title={` Bienvenidx, ${apiData.nombres}`}
       message={''}
       containerSize={100}
     />

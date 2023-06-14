@@ -1,7 +1,6 @@
 import { GaEntity, AgencyEntity, ManagerUser, SellerUser } from "../../../models/user";
+import dbConnect from "../../../config/dbConnect";
 import { encryptRole } from "../../../utils/crypto";
-import connectToDatabase from '@/utils/mongodb';
-import { ObjectId } from "mongodb";
 
 /* 
 agency details pull function
@@ -10,24 +9,20 @@ Returns: response status and json
 */
 export default async function handler(req, res) {
   if (req.method === "GET") {
+    dbConnect();
 
     const { id } = req.query;
 
-    const client = await connectToDatabase;
-    const db = client.db("test");
-    const userCollection = db.collection('usuarios');
-
-
     const agencyRole = encryptRole("agencia");
-    const managerRole = encryptRole("ManagerUser");
+    const managerRole = encryptRole("manager");
     const sellerRole = encryptRole("seller");
 
-    const agency = await userCollection.findOne({_id : new ObjectId(id)});
-    const GA = await userCollection.findOne({_id : new ObjectId(agency.grupo_automotriz_id)}, { projection: { nombres: 1} });
-    const managers = await userCollection.find({ agencia_id: id, __t: 'ManagerUser' }).toArray();
-    const sellers = await userCollection.find({ agencia_id: id, __t: 'SellerUser' }).toArray();
+    const agency = await AgencyEntity.findOne({ _id: id, tipo_usuario: agencyRole }).exec();
+    const GA = await GaEntity.findOne({ _id: agency.grupo_automotriz_id }, "nombres").exec();
+    const managers = await ManagerUser.find({ agencia_id: id, tipo_usuario: managerRole }, "_id nombres apellidos email numero_telefonico").exec()
+    const sellers = await SellerUser.find({ agencia_id: id, tipo_usuario: sellerRole }, "-_id nombres apellidos email numero_telefonico").exec()
 
-    res.status(200).json({ agency: agency, GA: GA, managers: managers, sellers: sellers });    
+    res.status(200).json({ agency: agency, managers: managers, sellers: sellers, GA: GA });    
   }
   else{
     res.status(405).json({ message: "Wrong request method" });

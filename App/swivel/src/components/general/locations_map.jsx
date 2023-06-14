@@ -58,7 +58,7 @@ const LocationsMap = ({center = default_center, locationsData = car_dealerships,
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={newCenter}
-        zoom={14}
+        zoom={10}
         options={mapOptions}
       >
         {locationsData.map((dealership, index) => (

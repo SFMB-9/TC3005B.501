@@ -27,7 +27,7 @@ const User = mongoose.models.User || mongoose.model("User", baseSchema);
 const buyerSchema = new mongoose.Schema({
   account_provider: String, 
   email_verification_token: String,
-  lista_deseos: [String],
+  lista_deseos: Array,
   documentos: Array,
 
   //registro-direccion
@@ -63,10 +63,7 @@ const agencySchema = new mongoose.Schema({
   },
 
   url_agencia: String,
-  /*
   coordenadas_agencia: {
-
-
     location: {
       type: {
         type: String, // Don't do `{ location: { type: String } }`
@@ -79,7 +76,6 @@ const agencySchema = new mongoose.Schema({
       }
     }
   },
-  */
 });
 
 const gaSchema = new mongoose.Schema({
@@ -125,7 +121,7 @@ const adminSchema = new mongoose.Schema({
 });
 
 const superadminSchema = new mongoose.Schema({
-  tag:String
+  
 })
 
 const BuyerUser = User.discriminators && User.discriminators.BuyerUser 

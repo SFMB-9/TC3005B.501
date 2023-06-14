@@ -7,7 +7,7 @@ import axios from "axios";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
 import ImageFileDrop from "@/components/general/FileDrop";
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 
 const json5 = require('json5');
 

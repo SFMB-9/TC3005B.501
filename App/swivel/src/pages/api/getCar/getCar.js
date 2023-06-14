@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const Usuario = require('../../../models/user');
+const Usuario = require('../../../models/usuario');
 import dbConnect from "../../../config/dbConnect";
 
 

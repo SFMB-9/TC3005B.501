@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-const ScheduleAppointment = () => {
+export const ScheduleAppointment = () => {
 	const [visible, setVisible] = useState(false)
 	return (
 		<>
@@ -29,5 +29,3 @@ const ScheduleAppointment = () => {
 		</>
 	)
 }
-
-export default ScheduleAppointment;

@@ -1,28 +1,30 @@
 "use client"
 
 import React, { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
     IconButton,
     Button,
+    Container,
+    Typography,
+    TextField,
 } from '@mui/material';
 
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+//import { useRouter } from "next/router";
 
 import Searchbar from '@/components/general/searchbar';
-import ManagerLayout from '@/components/providers/manager/layout';
+import ManagerLayout from '@/components/providers/Manager/layout';
+import { Margin } from '@mui/icons-material';
 import DataTable from "@/components/general/Table";
+import Popup from "@/components/general/Popup";
 import PopUpComponent from '@/components/general/Popup';
 import EditSellerData from '@/components/providers/seller/edit_seller_data';
 
 export default function SearchResults() {
 
-    const router = useRouter();
-    const { data: session } = useSession();
+    //const router = useRouter();
 
     const [results, setResults] = useState([]);
 
@@ -30,24 +32,14 @@ export default function SearchResults() {
     const [filteredResults, setFilteredResults] = useState([]);
 
     const [agency, setAgency] = useState('');
-    // const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
-    //const router = useRouter ? useRouter() : null;
+    const useRouter = typeof window !== 'undefined' ? require('next/router').useRouter : null;
+    const router = useRouter ? useRouter() : null;
 
     const RoutRegistroVendedor = () => {
         if (router) {
             router.push({
                 pathname: '/providers/seller/signup',
             });
-        }
-    };
-
-    const fetchAgency = async (q) => {
-        try {
-            const response = await axios.get("/api/managerProfile/managerP", { params: { id: q } });
-            const userData = response.data.userData;
-            setAgency(userData.agencia_id || '');
-        } catch (error) {
-            console.error('Error fetching search results:', error);
         }
     };
 
@@ -62,20 +54,10 @@ export default function SearchResults() {
         }
     };
 
+    // Fetch results when the component mounts
     useEffect(() => {
-        if (session) {
-            fetchAgency(session.id)
-        }
-        
-    }, [session])
-
-    useEffect(() => {
-        if (agency) {
-            fetchResults()
-        }
-        
-    }, [agency])
-
+        fetchResults();
+    }, [agency]);
 
     useEffect(() => {
         setFilteredResults(
@@ -96,15 +78,13 @@ export default function SearchResults() {
             fetchResults();
         }
         catch (error) {
-            console.error('Error borrando usuario: ', error);
+            console.error('Error deleting entry:', error);
         }
     };
 
     const handleSearchChange = (event) => {
-        if (event.target) {
-            setSearchValue(event.target.value);
-        }
-    };
+        setSearchValue(event.target.value);
+    };
 
     const columns = useMemo(
         () => [
@@ -161,9 +141,7 @@ export default function SearchResults() {
                             <PopUpComponent
                                 title="Editar datos"
                                 popUpContent={
-                                    <EditSellerData data={params.row}
-                                    userType="seller"
-                                    />
+                                    <EditSellerData data={params.row} agency={agency}/>
                                 }
                                 btnOpen={
                                     <IconButton
@@ -180,7 +158,7 @@ export default function SearchResults() {
                                 title="Eliminar cuenta"
                                 popUpContent={
                                     <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                                        <p> Al hacer click en &apos;Confirmar&apos; estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
+                                        <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p>
                                         <Button
                                             variant="contained"
                                             onClick={() => deleteEntry(params.row.email)}
@@ -225,17 +203,8 @@ export default function SearchResults() {
                         margin: '2rem 5rem',
                     }}
                 >
-                    <div
-                        style= {{
-                            paddingBottom: '3rem',
-                        }}
-                    >
-                        <h1
-                            style= {{
-                                paddingBottom: '1rem',
-                            }}
-                        >
-                            Administración de Vendedores</h1>
+                    <div>
+                        <h1>Administración de Vendedores</h1>
                         <div
                             style={{
                                 display: 'flex',
@@ -250,7 +219,7 @@ export default function SearchResults() {
                                 setState={handleSearchChange}
                                 searchStyle='administrative'
                             />
-                            <Link href='/providers/seller/signup'>
+                            <a href='/providers/seller/signup'>
                                 <button
                                     onClick={RoutRegistroVendedor}
                                     style={{
@@ -263,10 +232,21 @@ export default function SearchResults() {
                                         padding: '0.5rem 1rem',
                                     }}
                                 > Registrar vendedor  + </button>
-                            </Link>
+                            </a>
                         </div>
                     </div>
 
+                    <div>
+                        <label htmlFor="agency_field">Agencia</label>
+                        <input
+                            type="text"
+                            id="agency_field"
+                            className="form-control"
+                            value={agency}
+                            onChange={(e) => setAgency(e.target.value)}
+                            required
+                        />
+                    </div>
                     <div>
                         <DataTable
                             columns={columns}

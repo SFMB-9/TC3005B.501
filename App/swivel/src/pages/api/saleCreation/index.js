@@ -10,7 +10,7 @@ Description: Create new entry of proceso de venta with Mongoose
 import mongoose from "mongoose";
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
-const Usuario = require('../../../models/user');
+const Usuario = require('../../../models/usuario');
 
 export default async function handler(req, res) {
 

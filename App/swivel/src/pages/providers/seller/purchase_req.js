@@ -41,12 +41,11 @@ const SellerDashboard = () => {
           }
         );
 
-        const retrievedRequests = requestRes.data.procesos;
+        const requests = requestRes.data.procesos;
 
         // Get all unique user ids
-        const userIds = [
-          ...new Set(retrievedRequests.map((request) => request.usuario_final_id))
-        ];
+        const userIds = [...new Set(requests.map((request) => request.usuario_final_id))];
+        console.log(JSON.stringify(userIds));
         // Get all users
         const userPromises = userIds.map((id) =>
           axios.get(`/api/managerProfile/managerP?id=${id}`)
@@ -61,11 +60,10 @@ const SellerDashboard = () => {
             [userData._id]: userData,
           };
         }, {});
+        console.log(users);
 
         // Set the requests and users state
-        if (JSON.stringify(requests) !== JSON.stringify(retrievedRequests)) {
-          setRequests(retrievedRequests);
-        }
+        setRequests(requests);
         setUser(users);
       } catch (error) {
         console.log(error);
@@ -75,7 +73,7 @@ const SellerDashboard = () => {
     if (session) {
       fetchData();
     }
-  }, [session, requests]);
+  }, [session]);
 
   // Update the status of a request
   const updateRequestStatus = async (_id, status) => {
@@ -85,12 +83,11 @@ const SellerDashboard = () => {
     });
     const updatedRequests = requests.map((request) => {
       if (request._id === _id) {
-        return { ...request, status: "Loading" };
+        return { ...request, status };
       } else {
         return request;
       }
     });
-
     setRequests(updatedRequests);
   };
 

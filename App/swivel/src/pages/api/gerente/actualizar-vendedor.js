@@ -10,10 +10,9 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     dbConnect();
 
-    const { name, last_name, newEmail, cellphone, _id } = req.body;
-
-    const result = await SellerUser.findOneAndUpdate({ _id: _id}, { nombres: name, apellidos: last_name, email: newEmail, numero_telefonico: cellphone });
-    console.log(result);
+    const { name, last_name, oldEmail, newEmail, cellphone, agency } = req.body;
+    
+    await SellerUser.findOneAndUpdate({ email: oldEmail, agencia_id: agency }, { nombres: name, apellidos: last_name, email: newEmail, numero_telefonico: cellphone });
     res.status(200).json({ message: "User details updated successfully" });    
   }
   else{

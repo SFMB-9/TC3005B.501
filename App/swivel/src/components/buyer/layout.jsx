@@ -18,7 +18,7 @@ export default function BuyerLayout({ children }) {
       <div className="min-vh-100">
         {children}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

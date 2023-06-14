@@ -11,13 +11,13 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     dbConnect();
 
-    const { _id, name, last_name, newEmail, cellphone } = req.body;
+    const { id, name, surname, email, phone } = req.body;
 
     const managerRole = encryptRole("manager");
 
-    await ManagerUser.findOneAndUpdate({ _id: _id, tipo_usuario: managerRole }, { nombres: name, apellidos: last_name, email: newEmail, numero_telefonico: cellphone }).exec()
+    await ManagerUser.findOneAndUpdate({ _id: id, tipo_usuario: managerRole }, { nombres: name, apellidos: surname, email: email, numero_telefonico: phone }).exec()
 
-    res.status(200).json({ message: "Gerente actualizado correctamente" });    
+    res.status(200).json({ message: "Manager updated" });    
   }
   else{
     res.status(405).json({ message: "Wrong request method" });

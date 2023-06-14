@@ -10,46 +10,35 @@ import {
 } from "@mui/material";
 
 export default function EditSellerData(props) {
-    const [userId, setUserId] = useState(props.data._id);
     const [editingEntry, setEditingEntry] = useState(null);
     const [editedName, setEditedName] = useState(props.data.nombres);
     const [editedLastName, setEditedLastName] = useState(props.data.apellidos);
     const [editedEmail, setEditedEmail] = useState(props.data.email);
     const [editedCellphone, setEditedCellphone] = useState(props.data.numero_telefonico);
-    let apiPath = "";
-
-    if (props.userType === "seller") {
-        apiPath = "/api/gerente/actualizar-vendedor";
-    } else if (props.userType === "gaManager") {
-        apiPath = "/api/GA/actualizar-admin-ga";
-    } else if (props.userType === "manager") {
-        apiPath = "/api/GA/actualizar-gerente";
-    }
-    
-    console.log("the path", apiPath)
+    const [oldEmail, setOldEmail] = useState(props.data.email);
 
     const editEntry = (entry) => {
         setEditingEntry(entry);
-        setUserId(entry._id);
         setEditedName(entry.nombres);
         setEditedLastName(entry.apellidos);
         setEditedEmail(entry.email);
+        setOldEmail(entry.email);
         setEditedCellphone(entry.numero_telefonico);
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("editedName: ", userId);
         try {
-            await axios.put(apiPath, {
-                _id: userId,
+            await axios.put('/api/gerente/actualizar-vendedor', {
                 name: editedName,
                 last_name: editedLastName,
                 newEmail: editedEmail,
+                oldEmail: oldEmail,
                 cellphone: editedCellphone,
+                agency: props.agency
             });
-            // // Refresh the results after updating
-            window.location.reload();
+            // Refresh the results after updating
+            window.location.href = "/providers/manager/manage_sellers";
         }
         catch (error) {
             console.error('Error updating entry:', error);
@@ -65,7 +54,7 @@ export default function EditSellerData(props) {
                     fontSize={{ xs: 25, md: 28, lg: 33 }}
                     className="pt-2 pb-4"
                 >
-                    Editar usuario
+                    Edita vendedor
                 </Typography>
 
                 <Typography

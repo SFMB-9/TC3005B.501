@@ -1,611 +1,585 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Grid, Typography, TextField, Card, CardContent, IconButton, Fade } from '@mui/material';
+import { Grid, Typography, TextField, Button, Card, CardContent, IconButton, fabClasses } from '@mui/material';
 import axios from "axios";
 import ManagerLayout from "@/components/providers/manager/layout";
-import CustomizedSnackbars from "@/components/general/Alert";
-import CloseIcon from "@mui/icons-material/Close";
-import LoadingScreen from "@/components/general/LoadingScreen";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DataTable from "@/components/general/Table";
+import CheckIcon from '@mui/icons-material/Check';
 
 export default function WorkingHoursComponent() {
-  const router = useRouter();
-  const { data: session } = useSession();
-
-  const [startTime, setStartTime] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const [preDays, setPreDays] = useState(0);
   const [maxDays, setMaxDays] = useState(0);
-  const [agencyId, setAgencyId] = useState("");
+  const [agency, setAgency] = useState("Kia Cuajimalpa"); // <-- this needs to come from a session, its agencia from ManagerUser and correspond to nombres in AgencyEntity
+  const [id, setId] = useState(""); // <-- this needs to come from a session, it's agencia_id from ManagerUser
+  const { data: session } = useSession();
   const [documents, setDocuments] = useState([]);
   const [name, setName] = useState('');
   const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [docs, setDoc] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
-  const createEmptyDoc = () => ({ 0: '' });
+  const handleAddFile = () => {
+    const docs = [...documents, { _id: documents.length, name: name }];
+        const newDocs = docs.map((doc, i) => {
+          return {
+            _id: i,
+            name: doc.name,
+          }
+        }
+        );
+        setDocuments(newDocs);
 
-  const handleRemoveDoc = (index) => {
-    setDoc((prevPlazo) => {
-      const updatedDoc = [...prevPlazo];
-      updatedDoc.splice(index, 1);
-      return updatedDoc;
-    });
-    const updatedDoc = [...docs];
-    updatedDoc.splice(index, 1);
-    setDoc(updatedDoc);
-  };
+      setName('');
+      setShow(false);
+
+  }
+
+  const handleDeleteFile = (id) => {
+    const docs = [...documents];
+    console.log(documents);
+    const deletedDocs = docs.filter((doc) => doc._id !== id);
+    const newDocs = deletedDocs.map((doc, i) => {
+      return {
+        _id: i,
+        name: doc.name,
+      }
+    }
+    );
+    console.log(newDocs);
+    setDocuments(newDocs);
+    
+  }
 
 
   // Handle input changes
   const handleStartTimeChange = (event) => {
-    setStartTime(parseInt(event.target.value));
+    setStartTime(event.target.value);
   };
 
   const handleEndTimeChange = (event) => {
-    setEndTime(parseInt(event.target.value));
+    setEndTime(event.target.value);
   };
 
   const handlePreDaysChange = (event) => {
-    setPreDays(parseInt(event.target.value));
+    setPreDays(event.target.value);
   };
 
   const handleMaxDaysChange = (event) => {
-    setMaxDays(parseInt(event.target.value));
-  };
-
-  const handleAddRow = (setStateFunc, createEmptyFunc) => {
-    setStateFunc((prevState) => [...prevState, createEmptyFunc()]);
-  };
-
-  const handleValueChange = (newValue, index) => {
-    const newPlazos = [...docs];
-    const key = Object.keys(newPlazos[index])[0];
-    const updatedObject = { [key]: newValue};
-    newPlazos[index] = updatedObject;
-    setDoc(newPlazos);
-  };
-
-  const fetchData = async (retrievedAgencyId) => {
-    // Get the agency data
-    const resRaw = await fetch(`/api/managerProfile/managerP?id=${retrievedAgencyId}`);
-    const res = await resRaw.json();
-    const agencyData = res.userData;
-
-    // Map the documents to the format expected by the table
-    const docs = agencyData.documentos_requeridos_compra.map((doc) => {
-      return { 0: doc };
-    });
-
-    // Set the state variables accordingly
-    setDoc(docs);
-    setStartTime(agencyData.horas_min);
-    setEndTime(agencyData.horas_max);
-    setPreDays(agencyData.dias_anticipo);
-    setMaxDays(agencyData.dias_max);
-    setAgencyId(retrievedAgencyId);
+    setMaxDays(event.target.value);
   };
 
   // Handle form submission
   const handleSubmit = async () => {
-    if (
-      startTime > 24 || startTime < 0 ||
-      endTime > 24 || endTime < 0
-    ) {
-      setOpen(true);
-      return;
+    setLoading(true);
+    const data = documents.map((doc) => doc.name);
+    console.log(data);
+    try {
+      // await axios.put('/api/agencia/modificar-disponibilidad-pruebas', { agency: agency, horas_min: horas_min, horas_max: horas_max, dias_anticipo: dias_anticipo, dias_max: dias_max });
+      await axios.put('/api/agencia/actualizar-documentos-requeridos', { agency: agency, data: data });
+      setLoading(false);
     }
-
-    // Map the documents to the format expected by the backend
-    const documents = docs.map((doc) => {
-      return Object.values(doc)[0];
-    });
-    console.log('DOCS: ', documents);
-
-    await axios.put('/api/agencia/actualizar-agencia', {
-      id: agencyId,
-
-      documentos: documents,
-      horas_min: startTime,
-      horas_max: endTime,
-      dias_anticipo: preDays,
-      dias_max: maxDays
-    });
-
-    returnToLastPage();
-  };
-
-  const returnToLastPage = () => {
-    router.back();
+    catch (error) {
+      console.error('Error fetching search results:', error);
+    }
   };
 
   useEffect(() => {
-    const getIdAgencia = async () => {
-      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
-        { method: 'GET' });
+    const fetchData = async () => {
+      try {
+        const result = await axios.get('/api/agencia/pull-detalles-agencia', { params: { agency: agency }});
+        const docs = result.data.documentos_requeridos_compra;
+        console.log(docs);
+        const newDocs = docs.map((doc, i) => {
+          return {
+            _id: i,
+            name: doc,
+          }
+        }
+        );
+        setDocuments(newDocs);
+      }
+      catch (error) {
+        console.error('Error fetching search results:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
-      const agenciaId = await agenciaIdRaw.json();
+  const columns = useMemo( ()=> [
+    {
+      field: "_id",
+      headerName: "No.",
+      type: "number",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "name",
+      headerName: "Documento",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "botones",
+      headerName: "",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      type: "actions",
+      renderCell: (params) => (
+        // <Button
+        //   variant="contained"
+        //   disableElevation
+        //   onClick={() =>
+        //     viewRequest(params.row._id, params.row.usuario_final_id)
+        //   }
+        //   className="py-0"
+        //   sx={{
+        //     fontFamily: "Lato",
+        //     fontSize: "12px",
+        //     backgroundColor: "#111439",
+        //   }}
+        // >
+        //   Ver detalles
+        // </Button>
+        <>
+        <IconButton aria-label="delete" size="small" onClick={()=>handleDeleteFile(params.row._id)}>
+          <DeleteOutlineIcon />
+        </IconButton>
+        </>
+      ),
+    },
+  ], [documents]);
 
-      return agenciaId.user.agencia_id;
-    }
 
-    if (router.isReady && session) {
-      getIdAgencia().then((a_id) =>
-        fetchData(a_id)
-      );
-    }
-  }, [router.isReady, session]);
-
-  if (agencyId) {
-    return (
-      <>
-        <ManagerLayout>
+  return (
+    <>
+      <ManagerLayout>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <div
             style={{
               display: 'flex',
-              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'center',
+              paddingLeft: '3%',
+              paddingRight: '3%',
+              paddingTop: '2%',
             }}
           >
-            <div
-              style={{
+            <Typography variant="h4"
+              sx={{
                 display: 'flex',
                 justifyContent: 'start',
-                alignItems: 'center',
-                paddingLeft: '3%',
-                paddingRight: '3%',
-                paddingTop: '2%',
-              }}
-            >
-              <Typography variant="h4"
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'start',
-                  fontWeight: 'bold',
-                  fontFamily: 'Raleway',
-                }}>
-                Gestionar servicios
-              </Typography>
-            </div>
-            <Grid container spacing={3} sx={
-              {
-                display: 'flex',
-                padding: "2% 5%"
-                // paddingLeft: '5%',
-                // paddingRight: '5%',
-                // paddingTop: '2%',
-
+                fontWeight: 'bold',
+                fontFamily: 'Raleway',
               }}>
-              <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Card
+              Gestionar servicios
+            </Typography>
+          </div>
+          <Grid container spacing={3} sx={
+            {
+              display: 'flex',
+              padding: "2% 5%"
+              // paddingLeft: '5%',
+              // paddingRight: '5%',
+              // paddingTop: '2%',
+
+            }}>
+            <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CardContent
                   sx={{
                     width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    padding: '5%',
                   }}
                 >
-                  <CardContent
-                    sx={{
-                      width: '100%',
-                      padding: '5%',
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginBottom: '5%',
+                    }}
+                  >
+                    <Typography variant="h4" component="div"
+                      sx={{
+                        marginBottom: '2%',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      Horario de atención
+                    </Typography>
+                    <Typography sx={{
+                      marginBottom: '2%',
+                      textAlign: 'center',
+                    }} color="text.secondary">
+                      Seleccione los horarios en los que opera el servicio, así como los días mínimos y máximos para agendar una prueba de manejo.
+                    </Typography>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: '0% 5%',
                     }}
                   >
                     <div
                       style={{
                         display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginBottom: '5%',
-                      }}
-                    >
-                      <Typography variant="h4" component="div"
-                        sx={{
-                          marginBottom: '2%',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        Horario de atención
-                      </Typography>
-                      <Typography sx={{
+                        flexDirection: 'row',
+                        marginTop: '2%',
                         marginBottom: '2%',
-                        textAlign: 'center',
-                      }} color="text.secondary">
-                        Seleccione los horarios en los que opera su agencia, así como los días mínimos y máximos de anticipo para agendar una prueba de manejo.
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '0% 5%',
                       }}
                     >
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          marginTop: '2%',
-                          marginBottom: '2%',
+                      <TextField
+                        id="time"
+                        label="Hora de apertura"
+                        type="time"
+                        defaultValue="07:30"
+                        InputLabelProps={{
+                          shrink: true,
                         }}
-                      >
-                        <TextField
-                          id="time"
-                          label="Hora de apertura (0 a 24)"
-                          type="number"
-                          value={startTime}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            min: 0,
-                            max: 24
-                          }}
-                          sx={{
-                            flex: '50%',
-                            marginRight: '1rem',
-                          }}
-                          onChange={handleStartTimeChange}
-                        />
-                        <TextField
-                          id="time"
-                          label="Hora de cierre (0 a 24)"
-                          type="number"
-                          value={endTime}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            min: 0,
-                            max: 24
-                          }}
-                          sx={{
-                            flex: '50%',
-                            marginLeft: '1rem',
-                          }}
-                          onChange={handleEndTimeChange}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          marginTop: '4%',
+                        inputProps={{
+                          step: 1800,
                         }}
-                      >
-                        <TextField
-                          id="number"
-                          label="Días de anticipio mínimos"
-                          type="number"
-                          value={preDays}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            step: 1,
-                          }}
-                          sx={{
-                            flex: '50%',
-                            marginRight: '1rem',
-                          }}
-                          onChange={handlePreDaysChange}
-                        />
-                        <TextField
-                          id="number"
-                          label="Días de anticipo máximos"
-                          type="number"
-                          value={maxDays}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            step: 1,
-                          }}
-                          sx={{
-                            flex: '50%',
-                            marginLeft: '1rem',
-                            marginBottom: '2%',
-                          }}
-                          onChange={handleMaxDaysChange}
-                        />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Card
-                  sx={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <CardContent
-                    sx={{
-                      width: '100%',
-                      padding: '5%',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginBottom: '5%',
-                      }}
-                    >
-                      <Typography variant="h4" component="div"
-                        className='text-center'
                         sx={{
-                          marginBottom: '2%',
-                          justifyContent: 'center',
+                          flex: '50%',
+                          marginRight: '1rem',
                         }}
-                      >
-                        Documentos necesarios para el servicio
-                      </Typography>
-                      <Typography sx={{
-                        marginBottom: '2%',
-                        textAlign: 'center',
-                      }} color="text.secondary">
-                        Gestiona los documentos que el cliente deberá presentar en la Agencia para completar su proceso de compra, y seleccione cuáles aplican para una solicitud de prueba de manejo.
-                      </Typography>
+                        onChange={handleStartTimeChange}
+                      />
+                      <TextField
+                        id="time"
+                        label="Hora de cierre"
+                        type="time"
+                        defaultValue="07:30"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1800, // 5 min
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginLeft: '1rem',
+                        }}
+                        onChange={handleEndTimeChange}
+                      />
                     </div>
                     <div
                       style={{
                         display: 'flex',
-                        flexDirection: 'column',
+                        flexDirection: 'row',
+                        marginTop: '4%',
                       }}
                     >
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          marginTop: '2%',
+                      <TextField
+                        id="number"
+                        label="Días de antelación"
+                        type="number"
+                        defaultValue="0"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginRight: '1rem',
+                        }}
+                        onChange={handlePreDaysChange}
+                      />
+                      <TextField
+                        id="number"
+                        label="Días máximos"
+                        type="number"
+                        defaultValue="0"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 1,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginLeft: '1rem',
                           marginBottom: '2%',
                         }}
-                      >
-                        {/* {documents ? (
-                        <div className="section d-flex justify-content-center w-100">
-                        <div className="pt-4">
-                          <DataTable
-                            columns={columns}
-                            rows={documents}
-                            rowSelection={false}
-                            sx={{
-                              border: 1,
-                              borderColor: "#D9D9D9",
-                              "& .MuiDataGrid-cell": {
-                                border: 1,
-                                borderRight: 0,
-                                borderTop: 0,
-                                borderLeft: 0,
-                                borderColor: "#D9D9D9",
-                                fontFamily: "Lato",
-                                fontWeight: 500,
-                                fontSize: "12px",
-                                color: "#333333",
-                              },
-                              "& .MuiDataGrid-columnHeaders": {
-                                fontFamily: "Lato",
-                                fontSize: "16px",
-                                color: "#333333",
-                                borderBottom: 0,
-                              },
-                              "& .MuiDataGrid-columnHeaderTitle": {
-                                fontWeight: 800,
-                              },
-                              "& .MuiPaginationItem-text": {
-                                fontFamily: "Lato",
-                                color: "#333333",
-                              },
-                            }}
-                          />
-                        </div>
-                      </div>
-                      ) : (
-                        <div>
-                          <h2>No se econtraron docs.</h2>
-                        </div>
-                      )} */}
-                      </div>
-                      <div className="col-md">
-                        <div>
-                          <div className="mb-4">
-                            <div
-                              className="p-3 py-2 shadow-sm"
-                              style={{
-                                backgroundColor: "#f5f5f5",
-                                borderRadius: 10,
-                                borderBottomLeftRadius: 0,
-                                borderBottomRightRadius: 0,
-                              }}
-                            >
-                              <div className="w-100 row">
-                                <div className="col">
-                                  <Typography
-                                    fontFamily="Lato"
-                                    color="#1f1f1f"
-                                    fontSize={{ xs: 15, md: 16, lg: 18 }}
-                                  >
-                                    Documentos
-                                  </Typography>
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              className="p-3 py-3 shadow-sm"
-                              style={{
-                                borderRadius: 10,
-                                borderTopLeftRadius: 0,
-                                borderTopRightRadius: 0,
-                              }}
-                            >
-                              {docs.map((jsonObject, index) => (
-                                <Fade in={true} key={index}>
-                                  <div className="row">
-                                    <div className="col d-flex">
-                                      <TextField
-                                        required
-                                        size="small"
-                                        type="text"
-                                        name="value"
-                                        value={Object.values(jsonObject)[0]}
-                                        onChange={(event) => handleValueChange(event.target.value, index)}
-                                        label="Documento"
-                                        inputProps={{
-                                          min: "0",
-                                          style: { fontFamily: "Lato" },
-                                        }}
-                                        InputLabelProps={{
-                                          style: { fontFamily: "Lato" },
-                                        }}
-                                        className="mb-2 w-100"
-                                      />
-                                      <IconButton
-                                        aria-label="delete"
-                                        size="small"
-                                        className="mb-2"
-                                        onClick={() => handleRemoveDoc(index)}
-                                      >
-                                        <CloseIcon fontSize="inherit" />
-                                      </IconButton>
-                                    </div>
-                                  </div>
-                                </Fade>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          marginTop: '4%',
-                        }}
-                        className='w-100 d-flex justify-content-center'
-                      >
-                        <button
-                          onClick={() => { handleAddRow(setDoc, createEmptyDoc)}}
-                          style={{
-                            width: '10rem',
-                            backgroundColor: '#F55C7A',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '6px',
-                            height: '50%',
-                            padding: '0.5rem 1rem',
-                            marginLeft: '1rem',
-                          }}
-                        >
-                          Agregar
-                        </button>
-                      </div>
+                        onChange={handleMaxDaysChange}
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              </Grid>
+                  </div>
+                </CardContent>
+              </Card>
             </Grid>
+            <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CardContent
+                  sx={{
+                    width: '100%',
+                    padding: '5%',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginBottom: '5%',
+                    }}
+                  >
+                    <Typography variant="h4" component="div"
+                      className='text-center'
+                      sx={{
+                        marginBottom: '2%',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      Documentos necesarios para el servicio
+                    </Typography>
+                    <Typography sx={{
+                      marginBottom: '2%',
+                      textAlign: 'center',
+                    }} color="text.secondary">
+                      Gestiona los documentos que el cliente debera presentar en la agencia para completar su proceso de compra, y seleccione cuales aplican para una solicitud de prueba de manejo.
+                    </Typography>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: '2%',
+                        marginBottom: '2%',
+                      }}
+                    >
+                      {documents ? (
+                <div className="section d-flex justify-content-center w-100">
+                <div className="pt-4">
+                  <DataTable
+                    columns={columns}
+                    rows={documents}
+                    rowSelection={false}
+                    sx={{
+                      border: 1,
+                      borderColor: "#D9D9D9",
+                      "& .MuiDataGrid-cell": {
+                        border: 1,
+                        borderRight: 0,
+                        borderTop: 0,
+                        borderLeft: 0,
+                        borderColor: "#D9D9D9",
+                        fontFamily: "Lato",
+                        fontWeight: 500,
+                        fontSize: "12px",
+                        color: "#333333",
+                      },
+                      "& .MuiDataGrid-columnHeaders": {
+                        fontFamily: "Lato",
+                        fontSize: "16px",
+                        color: "#333333",
+                        borderBottom: 0,
+                      },
+                      "& .MuiDataGrid-columnHeaderTitle": {
+                        fontWeight: 800,
+                      },
+                      "& .MuiPaginationItem-text": {
+                        fontFamily: "Lato",
+                        color: "#333333",
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+              ) : (
+                <div>
+                  <h2>No se econtraron docs.</h2>
+                </div>
+              )}
+                    </div>
 
+                    {(show &&
+                    
+                    <div className='d-flex justify-content-around align-items-center'>
 
+                      <TextField
+                        label="Nombre del documento"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        sx={{
+                          flex: '50%',
+                          marginRight: '0.5rem',
+                        }}
+                      />
+                      <IconButton aria-label="delete" size="small" onClick={() => {setName(''); setShow(false)}}>
+                        <DeleteOutlineIcon />
+                      </IconButton>
 
+                      <IconButton aria-label="delete" size="small" onClick={handleAddFile}>
+                        <CheckIcon />
+                      </IconButton>
 
-
-            <div
+                      </div>
+                    )}
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: '4%',
+                      }}
+                      className='w-100 d-flex justify-content-center'
+                    >
+                      
+                      
+                      <button
+              onClick={()=>setShow(true)}
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginTop: '2%',
+                width: '10rem',
+                backgroundColor: '#F55C7A',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                height: '50%',
+                padding: '0.5rem 1rem',
+                marginLeft: '1rem',
               }}
             >
-              <button
-                onClick={returnToLastPage}
-                style={{
-                  width: '10rem',
-                  backgroundColor: 'gray',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '6px',
-                  height: '50%',
-                  padding: '0.5rem 1rem',
-                  marginRight: '1rem',
-                }}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleSubmit}
-                style={{
-                  width: '10rem',
-                  backgroundColor: '#F55C7A',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '6px',
-                  height: '50%',
-                  padding: '0.5rem 1rem',
-                  marginLeft: '1rem',
-                }}
-              >
-                Guardar cambios
-              </button>
-            </div>
-            <CustomizedSnackbars setOpen={setOpen} message="Valor de hora fuera de rango" open={open} severity="error" />
-          </div>
-          {/* <div>
-            
-            <label>Hora de apertura</label>
-            <input
-              type="time"
-              value={startTime}
-              onChange={handleStartTimeChange}
-            />
-            <label>Hora de cierre</label>
-            <input
-              type="time"
-              value={endTime}
-              onChange={handleEndTimeChange}
-            />
-            <label>Días de antelación</label>
-            <input
-              type="number"
-              value={preDays}
-              onChange={handlePreDaysChange}
-              inputProps={{ min: 0 }}
-            />
-            <label>Número de días disponible</label>
-            <input
-              type="number"
-              value={maxDays}
-              onChange={handleMaxDaysChange}
-              inputProps={{ min: 0 }}
-            />
-
-            <div>
-              <label htmlFor="agency_field">Agencia</label>
-              <input
-                type="text"
-                id="agency_field"
-                className="form-control"
-                value={agency}
-                onChange={(e) => setAgency(e.target.value)}
-                required
-              />
-            </div>
-
-            <button onClick={handleSubmit}>
-              Submit
+              Agregar
             </button>
-          </div> */}
-        </ManagerLayout>
-      </>
-    );
-  } else {
-    return (
-      <LoadingScreen/>
-    );
-  }
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+         
+         
+         
+         
+         
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: '2%',
+            }}
+          >
+            <button
+              // onClick={handleSubmit}
+              style={{
+                width: '10rem',
+                backgroundColor: 'gray',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                height: '50%',
+                padding: '0.5rem 1rem',
+                marginRight: '1rem',
+              }}
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={handleSubmit}
+              style={{
+                width: '10rem',
+                backgroundColor: '#F55C7A',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                height: '50%',
+                padding: '0.5rem 1rem',
+                marginLeft: '1rem',
+              }}
+            >
+              Guardar cambios
+            </button>
+          </div>
+        </div>
+        {/* <div>
+          
+          <label>Hora de apertura</label>
+          <input
+            type="time"
+            value={startTime}
+            onChange={handleStartTimeChange}
+          />
+          <label>Hora de cierre</label>
+          <input
+            type="time"
+            value={endTime}
+            onChange={handleEndTimeChange}
+          />
+          <label>Días de antelación</label>
+          <input
+            type="number"
+            value={preDays}
+            onChange={handlePreDaysChange}
+            inputProps={{ min: 0 }}
+          />
+          <label>Número de días disponible</label>
+          <input
+            type="number"
+            value={maxDays}
+            onChange={handleMaxDaysChange}
+            inputProps={{ min: 0 }}
+          />
+
+          <div>
+            <label htmlFor="agency_field">Agencia</label>
+            <input
+              type="text"
+              id="agency_field"
+              className="form-control"
+              value={agency}
+              onChange={(e) => setAgency(e.target.value)}
+              required
+            />
+          </div>
+
+          <button onClick={handleSubmit}>
+            Submit
+          </button>
+        </div> */}
+      </ManagerLayout>
+    </>
+  );
 };

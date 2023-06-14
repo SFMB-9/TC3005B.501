@@ -9,7 +9,6 @@ Component that shows the catalogue grid and handles the pagination.
 // Library imports
 import React, { useState, useEffect } from 'react';
 import { Pagination } from '@mui/material';
-import { useRouter } from 'next/router';
 
 // Component imports
 import CatalogGrid from './catalog_grid';
@@ -20,11 +19,6 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
   const [currentPage, setCurrentPage] = useState(1);
   // Calculate the total number of pages based on the number of items per page
   let totalPages;
-  // State that holds the selected cars to compare
-  const [carIds, setCarIds] = useState([]);
-
-  const router = useRouter();
-
   if (catalogData !== undefined)
   {
     totalPages = Math.ceil(catalogData.length / itemsPerPage);
@@ -33,15 +27,6 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
   {
     totalPages = 1;
   }
-
-  // Function that handles the page change for the comparison
-  const routToComparison = () => {
-    if(carIds.length < 2 || carIds.length > 3){
-        alert(`${carIds.length}`);
-        return;
-    }
-    router.push(`/buyer/comparar?ids=${carIds.join(",")}`);
-  };
 
   // Function that handles the page change
   const handlePageChange = (event, page) => {
@@ -70,14 +55,7 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
 
   return (
     <div>
-      {(carIds.length > 1 && carIds.length < 4) && 
-        (<>
-          <div>
-            <button onClick={routToComparison}>Comparar productos</button>
-          </div>
-        </>)
-      }
-      <CatalogGrid carListing={itemsToShow} cardType={carCardType} carIds={carIds} setCarIds={setCarIds} />
+      <CatalogGrid carListing={itemsToShow} cardType={carCardType} />
       <Pagination
         sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}
         count={totalPages}

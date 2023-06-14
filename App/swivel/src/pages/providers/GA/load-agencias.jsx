@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 export default function LoadAgencia() {
   const [agencias, setAgencias] = useState([]);

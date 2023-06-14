@@ -24,10 +24,6 @@ export const theme = createTheme({
     warning: {
       main: "#F6BC66",
     },
-    custom: {
-      main: "8f8e8c",
-      dark: "F6BC66",
-    },
   },
   typography: {
     button: {

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 	if (req.method === 'PUT') {
 		dbConnect()
 
-		const saUser = await SaEntity.findById(req.body.id)
+		const saUser = await SaEntity.findOne({ email: req.body.email })
 
 		if (!saUser)
 			return res.status(400).json({ message: 'Could not find user!' })
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     } else {
       updatedFields['apellidos'] = req.body.surname
     }
-    if (req.body.email === '' || req.body.email === undefined){
+    if (req.body.email === '' || req.body.surname === undefined){
       updatedFields['email'] = currentEmail
     } else {
       updatedFields['email'] = req.body.email
@@ -41,6 +41,7 @@ export default async function handler(req, res) {
 
     try {
       await saUser.updateOne(
+        { email: email },
         { $set: { ...updatedFields } }
       )
       return res.status(200).json({ message: 'Successfully updated user!' })

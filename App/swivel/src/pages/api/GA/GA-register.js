@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const legalName = req.body.legal.lNombres;
     const legalSurname = req.body.legal.lApellidos;
     const legalEmail = req.body.legal.lEmail;
-    const legalPhone = req.body.legal.lNumero_telefonico;
+    const legalPhone = req.body.legal.lPhone;
 
     const GAPhone = req.body.GAPhone;
     const GAemail = req.body.GAemail;

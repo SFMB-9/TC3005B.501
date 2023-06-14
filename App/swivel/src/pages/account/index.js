@@ -4,8 +4,6 @@ import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
 import { signOut } from "next-auth/react";
 import axios from "axios";
-import LoadingScreen from "@/components/general/LoadingScreen";
-
 
 import {
   Container,
@@ -321,7 +319,7 @@ export default function Account() {
                     title = "Eliminar cuenta"
                     popUpContent = {
                     <div className="text-center mt-3"> <p> ¿Estas segurx que quieres eliminar tu cuenta? </p>
-                    <p> Al hacer click en &quot;Eliminar cuenta&quot; estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
+                    <p> Al hacer click en "Confirmar" estas confirmando de forma definitiva que quieres eliminar tu cuenta. </p> 
                       <Button
                         variant="contained"
                         onClick={deleteAccount}
@@ -373,8 +371,9 @@ export default function Account() {
   }
   else {
     return (
-      <div>
-        <LoadingScreen/>
+      <div
+      >
+        Cargando...
       </div>
     )
   }

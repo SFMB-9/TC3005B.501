@@ -1,16 +1,12 @@
 // pages/checkout.js
 import { getStripe } from '@/utils/stripe';
 import { Button } from "@mui/material";
-import axios from "axios";
 
 const CheckoutPage = (props) => {
   const body = JSON.stringify({items: JSON.stringify(props.items), id: props.id});
   const handleClick = async () => {
-    await axios.put('/api/DrivingRequestsSeller/updateRequestStatus', {
-      _id: props.id,
-      status: 'pagoPendiente'
-      });
     const stripe = await getStripe();
+
     const response = await fetch('/api/stripe/create-checkout-session', {
       method: 'POST',
       headers: {
