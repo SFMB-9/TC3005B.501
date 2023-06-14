@@ -61,6 +61,7 @@ export default function Process() {
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
+      checkValidatedDocs();
     }
   };
 
@@ -116,13 +117,18 @@ export default function Process() {
   };
 
   const checkValidatedDocs = () => {
-    let validatedDocs = true;
-    documents.forEach((doc) => {
+
+    let isValidated = true;
+
+    documents.map((doc) => {
+      console.log(doc.estatus);
       if (doc.estatus !== "Aceptado") {
-        validatedDocs = false;
+        isValidated = false;
       }
     });
-    return validatedDocs;
+
+    return isValidated;
+    
   };
 
   useEffect(() => {
