@@ -5,7 +5,7 @@ export default function Stats() {
   return (
     <>
       <SANavbar />
-      <div className='p-5'>
+      <div className='p-5 d-flex flex-column align-items-center gap-3'>
         <h1>Estadísticas</h1>
         <iframe
           style={{ background: "#FFFFFF", border: "none", borderRadius: "2px", boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)" }}
