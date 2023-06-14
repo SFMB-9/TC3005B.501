@@ -4,6 +4,8 @@ import PopUpComponent from "@/components/general/Popup"
 import EditAccount from "../../components/buyer/editData"
 import { signOut } from "next-auth/react";
 import axios from "axios";
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 import {
   Container,
@@ -371,9 +373,8 @@ export default function Account() {
   }
   else {
     return (
-      <div
-      >
-        Cargando...
+      <div>
+        <LoadingScreen/>
       </div>
     )
   }

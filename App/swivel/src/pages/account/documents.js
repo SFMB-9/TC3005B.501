@@ -10,6 +10,7 @@ import AccountLayout from '@/components/buyer/account_layout';
 import DataTable from "@/components/general/Table";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import { formatDate } from "@/components/general/date_utils";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function Documents() {
   const router = useRouter();
@@ -288,7 +289,7 @@ export default function Documents() {
     return (
       <div
       >
-        Cargando...
+        <LoadingScreen/>
       </div>
     )
   }

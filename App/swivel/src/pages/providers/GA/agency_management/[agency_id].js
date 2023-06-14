@@ -16,6 +16,7 @@ import PopUpComponent from '@/components/general/Popup';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import EditSellerData from '@/components/providers/seller/edit_seller_data';
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function AgencyDetails() {
 
@@ -807,7 +808,7 @@ export default function AgencyDetails() {
   } else {
     return (
       <div>
-        <p>Cargando...</p>
+        <LoadingScreen/>
       </div>
     );
   }

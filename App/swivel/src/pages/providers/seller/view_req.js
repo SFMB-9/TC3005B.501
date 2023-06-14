@@ -100,7 +100,7 @@ const RequestDetails = () => {
   }, [user_id]);
 
   if (router.isFallback) {
-    return <div>Cargando...</div>;
+    return <div> <LoadingScreen/> </div>;
   }
 
   const updateAnyDocument = async (status, i) => {
