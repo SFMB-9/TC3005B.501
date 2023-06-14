@@ -1,3 +1,13 @@
+import React from 'react'
+
+const MasVendido = () => {
+  return (
+    <div>MasVendido</div>
+  )
+}
+
+export default MasVendido
+
 // import React from "react";
 // import { Bar } from "react-chartjs-2";
 
