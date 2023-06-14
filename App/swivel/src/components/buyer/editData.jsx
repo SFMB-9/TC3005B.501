@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import mexicanStates from "@/components/general/states";
+import styles from '@/styles/signup.module.css';
 
 import {
   Container,
@@ -312,19 +314,20 @@ export default function EditAccount(props) {
                   Estado
                 </Typography>
 
-                <TextField
+                <select
                   required
-                  size="small"
-                  type="text"
-                  name="estado"
-                  id="estado"
+                  className="mb-2"
                   value={newState}
                   onChange={(e) => setNewState(e.target.value)}
-                  label="Estado"
-                  inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
-                  InputLabelProps={{ style: { fontFamily: "Lato" } }}
-                  className="mb-3 w-100"
-                />
+                  id={styles.dropdownStates}
+                >
+                  <option value="">Elegir estado</option>
+                  {mexicanStates.map((stateObj, index) => (
+                    <option key={index} value={stateObj.name}>
+                      {stateObj.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="col-xl-6 col-md-12">
                 <Typography
@@ -340,14 +343,15 @@ export default function EditAccount(props) {
                   required
                   size="small"
                   type="text"
-                  name="estado"
-                  id="estado"
+                  name="pais"
+                  id="pais"
                   value={newCountry}
                   onChange={(e) => setNewCountry(e.target.value)}
-                  label="Estado"
+                  label="País"
                   inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                   InputLabelProps={{ style: { fontFamily: "Lato" } }}
                   className="mb-3 w-100"
+                  disabled
                 />
               </div>
             </div>
