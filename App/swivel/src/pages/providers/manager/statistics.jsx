@@ -9,33 +9,35 @@ export default function Estadisticas() {
   const id = session?.id;
 
   React.useEffect(() => {
-    const fetchOne = async () => {
-      await fetch(
-        "http://localhost:3000/api/managerProfile/managerP?id=" + session?.id
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.userData.agencia_id);
-
-          return data.userData.agencia_id;
-        })
-        .then((data) => {
-          fetchTwo(data);
-        });
-    };
-
-    const fetchTwo = async (agenciaId) => {
-      await fetch(
-        "http://localhost:3000/api/managerProfile/managerP?id=" + agenciaId
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setAgencia(data);
-        });
-    };
-    fetchOne();
-  }, []);
+    if (session) {
+      const fetchOne = async () => {
+        await fetch(
+          "http://localhost:3000/api/managerProfile/managerP?id=" + session?.id
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data.userData.agencia_id);
+  
+            return data.userData.agencia_id;
+          })
+          .then((data) => {
+            fetchTwo(data);
+          });
+      };
+  
+      const fetchTwo = async (agenciaId) => {
+        await fetch(
+          "http://localhost:3000/api/managerProfile/managerP?id=" + agenciaId
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setAgencia(data);
+          });
+      };
+      fetchOne();
+    }
+  }, [session]);
 
   return (
     <div style={{ padding: "30px" }}>
