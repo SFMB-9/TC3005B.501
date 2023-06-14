@@ -115,6 +115,7 @@ export default function Process() {
       // alert(error.message);
       setError(error.message); // Set the error message
       handleClickOpen(); // Open the modal
+      return;
     }
 
     // documentUrl = await FileUpload(doc);
@@ -316,7 +317,6 @@ export default function Process() {
     [documents, isOpen]
   );
 
-  console.log(process)
   if (process != null) {
     return (
       <div>
