@@ -311,6 +311,11 @@ export default function CarDetails() {
       });
     };
 
+    const disableContinueButton = () => {
+      var button = document.getElementById("confirmButton");
+      button.disabled = true;
+    }
+
     return (
       <div>
         <LandingPageLayout>
@@ -1329,6 +1334,7 @@ export default function CarDetails() {
                   </div>
                   <div className="mt-3 d-flex flex-column">
                     <Button
+                      id="confirmButton"
                       variant="contained"
                       disableElevation
                       size="large"
@@ -1338,7 +1344,10 @@ export default function CarDetails() {
                         fontWeight: "bold",
                         ":hover": { backgroundColor: "#BABABA" },
                       }}
-                      onClick={() => handleConfirmPurchase()}
+                      onClick={() => { 
+                        disableContinueButton()
+                        handleConfirmPurchase()
+                      }}
                     >
                       Proceder con la compra
                     </Button>
