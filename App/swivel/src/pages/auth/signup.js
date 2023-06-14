@@ -244,6 +244,7 @@ export default function SignupBuyerData() {
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
                   <Button
                     className="btn btn-primary btn-block mb-1" 
+                    style={{backgroundColor: "#0d6efd"}}
                     onClick={() =>{setLoading(true);setTimeout(()=>{setLoading(false);setActiveSectionIndex(1)}, 700)}}
                     disableElevation
                     disabled={disabledFirst()}
@@ -431,6 +432,7 @@ export default function SignupBuyerData() {
                     className="btn btn-primary btn-block mb-2"
                     disableElevation
                     disabled={disabledSecond()}
+                    style={{backgroundColor: "#0d6efd"}}
                     onClick={() => {
                       setLoading(true)
                       submitHandler()

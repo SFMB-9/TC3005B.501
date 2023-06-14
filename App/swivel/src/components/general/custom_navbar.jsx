@@ -163,12 +163,12 @@ export default function CustomNavbar({
                     {element.popup.map((popup_element, index) => (
                       <MenuItem key={index} onClick={handleCloseUserMenu}>
                         {popup_element.signoutComponent ? (
-                          <Typography className={styles.popup_item} onClick={() => signOut({ callbackUrl: popup_element.signoutComponent })}>
+                          <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway'}} onClick={() => signOut({ callbackUrl: popup_element.signoutComponent })}>
                             {popup_element.name}
                           </Typography>
                         ) : (
                           <Link href={popup_element.href}>
-                            <Typography className={styles.popup_item}>
+                            <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway'}}>
                               {popup_element.name}
                             </Typography>
                           </Link>
@@ -207,7 +207,7 @@ export default function CustomNavbar({
                 element.popup ? (
                   <div key={index}>
                     <MenuItem onClick={(event) => handleOpenUserMenu(event, index)}>
-                      <Typography className={styles.submenu_item}>
+                      <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway'}}>
                         {element.name}
                       </Typography>
                     </MenuItem>
@@ -223,12 +223,12 @@ export default function CustomNavbar({
                       {element.popup.map((popup_element, subIndex) => (
                         <MenuItem key={subIndex} onClick={handleCloseUserMenu}>
                           {popup_element.signoutComponent ? (
-                            <Typography className={styles.popup_item} onClick={() => handleSignout(popup_element.signoutComponent)}>
+                            <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway', zIndex: 1000}} onClick={() => handleSignout(popup_element.signoutComponent)}>
                               {popup_element.name}
                             </Typography>
                           ) : (
                             <Link href={popup_element.href}>
-                              <Typography className={styles.popup_item} onClick={() => handleSignout(popup_element.signoutComponent)}>
+                              <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway', zIndex: 1000}} onClick={() => handleSignout(popup_element.signoutComponent)}>
                                 {popup_element.name}
                               </Typography>
                             </Link>

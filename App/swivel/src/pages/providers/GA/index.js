@@ -43,10 +43,13 @@ export default function GALandingPage() {
       {/* Check if the user is logged in */}
       {session ?
         <>
+        <div className="text-center">
+
           <CustomHero
             title={"Bienvenidx, " +name}
             message="Administra tus agencias, gerentes y conoce tu desempeño"
           />
+        </div>
           <GActionsCards />
         </>
         :

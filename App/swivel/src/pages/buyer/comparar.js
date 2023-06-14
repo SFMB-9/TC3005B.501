@@ -6,7 +6,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Grid, Typography, IconButton } from '@mui/material';
 import ScrollerBar from '@/components/general/custom_scroller_bar';
 import BuyerLayout from '@/components/buyer/layout';
-import Carousel from '@/components/general/carousel';
+import Carousel from '@/components/general/Carousel';
 
 const json5 = require('json5');
 
