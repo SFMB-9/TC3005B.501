@@ -16,7 +16,7 @@ import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 
 import AuthComponent from "@/components/login/auth_component";
 import mexicanStates from "@/components/general/states";
-import styles from '@/styles/signup.module.css'
+import styles from '@/styles/signup.module.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Función que retorna el formulario de registro de comprador con su dirección, junto con los botones de ingreso  */
@@ -262,6 +262,7 @@ export default function SignupBuyerData() {
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
                   <Button
                     className="btn btn-primary btn-block mb-1" 
+                    style={{backgroundColor: "#0d6efd"}}
                     onClick={() =>{setLoading(true);setTimeout(()=>{setLoading(false);setActiveSectionIndex(1)}, 700)}}
                     disableElevation
                     disabled={disabledFirst()}
@@ -438,7 +439,7 @@ export default function SignupBuyerData() {
                   size="small"
                   className="w-100 mb-2"
                   label="País"
-                  value="México"
+                  value={country}
                   disabled
                   error={errors.country}
                   helperText={errors.country ? "Solo letras" : ""}
@@ -459,6 +460,7 @@ export default function SignupBuyerData() {
                     className="btn btn-primary btn-block mb-2"
                     disableElevation
                     disabled={disabledSecond()}
+                    style={{backgroundColor: "#0d6efd"}}
                     onClick={() => {
                       setLoading(true)
                       submitHandler()

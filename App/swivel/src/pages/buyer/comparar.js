@@ -6,7 +6,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Grid, Typography, IconButton } from '@mui/material';
 import ScrollerBar from '@/components/general/custom_scroller_bar';
 import BuyerLayout from '@/components/buyer/layout';
-import Carousel from '@/components/general/carousel';
+import Carousel from '@/components/general/Carousel';
 
 const json5 = require('json5');
 
@@ -175,7 +175,7 @@ export default function Comparison() {
             images.map((image, index) => (
               <Grid item key={index} md={6} xs={12}>
                 <Carousel images={image} />
-                <div className="pt-2 text-end">
+                {/* <div className="pt-2 text-end">
                   <IconButton aria-label="360">
                     <img
                       src="/buyer/360_symbol.png"
@@ -183,7 +183,7 @@ export default function Comparison() {
                       alt="360"
                     />
                   </IconButton>
-                </div>
+                </div> */}
               </Grid>
             ))
           ) : (

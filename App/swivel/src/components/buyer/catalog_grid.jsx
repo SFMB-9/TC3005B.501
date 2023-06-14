@@ -38,7 +38,7 @@ export default function CatalogGrid({ carListing, cardType, carIds, setCarIds })
       } else {
         cardProps = {
           general: {
-            carUrl: cardType == 'drivingTest' ? `/pruebademanejo/${car._id}` : `/purchase/${car._id}`,
+            carUrl: cardType == 'drivingTest' ? `/pruebademanejo/${car._id}` : cardType == 'purchases' ? `/purchase/${car._id}` : `/success/${car._id}`,
             carImage: car.auto.array_fotografias_url[0],
             carBrand: car.auto.marca,
             carModel: car.auto.modelo,
@@ -52,6 +52,10 @@ export default function CatalogGrid({ carListing, cardType, carIds, setCarIds })
             status: car.estatus_validacion
           },
           purchases: {
+            date: "Fecha de inicio: " + (car.fecha_creacion ? formatDate(car.fecha_creacion).formattedDate : "No hay fecha de inicio"),
+            status: car.estatus
+          },
+          finalized: {
             date: "Fecha de inicio: " + (car.fecha_creacion ? formatDate(car.fecha_creacion).formattedDate : "No hay fecha de inicio"),
             status: car.estatus
           }

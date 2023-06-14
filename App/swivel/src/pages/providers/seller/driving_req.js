@@ -73,10 +73,15 @@ const SellerDashboard = () => {
   }, [session, requests]);
 
   // Update the status of a request
-  const updateRequestStatus = async (_id, status) => {
+  const updateRequestStatus = async (_id, status, phone) => {
     await axios.put("/api/DrivingRequestsSeller/updateRequestStatus", {
       _id,
       status,
+    });    
+
+    await axios.post('/api/twilio/message', { 
+      to: `+521${phone}` , 
+      message: `*SWIVEL*\nActualización de tu proceso de prueba de manejo\nEstado: ${status}` 
     });
 
     const updatedRequests = requests.map((request) => {
@@ -177,7 +182,7 @@ const SellerDashboard = () => {
       renderCell: (params) => (
         <Select
           value={params.row.estatus_validacion}
-          onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
+          onChange={(e) => updateRequestStatus(params.row._id, e.target.value, user[params.row.usuario_final_id].numero_telefonico)}
           label="Status"
           variant="standard"
           size="small"

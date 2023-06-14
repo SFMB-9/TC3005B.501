@@ -10,6 +10,7 @@ Component that shows the catalogue grid and handles the pagination.
 import React, { useState, useEffect } from 'react';
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
+import { Button } from "@mui/material";
 
 // Component imports
 import CatalogGrid from './catalog_grid';
@@ -25,20 +26,18 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
 
   const router = useRouter();
 
-  if (catalogData !== undefined)
-  {
+  if (catalogData !== undefined) {
     totalPages = Math.ceil(catalogData.length / itemsPerPage);
   }
-  else
-  {
+  else {
     totalPages = 1;
   }
 
   // Function that handles the page change for the comparison
   const routToComparison = () => {
-    if(carIds.length < 2 || carIds.length > 3){
-        alert(`${carIds.length}`);
-        return;
+    if (carIds.length < 2 || carIds.length > 3) {
+      alert(`${carIds.length}`);
+      return;
     }
     router.push(`/buyer/comparar?ids=${carIds.join(",")}`);
   };
@@ -54,12 +53,10 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
   const endIndex = startIndex + itemsPerPage;
   // Slice the catalog data to get the items to show
   let itemsToShow;
-  if (catalogData !== undefined)
-  {
+  if (catalogData !== undefined) {
     itemsToShow = catalogData.slice(startIndex, endIndex);
   }
-  else
-  {
+  else {
     itemsToShow = [];
   }
 
@@ -70,10 +67,29 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
 
   return (
     <div>
-      {(carIds.length > 1 && carIds.length < 4) && 
+      {(carIds.length > 1 && carIds.length < 4) &&
         (<>
-          <div>
-            <button onClick={routToComparison}>Comparar productos</button>
+          <div 
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+            }}
+          >
+            <Button
+              variant="contained"
+              className='mb-2'
+              sx={{
+                fontFamily: "Lato",
+                ":hover": {
+                  backgroundColor: "#F68E70",
+                },
+              }}
+              disableElevation
+              type="button"
+              onClick={routToComparison}
+            >
+              Comparar productos
+            </Button>
           </div>
         </>)
       }

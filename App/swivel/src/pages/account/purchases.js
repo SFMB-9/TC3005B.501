@@ -37,8 +37,8 @@ export default function Purchases() {
     }
   }, [session]);
 
-  console.log("apiData", apiCurrentData);
-
+  console.log("apiData", apiCompletedData);
+  console.log("apiData2", apiCurrentData);
   const components = [
     {
       name: "Solicitudes de compra",
@@ -97,7 +97,7 @@ export default function Purchases() {
                 apiCompletedData && apiCompletedData.length > 0 ? (
                   <CatalogPagination
                     catalogData={apiCompletedData}
-                    carCardType="purchases"
+                    carCardType="finalized"
                     itemsPerPage={6}
                   />
                 )

@@ -10,6 +10,11 @@ import {
   Box,
   Typography,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import LandingPageLayout from "@/components/buyer/layout";
 import SimpleAccordion from "@/components/general/Accordion";
@@ -60,6 +65,15 @@ export default function CarDetails() {
   const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState(0);
 
   const { data: session } = useSession();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const fetchCarDetails = async () => {
     const response = await fetch(
@@ -79,7 +93,7 @@ export default function CarDetails() {
   };
 
   const handleFavorites = (wishList) => {
-    if (wishList){
+    if (wishList) {
       if (wishList.some(car => car._id === car_id)) {
         setFavorite(true);
       } else {
@@ -87,19 +101,19 @@ export default function CarDetails() {
       }
     }
   };
-  
+
   const fetchFavorites = async () => {
-    if (session){
+    if (session) {
       try {
-        const response = await axios.get('/api/wishlist/pull-wishlist', { params: { id: session.id } }); 
+        const response = await axios.get('/api/wishlist/pull-wishlist', { params: { id: session.id } });
         setWishlist(response.data);
         handleFavorites(response.data);
-      } 
+      }
       catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-  }; 
+  };
 
   // const handleFavorites = async () => {
   //   if (wishList.some(car => car._id === car_id)) {
@@ -116,7 +130,7 @@ export default function CarDetails() {
         handleFavorites();
       }
     };
-  
+
     fetchData();
   }, [session]);
 
@@ -320,6 +334,45 @@ export default function CarDetails() {
     return (
       <div>
         <LandingPageLayout>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle>
+              No cuenta con una sesión iniciada.
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Para poder solicitar una prueba de manejo o una compra, necesita iniciar sesión. Si no tiene una cuenta, puede registrarse.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={
+                () => {
+                  window.location.href = "/auth/login";
+                  Cookies.set(
+                    "CAR_REQ",
+                    `${window.location.origin}/catalog/${car_id}`
+                  );
+                }
+              } color="primary" autoFocus>
+                Iniciar sesión
+              </Button>
+              <Button onClick={
+                () => {
+                  window.location.href = "/auth/signup";
+                  Cookies.set(
+                    "CAR_REQ",
+                    `${window.location.origin}/catalog/${car_id}`
+                  );
+                }
+              } color="primary" autoFocus>
+                Registrarse
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Container maxWidth="xl">
             <div className="section p-5">
               <Link href="/catalog">
@@ -338,7 +391,7 @@ export default function CarDetails() {
                         images={selectedColor.imagenes}
                         indicators={true}
                       />
-                      <div className="pt-2 text-end">
+                      {/* <div className="pt-2 text-end">
                         <IconButton aria-label="360">
                           <img
                             src="/buyer/360_symbol.png"
@@ -346,7 +399,7 @@ export default function CarDetails() {
                             alt="360"
                           />
                         </IconButton>
-                      </div>
+                      </div> */}
                     </Grid>
                     <Grid item md={5} xs={12}>
                       <div
@@ -477,14 +530,15 @@ export default function CarDetails() {
                                 if (session) {
                                   viewDrivingRequestDetails(car_id);
                                 } else {
-                                  window.location.href = "/auth/login";
-                                  Cookies.set(
-                                    "CAR_REQ",
-                                    `${window.location.origin}/catalog/${car_id}`
-                                  );
+                                  handleClickOpen();
+                                  // window.location.href = "/auth/login";
+                                  // Cookies.set(
+                                  //   "CAR_REQ",
+                                  //   `${window.location.origin}/catalog/${car_id}`
+                                  // );
                                 }
                               }}
-                              // disabled={!isAvailable}
+                            // disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
@@ -501,11 +555,12 @@ export default function CarDetails() {
                                 if (session) {
                                   setDrawerOpen(true);
                                 } else {
-                                  window.location.href = "/auth/login";
-                                  Cookies.set(
-                                    "CAR_REQ",
-                                    `${window.location.origin}/catalog/${car_id}`
-                                  );
+                                  handleClickOpen();
+                                  // window.location.href = "/auth/login";
+                                  // Cookies.set(
+                                  //   "CAR_REQ",
+                                  //   `${window.location.origin}/catalog/${car_id}`
+                                  // );
                                 }
                               }}
                             >
@@ -571,7 +626,7 @@ export default function CarDetails() {
                       >
                         $
                         {Intl.NumberFormat().format(
-                          carPrice + totalPriceExtras
+                          carPrice
                         )}{" "}
                         MXN
                       </Typography>
@@ -582,7 +637,7 @@ export default function CarDetails() {
                         fontSize={{ xs: 10, md: 18, lg: 18 }}
                         className="text-end w-100 pb-1"
                       >
-                        +${Intl.NumberFormat().format(selectedDeliveryPrice)}{" "}
+                        +${Intl.NumberFormat().format(selectedDeliveryPrice + totalPriceExtras)}{" "}
                         MXN
                       </Typography>
                       <Button
@@ -1008,13 +1063,13 @@ export default function CarDetails() {
                             {Math.round(
                               (carDetails.plazos[selectedTerm] +
                                 Number.EPSILON) *
-                                100
+                              100
                             ) / 100
                               ? Math.round(
-                                  (carDetails.plazos[selectedTerm] +
-                                    Number.EPSILON) *
-                                    100
-                                ) / 100
+                                (carDetails.plazos[selectedTerm] +
+                                  Number.EPSILON) *
+                                100
+                              ) / 100
                               : 0}
                             %
                           </strong>
@@ -1275,7 +1330,7 @@ export default function CarDetails() {
                     fontSize={{ xs: 17, md: 20, lg: 24 }}
                     sx={{ fontWeight: "bold" }}
                   >
-                    Resumen de pago
+                    Resumen de pago (MXN):
                   </Typography>
                   <div className="rounded d-flex flex-column justify-content-between border">
                     <div className="p-1 px-3">
@@ -1287,7 +1342,7 @@ export default function CarDetails() {
                       >
                         <div>Enganche:</div>
                         <div>
-                          ${Intl.NumberFormat().format(downPayment)} MXN
+                          ${Intl.NumberFormat().format(downPayment)}
                         </div>
                       </Typography>
                       <Typography
@@ -1298,7 +1353,7 @@ export default function CarDetails() {
                       >
                         <div>Pago Mensualidad:</div>
                         <div>
-                          ${Intl.NumberFormat().format(monthlyPayment)} MXN
+                          ${Intl.NumberFormat().format(monthlyPayment)} 
                         </div>
                       </Typography>
                       <Typography
@@ -1310,7 +1365,7 @@ export default function CarDetails() {
                         <div>Entrega:</div>
                         <div>
                           ${Intl.NumberFormat().format(selectedDeliveryPrice)}{" "}
-                          MXN
+                          
                         </div>
                       </Typography>
 
@@ -1325,10 +1380,9 @@ export default function CarDetails() {
                           $
                           {Intl.NumberFormat().format(
                             parseFloat(downPayment) +
-                              parseFloat(monthlyPayment) +
-                              parseFloat(selectedDeliveryPrice)
+                            parseFloat(monthlyPayment) +
+                            parseFloat(selectedDeliveryPrice)
                           )}{" "}
-                          MXN
                         </div>
                       </Typography>
                     </div>
@@ -1345,7 +1399,7 @@ export default function CarDetails() {
                         fontWeight: "bold",
                         ":hover": { backgroundColor: "#BABABA" },
                       }}
-                      onClick={() => { 
+                      onClick={() => {
                         disableContinueButton()
                         handleConfirmPurchase()
                       }}
@@ -1381,7 +1435,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <LoadingScreen/>
+        <LoadingScreen />
       </div>
     );
   }
