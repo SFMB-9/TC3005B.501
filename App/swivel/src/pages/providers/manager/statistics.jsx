@@ -4,20 +4,46 @@ import MasPruebas from "../charts/MasPruebas";
 import { useSession } from "next-auth/react";
 
 export default function Estadisticas() {
-  const { session } = useSession();
-  const agency = session?.user?.nombre_agencia;
+  const { data: session } = useSession();
+  const [agencia, setAgencia] = React.useState(null);
+  const id = session?.id;
 
   React.useEffect(() => {
-    console.log(session);
-  }, [session]);
+    const fetchOne = async () => {
+      await fetch(
+        "http://localhost:3000/api/managerProfile/managerP?id=" + session?.id
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.userData.agencia_id);
+
+          return data.userData.agencia_id;
+        })
+        .then((data) => {
+          fetchTwo(data);
+        });
+    };
+
+    const fetchTwo = async (agenciaId) => {
+      await fetch(
+        "http://localhost:3000/api/managerProfile/managerP?id=" + agenciaId
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setAgencia(data);
+        });
+    };
+    fetchOne();
+  }, []);
 
   return (
     <div style={{ padding: "30px" }}>
       <h1>Estadisticas</h1>
       <h2>Autos mas vendidos</h2>
-      <MasVendido agency={agency} />
+      {agencia && <MasVendido agency={agencia.userData.nombres} />}
       <h2>Autos mas probados</h2>
-      <MasPruebas agency={agency} />
+      {agencia && <MasPruebas agency={agencia.userData.nombres} />}
     </div>
   );
 }

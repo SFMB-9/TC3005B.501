@@ -5,17 +5,19 @@ import ActionsCards from "@/components/providers/Manager/actions_cards";
 import { useSession } from "next-auth/react";
 
 export default function Manager() {
-  const { session } = useSession();
+  const { data: session } = useSession();
 
   React.useEffect(() => {
-    console.log(session);
+    console.log(session?.user);
   }, [session]);
 
   return (
     <>
       <ManagerNavbar />
       <CustomHero
-        title="Bienvenidx, nombre"
+        title={
+          "Bienvenidx, " + session?.id
+        }
         message="Administra tus solicitudes pendientes"
       />
       <ActionsCards />

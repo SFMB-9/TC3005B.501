@@ -18,7 +18,7 @@ const countModels = (dataList) => {
   return { models, sortedModels };
 };
 
-const MasVendido = () => {
+const MasVendido = ({ agency }) => {
   const [data, setData] = React.useState([]);
   const queryString = agency.replace(" ", "%20");
 
