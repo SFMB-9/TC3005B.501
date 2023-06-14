@@ -10,6 +10,7 @@ Component that shows the catalogue grid and handles the pagination.
 import React, { useState, useEffect } from 'react';
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
+import { Button } from "@mui/material";
 
 // Component imports
 import CatalogGrid from './catalog_grid';
@@ -73,7 +74,21 @@ export default function CatalogPagination({ catalogData, itemsPerPage, carCardTy
       {(carIds.length > 1 && carIds.length < 4) && 
         (<>
           <div>
-            <button onClick={routToComparison}>Comparar productos</button>
+          <Button
+    variant="contained"
+    className='mb-2'
+    sx={{
+      fontFamily: "Lato",
+      ":hover": {
+        backgroundColor: "#F68E70",
+      },
+    }}
+    disableElevation
+    type="button"
+    onClick={routToComparison}
+  >
+    Comparar productos
+  </Button>
           </div>
         </>)
       }

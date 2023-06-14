@@ -6,7 +6,7 @@ import GANavbar from '@/components/providers/GA/navbar'
 import GActionsCards from "@/components/providers/GA/ga_actions_cards";
 import RequestCards from "@/components/providers/GA/request_cards";
 import Process from "@/components/providers/GA/process";
-import Footer from "@/components/general/footer";
+import Footer from "@/components/general/Footer";
 
 import { useEffect, useState } from 'react';
 import { useSession } from "next-auth/react";
