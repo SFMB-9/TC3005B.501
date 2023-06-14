@@ -39,7 +39,6 @@ const RequestDetails = () => {
   // This function fetches the request details using the _id in the URL
   const fetchRequests = async () => {
     console.log("id", id);
-    console.log("user_id", user_id);
     const res = await axios.get(
       "/api/DrivingRequestsSeller/getDrivingRequest",
       { params: { _id: id } }
@@ -57,6 +56,7 @@ const RequestDetails = () => {
   };
 
   const fetchUser = async () => {
+    console.log("user_id", user_id);
     // This function fetches the user details using the _id in the URL
     const res = await axios.get("/api/managerProfile/managerP", {
       params: { id: user_id },
