@@ -571,7 +571,7 @@ export default function CarDetails() {
                       >
                         $
                         {Intl.NumberFormat().format(
-                          carPrice + totalPriceExtras
+                          carPrice
                         )}{" "}
                         MXN
                       </Typography>
@@ -582,7 +582,7 @@ export default function CarDetails() {
                         fontSize={{ xs: 10, md: 18, lg: 18 }}
                         className="text-end w-100 pb-1"
                       >
-                        +${Intl.NumberFormat().format(selectedDeliveryPrice)}{" "}
+                        +${Intl.NumberFormat().format(selectedDeliveryPrice + totalPriceExtras)}{" "}
                         MXN
                       </Typography>
                       <Button
