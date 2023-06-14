@@ -56,7 +56,7 @@ function setColor(cardType, status){
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(props.favoriteCar);
   const [statusColor, statusDisplay] = setColor(props.cardType, props.status);
   const theme = createTheme({
     palette: {
@@ -94,6 +94,7 @@ export default function CarCard(props) {
           onClick={(event) => {
             event.stopPropagation(); 
             setFavorite(!favorite);
+
           }}
           sx={{
             position: 'absolute',
@@ -102,7 +103,7 @@ export default function CarCard(props) {
             fontSize: '1.4rem',
             color: '#F55C7A' /*favorite ? '#F55C7A' : 'grey',*/
           }}>
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {/* {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />} */}
         </IconButton>
       </div>
       <CardActionArea component="a" href={props.carUrl}>
