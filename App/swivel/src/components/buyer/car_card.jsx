@@ -21,10 +21,10 @@ import { useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-function setColor(cardType, status){
-  let statusColor; 
+function setColor(cardType, status) {
+  let statusColor;
   let statusDisplay;
-  if (cardType === 'purchases') {
+  if (cardType === 'purchases' || cardType === 'finalized') {
     if (status === 'pagado') {
       statusColor = '#18AE00';
       statusDisplay = 'Pagado';
@@ -91,19 +91,26 @@ export default function CarCard(props) {
             alt="car"
           />
         </a>
-        <div>
-      <input
-                    type="checkbox"
-                    checked={checkboxState}
-                    onChange={handleCheckbox}
-                    style={{position: 'absolute',
-                    top: 3.5,
-                    right: 3.5,
-                    fontSize: '1.4rem',
-                    color: '#F55C7A'}}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                </div>
+        {
+          props.cardType === "catalog" && (
+            <div>
+              <input
+                type="checkbox"
+                checked={checkboxState}
+                onChange={handleCheckbox}
+                style={{
+                  position: 'absolute',
+                  top: 3.5,
+                  right: 3.5,
+                  fontSize: '1.4rem',
+                  color: '#F55C7A'
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )
+        }
+
       </div>
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
@@ -146,7 +153,7 @@ export default function CarCard(props) {
                     <div><ArrowForwardIcon sx={{ fontSize: 25, color: "#F55C7A" }} /></div>
                   </ThemeProvider>
                 </div>
-                
+
               </>
             )
           }
@@ -164,7 +171,7 @@ export default function CarCard(props) {
                   paddingBottom: '0.5rem'
                 }}>
                   {props.carBrand} {props.carModel}
-                  
+
                 </Typography>
                 <Typography gutterBottom variant="body2" color="text.secondary" sx={{
                   marginBottom: '0.5rem',
@@ -211,7 +218,7 @@ export default function CarCard(props) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    Estatus: &nbsp; 
+                    Estatus: &nbsp;
                     <Typography gutterBottom variant="body2" sx={{
                       marginBottom: '0',
                       fontFamily: 'Lato',
@@ -223,6 +230,7 @@ export default function CarCard(props) {
                       color: statusColor
                     }}>
                       {statusDisplay}
+                      {console.log("el estatus" , props.status)}
                     </Typography>
                   </Typography>
                 </div>
