@@ -27,6 +27,7 @@ export default function Footer() {
     { name: "Sobre nosotros", link: "/about" },
     { name: "Compra un auto", link: "/catalog" },
     { name: "Registra tu agencia", link: "/providers/GA" },
+    { name: "Inicia sesión como proveedor", link: "auth/providers/login" },
   ]
 
   return (
