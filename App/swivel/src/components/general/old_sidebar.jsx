@@ -192,8 +192,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<KeyIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/change_password`}
                 >
                   Contraseña
                 </MenuItem>
@@ -202,13 +200,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ManageAccountsIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/`}
                 >
                   Mi cuenta
                 </MenuItem>
               </Link>
-              {/* {children} */}
             </Menu>
           </div>
           {/* Pie del Sidebar */}
