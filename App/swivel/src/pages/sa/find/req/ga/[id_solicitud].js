@@ -166,7 +166,16 @@ export default function VistaSolicitud() {
                   value={value}
                   onChange={handleInputChange}
                   autoFocus
-                  onBlur={(e) => handleSaveClick(value,params.row._id)}
+                  onKeyDown={(e) => {
+                    if (e.key === ' ') {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      setValue(value + ' ');
+                    }
+                    if (e.key === 'Enter') {
+                      handleSaveClick(value, params.row._id);
+                    }
+                  }}
                 />
               ) : (
                 <div>

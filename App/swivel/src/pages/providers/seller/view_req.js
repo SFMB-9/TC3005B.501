@@ -17,6 +17,7 @@ import LoadingScreen from "@/components/general/LoadingScreen";
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import { set } from "mongoose";
 
 const AblyChatComponent = dynamic(
   () => import("@/components/chat/AblyChatComponent"),
@@ -190,8 +191,16 @@ const RequestDetails = () => {
               fullWidth
               value={value}
               onChange={handleInputChange}
-              autoFocus
-              onBlur={(e) => handleSaveClick(value,params.row._id)}
+              onKeyDown={(e) => {
+                if (e.key === ' ') {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setValue(value + ' ');
+                }
+                if (e.key === 'Enter') {
+                  handleSaveClick(value, params.row._id);
+                }
+              }}
             />
           ) : (
             <div>
