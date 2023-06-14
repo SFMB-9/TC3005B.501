@@ -182,7 +182,7 @@ const SellerDashboard = () => {
       renderCell: (params) => (
         <Select
           value={params.row.estatus_validacion}
-          onChange={(e) => updateRequestStatus(params.row._id, e.target.value, user[params.row.usuario_final_id].apellidos)}
+          onChange={(e) => updateRequestStatus(params.row._id, e.target.value, user[params.row.usuario_final_id].numero_telefonico)}
           label="Status"
           variant="standard"
           size="small"
