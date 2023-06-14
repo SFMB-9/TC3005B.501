@@ -39,3 +39,14 @@
 .content2 {
   padding-right: 5vw;
 }
+
+.buttomContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.paragraphs{
+  color: rgb(95, 95, 95);
+}
