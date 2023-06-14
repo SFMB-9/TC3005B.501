@@ -10,7 +10,7 @@ export default function Estadisticas() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/charts/solicitudCompraAgencia?name=Nissan%20Cuauhtemoc",
+          "http://localhost:3000/api/charts/solicitudCompraAgencia?name=Nissan%20Santa%20Fe", // Change to name of logged agency
           {
             method: "GET",
             headers: {
@@ -20,7 +20,7 @@ export default function Estadisticas() {
         );
         if (response.ok) {
           const data = await response.json();
-          setData(data);
+          setData(data.documents);
           console.log("Data:", data);
         } else {
           throw new Error("Request failed with status: " + response.status);
@@ -37,9 +37,9 @@ export default function Estadisticas() {
     <div style={{ padding: "30px" }}>
       <h1>Estadisticas</h1>
       <h2>Autos mas vendidos</h2>
-      {data && <MasVendido data={data.documents} />}
+      {data && data.length > 0 && <MasVendido data={data} />}
       <h2>Autos mas probados</h2>
-      {data && <MasPruebas data={data.documents} />}
+      {data && data.length > 0 && <MasPruebas data={data} />}
     </div>
   );
 }

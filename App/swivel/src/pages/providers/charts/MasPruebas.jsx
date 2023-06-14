@@ -10,12 +10,14 @@ const countModels = (dataList) => {
       models[modelo] = models[modelo] ? models[modelo] + 1 : 1;
     }
   });
+  console.log(dataList)
 
   const sortedModels = Object.entries(models)
     .sort(([, countA], [, countB]) => countB - countA)
     .map(([modelo]) => modelo);
 
   return { models, sortedModels };
+  
 };
 
 const MasPruebas = ({ data }) => {
