@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import Chart from "chart.js/auto";
 
 const countModels = (dataList) => {
   const models = {};
@@ -64,7 +65,7 @@ const MasPruebas = ({ agency }) => {
     ],
   };
 
-  return <Bar data={chartData}/>;
+  return <Bar data={chartData} />;
 };
 
 export default MasPruebas;
