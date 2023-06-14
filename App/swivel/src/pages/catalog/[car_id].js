@@ -433,7 +433,7 @@ export default function CarDetails() {
                         </div>
                         <Typography
                           fontFamily="Lato"
-                          color="#8A8A8A"
+                          color="#525252"
                           fontSize={{ xs: 17, md: 20, lg: 24 }}
                         >
                           {carDetails.año}
@@ -455,7 +455,7 @@ export default function CarDetails() {
                           />
                           <Typography
                             fontFamily="Lato"
-                            color="#BABABA"
+                            color="#525252"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                             className="ms-2"
                           >
@@ -470,7 +470,7 @@ export default function CarDetails() {
                           />
                           <Typography
                             fontFamily="Lato"
-                            color="#BABABA"
+                            color="#525252"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                             className="ms-2"
                           >
