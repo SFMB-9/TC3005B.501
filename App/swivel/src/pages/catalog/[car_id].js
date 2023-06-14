@@ -1330,7 +1330,7 @@ export default function CarDetails() {
                     fontSize={{ xs: 17, md: 20, lg: 24 }}
                     sx={{ fontWeight: "bold" }}
                   >
-                    Resumen de pago
+                    Resumen de pago (MXN):
                   </Typography>
                   <div className="rounded d-flex flex-column justify-content-between border">
                     <div className="p-1 px-3">
@@ -1342,7 +1342,7 @@ export default function CarDetails() {
                       >
                         <div>Enganche:</div>
                         <div>
-                          ${Intl.NumberFormat().format(downPayment)} MXN
+                          ${Intl.NumberFormat().format(downPayment)}
                         </div>
                       </Typography>
                       <Typography
@@ -1353,7 +1353,7 @@ export default function CarDetails() {
                       >
                         <div>Pago Mensualidad:</div>
                         <div>
-                          ${Intl.NumberFormat().format(monthlyPayment)} MXN
+                          ${Intl.NumberFormat().format(monthlyPayment)} 
                         </div>
                       </Typography>
                       <Typography
@@ -1365,7 +1365,7 @@ export default function CarDetails() {
                         <div>Entrega:</div>
                         <div>
                           ${Intl.NumberFormat().format(selectedDeliveryPrice)}{" "}
-                          MXN
+                          
                         </div>
                       </Typography>
 
@@ -1383,7 +1383,6 @@ export default function CarDetails() {
                             parseFloat(monthlyPayment) +
                             parseFloat(selectedDeliveryPrice)
                           )}{" "}
-                          MXN
                         </div>
                       </Typography>
                     </div>
