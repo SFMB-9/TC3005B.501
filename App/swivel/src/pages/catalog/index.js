@@ -382,11 +382,7 @@ export default function Catalog() {
                 : catalogData.length <= 0 ?
                 <div className={styles.catalogHeader}>
                   <span className="justify-content-start align-items-center">
-                    <Typography color="text.secondary" sx={{
-                      fontFamily: "Lato",
-                    }}>
                       <div style={{marginLeft:"26vw", heigth:"auto"}}> <LoadingScreen/> </div>
-                    </Typography>
                   </span>
                 </div>
                 :
