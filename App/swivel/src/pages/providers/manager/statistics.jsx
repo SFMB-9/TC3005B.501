@@ -40,6 +40,7 @@ export default function Estadisticas() {
   return (
     <div style={{ padding: "30px" }}>
       <h1>Estadisticas</h1>
+      <p>Agencia: {agencia.userData.nombres}</p>
       <h2>Autos mas vendidos</h2>
       {agencia && <MasVendido agency={agencia.userData.nombres} />}
       <h2>Autos mas probados</h2>
