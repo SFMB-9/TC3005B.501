@@ -47,6 +47,7 @@ export default function SignupBuyerData() {
     street: false,
     exterior_num: false,
     interior_num: false,
+    postalCode: false,
     city: false,
     state: false,
     country: false,
@@ -197,7 +198,7 @@ export default function SignupBuyerData() {
                   value={phone}
                   disabled={loading}
                   error={errors.phone}
-                  helperText={errors.phone ? "Teléfono inválido" : ""}
+                  helperText={errors.phone ? "Teléfono inválido (10 digitos)" : ""}
                   onChange={(e) => {
                     const v = e.target.value;
                     setPhone(v)
@@ -367,8 +368,18 @@ export default function SignupBuyerData() {
                   value={postalCode}
                   disabled={loading}
                   error={errors.postalCode}
-                  helperText={errors.postalCode ? "Código postal inválido" : ""}
-                  onChange={(e) => setPC(e.target.value)}
+                  helperText={errors.postalCode ? "Código postal inválido (5 digitos)" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPC(v);
+                    if (!/^\d{5}$/.test(v)) {
+                      setErrors({ ...errors, postalCode: true})
+                    }
+                    else {
+                      setErrors({ ...errors, postalCode: false })
+                    }
+
+                  }}
                 />
                 <TextField
                   required
