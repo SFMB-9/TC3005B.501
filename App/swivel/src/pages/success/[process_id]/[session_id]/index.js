@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Button } from "@mui/material";
-import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 import CheckoutPage from "@/components/general/checkout";
 import LoadingScreen from "@/components/general/LoadingScreen";
 
@@ -102,7 +101,7 @@ export default function Process() {
           color="#1F1F1F"
           fontSize={{ xs: 13, md: 14, lg: 16 }}
         >
-          <strong>Cantidad Pagado:</strong> <span style={{color: '#333333'}}>${process.cantidad_a_pagar}</span>
+          <strong>Cantidad Pagado:</strong> <span style={{color: '#333333'}}>$ ${Intl.NumberFormat().format(process.cantidad_a_pagar)}</span>
         </Typography>
 
             </div>

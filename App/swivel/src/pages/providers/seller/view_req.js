@@ -274,7 +274,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        ${request.auto.precio}
+                        ${Intl.NumberFormat().format(request.auto.precio)}
                       </li>
                     </>
                   ) : (

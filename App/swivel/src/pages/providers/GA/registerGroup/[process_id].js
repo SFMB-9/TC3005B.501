@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useState, useEffect, useMemo } from "react";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
-import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
+import { Container, Typography, Button, IconButton, Fade, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
@@ -22,6 +22,16 @@ export default function RegisterGroupProcess() {
     const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
     const [uploadedDocument, setUploadedDocument] = useState(null);
     const [isOpen, setIsOpen] = useState();
+    const [error, setError] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const fetchProcess = async () => {
         const response = await fetch(
@@ -49,8 +59,8 @@ export default function RegisterGroupProcess() {
     // Save the indices that were changed
     const handleDocumentEdit = async (indx) => {
 
-      setIsOpen(null);
-      await handleSubmit();
+        setIsOpen(null);
+        await handleSubmit();
     };
 
     const handleSubmit = async () => {
@@ -65,9 +75,17 @@ export default function RegisterGroupProcess() {
             return;
         }
 
-        documentUrl = await FileUpload(doc);
-        console.log(documentUrl);
-
+        try {
+            documentUrl = await FileUpload(doc);
+        } catch (error) {
+            // Handle the error here. For example, you can show a popup with the error message.
+            console.error('File upload failed:', error.message);
+            // Show a popup with the error message
+            // alert(error.message);
+            setError(error.message); // Set the error message
+            handleClickOpen(); // Open the modal
+            return;
+        }
         currentDocs[i].url = documentUrl;
         currentDocs[i].fecha_modificacion = new Date().toISOString();
         currentDocs[i].estatus = "En_Revision";
@@ -314,7 +332,30 @@ export default function RegisterGroupProcess() {
                             </Typography>
                         </div>
                     </Fade>
-
+                    <Fade in={true} timeout={1500}>
+                    <div>
+                            <Dialog
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle>
+                                    El documento que se subió no está permitido.
+                                </DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        {error}
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose} color="primary" autoFocus>
+                                        Cerrar
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
+                    </Fade>
                     <Fade in={true} timeout={1500}>
                         <div className="section px-5 text-sm-start text-center mb-3">
                             <div className="container shadow-sm rounded border p-2 mb-3">
@@ -485,7 +526,7 @@ export default function RegisterGroupProcess() {
     } else {
         return (
             <div>
-                <LoadingScreen/>
+                <LoadingScreen />
             </div>
         );
     }

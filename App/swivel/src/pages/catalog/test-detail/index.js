@@ -11,7 +11,7 @@ Here the user is able to choose a date and
 time for their driving test.
 */
 
-import { Container, Grid, Typography, Button, IconButton, Fade } from '@mui/material';
+import { Container, Grid, Typography, Button, IconButton, Fade, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
@@ -58,6 +58,16 @@ export default function RequestDetails() {
   const [validatedDocs, setValidatedDocs] = useState(true);
   const [agencyCoords, setAgencyCoords] = useState({});
   const { auto_id, colorName } = router.query;
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const fetchDetails = async () => {
     let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
@@ -127,7 +137,18 @@ export default function RequestDetails() {
   };
 
   const handleSubmit = async () => {
-    const documentUrl = await FileUpload(uploadedDocument);
+    let documentUrl = ""
+    try {
+      documentUrl = await FileUpload(uploadedDocument);
+    } catch (error) {
+      // Handle the error here. For example, you can show a popup with the error message.
+      console.error('File upload failed:', error.message);
+      // Show a popup with the error message
+      // alert(error.message);
+      setError(error.message); // Set the error message
+      handleClickOpen(); // Open the modal
+      return;
+    }
 
     try {
       await fetch(
@@ -303,7 +324,7 @@ export default function RequestDetails() {
   }, [uploadedDocument]);
 
   if (router.isFallback) {
-    return <div> <LoadingScreen/> </div>;
+    return <div> <LoadingScreen /> </div>;
   }
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
@@ -360,7 +381,7 @@ export default function RequestDetails() {
                             {userData.apellidos}
                           </span>
                         </h5>
-                        </div>
+                      </div>
                     </div>
                     <div className='row mt-4 text-center'>
                       <div className='col-12 col-md-6'>
@@ -405,7 +426,7 @@ export default function RequestDetails() {
                             paddingLeft: "1.2rem",
                           }}
                         >
-                          Estado de residencia: 
+                          Estado de residencia:
                           {" "}
                           <span style={{
                             color: "#333333",
@@ -415,14 +436,14 @@ export default function RequestDetails() {
                             {userAddress.estado}
                           </span>
                         </h5>
-                        </div>
+                      </div>
                       <div className='col-12 col-md-6'>
                         <h5
                           style={{
                             paddingLeft: "1.2rem",
                           }}
                         >
-                          Código postal: 
+                          Código postal:
                           {" "}
                           <span style={{
                             color: "#333333",
@@ -433,71 +454,95 @@ export default function RequestDetails() {
                           </span>
                         </h5>
                       </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </Fade>
               <Fade in={true} timeout={1500}>
+                <div>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle>
+                      El documento que se subió no está permitido.
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        {error}
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary" autoFocus>
+                        Cerrar
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
+              </Fade>
+              <Fade in={true} timeout={1500}>
                 <div className='section p-5 pt-0 text-sm-start text-center mb-3'>
-                <h4 className='mb-3'>Documentos</h4>
+                  <h4 className='mb-3'>Documentos</h4>
                   <div className='pt-4'>
-                  <DataTable
-                    columns={columns}
-                    rows={documents}
-                    rowSelection={false}
-                    sx={{
-                      border: 1,
-                      borderColor: "#D9D9D9",
-                      "& .MuiDataGrid-cell": {
+                    <DataTable
+                      columns={columns}
+                      rows={documents}
+                      rowSelection={false}
+                      sx={{
                         border: 1,
-                        borderRight: 0,
-                        borderTop: 0,
-                        borderLeft: 0,
                         borderColor: "#D9D9D9",
-                        fontFamily: "Lato",
-                        fontWeight: 500,
-                        fontSize: "12px",
-                        color: "#333333",
-                      },
-                      "& .MuiDataGrid-columnHeaders": {
-                        fontFamily: "Lato",
-                        fontSize: "16px",
-                        color: "#333333",
-                        borderBottom: 0,
-                      },
-                      "& .MuiDataGrid-columnHeaderTitle": {
-                        fontWeight: 800,
-                      },
-                      "& .MuiPaginationItem-text": {
-                        fontFamily: "Lato",
-                        color: "#333333",
-                      },
-                    }}
-                  />
+                        "& .MuiDataGrid-cell": {
+                          border: 1,
+                          borderRight: 0,
+                          borderTop: 0,
+                          borderLeft: 0,
+                          borderColor: "#D9D9D9",
+                          fontFamily: "Lato",
+                          fontWeight: 500,
+                          fontSize: "12px",
+                          color: "#333333",
+                        },
+                        "& .MuiDataGrid-columnHeaders": {
+                          fontFamily: "Lato",
+                          fontSize: "16px",
+                          color: "#333333",
+                          borderBottom: 0,
+                        },
+                        "& .MuiDataGrid-columnHeaderTitle": {
+                          fontWeight: 800,
+                        },
+                        "& .MuiPaginationItem-text": {
+                          fontFamily: "Lato",
+                          color: "#333333",
+                        },
+                      }}
+                    />
                   </div>
                 </div>
               </Fade>
               <Fade in={true} timeout={1500}>
                 <div className='text-center mt-4 mb-5'>
-                <Button
-                  sx={{
-                    fontFamily: "Lato",
-                    color: '#626262',
-                    backgroundColor: "#D9D9D9",
-                    "&:hover": {
-                      backgroundColor: "#b3b3b3",
-                      color: "#fff",
-                    },
-                  }}
-                  variant='contained' onClick={() => goBackToCatalog()}>Cancelar</Button>
-                <Button
-                  style={{
-                    marginLeft: "2.5rem",
-                  }}
-                  variant='contained'
-                  onClick={() => setActiveSectionIndex(1)}
-                  disabled={!validatedDocs}
-                >Continuar</Button>
+                  <Button
+                    sx={{
+                      fontFamily: "Lato",
+                      color: '#626262',
+                      backgroundColor: "#D9D9D9",
+                      "&:hover": {
+                        backgroundColor: "#b3b3b3",
+                        color: "#fff",
+                      },
+                    }}
+                    variant='contained' onClick={() => goBackToCatalog()}>Cancelar</Button>
+                  <Button
+                    style={{
+                      marginLeft: "2.5rem",
+                    }}
+                    variant='contained'
+                    onClick={() => setActiveSectionIndex(1)}
+                    disabled={!validatedDocs}
+                  >Continuar</Button>
                 </div>
               </Fade>
             </Container>
@@ -617,7 +662,7 @@ export default function RequestDetails() {
   } else {
     return (
       <div>
-        <LoadingScreen/>
+        <LoadingScreen />
       </div>
     );
   }

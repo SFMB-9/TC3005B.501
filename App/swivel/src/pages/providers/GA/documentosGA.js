@@ -2,14 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
-
+import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 
 const RegistroAgencia = () => {
   const [docs, setDocs] = useState();
   const router = useRouter();
   const { _id } = router.query;
   const [files, setFiles] = useState([]);
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const uploadDocs = async () => {
     const response = await axios.put(
@@ -33,7 +42,18 @@ const RegistroAgencia = () => {
   const handleSubmit = async () => {
     for (let i = 0; i < files.length; i++) {
       const uploadedFile = files[i];
-      const response = await FileUpload(uploadedFile);
+      let response ="";
+      try {
+        response = await FileUpload(uploadedFile);
+      } catch (error) {
+        // Handle the error here. For example, you can show a popup with the error message.
+        console.error('File upload failed:', error.message);
+        // Show a popup with the error message
+        // alert(error.message);
+        setError(error.message); // Set the error message
+        handleClickOpen(); // Open the modal
+        return;
+      }
       const updatedDocs = { ...docs };
       updatedDocs.documentos[i].url = response;
       setDocs(updatedDocs);
