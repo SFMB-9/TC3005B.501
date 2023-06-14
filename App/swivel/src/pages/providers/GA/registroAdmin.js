@@ -108,6 +108,7 @@ const RegistroAdmin = () => {
     };
 
     const handleCancel = () => {
+        router.back();
     };
 
     if (session) {
@@ -115,10 +116,9 @@ const RegistroAdmin = () => {
             <div>
                 <GANavbar />
                 <div className={styles.mainContainer}>
-                    <h1 className={styles.pageTitle}>Registrar administrador de GA</h1>
                     <form onSubmit={submitHandler}>
                         <div className="container">
-                            <div className="row mt-2">
+                            <div className="row mt-4">
                                 <h3 className={styles.boldText}>Ingresa los datos del administrador</h3>
                             </div>
                             <div className="row mt-2">
