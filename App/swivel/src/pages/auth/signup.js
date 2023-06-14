@@ -47,6 +47,7 @@ export default function SignupBuyerData() {
     street: false,
     exterior_num: false,
     interior_num: false,
+    postalCode: false,
     city: false,
     state: false,
     country: false,
@@ -91,10 +92,27 @@ export default function SignupBuyerData() {
       console.log(data);
       passStatus = true;
       setErrMessage("Usuario registrado exitosamente");
+      setTimeout(() => {window.location.href = "/auth/login";}, 8000);
     } catch (error) {
       console.log(error);
       passStatus = false;
       setErrMessage("Hubo un error al registrarse");
+    }
+  };
+
+  const errMessageAdvanced = (message) => {
+    if (message == "Usuario registrado exitosamente") {
+      return (
+        <Typography sx={{ fontFamily: "Lato", color: "green", fontSize: "12px" }}>
+          {message}
+        </Typography>
+      );
+    } else {
+      return (
+        <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>
+          {message}
+        </Typography>
+      );
     }
   };
 
@@ -180,7 +198,7 @@ export default function SignupBuyerData() {
                   value={phone}
                   disabled={loading}
                   error={errors.phone}
-                  helperText={errors.phone ? "Teléfono inválido" : ""}
+                  helperText={errors.phone ? "Teléfono inválido (10 digitos)" : ""}
                   onChange={(e) => {
                     const v = e.target.value;
                     setPhone(v)
@@ -351,8 +369,18 @@ export default function SignupBuyerData() {
                   value={postalCode}
                   disabled={loading}
                   error={errors.postalCode}
-                  helperText={errors.postalCode ? "Código postal inválido" : ""}
-                  onChange={(e) => setPC(e.target.value)}
+                  helperText={errors.postalCode ? "Código postal inválido (5 digitos)" : ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setPC(v);
+                    if (!/^\d{5}$/.test(v)) {
+                      setErrors({ ...errors, postalCode: true})
+                    }
+                    else {
+                      setErrors({ ...errors, postalCode: false })
+                    }
+
+                  }}
                 />
                 <TextField
                   required
@@ -426,7 +454,7 @@ export default function SignupBuyerData() {
                   }}
                 />
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                  {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography>}
+                  {error ? null : errMessageAdvanced(errMessage)}
                   <Button
                     type="submit"
                     className="btn btn-primary btn-block mb-2"
@@ -440,7 +468,7 @@ export default function SignupBuyerData() {
                         //setActiveSectionIndex(0)
                         setError(false)
                         setLoading(false) 
-                        setTimeout(() => {window.location.href = "/auth/login";}, 2000);
+                        
                       } else {
                         setLoading(false);
                         setError(true);
