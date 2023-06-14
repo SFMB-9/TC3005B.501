@@ -175,7 +175,7 @@ export default function Comparison() {
             images.map((image, index) => (
               <Grid item key={index} md={6} xs={12}>
                 <Carousel images={image} />
-                <div className="pt-2 text-end">
+                {/* <div className="pt-2 text-end">
                   <IconButton aria-label="360">
                     <img
                       src="/buyer/360_symbol.png"
@@ -183,7 +183,7 @@ export default function Comparison() {
                       alt="360"
                     />
                   </IconButton>
-                </div>
+                </div> */}
               </Grid>
             ))
           ) : (

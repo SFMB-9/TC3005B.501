@@ -338,7 +338,7 @@ export default function CarDetails() {
                         images={selectedColor.imagenes}
                         indicators={true}
                       />
-                      <div className="pt-2 text-end">
+                      {/* <div className="pt-2 text-end">
                         <IconButton aria-label="360">
                           <img
                             src="/buyer/360_symbol.png"
@@ -346,7 +346,7 @@ export default function CarDetails() {
                             alt="360"
                           />
                         </IconButton>
-                      </div>
+                      </div> */}
                     </Grid>
                     <Grid item md={5} xs={12}>
                       <div
