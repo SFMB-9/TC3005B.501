@@ -15,6 +15,8 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import { RouterRounded } from "@mui/icons-material";
 import PopUpComponent from "@/components/general/Popup";
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 const AblyChatComponent = dynamic(
   () => import("../../components/chat/AblyChatComponent"),
@@ -674,7 +676,7 @@ export default function Process() {
   } else {
     return (
       <div>
-        <p>Cargando ...</p>
+        <LoadingScreen/>
       </div>
     );
   }
