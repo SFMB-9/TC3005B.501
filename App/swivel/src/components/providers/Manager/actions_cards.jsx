@@ -35,7 +35,7 @@ export default function ActionsCards() {
         imageSource="/manager/statistics_action.png"
         icon="/manager/statistics_icon.svg"
         text="Estadísticas de ventas"
-        href="/providers/seller/driving_req"
+        href="/providers/manager/statistics"
         light={false}
         header=''
         fiftyFifty={false}
