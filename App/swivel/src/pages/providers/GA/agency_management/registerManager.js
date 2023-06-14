@@ -5,7 +5,6 @@ import { Button, TextField } from "@mui/material";
 import styles from "@/styles/add_manager.module.css";
 import GANavbar from "@/components/providers/GA/navbar";
 import { useSession } from "next-auth/react";
-import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function MergedSignup() {
     const { data: session } = useSession();
@@ -249,7 +248,7 @@ export default function MergedSignup() {
         );
     } else {
         return (
-            <LoadingScreen/>
+            <p>Cargando...</p>
         );
     }
 }

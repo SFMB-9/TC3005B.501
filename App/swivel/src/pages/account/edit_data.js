@@ -12,7 +12,6 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import LoadingScreen from "@/components/general/LoadingScreen";
 
 import AccountLayout from "@/components/buyer/account_layout";
 
@@ -739,7 +738,7 @@ export default function Account() {
     return (
       <div
       >
-        <LoadingScreen/>
+        Cargando...
       </div>
     )
   }

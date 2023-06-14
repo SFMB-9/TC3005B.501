@@ -6,7 +6,6 @@ import axios from "axios";
 import ManagerLayout from "@/components/providers/manager/layout";
 import CustomizedSnackbars from "@/components/general/Alert";
 import CloseIcon from "@mui/icons-material/Close";
-import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function WorkingHoursComponent() {
   const router = useRouter();
@@ -605,7 +604,7 @@ export default function WorkingHoursComponent() {
     );
   } else {
     return (
-      <LoadingScreen/>
+      <p>Cargando...</p>
     );
   }
 };

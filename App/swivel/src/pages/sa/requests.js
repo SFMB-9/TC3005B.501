@@ -386,7 +386,7 @@ onClick={(e) =>
       </>
     );
   } else {
-    <div><LoadingScreen/></div>
+    <div>Cargando...</div>
   }
 }
 

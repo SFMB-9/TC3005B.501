@@ -35,7 +35,6 @@ import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import LocationsMap from '@/components/general/locations_map';
 import PopUpComponent from '@/components/general/Popup';
-import LoadingScreen from "@/components/general/LoadingScreen";
 
 import styles from '@/styles/test_details.module.css';
 
@@ -303,7 +302,7 @@ export default function RequestDetails() {
   }, [uploadedDocument]);
 
   if (router.isFallback) {
-    return <div> <LoadingScreen/> </div>;
+    return <div>Cargando...</div>;
   }
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
@@ -617,7 +616,7 @@ export default function RequestDetails() {
   } else {
     return (
       <div>
-        <LoadingScreen/>
+        <p>Cargando...</p>
       </div>
     );
   }
