@@ -1,3 +1,13 @@
+import React from 'react'
+
+const MasPruebas = () => {
+  return (
+    <div>MasPruebas</div>
+  )
+}
+
+export default MasPruebas
+
 // import React from "react";
 // import { Bar } from "react-chartjs-2";
 
