@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
-import styles from "@/styles/add_SAdmin.module.css";
+import styles from "../../styles/add_SAdmin.module.css";
 import axios from "axios";
 import SANavbar from "@/components/SA/navbar";
 import { useSession } from "next-auth/react";
@@ -321,6 +321,7 @@ export default function AddSAdmin() {
             sx={{
               backgroundColor: "#979797",
               fontFamily: "lato",
+              marginRight: "2px",
               fontWeight: "bold",
               ":hover": { backgroundColor: "#BABABA" },
             }}
