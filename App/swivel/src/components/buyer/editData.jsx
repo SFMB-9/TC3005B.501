@@ -8,6 +8,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function EditAccount(props) {
   const { data: session } = useSession();
@@ -383,7 +384,7 @@ export default function EditAccount(props) {
     return (
       <div
       >
-        Cargando...
+        <LoadingScreen/>
       </div>
     )
   }

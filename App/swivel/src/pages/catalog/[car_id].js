@@ -21,6 +21,7 @@ import TemporaryDrawer from "@/components/general/Drawer";
 import axios from 'axios';
 import { useSession } from "next-auth/react";
 import Cookies from "js-cookie";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -1371,7 +1372,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <p>Cargando...</p>
+        <LoadingScreen/>
       </div>
     );
   }

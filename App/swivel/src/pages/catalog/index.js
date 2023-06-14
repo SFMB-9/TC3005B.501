@@ -20,6 +20,8 @@ import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
 import { useRouter } from "next/router";
 import Searchbar from "@/components/general/searchbar";
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 
 export default function Catalog() {
   const router = useRouter();
@@ -383,7 +385,7 @@ export default function Catalog() {
                     <Typography color="text.secondary" sx={{
                       fontFamily: "Lato",
                     }}>
-                      Buscando autos...
+                      <div style={{marginLeft:"26vw", heigth:"auto"}}> <LoadingScreen/> </div>
                     </Typography>
                   </span>
                 </div>
