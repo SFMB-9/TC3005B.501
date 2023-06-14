@@ -156,6 +156,7 @@ export default function CarDetails() {
       setSelectedDownPayment(carDetails.enganche[0]);
       setSelectedTerm(parseInt(Object.keys(carDetails.plazos)[0]));
       setInterestRate(carDetails.plazos[Object.keys(carDetails.plazos)[0]]);
+      
     }
   }, [carDetails]);
 
@@ -330,7 +331,7 @@ export default function CarDetails() {
       var button = document.getElementById("confirmButton");
       button.disabled = true;
     }
-
+    
     return (
       <div>
         <LandingPageLayout>
@@ -637,7 +638,7 @@ export default function CarDetails() {
                         fontSize={{ xs: 10, md: 18, lg: 18 }}
                         className="text-end w-100 pb-1"
                       >
-                        +${Intl.NumberFormat().format(selectedDeliveryPrice + totalPriceExtras)}{" "}
+                        +${Intl.NumberFormat().format(parseFloat(selectedDeliveryPrice) + parseFloat(totalPriceExtras))}{" "}
                         MXN
                       </Typography>
                       <Button
