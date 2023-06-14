@@ -69,6 +69,7 @@ export default function CarCard(props) {
   const [checkboxState, setCheckboxState] = useState(false);
 
   const handleCheckbox = (e) => {
+    e.stopPropagation();
     setCheckboxState(e.target.checked)
     if (e.target.checked) {
       console.log(props._id)
@@ -90,21 +91,19 @@ export default function CarCard(props) {
             alt="car"
           />
         </a>
-        <IconButton
-          onClick={(event) => {
-            event.stopPropagation(); 
-            setFavorite(!favorite);
-
-          }}
-          sx={{
-            position: 'absolute',
-            top: 3.5,
-            right: 3.5,
-            fontSize: '1.4rem',
-            color: '#F55C7A' /*favorite ? '#F55C7A' : 'grey',*/
-          }}>
-          {/* {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />} */}
-        </IconButton>
+        <div>
+      <input
+                    type="checkbox"
+                    checked={checkboxState}
+                    onChange={handleCheckbox}
+                    style={{position: 'absolute',
+                    top: 3.5,
+                    right: 3.5,
+                    fontSize: '1.4rem',
+                    color: '#F55C7A'}}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
       </div>
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
@@ -147,13 +146,7 @@ export default function CarCard(props) {
                     <div><ArrowForwardIcon sx={{ fontSize: 25, color: "#F55C7A" }} /></div>
                   </ThemeProvider>
                 </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={checkboxState}
-                    onChange={handleCheckbox}
-                  />
-                </div>
+                
               </>
             )
           }

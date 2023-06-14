@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect, useMemo } from "react";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CheckoutPage from "@/components/general/checkout";
-import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
+import { Container, Typography, Button, IconButton, Fade, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
 import { formatDate } from "@/components/general/date_utils";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react"
+
 
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -34,6 +35,18 @@ export default function Process() {
   const [uploadedDocument, setUploadedDocument] = useState(null);
   const [isOpen, setIsOpen] = useState(null);
   const [isChatOpen, setChatOpen] = useState(false);
+
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const toggleChat = () => {
     setChatOpen(!isChatOpen);
@@ -93,7 +106,20 @@ export default function Process() {
       return;
     }
 
-    documentUrl = await FileUpload(doc);
+    try {
+      documentUrl = await FileUpload(doc);
+    } catch (error) {
+      // Handle the error here. For example, you can show a popup with the error message.
+      console.error('File upload failed:', error.message);
+      // Show a popup with the error message
+      // alert(error.message);
+      setError(error.message); // Set the error message
+      handleClickOpen(); // Open the modal
+      return;
+    }
+
+    // documentUrl = await FileUpload(doc);
+
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
     currentDocs[i].estatus = "Pendiente";
@@ -119,15 +145,15 @@ export default function Process() {
   console.log(process_id)
   // Agregar confirmación de cancelación
   const handleCancel = async () => {
-    try{
+    try {
       console.log("estamos en", process_id)
       const result = await axios({
         method: 'delete',
         url: '/api/saleCreation/deleteProcess?process_id=' + process_id,
       });
-      
+
       router.back();
-    } catch(error){
+    } catch (error) {
       console.log(error)
     }
   };
@@ -144,7 +170,7 @@ export default function Process() {
     });
 
     return isValidated;
-    
+
   };
 
   useEffect(() => {
@@ -176,7 +202,7 @@ export default function Process() {
         renderCell: (params) => (
           <>
             {params.row.url && params.row.url !== "" ? (
-              <a href={params.row.url} target="_blank"> 
+              <a href={params.row.url} target="_blank">
                 <u>Ver archivo</u>
               </a>
             ) : (
@@ -203,7 +229,7 @@ export default function Process() {
         valueGetter: (params) => {
           const cell =
             params.row.fecha_modificacion !== "" &&
-            params.row.fecha_modificacion
+              params.row.fecha_modificacion
               ? formatDate(params.row.fecha_modificacion).formattedShortDate
               : 0;
           return cell;
@@ -291,7 +317,6 @@ export default function Process() {
     [documents, isOpen]
   );
 
-  console.log(process)
   if (process != null) {
     return (
       <div>
@@ -308,7 +333,28 @@ export default function Process() {
               </Typography>
             </div>
           </Fade>
-
+          <div>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle>
+                El documento que se subió no está permitido.
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  {error}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary" autoFocus>
+                  Cerrar
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
           <Fade in={true} timeout={1500}>
             <div className="section px-5 text-sm-start text-center mb-3">
               <div className="row align-items-center shadow-sm rounded border p-2 mb-3">
@@ -459,70 +505,70 @@ export default function Process() {
           <Fade in={true} timeout={1500}>
             <div className="container text-center mt-4">
               <div className="row">
-                  <div className="col-12 col-sm-6">
-                  <PopUpComponent 
-                title="Cancelar solicitud de compra"
-                popUpContent={
-                  <div className="text-center mt-3"> <p> ¿Estás segurx que quieres cancelar tu proceso de compra? </p>
-                  <p> Al hacer click en &quot;Cancelar proceso&quot; estás confirmando de forma definitiva que quieres cancelar tu solicitud de compra. </p>
-                  <Button
-                      variant="contained"
-                      onClick={handleCancel}
-                      type="submit"
-                      className="w-80"
-                      sx={{
-                          fontFamily: "Lato",
-                          ":hover": {
+                <div className="col-12 col-sm-6">
+                  <PopUpComponent
+                    title="Cancelar solicitud de compra"
+                    popUpContent={
+                      <div className="text-center mt-3"> <p> ¿Estás segurx que quieres cancelar tu proceso de compra? </p>
+                        <p> Al hacer click en &quot;Cancelar proceso&quot; estás confirmando de forma definitiva que quieres cancelar tu solicitud de compra. </p>
+                        <Button
+                          variant="contained"
+                          onClick={handleCancel}
+                          type="submit"
+                          className="w-80"
+                          sx={{
+                            fontFamily: "Lato",
+                            ":hover": {
                               backgroundColor: "red",
-                          },
-                      }}
-                  >
-                      Cancelar proceso
-                  </Button>
-                  </div>
-                }
-                btnOpen={
-                  <Button
-                sx={{
-                  fontFamily: "Lato",
-                color: "#FFFFFF",
-                  width: 150,
-                  backgroundColor: "gray",
-                  // ":hover": {
-                  //   backgroundColor: "#F68E70",
-                  // },
-                }}
-                disableElevation
-                type="button"
-                className="me-4"
-              >
-                Cancelar
-              </Button>
-                }
-              />
-                  </div>
-                  <div className="col-12 col-sm-6">
+                            },
+                          }}
+                        >
+                          Cancelar proceso
+                        </Button>
+                      </div>
+                    }
+                    btnOpen={
+                      <Button
+                        sx={{
+                          fontFamily: "Lato",
+                          color: "#FFFFFF",
+                          width: 150,
+                          backgroundColor: "gray",
+                          // ":hover": {
+                          //   backgroundColor: "#F68E70",
+                          // },
+                        }}
+                        disableElevation
+                        type="button"
+                        className="me-4"
+                      >
+                        Cancelar
+                      </Button>
+                    }
+                  />
+                </div>
+                <div className="col-12 col-sm-6">
                   <CheckoutPage
-                id={process_id}
-                validatedDocs={checkValidatedDocs()}
-                items={[
-                  {
-                    price_data: {
-                      currency: 'mxn',
-                      product_data: {
-                        name: `${process.auto.marca} ${process.auto.modelo} ${process.auto.ano}`,
-                        description: "Compra de auto",
-                        images: [process.auto.array_fotografias_url[0]],
+                    id={process_id}
+                    validatedDocs={checkValidatedDocs()}
+                    items={[
+                      {
+                        price_data: {
+                          currency: 'mxn',
+                          product_data: {
+                            name: `${process.auto.marca} ${process.auto.modelo} ${process.auto.ano}`,
+                            description: "Compra de auto",
+                            images: [process.auto.array_fotografias_url[0]],
+                          },
+                          unit_amount: Math.floor(parseFloat(process.cantidad_a_pagar) * 100),
+                        },
+                        quantity: 1,
                       },
-                      unit_amount: Math.floor(parseFloat(process.cantidad_a_pagar) * 100),
-                    },
-                    quantity: 1,
-                  },
-                ]}
-              />
-                  </div>
+                    ]}
+                  />
+                </div>
               </div>
-              
+
               {/* <Button
                 variant="outlined"
                 sx={{
@@ -542,7 +588,7 @@ export default function Process() {
                 Cancelar
               </Button> */}
 
-              
+
             </div>
           </Fade>
         </Container>

@@ -215,7 +215,21 @@ export default function RegisterForm() {
                             />
                         </div>
                         <div className="col-12 col-md-4">
-                            <TextField
+                        <select
+                                    required
+                                    className="form-control"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                    id={styles.dropdownStates}
+                                    >
+                                    <option style={{color:"#6C757D"}} value="" selected="Elegir estado">Elegir estado</option>
+                                    {mexicanStates.map((stateObj, index) => (
+                                        <option style={{color:"black"}} key={index} value={stateObj.name}>
+                                        {stateObj.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            {/* <TextField
                                 required
                                 size="small"
                                 className="w-100"
@@ -223,7 +237,7 @@ export default function RegisterForm() {
                                 value={state}
                                 onChange={(e) => setState(e.target.value)}
                                 style={{ marginBottom: "0.8rem" }}
-                            />
+                            /> */}
                         </div>
                         <div className="col-12 col-md-2">
                             <TextField

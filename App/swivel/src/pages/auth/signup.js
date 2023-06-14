@@ -16,7 +16,7 @@ import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 
 import AuthComponent from "@/components/login/auth_component";
 import mexicanStates from "@/components/general/states";
-import styles from '@/styles/signup.module.css'
+import styles from '@/styles/signup.module.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Función que retorna el formulario de registro de comprador con su dirección, junto con los botones de ingreso  */
@@ -411,7 +411,7 @@ export default function SignupBuyerData() {
                   size="small"
                   className="w-100 mb-2"
                   label="País"
-                  value="México"
+                  value={country}
                   disabled
                   error={errors.country}
                   helperText={errors.country ? "Solo letras" : ""}

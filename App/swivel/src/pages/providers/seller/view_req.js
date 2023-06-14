@@ -66,33 +66,6 @@ const RequestDetails = () => {
     setUser(u);
   };
 
-  // This function updates the status of a document
-  const updateDocumentStatus = async (_id, doc_id, status, phone) => {
-    await axios.put("/api/DrivingRequestsSeller/updateDocumentStatus", {
-      _id,
-      doc_id,
-      status,
-    });
-
-    await axios.post('/api/twilio/message', { 
-      to: `+521${phone}` , 
-      message: `*SWIVEL*\nActualización de tu proceso de compra\nEstado: ${status}` 
-    });
-
-    fetchRequests();
-  };
-
-  // This function creates a new comment for a document
-  const addNewComment = async (_id, doc_id, comment) => {
-    const doc = documents[doc_id];
-    await axios.put("/api/DrivingRequestsSeller/updateDocumentCommentMongo", {
-      _id,
-      doc_id,
-      comment: comment ? comment : doc.comment,
-    });
-    fetchRequests();
-  };
-
   useEffect(() => {
     if (id) {
       fetchRequests();
@@ -109,12 +82,17 @@ const RequestDetails = () => {
     return <div> <LoadingScreen/> </div>;
   }
 
-  const updateAnyDocument = async (status, i) => {
+  const updateAnyDocument = async (status, i, phone) => {
       setIsLoading(true)
     const upd = await axios.post("/api/superadmin/updateAnyDocStatus", {
       id: id,
       status: status,
       index: i
+    });
+
+    await axios.post('/api/twilio/message', { 
+      to: `+521${phone}` , 
+      message: `*SWIVEL*\nActualización de tu proceso de compra\nEstado: ${status}` 
     });
 
     fetchRequests();
@@ -168,7 +146,7 @@ const RequestDetails = () => {
           <Select
             value={params.row.estatus}
             onChange={(e) =>
-              updateDocumentStatus(request._id, params.row._id, e.target.value, user.numero_telefonico)
+              updateAnyDocument(e.target.value,params.row._id,user.numero_telefonico)
             }
             label="Status"
             variant="standard"
@@ -296,7 +274,7 @@ const RequestDetails = () => {
                         className="list-group-item"
                         style={{ fontFamily: "Lato", fontSize: 11 }}
                       >
-                        ${request.auto.precio}
+                        ${Intl.NumberFormat().format(request.auto.precio)}
                       </li>
                     </>
                   ) : (

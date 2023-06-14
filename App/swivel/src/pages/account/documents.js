@@ -1,4 +1,4 @@
-import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
+import { Container, Typography, Button, IconButton, Fade, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import React, { useState, useEffect, useMemo  } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -23,7 +23,16 @@ export default function Documents() {
   const [isOpen, setIsOpen] = useState(null);
   const [uploadedDocument, setUploadedDocument] = useState(null);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
-  
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   // console.log("session", session.id);
   const fetchData = async () => {
     const resData = await fetch(
@@ -65,7 +74,17 @@ export default function Documents() {
       return;
     }
 
-    documentUrl = await FileUpload(doc);
+    try {
+      documentUrl = await FileUpload(doc);
+    } catch (error) {
+      // Handle the error here. For example, you can show a popup with the error message.
+      console.error('File upload failed:', error.message);
+      // Show a popup with the error message
+      // alert(error.message);
+      setError(error.message); // Set the error message
+      handleClickOpen(); // Open the modal
+      return;
+    }
     // console.log(documentUrl);
 
     currentDocs[i].url = documentUrl;
@@ -249,6 +268,28 @@ export default function Documents() {
             maxHeight: "100vh",
           }}
         >
+          <div>
+          <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle>
+                El documento que se subió no está permitido.
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  {error}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary" autoFocus>
+                  Cerrar
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
           <DataTable
             columns={columns}
             rows={documents}

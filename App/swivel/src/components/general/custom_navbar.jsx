@@ -223,12 +223,12 @@ export default function CustomNavbar({
                       {element.popup.map((popup_element, subIndex) => (
                         <MenuItem key={subIndex} onClick={handleCloseUserMenu}>
                           {popup_element.signoutComponent ? (
-                            <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway'}} onClick={() => handleSignout(popup_element.signoutComponent)}>
+                            <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway', zIndex: 1000}} onClick={() => handleSignout(popup_element.signoutComponent)}>
                               {popup_element.name}
                             </Typography>
                           ) : (
                             <Link href={popup_element.href}>
-                              <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway'}} onClick={() => handleSignout(popup_element.signoutComponent)}>
+                              <Typography fontSize={'11px'} style={{ fontFamily: 'Raleway', zIndex: 1000}} onClick={() => handleSignout(popup_element.signoutComponent)}>
                                 {popup_element.name}
                               </Typography>
                             </Link>
