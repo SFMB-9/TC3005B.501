@@ -27,8 +27,7 @@ export default function SwivelExperience() {
                 backgroundColor: "#333333", },
               border: 'none',
               marginTop: '2.5rem',
-              width: '12vw',
-              height: '7vh',
+              width: 'auto',
               alignItems: "center"
             }}
             href="/auth/signup"
@@ -60,7 +59,7 @@ export default function SwivelExperience() {
             }}
             href="/"
           >
-            <h5> Ingresa al Catálogo </h5>
+            <h5> Descubre el auto para ti </h5>
           </Button>
         </div>
         <img src='/buyer/exp2.png'/>
