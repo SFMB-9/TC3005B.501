@@ -5,7 +5,13 @@ import { Container, Typography, Button, IconButton, Fade } from "@mui/material";
 import DataTable from "@/components/general/Table";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
+import GANavbar from '@/components/providers/GA/navbar';
+import styles from '@/styles/test_details.module.css';
+import PhaseIndicator from '@/components/general/phase_indicator';
+import { formatDate } from "@/components/general/date_utils";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function RegisterGroupProcess() {
     const router = useRouter();
@@ -15,7 +21,7 @@ export default function RegisterGroupProcess() {
     const [documents, setDocuments] = useState([]);
     const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
     const [uploadedDocument, setUploadedDocument] = useState(null);
-    const [isOpen, setIsOpen] = useState([]);
+    const [isOpen, setIsOpen] = useState();
 
     const fetchProcess = async () => {
         const response = await fetch(
@@ -34,23 +40,17 @@ export default function RegisterGroupProcess() {
         }
     };
 
-    const addToIsOpen = async (newKey) => {
-        let currentOpen = [...isOpen];
-        currentOpen.push(newKey);
-        setIsOpen(currentOpen);
-    };
+    // const addToIsOpen = async (newKey) => {
+    //     let currentOpen = [...isOpen];
+    //     currentOpen.push(newKey);
+    //     setIsOpen(currentOpen);
+    // };
 
     // Save the indices that were changed
     const handleDocumentEdit = async (indx) => {
 
-        console.log("uploadedDocument: " + uploadedDocument);
-        console.log("changedDocumentIndex: " + changedDocumentIndex);
-        const isOpenWithoutIndx = isOpen.filter(function (i) {
-            return i !== indx;
-        });
-
-        setIsOpen(isOpenWithoutIndx);
-        await handleSubmit();
+      setIsOpen(null);
+      await handleSubmit();
     };
 
     const handleSubmit = async () => {
@@ -113,19 +113,21 @@ export default function RegisterGroupProcess() {
                 "lApellidos": process.info_GA.legal.apellidos,
                 "lEmail": process.info_GA.legal.email,
                 "lPhone": process.info_GA.legal.numero_telefonico
-            }
+            },
+            "usuario_ga_id": process.usuario_ga_id
         }
 
-        try{
+        try {
             const result = await axios.post("/api/register", body);
             console.log(result);
-            if(result.status == 200){
+            if (result.status == 200) {
                 alert("Registro exitoso");
                 router.push("/providers/GA");
-            }else{
+            } else {
                 alert("Error al registrar");
             }
-        }catch(error){
+
+        } catch (error) {
             console.log(error);
             alert("Error al registrar");
         }
@@ -150,11 +152,24 @@ export default function RegisterGroupProcess() {
             },
             {
                 field: "url",
-                headerName: "URL",
+                headerName: "Archivo",
                 headerAlign: "center",
                 align: "center",
                 minWidth: 150,
                 flex: 2,
+                renderCell: (params) => (
+                    <>
+                        {params.row.url && params.row.url !== "" ? (
+                            <a href={params.row.url}>
+                                <u>Ver archivo</u>
+                            </a>
+                        ) : (
+                            <div>
+                                No hay archivo
+                            </div>
+                        )}
+                    </>
+                ),
             },
             {
                 field: "estatus",
@@ -163,6 +178,19 @@ export default function RegisterGroupProcess() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.estatus;
+                    if (cell === "En_Revision") {
+                        return "En revisión";
+                    }
+                    else if (cell === "aceptado") {
+                        return "Aceptado";
+                    }
+                    else if (cell === "rechazado") {
+                        return "Rechazado";
+                    }
+                    return cell;
+                },
             },
             {
                 field: "fecha_modificacion",
@@ -171,6 +199,10 @@ export default function RegisterGroupProcess() {
                 align: "center",
                 minWidth: 150,
                 flex: 1,
+                valueGetter: (params) => {
+                    const cell = params.row.fecha_modificacion !== "" && params.row.fecha_modificacion ? formatDate(params.row.fecha_modificacion).formattedShortDate : "";
+                    return cell;
+                },
             },
             {
                 field: "comentarios",
@@ -190,7 +222,7 @@ export default function RegisterGroupProcess() {
                 type: "actions",
                 renderCell: (params) => (
                     <>
-                        {isOpen.includes(params.row._id) ? (
+                        {isOpen === params.row._id ? (
                             <div>
                                 <label htmlFor="file-input">
                                     <IconButton aria-label="delete" size="small" component="span">
@@ -223,16 +255,33 @@ export default function RegisterGroupProcess() {
                                 </IconButton>
                             </div>
                         ) : (
-                            <IconButton
-                                aria-label="delete"
-                                size="small"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    addToIsOpen(params.row._id);
-                                }}
-                            >
-                                <UploadIcon />
-                            </IconButton>
+                            <div>
+                                {
+                                    params.row.url && params.row.url !== "" ? (
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setIsOpen(params.row._id);
+                                            }}
+                                        >
+                                            <EditIcon />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setIsOpen(params.row._id);
+                                            }}
+                                        >
+                                            <UploadIcon />
+                                        </IconButton>
+                                    )
+                                }
+                            </div>
                         )}
                     </>
                 ),
@@ -241,10 +290,17 @@ export default function RegisterGroupProcess() {
         [documents, isOpen]
     );
 
+    const phases = ['Datos', 'Legal', 'Documentos'];
+
     if (process != null) {
         return (
             <div>
-                <Container maxWidth="md">
+                <GANavbar />
+                <h1 className={styles.request}>Solicitud de registro de Grupo Automotriz</h1>
+                <PhaseIndicator phases={phases} currentPhaseIndex={2} />
+                <Container
+                // maxWidth="lg"
+                >
                     <Fade in={true} timeout={1000}>
                         <div className="section p-5">
                             <Typography
@@ -253,27 +309,50 @@ export default function RegisterGroupProcess() {
                                 fontSize={{ xs: 25, md: 28, lg: 33 }}
                                 className="pt-2 text-center"
                             >
-                                Suba los documentos requeridos para realizar su registro de Grupo Automotriz
+                                Entrega de documentos
+                                {/* Suba los documentos requeridos para realizar su registro de Grupo Automotriz */}
                             </Typography>
                         </div>
                     </Fade>
 
                     <Fade in={true} timeout={1500}>
                         <div className="section px-5 text-sm-start text-center mb-3">
-                            <div className="row align-items-center shadow-sm rounded border p-2 mb-3">
-                                <div className="col-12 col-sm-6">
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        className="pb-3"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
-                                    >
-                                        <strong>Nombre del Grupo Automotriz:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>
-                                            {process.info_GA.nombres}
-                                        </span>
-                                    </Typography>
-                                    <Typography
+                            <div className="container shadow-sm rounded border p-2 mb-3">
+                                <div className="row mt-4">
+                                    <div className="col-12 col-md-6">
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Nombre del grupo automotriz:
+                                            {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_GA.nombres}
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Sitio web:
+                                            {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_GA.url_grupo_automotriz}
+                                            </span>
+                                        </h5>
+                                        {/* <Typography
                                         fontFamily="Lato"
                                         color="#1F1F1F"
                                         className="pb-3"
@@ -283,26 +362,42 @@ export default function RegisterGroupProcess() {
                                         <span style={{ color: "#333333" }}>
                                             {process.info_GA.url_grupo_automotriz}
                                         </span>
-                                    </Typography>
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        className="pb-3"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
-                                    >
-                                        <strong>Número Telefónico:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>{process.info_GA.numero_telefonico}</span>
-                                    </Typography>
-                                    <Typography
-                                        fontFamily="Lato"
-                                        color="#1F1F1F"
-                                        fontSize={{ xs: 13, md: 14, lg: 16 }}
-                                    >
-                                        <strong>Email:</strong>{" "}
-                                        <span style={{ color: "#333333" }}>
-                                            {process.info_GA.email}
-                                        </span>
-                                    </Typography>
+                                    </Typography> */}
+                                    </div>
+                                </div>
+                                <div className="row mt-4 mb-4">
+                                    <div className="col-12 col-md-6">
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Número telefónico: {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_GA.numero_telefonico}
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <h5
+                                            style={{
+                                                paddingLeft: "1.2rem",
+                                            }}
+                                        >
+                                            Correo electrónico: {" "}
+                                            <span style={{
+                                                color: "#333333",
+                                                fontWeight: "lighter",
+                                                fontSize: "1.1rem"
+                                            }}>
+                                                {process.info_GA.email}
+                                            </span>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -348,13 +443,13 @@ export default function RegisterGroupProcess() {
                         </div>
                     </Fade>
                     <Fade in={true} timeout={1500}>
-                        <div className="text-center mt-4">
+                        <div className="text-center mt-4 mb-5">
                             <Button
                                 variant="outlined"
                                 sx={{
                                     fontFamily: "Lato",
                                     color: "000000",
-                                    width: 150,
+                                    width: "auto",
                                     // ":hover": {
                                     //   backgroundColor: "#F68E70",
                                     // },
@@ -371,7 +466,7 @@ export default function RegisterGroupProcess() {
                                 variant="contained"
                                 sx={{
                                     fontFamily: "Lato",
-                                    width: 150,
+                                    width: "auto",
                                     ":hover": {
                                         backgroundColor: "#F68E70",
                                     },
@@ -390,7 +485,7 @@ export default function RegisterGroupProcess() {
     } else {
         return (
             <div>
-                <p>Loading Process...</p>
+                <LoadingScreen/>
             </div>
         );
     }

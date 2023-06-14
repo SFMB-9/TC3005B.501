@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-export default function editDocs()
+export default function EditDocs()
 {
     const[file, setFile] = useState(null);
     const [documents, setDocuments] = useState([])

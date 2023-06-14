@@ -5,6 +5,7 @@ import LocationsMap from "@/components/general/locations_map";
 import { useRouter } from 'next/router'
 import styles from '@/styles/category_views.module.css'
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 // Selecting any item will actually 
 // instance a filter in the catalog
@@ -33,7 +34,7 @@ export default function CategoryViews() {
     const response = await fetch('/api/catalogoNuevo/tipos')
     const data = await response.json()
     console.log(data)
-    setTypes(data.result.sort())
+    setTypes(data.result)
   }
 
   const fetchYears = async () => {
@@ -180,10 +181,10 @@ export default function CategoryViews() {
         <>
           <div className={styles.brands}>
             <div className={styles.brandsArray}>
-              {itemsToShowBrand.map((brand) => (
-                <Link href={`/catalog?marca=${brand}`}>
+              {itemsToShowBrand.map((brand, index) => (
+                <Link href={`/catalog?marca=${brand}`} key={index}>
                   <div className={styles.brand}>
-                    <img src={`/buyer/brands/${brand}.png?`} />
+                    <img src={`/buyer/brands/${brand.toLowerCase()}.png`} />
                     <span className={styles.brandName}>{brand}</span>
                   </div>
                 </Link>
@@ -205,10 +206,10 @@ export default function CategoryViews() {
         <>
           <div className={styles.types}>
             <div className={styles.typesArray}>
-              {itemsToShowType.map((type) => (
-                <Link href={`/catalog?tipo=${type}`}>
+              {itemsToShowType.map((type, index) => (
+                <Link href={`/catalog?tipo=${type}`} key={index}>
                   <div className={styles.type}>
-                    <img src={`/buyer/types/${type}.png?`} />
+                  <img src={`/buyer/types/${type.toLowerCase()}.png`} />
                     <span className={styles.typeName}>{type}</span>
                   </div>
                 </Link>
@@ -227,8 +228,8 @@ export default function CategoryViews() {
       name: 'Años', component: () =>
         <>
           <div className={styles.yearsArray}>
-            {itemsToShowYear.map((year) => (
-              <Link href={`/catalog?year=${year}`}>
+            {itemsToShowYear.map((year, index) => (
+              <Link href={`/catalog?year=${year}`} key={index}>
                 <span className={styles.yearName}>{year}</span>
               </Link>
             ))}

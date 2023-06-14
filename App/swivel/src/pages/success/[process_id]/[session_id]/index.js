@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography, Button } from "@mui/material";
 import FileUpload from '@/pages/api/uploadBucketDoc/uploadBucketDoc';
 import CheckoutPage from "@/components/general/checkout";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function Process() {
     const router = useRouter();
@@ -38,14 +39,12 @@ export default function Process() {
   };
 
     useEffect(() => {
-        if (!process_id) {
+        if (!process_id && !session_id) {
             return;
         }
-
-        console.log("praocess_id: " + session_id);
         fetchProcess();
         updateProcess();
-    }, [process_id]);
+    }, [process_id, session_id]);
 
     if (process != null) {
         return (
@@ -295,7 +294,7 @@ export default function Process() {
     } else {
         return (
             <div>
-                <p>Loading Process...</p>
+                <LoadingScreen/>
             </div>
         );
     }

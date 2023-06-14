@@ -12,6 +12,7 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 import AccountLayout from "@/components/buyer/account_layout";
 
@@ -101,7 +102,7 @@ export default function Account() {
                     type="text"
                     name="nombre"
                     id="nombre"
-                    defaultValue={apiData.name}
+                    defaultValue={apiData.nombres}
                     // value={apiData.nombre}
                     // onChange={handleChange}
                     label="Nombre(s)"
@@ -738,7 +739,7 @@ export default function Account() {
     return (
       <div
       >
-        Cargando...
+        <LoadingScreen/>
       </div>
     )
   }

@@ -25,6 +25,7 @@ import { formatDate } from "@/components/general/date_utils";
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { es } from 'date-fns/locale';
 import setHours from "date-fns/setHours";
 import addDays from 'date-fns/addDays';
 import { format } from "date-fns";
@@ -34,6 +35,7 @@ import BuyerNavbar from '@/components/buyer/navbar';
 import PhaseIndicator from '@/components/general/phase_indicator';
 import LocationsMap from '@/components/general/locations_map';
 import PopUpComponent from '@/components/general/Popup';
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 import styles from '@/styles/test_details.module.css';
 
@@ -87,15 +89,26 @@ export default function RequestDetails() {
       return { ...doc, _id: i };
     });
 
+    // console.log("Car data: " + JSON.stringify(retrievedAuto));
+    // console.log("Agency data: " + JSON.stringify(retrievedAgency));
+    // console.log("Agency ID: " + retrievedAuto.agencia_id);
+    // console.log("User data: " + JSON.stringify(retrievedUser));
+    // console.log("First image: " + JSON.stringify(firstImage));
+
     setCarData(retrievedAuto);
     setAgencyData(retrievedAgency);
     setAgencyCoords({
-      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]), 
+      lat: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[0]),
       lng: parseFloat(retrievedAuto.coordenadas_agencia.split(",")[1])
     });
     setUserData(retrievedUser);
-    setDocuments(newDocuments);
     setUserAddress(retrievedAddress);
+
+    // Only update documents if they have changed in order to prevent an infinite loop
+    if (JSON.stringify(documents) !== JSON.stringify(newDocuments)) {
+      setDocuments(newDocuments);
+    }
+
     checkValidatedDocs();
   }
 
@@ -106,37 +119,23 @@ export default function RequestDetails() {
   };
 
   const handleDocumentEdit = async (indx) => {
-
-    // console.log("uploadedDocument: " + uploadedDocument);
     const isOpenWithoutIndx = isOpen.filter(function (i) {
       return i !== indx;
     });
 
     setIsOpen(isOpenWithoutIndx);
-    await handleSubmit();
   };
 
   const handleSubmit = async () => {
-    const currentDocs = documents;
-
-    if (!uploadedDocument) {
-      return;
-    }
-
     const documentUrl = await FileUpload(uploadedDocument);
-
-    currentDocs[changedDocumentIndex].url = documentUrl;
-    currentDocs[changedDocumentIndex].fecha_modificacion = new Date().toISOString();
 
     try {
       await fetch(
-        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${currentDocs[changedDocumentIndex].fecha_modificacion}&update_status=Subido`,
+        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${new Date().toISOString()}&update_status=Subido`,
         {
           method: "PUT",
         }
       );
-
-      setDocuments(currentDocs);
 
       fetchDetails();
     } catch (error) {
@@ -164,7 +163,11 @@ export default function RequestDetails() {
         renderCell: (params) => (
           <>
             {params.row.url && params.row.url !== "" ? (
-              <a href={params.row.url}>
+              <a
+                href={params.row.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <u>Ver archivo</u>
               </a>
             ) : (
@@ -219,24 +222,11 @@ export default function RequestDetails() {
                   style={{ visibility: "hidden", width: 0, height: 0 }}
                   onChange={(e) => {
                     e.preventDefault();
-                    const file = e.target.files[0];
-                    console.log("file", file);
-                    setUploadedDocument(file)
-                    setChangedDocumentIndex(params.row._id)
+                    setUploadedDocument(e.target.files[0]);
+                    setChangedDocumentIndex(params.row._id);
+                    handleDocumentEdit(params.row._id);
                   }}
                 />
-
-                <IconButton
-                  aria-label="delete"
-                  size="small"
-                  component="span"
-                  type="submit"
-                  onClick={() =>
-                    handleDocumentEdit(params.row._id)
-                  }
-                >
-                  <CheckIcon />
-                </IconButton>
               </div>
             ) : (
               <div>
@@ -275,9 +265,6 @@ export default function RequestDetails() {
   );
 
   const createDrivingTest = async () => {
-    // Save the changed documents to firebase
-    await handleSubmit();
-
     // Create driving test request
     const res = await axios.post('/api/prueba-manejo/crear-prueba-completa',
       { auto_id: auto_id, user_id: session.id, documents: documents, selected_date: selectedDate, selected_time: selectedTime, image_index: imageIndex });
@@ -295,10 +282,12 @@ export default function RequestDetails() {
 
   const checkValidatedDocs = () => {
     documents.forEach((doc) => {
-      if (doc.estatus !== "Aceptado") {
+      if (doc.estatus !== "Subido") {
         setValidatedDocs(false);
+        return;
       }
     });
+    setValidatedDocs(true);
   };
 
   useEffect(() => {
@@ -307,8 +296,14 @@ export default function RequestDetails() {
     }
   }, [session, documents]);
 
+  useEffect(() => {
+    if (uploadedDocument) {
+      handleSubmit();
+    }
+  }, [uploadedDocument]);
+
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div> <LoadingScreen/> </div>;
   }
 
   const phases = ['Datos', 'Elección de horario', 'Confirmación'];
@@ -325,91 +320,127 @@ export default function RequestDetails() {
         />
         {activeSectionIndex === 0 && (
           <>
-            <div className={styles.schedule}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-                className='d-flex flex-column justify-content-center'
-              >
-                <div className='row p-3'>
-                  <Typography
-                    variant="h4"
-                    fontWeight="bold"
-                    className="pb-2"
-                    sx={{
-                      fontFamily: "Raleway", color: "#333333",
-                      paddingTop: "0rem",
-                      paddingLeft: "2rem",
-                    }}
-                  >
-                    Datos Personales
-                  </Typography>
-                  <div className='col-12 col-md-5'>
-                  </div>
-                  <div className='col-12 col-md-1'>
+            <Container >
+
+              <Fade in={true} timeout={1500}>
+                <div className='section p-5 text-sm-start text-center'>
+                  <h4 className='mb-3'>Datos personales</h4>
+                  <div className='container shadow-sm rounded border p-2'>
+                    <div className='row mt-4 text-center'>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Nombre(s):
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.nombres}
+                          </span>
+                        </h5>
+                      </div>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Apellido(s):
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.apellidos}
+                          </span>
+                        </h5>
+                        </div>
+                    </div>
+                    <div className='row mt-4 text-center'>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Correo electrónico:
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.email}
+                          </span>
+                        </h5>
+                      </div>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Teléfono:
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userData.numero_telefonico}
+                          </span>
+                        </h5>
+                      </div>
+                    </div>
+                    <div className='row mt-4 mb-4 text-center'>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Estado de residencia: 
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userAddress.estado}
+                          </span>
+                        </h5>
+                        </div>
+                      <div className='col-12 col-md-6'>
+                        <h5
+                          style={{
+                            paddingLeft: "1.2rem",
+                          }}
+                        >
+                          Código postal: 
+                          {" "}
+                          <span style={{
+                            color: "#333333",
+                            fontWeight: "lighter",
+                            fontSize: "1.1rem"
+                          }}>
+                            {userAddress.codigo_postal}
+                          </span>
+                        </h5>
+                      </div>
+                      </div>
                   </div>
                 </div>
-                <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Nombre(s): <span style={{ color: "#333333" }}>{userData.nombres}</span></span>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Apellidos: <span style={{ color: "#333333" }}>{userData.apellidos}</span></span>
-                  </div>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                </div>
-                <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Correo: <span style={{ color: "#333333" }}>{userData.email}</span></span>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Celular: <span style={{ color: "#333333" }}>{userData.numero_telefonico}</span></span>
-                  </div>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                </div>
-                <div className='row p-3'>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Estado de residencia: <span style={{ color: "#333333" }}>{userAddress.estado}</span></span>
-                  </div>
-                  <div className='col-12 col-md-5'>
-                    <span style={{ color: "#8A8A8A" }}>Código postal: <span style={{ color: "#333333" }}>{userAddress.codigo_postal}</span></span>
-                  </div>
-                  <div className='col-12 col-md-1'>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <Typography
-                  variant="h4"
-                  fontWeight="bold"
-                  className="pb-2"
-                  sx={{
-                    fontFamily: "Raleway", color: "#333333",
-                    paddingTop: "1rem",
-                    paddingLeft: "2rem",
-                  }}
-                >
-                  Mis documentos
-                </Typography>
-                <div
-                  style={{
-                    padding: "3%",
-                    overflowY: "scroll",
-                    maxHeight: "100vh",
-                  }}
-                >
+              </Fade>
+              <Fade in={true} timeout={1500}>
+                <div className='section p-5 pt-0 text-sm-start text-center mb-3'>
+                <h4 className='mb-3'>Documentos</h4>
+                  <div className='pt-4'>
                   <DataTable
                     columns={columns}
                     rows={documents}
@@ -443,26 +474,11 @@ export default function RequestDetails() {
                       },
                     }}
                   />
+                  </div>
                 </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: "1rem",
-                  marginBottom: "1rem",
-                }}
-              >
+              </Fade>
+              <Fade in={true} timeout={1500}>
+                <div className='text-center mt-4 mb-5'>
                 <Button
                   sx={{
                     fontFamily: "Lato",
@@ -478,12 +494,13 @@ export default function RequestDetails() {
                   style={{
                     marginLeft: "2.5rem",
                   }}
-                  variant='contained' 
+                  variant='contained'
                   onClick={() => setActiveSectionIndex(1)}
                   disabled={!validatedDocs}
-                  >Continuar</Button>
-              </div>
-            </div>
+                >Continuar</Button>
+                </div>
+              </Fade>
+            </Container>
           </>
         )}
         {activeSectionIndex === 1 && (
@@ -501,18 +518,19 @@ export default function RequestDetails() {
               </div>
               <div className={styles.testInfo}>
                 <div className={styles.schedule}>
-                  <h2 className="mb-3">Elegir un horario:</h2>
-                  <h3> Elegir Fecha* </h3>
+                  <h3 className="mb-3">Elegir un horario:</h3>
+                  <h5> Elegir fecha* </h5>
                   <DatePicker
                     selected={selectedDate}
                     onChange={date => setSelectedDate(date)}
+                    locale={es}
                     dateFormat='dd/MM/yyyy'
                     minDate={addDays(new Date(), agencyData.dias_anticipo)}
                     maxDate={addDays(new Date(), agencyData.dias_max)}
                     startDate={addDays(new Date(), agencyData.dias_anticipo)}
                     className="p-2"
                   />
-                  <h3 className="mt-3"> Elegir Hora* </h3>
+                  <h5 className="mt-3"> Elegir hora* </h5>
                   <DatePicker
                     selected={selectedTime}
                     onChange={time => setSelectedTime(time)}
@@ -520,6 +538,7 @@ export default function RequestDetails() {
                     showTimeSelectOnly
                     timeFormat='hh aa'
                     timeIntervals={60}
+                    locale={es}
                     minTime={setHours(new Date(), agencyData.horas_min)}
                     maxTime={setHours(new Date(), agencyData.horas_max)}
                     dateFormat='hh:mm aa'
@@ -568,27 +587,37 @@ export default function RequestDetails() {
         )}
         {activeSectionIndex === 2 && (
           <>
-            <div>
-              <div>
-                <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
-                <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span><br />
-                <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span><br />
-                <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span><br />
+            <Container
+              className="d-flex flex-row justify-content-center"
+              sx={{
+                marginTop: "4vw",
+                marginBottom: "0.7vw"
+              }}
+            >
+
+              <div className="d-flex flex-column justify-content-center">
+                <div className="px-5">
+                  <span style={{ color: "#F55C7A" }}> Fecha:{" "} <span style={{ color: "#333333" }}> {format(selectedDate, "dd/MM/yyyy")} </span></span><br />
+                  <span style={{ color: "#F55C7A" }}> Horario:{" "} <span style={{ color: "#333333" }}> {format(selectedTime, "hh:mm aa")} </span></span><br />
+                  <span style={{ color: "#F55C7A" }}> Dirección:{" "} <span style={{ color: "#333333" }}> {carData.direccion_agencia} </span></span><br />
+                  {/* <span style={{ color: "#F55C7A" }}> Teléfono:{" "} <span style={{ color: "#333333" }}> {agencyData.numero_telefonico} </span></span><br /> */}
+                </div>
+                <img src={firstImage} id={styles.imageDiv} />
               </div>
-              <img src={firstImage} className={styles.imageDiv} />
-            </div>
-            <div>
-              <Button variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
-              <Button variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
+            </Container>
+            <div className="d-flex justify-content-center">
+              <Button className="m-3" variant='contained' onClick={() => setActiveSectionIndex(1)}>Volver</Button>
+              <Button className="m-3" variant='contained' onClick={() => createDrivingTest()}>Confirmar</Button>
             </div>
           </>
+
         )}
       </>
     );
   } else {
     return (
       <div>
-        <p>Cargando...</p>
+        <LoadingScreen/>
       </div>
     );
   }

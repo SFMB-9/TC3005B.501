@@ -25,6 +25,8 @@ import {
   AgencyEntity,
   SaEntity,
 } from "../../models/user";
+
+
 import Proceso from "../../models/procesos";
 
 import dbConnect from "../../config/dbConnect";
@@ -45,9 +47,9 @@ export default async function handler(req, res) {
 
     //
 
-    if (["gaEntity", "agencyEntity"].indexOf(role) === -1) {
-      const password = req.body.password;
-    }
+    // if (["gaEntity", "agencyEntity"].indexOf(role) === -1) {
+    //   const password = req.body.password;
+    // }
 
     const encrypted_role = encryptRole(role);
 
@@ -79,10 +81,9 @@ export default async function handler(req, res) {
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
 
-
-
       if (role === "user") {
 
+        const password = req.body.password;
         const street = req.body.direccion.calle;
         const exterior_num = req.body.direccion.numero_exterior;
         const interior_num = req.body.direccion.numero_interior;
@@ -125,6 +126,7 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "User registered successfully" });
       }
       else if (role === "seller") {
+        const password = req.body.password;
         const agencia_id = req.body.agencia_id;
 
         await SellerUser.create({
@@ -139,9 +141,6 @@ export default async function handler(req, res) {
           contar_ventas_completas: 0,
         });
         res.status(200).json({ message: "Seller registered successfully" });
-      }
-      else if (role === "agencyEntity") {
-
       }
       else if (role === "agencyEntity") {
 
@@ -184,7 +183,7 @@ export default async function handler(req, res) {
           },
           is_account_verified: false,
           url_agencia: url,
-
+          rfc_agencia: rfc,
           coordenadas_agencia: coordinate,
           horas_min: openT,
           horas_max: closeT,
@@ -200,6 +199,7 @@ export default async function handler(req, res) {
 
       }
       else if (role === "manager") {
+        const password = req.body.password;
         const GA = req.body.grupo_id;
         const A_id = req.body.agencia_id;
 
@@ -218,6 +218,7 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "Manager registered successfully" });
       }
       else if (role === "admin") {
+        const password = req.body.password;
         await SaEntity.create({
           nombres: name,
           apellidos: surname,
@@ -250,6 +251,8 @@ export default async function handler(req, res) {
         const legalEmail = req.body.legal.lEmail;
         const legalPhone = req.body.legal.lPhone;
 
+        const usuario_ga_id = req.body.usuario_ga_id;
+
         const GA = await GaEntity.create({
           tipo_usuario: encrypted_role,
           nombres: name,
@@ -275,10 +278,16 @@ export default async function handler(req, res) {
             numero_telefonico: legalPhone,
           },
         });
+
+        const ga_id = GA._id.toString();
+        const adminGA = await AdminUser.findByIdAndUpdate(usuario_ga_id, { grupo_automotriz_id: ga_id });
+
         res.status(200).json({ message: "GA registered successfully" });
 
       }
       else if (role === "ga_admin") {
+        const password = req.body.password;
+        const GA_id = req.body.grupo_id;
 
         const GAdmin = await AdminUser.create({
           tipo_usuario: encrypted_role,

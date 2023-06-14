@@ -1,6 +1,7 @@
 // Author: Mateo Herrera Sebastian Gonzalez
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -17,8 +18,10 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
 import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
-
+import axios from 'axios';
 import { useSession } from "next-auth/react";
+import Cookies from "js-cookie";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -30,6 +33,7 @@ export default function CarDetails() {
   const { car_id } = router.query;
   const [carDetails, setCarDetails] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [wishList, setWishlist] = useState([]);
 
   // States for selected down payment
   const [selectedDownPayment, setSelectedDownPayment] = useState(0);
@@ -74,6 +78,48 @@ export default function CarDetails() {
     setIsAvailable(data.result.disponible_prueba);
   };
 
+  const handleFavorites = (wishList) => {
+    if (wishList){
+      if (wishList.some(car => car._id === car_id)) {
+        setFavorite(true);
+      } else {
+        setFavorite(false);
+      }
+    }
+  };
+  
+  const fetchFavorites = async () => {
+    if (session){
+      try {
+        const response = await axios.get('/api/wishlist/pull-wishlist', { params: { id: session.id } }); 
+        setWishlist(response.data);
+        handleFavorites(response.data);
+      } 
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  }; 
+
+  // const handleFavorites = async () => {
+  //   if (wishList.some(car => car._id === car_id)) {
+  //     setFavorite(true);
+  //   } else {
+  //     setFavorite(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session) {
+        await fetchFavorites();
+        handleFavorites();
+      }
+    };
+  
+    fetchData();
+  }, [session]);
+
   useEffect(() => {
     if (!car_id) {
       return;
@@ -99,6 +145,26 @@ export default function CarDetails() {
     }
   }, [carDetails]);
 
+  const handleFavoritesToggle = async () => {
+    let newFavorite = !favorite;
+    let newWishList = [...wishList];
+    if (newFavorite) {
+      newWishList.push(car_id);
+    } else {
+      newWishList = newWishList.filter(car => car._id !== car_id);
+    }
+    setFavorite(newFavorite);
+    setWishlist(newWishList);
+    try {
+      await axios.put('/api/wishlist/add-to-wishlist', { id: session.id, lst: newWishList });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // If the update fails, revert the state
+      setFavorite(!newFavorite);
+      setWishlist(wishList);
+    }
+  };
+
   const handleButtonClick = (sectionId) => {
     const navbarHeight = document
       .getElementById("nav")
@@ -118,6 +184,7 @@ export default function CarDetails() {
       ano: carDetails.año,
       precio: carDetails.precio.toString(),
       array_fotografias_url: selectedColor.imagenes,
+      agencia: carDetails.agencia_id,
     };
 
     const payment =
@@ -130,19 +197,20 @@ export default function CarDetails() {
       cantidad_a_pagar: payment,
     };
 
-    try{
+    try {
       const result = await fetch("/api/saleCreation/with-mongo", {
         method: "POST",
         body: JSON.stringify(body),
       });
-  
-      await result.json().then((data) => {router.push(`/purchase/${data.id}`)});
-      
+
+      await result.json().then((data) => {
+        router.push(`/purchase/${data.id}`);
+      });
+
       //router.push(`/purchase/${data.id}`);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-    
   }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
@@ -249,14 +317,14 @@ export default function CarDetails() {
         <LandingPageLayout>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalog">
+              <Link href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
                 <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
                   Regresar al catálogo
                 </span>
-              </a>
+              </Link>
               <div className="pt-4">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>
@@ -288,7 +356,10 @@ export default function CarDetails() {
                         <div className="text-end">
                           <IconButton
                             aria-label="favorito"
-                            onClick={() => setFavorite(!favorite)}
+                            onClick={() => {
+                              handleFavoritesToggle();
+                            }}
+                            // onClick={() => setFavorite(!favorite)}
                             className="p-0"
                           >
                             <img
@@ -397,11 +468,17 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() =>
-                                session
-                                  ? viewDrivingRequestDetails(car_id)
-                                  : (window.location.href = "/auth/login")
+                              onClick={() => {
+                                if (session) {
+                                  viewDrivingRequestDetails(car_id);
+                                } else {
+                                  window.location.href = "/auth/login";
+                                  Cookies.set(
+                                    "CAR_REQ",
+                                    `${window.location.origin}/catalog/${car_id}`
+                                  );
                                 }
+                              }}
                               // disabled={!isAvailable}
                             >
                               Prueba de manejo
@@ -415,11 +492,17 @@ export default function CarDetails() {
                                 fontWeight: "bold",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() =>
-                                session
-                                  ? setDrawerOpen(true)
-                                  : (window.location.href = "/auth/login")
-                              }
+                              onClick={() => {
+                                if (session) {
+                                  setDrawerOpen(true);
+                                } else {
+                                  window.location.href = "/auth/login";
+                                  Cookies.set(
+                                    "CAR_REQ",
+                                    `${window.location.origin}/catalog/${car_id}`
+                                  );
+                                }
+                              }}
                             >
                               Compra
                             </Button>
@@ -506,11 +589,17 @@ export default function CarDetails() {
                           fontWeight: "bold",
                           ":hover": { backgroundColor: "#BABABA" },
                         }}
-                        onClick={() =>
-                          session
-                            ? setDrawerOpen(true)
-                            : (window.location.href = "/auth/login")
-                        }
+                        onClick={() => {
+                          if (session) {
+                            setDrawerOpen(true);
+                          } else {
+                            window.location.href = "/auth/login";
+                            Cookies.set(
+                              "CAR_REQ",
+                              `${window.location.origin}/catalog/${car_id}`
+                            );
+                          }
+                        }}
                         size="small"
                         className="w-100"
                       >
@@ -911,8 +1000,16 @@ export default function CarDetails() {
                           Tasa de{" "}
                           <strong>
                             {" "}
-                            {(Math.round((carDetails.plazos[selectedTerm] + Number.EPSILON) * 100)/100)
-                              ? (Math.round((carDetails.plazos[selectedTerm]+ Number.EPSILON) * 100)/100)
+                            {Math.round(
+                              (carDetails.plazos[selectedTerm] +
+                                Number.EPSILON) *
+                                100
+                            ) / 100
+                              ? Math.round(
+                                  (carDetails.plazos[selectedTerm] +
+                                    Number.EPSILON) *
+                                    100
+                                ) / 100
                               : 0}
                             %
                           </strong>
@@ -1159,8 +1256,9 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                       >
-                        {(Math.round((interestRate + Number.EPSILON) * 100)/100)}%
-                        
+                        {Math.round((interestRate + Number.EPSILON) * 100) /
+                          100}
+                        %
                       </Typography>
                     </div>
                   </div>
@@ -1222,8 +1320,8 @@ export default function CarDetails() {
                           $
                           {Intl.NumberFormat().format(
                             parseFloat(downPayment) +
-                            parseFloat(monthlyPayment) +
-                            parseFloat(selectedDeliveryPrice)
+                              parseFloat(monthlyPayment) +
+                              parseFloat(selectedDeliveryPrice)
                           )}{" "}
                           MXN
                         </div>
@@ -1274,7 +1372,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <p>Cargando...</p>
+        <LoadingScreen/>
       </div>
     );
   }
