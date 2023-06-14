@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import axios from "axios";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 import {
   Container,
@@ -159,7 +160,7 @@ export default function Profile() {
     return (
       <div
       >
-        Cargando...
+        <LoadingScreen/>
       </div>
     )
   }
