@@ -97,7 +97,7 @@ export default function Purchases() {
                 apiCompletedData && apiCompletedData.length > 0 ? (
                   <CatalogPagination
                     catalogData={apiCompletedData}
-                    carCardType="purchases"
+                    carCardType="finalized"
                     itemsPerPage={6}
                   />
                 )
