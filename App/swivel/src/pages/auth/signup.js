@@ -99,6 +99,22 @@ export default function SignupBuyerData() {
     }
   };
 
+  const errMessageAdvanced = (message) => {
+    if (message == "Usuario registrado exitosamente") {
+      return (
+        <Typography sx={{ fontFamily: "Lato", color: "green", fontSize: "12px" }}>
+          {message}
+        </Typography>
+      );
+    } else {
+      return (
+        <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>
+          {message}
+        </Typography>
+      );
+    }
+  };
+
   return (
     <>
       {activeSectionIndex === 0 && (
@@ -426,7 +442,7 @@ export default function SignupBuyerData() {
                   }}
                 />
                 <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-                  {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography>}
+                  {error ? null : errMessageAdvanced(errMessage)}
                   <Button
                     type="submit"
                     className="btn btn-primary btn-block mb-2"
