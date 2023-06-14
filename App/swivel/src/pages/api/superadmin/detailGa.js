@@ -27,13 +27,28 @@ export default async function handler(req, res){
 
 			})
 
-			const groupApproval = await Proceso.find({
+			const managers = await User.find({
 				grupo_automotriz_id:userId,
-			tipo_proceso:"peticionGA"
+				__t:"AdminUser"
 			})
+
+			let groupApproval; 
+
+			
+			for (const manager of managers) {
+
+				groupApproval = await Proceso.find({usuario_ga_id:manager._id,tipo_proceso:"registroGA"})
+
+				if (groupApproval) {break} else {continue}
+
+			}
+
+			console.log(groupApproval)
+
+
 			
 			
-			return res.status(200).json({groupDetails,groupAgencies,groupApproval, message: "Success" });
+			return res.status(200).json({groupDetails: groupDetails[0],groupAgencies, groupApproval: groupApproval[0], message: "Success" });
 			
 		} catch (err){
 			console.log(err);

@@ -46,9 +46,28 @@ const SARequestDashboard = () => {
 
         const allRequests = resp.data.allRequests
 
-        const reqGA = allRequests.filter(r => r.tipo_proceso === 'peticionGA');
-        const reqA = allRequests.filter(r => r.tipo_proceso === 'peticionA');
+        const reqGA = allRequests.filter(r => ((r.tipo_proceso === 'registroGA') && (r.hasOwnProperty("info_GA"))));
+        const reqA = allRequests.filter(r => r.tipo_proceso === 'registroAgencia');
         setIsLoading(false)
+
+
+        reqGA.forEach((element) => {
+
+          element["grupo_automotriz"] = element["info_GA"]["nombres"]
+          element["fecha_inicio"] = element["fecha_creacion"]
+        }
+
+          )
+
+
+        reqA.forEach((element) => {
+
+          element["agencia"] = element["info_agencia"]["nombres"]
+          element["fecha_inicio"] = element["fecha_creacion"]
+        }
+
+          )
+
 
 
         setRequestsGA(reqGA)
@@ -145,8 +164,8 @@ const SARequestDashboard = () => {
             label="Estatus"
           >
             <MenuItem value="pendiente">En Proceso</MenuItem>
-            <MenuItem value="Aceptada">Aprobado</MenuItem>
-            <MenuItem value="Rechazada">Rechazado</MenuItem>
+            <MenuItem value="aceptado">Aprobado</MenuItem>
+            <MenuItem value="rechazado">Rechazado</MenuItem>
           </Select>
         ),
       },
@@ -189,7 +208,7 @@ const SARequestDashboard = () => {
 
     const columnsA = [
       {
-        field: "agencia_id",
+        field: "_id",
         headerName: "Número de Solicitud",
         headerAlign: "center",
         align: "center",
@@ -197,7 +216,7 @@ const SARequestDashboard = () => {
         flex: 1,
       },
       {
-        field: "tipo_proceso",
+        field: "agencia",
         headerName: "Agencia",
         headerAlign: "center",
         align: "center",
@@ -234,8 +253,8 @@ const SARequestDashboard = () => {
             label="Estatus"
           >
             <MenuItem value="pendiente">En Proceso</MenuItem>
-            <MenuItem value="Aceptada">Aprobado</MenuItem>
-            <MenuItem value="Rechazada">Rechazado</MenuItem>
+            <MenuItem value="aceptado">Aprobado</MenuItem>
+            <MenuItem value="rechazado">Rechazado</MenuItem>
           </Select>
         ),
       },
@@ -367,7 +386,7 @@ onClick={(e) =>
       </>
     );
   } else {
-    <div>Cargando...</div>
+    <div><LoadingScreen/></div>
   }
 }
 

@@ -35,7 +35,7 @@ export default function SignupBuyerData() {
   const [state, setState] = useState("");
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("México");
   const { encryptRole } = require("@/utils/crypto");
   const [errors, setErrors] = useState({
     name: false,
@@ -66,7 +66,7 @@ export default function SignupBuyerData() {
     for (const key in errors) {
       if (errors[key]) return true;
     }
-    return !(street && exterior_num && city && state && country && postalCode);
+    return !(street && exterior_num && city && state && postalCode);
   };
   const submitHandler = async (e) => {
     try {
@@ -93,7 +93,7 @@ export default function SignupBuyerData() {
       setErrMessage("Usuario registrado exitosamente");
       setTimeout(() => {window.location.href = "/auth/login";}, 8000);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
       passStatus = false;
       setErrMessage("Hubo un error al registrarse");
     }
@@ -334,7 +334,7 @@ export default function SignupBuyerData() {
                 <div className="d-flex flex-row mb-2">
                   <TextField
                     required
-                    type="number"
+                    type="text"
                     size="small"
                     className="w-100"
                     sx={{marginRight:"0.5vw"}}
@@ -347,7 +347,7 @@ export default function SignupBuyerData() {
                   />
                   <TextField
                     size="small"
-                    type="number"
+                    type="text"
                     className="w-100"
                     sx={{marginLeft:"0.5vw"}}
                     label="nº Interior"
@@ -360,7 +360,7 @@ export default function SignupBuyerData() {
                 </div>
                 <TextField
                   required
-                  type="number"
+                  type="text"
                   size="small"
                   className="w-100 mb-2"
                   label="Código Postal"
@@ -427,8 +427,8 @@ export default function SignupBuyerData() {
                   size="small"
                   className="w-100 mb-2"
                   label="País"
-                  value={country}
-                  disabled={loading}
+                  value="México"
+                  disabled
                   error={errors.country}
                   helperText={errors.country ? "Solo letras" : ""}
                   onChange={(e) => {

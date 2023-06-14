@@ -1,11 +1,6 @@
-import { BuyerUser } from "../../../models/user";
-import dbConnect from "../../../config/dbConnect";
-import { encryptRole } from "../../../utils/crypto";
-import { Client } from '@elastic/elasticsearch';
-
-
+const { Client } = require('@elastic/elasticsearch')
 /* 
-buyer wishlist retrieval function
+car comparison function
 Recieves: request object, response object
 Returns: response status and json 
 */
@@ -18,28 +13,29 @@ export default async function handler(req, res) {
     })
 
     if(req.method === 'GET'){
-        dbConnect();
+        const lst = req.query.lst;
+        const arr = lst.split(',')
 
-        const { id } = req.query;
+        // console.log(arr)
 
-        const e_role = encryptRole("user")
+        // Dont think this should be handled here
+        // if(arr.length < 1 || arr.length > 4){
+        //     return res.status(401).json({ message: 'Unsupported amount of cars' }); // <-- handle this part in front
+        // };
 
         try {
-            const result = await BuyerUser.findOne({ tipo_usuario: e_role, _id: id }, "lista_deseos").lean().exec();
-            const wishlist = result.lista_deseos;
-
             const body = await client.search({
                 index: 'autos',
                 body: {
                   query: {
                     terms: {
-                      _id: wishlist
+                      _id: arr
                     }
                   }
                 }
               });
 
-            const searchResults = body.hits.hits.map(hit => hit); //._source);
+            const searchResults = body.hits.hits.map(hit => hit._source);
             
             res.status(200).json(searchResults);
         } 

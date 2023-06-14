@@ -3,6 +3,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { TextField } from "@mui/material";
 import PhaseIndicator from '@/components/general/phase_indicator';
 import { useSession } from "next-auth/react";
 import GANavbar from '@/components/providers/GA/navbar'
@@ -116,70 +117,55 @@ export default function RegisterForm() {
                         >
                             <div className="row mt-4">
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Nombre del Grupo Automotriz"
+                                    <TextField 
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Nombre del Grupo Automotriz"
                                         value={GAName}
                                         onChange={(e) => setGAName(e.target.value)}
-                                        required
-                                        style={{
-                                            marginBottom: "0.8rem"
-                                        }}
                                     />
                                 </div>
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="URL del sitio web"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="URL del sitio web"
                                         value={url}
                                         onChange={(e) => setUrl(e.target.value)}
-                                        required
-                                        style={{
-                                            marginBottom: "0.8rem"
-                                        }}
                                     />
                                 </div>
                             </div>
                             <div className="row mt-2">
                                 <div className="col-12 col-md-4">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Número telefónico"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Número telefónico"
                                         value={GAphone}
                                         onChange={(e) => setGAPhone(e.target.value)}
-                                        required
-                                        style={{
-                                            marginBottom: "0.8rem"
-                                        }}
                                     />
                                 </div>
                                 <div className="col-12 col-md-4">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="RFC"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="RFC"
                                         value={rfc}
                                         onChange={(e) => setRfc(e.target.value)}
-                                        required
-                                        style={{
-                                            marginBottom: "0.8rem"
-                                        }}
                                     />
                                 </div>
                                 <div className="col-12 col-md-4">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Correo electrónico de contacto"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Correo electrónico de contacto"
                                         value={GAemail}
                                         onChange={(e) => setGAEmail(e.target.value)}
-                                        required
-                                        style={{
-                                            marginBottom: "0.8rem"
-                                        }}
                                     />
                                 </div>
                             </div>
@@ -199,39 +185,38 @@ export default function RegisterForm() {
                         >
                             <div className="row mt-4">
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Calle"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Calle"
                                         value={street}
                                         onChange={(e) => setStreet(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
                                     />
                                 </div>
                                 <div className="col-6 col-md-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Numero exterior"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Numero exterior"
                                         value={exterior_num}
                                         onChange={(e) => setExteriorNum(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
                                     />
                                 </div>
                                 <div className="col-6 col-md-3">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Numero interior"
+                                    <TextField
+                                        size="small"
+                                        className="w-100"
+                                        label="Numero interior"
                                         value={interior_num}
                                         onChange={(e) => setInteriorNum(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
@@ -240,53 +225,70 @@ export default function RegisterForm() {
                             </div>
                             <div className="row mt-2">
                                 <div className="col-12 col-md-4">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Ciudad"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Ciudad"
                                         value={city}
                                         onChange={(e) => setCity(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
+
                                     />
                                 </div>
                                 <div className="col-12 col-md-4">
-                                    <input
+                                <select
+                                    required
+                                    className="form-control"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                    id={styles.dropdownStates}
+                                    >
+                                    <option style={{color:"#6C757D"}} value="" selected="Elegir estado">Elegir estado</option>
+                                    {mexicanStates.map((stateObj, index) => (
+                                        <option style={{color:"black"}} key={index} value={stateObj.name}>
+                                        {stateObj.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                    { /* <input
                                         type="text"
                                         className="form-control"
                                         placeholder="Estado"
                                         value={state}
                                         onChange={(e) => setState(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="col-12 col-md-2">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="País"
-                                        value="México"
+                                    <TextField
+                                        required
+                                        disabled
+                                        size="small"
+                                        className="w-100"
+                                        label="País"
+                                        value={country}
+                                        inputProps={{
+                                            readOnly: true,
+                                        }}
                                         onChange={(e) => setCountry(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
-                                        inputProps={{ readOnly: true }}
                                     />
                                 </div>
                                 <div className="col-12 col-md-2">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Código postal"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Código postal"
                                         value={postalCode}
                                         onChange={(e) => setPC(e.target.value)}
-                                        required
                                         style={{
                                             marginBottom: "0.8rem"
                                         }}
@@ -307,7 +309,6 @@ export default function RegisterForm() {
                                             width: '100%',
                                             padding: '0.5rem 1rem',
                                         }}
-                                    //onClick={secondSection}
                                     >
                                         Cancelar
                                     </button>
@@ -323,7 +324,6 @@ export default function RegisterForm() {
                                             width: '100%',
                                             padding: '0.5rem 1rem',
                                         }}
-                                        //onClick={secondSection}
                                         onClick={() => {
                                             setActiveSectionIndex(1)
                                             console.log(activeSectionIndex)
@@ -353,47 +353,59 @@ export default function RegisterForm() {
                         >
                             <div className="row mt-4">
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Nombre(s)"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Nombre(s)"
                                         value={legalName}
                                         pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
                                         onChange={(e) => setLegalName(e.target.value)}
-                                        required
+                                        style={{
+                                            marginBottom: "0.8rem"
+                                        }}
                                     />
                                 </div>
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Apellido(s)"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Apellido(s)"
                                         value={legalSurname}
                                         pattern="[a-zA-Z0-9À-ÿ\u00f1\u00d1\s]+"
                                         onChange={(e) => setLegalSurname(e.target.value)}
-                                        required
+                                        style={{
+                                            marginBottom: "0.8rem"
+                                        }}
                                     />
                                 </div>
                             </div>
                             <div className="row mt-2">
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Correo electrónico"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Correo electrónico"
                                         value={legalEmail}
                                         onChange={(e) => setLegalEmail(e.target.value)}
-                                        required
+                                        style={{
+                                            marginBottom: "0.8rem"
+                                        }}
                                     />
                                 </div>
                                 <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Número telefónico"
+                                    <TextField
+                                        required
+                                        size="small"
+                                        className="w-100"
+                                        label="Número telefónico"
                                         value={legalPhone}
                                         onChange={(e) => setLegalPhone(e.target.value)}
-                                        required
+                                        style={{
+                                            marginBottom: "0.8rem"
+                                        }}
                                     />
                                 </div>
                             </div>

@@ -188,7 +188,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                   Mis pruebas de manejo
                 </MenuItem>
               </Link>
-              {/* <Link href={`${root}/favorites`}>
+              <Link href={`${root}/wishlist`}>
                 <MenuItem
                   icon={<FavoriteIcon />}
                   style={{ color: '#333333' }}
@@ -197,7 +197,7 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 >
                   Mis favoritos
                 </MenuItem>
-              </Link> */}
+              </Link>
               <Link href={`${root}/documents`}>
                 <MenuItem
                   icon={<FolderIcon />}

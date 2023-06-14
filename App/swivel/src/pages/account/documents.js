@@ -10,6 +10,7 @@ import AccountLayout from '@/components/buyer/account_layout';
 import DataTable from "@/components/general/Table";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import { formatDate } from "@/components/general/date_utils";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 export default function Documents() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function Documents() {
   const [documents, setDocuments] = useState([]);
   const [apiData, setApiData] = useState(null);
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useState([]);
+  const [isOpen, setIsOpen] = useState(null);
   const [uploadedDocument, setUploadedDocument] = useState(null);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
   
@@ -40,20 +41,15 @@ export default function Documents() {
     }
   };
 
-  const addToIsOpen = async (newKey) => {
-    let currentOpen = [...isOpen];
-    currentOpen.push(newKey);
-    setIsOpen(currentOpen);
-  };
+  // const addToIsOpen = async (newKey) => {
+  //   let currentOpen = [...isOpen];
+  //   currentOpen.push(newKey);
+  //   setIsOpen(currentOpen);
+  // };
 
   const handleDocumentEdit = async (indx) => {
 
-    // console.log("uploadedDocument: " + uploadedDocument);
-    const isOpenWithoutIndx = isOpen.filter(function (i) {
-      return i !== indx;
-    });
-
-    setIsOpen(isOpenWithoutIndx);
+    setIsOpen(null);
     await handleSubmit();
   };
 
@@ -162,7 +158,7 @@ export default function Documents() {
         type: "actions",
         renderCell: (params) => (
           <>
-            {isOpen.includes(params.row._id) ? (
+            {isOpen === params.row._id ? (
               <div>
                 <label htmlFor="file-input">
                   <IconButton aria-label="delete" size="small" component="span">
@@ -204,7 +200,7 @@ export default function Documents() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <EditIcon />
@@ -215,7 +211,7 @@ export default function Documents() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <UploadIcon />
@@ -293,7 +289,7 @@ export default function Documents() {
     return (
       <div
       >
-        Cargando...
+        <LoadingScreen/>
       </div>
     )
   }

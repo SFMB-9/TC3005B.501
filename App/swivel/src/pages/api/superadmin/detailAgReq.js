@@ -3,7 +3,8 @@ import dbConnect from "../../../config/dbConnect";
 import {User} from "../../../models/user";
 const Proceso = require("../../../models/procesos");
 import { encryptRole } from "../../../utils/crypto";
-
+import connectToDatabase from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res){
 
@@ -11,31 +12,24 @@ export default async function handler(req, res){
 
 	if(req.method == "POST"){
 
-		dbConnect();
+		const client = await connectToDatabase;
+    	const db = client.db("test");
+    	const processCollection = db.collection('procesos');
+    	const userCollection = db.collection('usuarios');
 
 		try{
 
 
-			const reqFound = await Proceso.findById(reqId);
-			const userId = reqFound.usuario_final_id;
+			const reqFound = await processCollection.findOne({_id: new ObjectId(reqId)});
 
+			const agencyDetails = reqFound["info_agencia"];
 
+			const userId = reqFound.grupo_automotriz_id;
 
+			const managerDetails= await userCollection.findOne({_id: new ObjectId(userId)});
 
-
-			const managerDetails= await User.findById(
-				userId
-				
-			)
-
-			const agencyDetails = await User.findById(
-				reqFound.agencia_id
-				)
-
-			const repDetails = await User.findById(agencyDetails.grupo_automotriz_id)
 			
-			
-			return res.status(200).json({agencyDetails,managerDetails,reqFound,repDetails, message: "Success" });
+			return res.status(200).json({reqFound, agencyDetails, managerDetails, message: "Success" });
 			
 		} catch (err){
 			console.log(err);

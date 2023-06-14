@@ -7,26 +7,26 @@ export default function GANavbar() {
   const elemsRight = session
     ? [
       {
-        name: 'Acciones', 
-        href: '', 
+        name: 'Acciones',
+        href: '',
         popup: [
-          {name: 'Administración de G.A', href: '/providers/GA/manageGA'}, 
-          {name: 'Administración de agencias', href: '/providers/GA/agency_management'}, 
-          {name: 'Estadísticas de ventas', href: ''}
+          { name: 'Administración de G.A', href: '/providers/GA/manageGA' },
+          { name: 'Administración de agencias', href: '/providers/GA/agency_management' },
+          { name: 'Estadísticas de ventas', href: '' }
         ],
       },
       {
-        name: 'Mi cuenta', 
-        href: '', 
+        name: 'Mi cuenta',
+        href: '',
         popup: [
-          {name: 'Editar Mi Perfil', href: '/providers/GA/editProfile'}, 
-          {name: 'Cambiar contraseña', href: '/providers/GA/GA-update-password'}, 
-          {name: 'Cerrar sesión', href:'#', signoutComponent: '/auth/providers/login'}
+          { name: 'Editar Mi Perfil', href: '/providers/GA/editProfile' },
+          { name: 'Cambiar contraseña', href: '/providers/GA/GA-update-password' },
+          { name: 'Cerrar sesión', href: '#', signoutComponent: '/auth/providers/login' }
         ]
       },
     ] : [
       { name: "Iniciar sesión", href: "/auth/providers/login" },
-      {name: 'Registra tu G.A', href: '/providers/GA/registerGroup/form'}
+      { name: 'Regístrate', href: 'GA/registroAdmin' }
     ];
 
   return (
@@ -34,7 +34,7 @@ export default function GANavbar() {
       home='/providers/GA'
       elems_left={[
         { name: "Sobre nosotros", href: "/about" },
-        { name: "Compra un auto", href: "/catalog"},
+        { name: "Compra un auto", href: "/catalog" },
       ]}
       searchbar
       elems_right={elemsRight}

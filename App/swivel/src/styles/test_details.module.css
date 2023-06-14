@@ -52,10 +52,10 @@
 .carInfo {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 10px solid #979797;
+  /* margin: 10px solid #979797; */
 }
 
 .carName {
@@ -74,7 +74,7 @@
 }
 
 .address {
-  padding: 1vw;
+  padding: 0 1vw;
   color: #979797;
   margin-bottom: 2px solid #979797;
   text-align: center;
@@ -128,4 +128,39 @@
 
 .confLine {
   color: "#F55C7A"
+}
+
+#dropdownStates{
+  font-family: 'Lato';
+  width: 100%; 
+  border-radius:5px;
+  border-width: 1px;
+  padding: 6px;
+  color:#666666;
+  border-color:#C4C4C4;
+  appearance: none;
+  background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+  background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+  background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+  background-repeat: no-repeat;
+}
+
+#dropdownStates:hover{
+  border-color:#212121;
+}
+
+#dropdownStates:focus {
+  box-shadow: none;
+  border-color: #F55C7A;
+  border-width: 2px;
+  outline: none;
 }

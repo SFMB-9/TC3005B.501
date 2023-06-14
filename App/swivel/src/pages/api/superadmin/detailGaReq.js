@@ -3,7 +3,10 @@ import dbConnect from "../../../config/dbConnect";
 import {User} from "../../../models/user";
 const Proceso = require("../../../models/procesos");
 import { encryptRole } from "../../../utils/crypto";
-
+import { Select, MenuItem, Typography, Button} from "@mui/material";
+import connectToDatabase from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
+ 
 
 export default async function handler(req, res){
 
@@ -11,38 +14,21 @@ export default async function handler(req, res){
 
 	if(req.method == "POST"){
 
-		dbConnect();
+		const client = await connectToDatabase;
+    	const db = client.db("test");
+    	const processCollection = db.collection('procesos');
 
 		try{
 
 
-			const reqFound = await Proceso.findById(reqId);
-			const userId = reqFound.grupo_automotriz_id
+			const reqFound = await processCollection.findOne({_id: new ObjectId(reqId)});
+			const groupDetails = reqFound.info_GA
+			const groupApproval = reqFound
+			const groupDocs = reqFound.documentos
 
 
-
-
-
-			const groupDetails= await User.find(
-			{ 
-				_id:userId
-				
-			})
-
-			const groupAgencies = await User.find({
-
-				grupo_automotriz_id:userId,
-				__t: "AgencyEntity"
-
-			})
-
-			const groupApproval = await Proceso.find({
-				grupo_automotriz_id:userId,
-			tipo_proceso:"peticionGA"
-			})
 			
-			
-			return res.status(200).json({groupDetails,groupAgencies,groupApproval, message: "Success" });
+			return res.status(200).json({groupApproval, groupDetails, groupDocs, message: "Success" });
 			
 		} catch (err){
 			console.log(err);

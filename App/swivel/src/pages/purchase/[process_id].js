@@ -30,7 +30,7 @@ export default function Process() {
   const [documents, setDocuments] = useState([]);
   const [changedDocumentIndex, setChangedDocumentIndex] = useState([]);
   const [uploadedDocument, setUploadedDocument] = useState(null);
-  const [isOpen, setIsOpen] = useState([]);
+  const [isOpen, setIsOpen] = useState(null);
   const [isChatOpen, setChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -63,22 +63,20 @@ export default function Process() {
         return { ...doc, _id: i };
       });
       setDocuments(newDocuments);
+      checkValidatedDocs();
     }
   };
 
-  const addToIsOpen = async (newKey) => {
-    let currentOpen = [...isOpen];
-    currentOpen.push(newKey);
-    setIsOpen(currentOpen);
-  };
+  // const addToIsOpen = async (newKey) => {
+  //   let currentOpen = [...isOpen];
+  //   currentOpen.push(newKey);
+  //   setIsOpen(currentOpen);
+  // };
 
   // Save the indices that were changed
   const handleDocumentEdit = async (indx) => {
-    const isOpenWithoutIndx = isOpen.filter(function (i) {
-      return i !== indx;
-    });
 
-    setIsOpen(isOpenWithoutIndx);
+    setIsOpen(null);
     await handleSubmit();
   };
 
@@ -96,7 +94,7 @@ export default function Process() {
     documentUrl = await FileUpload(doc);
     currentDocs[i].url = documentUrl;
     currentDocs[i].fecha_modificacion = new Date().toISOString();
-    currentDocs[i].estatus = "En Revisión";
+    currentDocs[i].estatus = "Pendiente";
 
     console.log("process_id: " + process_id);
     console.log("doc_index: " + i);
@@ -133,13 +131,18 @@ export default function Process() {
   };
 
   const checkValidatedDocs = () => {
-    let validatedDocs = true;
-    documents.forEach((doc) => {
-      if (doc.estatus !== "Aceptado" || doc.estatus !== "ID Validada") {
-        validatedDocs = false;
+
+    let isValidated = true;
+
+    documents.map((doc) => {
+      console.log(doc.estatus);
+      if (doc.estatus !== "Aceptado") {
+        isValidated = false;
       }
     });
-    return validatedDocs;
+
+    return isValidated;
+    
   };
 
   useEffect(() => {
@@ -222,7 +225,7 @@ export default function Process() {
         type: "actions",
         renderCell: (params) => (
           <>
-            {isOpen.includes(params.row._id) ? (
+            {isOpen === params.row._id ? (
               <div>
                 <label htmlFor="file-input">
                   <IconButton aria-label="delete" size="small" component="span">
@@ -260,7 +263,7 @@ export default function Process() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <EditIcon />
@@ -271,7 +274,7 @@ export default function Process() {
                     size="small"
                     onClick={(e) => {
                       e.preventDefault();
-                      addToIsOpen(params.row._id);
+                      setIsOpen(params.row._id);
                     }}
                   >
                     <UploadIcon />
@@ -368,7 +371,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    <strong>Agente Asignado</strong>
+                    <strong>Vendedor Asignado</strong>
                   </Typography>
                   <Typography
                     fontFamily="Lato"
@@ -376,7 +379,7 @@ export default function Process() {
                     className="py-1"
                     fontSize={{ xs: 13, md: 14, lg: 16 }}
                   >
-                    Hola! Soy tu agente,<br />
+                    Hola! Soy tu vendedor,<br />
                     estaré revisando tus documentos y contestando las dudas que tengas. <br />
                   </Typography>
                 </div>
