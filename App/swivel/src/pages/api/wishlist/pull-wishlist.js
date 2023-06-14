@@ -24,8 +24,6 @@ export default async function handler(req, res) {
 
         const e_role = encryptRole("user")
 
-        console.log(id)
-
         try {
             const result = await BuyerUser.findOne({ tipo_usuario: e_role, _id: id }, "lista_deseos").lean().exec();
             const wishlist = result.lista_deseos;
@@ -41,7 +39,7 @@ export default async function handler(req, res) {
                 }
               });
 
-            const searchResults = body.hits.hits.map(hit => hit._source);
+            const searchResults = body.hits.hits.map(hit => hit); //._source);
             
             res.status(200).json(searchResults);
         } 

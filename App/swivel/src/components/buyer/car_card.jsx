@@ -56,7 +56,7 @@ function setColor(cardType, status){
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(props.favoriteCar);
   const [statusColor, statusDisplay] = setColor(props.cardType, props.status);
   const theme = createTheme({
     palette: {
@@ -65,10 +65,6 @@ export default function CarCard(props) {
       },
     },
   });
-  let cardMaxWidth = 500;
-  if (props.cardType !== "catalog") {
-    cardMaxHeight = 500;
-  }
 
   const [checkboxState, setCheckboxState] = useState(false);
 
@@ -84,7 +80,7 @@ export default function CarCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: cardMaxWidth }}>
+    <Card sx={{ maxWidth: 500 }}>
       <div style={{ position: 'relative' }}>
         <a href={props.carUrl}>
           <CardMedia
@@ -98,6 +94,7 @@ export default function CarCard(props) {
           onClick={(event) => {
             event.stopPropagation(); 
             setFavorite(!favorite);
+
           }}
           sx={{
             position: 'absolute',
@@ -106,7 +103,7 @@ export default function CarCard(props) {
             fontSize: '1.4rem',
             color: '#F55C7A' /*favorite ? '#F55C7A' : 'grey',*/
           }}>
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {/* {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />} */}
         </IconButton>
       </div>
       <CardActionArea component="a" href={props.carUrl}>
