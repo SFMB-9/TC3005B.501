@@ -20,7 +20,7 @@ export default function Testimonials() {
           <CustomCard
             fiftyFifty
             imageSource='/buyer/review1.jpg'
-            header='Compra 100% en línea'
+            header='Compra tu auto en línea'
             text='Busca, compara y compra en un mismo sitio sin necesidad de salir de tu hogar'
           />
         </div>
@@ -28,8 +28,8 @@ export default function Testimonials() {
           <CustomCard
             fiftyFifty
             imageSource='/buyer/review2.jpg'
-            header='Conoce el nuevo Mercedes-Benz'
-            text='El nuevo coche híbrido de Mercedes-Benz te impresionará.'
+            header='¿Ya conoces SWIVEL?'
+            text='SWIVEL es la nueva plataforma que busca revolucionar la manera en la que encuentras y compras el auto de tus sueños'
           />
         </div>
         <div className={styles.item}>

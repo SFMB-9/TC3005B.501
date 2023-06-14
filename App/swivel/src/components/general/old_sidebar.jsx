@@ -152,8 +152,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ShoppingBagIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/purchases`}
                 >
                   Mis compras
                 </MenuItem>
@@ -162,8 +160,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<DirectionsCarIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/tests`}
                 >
                   Mis pruebas de manejo
                 </MenuItem>
@@ -172,8 +168,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<FavoriteIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/favorites`}
                 >
                   Mis favoritos
                 </MenuItem>
@@ -182,8 +176,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<FolderIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/documents`}
                 >
                   Mis documentos
                 </MenuItem>
@@ -192,8 +184,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<KeyIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/change_password`}
                 >
                   Contraseña
                 </MenuItem>
@@ -202,13 +192,10 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 <MenuItem
                   icon={<ManageAccountsIcon />}
                   style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/`}
                 >
                   Mi cuenta
                 </MenuItem>
               </Link>
-              {/* {children} */}
             </Menu>
           </div>
           {/* Pie del Sidebar */}
