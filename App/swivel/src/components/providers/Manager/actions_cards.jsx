@@ -31,7 +31,7 @@ export default function ActionsCards() {
         header=''
         fiftyFifty={false}
       />
-      {/* <CustomIconCard
+      {<CustomIconCard
         imageSource="/manager/statistics_action.png"
         icon="/manager/statistics_icon.svg"
         text="Estadísticas de ventas"
@@ -39,7 +39,7 @@ export default function ActionsCards() {
         light={false}
         header=''
         fiftyFifty={false}
-      /> */}
+      />}
     </div>
   );
 }
