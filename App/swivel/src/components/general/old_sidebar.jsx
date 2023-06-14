@@ -148,26 +148,6 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                   }
                 </div>
               </MenuItem>
-              <Link href={`${root}/`}>
-                <MenuItem
-                  icon={<ManageAccountsIcon />}
-                  style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/`}
-                >
-                  Mi cuenta
-                </MenuItem>
-              </Link>
-              <Link href={`${root}/change_password`}>
-                <MenuItem
-                  icon={<KeyIcon />}
-                  style={{ color: '#333333' }}
-                // component={Link} 
-                // href={`${root}/change_password`}
-                >
-                  Contraseña
-                </MenuItem>
-              </Link>
               <Link href={`${root}/purchases`}>
                 <MenuItem
                   icon={<ShoppingBagIcon />}
@@ -206,6 +186,26 @@ const Sidebar = ({ handleToggleSidebar, children, footer }) => {
                 // href={`${root}/documents`}
                 >
                   Mis documentos
+                </MenuItem>
+              </Link>
+              <Link href={`${root}/change_password`}>
+                <MenuItem
+                  icon={<KeyIcon />}
+                  style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/change_password`}
+                >
+                  Contraseña
+                </MenuItem>
+              </Link>
+              <Link href={`${root}/`}>
+                <MenuItem
+                  icon={<ManageAccountsIcon />}
+                  style={{ color: '#333333' }}
+                // component={Link} 
+                // href={`${root}/`}
+                >
+                  Mi cuenta
                 </MenuItem>
               </Link>
               {/* {children} */}
