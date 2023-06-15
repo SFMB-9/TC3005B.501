@@ -6,7 +6,7 @@ import { Container, Typography, TextField, Button } from "@mui/material";
 
 import { useSession } from "next-auth/react";
 
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 
 export default function SellerSignup() {
   const { data: session } = useSession();

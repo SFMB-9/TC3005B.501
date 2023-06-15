@@ -20,15 +20,16 @@ const countModels = (dataList) => {
 
 const MasVendido = ({ agency }) => {
   const [data, setData] = React.useState([]);
-  const queryString = agency.replace(" ", "%20");
+  const [agencia, setAgencia] = React.useState("");
 
   React.useEffect(() => {
-    document.title = "Proveedores - Gráficos";
+    setAgencia(agency.replace(" ", "%20"));
+    document.title = "Proveedores - Gráficos"
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/charts/solicitudCompraAgencia?name=" +
-            queryString, // Change to name of logged agency
+          "/api/charts/solicitudCompraAgencia?name=" +
+          agency.replace(" ", "%20"), // Change to name of logged agency
           {
             method: "GET",
             headers: {
