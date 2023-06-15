@@ -200,7 +200,7 @@ export default function Process() {
     disableElevation
     type="button"
     disabled={!updated}
-    href="/account/purchases"
+    href="/"
   >
     Finalizar
   </Button>
