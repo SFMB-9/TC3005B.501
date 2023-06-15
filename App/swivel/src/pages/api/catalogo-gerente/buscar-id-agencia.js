@@ -28,7 +28,12 @@ export default async (req, res) => {
         if (!user) {
             res.status(404).json({ message: 'No se encontro el usuario'});
         }
-      res.status(200).json({ user }, { status: 'Se ha encontrado el ID de agencia'});
+
+        const agencyinfo = await userCollection.findOne({
+            _id: new ObjectId(user.agencia_id)
+        })
+
+      res.status(200).json({ agencyinfo }, { status: 'Se ha encontrado el ID de agencia'});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });

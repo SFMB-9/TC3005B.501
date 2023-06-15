@@ -10,6 +10,8 @@ import CustomizedSnackbars from "@/components/general/Alert";
 import ImageFileDrop from "@/components/general/FileDrop";
 import ManagerLayout from "@/components/providers/manager/layout";
 
+import LoadingScreen from "@/components/general/LoadingScreen";
+
 //create car object
 const CarRegistrationForm = () => {
   const { data: session } = useSession();
@@ -17,6 +19,8 @@ const CarRegistrationForm = () => {
   const router = useRouter();
   const [error, setError] = useState(null);
   const [popOpen, setPopOpen] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(true);
 
   const handlePopOpen = () => {
     setPopOpen(true);
@@ -55,7 +59,9 @@ const CarRegistrationForm = () => {
     ficha_tecnica: "",
     fotos_3d: [],
   });
-  const [agenciaId, setAgenciaId] = useState("");
+  const [agenciaI, setAgenciaI] = useState({
+    direccion:{}
+  });
 
   useEffect(() => {
     const getIdAgencia = async () => {
@@ -64,14 +70,27 @@ const CarRegistrationForm = () => {
 
       const agenciaId = await agenciaIdRaw.json();
 
-      return agenciaId.user.agencia_id;
+      return agenciaId.agencyinfo
+
     }
+
 
     if (router.isReady && session) {
       getIdAgencia().then((a_id) =>
-        setAgenciaId(a_id)
+        setAgenciaI(a_id)
       );
+
+    if(agenciaI){
+      setIsLoading(false)
+      console.log(agenciaI.nombres)
+
+      
+    } 
+
     }
+
+    
+
   }, [router.isReady, session]);
 
   function isFileObject(variable) {
@@ -369,7 +388,7 @@ const CarRegistrationForm = () => {
 
   return (
     <ManagerLayout>
-
+{isLoading && <LoadingScreen />}
       <Container maxWidth="xl">
         <div>
           <Dialog
@@ -808,14 +827,14 @@ const CarRegistrationForm = () => {
                   </Typography>
 
                   <TextField
+                  disabled
                     required
                     size="small"
                     type="text"
                     name="nombre_agencia"
                     id="nombre_agencia"
-                    value={car.nombre_agencia}
+                    value={agenciaI.nombres}
                     onChange={handleChange}
-                    label="Nombre Agencia"
                     inputProps={{ style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
@@ -834,13 +853,13 @@ const CarRegistrationForm = () => {
 
                   <TextField
                     required
+                    disabled
                     size="small"
                     type="text"
                     name="estado_agencia"
                     id="estado_agencia"
-                    value={car.estado_agencia}
+                    value={agenciaI.direccion.estado}
                     onChange={handleChange}
-                    label="Estado"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
@@ -858,14 +877,14 @@ const CarRegistrationForm = () => {
                   </Typography>
 
                   <TextField
+                    disabled
                     required
                     size="small"
                     type="text"
                     name="municipio_agencia"
                     id="municipio_agencia"
-                    value={car.municipio_agencia}
+                    value={agenciaI.direccion.ciudad}
                     onChange={handleChange}
-                    label="Municipio"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="mb-3 w-100"
@@ -883,14 +902,14 @@ const CarRegistrationForm = () => {
                   </Typography>
 
                   <TextField
+                    disabled
                     required
                     size="small"
                     type="text"
                     name="direccion_agencia"
                     id="direccion_agencia"
-                    value={car.direccion_agencia}
+                    value={agenciaI.direccion.calle + " " + agenciaI.direccion.numero_exterior}
                     onChange={handleChange}
-                    label="Dirección"
                     inputProps={{ min: "0", style: { fontFamily: "Lato" } }}
                     InputLabelProps={{ style: { fontFamily: "Lato" } }}
                     className="w-100"
