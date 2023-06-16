@@ -7,7 +7,9 @@ import PopUpComponent from "@/components/general/Popup"
 export default function BuyerChangePassword() {
   return(
     <AccountLayout>
-      <ChangePassword/>
+      <div className="m-3">
+        <ChangePassword/>
+      </div>
     </AccountLayout>
     
   )
