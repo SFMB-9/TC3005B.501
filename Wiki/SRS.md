@@ -505,8 +505,12 @@ El mockup funge como la guía gráfica del sitio que se desarrollará. El diseñ
 </p>
 
 ### Componentes
-ACTUALIZAR ---------------------- <BR>
+#### Red Pública
+<i> Usuario: </i> <br>
+Los usuarios acceden a nuestra aplicación e infraestructura a través de un navegador ya sea en su computadora personal o su teléfono móvil. La aplicación es compatible con la mayoría de los navegadores modernos gracias a las tecnologías usadas para su desarrollo.
 
+#### Red en Nube de SWIVEL
+Dentro de este segmento se encuentra el frontend, backend, la base de datos, el motor de búsqueda y todos los demás servicios que componen la aplicación.
 
 ## 5.3. Interfaces de Hardware
 ### No aplica
