@@ -7,7 +7,7 @@ export default function LoadAgencia() {
   useEffect(() => {
     const fetchAgencias = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/GA/pull-agencias?role=agencia&GA=Nissan" // GAId=1 is a test
+        "/api/GA/pull-agencias?role=agencia&GA=Nissan" // GAId=1 is a test
       )
         .then((res) => res.json())
         .then((data) => data);

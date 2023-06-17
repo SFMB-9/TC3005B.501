@@ -7,7 +7,7 @@ import axios from "axios";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
 import ImageFileDrop from "@/components/general/FileDrop";
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 
 const json5 = require('json5');
 
@@ -60,7 +60,7 @@ const CarRegistrationForm = () => {
   const [carId, setCarId] = useState("");
 
   const fetchDetails = async () => {
-    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+    let rawCar = await fetch(`/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;

@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Grid, Typography, TextField, Card, CardContent, IconButton, Fade } from '@mui/material';
 import axios from "axios";
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 import CustomizedSnackbars from "@/components/general/Alert";
 import CloseIcon from "@mui/icons-material/Close";
 import LoadingScreen from "@/components/general/LoadingScreen";
@@ -121,7 +121,7 @@ export default function WorkingHoursComponent() {
 
   useEffect(() => {
     const getIdAgencia = async () => {
-      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+      let agenciaIdRaw = await fetch(`/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
         { method: 'GET' });
 
       const agenciaId = await agenciaIdRaw.json();

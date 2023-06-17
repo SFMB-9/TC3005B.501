@@ -20,7 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSession } from "next-auth/react";
 
-import ManagerLayout from "@/components/providers/manager/layout";
+import ManagerLayout from "@/components/providers/Manager/layout";
 import SortCatalog from "@/components/buyer/sort_catalog";
 import styles from "@/styles/catalog.module.css";
 import Searchbar from "@/components/general/searchbar";
@@ -104,7 +104,7 @@ export default function Catalog() {
 
   useEffect(() => {
     const getIdAgencia = async () => {
-      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+      let agenciaIdRaw = await fetch(`/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
           { method: 'GET' });
   
       const agenciaId = await agenciaIdRaw.json();
