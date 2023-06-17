@@ -573,7 +573,7 @@ El diagrama del flujo para el usuario administrador incluye páginas tales como 
 En cuanto al wireframe, este provee una vista gráfica de las pantallas que se mostrarán a cada usuario. De esta manera, será posible tener una guía para el diseño y la interfaz gráfica del sitio a desarrollar. Con lo anterior en mente, será posible revisar dicho wireframe en el [siguiente link](https://drive.google.com/drive/folders/1EHhItYpjeRQcp6R5jbqvvDpo5uWfLBVQ?usp=sharing)
 
 ### Mockup
-El mockup funge como la guía gráfica del sitio que se desarrollará. El diseño se encuentra especificado en este archivo siguiendo los lineamientos de diseño, colores, tipografía, acomodo de páginas, entre otros. A partir de dicho mockup se podrá crear un prototipo. Será posible encontrarlo en [siguiente link](https://www.figma.com/file/CI5ObOAwXAoy8NorgVRuWY/Mock?node-id=1%3A130&t=zjYOwqyUShV2fRoX-1).
+El mockup funge como la guía gráfica del sitio que se desarrollará considerando el diseño de la aplicación. Dicho diseño se encuentra especificado en este archivo siguiendo los lineamientos de diseño, colores, tipografía, acomodo de páginas, entre otros. A partir de dicho mockup se podrá crear un prototipo y la aplicación. Es posible encontrar el mockup en el [siguiente link](https://www.figma.com/file/Jhl7Xu2W5BHiGIGtflTkot/Redise%C3%B1o?type=design&node-id=0%3A1&t=3ZxTQ2A3tk295cZe-1).
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
