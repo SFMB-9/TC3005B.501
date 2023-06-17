@@ -36,7 +36,7 @@ export default function Documents() {
   // console.log("session", session.id);
   const fetchData = async () => {
     const resData = await fetch(
-      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
+      `/api/managerProfile/managerP?id=${session.id}`
     );
 
     const res = await resData.json();
@@ -97,7 +97,7 @@ export default function Documents() {
     // console.log("update_date: " + currentDocs[i].fecha_modificacion);
     try {
       const result = await fetch(
-        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=Subido`,
+        `/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${i}&file_url=${documentUrl}&update_date=${currentDocs[i].fecha_modificacion}&update_status=Subido`,
         {
           method: "PUT",
         }

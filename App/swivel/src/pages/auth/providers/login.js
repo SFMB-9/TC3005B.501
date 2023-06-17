@@ -32,7 +32,7 @@ export default function Login() {
           callbackUrl = `${window.location.origin}/providers/seller`;
         } else if (session.role === "ga_admin") {
           // Check if the GA has a grupo_automotriz_id, meaning they are verified
-          let rawCheck = await fetch(`http://localhost:3000/api/GA/GA-has-id?_id=${session.id}`,
+          let rawCheck = await fetch(`/api/GA/GA-has-id?_id=${session.id}`,
             { method: 'GET' });
           const resCheck = await rawCheck.json();
           // If the user is verified, redirect to landing
@@ -40,7 +40,7 @@ export default function Login() {
             callbackUrl = `${window.location.origin}/providers/GA`;
           // If the user is not verified, look for a process
           } else {
-            let rawProcess = await fetch(`http://localhost:3000/api/GA/GA-process-id?_id=${session.id}`,
+            let rawProcess = await fetch(`/api/GA/GA-process-id?_id=${session.id}`,
               { method: 'GET' });
             const resProcess = await rawProcess.json();
             // If there is an active process, redirect to it

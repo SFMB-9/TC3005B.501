@@ -11,7 +11,7 @@ export default function Agencias() {
   useEffect(() => {
     const fetchAgencias = async () => {
       const res = await fetch(
-        `http://localhost:3000/api/GA/pull-agencias`
+        `/api/GA/pull-agencias`
       );
       const data = await res.json();
       setAgencias(data);
