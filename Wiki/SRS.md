@@ -233,19 +233,12 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 ## 2.3. Ambiente de Desarrollo
  
-<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. Como se observa a continuación, dese el IDE de desarrollo de software hasta los navegadores utilizados para acceder al sitio, cada herramienta se ha seleccionado cuidadosamente en función de sus características y compatibilidad con el sistema global. Posteriormente, se describen las ventajas particulares de cada una de estas tecnologías que justifican su elección para la implementación de la solución. De manera general, se examinan las ventajas de utilizar MySQL Community Edition para el almacenamiento de cuentas y MongoDB para el almacenamiento de catálogos e información de compra. Además, se exploran las ventajas de utilizar NodeJS para la capa de aplicación, Express para el desarrollo backend, React y NextJS para el desarrollo front-end y Bootstrap para las bibliotecas de estilo en cascada. Entre otros, se propone el uso de AWS para los servicios en la nube y Stripe para la integración de la funcionalidad de pago. 
-  
+<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución. 
+
 ### 1. Database
   
-<i>MySQL Community Edition (Almacenamiento de Cuentas):</i><br>
-* Gratuito - GPL Licence.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Compatible con diversos OS - compatible con Windows.
-* Cuenta con capas de seguridad.
-* Estructura relacional - bueno para almacenar relaciones como aquellas en los diferentes tipos de cuentas definidas para la plataforma.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
 <i>MongoDB (Almacenamiento de catálogo e información de la compra):</i><br>
+La base de datos que se utiliza en el sistema es MongoDB, desplegada en un servicio propio de mongo llamado Mongo Atlas. Esta base de datos se conecta directamente con los APIs que constituyen al backend y guarda toda la información de la aplicación a excepción del catálogo.
 * Gratuito.
 * Los programadores cuentan con conocimiento y experiencia previa.
 * Compatible con diversos OS - compatible con Windows.
@@ -255,34 +248,10 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Estructura no relacional - bueno para manejar muchas read-write operations como lo son búsquedas, filtrado e información referente a la compra del auto.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
-### 2. Dev. Environments
-  
-* <i>NodeJS (Application Layer):</i><br>
-* Gratuito - Open Source.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Compatibilidad cross-platform - gran compatibilidad con React.
-* Facilita el desarrollo del backend en JavaScript.
-* Particularmente rápido y escalable al estar construido sobre Chrome V8 Engine.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 3. Frameworks
-  
-<i>Express:</i><br>
-* Gratuito - Open Source.
-* Framework derivado de NodeJS y por ende compatible.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Provee un conjunto de herramientas que facilitan la creación del backend/API con NodeJS.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 4. Front-end Development Libraries
-  
-<i>React (JavaScript):</i><br>
-* Gratuito - Open Source
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Permite programación por componentes haciendo fácil reutilización y mantenimiento de código para la implementación de la funcionalidad y renderizado del front-end.
-* Utiliza virtual DOM lo cual aumenta su rendimiento al permitir que cierta información se maneje y esté disponible “client-side”.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
+### 2. Back-End
+El backend de la aplicación está constituido por todos aquellos módulos que permiten extraer información de la base de datos y otros recursos y desplegarla en el frontend. Para su desarrollo se usó NodeJS y NEXT al igual que el frontend. Debido a que tanto frontend como backend forman parte de una misma aplicación, esta parte también estará desplegada en Vercel. Al igual que frontend considera la autenticación y persistencia de datos para las sesiones y usuarios.
+
+### 3. Librerías y Herramientas de Front-end   
 <i>Figma:</i><br>	
 * Gratuito 
 * Intuitivo y fácil de usar.
@@ -305,66 +274,19 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
-### 5. Cascading Style Libraries
-  
-<i>Bootstrap:</i><br>
-* Gratuito.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Opera en base a un “Grid System” con elementos pre-desarrollados que ahorran tiempo y esfuerzo al momento de realizar el estilo.
-* A comparación de otras opciones que dan más libertad, con Bootstrap es sumamente rápido el desarrollo del UI.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 6. Cloud Service
-  
-<i>AWS - Academy Trial:</i><br>
-* Se cuenta con 100 USD de crédito por cada integrante (2,000 USD).
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Altamente escalable y confiable.
-* Ofrece un amplio rango de herramientas y servicios.
-* Proporciona un alto nivel de seguridad necesaria para la documentación legal y otra información confidencial manejada en la compra de un auto.
-  
-### 7. Payment Gateway Integration
-  
-<i>Stripe:</i><br>
-* Comisión de 2.9% + 30 centavos por cada transacción.
-* API fácil y rápida de utilizar/integrar con otra plataforma.
-* Soporta una amplia variedad de monedas y métodos de pago.
-* Proporciona un sistema seguro de pago.
-* Cuenta con servicio al cliente 24/7 ya sea vía teléfono, email o live chat.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 8. Machine Learning
-  
-<i>Tensorflow:</i><br>
-* Gratuito y Open Source.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Permite implementar diversos tipos de modelos de ML.
-* Permite escalar fácilmente los modelos de ML para procesar una mayor cantidad de datos.
-* Eficiente para correr las intensivas operaciones computacionales requeridas.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
-  
-### 9. Security
-  
-<i>OAuth:</i><br>
-* Gratuito - Open Standard.
-* Provee un método seguro para implementar la autorización sin necesidad de credenciales.
-* Permite la implementación de la autorización mediante diversos servicios (Google, Facebook, Twitter).
-* Provee privacidad al darle al usuario cierto control sobre la información a la que ciertas empresas pueden acceder.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
-  
-### 10. Document Validation
-  
-<i>INE API:</i><br>
-* Número limitado de peticiones gratuitas.
-* Permite la verificación de INEs 
-* Cuenta con una buena documentación, materiales de consulta y soporte.
-  
-### Verificamex:</i><br>
-* Ofrece Demo gratuita
-* Permite validación de INEs mediante AI
-* Cuenta con una buena documentación, materiales de consulta y soporte.
+### 4. Almacenamiento de Archivos
+Para el almacenamiento de archivos se utiliza Firestore, un servicio de almacenamiento que forma parte de la nube de Google. Este se conecta con los APIs del backend para procesar el archivo y finalmente guardar la liga del archivo en la base de datos.
 
-### Version Control
+### 5. Motor de Búsqueda
+Para el motor de búsqueda se hace uso de ElasticSearch. Este recurso permite habilitar las funcionalidades de búsqueda por filtros y por lenguaje natural y abre la posibilidad de utilizar otras como lo son voz a texto e integración de modelos pre-entrenados para mejorar la búsqueda. El servicio se encuentra desplegado en la nube de Google y es consumido por medio de las APIs del backend. Este motor de búsqueda almacena únicamente el catálogo de autos y la información relacionada a ellos, permitiendo su fácil recuperación y acceso.
+
+### 6. Cloud Service: Vercel
+
+### 7. Autenticación
+<i>NextAuth:</i><br>
+Para la autenticación se utilizan dos servicios. El primero es la librería para el framework en el que está desarrollada la aplicación, NextAuth. Este permite el manejo de los permisos y sesiones del usuario en toda la aplicación y permite almacenar las credenciales de estos en nuestra propia base de datos de manera segura. El segundo servicio es Google Authenticator, el cuál permite al usuario usar su cuenta existente de Google para crear una cuenta en el sistema.
+
+### 8. Control de Versionamiento
   
 <i>GitHub:</i><br>
 * Gratuito.
@@ -372,13 +294,26 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Permite repositorios ilimitados - lo cual da versatilidad a la organización que se tome para la realización del proyecto.
 * Permite administrar de forma sencilla y organizada controlar la colaboración, actualizaciones y cambios que se realicen al proyecto por parte de todos los miembros del equipo.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
-  
-A continuación se encuentra la visualización gráfica del Tech Stack de la solución. <br>
-<b>Link al diagrama:</b>
-https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FyLADWuGigqfuYnZxik1LG7%2FTech-Stack-Diagram-Final%3Fnode-id%3D0%253A1%26t%3DHp719fauwD8rWIgr-1
-<p align="center">
-  <img src="../assets/diagrams/TechStack/TechStack.png" width="600" title="hover text">
-</p>
+
+### 9. APIs de Terceros
+<i>Stripe:</i><br>
+* Para la integración de pagos en la plataforma se utiliza Stripe. 
+* Este servicio permite generar una pantalla de “checkout” para que el usuario pueda hacer el pago del auto que está comprando. 
+* Este servicio se conecta con el frontend para posteriormente guardar las claves de rastreo del pago en la base de datos.
+
+<i>INE API:</i><br>
+* Número limitado de peticiones gratuitas.
+* Permite la verificación de INEs 
+* Cuenta con una buena documentación, materiales de consulta y soporte.
+
+<i>Live Person:</i><br>
+La aplicación hace uso de Live Person, un servicio de comunicación en vivo que permite chat, llamada y videollamada en tiempo real. Este servicio se utiliza para el soporte de la aplicación.
+
+<i>Twilio:</i><br>
+Twilio permite mandar notificaciones ya sea por mail, whatsapp o cualquier otro medio de contacto al usuario.
+
+<i>OpenAI:</i><br>
+El API de OpenAI permite utilizar sus modelos generativos de inteligencia artificial para generar las descripciones para cada auto en el catálogo. Estas descripciones son las que nutren la búsqueda por lenguaje natural en ElasticSearch.
 
 ## 2.4. Restricciones de Implementación y Diseño
   
@@ -578,32 +513,19 @@ El mockup funge como la guía gráfica del sitio que se desarrollará. El diseñ
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
  
-<p align="justify"> En esta sección se presenta el diagrama de arquitectura correspondiente a la solución para la plataforma digital de venta de automóviles descrita en este documento. 
- 
-<p align="justify">En términos generales el diagrama comienza con el “User” representando el cliente que mediante el browser realiza un petición para ingresar al sistema. Para efectuar dicha acción se tiene al DNS (Domain Name System) que traduce el dominio de la URL en la dirección IP correspondiente. Siguiente en la arquitectura se tiene un CDN (Content Delivery Network), con el objetivo de tener disponible aquella información estática de la aplicación de una manera rápida, el cual se conecta con un API Gateway responsable de mapear y dirigir hacia los “endpoints” solicitados. El anterior a su vez se conecta con un Load Balancer el cual se encarga de distribuir la carga uniformemente entre las diferentes instancias de la aplicación así maximizando la capacidad de respuesta de la misma. 
- 
-<p align="justify">Por otra parte, para desplegar el front-end de la aplicación se tiene a una máquina virtual designada en un “Auto Scaling Group” para llevar de forma automática la necesidad de crecimiento o escalamiento de la plataforma. Asimismo, a dicha máquina virtual se le adjunta un Storage Bucket para manejar de una manera más eficiente contenido multimedia como imágenes o videos que se requieren de fácil acceso.
- 
-<p align="justify">En cuanto al back-end de la plataforma, esta se divide en dos secciones principales cada una englobada en su “Auto Scaling Group”. Una siendo la de “Serverless Functions” y otra la de los contenedores, donde la primera de ellas hace referencia a aquellas funcionalidades individuales y sencillas de la aplicación, mientras la segunda se refiere a aquellas funcionalidades como el método de pago cuya complejidad requiere de su segmentación a través de contenedores. Igualmente, en estas secciones se considera la conexión a APIs de terceros, así como servidores externos para la implementación de ML dentro de la aplicación web.
- 
-<p align="justify">Finalmente, se tiene tanto una base de datos relacional como una no relacional contenidas en un mismo “Auto Scaling Group” conectada de manera correspondiente a su componente del back-end. A su vez, a la base de datos no relacional se le dipone de un “Storage Bucket” para el almacenamiento de información como archivos que se requieren de un rápido acceso. 
+<p align="justify"> En esta sección se presenta un diagrama ilustrativo de la arquitectura que describe la aplicación y los diferentes servicios que se utilizan para su despliegue y desarrollo. Este incluye los elementos de Usuario, Frontend, Backend, APIs de Terceros y las conexiones entre estas. De igual manera se describe cada uno de los componentes a profundidad, haciendo énfasis en las tecnologías que se utilizan y su conexión con las demás partes.
 
 <p align="center">
   <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
 </p>
 
 ### Componentes
-* **DNS:** Traduce nombres de dominio a direcciones IP.
-* **CDN:** distribuye el contenido entre varios servidores para mejorar la velocidad de entrega.
-* **API Gateway:** Proporciona un único punto de entrada para múltiples servicios backend o API.
-* **Load Balancer:** Distribuye el tráfico de red entrante entre varios servidores.
-* **Serverless Function:** Ejecuta código en un entorno de nube sin aprovisionamiento ni gestión de servidores.
-* **Storage Bucket:** Contenedor para almacenar objetos en un entorno de nube.
-* **Relational Database:** Almacena datos en tablas estructuradas con relaciones predefinidas.
-* **No Relational Database:** Almacena datos en formato no estructurado o semiestructurado para una mayor flexibilidad y escalabilidad.
-* **Virtual Machine:** Emulación por software de un ordenador físico que se ejecuta en un entorno de nube.
-* **Auto Scaling Group:** Colección de servidores que escala automáticamente hacia arriba o hacia abajo en función del tráfico entrante u otras métricas.
+#### Red Pública
+<i> Usuario: </i> <br>
+Los usuarios acceden a nuestra aplicación e infraestructura a través de un navegador ya sea en su computadora personal o su teléfono móvil. La aplicación es compatible con la mayoría de los navegadores modernos gracias a las tecnologías usadas para su desarrollo.
 
+#### Red en Nube de SWIVEL
+Dentro de este segmento se encuentra el frontend, backend, la base de datos, el motor de búsqueda y todos los demás servicios que componen la aplicación.
 
 ## 5.3. Interfaces de Hardware
 ### No aplica
