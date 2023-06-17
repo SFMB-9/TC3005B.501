@@ -13,7 +13,6 @@
 | #  | Matrícula | Nombre                                                 | Github Username                                     | Discord Username      | Número de teléfono | Correo Personal                          |
 | -- | ---------- | ------------------------------------------------------------ | --------------------------------------------------- | --------------------- | ------------ | --------------------------------------- |
 | 1  | A01352283  | [A B](mailto:a01352283@tec.mx)                               | [A01352283](https://github.com/A01352283)           | deRedBlob#9829        | 4622372250   | andres.brisenoc@gmail.com               |
-| 2  | A01654063  | [Alexa Serrano Negrete](mailto:a01654063@tec.mx)             | [alexaserr](https://github.com/alexaserr)           | _alexaserr#1653       | 5534613157   | alexasnegrete@icloud.com                |
 | 3  | A01658259  | [Alfredo Jeong Hyun Park](mailto:a01658259@tec.mx)           | [alfredoPark-48](https://github.com/alfredoPark-48) | APark#8241            | 5547689736   | parkalfredojeonghyun@gmail.com          |
 | 4  | A01025303  | [Ana Paula Katsuda](mailto:a01025303@tec.mx)                 | [a01025303](https://github.com/a01025303)           | Akemi#0580            | 5514490291   | akatsuda@outlook.com                    |
 | 5  | A01028728  | [Andrea Serrano Diego](mailto:a01028728@tec.mx)              | [AndyDiego13](https://github.com/AndyDiego13)       | Andy_Pandy_13#1462    | 5551670769   | andyserrano_d@outlook.com               |
@@ -49,9 +48,9 @@
 
 ## [Documento SRS →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/SRS.md)
 
-## [Historias de Usuario →](https://docs.google.com/spreadsheets/d/1ekLYBNdBiyeopLcMUxqWD0kK3bIm1L-_8aUfY92UEo0/edit?usp=sharing)
+## [Historias de Usuario →](https://docs.google.com/spreadsheets/d/1ekLYBNdBiyeopLcMUxqWD0kK3bIm1L-_8aUfY92UEo0/edit?usp=drive_link)
 
-## [Plan de Pruebas →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/DocPruebas.md)
+## [Plan de Pruebas →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Plan_Pruebas.md)
 
 ## Arquitectura
 <p align="center">
