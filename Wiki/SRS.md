@@ -12,9 +12,9 @@
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
 | 02/04/2023 | 1     | Integración SRS |
+| 14/06/2023 | 2     | Finalización SRS |
 
 <h2 align="center"> Autores
-<h3 align="center"> Alexa Serrano 
 <h3 align="center"> Alfredo Park
 <h3 align="center"> Ana Paula Katsuda
 <h3 align="center"> Andrea Serrano
@@ -146,8 +146,6 @@ Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 6. Comunicarse con una agencia (vendedor específico) por medio de un chat en tiempo real,
 7. Subir los documentos legales requeridos.
 
-El proyecto debe tambien proveer a sus usuarios una experiencia fluida en toda la aplicacion, incluyendo procesos como digitalizacion y procesamiento de documentos, solicitudes de pruebas de manejo, filtrado y especificacion, manejo de cuenta y perfil de usuario, etc.
-
 Los socios de este proyecto son:
 <ul>
     <li> NDS Cognitive Labs: El cliente para quien se desarrolla el proyecto.
@@ -166,9 +164,6 @@ La aplicacion pretende:
 
 Lo que nos distingue de la competencia es nuestra intención de:
 - Crear un simulador comparativo de autos, 
-- Un formulario para entender las necesidades del usuario, 
-- Agendar citas mediante un calendario, 
-- Dar recomendaciones personalizadas con Machine Learning y 
 - La implementación de un "Wishlist" (Bookmark de autos preferidos). <br>
 Pero, priorizando la entrega de un MVP funcional, de calidad y que cubra las necesidades del cliente, NDS. 
 
@@ -212,7 +207,7 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 2. _Usuario Vendedor_:
 - Primer usuario de tipo administrador, tiene el menor número de privilegios; solamente se le permite acceder a su información y a la de sus clientes.
 - Tiene una cuenta y un perfil.
-- Sus permisos y accesos son asignados por un usuario gerente o agencia.
+- Sus permisos y accesos son asignados por un usuario gerente.
 
 3. _Usuario Gerente_:
 - Usuario administrador, que pertenece a una agencia y sus permisos están gestionados por el grupo automotriz.
@@ -222,7 +217,7 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 4. _Usuario Grupo Automotriz_:
 - Usuario administrador, sus permisos y acceso es gestionado por el usuario super-administrador.
-- Se le permite acceder a la información de todas las agencias bajo su supervisión, sus catálogos y vehículos, gerentes y vendedores.
+- Se le permite acceder a la información de todas las agencias bajo su supervisión, gerentes y vendedores.
 - Gestiona que sucursales serán parte de la plataforma en conjunto con el usuario super-administrador.
 - Tiene una cuenta y un perfil.
 
@@ -233,17 +228,9 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 ## 2.3. Ambiente de Desarrollo
  
-<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. Como se observa a continuación, dese el IDE de desarrollo de software hasta los navegadores utilizados para acceder al sitio, cada herramienta se ha seleccionado cuidadosamente en función de sus características y compatibilidad con el sistema global. Posteriormente, se describen las ventajas particulares de cada una de estas tecnologías que justifican su elección para la implementación de la solución. De manera general, se examinan las ventajas de utilizar MySQL Community Edition para el almacenamiento de cuentas y MongoDB para el almacenamiento de catálogos e información de compra. Además, se exploran las ventajas de utilizar NodeJS para la capa de aplicación, Express para el desarrollo backend, React y NextJS para el desarrollo front-end y Bootstrap para las bibliotecas de estilo en cascada. Entre otros, se propone el uso de AWS para los servicios en la nube y Stripe para la integración de la funcionalidad de pago. 
+<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. 
   
 ### 1. Database
-  
-<i>MySQL Community Edition (Almacenamiento de Cuentas):</i><br>
-* Gratuito - GPL Licence.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Compatible con diversos OS - compatible con Windows.
-* Cuenta con capas de seguridad.
-* Estructura relacional - bueno para almacenar relaciones como aquellas en los diferentes tipos de cuentas definidas para la plataforma.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
 <i>MongoDB (Almacenamiento de catálogo e información de la compra):</i><br>
 * Gratuito.
@@ -254,6 +241,8 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Tolera grandes volúmenes de datos.
 * Estructura no relacional - bueno para manejar muchas read-write operations como lo son búsquedas, filtrado e información referente a la compra del auto.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
+
+ACTUALIZAR --------------------------------
   
 ### 2. Dev. Environments
   
@@ -267,21 +256,14 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
   
 ### 3. Frameworks
   
-<i>Express:</i><br>
-* Gratuito - Open Source.
-* Framework derivado de NodeJS y por ende compatible.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Provee un conjunto de herramientas que facilitan la creación del backend/API con NodeJS.
+<i>NextJS:</i><br>
+* Gratuito y Open Source.
+* Framework de React para el desarrollo de aplicaciones web.
+* Permite “server-side rendering” que agiliza el cargado de la página.
+* Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
 ### 4. Front-end Development Libraries
-  
-<i>React (JavaScript):</i><br>
-* Gratuito - Open Source
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Permite programación por componentes haciendo fácil reutilización y mantenimiento de código para la implementación de la funcionalidad y renderizado del front-end.
-* Utiliza virtual DOM lo cual aumenta su rendimiento al permitir que cierta información se maneje y esté disponible “client-side”.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
 <i>Figma:</i><br>	
 * Gratuito 
@@ -297,15 +279,6 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Compatible y utilizado sobre React.
 * Flexible para la customización de los componentes.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
-
-<i>NextJS:</i><br>
-* Gratuito y Open Source.
-* Framework de React para el desarrollo de aplicaciones web.
-* Permite “server-side rendering” que agiliza el cargado de la página.
-* Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 5. Cascading Style Libraries
   
 <i>Bootstrap:</i><br>
 * Gratuito.
@@ -316,12 +289,7 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
   
 ### 6. Cloud Service
   
-<i>AWS - Academy Trial:</i><br>
-* Se cuenta con 100 USD de crédito por cada integrante (2,000 USD).
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Altamente escalable y confiable.
-* Ofrece un amplio rango de herramientas y servicios.
-* Proporciona un alto nivel de seguridad necesaria para la documentación legal y otra información confidencial manejada en la compra de un auto.
+<i> ACTUALIZAR ------------------------------------------</i><br>
   
 ### 7. Payment Gateway Integration
   
@@ -331,20 +299,10 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Soporta una amplia variedad de monedas y métodos de pago.
 * Proporciona un sistema seguro de pago.
 * Cuenta con servicio al cliente 24/7 ya sea vía teléfono, email o live chat.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 8. Machine Learning
-  
-<i>Tensorflow:</i><br>
-* Gratuito y Open Source.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Permite implementar diversos tipos de modelos de ML.
-* Permite escalar fácilmente los modelos de ML para procesar una mayor cantidad de datos.
-* Eficiente para correr las intensivas operaciones computacionales requeridas.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
   
 ### 9. Security
-  
+ACTUALIZAR!! ------------------------ <BR>
 <i>OAuth:</i><br>
 * Gratuito - Open Standard.
 * Provee un método seguro para implementar la autorización sin necesidad de credenciales.
@@ -358,11 +316,6 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Número limitado de peticiones gratuitas.
 * Permite la verificación de INEs 
 * Cuenta con una buena documentación, materiales de consulta y soporte.
-  
-### Verificamex:</i><br>
-* Ofrece Demo gratuita
-* Permite validación de INEs mediante AI
-* Cuenta con una buena documentación, materiales de consulta y soporte.
 
 ### Version Control
   
@@ -373,12 +326,7 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 * Permite administrar de forma sencilla y organizada controlar la colaboración, actualizaciones y cambios que se realicen al proyecto por parte de todos los miembros del equipo.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
   
-A continuación se encuentra la visualización gráfica del Tech Stack de la solución. <br>
-<b>Link al diagrama:</b>
-https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FyLADWuGigqfuYnZxik1LG7%2FTech-Stack-Diagram-Final%3Fnode-id%3D0%253A1%26t%3DHp719fauwD8rWIgr-1
-<p align="center">
-  <img src="../assets/diagrams/TechStack/TechStack.png" width="600" title="hover text">
-</p>
+ACTULIZAR --------------------------------------- <BR>
 
 ## 2.4. Restricciones de Implementación y Diseño
   
@@ -506,7 +454,7 @@ Para esta versión del diagrama ER, se realizó una división de actores, consis
 
 Esto se hizo para tener más clara la división entre diferentes componentes del sistema, así como para facilitar el proceso de identificar las conexiones entre ellas.
 
-Además, por medio de la normalización se hicieron tablas intermediarias, como se puede apreciar en los actores amarillos por ejemplo, con el objetivo de facilitar los cruces para la base de datos.
+ACTUALIZAR ---------------------------
 
 ## 4.3. Reportes
   
@@ -515,12 +463,6 @@ Se busca que la plataforma sea capaz de producir diferentes estádisticas y depe
 1. Ventas de cada vendedor, agencia y grupo automotriz, pruebas de manejo por agencia.
 2. Venta de cada vehículo y su popularidad (ya sea por número de personas interesadas en el o por la cantidad de pruebas de manejo del modelo).
 3. Comportamiento de la plataforma, cantidad de usuarios, información geográfica de los usuarios.
-
-Por otra parte, la app generará los siguientes logs:
-
-- Log de Auditoría: Incuirá el comprador, el vendedor, el administrador y dueño en caso de haber conflicto en una organizacion y se requiere transparencia, o si hay un error en las acciones CRUD y los desarrolladores requieren una referencia de un posible causante del error. Se incluye el timestamp, el usuario que realizó la acción y la acción realizada con su descripción.
-
-- Log de Ventas: Se utilizará como comprobante al iniciarse, completarse o cambiar de etapa la venta de un vehículo. Se incluye el timestamp, el comprador, el vendedor y el estado de la venta.
 
 ## 4.4. Adquisición de Datos, Integridad, Retención y Eliminación
 La información que será recopilada dentro de la plataforma podrá o no contener datos sensibles protegidos por los derechos ARCO dentro de Mexico. Esta información podría o no contener documentos, imágenes e información confidencial que sea requerida para el proceso de compra/venta de automóviles, registro de usuarios y cualquier otro pedazo de información que sea requerido para el correcto funcionamiento de los procesos de el servicio.
@@ -573,45 +515,28 @@ El diagrama del flujo para el usuario administrador incluye páginas tales como 
 En cuanto al wireframe, este provee una vista gráfica de las pantallas que se mostrarán a cada usuario. De esta manera, será posible tener una guía para el diseño y la interfaz gráfica del sitio a desarrollar. Con lo anterior en mente, será posible revisar dicho wireframe en el [siguiente link](https://drive.google.com/drive/folders/1EHhItYpjeRQcp6R5jbqvvDpo5uWfLBVQ?usp=sharing)
 
 ### Mockup
-El mockup funge como la guía gráfica del sitio que se desarrollará. El diseño se encuentra especificado en este archivo siguiendo los lineamientos de diseño, colores, tipografía, acomodo de páginas, entre otros. A partir de dicho mockup se podrá crear un prototipo. Será posible encontrarlo en [siguiente link](https://www.figma.com/file/CI5ObOAwXAoy8NorgVRuWY/Mock?node-id=1%3A130&t=zjYOwqyUShV2fRoX-1).
+El mockup funge como la guía gráfica del sitio que se desarrollará considerando el diseño de la aplicación. Dicho diseño se encuentra especificado en este archivo siguiendo los lineamientos de diseño, colores, tipografía, acomodo de páginas, entre otros. A partir de dicho mockup se podrá crear un prototipo y la aplicación. Es posible encontrar el mockup en el [siguiente link](https://www.figma.com/file/Jhl7Xu2W5BHiGIGtflTkot/Redise%C3%B1o?type=design&node-id=0%3A1&t=3ZxTQ2A3tk295cZe-1).
 
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
  
 <p align="justify"> En esta sección se presenta el diagrama de arquitectura correspondiente a la solución para la plataforma digital de venta de automóviles descrita en este documento. 
- 
-<p align="justify">En términos generales el diagrama comienza con el “User” representando el cliente que mediante el browser realiza un petición para ingresar al sistema. Para efectuar dicha acción se tiene al DNS (Domain Name System) que traduce el dominio de la URL en la dirección IP correspondiente. Siguiente en la arquitectura se tiene un CDN (Content Delivery Network), con el objetivo de tener disponible aquella información estática de la aplicación de una manera rápida, el cual se conecta con un API Gateway responsable de mapear y dirigir hacia los “endpoints” solicitados. El anterior a su vez se conecta con un Load Balancer el cual se encarga de distribuir la carga uniformemente entre las diferentes instancias de la aplicación así maximizando la capacidad de respuesta de la misma. 
- 
-<p align="justify">Por otra parte, para desplegar el front-end de la aplicación se tiene a una máquina virtual designada en un “Auto Scaling Group” para llevar de forma automática la necesidad de crecimiento o escalamiento de la plataforma. Asimismo, a dicha máquina virtual se le adjunta un Storage Bucket para manejar de una manera más eficiente contenido multimedia como imágenes o videos que se requieren de fácil acceso.
- 
-<p align="justify">En cuanto al back-end de la plataforma, esta se divide en dos secciones principales cada una englobada en su “Auto Scaling Group”. Una siendo la de “Serverless Functions” y otra la de los contenedores, donde la primera de ellas hace referencia a aquellas funcionalidades individuales y sencillas de la aplicación, mientras la segunda se refiere a aquellas funcionalidades como el método de pago cuya complejidad requiere de su segmentación a través de contenedores. Igualmente, en estas secciones se considera la conexión a APIs de terceros, así como servidores externos para la implementación de ML dentro de la aplicación web.
- 
-<p align="justify">Finalmente, se tiene tanto una base de datos relacional como una no relacional contenidas en un mismo “Auto Scaling Group” conectada de manera correspondiente a su componente del back-end. A su vez, a la base de datos no relacional se le dipone de un “Storage Bucket” para el almacenamiento de información como archivos que se requieren de un rápido acceso. 
 
 <p align="center">
   <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
 </p>
 
 ### Componentes
-* **DNS:** Traduce nombres de dominio a direcciones IP.
-* **CDN:** distribuye el contenido entre varios servidores para mejorar la velocidad de entrega.
-* **API Gateway:** Proporciona un único punto de entrada para múltiples servicios backend o API.
-* **Load Balancer:** Distribuye el tráfico de red entrante entre varios servidores.
-* **Serverless Function:** Ejecuta código en un entorno de nube sin aprovisionamiento ni gestión de servidores.
-* **Storage Bucket:** Contenedor para almacenar objetos en un entorno de nube.
-* **Relational Database:** Almacena datos en tablas estructuradas con relaciones predefinidas.
-* **No Relational Database:** Almacena datos en formato no estructurado o semiestructurado para una mayor flexibilidad y escalabilidad.
-* **Virtual Machine:** Emulación por software de un ordenador físico que se ejecuta en un entorno de nube.
-* **Auto Scaling Group:** Colección de servidores que escala automáticamente hacia arriba o hacia abajo en función del tráfico entrante u otras métricas.
+ACTUALIZAR ---------------------- <BR>
 
 
 ## 5.3. Interfaces de Hardware
 ### No aplica
 
 ## 5.4. Interfaces de Comunicación
-1. E-mail:
+1. Notificaciones:
 
-Se integrará un servicio de respuesta automática por correo, utilizando una herramienta como MailChimp. Este servicio permitirá a los usuarios recibir notificaciones de los cambios en el estado de su solicitud, así como de los cambios en la información de la misma.
+Se integrará un servicio de respuesta automática por correo, utilizando una herramienta como Twilio. Este servicio permitirá a los usuarios recibir notificaciones de los cambios en el estado de su solicitud, así como de los cambios en la información de la misma.
 
 2. Entrega y Reconocimiento de Documentos:
 
@@ -648,8 +573,6 @@ Se integrará una plataforma de pago para que los usuarios puedan pagar por los 
 * <b>Fiabilidad:</b> La plataforma debe ser fiable y estable, con el mínimo tiempo de inactividad o errores que puedan interrumpir la experiencia del usuario y las transacciones.
 
 ## 6.3. Seguridad
-
-* <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su interceptación y manipulación.
   
 * <b>Autenticación:</b> La página web debe utilizar mecanismos de autenticación fuertes como JWT tokens o Cookies para verificar la identidad de los usuarios y evitar escalamiento de privilegios.
   
@@ -658,8 +581,6 @@ Se integrará una plataforma de pago para que los usuarios puedan pagar por los 
 * <b>Protección de datos:</b> La página web debe utilizar medidas adecuadas para proteger todos los datos (en reposo, tránsito o uso) de los usuarios, como la información personal, los detalles de pago y el historial de compras.
   
 * <b>Cifrado:</b> la plataforma deberá cifrar adecuadamente toda la información sensible contenida en la base de datos.
-  
-* <b>Seguridad en Código:</b> La plataforma debe seguir prácticas de seguridad en código y comprobarse periódicamente para detectar vulnerabilidades como Cross-site scripting (XSS) y SQL injection. Correspondientemente, deben tomarse las medidas adecuadas para solucionar cualquier vulnerabilidad detectada.
 
 ## 6.4. Protección
 
@@ -684,37 +605,25 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 
 ← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
   
-## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=-163%2C180%2C2035%2C860%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
+## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=100%2C-224%2C2220%2C938%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
 
-## 2. [Gantt →](https://docs.google.com/spreadsheets/d/1gQOCrEyqyHThUOxP-niAMtOYwplinlct/edit?usp=sharing&ouid=103048302256739869165&rtpof=true&sd=true)
+## 2. [Gantt →](https://docs.google.com/spreadsheets/d/1gDhr2EFc64-WXoaUq-obQMG04V7ao3dJNju-94qV_Ho/edit?usp=sharing)
 
-## 3. [Historias de Usuario →]()
+## 3. [Historias de Usuario →](https://docs.google.com/spreadsheets/d/1ekLYBNdBiyeopLcMUxqWD0kK3bIm1L-_8aUfY92UEo0/edit?usp=sharing)
 
-## 4. [Administración de Riesgos →]()
+## 4. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
 
-## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
-
-## 6. Glosario
+## 5. Glosario
 
 API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
-AWS: Amazon Web Services es un servicio en la nube el cual ofrece un rango de servicios como: almacenamiento, manejo de bases de datos, poder de computo, etc.
-
 Backend: Es la parte de un sistema de software que procesa tareas e interactua con APIs, servidores, bases de datos, entre otros.
-
-Cache: Almacenamiento temporal de ciertos recursos para reducir tiempos de carga y tráfico de red.
 
 CloudFront: "Red de distribuición de contenido" (CDN) un servicio proveido por AWS para distribuir contenido a los usuarios en la red mundial.
 
 Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contendo web alrededor del mundo
 
-DDoS: Una "denegación de servicios distribuida" es un ataque cibernético que interrumpe el funcionamiento normal de una red al abrumarla con tráfico.
-
-Debian: Un sistema operativo de código abierto usado por sevidores.
-
 DNS: El "Sistema de nombres de dominio" es un sistema para guardar los nombres de las direcciones del internet.
-
-DynamoDB: Base de datos no relacional proveida por AWS.
 
 EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
 
@@ -724,8 +633,6 @@ Frontend: Es la parte de un sistema de software que interactúa con los usuarios
 
 Gateway: Es un sistema que conecta diferentes sistemas o redes para permitir la comunicación entre ellos.
 
-HTTP: El "Protocolo de transferencia de hipertexto" es utilizado para transferir datos a través de Internet.
-
 IEEE: El "Instituto de Ingenieros Eléctricos y Electrónicos" es una organización profesional internacional con sede en Nueva York para ingenieros en varios campos, como: ciencias de la computación y la electrónica.
 
 Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se ocupa de permitir que las máquinas entiendan el lenguaje humano.
@@ -733,15 +640,5 @@ Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se oc
 Plataforma: Software como una plataforma de servicio que se realizará para este proyecto.
 
 Usuario: Un usuario de cualquier clase de usuario, es quien usa la herramienta de software.
-
-Base de datos relacional: Un tipo de base de datos que almacena y organiza datos en tablas con relaciones predefinidas.
-
-S3 Bucket: "Amazon Simple Storage Service" es un servicio de almacenamiento en la nube proporcionado por AWS.
-
-SQL: "Lenguaje de consulta estructurado" es un lenguaje estándar utilizado para administrar bases de datos relacionales.
-
-Subnet: Una subdivisión de una red para controlar el tráfico y aislar dispositivos.
-
-Ubuntu: Un sistema operativo de código abierto basado en Debian.
 
 Nube privada virtual: Entorno de red virtual que permite a un usuario lanzar recursos en una sección lógicamente aislada de la nube.
