@@ -10,13 +10,14 @@
   <h3>Versionamiento</h3>
   </br>
 
-  | Versión | Fecha      | Responsable        | Comentarios             |
-  | ------- | ---------- | ------------------ | ----------------------- |
-  | 1.0.0   | 5/7/2023   | Andrew Dunkerley   | Creación del Documento  |
-  | 1.0.1   | 5/14/2023  | Andrew Dunkerley   | Redacción de Secciones  |
-  | 1.1.0   | 5/23/2023  | Andrew Dunkerley   | Traspaso a Markdown     |
-  | 1.2.0   | 5/26/2023  | Emiliano Cabrera   | Adición de módulos      |
-  | 1.3.0   | 5/31/2023  | Diego Corrales     | Adición de módulos      |
+  | Versión | Fecha     | Responsable      | Comentarios                                 |
+  | ------- | --------- | ---------------- | ------------------------------------------- |
+  | 1.0.0   | 5/7/2023  | Andrew Dunkerley | Creación del Documento                      |
+  | 1.0.1   | 5/14/2023 | Andrew Dunkerley | Redacción de Secciones                      |
+  | 1.1.0   | 5/23/2023 | Andrew Dunkerley | Traspaso a Markdown                         |
+  | 1.2.0   | 5/26/2023 | Emiliano Cabrera | Adición de módulos                          |
+  | 1.3.0   | 5/31/2023 | Diego Corrales   | Adición de módulos                          |
+  | 1.4.0   | 6/16/2023 | Emiliano Cabrera | Adición de módulos y correcciones de estilo |
 
 </div>
 
@@ -34,15 +35,21 @@
 
 - [APIs](SDD%20Docs%203a47ce1847ab4b59ae57344d5f692bb2/APIs%2001b022e1b6b2453faf9e457af4dd7c7c.md)
 
-- [Registro para compradores](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Registro%20para%20compradores%203032adfd7455491cab00e8b9afeb4084.md)
+- [Lista de Vendedores como Gerente](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Lista%20de%20Vendedores%20como%20Gerente%20d6c791abb3784056ba376ba6f1965719.md)
 
-- [Lista de Vendedores](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Lista%20de%20Vendedores%20d6c791abb3784056ba376ba6f1965719.md)
+- [Gestión de Agencia como Gerente](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Gestio%CC%81n%20de%20Agencia%20como%20Gerente%2039b7f328d4b24fb3b1487699bf14b758.md)
 
-- [Gestión de Agencia](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Gestio%CC%81n%20de%20Agencia%2039b7f328d4b24fb3b1487699bf14b758.md)
+- [Gestión de Agencia como Administrador de Grupo Automotriz](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Gestio%CC%81n%20de%20Agencia%20como%20Administrador%20de%20Grupo%20Au%209417d5258c8e423d90a983445b6ec01a.md)
 
-- [APIs](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/APIs%20059691d154ad421abbf7f195cee48c5c.md)
+- [Notificaciones por Twilio](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Notificaciones%20por%20Twilio%20dc17b6062fa84c6eabef2fdb017c5b3b.md)
 
-- [Pruebas](SDD%20Files%20e7c3113b6b864f84b54f7664d9d53e40/Pruebas%20b2896060cbea4a73b56f84c3fc288dcd.md)
+- [Comparación de productos](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Comparacio%CC%81n%20de%20productos%205a7d2ae2f8bd49138afc7502c2c698f1.md)
+
+- [Lista de favoritos](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Lista%20de%20favoritos%207ade0599392b43e1aacd9c5af7a686e6.md)
+
+- [APIs](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/APIs%20059691d154ad421abbf7f195cee48c5c.md)
+
+- [Pruebas](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Pruebas%20b2896060cbea4a73b56f84c3fc288dcd.md)
 
 - [Catálogo de Autos del Gerente](SDD%20A01781631%202d18d24397e646f9b940386130104832/Cata%CC%81logo%20de%20Autos%20Gerente%20e22ac2ca51284d049de39820656786f9.md)
 
