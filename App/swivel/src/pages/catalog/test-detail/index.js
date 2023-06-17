@@ -70,12 +70,12 @@ export default function RequestDetails() {
   };
 
   const fetchDetails = async () => {
-    let rawCar = await fetch(`/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
+    let rawCar = await fetch(`http://localhost:3000/api/prueba-manejo/get-car-info-elastic?auto_id=${auto_id}`,
       { method: 'GET' });
     const res = await rawCar.json();
     const retrievedAuto = res.auto._source;
 
-    let rawData = await fetch(`/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${session.id}`,
+    let rawData = await fetch(`http://localhost:3000/api/prueba-manejo/get-user-agency-info?agency_id=${retrievedAuto.agencia_id}&_id=${session.id}`,
       { method: 'GET' });
     const resData = await rawData.json();
     const retrievedAgency = resData.agency;
@@ -152,7 +152,7 @@ export default function RequestDetails() {
 
     try {
       await fetch(
-        `/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${new Date().toISOString()}&update_status=Subido`,
+        `http://localhost:3000/api/buyerProfile/updateUserDocs?id=${session.id}&doc_index=${changedDocumentIndex}&file_url=${documentUrl}&update_date=${new Date().toISOString()}&update_status=Subido`,
         {
           method: "PUT",
         }

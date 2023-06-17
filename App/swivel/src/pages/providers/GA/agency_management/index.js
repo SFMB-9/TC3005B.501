@@ -60,7 +60,7 @@ export default function ManageAgencias() {
 
     const fetchProcesos = async () => {
         const res = await fetch(
-            `/api/GA/pull-procesos?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
+            `http://localhost:3000/api/GA/pull-procesos?tipo_usuario=${role}&grupo_automotriz_id=${GA}`
         );
         const data = await res.json();
         setProcesos(data.result);

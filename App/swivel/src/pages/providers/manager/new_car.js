@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import FileUpload from "@/pages/api/uploadBucketDoc/uploadBucketDoc";
 import CustomizedSnackbars from "@/components/general/Alert";
 import ImageFileDrop from "@/components/general/FileDrop";
-import ManagerLayout from "@/components/providers/Manager/layout";
+import ManagerLayout from "@/components/providers/manager/layout";
 
 //create car object
 const CarRegistrationForm = () => {
@@ -59,7 +59,7 @@ const CarRegistrationForm = () => {
 
   useEffect(() => {
     const getIdAgencia = async () => {
-      let agenciaIdRaw = await fetch(`/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
+      let agenciaIdRaw = await fetch(`http://localhost:3000/api/catalogo-gerente/buscar-id-agencia?_id=${session.id}`,
         { method: 'GET' });
 
       const agenciaId = await agenciaIdRaw.json();

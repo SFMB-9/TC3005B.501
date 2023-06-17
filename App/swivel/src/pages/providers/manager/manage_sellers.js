@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 import Searchbar from '@/components/general/searchbar';
-import ManagerLayout from '@/components/providers/Manager/layout';
+import ManagerLayout from '@/components/providers/manager/layout';
 import DataTable from "@/components/general/Table";
 import PopUpComponent from '@/components/general/Popup';
 import EditSellerData from '@/components/providers/seller/edit_seller_data';

@@ -11,7 +11,7 @@ export default function Estadisticas() {
   React.useEffect(() => {
     const fetchOne = async () => {
       await fetch(
-        "/api/managerProfile/managerP?id=" + session?.id
+        "http://localhost:3000/api/managerProfile/managerP?id=" + session?.id
       )
         .then((res) => res.json())
         .then((data) => {
@@ -26,7 +26,7 @@ export default function Estadisticas() {
 
     const fetchTwo = async (agenciaId) => {
       await fetch(
-        "/api/managerProfile/managerP?id=" + agenciaId
+        "http://localhost:3000/api/managerProfile/managerP?id=" + agenciaId
       )
         .then((res) => res.json())
         .then((data) => {
@@ -40,7 +40,7 @@ export default function Estadisticas() {
   return (
     <div style={{ padding: "30px" }}>
       <h1>Estadisticas</h1>
-      <p>Agencia: {agencia && agencia.userData.nombres}</p>
+      <p>Agencia: {agencia.userData.nombres}</p>
       <h2>Autos mas vendidos</h2>
       {agencia && <MasVendido agency={agencia.userData.nombres} />}
       <h2>Autos mas probados</h2>

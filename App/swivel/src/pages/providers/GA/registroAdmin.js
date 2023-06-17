@@ -24,7 +24,7 @@ const RegistroAdmin = () => {
 
     useEffect(() => {
         const getIdGA = async () => {
-            let gaIdRaw = await fetch(`/api/GA/GA-get-id?_id=${session.id}`,
+            let gaIdRaw = await fetch(`http://localhost:3000/api/GA/GA-get-id?_id=${session.id}`,
                 { method: 'GET' });
 
             const gaId = await gaIdRaw.json();

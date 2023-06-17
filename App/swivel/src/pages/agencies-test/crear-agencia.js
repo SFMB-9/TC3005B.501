@@ -59,7 +59,7 @@ export default function CrearAgencia() {
         url_agencia,
       };
       const response = await fetch(
-        "/api/GA/crear-agencia",
+        "http://localhost:3000/api/GA/crear-agencia",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

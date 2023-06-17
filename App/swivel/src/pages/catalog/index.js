@@ -403,7 +403,7 @@ export default function Catalog() {
                 }}
               >
                 {/* <div style={{ fontSize: "20px", margin: "10px 0" }}>
-                    {`/api/catalogo/buscar-autos${
+                    {`http://localhost:3000/api/catalogo/buscar-autos${
                       selectedFilters.length ? `?${selectedFilters.join("&")}` : ""
                     }`}
                   </div>

@@ -59,7 +59,7 @@ export default function Process() {
     );
 
     const userData = await fetch(
-      `/api/managerProfile/managerP?id=${session.id}`
+      `http://localhost:3000/api/managerProfile/managerP?id=${session.id}`
     );
 
     const resUser = await userData.json();
