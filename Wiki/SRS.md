@@ -12,9 +12,9 @@
 | Date       | Version | Description  |  
 |------------|:-------:| :----------- |
 | 02/04/2023 | 1     | Integración SRS |
-| 14/06/2023 | 2     | Finalización SRS |
 
 <h2 align="center"> Autores
+<h3 align="center"> Alexa Serrano 
 <h3 align="center"> Alfredo Park
 <h3 align="center"> Ana Paula Katsuda
 <h3 align="center"> Andrea Serrano
@@ -146,6 +146,8 @@ Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 6. Comunicarse con una agencia (vendedor específico) por medio de un chat en tiempo real,
 7. Subir los documentos legales requeridos.
 
+El proyecto debe tambien proveer a sus usuarios una experiencia fluida en toda la aplicacion, incluyendo procesos como digitalizacion y procesamiento de documentos, solicitudes de pruebas de manejo, filtrado y especificacion, manejo de cuenta y perfil de usuario, etc.
+
 Los socios de este proyecto son:
 <ul>
     <li> NDS Cognitive Labs: El cliente para quien se desarrolla el proyecto.
@@ -164,6 +166,9 @@ La aplicacion pretende:
 
 Lo que nos distingue de la competencia es nuestra intención de:
 - Crear un simulador comparativo de autos, 
+- Un formulario para entender las necesidades del usuario, 
+- Agendar citas mediante un calendario, 
+- Dar recomendaciones personalizadas con Machine Learning y 
 - La implementación de un "Wishlist" (Bookmark de autos preferidos). <br>
 Pero, priorizando la entrega de un MVP funcional, de calidad y que cubra las necesidades del cliente, NDS. 
 
@@ -207,7 +212,7 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 2. _Usuario Vendedor_:
 - Primer usuario de tipo administrador, tiene el menor número de privilegios; solamente se le permite acceder a su información y a la de sus clientes.
 - Tiene una cuenta y un perfil.
-- Sus permisos y accesos son asignados por un usuario gerente.
+- Sus permisos y accesos son asignados por un usuario gerente o agencia.
 
 3. _Usuario Gerente_:
 - Usuario administrador, que pertenece a una agencia y sus permisos están gestionados por el grupo automotriz.
@@ -217,7 +222,7 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 4. _Usuario Grupo Automotriz_:
 - Usuario administrador, sus permisos y acceso es gestionado por el usuario super-administrador.
-- Se le permite acceder a la información de todas las agencias bajo su supervisión, gerentes y vendedores.
+- Se le permite acceder a la información de todas las agencias bajo su supervisión, sus catálogos y vehículos, gerentes y vendedores.
 - Gestiona que sucursales serán parte de la plataforma en conjunto con el usuario super-administrador.
 - Tiene una cuenta y un perfil.
 
@@ -229,17 +234,24 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 ## 2.3. Ambiente de Desarrollo
  
 <p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución. 
-  
+
 ### 1. Database
   
 <i>MongoDB (Almacenamiento de catálogo e información de la compra):</i><br>
 La base de datos que se utiliza en el sistema es MongoDB, desplegada en un servicio propio de mongo llamado Mongo Atlas. Esta base de datos se conecta directamente con los APIs que constituyen al backend y guarda toda la información de la aplicación a excepción del catálogo.
+* Gratuito.
+* Los programadores cuentan con conocimiento y experiencia previa.
+* Compatible con diversos OS - compatible con Windows.
+* Fácil instalación e implementación.
+* Altamente flexible y escalable.
+* Tolera grandes volúmenes de datos.
+* Estructura no relacional - bueno para manejar muchas read-write operations como lo son búsquedas, filtrado e información referente a la compra del auto.
+* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
 ### 2. Back-End
-  
 El backend de la aplicación está constituido por todos aquellos módulos que permiten extraer información de la base de datos y otros recursos y desplegarla en el frontend. Para su desarrollo se usó NodeJS y NEXT al igual que el frontend. Debido a que tanto frontend como backend forman parte de una misma aplicación, esta parte también estará desplegada en Vercel. Al igual que frontend considera la autenticación y persistencia de datos para las sesiones y usuarios.
-### 3. Librerías y Herramientas de Front-end 
-  
+
+### 3. Librerías y Herramientas de Front-end   
 <i>Figma:</i><br>	
 * Gratuito 
 * Intuitivo y fácil de usar.
@@ -254,12 +266,12 @@ El backend de la aplicación está constituido por todos aquellos módulos que p
 * Compatible y utilizado sobre React.
 * Flexible para la customización de los componentes.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
-  
-<i>Bootstrap:</i><br>
-* Gratuito.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Opera en base a un “Grid System” con elementos pre-desarrollados que ahorran tiempo y esfuerzo al momento de realizar el estilo.
-* A comparación de otras opciones que dan más libertad, con Bootstrap es sumamente rápido el desarrollo del UI.
+
+<i>NextJS:</i><br>
+* Gratuito y Open Source.
+* Framework de React para el desarrollo de aplicaciones web.
+* Permite “server-side rendering” que agiliza el cargado de la página.
+* Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
 ### 4. Almacenamiento de Archivos
@@ -284,7 +296,6 @@ Para la autenticación se utilizan dos servicios. El primero es la librería par
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
 
 ### 9. APIs de Terceros
-  
 <i>Stripe:</i><br>
 * Para la integración de pagos en la plataforma se utiliza Stripe. 
 * Este servicio permite generar una pantalla de “checkout” para que el usuario pueda hacer el pago del auto que está comprando. 
@@ -302,7 +313,6 @@ La aplicación hace uso de Live Person, un servicio de comunicación en vivo que
 Twilio permite mandar notificaciones ya sea por mail, whatsapp o cualquier otro medio de contacto al usuario.
 
 <i>OpenAI:</i><br>
-OpenAI
 El API de OpenAI permite utilizar sus modelos generativos de inteligencia artificial para generar las descripciones para cada auto en el catálogo. Estas descripciones son las que nutren la búsqueda por lenguaje natural en ElasticSearch.
 
 ## 2.4. Restricciones de Implementación y Diseño
@@ -431,7 +441,7 @@ Para esta versión del diagrama ER, se realizó una división de actores, consis
 
 Esto se hizo para tener más clara la división entre diferentes componentes del sistema, así como para facilitar el proceso de identificar las conexiones entre ellas.
 
-ACTUALIZAR ---------------------------
+Además, por medio de la normalización se hicieron tablas intermediarias, como se puede apreciar en los actores amarillos por ejemplo, con el objetivo de facilitar los cruces para la base de datos.
 
 ## 4.3. Reportes
   
@@ -440,6 +450,12 @@ Se busca que la plataforma sea capaz de producir diferentes estádisticas y depe
 1. Ventas de cada vendedor, agencia y grupo automotriz, pruebas de manejo por agencia.
 2. Venta de cada vehículo y su popularidad (ya sea por número de personas interesadas en el o por la cantidad de pruebas de manejo del modelo).
 3. Comportamiento de la plataforma, cantidad de usuarios, información geográfica de los usuarios.
+
+Por otra parte, la app generará los siguientes logs:
+
+- Log de Auditoría: Incuirá el comprador, el vendedor, el administrador y dueño en caso de haber conflicto en una organizacion y se requiere transparencia, o si hay un error en las acciones CRUD y los desarrolladores requieren una referencia de un posible causante del error. Se incluye el timestamp, el usuario que realizó la acción y la acción realizada con su descripción.
+
+- Log de Ventas: Se utilizará como comprobante al iniciarse, completarse o cambiar de etapa la venta de un vehículo. Se incluye el timestamp, el comprador, el vendedor y el estado de la venta.
 
 ## 4.4. Adquisición de Datos, Integridad, Retención y Eliminación
 La información que será recopilada dentro de la plataforma podrá o no contener datos sensibles protegidos por los derechos ARCO dentro de Mexico. Esta información podría o no contener documentos, imágenes e información confidencial que sea requerida para el proceso de compra/venta de automóviles, registro de usuarios y cualquier otro pedazo de información que sea requerido para el correcto funcionamiento de los procesos de el servicio.
@@ -499,7 +515,6 @@ El mockup funge como la guía gráfica del sitio que se desarrollará. El diseñ
  
 <p align="justify"> En esta sección se presenta un diagrama ilustrativo de la arquitectura que describe la aplicación y los diferentes servicios que se utilizan para su despliegue y desarrollo. Este incluye los elementos de Usuario, Frontend, Backend, APIs de Terceros y las conexiones entre estas. De igual manera se describe cada uno de los componentes a profundidad, haciendo énfasis en las tecnologías que se utilizan y su conexión con las demás partes.
 
-
 <p align="center">
   <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
 </p>
@@ -516,9 +531,9 @@ Dentro de este segmento se encuentra el frontend, backend, la base de datos, el 
 ### No aplica
 
 ## 5.4. Interfaces de Comunicación
-1. Notificaciones:
+1. E-mail:
 
-Se integrará un servicio de respuesta automática por correo, utilizando una herramienta como Twilio. Este servicio permitirá a los usuarios recibir notificaciones de los cambios en el estado de su solicitud, así como de los cambios en la información de la misma.
+Se integrará un servicio de respuesta automática por correo, utilizando una herramienta como MailChimp. Este servicio permitirá a los usuarios recibir notificaciones de los cambios en el estado de su solicitud, así como de los cambios en la información de la misma.
 
 2. Entrega y Reconocimiento de Documentos:
 
@@ -555,6 +570,8 @@ Se integrará una plataforma de pago para que los usuarios puedan pagar por los 
 * <b>Fiabilidad:</b> La plataforma debe ser fiable y estable, con el mínimo tiempo de inactividad o errores que puedan interrumpir la experiencia del usuario y las transacciones.
 
 ## 6.3. Seguridad
+
+* <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su interceptación y manipulación.
   
 * <b>Autenticación:</b> La página web debe utilizar mecanismos de autenticación fuertes como JWT tokens o Cookies para verificar la identidad de los usuarios y evitar escalamiento de privilegios.
   
@@ -563,6 +580,8 @@ Se integrará una plataforma de pago para que los usuarios puedan pagar por los 
 * <b>Protección de datos:</b> La página web debe utilizar medidas adecuadas para proteger todos los datos (en reposo, tránsito o uso) de los usuarios, como la información personal, los detalles de pago y el historial de compras.
   
 * <b>Cifrado:</b> la plataforma deberá cifrar adecuadamente toda la información sensible contenida en la base de datos.
+  
+* <b>Seguridad en Código:</b> La plataforma debe seguir prácticas de seguridad en código y comprobarse periódicamente para detectar vulnerabilidades como Cross-site scripting (XSS) y SQL injection. Correspondientemente, deben tomarse las medidas adecuadas para solucionar cualquier vulnerabilidad detectada.
 
 ## 6.4. Protección
 
@@ -587,25 +606,37 @@ Debido a las diferencias legales que se presentan de acuerdo a la región polít
 
 ← [Manuales](https://github.com/SFMBa01029956/TC3005B.501/tree/manuals)
   
-## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=100%2C-224%2C2220%2C938%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
+## 1. [Organigrama →](https://lucid.app/lucidchart/580864bb-0177-4ba8-9e3a-9dbb6148d2f7/edit?viewport_loc=-163%2C180%2C2035%2C860%2C0_0&invitationId=inv_28b72812-fd5d-49db-abaf-64d2158449f1)
 
-## 2. [Gantt →](https://docs.google.com/spreadsheets/d/1gDhr2EFc64-WXoaUq-obQMG04V7ao3dJNju-94qV_Ho/edit?usp=sharing)
+## 2. [Gantt →](https://docs.google.com/spreadsheets/d/1gQOCrEyqyHThUOxP-niAMtOYwplinlct/edit?usp=sharing&ouid=103048302256739869165&rtpof=true&sd=true)
 
-## 3. [Historias de Usuario →](https://docs.google.com/spreadsheets/d/1ekLYBNdBiyeopLcMUxqWD0kK3bIm1L-_8aUfY92UEo0/edit?usp=sharing)
+## 3. [Historias de Usuario →]()
 
-## 4. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
+## 4. [Administración de Riesgos →]()
 
-## 5. Glosario
+## 5. [Casos de Uso →](https://github.com/SFMBa01029956/TC3005B.501/blob/main/Wiki/Casos_de_Uso.md)
+
+## 6. Glosario
 
 API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolos, rutinas y herramientas para la creación tanto de software y aplicaciones.
 
+AWS: Amazon Web Services es un servicio en la nube el cual ofrece un rango de servicios como: almacenamiento, manejo de bases de datos, poder de computo, etc.
+
 Backend: Es la parte de un sistema de software que procesa tareas e interactua con APIs, servidores, bases de datos, entre otros.
+
+Cache: Almacenamiento temporal de ciertos recursos para reducir tiempos de carga y tráfico de red.
 
 CloudFront: "Red de distribuición de contenido" (CDN) un servicio proveido por AWS para distribuir contenido a los usuarios en la red mundial.
 
 Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contendo web alrededor del mundo
 
+DDoS: Una "denegación de servicios distribuida" es un ataque cibernético que interrumpe el funcionamiento normal de una red al abrumarla con tráfico.
+
+Debian: Un sistema operativo de código abierto usado por sevidores.
+
 DNS: El "Sistema de nombres de dominio" es un sistema para guardar los nombres de las direcciones del internet.
+
+DynamoDB: Base de datos no relacional proveida por AWS.
 
 EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
 
@@ -615,6 +646,8 @@ Frontend: Es la parte de un sistema de software que interactúa con los usuarios
 
 Gateway: Es un sistema que conecta diferentes sistemas o redes para permitir la comunicación entre ellos.
 
+HTTP: El "Protocolo de transferencia de hipertexto" es utilizado para transferir datos a través de Internet.
+
 IEEE: El "Instituto de Ingenieros Eléctricos y Electrónicos" es una organización profesional internacional con sede en Nueva York para ingenieros en varios campos, como: ciencias de la computación y la electrónica.
 
 Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se ocupa de permitir que las máquinas entiendan el lenguaje humano.
@@ -622,5 +655,15 @@ Procesamiento del lenguaje natural: Rama de la inteligencia artificial que se oc
 Plataforma: Software como una plataforma de servicio que se realizará para este proyecto.
 
 Usuario: Un usuario de cualquier clase de usuario, es quien usa la herramienta de software.
+
+Base de datos relacional: Un tipo de base de datos que almacena y organiza datos en tablas con relaciones predefinidas.
+
+S3 Bucket: "Amazon Simple Storage Service" es un servicio de almacenamiento en la nube proporcionado por AWS.
+
+SQL: "Lenguaje de consulta estructurado" es un lenguaje estándar utilizado para administrar bases de datos relacionales.
+
+Subnet: Una subdivisión de una red para controlar el tráfico y aislar dispositivos.
+
+Ubuntu: Un sistema operativo de código abierto basado en Debian.
 
 Nube privada virtual: Entorno de red virtual que permite a un usuario lanzar recursos en una sección lógicamente aislada de la nube.
