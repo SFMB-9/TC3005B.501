@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import CustomHero from "@/components/general/custom_hero";
-import ManagerNavbar from "@/components/providers/manager/navbar";
+import ManagerNavbar from "@/components/providers/Manager/navbar";
 import ActionsCards from "@/components/providers/Manager/actions_cards";
 
 import { useEffect, useState } from 'react';
