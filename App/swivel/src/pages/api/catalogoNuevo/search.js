@@ -59,6 +59,22 @@ export default async function handler(req, res) {
                 ]
             }
         }
+
+        const inputString = searchQuery;
+        const yearPattern = /\b\d{4}\b/;
+        const yearMatch = inputString.match(yearPattern);
+        const year = yearMatch ? parseInt(yearMatch[0]) : null;
+    
+        if (year !== null) {
+            query.bool.should.push({
+                range: {
+                    año: {
+                        gte: year,
+                        lte: year
+                    }
+                }
+            });
+        }
         dbQuery.query = query;
     }
 
