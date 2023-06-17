@@ -228,42 +228,17 @@ La idea del servicio pretende trabajar con tecnologías emergentes para facilita
 
 ## 2.3. Ambiente de Desarrollo
  
-<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución que se presenta en este escrito. 
+<p align="justify"> En esta sección, se define el Tech Stack diseñado para la solución. 
   
 ### 1. Database
   
 <i>MongoDB (Almacenamiento de catálogo e información de la compra):</i><br>
-* Gratuito.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Compatible con diversos OS - compatible con Windows.
-* Fácil instalación e implementación.
-* Altamente flexible y escalable.
-* Tolera grandes volúmenes de datos.
-* Estructura no relacional - bueno para manejar muchas read-write operations como lo son búsquedas, filtrado e información referente a la compra del auto.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-
-ACTUALIZAR --------------------------------
+La base de datos que se utiliza en el sistema es MongoDB, desplegada en un servicio propio de mongo llamado Mongo Atlas. Esta base de datos se conecta directamente con los APIs que constituyen al backend y guarda toda la información de la aplicación a excepción del catálogo.
   
-### 2. Dev. Environments
+### 2. Back-End
   
-* <i>NodeJS (Application Layer):</i><br>
-* Gratuito - Open Source.
-* Los programadores cuentan con conocimiento y experiencia previa.
-* Compatibilidad cross-platform - gran compatibilidad con React.
-* Facilita el desarrollo del backend en JavaScript.
-* Particularmente rápido y escalable al estar construido sobre Chrome V8 Engine.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 3. Frameworks
-  
-<i>NextJS:</i><br>
-* Gratuito y Open Source.
-* Framework de React para el desarrollo de aplicaciones web.
-* Permite “server-side rendering” que agiliza el cargado de la página.
-* Permite un fácil enrutamiento de los diferentes “endpoints” requeridos.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
-  
-### 4. Front-end Development Libraries
+El backend de la aplicación está constituido por todos aquellos módulos que permiten extraer información de la base de datos y otros recursos y desplegarla en el frontend. Para su desarrollo se usó NodeJS y NEXT al igual que el frontend. Debido a que tanto frontend como backend forman parte de una misma aplicación, esta parte también estará desplegada en Vercel. Al igual que frontend considera la autenticación y persistencia de datos para las sesiones y usuarios.
+### 3. Librerías y Herramientas de Front-end 
   
 <i>Figma:</i><br>	
 * Gratuito 
@@ -287,37 +262,19 @@ ACTUALIZAR --------------------------------
 * A comparación de otras opciones que dan más libertad, con Bootstrap es sumamente rápido el desarrollo del UI.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización.
   
-### 6. Cloud Service
-  
-<i> ACTUALIZAR ------------------------------------------</i><br>
-  
-### 7. Payment Gateway Integration
-  
-<i>Stripe:</i><br>
-* Comisión de 2.9% + 30 centavos por cada transacción.
-* API fácil y rápida de utilizar/integrar con otra plataforma.
-* Soporta una amplia variedad de monedas y métodos de pago.
-* Proporciona un sistema seguro de pago.
-* Cuenta con servicio al cliente 24/7 ya sea vía teléfono, email o live chat.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
-  
-### 9. Security
-ACTUALIZAR!! ------------------------ <BR>
-<i>OAuth:</i><br>
-* Gratuito - Open Standard.
-* Provee un método seguro para implementar la autorización sin necesidad de credenciales.
-* Permite la implementación de la autorización mediante diversos servicios (Google, Facebook, Twitter).
-* Provee privacidad al darle al usuario cierto control sobre la información a la que ciertas empresas pueden acceder.
-* Cuenta con una buena comunidad, documentación y material de consulta para su utilización.	
-  
-### 10. Document Validation
-  
-<i>INE API:</i><br>
-* Número limitado de peticiones gratuitas.
-* Permite la verificación de INEs 
-* Cuenta con una buena documentación, materiales de consulta y soporte.
+### 4. Almacenamiento de Archivos
+Para el almacenamiento de archivos se utiliza Firestore, un servicio de almacenamiento que forma parte de la nube de Google. Este se conecta con los APIs del backend para procesar el archivo y finalmente guardar la liga del archivo en la base de datos.
 
-### Version Control
+### 5. Motor de Búsqueda
+Para el motor de búsqueda se hace uso de ElasticSearch. Este recurso permite habilitar las funcionalidades de búsqueda por filtros y por lenguaje natural y abre la posibilidad de utilizar otras como lo son voz a texto e integración de modelos pre-entrenados para mejorar la búsqueda. El servicio se encuentra desplegado en la nube de Google y es consumido por medio de las APIs del backend. Este motor de búsqueda almacena únicamente el catálogo de autos y la información relacionada a ellos, permitiendo su fácil recuperación y acceso.
+
+### 6. Cloud Service: Vercel
+
+### 7. Autenticación
+<i>NextAuth:</i><br>
+Para la autenticación se utilizan dos servicios. El primero es la librería para el framework en el que está desarrollada la aplicación, NextAuth. Este permite el manejo de los permisos y sesiones del usuario en toda la aplicación y permite almacenar las credenciales de estos en nuestra propia base de datos de manera segura. El segundo servicio es Google Authenticator, el cuál permite al usuario usar su cuenta existente de Google para crear una cuenta en el sistema.
+
+### 8. Control de Versionamiento
   
 <i>GitHub:</i><br>
 * Gratuito.
@@ -325,8 +282,28 @@ ACTUALIZAR!! ------------------------ <BR>
 * Permite repositorios ilimitados - lo cual da versatilidad a la organización que se tome para la realización del proyecto.
 * Permite administrar de forma sencilla y organizada controlar la colaboración, actualizaciones y cambios que se realicen al proyecto por parte de todos los miembros del equipo.
 * Cuenta con una buena comunidad, documentación y material de consulta para su utilización. <br>
+
+### 9. APIs de Terceros
   
-ACTULIZAR --------------------------------------- <BR>
+<i>Stripe:</i><br>
+* Para la integración de pagos en la plataforma se utiliza Stripe. 
+* Este servicio permite generar una pantalla de “checkout” para que el usuario pueda hacer el pago del auto que está comprando. 
+* Este servicio se conecta con el frontend para posteriormente guardar las claves de rastreo del pago en la base de datos.
+
+<i>INE API:</i><br>
+* Número limitado de peticiones gratuitas.
+* Permite la verificación de INEs 
+* Cuenta con una buena documentación, materiales de consulta y soporte.
+
+<i>Live Person:</i><br>
+La aplicación hace uso de Live Person, un servicio de comunicación en vivo que permite chat, llamada y videollamada en tiempo real. Este servicio se utiliza para el soporte de la aplicación.
+
+<i>Twilio:</i><br>
+Twilio permite mandar notificaciones ya sea por mail, whatsapp o cualquier otro medio de contacto al usuario.
+
+<i>OpenAI:</i><br>
+OpenAI
+El API de OpenAI permite utilizar sus modelos generativos de inteligencia artificial para generar las descripciones para cada auto en el catálogo. Estas descripciones son las que nutren la búsqueda por lenguaje natural en ElasticSearch.
 
 ## 2.4. Restricciones de Implementación y Diseño
   
@@ -520,7 +497,8 @@ El mockup funge como la guía gráfica del sitio que se desarrollará. El diseñ
 ## 5.2. Interfaces de Software
 ### Diagrama de Arquitectura
  
-<p align="justify"> En esta sección se presenta el diagrama de arquitectura correspondiente a la solución para la plataforma digital de venta de automóviles descrita en este documento. 
+<p align="justify"> En esta sección se presenta un diagrama ilustrativo de la arquitectura que describe la aplicación y los diferentes servicios que se utilizan para su despliegue y desarrollo. Este incluye los elementos de Usuario, Frontend, Backend, APIs de Terceros y las conexiones entre estas. De igual manera se describe cada uno de los componentes a profundidad, haciendo énfasis en las tecnologías que se utilizan y su conexión con las demás partes.
+
 
 <p align="center">
   <img src="../assets/diagrams/Architecture/ArchDiagram.png" width="600" title="hover text">
