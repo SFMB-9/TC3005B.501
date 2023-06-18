@@ -2,7 +2,7 @@
   </br>
   <h1 class="title">Documento de Diseño de Software</h1>
   </br>
-  <h2 class="subtitle">Andrew Dunkerley Vera, Emiliano Cabrera Ruiz, Diego Corrales Pinedo</h2>
+  <h2 class="subtitle">Andrew Dunkerley Vera, Emiliano Cabrera Ruiz, Diego Corrales Pinedo, Do Hyun Nam</h2>
   </br>
 </div>
 
