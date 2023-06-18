@@ -40,7 +40,7 @@
 
 - [APIs](Documentacion%203a47ce1847ab4b59ae57344d5f692bb2/APIs%2001b022e1b6b2453faf9e457af4dd7c7c.md)
 
-  <h3 class="subtitle">Emiliano Cabrera</h3>
+<h3 class="subtitle">Emiliano Cabrera</h3>
 
 - [Lista de Vendedores como Gerente](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Lista%20de%20Vendedores%20como%20Gerente%20d6c791abb3784056ba376ba6f1965719.md)
 
