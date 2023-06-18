@@ -1,6 +1,6 @@
 # Introducción
 
-El presente Documento de Diseño de Software (SDD) tiene como objetivo proporcionar una descripción detallada de los módulos, APIs y pruebas relacionadas con el desarrollo del proyecto.
+El presente Documento tiene como objetivo proporcionar una descripción detallada de los módulos, APIs y pruebas relacionadas con el desarrollo del proyecto.
 
 En este documento, se presenta una visión general de la arquitectura del software, identificando los diferentes módulos y su funcionalidad. Además, se describen las APIs utilizadas para la comunicación entre los módulos y con sistemas externos. Finalmente, se presentan los casos de prueba que se utilizarán para validar el correcto funcionamiento del sistema:
 
