@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import {User, SellerUser} from "../../../models/user";
+import {User, SellerUser} from "@/models/user";
 import bcrypt from "bcryptjs";
-import dbConnect from "../../../config/dbConnect";
+import dbConnect from "@/config/dbConnect";
 
-const { decryptRole } = require("../../../utils/crypto");
+const { decryptRole } = require("@/utils/crypto");
 
 export const authOptions = {
   session: {
@@ -23,29 +23,25 @@ export const authOptions = {
       async authorize(credentials) {
         dbConnect();
         const { email, password } = credentials;
-        const user = await User.findOne({ email: credentials.email });
+        const user = await User.findOne({ email: credentials.email.toLocaleLowerCase() });
 
         if (!user) {
           throw new Error("Invalid Email or Password");
         }
 
-        const pass = {...user}._doc.password
-
-        console.log(credentials.password,  pass);
-        
         const isPasswordMatched = await bcrypt.compare(
           credentials.password,
-          pass
-          );
-          
+          user.password
+        );
+
         if (!isPasswordMatched) {
           throw new Error("Invalid Email or Password");
         }
-
+        
         return {
           id: user._id.toString(),
           email: user.email,
-          role: decryptRole({...user}._doc.encrypted_role),
+          role: decryptRole(user.tipo_usuario),
         };
       },
     }),

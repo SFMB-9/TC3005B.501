@@ -21,10 +21,43 @@ import { useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+function setColor(cardType, status) {
+  let statusColor;
+  let statusDisplay;
+  if (cardType === 'purchases' || cardType === 'finalized') {
+    if (status === 'pagado') {
+      statusColor = '#18AE00';
+      statusDisplay = 'Pagado';
+    }
+    else if (status === 'pagoPendiente') {
+      statusColor = '#FFC700';
+      statusDisplay = 'Pago pendiente';
+    }
+    else if (status === 'documentosPendientes') {
+      statusColor = '#F55959';
+      statusDisplay = 'Documentos pendientes';
+    }
+  } else if (cardType === 'drivingTest') {
+    if (status === 'Finalizada') {
+      statusColor = '#18AE00';
+      statusDisplay = 'Finalizada';
+    }
+    else if (status === 'En proceso') {
+      statusColor = '#FFC700';
+      statusDisplay = 'En proceso';
+    }
+    else if (status === 'Cancelada') {
+      statusColor = '#F55959';
+      statusDisplay = 'Cancelada';
+    }
+  }
+  return [statusColor, statusDisplay];
+}
 
 // Función que devuelve la carta con la información del auto.
 export default function CarCard(props) {
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(props.favoriteCar);
+  const [statusColor, statusDisplay] = setColor(props.cardType, props.status);
   const theme = createTheme({
     palette: {
       contrast: {
@@ -32,32 +65,52 @@ export default function CarCard(props) {
       },
     },
   });
-  let cardMaxWidth = 500;
-  let cardMaxHeight = 330;
-  if (props.cardType !== "catalog") {
-    cardMaxHeight = 500;
-  }
+
+  const [checkboxState, setCheckboxState] = useState(false);
+
+  const handleCheckbox = (e) => {
+    e.stopPropagation();
+    setCheckboxState(e.target.checked)
+    if (e.target.checked) {
+      console.log(props._id)
+      props.setCarIds([...props.carIds, props._id]);
+    }
+    else {
+      props.setCarIds(props.carIds.filter((id) => id !== props._id));
+    }
+  };
 
   return (
-    <Card sx={{ maxWidth: cardMaxWidth, maxHeight: cardMaxHeight }}>
+    <Card sx={{ maxWidth: 500 }}>
       <div style={{ position: 'relative' }}>
-        <CardMedia
-          component="img"
-          height="160"
-          image={props.carImage}
-          alt="car"
-        />
-        <IconButton
-          onClick={() => setFavorite(!favorite)}
-          sx={{
-            position: 'absolute',
-            top: 3.5,
-            right: 3.5,
-            fontSize: '1.4rem',
-            color: '#F55C7A' /*favorite ? '#F55C7A' : 'grey',*/
-          }}>
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </IconButton>
+        <a href={props.carUrl}>
+          <CardMedia
+            component="img"
+            height="160"
+            image={props.carImage}
+            alt="car"
+          />
+        </a>
+        {
+          props.cardType === "catalog" && (
+            <div>
+              <input
+                type="checkbox"
+                checked={checkboxState}
+                onChange={handleCheckbox}
+                style={{
+                  position: 'absolute',
+                  top: 3.5,
+                  right: 3.5,
+                  fontSize: '1.4rem',
+                  color: '#F55C7A'
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )
+        }
+
       </div>
       <CardActionArea component="a" href={props.carUrl}>
         <CardContent>
@@ -100,6 +153,7 @@ export default function CarCard(props) {
                     <div><ArrowForwardIcon sx={{ fontSize: 25, color: "#F55C7A" }} /></div>
                   </ThemeProvider>
                 </div>
+
               </>
             )
           }
@@ -117,7 +171,7 @@ export default function CarCard(props) {
                   paddingBottom: '0.5rem'
                 }}>
                   {props.carBrand} {props.carModel}
-                  
+
                 </Typography>
                 <Typography gutterBottom variant="body2" color="text.secondary" sx={{
                   marginBottom: '0.5rem',
@@ -164,7 +218,8 @@ export default function CarCard(props) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    Estatus: &nbsp; <Typography gutterBottom variant="body2" sx={{
+                    Estatus: &nbsp;
+                    <Typography gutterBottom variant="body2" sx={{
                       marginBottom: '0',
                       fontFamily: 'Lato',
                       fontWeight: 'bolder',
@@ -172,9 +227,10 @@ export default function CarCard(props) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#F55C7A'
+                      color: statusColor
                     }}>
-                      {props.status}
+                      {statusDisplay}
+                      {console.log("el estatus" , props.status)}
                     </Typography>
                   </Typography>
                 </div>

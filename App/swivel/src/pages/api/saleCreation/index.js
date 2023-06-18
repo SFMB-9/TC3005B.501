@@ -3,14 +3,14 @@
 Sebastian Gonzalez Villacorta
 21/5/2023
 
-Description: Create new entry of proceso de venta in MongoDB
+Description: Create new entry of proceso de venta with Mongoose
 
 */
 
 import mongoose from "mongoose";
 import dbConnect from "../../../config/dbConnect";
 const Proceso = require('../../../models/procesos');
-const Usuario = require('../../../models/usuario');
+const Usuario = require('../../../models/user');
 
 export default async function handler(req, res) {
 

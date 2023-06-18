@@ -7,32 +7,50 @@ Description: Search for cars in elasticsearch using filters or matches in each f
 */
 
 // Connecting to ElasticSearch with security disabled
+//import fetch from 'node-fetch';
 const { Client } = require('@elastic/elasticsearch')
+const json5 = require('json5');
+const { ELASTIC_API_KEY } = process.env
 
 
 export default async function handler(req, res) {
-    const client = new Client({ node: 'http://localhost:9200' });
+    console.log("QUERY IN ENDPOINT: " + JSON.stringify(req.query));
+
+    //const client = new Client({ node: 'http://localhost:9200' });
+    const client = new Client({
+        node: ' https://swivelelastictest.es.us-east4.gcp.elastic-cloud.com/',
+        auth: {
+            apiKey: ELASTIC_API_KEY
+        }
+    })
 
     let query = {};
 
     // Asigns an empty string to searchQuery if it is undefined
-    let searchQuery = req.query.search === undefined ? "" : req.query.search;
+    let searchQuery = req.query.search || '';
+
+    // Construct the URL object
+    let url = new URL('/api/catalogoNuevo/search', `http://${req.headers.host}`);
+    url.searchParams.append('search', searchQuery);
 
     // Fetch resluts based on the search query
-    let searchResults = await fetch(`http://localhost:3000/api/catalogoNuevo/search?search=${searchQuery}`);
-    
+    let searchResults = await fetch(url.toString());
+
     // Convert the results to json and extract the ids
     let searchResultsJson = await searchResults.json();
     const searchIds = searchResultsJson.result;
+    const searchScores = searchResultsJson.score;
 
     // Handles the cases where searchids is undefined or empty
     if (searchIds !== undefined) {
         if (searchIds.length > 0) {
             query = buildQuery(req.query, searchIds, {});
         } else {
+            console.log("No se encontraron autos")
             return res.status(404).json({ message: "No se encontraron autos" });
         }
     } else {
+        console.log("No se encontraron autos")
         return res.status(404).json({ message: "No se encontraron autos" });
     }
 
@@ -64,8 +82,18 @@ export default async function handler(req, res) {
 
         let result = elasticResponse.body.hits.hits;
 
+        // Add score to each result
+        result.forEach((item, index) => {
+            item._source.score = searchScores[item._id];
+        });
+
+        // Sort results by score
+        result.sort((a, b) => {
+            return b._source.score - a._source.score;
+        });
+
         let filters = {};
-        await assembleFilter(result, filters);
+        await assembleFilter(result, filters, req);
 
         if (result.length === 0) {
             return res.status(404).json({ message: "No se encontraron autos", filterHeaders: filterHeaders });
@@ -90,20 +118,28 @@ export default async function handler(req, res) {
 }
 
 // Function to assemble the filters from the catalog results
-async function assembleFilter(result, filters) {
-
-    let response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas');
+async function assembleFilter(result, filters, req) {
+    // Construct the URL object
+    let url = new URL('/api/catalogoNuevo/marcas', `http://${req.headers.host}`);
+    let response = await fetch(url.toString());
 
     let marcaResponse = await response.json();
-    let marca = marcaResponse.result;
+    let marca = marcaResponse.result.sort();
 
     let modelo = [...new Set(result.map(item => item._source.modelo))];
+    modelo.sort();
     let ano = [...new Set(result.map(item => item._source.año))];
-    let color = [...new Set(result.map(item => item._source.color))];
+    ano.sort().reverse();
+    let color = [...new Set(result.map(item => json5.parse(item._source.colores).map(item => item.nombre)).flat())];
+    color.sort();
     let combustible = [...new Set(result.map(item => item._source.combustible))];
+    combustible.sort();
     let motor = [...new Set(result.map(item => item._source.motor))];
+    motor.sort();
     let tipo_vehiculo = [...new Set(result.map(item => item._source.tipo_vehiculo))];
+    tipo_vehiculo.sort();
     let estado_agencia = [...new Set(result.map(item => item._source.estado_agencia))];
+    estado_agencia.sort();
 
     filters.marca = marca;
     filters.modelo = modelo;
@@ -119,7 +155,7 @@ async function assembleFilter(result, filters) {
 
 // Function to build elasticsearch search body
 function buildQuery(queryParams, searchResultsIds, dbQuery) {
-
+    dbQuery.size = 900;
     dbQuery.query = {
         bool: {
             must: []
@@ -169,6 +205,15 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
 
     // Fix filter by color
     if (queryParams.color) {
+        dbQuery.query.bool.must.push({
+            bool: {
+                should:
+                    queryParams.color.split(",").map(color => {
+                        return { "match_phrase": { "colores.nombre": color } }
+                    }
+                    )
+            }
+        });
     }
 
     if (queryParams.combustible) {
@@ -222,6 +267,14 @@ function buildQuery(queryParams, searchResultsIds, dbQuery) {
                     gte: queryParams.precio_min,
                     lte: queryParams.precio_max
                 }
+            }
+        });
+    }
+
+    if (queryParams.agencia_id) {
+        dbQuery.query.bool.must.push({
+            match: {
+                agencia_id: queryParams.agencia_id
             }
         });
     }

@@ -1,5 +1,6 @@
 import {
   Grid,
+  Typography,
 } from "@mui/material";
 import AccountLayout from "@/components/buyer/account_layout";
 import React, { useState, useEffect } from "react";
@@ -17,12 +18,12 @@ export default function Purchases() {
 
   console.log("session", session);
 
-  const fetchDrivingData = async () => {
+  const fetchData = async () => {
     const resCurrentPurchases = await fetch(
-      `http://localhost:3000/api/buyerProfile/getPurchaseReq?user_id=${session.id}`
+      `/api/buyerProfile/getPurchaseReq?user_id=${session.id}`
     );
     const resCompletedPurchases = await fetch(
-      `http://localhost:3000/api/buyerProfile/getPurchase?user_id=${session.id}`
+      `/api/buyerProfile/getPurchase?user_id=${session.id}`
     );
     const currentData = await resCurrentPurchases.json();
     const completedData = await resCompletedPurchases.json();
@@ -32,69 +33,110 @@ export default function Purchases() {
 
   useEffect(() => {
     if (session) {
-      fetchDrivingData();
+      fetchData();
     }
   }, [session]);
 
-  console.log("apiData", apiCurrentData);
-
+  console.log("apiData", apiCompletedData);
+  console.log("apiData2", apiCurrentData);
   const components = [
     {
       name: "Solicitudes de compra",
-      component: () => 
-      <>
-      <div>
-          <div
-            style={{
-              padding: "3%",
-              overflowY: "scroll",
-              maxHeight: "100vh",
-            }}
-          >
-            {
-              apiCurrentData && apiCurrentData.length > 0 && (
-                <CatalogPagination
-                  catalogData={apiCurrentData}
-                  carCardType="purchasesCurrent"
-                  itemsPerPage={6}
-                />
-              )
-            }
-          </div>
+      component: () => (
+        <>
+          <div>
+            <div
+              style={{
+                padding: "3%",
+                overflowY: "scroll",
+                maxHeight: "100vh",
+              }}
+            >
+              {
+                apiCurrentData && apiCurrentData.length > 0 ? (
+                  <CatalogPagination
+                    catalogData={apiCurrentData}
+                    carCardType="purchases"
+                    itemsPerPage={6}
+                  />
+                )
+                  : (
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      className="pb-2"
+                      sx={{
+                        fontFamily: "Lato", color: "#333333",
+                        paddingTop: "1rem",
+                        paddingLeft: "2rem",
+                      }}
+                    >
+                      Todavía no cuenta con solicitudes de compra en proceso.
+                    </Typography>
+                  )
+              }
+            </div>
 
-        </div>
-      </>
+          </div>
+        </>
+      )
     },
     {
       name: "Compras finalizadas",
-      component: () => 
-      <>
-      <div>
-          <div
-            style={{
-              padding: "3%",
-              overflowY: "scroll",
-              maxHeight: "100vh",
-            }}
-          >
-            {
-              apiCompletedData && apiCompletedData.length > 0 && (
-                <CatalogPagination
-                  catalogData={apiCompletedData}
-                  carCardType="purchasesCompleted"
-                  itemsPerPage={6}
-                />
-              )
-            }
+      component: () =>
+        <>
+          <div>
+            <div
+              style={{
+                padding: "3%",
+                overflowY: "scroll",
+                maxHeight: "100vh",
+              }}
+            >
+              {
+                apiCompletedData && apiCompletedData.length > 0 ? (
+                  <CatalogPagination
+                    catalogData={apiCompletedData}
+                    carCardType="finalized"
+                    itemsPerPage={6}
+                  />
+                )
+                  : (
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      className="pb-2"
+                      sx={{
+                        fontFamily: "Lato", color: "#333333",
+                        paddingTop: "1rem",
+                        paddingLeft: "2rem",
+                      }}
+                    >
+                      Todavía no cuenta con compras finalizadas.
+                    </Typography>
+                  )
+              }
+            </div>
           </div>
-        </div>
-      </>
+        </>
     },
   ]
   return (
     <AccountLayout>
       <Grid item xs={12} md={9} sm={8}>
-        <CustomTogglerBar 
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          className="pb-2"
+          sx={{
+            fontFamily: "Raleway", color: "#333333",
+            paddingTop: "1rem",
+            paddingLeft: "2rem",
+          }}
+        >
+          Mis compras
+        </Typography>
+        <CustomTogglerBar
           components={components}
           stretched
           tall

@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-import { getSession } from "next-auth/client";
+import {getSession} from "next-auth";
 //import of function that does db connection
 
 export default async (req, res) => {

@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import DataTable from "@/components/general/Table";
-import { Select, MenuItem, Button, Typography } from "@mui/material";
+import { Select, MenuItem, Typography } from "@mui/material";
 import SimpleToggleButton from "@/components/general/SimpleToggleMenu";
 import SellerNavbar from "@/components/providers/seller/navbar";
 
@@ -37,10 +37,10 @@ const SellerDashboard = () => {
           }
         );
 
-        const requests = requestRes.data.procesos;
+        const retrievedRequests = requestRes.data.procesos;
         // Get all unique user ids
         const userIds = [
-          ...new Set(requests.map((request) => request.usuario_final_id)),
+          ...new Set(retrievedRequests.map((request) => request.usuario_final_id)),
         ];
         // Get all users
         const userPromises = userIds.map((id) =>
@@ -58,7 +58,9 @@ const SellerDashboard = () => {
         }, {});
 
         // Set the requests and users state
-        setRequests(requests);
+        if (JSON.stringify(requests) !== JSON.stringify(retrievedRequests)) {
+          setRequests(retrievedRequests);
+        }
         setUser(users);
       } catch (error) {
         console.log(error);
@@ -68,17 +70,23 @@ const SellerDashboard = () => {
     if (session) {
       fetchData();
     }
-  }, [session]);
+  }, [session, requests]);
 
   // Update the status of a request
-  const updateRequestStatus = async (_id, status) => {
+  const updateRequestStatus = async (_id, status, phone) => {
     await axios.put("/api/DrivingRequestsSeller/updateRequestStatus", {
       _id,
       status,
+    });    
+
+    await axios.post('/api/twilio/message', { 
+      to: `+521${phone}` , 
+      message: `*SWIVEL*\nActualización de tu proceso de prueba de manejo\nEstado: ${status}` 
     });
+
     const updatedRequests = requests.map((request) => {
       if (request._id === _id) {
-        return { ...request, status };
+        return { ...request, status: "Loading" };
       } else {
         return request;
       }
@@ -106,16 +114,34 @@ const SellerDashboard = () => {
       headerName: "Cliente",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 130,
       flex: 1,
       valueGetter: (params) => {
         let cell = user[params.row.usuario_final_id]
-          ? `${user[params.row.usuario_final_id].name} ${
-              user[params.row.usuario_final_id].surname
-            }`
+          ? `${user[params.row.usuario_final_id].nombres} ${user[params.row.usuario_final_id].apellidos
+          }`
           : "Usuario no encontrado";
         return cell;
       },
+    },
+    {
+      field: "archivo_id",
+      headerName: "Identificación",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+      renderCell: (params) => (
+        <div>
+          <a href={params.row.documentos[0].url} target="_blank">
+            <u>Ver ID</u>
+          </a>
+          <br />
+          <a href={params.row.documentos[1].url} target="_blank">
+            <u>Ver Licencia</u>
+          </a>
+        </div>
+      )
     },
     {
       field: "fecha_agendada",
@@ -123,7 +149,7 @@ const SellerDashboard = () => {
       headerName: "Fecha",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 110,
       flex: 1,
       valueFormatter: (params) =>
         new Date(params.value).toLocaleDateString("es-ES", {
@@ -133,20 +159,20 @@ const SellerDashboard = () => {
         }),
     },
     {
-      field: "horario",
+      field: "hora_agendada",
       headerName: "Horario",
       headerAlign: "center",
       align: "center",
-      minWidth: 150,
+      minWidth: 75,
       flex: 1,
       valueGetter: (params) =>
-        new Date(params.row.fecha_agendada).toLocaleTimeString("es-ES", {
+        new Date(params.row.hora_agendada).toLocaleTimeString("es-ES", {
           hour: "2-digit",
           minute: "2-digit",
         }),
     },
     {
-      field: "status",
+      field: "estatus_validacion",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -155,8 +181,8 @@ const SellerDashboard = () => {
       type: "actions",
       renderCell: (params) => (
         <Select
-          value={params.row.status}
-          onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
+          value={params.row.estatus_validacion}
+          onChange={(e) => updateRequestStatus(params.row._id, e.target.value, user[params.row.usuario_final_id].numero_telefonico)}
           label="Status"
           variant="standard"
           size="small"
@@ -165,21 +191,21 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En_Revision"
+            value="En proceso"
           >
             En Proceso
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Aceptada"
+            value="Finalizada"
           >
-            Aprobado
+            Finalizada
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Rechazada"
+            value="Cancelada"
           >
-            Rechazado
+            Cancelada
           </MenuItem>
         </Select>
       ),
@@ -190,7 +216,7 @@ const SellerDashboard = () => {
     if (statusFilter === "all") {
       return true;
     } else {
-      return request.status === statusFilter;
+      return request.estatus_validacion === statusFilter;
     }
   });
 
@@ -211,9 +237,9 @@ const SellerDashboard = () => {
           <div className="text-center pt-3">
             <SimpleToggleButton
               filters={[
-                { value: "En_Revision", name: "En Proceso" },
-                { value: "Aceptada", name: "Aprobado" },
-                { value: "Rechazada", name: "Rechazado" },
+                { value: "En proceso", name: "En Proceso" },
+                { value: "Finalizada", name: "Finalizada" },
+                { value: "Cancelada", name: "Cancelada" },
               ]}
               onChange={setStatusFilter}
               sx={{

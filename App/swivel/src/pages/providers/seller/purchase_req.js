@@ -36,15 +36,16 @@ const SellerDashboard = () => {
           {
             params: {
               vendedor_id: session.id,
-              tipo_proceso: "pruebaManejo",
+              tipo_proceso: "solicitudCompra",
             },
           }
         );
 
-        const requests = requestRes.data.procesos;
+        const retrievedRequests = requestRes.data.procesos;
+
         // Get all unique user ids
         const userIds = [
-          ...new Set(requests.map((request) => request.usuario_final_id)),
+          ...new Set(retrievedRequests.map((request) => request.usuario_final_id))
         ];
         // Get all users
         const userPromises = userIds.map((id) =>
@@ -62,7 +63,9 @@ const SellerDashboard = () => {
         }, {});
 
         // Set the requests and users state
-        setRequests(requests);
+        if (JSON.stringify(requests) !== JSON.stringify(retrievedRequests)) {
+          setRequests(retrievedRequests);
+        }
         setUser(users);
       } catch (error) {
         console.log(error);
@@ -72,21 +75,28 @@ const SellerDashboard = () => {
     if (session) {
       fetchData();
     }
-  }, [session]);
+  }, [session, requests]);
 
   // Update the status of a request
-  const updateRequestStatus = async (_id, status) => {
+  const updateRequestStatus = async (_id, status, phone) => {
     await axios.put("/api/DrivingRequestsSeller/updateRequestStatus", {
       _id,
       status,
     });
+
+    await axios.post('/api/twilio/message', { 
+      to: `+521${phone}` , 
+      message: `*SWIVEL*\nActualización de tu proceso de compra\nEstado: ${status}` 
+    });
+
     const updatedRequests = requests.map((request) => {
       if (request._id === _id) {
-        return { ...request, status };
+        return { ...request, status: "Loading" };
       } else {
         return request;
       }
     });
+
     setRequests(updatedRequests);
   };
 
@@ -100,7 +110,7 @@ const SellerDashboard = () => {
 
   const columns = [
     {
-      field: "auto ",
+      field: "auto",
       headerName: "Vehículo",
       headerAlign: "center",
       align: "center",
@@ -122,15 +132,15 @@ const SellerDashboard = () => {
       flex: 1,
       valueGetter: (params) => {
         let cell = user[params.row.usuario_final_id]
-          ? `${user[params.row.usuario_final_id].name} ${
-              user[params.row.usuario_final_id].surname
+          ? `${user[params.row.usuario_final_id].nombres} ${
+              user[params.row.usuario_final_id].apellidos
             }`
           : "Usuario no encontrado";
         return cell;
       },
     },
     {
-      field: "status",
+      field: "estatus",
       headerName: "Estatus",
       headerAlign: "center",
       align: "center",
@@ -139,8 +149,8 @@ const SellerDashboard = () => {
       type: "actions",
       renderCell: (params) => (
         <Select
-          value={params.row.status}
-          onChange={(e) => updateRequestStatus(params.row._id, e.target.value)}
+          value={params.row.estatus}
+          onChange={(e) => updateRequestStatus(params.row._id, e.target.value, user[params.row.usuario_final_id].numero_telefonico)}
           label="Status"
           variant="standard"
           size="small"
@@ -149,21 +159,21 @@ const SellerDashboard = () => {
         >
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="En_Revision"
+            value="documentosPendientes"
           >
-            En Proceso
+            Documentos Pendientes
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Aceptada"
+            value="pagoPendiente"
           >
-            Aprobado
+            Pago Pendiente
           </MenuItem>
           <MenuItem
             sx={{ fontFamily: "Lato", fontSize: "12px" }}
-            value="Rechazada"
+            value="pagado"
           >
-            Rechazado
+            Pagado
           </MenuItem>
         </Select>
       ),
@@ -200,7 +210,8 @@ const SellerDashboard = () => {
     if (statusFilter === "all") {
       return true;
     } else {
-      return request.status === statusFilter;
+      console.log(request.estatus, statusFilter);
+      return request.estatus === statusFilter;
     }
   });
 
@@ -221,9 +232,9 @@ const SellerDashboard = () => {
         <div className="text-center pt-3">
           <SimpleToggleButton
             filters={[
-              { value: "En_Revision", name: "En Proceso" },
-              { value: "Aceptada", name: "Aprobado" },
-              { value: "Rechazada", name: "Rechazado" },
+              { value: "documentosPendientes", name: "Documentos Pendientes" },
+              { value: "pagoPendiente", name: "Pago Pendiente" },
+              { value: "pagado", name: "Pagado" },
             ]}
             onChange={setStatusFilter}
             sx={{

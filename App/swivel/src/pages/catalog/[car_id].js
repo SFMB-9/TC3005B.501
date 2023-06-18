@@ -1,6 +1,7 @@
 // Author: Mateo Herrera Sebastian Gonzalez
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -9,6 +10,11 @@ import {
   Box,
   Typography,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import LandingPageLayout from "@/components/buyer/layout";
 import SimpleAccordion from "@/components/general/Accordion";
@@ -17,8 +23,10 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StickyDiv from "@/components/general/sticky_div";
 import Carousel from "@/components/general/Carousel";
 import TemporaryDrawer from "@/components/general/Drawer";
-
+import axios from 'axios';
 import { useSession } from "next-auth/react";
+import Cookies from "js-cookie";
+import LoadingScreen from "@/components/general/LoadingScreen";
 
 // TODOs:
 // 1. Encriptar id de coche y desencriptar en el endpoint
@@ -30,6 +38,7 @@ export default function CarDetails() {
   const { car_id } = router.query;
   const [carDetails, setCarDetails] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [wishList, setWishlist] = useState([]);
 
   // States for selected down payment
   const [selectedDownPayment, setSelectedDownPayment] = useState(0);
@@ -39,6 +48,7 @@ export default function CarDetails() {
   const [favorite, setFavorite] = useState(false);
   const [interestRate, setInterestRate] = useState(0);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
+  const [isAvailable, setIsAvailable] = useState(true);
 
   const [carPrice, setCarPrice] = useState(0);
 
@@ -55,10 +65,19 @@ export default function CarDetails() {
   const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState(0);
 
   const { data: session } = useSession();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const fetchCarDetails = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
+      `/api/catalogoNuevo/detalles-auto?car_id=${car_id}`
     );
 
     const data = await response.json();
@@ -67,8 +86,53 @@ export default function CarDetails() {
       setCarDetails(data.result);
     }
     setCarPrice(data.result.precio);
-    setSelectedColor(data.result.colores[0]);
+    if (selectedColor === null) {
+      setSelectedColor(data.result.colores[0]);
+    }
+    setIsAvailable(data.result.disponible_prueba);
   };
+
+  const handleFavorites = (wishList) => {
+    if (wishList) {
+      if (wishList.some(car => car._id === car_id)) {
+        setFavorite(true);
+      } else {
+        setFavorite(false);
+      }
+    }
+  };
+
+  const fetchFavorites = async () => {
+    if (session) {
+      try {
+        const response = await axios.get('/api/wishlist/pull-wishlist', { params: { id: session.id } });
+        setWishlist(response.data);
+        handleFavorites(response.data);
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  };
+
+  // const handleFavorites = async () => {
+  //   if (wishList.some(car => car._id === car_id)) {
+  //     setFavorite(true);
+  //   } else {
+  //     setFavorite(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session) {
+        await fetchFavorites();
+        handleFavorites();
+      }
+    };
+
+    fetchData();
+  }, [session]);
 
   useEffect(() => {
     if (!car_id) {
@@ -78,16 +142,43 @@ export default function CarDetails() {
     calculateTotalPriceExtras();
     calculateDownPaymentAmount();
     calculateMonthlyPayment();
-  }, [car_id, selectedExtras, selectedDownPayment, selectedTerm, interestRate, downPayment]);
+  }, [
+    car_id,
+    selectedExtras,
+    selectedDownPayment,
+    selectedTerm,
+    interestRate,
+    downPayment,
+  ]);
 
   useEffect(() => {
     if (carDetails) {
-
       setSelectedDownPayment(carDetails.enganche[0]);
-      setSelectedTerm(parseInt(Object.keys(carDetails.plazo)[0]));
-      setInterestRate(carDetails.plazo[Object.keys(carDetails.plazo)[0]])
+      setSelectedTerm(parseInt(Object.keys(carDetails.plazos)[0]));
+      setInterestRate(carDetails.plazos[Object.keys(carDetails.plazos)[0]]);
+      
     }
   }, [carDetails]);
+
+  const handleFavoritesToggle = async () => {
+    let newFavorite = !favorite;
+    let newWishList = [...wishList];
+    if (newFavorite) {
+      newWishList.push(car_id);
+    } else {
+      newWishList = newWishList.filter(car => car._id !== car_id);
+    }
+    setFavorite(newFavorite);
+    setWishlist(newWishList);
+    try {
+      await axios.put('/api/wishlist/add-to-wishlist', { id: session.id, lst: newWishList });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // If the update fails, revert the state
+      setFavorite(!newFavorite);
+      setWishlist(wishList);
+    }
+  };
 
   const handleButtonClick = (sectionId) => {
     const navbarHeight = document
@@ -107,25 +198,34 @@ export default function CarDetails() {
       modelo: carDetails.modelo,
       ano: carDetails.año,
       precio: carDetails.precio.toString(),
-      array_fotografias_url: selectedColor.imagenes
-    }
+      array_fotografias_url: selectedColor.imagenes,
+      agencia: carDetails.agencia_id,
+    };
 
-    const payment = parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)
+    const payment =
+      parseFloat(downPayment) +
+      parseFloat(monthlyPayment) +
+      parseFloat(selectedDeliveryPrice);
     const body = {
-      //usuario_final_id: "646af59a93798d0cf9b3cd3c",
       usuario_final_id: session.id,
       auto: auto,
-      cantidad_a_pagar: payment
+      cantidad_a_pagar: payment,
+    };
+
+    try {
+      const result = await fetch("/api/saleCreation/with-mongo", {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+
+      await result.json().then((data) => {
+        router.push(`/purchase/${data.id}`);
+      });
+
+      //router.push(`/purchase/${data.id}`);
+    } catch (error) {
+      console.log(error);
     }
-
-    const result = await fetch('http://localhost:3000/api/saleCreation', {
-      method: 'POST',
-      body: JSON.stringify(body)
-    })
-
-    const data = await result.json()
-
-    router.push(`/purchase/${data.id}`);
   }
   // Calculate the total price based on selected extras
   const calculateTotalPriceExtras = () => {
@@ -142,15 +242,15 @@ export default function CarDetails() {
   };
 
   const calculateMonthlyPayment = () => {
-    const carPriceWithDownPayment = carPrice + totalPriceExtras - downPayment;
-    console.log(carPriceWithDownPayment, carPrice, totalPriceExtras, downPayment);
-    const monthlyPayment = carPriceWithDownPayment / selectedTerm;
-    const monthlyPaymentTotal =
-      monthlyPayment + monthlyPayment * (interestRate / 100);
+    const initialLoan = carPrice + totalPriceExtras - downPayment;
+    const capitalPayment = initialLoan / selectedTerm;
 
+    const totalInterest = (interestRate / 12 / 100) * selectedTerm;
+    const interestPayment = (initialLoan * totalInterest) / selectedTerm;
+
+    const monthlyPaymentTotal = capitalPayment + interestPayment;
     setMonthlyPayment(monthlyPaymentTotal.toFixed(2));
   };
-
 
   // Function to handle checkbox change of
   const handleCheckboxChange = (event) => {
@@ -213,32 +313,77 @@ export default function CarDetails() {
       value: enganche,
       label: `${enganche}%`,
     }));
-    const plazo = Object.keys(carDetails.plazo)?.map((plazo) => ({
+    const plazo = Object.keys(carDetails.plazos)?.map((plazo) => ({
       value: parseInt(plazo),
       label: `${plazo}`,
     }));
 
     const viewDrivingRequestDetails = (auto_id) => {
+      const colorName = selectedColor.nombre;
       // Navigate to a new page to view the details of the request
       router.push({
-        pathname: './test-detail',
-        query: { auto_id },
-      })
+        pathname: "./test-detail",
+        query: { auto_id, colorName },
+      });
     };
 
+    const disableContinueButton = () => {
+      var button = document.getElementById("confirmButton");
+      button.disabled = true;
+    }
+    
     return (
       <div>
         <LandingPageLayout>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle>
+              No cuenta con una sesión iniciada.
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Para poder solicitar una prueba de manejo o una compra, necesita iniciar sesión. Si no tiene una cuenta, puede registrarse.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={
+                () => {
+                  window.location.href = "/auth/login";
+                  Cookies.set(
+                    "CAR_REQ",
+                    `${window.location.origin}/catalog/${car_id}`
+                  );
+                }
+              } color="primary" autoFocus>
+                Iniciar sesión
+              </Button>
+              <Button onClick={
+                () => {
+                  window.location.href = "/auth/signup";
+                  Cookies.set(
+                    "CAR_REQ",
+                    `${window.location.origin}/catalog/${car_id}`
+                  );
+                }
+              } color="primary" autoFocus>
+                Registrarse
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Container maxWidth="xl">
             <div className="section p-5">
-              <a href="/catalog">
+              <Link href="/catalog">
                 <ArrowBackIosNewIcon
                   sx={{ width: "15px", color: "#F55C7A", fontWeight: "bold" }}
                 />{" "}
                 <span style={{ color: "#F55C7A", fontWeight: "bold" }}>
-                  Regresar al catalogo
+                  Regresar al catálogo
                 </span>
-              </a>
+              </Link>
               <div className="pt-4">
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>
@@ -247,7 +392,7 @@ export default function CarDetails() {
                         images={selectedColor.imagenes}
                         indicators={true}
                       />
-                      <div className="pt-2 text-end">
+                      {/* <div className="pt-2 text-end">
                         <IconButton aria-label="360">
                           <img
                             src="/buyer/360_symbol.png"
@@ -255,7 +400,7 @@ export default function CarDetails() {
                             alt="360"
                           />
                         </IconButton>
-                      </div>
+                      </div> */}
                     </Grid>
                     <Grid item md={5} xs={12}>
                       <div
@@ -270,7 +415,10 @@ export default function CarDetails() {
                         <div className="text-end">
                           <IconButton
                             aria-label="favorito"
-                            onClick={() => setFavorite(!favorite)}
+                            onClick={() => {
+                              handleFavoritesToggle();
+                            }}
+                            // onClick={() => setFavorite(!favorite)}
                             className="p-0"
                           >
                             <img
@@ -286,7 +434,7 @@ export default function CarDetails() {
                         </div>
                         <Typography
                           fontFamily="Lato"
-                          color="#8A8A8A"
+                          color="#525252"
                           fontSize={{ xs: 17, md: 20, lg: 24 }}
                         >
                           {carDetails.año}
@@ -308,7 +456,7 @@ export default function CarDetails() {
                           />
                           <Typography
                             fontFamily="Lato"
-                            color="#BABABA"
+                            color="#525252"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                             className="ms-2"
                           >
@@ -323,7 +471,7 @@ export default function CarDetails() {
                           />
                           <Typography
                             fontFamily="Lato"
-                            color="#BABABA"
+                            color="#525252"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                             className="ms-2"
                           >
@@ -337,12 +485,12 @@ export default function CarDetails() {
                           fontWeight="bold"
                           className="pt-3"
                         >
-                          ${carDetails.precio} MXN
+                          ${Intl.NumberFormat().format(carDetails.precio)} MXN
                         </Typography>
                         <div>
                           <Typography
                             fontFamily="Lato"
-                            color="#BABABA"
+                            color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                             className="pt-1"
                           >
@@ -361,7 +509,7 @@ export default function CarDetails() {
                                     width: "22px",
                                     border: "none",
                                   }}
-                                  className="me-1"
+                                  className="me-1 border"
                                 />
                               </div>
                             ))}
@@ -379,7 +527,19 @@ export default function CarDetails() {
                                 border: "solid 1px #BABABA",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() => viewDrivingRequestDetails(car_id)}
+                              onClick={() => {
+                                if (session) {
+                                  viewDrivingRequestDetails(car_id);
+                                } else {
+                                  handleClickOpen();
+                                  // window.location.href = "/auth/login";
+                                  // Cookies.set(
+                                  //   "CAR_REQ",
+                                  //   `${window.location.origin}/catalog/${car_id}`
+                                  // );
+                                }
+                              }}
+                            // disabled={!isAvailable}
                             >
                               Prueba de manejo
                             </Button>
@@ -392,7 +552,18 @@ export default function CarDetails() {
                                 fontWeight: "bold",
                                 ":hover": { backgroundColor: "#BABABA" },
                               }}
-                              onClick={() => setDrawerOpen(true)}
+                              onClick={() => {
+                                if (session) {
+                                  setDrawerOpen(true);
+                                } else {
+                                  handleClickOpen();
+                                  // window.location.href = "/auth/login";
+                                  // Cookies.set(
+                                  //   "CAR_REQ",
+                                  //   `${window.location.origin}/catalog/${car_id}`
+                                  // );
+                                }
+                              }}
                             >
                               Compra
                             </Button>
@@ -454,7 +625,11 @@ export default function CarDetails() {
                         fontWeight={"bold"}
                         fontSize={{ xs: 20, md: 28, lg: 28 }}
                       >
-                        ${carPrice + totalPriceExtras} MXN
+                        $
+                        {Intl.NumberFormat().format(
+                          carPrice
+                        )}{" "}
+                        MXN
                       </Typography>
                       <Typography
                         fontFamily="Lato"
@@ -463,7 +638,8 @@ export default function CarDetails() {
                         fontSize={{ xs: 10, md: 18, lg: 18 }}
                         className="text-end w-100 pb-1"
                       >
-                        +${selectedDeliveryPrice} MXN
+                        +${Intl.NumberFormat().format(parseFloat(selectedDeliveryPrice) + parseFloat(totalPriceExtras))}{" "}
+                        MXN
                       </Typography>
                       <Button
                         variant="contained"
@@ -474,7 +650,17 @@ export default function CarDetails() {
                           fontWeight: "bold",
                           ":hover": { backgroundColor: "#BABABA" },
                         }}
-                        onClick={() => setDrawerOpen(true)}
+                        onClick={() => {
+                          if (session) {
+                            setDrawerOpen(true);
+                          } else {
+                            window.location.href = "/auth/login";
+                            Cookies.set(
+                              "CAR_REQ",
+                              `${window.location.origin}/catalog/${car_id}`
+                            );
+                          }
+                        }}
                         size="small"
                         className="w-100"
                       >
@@ -596,7 +782,7 @@ export default function CarDetails() {
                 fontSize={{ xs: 25, md: 28, lg: 33 }}
                 className="pt-2"
               >
-                Resumen del Auto
+                Resumen del auto
               </Typography>
               <Grid container className="mt-1" direction="row" spacing={4}>
                 <Grid item md={6} xs={12}>
@@ -690,14 +876,13 @@ export default function CarDetails() {
                       className="col-lg-3 col-md-4 col-sm-6 p-5 py-3"
                       key={index}
                     >
-                      <li>
-                        <Typography
-                          fontFamily="Lato"
-                          color="#1F1F1F"
-                          fontSize={{ xs: 15, md: 16, lg: 18 }}
-                        >
-                          {caracteristica}
-                        </Typography>
+                      <li
+                        style={{
+                          fontFamily: "Lato",
+                          fontSize: "1.1rem",
+                        }}
+                      >
+                        {caracteristica}
                       </li>
                     </div>
                   ))}
@@ -764,7 +949,7 @@ export default function CarDetails() {
                             color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                           >
-                            (+${extra.precio})
+                            (+${Intl.NumberFormat().format(extra.precio)} MXN)
                           </Typography>
                         </div>
                       </SimpleAccordion>
@@ -831,7 +1016,9 @@ export default function CarDetails() {
                           color="#1F1F1F"
                           fontSize={{ xs: 15, md: 16, lg: 18 }}
                         >
-                          <strong>${downPayment} MXN</strong>
+                          <strong>
+                            ${Intl.NumberFormat().format(downPayment)} MXN
+                          </strong>
                         </Typography>
                       </div>
                     </div>
@@ -852,7 +1039,7 @@ export default function CarDetails() {
                         max={plazo[plazo.length - 1].value}
                         onChange={(e) => {
                           setSelectedTerm(e.target.value);
-                          setInterestRate(carDetails.plazo[e.target.value]);
+                          setInterestRate(carDetails.plazos[e.target.value]);
                         }}
                         defaultValue={plazo[0]?.value}
                       />
@@ -874,8 +1061,16 @@ export default function CarDetails() {
                           Tasa de{" "}
                           <strong>
                             {" "}
-                            {carDetails.plazo[selectedTerm]
-                              ? carDetails.plazo[selectedTerm]
+                            {Math.round(
+                              (carDetails.plazos[selectedTerm] +
+                                Number.EPSILON) *
+                              100
+                            ) / 100
+                              ? Math.round(
+                                (carDetails.plazos[selectedTerm] +
+                                  Number.EPSILON) *
+                                100
+                              ) / 100
                               : 0}
                             %
                           </strong>
@@ -893,8 +1088,12 @@ export default function CarDetails() {
                         fontSize={{ xs: 17, md: 18, lg: 20 }}
                       >
                         <strong>
-                          ${monthlyPayment !== "NaN" ? monthlyPayment : 0} MXN
-                        </strong>{" "}
+                          $
+                          {Intl.NumberFormat().format(
+                            monthlyPayment !== "NaN" ? monthlyPayment : 0
+                          )}
+                        </strong>
+                        {" MXN "}
                         al mes
                       </Typography>
                     </div>
@@ -956,7 +1155,7 @@ export default function CarDetails() {
                             color="#8A8A8A"
                             fontSize={{ xs: 15, md: 16, lg: 18 }}
                           >
-                            (+${entrega.precio})
+                            (+${Intl.NumberFormat().format(entrega.precio)} MXN)
                           </Typography>
                         </div>
                       </SimpleAccordion>
@@ -973,27 +1172,25 @@ export default function CarDetails() {
           anchor={"bottom"}
         >
           <div className="w-100 d-flex justify-content-center">
-
-            <div className="p-5 d" style={{ maxWidth: '75vw' }}>
+            <div className="p-5 d" style={{ maxWidth: "75vw" }}>
               <Typography
                 fontFamily="Lato"
                 color="#000"
                 fontSize={{ xs: 17, md: 20, lg: 24 }}
-                sx={{ fontWeight: 'bold' }}
+                sx={{ fontWeight: "bold" }}
                 className="text-center mb-2"
               >
-                Confirma tu seleccion
+                Confirma tu selección
               </Typography>
               <Typography
                 fontFamily="Lato"
                 color="#8A8A8A"
                 fontSize={{ xs: 17, md: 20, lg: 24 }}
-                sx={{ fontWeight: 'bold' }}
+                sx={{ fontWeight: "bold" }}
               >
-                Tu automovil
+                Tu automóvil
               </Typography>
               <Grid container spacing={2}>
-
                 <Grid item sm={7} xs={12}>
                   <img
                     src={selectedColor.imagenes[0]}
@@ -1009,7 +1206,7 @@ export default function CarDetails() {
                 <Grid item sm={5} xs={12}>
                   <div
                     className="rounded p-3 d-flex flex-column justify-content-around text-center border"
-                    style={{ height: '100%' }}
+                    style={{ height: "100%" }}
                   >
                     <Typography
                       fontFamily="Lato"
@@ -1047,7 +1244,6 @@ export default function CarDetails() {
                       >
                         {selectedColor.nombre}
                       </Typography>
-
                     </div>
                   </div>
                 </Grid>
@@ -1056,7 +1252,7 @@ export default function CarDetails() {
                     fontFamily="Lato"
                     color="#8A8A8A"
                     fontSize={{ xs: 17, md: 20, lg: 24 }}
-                    sx={{ fontWeight: 'bold' }}
+                    sx={{ fontWeight: "bold" }}
                   >
                     Tu finaciamiento
                   </Typography>
@@ -1066,12 +1262,12 @@ export default function CarDetails() {
                       height: "100%",
                     }}
                   >
-                    <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
+                    <div style={{ backgroundColor: "#f7f7f7" }} className="p-1">
                       <Typography
                         fontFamily="Lato"
                         color="#000"
                         fontSize={{ xs: 15, md: 20, lg: 24 }}
-                        sx={{ fontWeight: 'bold' }}
+                        sx={{ fontWeight: "bold" }}
                       >
                         Enganche
                       </Typography>
@@ -1082,15 +1278,15 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 15, md: 20, lg: 24 }}
                       >
-                        ${downPayment} MXN
+                        ${Intl.NumberFormat().format(downPayment)} MXN
                       </Typography>
                     </div>
-                    <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
+                    <div style={{ backgroundColor: "#f7f7f7" }} className="p-1">
                       <Typography
                         fontFamily="Lato"
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
-                        sx={{ fontWeight: 'bold' }}
+                        sx={{ fontWeight: "bold" }}
                       >
                         Mensualidades
                       </Typography>
@@ -1104,15 +1300,15 @@ export default function CarDetails() {
                         {selectedTerm} meses
                       </Typography>
                     </div>
-                    <div style={{ backgroundColor: '#f7f7f7' }} className="p-1">
+                    <div style={{ backgroundColor: "#f7f7f7" }} className="p-1">
                       <Typography
                         fontFamily="Lato"
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                         fontweight="bold"
-                        sx={{ fontWeight: 'bold' }}
+                        sx={{ fontWeight: "bold" }}
                       >
-                        Taza
+                        Tasa
                       </Typography>
                     </div>
                     <div className="p-2">
@@ -1121,7 +1317,9 @@ export default function CarDetails() {
                         color="#000"
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                       >
-                        {interestRate}%
+                        {Math.round((interestRate + Number.EPSILON) * 100) /
+                          100}
+                        %
                       </Typography>
                     </div>
                   </div>
@@ -1131,13 +1329,11 @@ export default function CarDetails() {
                     fontFamily="Lato"
                     color="#8A8A8A"
                     fontSize={{ xs: 17, md: 20, lg: 24 }}
-                    sx={{ fontWeight: 'bold' }}
+                    sx={{ fontWeight: "bold" }}
                   >
-                    Resumen de pago
+                    Resumen de pago (MXN):
                   </Typography>
-                  <div
-                    className="rounded d-flex flex-column justify-content-between border"
-                  >
+                  <div className="rounded d-flex flex-column justify-content-between border">
                     <div className="p-1 px-3">
                       <Typography
                         fontFamily="Lato"
@@ -1145,13 +1341,9 @@ export default function CarDetails() {
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                         className="d-flex justify-content-between mb-2"
                       >
+                        <div>Enganche:</div>
                         <div>
-
-                          Enganche:
-                        </div>
-                        <div>
-
-                          ${downPayment}
+                          ${Intl.NumberFormat().format(downPayment)}
                         </div>
                       </Typography>
                       <Typography
@@ -1160,13 +1352,9 @@ export default function CarDetails() {
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                         className="d-flex justify-content-between mb-2"
                       >
+                        <div>Pago Mensualidad:</div>
                         <div>
-
-                          Pago Mensualidad:
-                        </div>
-                        <div>
-
-                          ${monthlyPayment}
+                          ${Intl.NumberFormat().format(monthlyPayment)} 
                         </div>
                       </Typography>
                       <Typography
@@ -1175,13 +1363,10 @@ export default function CarDetails() {
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                         className="d-flex justify-content-between mb-2"
                       >
+                        <div>Entrega:</div>
                         <div>
-
-                          Entrega:
-                        </div>
-                        <div>
-
-                          ${selectedDeliveryPrice}
+                          ${Intl.NumberFormat().format(selectedDeliveryPrice)}{" "}
+                          
                         </div>
                       </Typography>
 
@@ -1191,23 +1376,21 @@ export default function CarDetails() {
                         fontSize={{ xs: 13, md: 20, lg: 24 }}
                         className="d-flex justify-content-between border-top"
                       >
+                        <div>Total:</div>
                         <div>
-
-                          Total:
-                        </div>
-                        <div>
-
-                          ${parseFloat(downPayment) + parseFloat(monthlyPayment) + parseFloat(selectedDeliveryPrice)}
+                          $
+                          {Intl.NumberFormat().format(
+                            parseFloat(downPayment) +
+                            parseFloat(monthlyPayment) +
+                            parseFloat(selectedDeliveryPrice)
+                          )}{" "}
                         </div>
                       </Typography>
-
-
                     </div>
-
                   </div>
                   <div className="mt-3 d-flex flex-column">
-
                     <Button
+                      id="confirmButton"
                       variant="contained"
                       disableElevation
                       size="large"
@@ -1217,7 +1400,10 @@ export default function CarDetails() {
                         fontWeight: "bold",
                         ":hover": { backgroundColor: "#BABABA" },
                       }}
-                      onClick={() => handleConfirmPurchase()}
+                      onClick={() => {
+                        disableContinueButton()
+                        handleConfirmPurchase()
+                      }}
                     >
                       Proceder con la compra
                     </Button>
@@ -1250,7 +1436,7 @@ export default function CarDetails() {
   } else {
     return (
       <div>
-        <p>Loading Car Details...</p>
+        <LoadingScreen />
       </div>
     );
   }

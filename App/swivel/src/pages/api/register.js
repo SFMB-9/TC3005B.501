@@ -1,12 +1,35 @@
-import { User, SellerUser, ManagerUser} from "../../models/user";
-import dbConnect from "../../config/dbConnect";
+/*
 
-/* 
-Required imports for email verification (to be finalized...)
+Single Endpoint for all User Register operations across platforms.
 
-import nodemailer from 'nodemailer';
-import EmailVerification from "../../models/emailVerification"; 
+
+Authors:
+
+- Francisco Salcedo
+- Ana Paula Katsuda
+- Andreina Sananez
+- Emiliano Cabrera
+- Salvador Milanes 
+- Sebastian Gonzalez
+- Andrew Dunkerley
+
 */
+
+import {
+  User,
+  SellerUser,
+  ManagerUser,
+  BuyerUser,
+  AdminUser,
+  GaEntity,
+  AgencyEntity,
+  SaEntity,
+} from "../../models/user";
+
+
+import Proceso from "../../models/procesos";
+
+import dbConnect from "../../config/dbConnect";
 
 import { encryptRole } from "../../utils/crypto";
 
@@ -14,7 +37,20 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     dbConnect();
 
-    const { name, surname, email, password, role } = req.body;
+    /* Campos Requeridos de Entrada */
+
+    const name = req.body.nombres;
+    const surname = req.body.apellidos;
+    const email = req.body.email;
+    const role = req.body.tipo_usuario;
+    const phone = req.body.numero_telefonico;
+
+    //
+
+    // if (["gaEntity", "agencyEntity"].indexOf(role) === -1) {
+    //   const password = req.body.password;
+    // }
+
     const encrypted_role = encryptRole(role);
 
     if (!/[a-zA-Z]+/.test(name)) {
@@ -33,98 +69,246 @@ export default async function handler(req, res) {
       // email existence validation, pings the email and returns if non-existent
       isAlive
         ? function () {
-            // continue
-          }
+          // continue
+        }
         : function () {
-            return res.status(400).json({ message: "Email is invalid" });
-          };
+          return res.status(400).json({ message: "Email is invalid" });
+        };
     });
 
     let usedEmail = await User.findOne({ email: email });
-
+    console.log(usedEmail);
     // email existence check within the db, returns if there is already an account with the email
     if (!usedEmail) {
-      
+
       if (role === "user") {
-        await User.create({ 
-          nombres: name, 
-          apellidos: surname, 
-          email: email, 
-          contraseña: password, 
-          tipo_usuario: encrypted_role 
+
+        const password = req.body.password;
+        const street = req.body.direccion.calle;
+        const exterior_num = req.body.direccion.numero_exterior;
+        const interior_num = req.body.direccion.numero_interior;
+        const city = req.body.direccion.ciudad;
+        const state = req.body.direccion.estado;
+        const country = req.body.direccion.pais;
+        const postalCode = req.body.direccion.codigo_postal;
+
+        await BuyerUser.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          numero_telefonico: phone,
+          direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+          },
+          documentos: [
+            {
+              nombre_documento: "INE",
+              url: "",
+              fecha_modificacion: "",
+              estatus: "Pendiente",
+            },
+            {
+              nombre_documento: "Licencia de conducir",
+              url: "",
+              fecha_modificacion: "",
+              estatus: "Pendiente",
+            },
+          ],
         });
         res.status(200).json({ message: "User registered successfully" });
-      } 
-      
+      }
       else if (role === "seller") {
-
-        const agency = req.body.agency;
-        const phone = req.body.phone;
+        const password = req.body.password;
+        const agencia_id = req.body.agencia_id;
 
         await SellerUser.create({
           nombres: name,
           apellidos: surname,
           email: email,
-          contraseña: password,
+          password: password,
           tipo_usuario: encrypted_role,
-          agencia: agency,
-          telefono: phone,
+          agencia_id: agencia_id,
+          numero_telefonico: phone,
+          contar_ventas_en_proceso: 0,
+          contar_ventas_completas: 0,
         });
         res.status(200).json({ message: "Seller registered successfully" });
       }
+      else if (role === "agencyEntity") {
 
+        const GA = req.body.grupo_id;
+        const rfc = req.body.rfc;
+        const url = req.body.url;
+        const email = req.body.email;
+        const numero_telefonico = req.body.numero_telefonico;
+
+        const street = req.body.direccion.calle;
+        const exterior_num = req.body.direccion.numero_exterior;
+        const interior_num = req.body.direccion.numero_interior;
+        const city = req.body.direccion.ciudad;
+        const state = req.body.direccion.estado;
+        const country = req.body.direccion.pais;
+        const postalCode = req.body.direccion.codigo_postal;
+
+        const coordinate = req.body.coordinates;
+
+        const openT = req.body.open;
+        const closeT = req.body.close;
+
+        const daysNotice = req.body.daysNotice;
+        const daysMax = req.body.daysMax;
+
+
+        const A = await AgencyEntity.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          email: email,
+          numero_telefonico: numero_telefonico,
+          direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+          },
+          is_account_verified: false,
+          url_agencia: url,
+          rfc_agencia: rfc,
+          coordenadas_agencia: coordinate,
+          horas_min: openT,
+          horas_max: closeT,
+          dias_anticipo: daysNotice,
+          dias_max: daysMax,
+
+          grupo_automotriz_id: GA,
+        });
+
+        res.status(200).json({ message: "Agency registered successfully" });
+
+
+
+      }
       else if (role === "manager") {
-
-        const agency = req.body.agency;
-        const phone = req.body.phone;
+        const password = req.body.password;
+        const GA = req.body.grupo_id;
+        const A_id = req.body.agencia_id;
 
         await ManagerUser.create({
+          tipo_usuario: encrypted_role,
           nombres: name,
           apellidos: surname,
           email: email,
-          contraseña: password,
-          tipo_usuario: encrypted_role,
-          agencia: agency,
-          telefono: phone,
+          password: password,
+          numero_telefonico: phone,
+          grupo_automotriz_id: GA,
+          agencia_id: A_id,
         });
+
+
         res.status(200).json({ message: "Manager registered successfully" });
       }
-    } else {
+      else if (role === "admin") {
+        const password = req.body.password;
+        await SaEntity.create({
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          tipo_usuario: encrypted_role,
+          numero_telefonico: phone,
+          foo: "bar",
+        });
+
+        res.status(200).json({ message: "SuperAdmin registered successfully" });
+      }
+      else if (role === "gaEntity") {
+
+        const rfc = req.body.rfc;
+        const url = req.body.url;
+
+        const email = req.body.email;
+        const numero_telefonico = req.body.numero_telefonico;
+        const street = req.body.direccion.calle;
+        const exterior_num = req.body.direccion.numero_exterior;
+        const interior_num = req.body.direccion.numero_interior;
+        const city = req.body.direccion.ciudad;
+        const state = req.body.direccion.estado;
+        const country = req.body.direccion.pais;
+        const postalCode = req.body.direccion.codigo_postal;
+
+        const legalName = req.body.legal.lNombres;
+        const legalSurname = req.body.legal.lApellidos;
+        const legalEmail = req.body.legal.lEmail;
+        const legalPhone = req.body.legal.lPhone;
+
+        const usuario_ga_id = req.body.usuario_ga_id;
+
+        const GA = await GaEntity.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          email: email,
+          numero_telefonico: numero_telefonico,
+          direccion: {
+            calle: street,
+            numero_exterior: exterior_num,
+            numero_interior: interior_num,
+            ciudad: city,
+            estado: state,
+            pais: country,
+            codigo_postal: postalCode,
+          },
+          is_account_verified: false,
+          url_grupo_automotriz: url,
+          rfc_grupo_automotriz: rfc,
+
+          legal: {
+            nombres: legalName,
+            apellidos: legalSurname,
+            email: legalEmail,
+            numero_telefonico: legalPhone,
+          },
+        });
+
+        const ga_id = GA._id.toString();
+        const adminGA = await AdminUser.findByIdAndUpdate(usuario_ga_id, { grupo_automotriz_id: ga_id });
+
+        res.status(200).json({ message: "GA registered successfully" });
+
+      }
+      else if (role === "ga_admin") {
+        const password = req.body.password;
+        const GA_id = req.body.grupo_id;
+
+        const GAdmin = await AdminUser.create({
+          tipo_usuario: encrypted_role,
+          nombres: name,
+          apellidos: surname,
+          email: email,
+          password: password,
+          numero_telefonico: phone,
+          grupo_automotriz_id: GA_id,
+        });
+
+        res.status(200).json({ message: "GA Admin registered successfully" });
+      }
+    }
+    else {
       res.status(400).json({ message: "Account already exists" });
     }
-
-    /* 
-    base code for email verification, must be implemented above
-    requires a functional email provider such as Mailgun in order to be finalized
-    
-    const newToken = function(length = 32) {
-      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let token = '';
-    
-      for (let i = 0; i < length; i++) {
-        token += chars[Math.floor(Math.random() * chars.length)];
-      }
-    
-      return token;
-    };
-
-    let token = newToken();
-
-    const verificationLink = `https://localhost:3000/verify-email?token=${token}`; // dunno if this link can work, must be tested. Also requires an endpoint
-
-    await emailVerification.create({email: email, token: token});
-
-    const transporter = nodemailer.createTransport({
-      // Configure your SMTP server or email provider here
-    });
-
-    await transporter.sendMail({
-      from: 'noreply@swivel.com', // valid email? have to check this as well
-      to: email,
-      subject: 'Verify your email address',
-      text: `Please click on the following link to verify your email address: ${verificationLink}`,
-      html: `<p>Please click on the following link to verify your email address:</p><a href="${verificationLink}">${verificationLink}</a>`,
-    }); 
-    */
+  } else {
+    res.status(405).json({ message: "Incorrect request method" });
   }
+
+
 }
+

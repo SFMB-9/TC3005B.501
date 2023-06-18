@@ -1,21 +1,36 @@
 import mongoose, { model } from "mongoose";
 import bcrypt from "bcryptjs";
-const { encryptRole } = require('../utils/crypto');
 
-const baseSchema = new mongoose.Schema({
-  tipo_usuario: String,
-  nombres: String,
-  apellidos: String,
-  email: String,
-  contraseña: String,
-  account_provider: String,
-  numero_telefonico: String,
-  is_account_verified: Boolean,
+mongoose.connection.setMaxListeners(20);
+
+const baseSchema = new mongoose.Schema(
+  {
+    tipo_usuario: String,
+    nombres: String,
+    apellidos: String,
+    email: String,
+    password: String,
+    numero_telefonico: String,
+  }, 
+  { collection: "usuarios" }
+);
+
+baseSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
+});
+
+const User = mongoose.models.User || mongoose.model("User", baseSchema);
+
+const buyerSchema = new mongoose.Schema({
+  account_provider: String, 
   email_verification_token: String,
-  lista_deseos: Array,
-  account_provider: String,
-  documentos_url: [{}],
+  lista_deseos: [String],
+  documentos: Array,
 
+  //registro-direccion
   direccion: {
     calle: String,
     numero_exterior: String,
@@ -25,47 +40,120 @@ const baseSchema = new mongoose.Schema({
     pais: String,
     codigo_postal: String,
   },
-  
-  //agency ONLY
+});
+
+const agencySchema = new mongoose.Schema({
+  is_account_verified: Boolean,
+  documentos_requeridos_compra: Array,
   horas_min: Number,
   horas_max: Number,
   dias_anticipo: Number,
   dias_max: Number,
-  documentos_requeridos_agencia: {}
+  grupo_automotriz_id: String,
+
+  //registro-direccion
+  direccion: {
+    calle: String,
+    numero_exterior: String,
+    numero_interior: String,
+    ciudad: String,
+    estado: String,
+    pais: String,
+    codigo_postal: String,
+  },
+
+  url_agencia: String,
+  /*
+  coordenadas_agencia: {
+
+
+    location: {
+      type: {
+        type: String, // Don't do `{ location: { type: String } }`
+        enum: ['Point'], // 'location.type' must be 'Point'
+        required: true
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      }
+    }
+  },
+  */
 });
 
-baseSchema.pre("save", async function (next) {
-  if (!this.isModified("contraseña")) {
-    next();
-  }
+const gaSchema = new mongoose.Schema({
+  is_account_verified: Boolean,
 
-  this.contraseña = await bcrypt.hash(this.contraseña, 10);
+  //registro-direccion
+  direccion: {
+    calle: String,
+    numero_exterior: String,
+    numero_interior: String,
+    ciudad: String,
+    estado: String,
+    pais: String,
+    codigo_postal: String,
+  },
+
+  legal: {
+    nombres: String,
+    apellidos: String,
+    email: String,
+    numero_telefonico: String
+  },
+
+  url_grupo_automotriz: String,
+  rfc_grupo_automotriz: String,
 });
-
-const User = mongoose.models.User || mongoose.model("User", baseSchema);
 
 const sellerSchema = new mongoose.Schema({
-  agencia: String,
-  grupo_automotriz: String,
-  agencia: String,
+  agencia_id: String, // <-- AgencyEntity _id.toString() 
+  agencia: String, // <-- AgencyEntity nombres
   contar_ventas_en_proceso: Number,
   contar_ventas_completas: Number,
-  procesos: [String],
 });
 
 const managerSchema = new mongoose.Schema({
-  agencia: String,
-  grupo_automotriz: String,
-  agencia: String,
-  gerente_id: String,
+  agencia_id: String, // <-- AgencyEntity _id.toString()
+  agencia: String, // <-- AgencyEntity nombres
+  grupo_automotriz_id: String, //si-auto
 });
 
-const SellerUser = User.discriminators && User.discriminators.Type
-  ? User.discriminators.Type
-  : User.discriminator('Type', sellerSchema);
+const adminSchema = new mongoose.Schema({
+  grupo_automotriz_id: String, //si-auto
+});
 
-const ManagerUser = User.discriminators && User.discriminators.Type
-  ? User.discriminators.Type
-  : User.discriminator('Type', managerSchema);
+const superadminSchema = new mongoose.Schema({
+  tag:String
+})
 
-export { User, SellerUser, ManagerUser };
+const BuyerUser = User.discriminators && User.discriminators.BuyerUser 
+                  ? User.discriminators.BuyerUser 
+                  : User.discriminator("BuyerUser", buyerSchema);
+
+const SellerUser = User.discriminators && User.discriminators.SellerUser 
+                  ? User.discriminators.SellerUser 
+                  : User.discriminator("SellerUser", sellerSchema);
+
+const ManagerUser = User.discriminators && User.discriminators.ManagerUser 
+                  ? User.discriminators.ManagerUser 
+                  : User.discriminator("ManagerUser", managerSchema);
+
+const AdminUser = User.discriminators && User.discriminators.AdminUser // <-- GA Admin =/= GA
+                  ? User.discriminators.AdminUser 
+                  : User.discriminator("AdminUser", adminSchema);
+
+const AgencyEntity = User.discriminators && User.discriminators.AgencyEntity 
+                  ? User.discriminators.AgencyEntity 
+                  : User.discriminator("AgencyEntity", agencySchema);
+
+const GaEntity = User.discriminators && User.discriminators.GaEntity // <-- GA =/= GA Admin
+                  ? User.discriminators.GaEntity 
+                  : User.discriminator("GaEntity", gaSchema);
+
+const SaEntity = User.discriminators && User.discriminators.SaEntity
+                  ? User.discriminators.SaEntity 
+                  : User.discriminator('SaEntity', superadminSchema)
+
+export { User, AdminUser, SellerUser, ManagerUser, BuyerUser, AgencyEntity, GaEntity, SaEntity };

@@ -10,15 +10,31 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, CircularProgress } from '@mui/material';
+import { trusted } from "mongoose";
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
-
-  const [email, setEmail] = useState("");
+  const [oldPasswordHelper, setOldPasswordHelper] = useState("");	
+  const [confPasswordHelper, setConfPasswordHelper] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
+  const [errors, setErrors] = useState({
+    password: false,
+    confPassword: false,
+    oldPassword: false,
+  });
+
+  const disabled = () => {
+    for (const k in errors) {
+      if (errors[k]) return true;
+    }
+    return !(password && confPassword && oldPassword);
+  }
 
   // useEffect(() => {}, [session]);
 
@@ -27,32 +43,42 @@ export default function ChangePassword() {
   const submitHandler = async (e) => {
     e.preventDefault();
     
-    if (password === confPassword) {
-      try {
-        console.log(session.user.email);
-        const { data } = await axios.put("/api/changePassword", {
-          email: session.user.email,
-          password,
-          oldPassword,
-        });
-        console.log(data);
-        
-      } catch (error) {
-        console.log(error);
-        console.log(error.response.data);
+    try {
+      //console.log(session.user.email);
+      const { data } = await axios.put("/api/changePassword", {
+        email: session.user.email,
+        password,
+        oldPassword,
+      });
+      //console.log(data);
+      setLoading(false);
+      setError(false);
+      setErrMessage("Contraseña cambiada exitosamente");
+      setTimeout(() => {
+        setOldPassword("");
+        setPassword("");
+        setConfPassword("");
+        setErrMessage("");}, 1500);
+    } catch (error) {
+      //console.log(error);
+      console.log(error.response.data.message);
+      if (error.response.data.message === "Wrong Current Password") {
+        setErrMessage("Contraseña actual incorrecta");
+      } else if (error.response.data.message === "New password must be different") {
+        setErrMessage("La nueva contraseña debe ser diferente a la actual");
+      } else {
+        setErrMessage("Error al cambiar la contraseña");
       }
-    }else{
-      console.log("Passwords do not match");
+      setLoading(false);
+      setError(false);
     }
-
   };
-
 
   return (
     <>
       <div className="section">
         <div className="container">
-          <div className="pt-4">
+          <div className="p-4">
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -61,15 +87,14 @@ export default function ChangePassword() {
           >
             Cambiar contraseña
           </Typography>
-
           <Typography
             className="pb-4"
             sx={{ fontFamily: "Lato", color: "#333333", fontSize: "12px",}}
           >
             Se cerrarán todas las sesiones, excepto la actual, para proteger tu cuenta. <br/>
-La contraseña debe tener al menos seis caracteres, e incluir una combinación de números, letras y caracteres especiales (!$@%).
+            La contraseña debe tener al menos seis caracteres, e incluir una combinación de números, letras y caracteres especiales (!$@%).
           </Typography>
-            <form onSubmit={submitHandler}>
+          <form onSubmit={submitHandler}>
             <TextField
               id="password_field"
               label="Contraseña Actual"
@@ -77,8 +102,32 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
               value={oldPassword}
               className="d-flex flex-strech"
               size="small"
-              onChange={(e) => setOldPassword(e.target.value)}
+              onChange={(e) => {
+                const v = e.target.value;
+                setOldPassword(v);
+                if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                  setErrors({ ...errors, oldPassword: true })
+                  if (v.length < 6) {
+                    setOldPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                  }
+                  else if (!/[a-zA-Z]/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos una letra")
+                  }
+                  else if (!/\d/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos un digito")
+                  }
+                  else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                    setOldPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                  }
+                } else {
+                  setErrors({ ...errors, oldPassword: false })
+                  setOldPasswordHelper("");
+                }
+              }}
               required
+              disabled={loading}
+              error={errors.oldPassword}
+              helperText={errors.oldPassword ? oldPasswordHelper : null}
             /> <br/>
             <TextField
               id="password_field"
@@ -87,8 +136,32 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
               size="small"
               className="d-flex flex-strech"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={loading}
+              error={errors.password}
+              helperText={errors.password ? confPasswordHelper : null}
+              onChange={(e) => {
+                const v = e.target.value;
+                setPassword(v);
+                if (v.length < 6 || !/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v) || !/\w/.test(v)  || !/\d/.test(v)) {
+                  setErrors({ ...errors, password: true })
+                  if (v.length < 6) {
+                    setConfPasswordHelper("La contraseña debe tener al menos 6 caracteres")
+                  }
+                  else if (!/[a-zA-Z]/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos una letra")
+                  }
+                  else if (!/\d/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos un digito")
+                  }
+                  else if (!/(!|@|%|&|#|\*|\?|¿|¡|\$)+/.test(v)) {
+                    setConfPasswordHelper("La contraseña debe tener al menos un caracter especial")
+                  }
+                } else {
+                  setErrors({ ...errors, password: false })
+                  setConfPasswordHelper("");
+                }
+              }}
             /><br/>
             <TextField
               id="password_field"
@@ -97,51 +170,67 @@ La contraseña debe tener al menos seis caracteres, e incluir una combinación d
               size="small"
               className="d-flex flex-strech"
               value={confPassword}
-                onChange={(e) => setConfPassword(e.target.value)}
-                required
-            />
-            <br/>
-
+              disabled={loading}
+              error={errors.confPassword}
+              helperText={errors.confPassword ? "Las contraseñas no coinciden" : null}
+              required
+              onChange={(e) => {
+                const v = e.target.value;
+                setConfPassword(v);
+                if (v !== password) {
+                  setErrors({ ...errors, confPassword: true })
+                } else {
+                  setErrors({ ...errors, confPassword: false })
+                }
+              }}
+            /><br/>
             <div className="text-center">
-
-            <Button
-          variant="contained"
-          disableElevation
-          href="/providers/seller"
-          className="me-3"
-          sx={{
-            fontFamily: "Lato",
-            backgroundColor: "#D9D9D9",
-            "&:hover": {
-              backgroundColor: "#b3b3b3",
-              color: "#fff",
-            },
-          }}
-        >
-          Cancelar
-        </Button>
-
-            <Button
-          variant="contained"
-          type="submit"
-          disableElevation
-          onClick={() =>
-            viewRequest(params.row._id, params.row.usuario_final_id)
-          }
-          sx={{
-            fontFamily: "Lato",
-            backgroundColor: "#F55C7A",
-            "&:hover": {
-              backgroundColor: "#f22c53",
-              color: "#fff",
-            },
-          }}
-        >
-          Cambiar Contraseña
-        </Button>
+              {error ? null : <Typography sx={{ fontFamily: "Lato", color: "red", fontSize: "12px" }}>{errMessage}</Typography>}
             </div>
-
-            </form>
+            <div className="text-center">
+              <Button
+                variant="contained"
+                disableElevation
+                className="me-3"
+                sx={{
+                  fontFamily: "Lato",
+                  color: '#626262',
+                  backgroundColor: "#D9D9D9",
+                  "&:hover": {
+                    backgroundColor: "#b3b3b3",
+                    color: "#fff",
+                  },
+                }}
+                onClick={() => {
+                  setOldPassword("");
+                  setPassword("");
+                  setConfPassword("");
+                  setErrMessage("");
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                variant="contained"
+                type="submit"
+                disableElevation
+                disabled={disabled()}
+                onClick={() => {
+                  setLoading(true);
+                }}
+                sx={{
+                  fontFamily: "Lato",
+                  backgroundColor: "#F55C7A",
+                  "&:hover": {
+                    backgroundColor: "#f22c53",
+                    color: "#fff",
+                  },
+                }}
+              >
+                {loading ? <CircularProgress size={25} sx={{ color: "white"}}/> : "Cambiar Contraseña"}
+              </Button>
+            </div>
+          </form>
           </div>
         </div>
       </div>

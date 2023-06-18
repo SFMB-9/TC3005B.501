@@ -1,77 +1,113 @@
 const mongoose = require('mongoose');
 
-const procesoSchema = new mongoose.Schema({
-  nombre_agencia: {
-    type: String,
-  },
-  direccion_agencia: {
-    type: String,
-  },
-  grupo_automotriz_id: {
-    type: String,
-  },
-  grupo_automotriz: {
-    type: String,
-  },
-  superadmin: {
-    type: String,
-  },
-  estatus_validacion: {
-    type: String,
-  },
-  estatus: {
-    type: String,
-  },
-  documentos: {
-    type: Array,
-  },
-  direccion: {
-    calle: String,
-    numero_exterior: String,
-    numero_interior: String,
-    ciudad: String,
-    estado: String,
-    pais: String,
-    codigo_postal: String
-  },
-  auto: {
-    type: JSON,
-  },
-  fecha_creacion: {
-    type: Date,
-  },
-  usuario_final: {
-    type: JSON,
-  },
-  vendedor: {
-    type: JSON,
-  },
-  agencia: {
-    type: JSON,
-  },
-  cantidad_a_pagar: {
-    type: Number,
-  },
-  fecha_agendada: {
-    type: Date,
-  },
-  hora_agendada: {
-    type: Date,
-  },
-  usuario_final_id: {
-    type: String,
-  },
-  numero_telefonico: {
-    type: String,
-  },
-  comentarios: {
-    type: String,
-  },
-  tipo_proceso: {
-    type: String,
-  }
-  //_id: mongoose.Schema.Types.ObjectId,
-}); 
+mongoose.connection.setMaxListeners(20);
 
+const baseSchema = new mongoose.Schema(
+  {
+    tipo_proceso: String,
+    estatus_validacion: String,
 
-module.exports = mongoose.models.Proceso || mongoose.model('Proceso', procesoSchema, 'procesos'); // pass the collection name explicitlyo;
+    documentos: {
+      nombre_documento: String,
+      url: String,
+      fecha_modificación: Date,
+      estatus: String,
+      comentarios: String
+    },
+
+    direccion: {
+      calle: String,
+      numero_exterior: String,
+      numero_interior: String,
+      ciudad: String,
+      estado: String,
+      pais: String,
+      codigo_postal: String
+    },
+
+    fecha_inicio: Date,
+    comentarios: String,
+    solicitud_cancelada: Boolean,
+    usuario_ga_id: String,
+},
+
+// const ventaSchema = new mongoose.Schema({
+//   auto: {
+//     auto_id: String,
+//     marca: String,
+//     modelo: String,
+//     año: String,
+//     precio: Number,
+//     array_fotografias_url: Array
+//   },
+
+//   direccion_agencia: {
+//     calle: String,
+//     numero_exterior: String,
+//     numero_interior: String,
+//     ciudad: String,
+//     estado: String,
+//     pais: String,
+//     codigo_postal: String
+//   },
+
+//   numero_telefonico: String,
+//   grupo_automotriz_id: String,
+//   grupo_automotriz: String,
+//   agencia_id: String,
+//   vendedor_id: String,
+//   usuario_final_id: String
+// });
+
+// const pruebaSchema = new mongoose.Schema({
+//   auto: {
+//     auto_id: String,
+//     marca: String,
+//     modelo: String,
+//     año: String,
+//     precio: Number,
+//     array_fotografias_url: Array
+//   },
+
+//   direccion_agencia: {
+//     calle: String,
+//     numero_exterior: String,
+//     numero_interior: String,
+//     ciudad: String,
+//     estado: String,
+//     pais: String,
+//     codigo_postal: String
+//   },
+
+//     superadmin_id: String,
+//     fecha_agendada: Date,
+//     hora_agendada: Date,
+
+//     info_GA: {
+//       nombres: String,
+//       direccion: {
+//         calle: String,
+//         numero_exterior: String,
+//         numero_interior: String,
+//         ciudad: String,
+//         estado: String,
+//         pais: String,
+//         codigo_postal: String
+//       },
+
+//       is_account_verified: Boolean,
+//       url_grupo_automotriz: String,
+//       rfc_grupo_automotriz: String,
+
+//       legal: {
+//         nombres: String,
+//         apellidos: String,
+//         email: String,
+//         numero_telefonico: String
+//       }
+//     }
+//   },  
+  { collection: "procesos" }
+);
+
+module.exports = mongoose.models.Proceso || mongoose.model('Proceso', baseSchema);

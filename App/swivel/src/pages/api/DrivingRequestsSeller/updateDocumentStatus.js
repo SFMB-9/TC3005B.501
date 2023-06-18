@@ -16,7 +16,7 @@ export default async (req, res) => {
             return res.status(405).json({message: 'Metodo no permitido'})
         }
 
-        await dbConnect();
+        dbConnect();
     
         try {
         // Find the process that needs to be updated
@@ -31,13 +31,13 @@ export default async (req, res) => {
         //get the documents of the process
         const doc = proc.documentos;
         //change the status of the document
-        doc[doc_id].status = new_status;
+        doc[doc_id].estatus = new_status;
         proc.documentos = doc;
         console.log(proc);
-        proc.markModified(`documentos.${doc_id}.status`); 
+        proc.markModified(`documentos.${doc_id}.estatus`); 
         //save the changes
         await proc.save();
-        res.status(200).json({ message: 'status of document: ' + doc[doc_id].nombre + ' in request: ' + request_id + ' to ' + new_status});
+        res.status(200).json({ message: 'status of document: ' + doc[doc_id].nombre_documento + ' in request: ' + request_id + ' to ' + new_status});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });

@@ -1,4 +1,4 @@
-import User from "../../../models/user";
+import { SellerUser } from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 /* 
@@ -10,10 +10,10 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     dbConnect();
 
-    const { name, last_name, oldEmail, newEmail, cellphone, agency } = req.body;
+    const { name, last_name, newEmail, cellphone, _id } = req.body;
 
-    await User.findOneAndUpdate({ email: oldEmail, agencia: agency }, { nombres: name, apellidos: last_name, email: newEmail, telefono: cellphone, agencia: agency });
-    
+    const result = await SellerUser.findOneAndUpdate({ _id: _id}, { nombres: name, apellidos: last_name, email: newEmail, numero_telefonico: cellphone });
+    console.log(result);
     res.status(200).json({ message: "User details updated successfully" });    
   }
   else{

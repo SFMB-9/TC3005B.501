@@ -9,7 +9,7 @@ que compartan la misma estructura.
 "use client"
 
 import BuyerNavbar from "./navbar";
-import Footer from "../general/footer";
+import Footer from "../general/Footer";
 
 export default function BuyerLayout({ children }) {
   return (
@@ -18,7 +18,7 @@ export default function BuyerLayout({ children }) {
       <div className="min-vh-100">
         {children}
       </div>
-      <Footer />
+      <Footer/>
     </>
   );
 }

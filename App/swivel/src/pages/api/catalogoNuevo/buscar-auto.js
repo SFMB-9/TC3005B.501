@@ -23,7 +23,7 @@ export default async function handler(req, res){
       query = {
           "track_total_hits": true, 
           "from" : 0, 
-          "size" : 1000,
+          "size" : 900,
           "query": {
              "match": {
                "descripcion": {
@@ -89,7 +89,7 @@ export default async function handler(req, res){
 // Function to assemble the filters from the catalog results
 async function assembleFilter(result, filters) {
 
-    let response = await fetch('http://localhost:3000/api/catalogoNuevo/marcas');
+    let response = await fetch('/api/catalogoNuevo/marcas');
 
     let marcaResponse = await response.json();
     let marca = marcaResponse.result;

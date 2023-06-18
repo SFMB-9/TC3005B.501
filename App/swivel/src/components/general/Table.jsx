@@ -3,9 +3,9 @@ This component is a table that is used in the swivel app to display data
 Author: Mateo Herrera
 */
 
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, esES } from '@mui/x-data-grid';
 import UsersActions from './UserActions';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 export default function DataTable(props) {
   const [rowId, setRowId] = useState(null);
@@ -39,6 +39,7 @@ export default function DataTable(props) {
         onCellEditStop={(params) => setRowId(params.id)}
         hideFooterSelectedRowCount={true}
         rowSelection={props.rowSelection}
+        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         sx={{
           ...props.sx, 
           '.MuiTablePagination-displayedRows': {

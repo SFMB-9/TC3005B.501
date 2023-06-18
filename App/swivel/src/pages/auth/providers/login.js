@@ -4,7 +4,6 @@ import { signIn, useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import AuthComponent from "@/components/login/auth_component";
 import { Typography } from "@mui/material";
-
 import styles from "@/styles/login.module.css";
 
 export default function Login() {
@@ -28,12 +27,34 @@ export default function Login() {
         console.log("Error:", data.error);
       } else {
         let callbackUrl;
+        console.log("Role:", session.role);
         if (session.role === "seller") {
           callbackUrl = `${window.location.origin}/providers/seller`;
-        } else if (session.role === "GA") {
-          callbackUrl = `${window.location.origin}/providers/GA`;
+        } else if (session.role === "ga_admin") {
+          // Check if the GA has a grupo_automotriz_id, meaning they are verified
+          let rawCheck = await fetch(`/api/GA/GA-has-id?_id=${session.id}`,
+            { method: 'GET' });
+          const resCheck = await rawCheck.json();
+          // If the user is verified, redirect to landing
+          if(resCheck.hasGrupoAutomotrizId) {
+            callbackUrl = `${window.location.origin}/providers/GA`;
+          // If the user is not verified, look for a process
+          } else {
+            let rawProcess = await fetch(`/api/GA/GA-process-id?_id=${session.id}`,
+              { method: 'GET' });
+            const resProcess = await rawProcess.json();
+            // If there is an active process, redirect to it
+            if (resProcess.process) {
+              callbackUrl = `${window.location.origin}/providers/GA/registerGroup/${resProcess.process._id}`;
+            // If there isn't, redirect to the form to begin the process
+            } else {
+              callbackUrl = `${window.location.origin}/providers/GA/registerGroup/form`;
+            }
+          }
         } else if (session.role === "manager") {
           callbackUrl = `${window.location.origin}/providers/manager`;
+        } else if (session.role === "admin") {
+          callbackUrl = `${window.location.origin}/sa`;
         } else {
           // Log the role to vscode console
           console.log("Role:", session.role);
@@ -71,40 +92,31 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-
-            </div>
-            <div className="form-outline mb-2">
-              <label className="form-label">
-                <Typography
-                  sx={{
-                    color: "black",
-                    fontFamily: "lato",
-                  }}
-                >
-                  {" "} Contraseña{" "} </Typography> </label>
-              <input
-                type="password"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
-              <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
-              >
-                <Typography
-                  wrap
-                  sx={{
-                    color: "white",
-                    fontFamily: "lato",
-                  }}
+              </div>
+              <div className="form-outline mb-2">
+                <label className="form-label">
+                  <Typography
+                    sx={{
+                      color: "black",
+                      fontFamily: "lato",
+                    }}
+                  >
+                    {" "} Contraseña{" "} </Typography> </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="d-flex flex-column text-center pt-1 mb-2 pb-1">
+                <button type="submit" className="btn btn-primary btn-block mb-2 color-black" style={{ backgroundColor: '#000', border: 'none' }}
                 >
                   {" "}
                   Ingresar{" "}
-                </Typography>
               </button>
             </div>
-          </form>}
+          </form >}
         title="Iniciar sesión como proveedor"
         cardImage="/providers_login_image.png"
         backColor="white"
@@ -113,5 +125,6 @@ export default function Login() {
         textColor="black"
       />
     </>
+
   );
 }
