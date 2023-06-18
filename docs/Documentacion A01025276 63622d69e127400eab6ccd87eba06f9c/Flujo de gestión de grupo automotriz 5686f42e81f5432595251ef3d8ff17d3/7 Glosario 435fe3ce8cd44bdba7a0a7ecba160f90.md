@@ -1,0 +1,10 @@
+# 7. Glosario
+
+1. API: Las siglas de "Application Programming Interface" (Interfaz de Programación de Aplicaciones). Es un conjunto de reglas y protocolos que permiten que distintas aplicaciones se comuniquen entre sí.
+2. Bucket: En el contexto de almacenamiento en la nube, un bucket es un contenedor de datos utilizado para almacenar archivos y recursos. Los buckets son parte de servicios como Firebase Cloud Storage y MongoDB Atlas.
+3. Endpoint: Un endpoint es un punto final de una API o servicio web que se puede acceder mediante una URL específica. Representa un recurso o una funcionalidad determinada que se puede solicitar o manipular a través de una solicitud HTTP.
+4. HTTP: Las siglas de "Hypertext Transfer Protocol" (Protocolo de Transferencia de Hipertexto). Es el protocolo utilizado para la comunicación entre un cliente y un servidor en la web. Define las reglas para solicitar y enviar recursos, como páginas web, a través de internet.
+5. Nube: La nube, o cloud en inglés, se refiere a servicios y recursos informáticos que se entregan a través de internet. En lugar de almacenar y acceder a datos y aplicaciones localmente, se utilizan servidores y servicios remotos para almacenar y procesar información.
+6. Request: Una solicitud es un mensaje enviado por un cliente (como un navegador web o una aplicación) a un servidor web para solicitar un recurso o realizar una acción específica. En el contexto de las API, una solicitud puede contener parámetros, encabezados y otros datos relevantes.
+7. Response: Una respuesta es el mensaje enviado por un servidor en respuesta a una solicitud realizada por un cliente. Puede contener los datos solicitados o información relacionada con la acción realizada.
+8. URL: Las siglas de "Uniform Resource Locator" (Localizador Uniforme de Recursos). Es una dirección única utilizada para identificar y acceder a un recurso en internet. Una URL incluye protocolo (como HTTP), dominio, ruta y otros componentes necesarios para acceder a un recurso específico.

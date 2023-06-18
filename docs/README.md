@@ -10,19 +10,23 @@
   <h3>Versionamiento</h3>
   </br>
 
-  | Versión | Fecha     | Responsable      | Comentarios                                 |
-  | ------- | --------- | ---------------- | ------------------------------------------- |
-  | 1.0.0   | 5/7/2023  | Andrew Dunkerley | Creación del Documento                      |
-  | 1.0.1   | 5/14/2023 | Andrew Dunkerley | Redacción de Secciones                      |
-  | 1.1.0   | 5/23/2023 | Andrew Dunkerley | Traspaso a Markdown                         |
-  | 1.2.0   | 5/26/2023 | Emiliano Cabrera | Adición de módulos                          |
-  | 1.3.0   | 5/31/2023 | Diego Corrales   | Adición de módulos                          |
-  | 1.4.0   | 6/16/2023 | Emiliano Cabrera | Adición de módulos y correcciones de estilo |
-  | 1.5.0   | 6/17/2023 | Andrew Dunkerley | Adición de módulos y correcciones de estilo |
+| Versión | Fecha     | Responsable      | Comentarios                                 |
+| ------- | --------- | ---------------- | ------------------------------------------- |
+| 1.0.0   | 5/7/2023  | Andrew Dunkerley | Creación del Documento                      |
+| 1.0.1   | 5/14/2023 | Andrew Dunkerley | Redacción de Secciones                      |
+| 1.1.0   | 5/23/2023 | Andrew Dunkerley | Traspaso a Markdown                         |
+| 1.2.0   | 5/26/2023 | Emiliano Cabrera | Adición de módulos                          |
+| 1.3.0   | 5/31/2023 | Diego Corrales   | Adición de módulos                          |
+| 1.4.0   | 6/9/2023  | Do Hyun Nam      | Adición de módulos                          |
+| 1.5.0   | 6/16/2023 | Emiliano Cabrera | Adición de módulos y correcciones de estilo |
+| 1.6.0   | 6/17/2023 | Andrew Dunkerley | Adición de módulos y correcciones de estilo |
+| 1.6.1   | 6/9/2023  | Do Hyun Nam      | Correcciones de estilo                      |
+
 
 </div>
 
 ---
+
 </br>
 <h3 class="subtitle">Índice</h3>
 
@@ -65,3 +69,9 @@
 - [Creación de Solicitudes para Pruebas de Manejo](SDD%20A01781631%202d18d24397e646f9b940386130104832/Creacio%CC%81n%20de%20Solicitudes%20para%20Pruebas%20de%20Manejo%2080c5e17b06dd44d8937d46f26c0b38e8.md)
 
 - [APIs](SDD%20A01781631%202d18d24397e646f9b940386130104832/APIs%20e10aff3c50d44cea902a66f24d4a02bf.md)
+
+<h3 class="subtitle">Do Hyun Nam</h3>
+
+[Flujo de gestión de grupo automotriz](Documentacion%20A01025276%2063622d69e127400eab6ccd87eba06f9c/Flujo%20de%20gestio%CC%81n%20de%20grupo%20automotriz%205686f42e81f5432595251ef3d8ff17d3.md)
+
+[APIs](Documentacion%20A01025276%2063622d69e127400eab6ccd87eba06f9c/APIs%2062f5fc8b958d460982680a39a154343b.md)
