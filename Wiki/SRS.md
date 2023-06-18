@@ -50,7 +50,7 @@
 
 2. [Descripción General](#2-descripción-general)
 
-    2.1. [Pespectiva del Producto](#21-perspectiva-del-producto)
+    2.1. [Perspectiva del Producto](#21-perspectiva-del-producto)
 
     2.2. [Clases de Usuarios y Características](#22-clases-de-usuarios-y-características)
 
@@ -119,7 +119,7 @@
 # 1. Introducción
 <p align="justify"> El objetivo de este documento es recopilar, analizar y brindar una visión profunda de la aplicación web para NDS Cognitive Labs, definiendo el problema y la solución en detalle. El documento también concentra las capacidades requeridas por todos los stakeholders y sus necesidades definiendo las características del producto.
 
-<p align="justify"> Nuestra misión para este proyecto es hacer el proceso de compra de un auto más fácil y conveniente para el usuario digitalizando dicho proceso. Esto planeamos lograrlo creando una plataforma confiable, transparente y de fácil acceso en la que los clientes puedan tomar decisiones informadas basadas en información confiable y recomendaciones profesionales. Nuestro compromiso con nuestros clientes es ofrecerles una gama variada de autos a través de agencias y grupos automotrices previamente verificadas en nuestra plataforma. El problema que nuestra propuesta busca solucionar lo inconventiente que se ha vuelto el proceso de adquisición de un vehículo, tanto para las agencias que no tienen acceso a un equipo de TI como para los compradores que pueden tardar meses en el proceso.
+<p align="justify"> Nuestra misión para este proyecto es hacer el proceso de compra de un auto más fácil y conveniente para el usuario digitalizando dicho proceso. Esto planeamos lograrlo creando una plataforma confiable, transparente y de fácil acceso en la que los clientes puedan tomar decisiones informadas basadas en información confiable y recomendaciones profesionales. Nuestro compromiso con nuestros clientes es ofrecerles una gama variada de autos a través de agencias y grupos automotrices previamente verificadas en nuestra plataforma. El problema que nuestra propuesta busca solucionar lo inconveniente que se ha vuelto el proceso de adquisición de un vehículo, tanto para las agencias que no tienen acceso a un equipo de TI como para los compradores que pueden tardar meses en el proceso.
 
 <p align="justify"> Con respecto a nuestra visión, buscamos transformar radicalmente el sector de ventas de autos. Con este proyecto queremos que la experiencia tradicional de la compra de autos cambie, se adapte a las nuevas tecnologías y no estrese a los usuarios. Estamos comprometidos a crear una comunidad confiable de vendedores y compradores donde las transacciones puedan ser en línea, quitando los problemas e inconvenientes asociados a la compra tradicional de autos. 
 
@@ -136,7 +136,7 @@
 
 ## 1.2. Enfoque y Alcances
 
-<p align="justify">El enfoque de este proyecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar un auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el pais donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. 
+<p align="justify">El enfoque de este proyecto es construir un servicio web responsivo y escalable que permita a los usuarios buscar, filtrar, comparar y comprar un auto que satisfaga sus necesidades. Debido a las leyes y regulaciones aplicables en el país donde el producto se va a desplegar, todos los pagos deben manejarse de forma externa. 
 
 Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 1. Elegir un vehículo desde un amplio catálogo, 
@@ -146,7 +146,7 @@ Dentro de sus multiples funcionalidades, se espera que el usuario sea capaz de:
 6. Comunicarse con una agencia (vendedor específico) por medio de un chat en tiempo real,
 7. Subir los documentos legales requeridos.
 
-El proyecto debe tambien proveer a sus usuarios una experiencia fluida en toda la aplicacion, incluyendo procesos como digitalizacion y procesamiento de documentos, solicitudes de pruebas de manejo, filtrado y especificacion, manejo de cuenta y perfil de usuario, etc.
+El proyecto debe también proveer a sus usuarios una experiencia fluida en toda la aplicación, incluyendo procesos como digitalización y procesamiento de documentos, solicitudes de pruebas de manejo, filtrado y especificación, manejo de cuenta y perfil de usuario, etc.
 
 Los socios de este proyecto son:
 <ul>
@@ -156,7 +156,7 @@ Los socios de este proyecto son:
     <li> El usuario final, limitado a México.
 </ul>
 
-La aplicacion pretende:
+La aplicación pretende:
 1. Habilitar permisos de usuarios y roles administrativos, 
 2. Permitir a usuarios administradores subir catálogos de autos y a sus clientes navegar los mismos,
 3. Tener una interfaz intuitiva para que los usuarios puedan buscar y filtrar autos de un catálogo, 
@@ -197,7 +197,7 @@ Algunos aspectos de la solución, que quedan mas allá de nuestra propuesta como
   
 La aplicación busca ser un servicio e-commerce donde un usuario comprador tenga la oportunidad de comprar un vehículo de forma intuitiva, amigable, segura y digital. NDS Cognitive Labs es una consultora internacional especializada en el diseño y desarrollo de soluciones de software de tiempo real que van desde Inteligencia Artificial a Nube. 
 
-La idea del servicio pretende trabajar con tecnologías emergentes para facilitar el proceso de adquisión de un vehículo de agencia.
+La idea del servicio pretende trabajar con tecnologías emergentes para facilitar el proceso de adquisición de un vehículo de agencia.
 
 <p align="center">
   <img src="../assets/diagrams/TechStack/PerspectiveDiagram.png" width="600" title="hover text">
@@ -317,16 +317,16 @@ El API de OpenAI permite utilizar sus modelos generativos de inteligencia artifi
 
 ## 2.4. Restricciones de Implementación y Diseño
   
-El dueño de proyecto no ha establecido restricciones explicitas con respecto a las herramientas para el desarrollo, pues el proyecto pretende funcionar unicamente como prueba de concepto. Por lo tanto, las unicas restricciones son en relacion a los recursos disponibles.
+El dueño de proyecto no ha establecido restricciones explicitas con respecto a las herramientas para el desarrollo, pues el proyecto pretende funcionar unicamente como prueba de concepto. Por lo tanto, las únicas restricciones son en relación a los recursos disponibles.
 
-Este proyecto no tendra financiamiento externo. La posibilidad de implementacion de la arquitectura propuesta puede ajustarse a opciones mas viables economicamente, pero no se limita a alternativas open-source.
+Este proyecto no tendrá financiamiento externo. La posibilidad de implementación de la arquitectura propuesta puede ajustarse a opciones mas viables económicamente, pero no se limita a alternativas open-source.
 
-Es importante recalcar que el equipo de desarrollo esta formado por estudiantes aspirantes a desarrolladores, sin conocimiento a nivel experto en el diseño e implementacion de métodos formal. El enfoque principal de los desarrolladores sera en la adecuada funcionalidad y amigabilidad del software.
+Es importante recalcar que el equipo de desarrollo esta formado por estudiantes aspirantes a desarrolladores, sin conocimiento a nivel experto en el diseño e implementación de métodos formal. El enfoque principal de los desarrolladores sera en la adecuada funcionalidad y amigabilidad del software.
 
 En términos del diseño:
 1. Solamente se aceptarán grupos automotrices y agencias como participantes en el sistema, y no individuos.
 2. El sistema tendrá uso de nube (cloud) SaaS.
-3. Los desarrolladores no proveeran mantenimiento ni soporte al sistema.
+3. Los desarrolladores no proveerán mantenimiento ni soporte al sistema.
   
 ## 2.5. Suposiciones y Dependencias
 Las premisas realizadas para el desarrollo de este proyecto son:
@@ -334,8 +334,8 @@ Las premisas realizadas para el desarrollo de este proyecto son:
 1. El proyecto seguirá una metodología ágil durante toda la fase de implementación.
 2. Nuestro P.O. estará disponible para evaluar el progreso durante las Sesiones de demostración semanales o las Pruebas de aceptación del usuario.
 3. Ni NDS ni el Tec de Monterrey proporcionarán financiamiento alguno para el desarrollo.
-5. El usuario utilizará la plataforma en un dispositivo digital como: una computadora, una tablet, un dispositivo movil.
-6. Se utilizará un Tech Stack mayormente open-source; que no representa un gasto. Si se incluyen componentes o herramientas con costo, se dejan a manera de propuesta tentativa para el Project Owner, estipulando una cotizacion estimada clara.
+5. El usuario utilizará la plataforma en un dispositivo digital como: una computadora, una tablet, un dispositivo móvil.
+6. Se utilizará un Tech Stack mayormente open-source; que no representa un gasto. Si se incluyen componentes o herramientas con costo, se dejan a manera de propuesta tentativa para el Project Owner, estipulando una cotización estimada clara.
   
 ## 2.6. Casos de Uso
 
@@ -399,15 +399,15 @@ Super Admin - SA
 |    REQ_NO_FUN_02    |                                            Diseño de UX armonioso                                             |  S  |
 |    REQ_NO_FUN_03    |                                  Screen-size adaptable para tablet y celular                                  |  S  |
 |    REQ_NO_FUN_04    |                           Texto de ayuda y texto alternativo en botones e imágenes                            |  C  |
-|    REQ_NO_FUN_05    |     Bóton de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano      |  S  |
+|    REQ_NO_FUN_05    |     Botón de ayuda en caso de que los usuarios necesiten asistencia del chat bot o de un operador humano      |  S  |
 |    REQ_NO_FUN_06    |                          Se utilizarán cookies para guardar las búsquedas recientes                           |  M  |
 |    REQ_NO_FUN_07    |                                     Funcionalidad de comparativa de autos                                     |  C  |
 |    REQ_NO_FUN_08    |                                       Funcionalidad de lista de deseos                                        |  C  |
 |    REQ_NO_FUN_09    |                                      Procesamiento de documentos con OCR                                      |  C  |
 |    REQ_NO_FUN_10    |                                         Proceso de venta transparente                                         |  S  |
 |    REQ_NO_FUN_11    |                                     Compra a cualquier agencia disponible                                     |  M  |
-|    REQ_NO_FUN_12    |                                  Visualización predenterminada del catálogo                                   |  S  |
-|    REQ_NO_FUN_13    |                                   Método de autorización para cada ususario                                   |  M  |
+|    REQ_NO_FUN_12    |                                  Visualización predeterminada del catálogo                                   |  S  |
+|    REQ_NO_FUN_13    |                                   Método de autorización para cada usuario                                   |  M  |
 |    REQ_NO_FUN_14    |                              Habilidad de actualizar la información de la cuenta                              |  M  |
 |    REQ_NO_FUN_15    |                                            Transparencia de datos                                             |  M  |
 |    REQ_NO_FUN_16    |                                        Esquema de datos estandarizado                                         |  S  |
@@ -422,30 +422,30 @@ Super Admin - SA
 -->
   
 # 4. Requerimientos de Datos
-## 4.1. Modelo de Datos Lógico: Diagrama Entidad-Relación
+## 4.1. Modelo de Datos Lógico: Diagrama desnormalizado
 
-[Diagrama entidad-relacion](../assets/diagrams/Base_de_Datos_ER.png)
+[Diagrama desnormalizado](../assets/diagrams/Base_de_Datos%20-%20MongoDesnormalizado(5).png.png)
 <p align="center">
-    <img src="../assets/diagrams/Base_de_Datos_ER.png" width="300" title="hover text">
+    <img src="../assets/diagrams/Base_de_Datos%20-%20MongoDesnormalizado(5).png" width="800" title="hover text">
 </p>
 
 ## 4.2. Diccionario de Datos
-Para esta versión del diagrama ER, se realizó una división de actores, consistiendo de:
+Para esta versión del diagrama, se realizó una división de actores, consistiendo de:
 
-- Automóviles y sus detalles como especificaciones e imágenes (morado)
-- Usuarios y credenciales de las cuentas relevantes a las agencias y grupos automotrices (azul)
-- Procesos de la página (amarillo)
-- Información de los documentos relevantes a la compra de los autos (verde)
-- Campos de recolección de datos (azul claro)
-- Detalles del usuario final, osea el comprador (rojo)
+- Automóviles y sus detalles como especificaciones e imágenes (morado). Almacenado en Elasticsearch.
+- Usuarios y credenciales de las cuentas relevantes a las agencias y grupos automotrices (azul). Almacenado en MongoDB.
+- Procesos de la página (amarillo). Almacenado en MongoDB.
+- Mensajes de chat (naranja). Almacenado en MongoDB.
 
-Esto se hizo para tener más clara la división entre diferentes componentes del sistema, así como para facilitar el proceso de identificar las conexiones entre ellas.
+Esto se hizo para tener más clara la llamadas a la base de datos y la ubicación de cada dato en la colección indicada, y así ayudar a tener un desarrollo más fluido.  
 
-Además, por medio de la normalización se hicieron tablas intermediarias, como se puede apreciar en los actores amarillos por ejemplo, con el objetivo de facilitar los cruces para la base de datos.
+Con el fin de ahondar más en que es cada campo que se esta guardando, el diccionario de datos contiene un formato donde se describe el campo y se incluye un ejemplo para contextualizar la entrada y ayudar a delimitar que campos se requieren para qe proceso o usuario. 
+
+En el siguiente enlace se puede acceder a este diccionario: https://docs.google.com/spreadsheets/d/103zkVDPbrAVLM8oNYfTzrvIYOvG7wQquobjWRwPf2Dg/edit?usp=sharing
 
 ## 4.3. Reportes
   
-Se busca que la plataforma sea capaz de producir diferentes estádisticas y dependiendo el rol del usuario y sus permisos se le muestran diferentes datos y aspectos de la plataforma. Algunas de las estadísticas que se pretenden mostrar en la aplicación son:
+Se busca que la plataforma sea capaz de producir diferentes estadísticas y dependiendo el rol del usuario y sus permisos se le muestran diferentes datos y aspectos de la plataforma. Algunas de las estadísticas que se pretenden mostrar en la aplicación son:
 
 1. Ventas de cada vendedor, agencia y grupo automotriz, pruebas de manejo por agencia.
 2. Venta de cada vehículo y su popularidad (ya sea por número de personas interesadas en el o por la cantidad de pruebas de manejo del modelo).
@@ -458,11 +458,11 @@ Es por esto por lo que es importante recalcar que la información capturada dent
 
 **Integridad de los Datos**
 
-Una de estas medidas es una base de datos de repaldo que se actualice cada cierto tiempo, esto con el fin de que en caso de que se presente algún problema con la base de datos principal, se pueda recuperar la información de la base de datos de respaldo.
+Una de estas medidas es una base de datos de respaldo que se actualice cada cierto tiempo, o con snapshots de la información, esto con el fin de que en caso de que se presente algún problema con la base de datos principal, se pueda recuperar la información de la base de datos.
 
 **Seguridad de los Datos**
 
-La seguridad de los datos será manejada con productos del proveedor de nube que se elija para el desarrollo del programa. Se utilizarán herramientas de seguridad como el cifrado de datos, autenticación de usuarios, etc. De igual manera se pondrán restricciones de leido/borrado de datos para los usuarios que no tengan permiso para realizar dichas acciones. 
+La seguridad de los datos será manejada con productos del proveedor de nube que se elija para el desarrollo del programa. Se utilizarán herramientas de seguridad como el cifrado de datos, autenticación de usuarios, etc. De igual manera se pondrán restricciones de leído/borrado de datos para los usuarios que no tengan permiso para realizar dichas acciones. 
   
 # 5. Requerimientos de Interfaz Externas
 En esta sección se presentan las diferentes interfaces que componen a la plataforma propuesta para la solución. De manera específica, se comienza por detallar las interfaces de usuario que hacen referencia al flujo en el que interactúan cada uno de los diferentes tipos de usuario dentro de la aplicación; posteriormente se describen las interfaces de software que hace referencia a la relación e interacción entre los diferentes componentes de software que conforman a la arquitectura de la aplicación; finalmente se listan las interfaces de comunicación que a un nivel más alto de abstracción incluye a los diferentes puntos de comunicación que se ofrecen dentro de la plataforma. 
@@ -481,7 +481,7 @@ Es posible visualizar en el flujo las secciones principales por las que pasa el 
 ### Flujo del Vendedor:
 ![Imagen flujo vendedor](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividad_UsuarioVendedor.png)
 
-Para el flujo de vendedor, es posible visualizar procesos tales como la gestión del perfil própio, búsqeda de catálogo de la agencia, revisión tanto de solicitud de compra como de solicitud de pruebas de manejo, la revisión de documentos, contacto con el cliente, cambios de estatus de las solicitudes y retroalimentación. 
+Para el flujo de vendedor, es posible visualizar procesos tales como la gestión del perfil propio, búsqueda de catálogo de la agencia, revisión tanto de solicitud de compra como de solicitud de pruebas de manejo, la revisión de documentos, contacto con el cliente, cambios de estatus de las solicitudes y retroalimentación. 
 
 ### Flujo del Gerente:
 ![Imagen de flujo del gerente](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividad_UsuarioGerente.png)
@@ -494,9 +494,9 @@ En el diagrama de flujo del gerente, es posible visualizar el ingreso a la plata
 Para el flujo del grupo automotriz, se muestran los procesos generales de la gestión de gerentes, el registro de agencia o grupo automotriz, la vista de estadísticas, y la gestión del perfil propio. 
 
 ### Flujo del Super-Administrador:
-![Imagen flujo super admnistrador](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadUsuarioAdministrador.png)
+![Imagen flujo super administrador](https://github.com/SFMBa01029956/TC3005B.501/blob/b810c3e80a2a0c02b3064655a37ae4d02371170a/assets/diagrams/DiagramasActividad/DiagramaActividadUsuarioAdministrador.png)
 
-El diagrama del flujo para el usuario administrador incluye páginas tales como la vista principal, el borrado/edición de cuentas, acceso a las estádisticas, gestión del perfil propio, revisión y retroalimentación de solicitudes de agencia y grupo automotriz. 
+El diagrama del flujo para el usuario administrador incluye páginas tales como la vista principal, el borrado/edición de cuentas, acceso a las estadísticas, gestión del perfil propio, revisión y retroalimentación de solicitudes de agencia y grupo automotriz. 
 
 ### Wireframe
 En cuanto al wireframe, este provee una vista gráfica de las pantallas que se mostrarán a cada usuario. De esta manera, será posible tener una guía para el diseño y la interfaz gráfica del sitio a desarrollar. Con lo anterior en mente, será posible revisar dicho wireframe en el [siguiente link](https://drive.google.com/drive/folders/1EHhItYpjeRQcp6R5jbqvvDpo5uWfLBVQ?usp=sharing)
@@ -531,14 +531,14 @@ Se integrará un servicio de respuesta automática por correo, utilizando una he
 
 2. Entrega y Reconocimiento de Documentos:
 
-Se desarrollarán interfaces donde el usuario pueda arrastrar o elegir documentos desde su sistema de archivos, asegurando que el formato sea el adecuado. El sistema deberá ser capaz de reconocer el tipo de documento y verificar la identidad por medio de un servicio de validacion de identidad facial. El sistema tambien deberá validar los carnets de identidad y licencias a pàrtir del texto que contengan.
+Se desarrollarán interfaces donde el usuario pueda arrastrar o elegir documentos desde su sistema de archivos, asegurando que el formato sea el adecuado. El sistema deberá ser capaz de reconocer el tipo de documento y verificar la identidad por medio de un servicio de validación de identidad facial. El sistema también deberá validar los carnets de identidad y licencias a partir del texto que contengan.
 3. Sistema de Chat:
 
 Se integrará una herramienta externa para instanciar chat en tiempo real entre los usuarios y los administradores de la aplicación para dar seguimiento a las solicitudes.
 
 4. Plataforma de Pago:
 
-Se integrará una plataforma de pago para que los usuarios puedan pagar por los servicios de la aplicación a partir de un servicio, se sugiere Stripe para esta implementación dado su sistema de comision por transacción; contra alternativas como OpenPay.
+Se integrará una plataforma de pago para que los usuarios puedan pagar por los servicios de la aplicación a partir de un servicio, se sugiere Stripe para esta implementación dado su sistema de comisión por transacción; contra alternativas como OpenPay.
   
 # 6. Atributos de Calidad
 ## 6.1. Usabilidad
@@ -565,7 +565,7 @@ Se integrará una plataforma de pago para que los usuarios puedan pagar por los 
 
 ## 6.3. Seguridad
 
-* <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su interceptación y manipulación.
+* <b>Comunicación Segura:</b> La página web debe utilizar protocolos de comunicación segura como HTTPS para cifrar todos los datos del usuario en tránsito, evitando su intercepción y manipulación.
   
 * <b>Autenticación:</b> La página web debe utilizar mecanismos de autenticación fuertes como JWT tokens o Cookies para verificar la identidad de los usuarios y evitar escalamiento de privilegios.
   
@@ -616,21 +616,21 @@ API: Una "interfaz de programación de aplicaciones" es un conjunto de protocolo
 
 AWS: Amazon Web Services es un servicio en la nube el cual ofrece un rango de servicios como: almacenamiento, manejo de bases de datos, poder de computo, etc.
 
-Backend: Es la parte de un sistema de software que procesa tareas e interactua con APIs, servidores, bases de datos, entre otros.
+Backend: Es la parte de un sistema de software que procesa tareas e interactúa con APIs, servidores, bases de datos, entre otros.
 
 Cache: Almacenamiento temporal de ciertos recursos para reducir tiempos de carga y tráfico de red.
 
-CloudFront: "Red de distribuición de contenido" (CDN) un servicio proveido por AWS para distribuir contenido a los usuarios en la red mundial.
+CloudFront: "Red de distribución de contenido" (CDN) un servicio proveído por AWS para distribuir contenido a los usuarios en la red mundial.
 
-Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contendo web alrededor del mundo
+Content Delivery Network (CDN): Red distribuida de servidores usada para mandar contenido web alrededor del mundo
 
 DDoS: Una "denegación de servicios distribuida" es un ataque cibernético que interrumpe el funcionamiento normal de una red al abrumarla con tráfico.
 
-Debian: Un sistema operativo de código abierto usado por sevidores.
+Debian: Un sistema operativo de código abierto usado por servidores.
 
 DNS: El "Sistema de nombres de dominio" es un sistema para guardar los nombres de las direcciones del internet.
 
-DynamoDB: Base de datos no relacional proveida por AWS.
+DynamoDB: Base de datos no relacional proveída por AWS.
 
 EC2: Amazon Elastic Compute Cloud is a scalable cloud computing service that provides on-demand computing resources.
 
