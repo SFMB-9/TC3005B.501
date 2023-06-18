@@ -26,6 +26,8 @@
 </br>
 <h3 class="subtitle">Índice</h3>
 
+<h3 class="subtitle">Andrew Dunkerley</h3>
+
 - [Introducción](Documentacion%203a47ce1847ab4b59ae57344d5f692bb2/Introduccion%20a6da8d5c62d1491597e1daae59981179.md)
 
 - [Dashboard Compras Vendedor](Documentacion%203a47ce1847ab4b59ae57344d5f692bb2/Dashboard%20Compras%20Vendedor%202e08b1d5cfc2455b98882ef5d97d47ae.md)
@@ -37,6 +39,8 @@
 - [Página: Registro de Autos](Documentacion%203a47ce1847ab4b59ae57344d5f692bb2/Pagina%20Registro%20de%20Autos%20e3697a73a5e8416fbd0ca8412c56bede.md)
 
 - [APIs](Documentacion%203a47ce1847ab4b59ae57344d5f692bb2/APIs%2001b022e1b6b2453faf9e457af4dd7c7c.md)
+
+  <h3 class="subtitle">Emiliano Cabrera</h3>
 
 - [Lista de Vendedores como Gerente](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Lista%20de%20Vendedores%20como%20Gerente%20d6c791abb3784056ba376ba6f1965719.md)
 
@@ -53,6 +57,8 @@
 - [APIs](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/APIs%20059691d154ad421abbf7f195cee48c5c.md)
 
 - [Pruebas](Final%20Documentation%20e7c3113b6b864f84b54f7664d9d53e40/Pruebas%20b2896060cbea4a73b56f84c3fc288dcd.md)
+
+<h3 class="subtitle">Diego Corrales</h3>
 
 - [Catálogo de Autos del Gerente](SDD%20A01781631%202d18d24397e646f9b940386130104832/Cata%CC%81logo%20de%20Autos%20Gerente%20e22ac2ca51284d049de39820656786f9.md)
 
