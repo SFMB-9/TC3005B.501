@@ -1,0 +1,58 @@
+Usuarios existentes en SWIVEL:
+Credenciales
+
+Super Admins:
+
+email: francisco@gmail.com
+password: Francisco123!
+
+email: sebas@gmail.com
+password: Sebas123!
+
+admins GA:
+
+kasa
+email: grupokasa@gmail.com
+email: andres@gmail.com
+password: Andres123!
+email:ana@gmail.com
+passowrd: AnaPau123!
+
+Calabria Automotriz
+email: hector@gmail.com
+password: hector123!
+
+agencias / gerentes:
+
+Mercedes Benz
+email: dcorrales@gmail.com
+password: Diego123!
+
+Nissan Santa Fe
+email: luis@gmail.com
+password: Luis123!
+
+Honda Santa FE
+email: emilio@gmail.com
+password: Emilio123!
+
+vendedor:
+
+mercedes benz
+email: salvador@gmail.com
+password: Salvador123!
+email: andrew@gmail.com
+password: Andrew123!
+
+nissan santa fe
+email: akemi@gmail.com
+password: Akemi123!
+
+honda santa fe
+email: aurelio@gmail.com
+password: Aurelio123!
+
+Comprador:
+
+email: gerry@gmail.com
+password: Gerry123!
